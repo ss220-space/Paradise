@@ -158,7 +158,7 @@
 /obj/item/reagent_containers/cup/bottle/potion/flight
 	name = "strange elixir"
 	desc = "Флакон с едва ли не святой аурой, исходящей от него. Вы пытаетесь прочитать надпись на бутылке, но текст неразборчив."
-	list_reagents = list("flightpotion" = 5)
+	list_reagents = list(/datum/reagent/flightpotion = 5)
 
 /obj/item/reagent_containers/cup/bottle/potion/flight/get_ru_names()
 	return alist(

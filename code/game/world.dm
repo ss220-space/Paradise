@@ -295,6 +295,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	GLOB.sql_log = "[GLOB.log_directory]/sql.log"
 	GLOB.mapmanip_log = "[GLOB.log_directory]/mapmanip.log"
 	GLOB.signal_log = "[GLOB.log_directory]/signal.log"
+	GLOB.circuit_log = "[GLOB.log_directory]/circuit.log"
 
 	start_log(GLOB.world_game_log)
 	start_log(GLOB.world_href_log)
@@ -305,6 +306,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	start_log(GLOB.sql_log)
 	start_log(GLOB.mapmanip_log)
 	start_log(GLOB.signal_log)
+	start_log(GLOB.circuit_log)
 
 	#ifdef REFERENCE_TRACKING
 	GLOB.gc_log = "[GLOB.log_directory]/gc_debug.log"

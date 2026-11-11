@@ -16,7 +16,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "pizzamargherita"
 	slice_path = /obj/item/reagent_containers/food/snacks/margheritaslice
-	list_reagents = list("nutriment" = 30, "tomatojuice" = 6, "vitamin" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 30, /datum/reagent/consumable/drink/tomatojuice = 6, /datum/reagent/consumable/nutriment/vitamin = 5)
 
 /obj/item/reagent_containers/food/snacks/margheritaslice
 	name = "margherita slice"
@@ -25,7 +25,7 @@
 	icon = 'icons/obj/food/pizza.dmi'
 	icon_state = "pizzamargheritaslice"
 	filling_color = "#BAA14C"
-	list_reagents = list("nutriment" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 5)
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/pizza/meatpizza
@@ -34,7 +34,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "meatpizza"
 	slice_path = /obj/item/reagent_containers/food/snacks/meatpizzaslice
-	list_reagents = list("protein" = 30, "tomatojuice" = 6, "vitamin" = 8)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 30, /datum/reagent/consumable/drink/tomatojuice = 6, /datum/reagent/consumable/nutriment/vitamin = 8)
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "meat" = 1)
 	foodtype = GRAIN | DAIRY | MEAT
 
@@ -53,7 +53,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "mushroompizza"
 	slice_path = /obj/item/reagent_containers/food/snacks/mushroompizzaslice
-	list_reagents = list("plantmatter" = 30, "vitamin" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment/plantmatter = 30, /datum/reagent/consumable/nutriment/vitamin = 5)
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "mushroom" = 1)
 	foodtype = GRAIN | DAIRY | VEGETABLES
 
@@ -73,7 +73,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "vegetablepizza"
 	slice_path = /obj/item/reagent_containers/food/snacks/vegetablepizzaslice
-	list_reagents = list("plantmatter" = 25, "tomatojuice" = 6, "oculine" = 12, "vitamin" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment/plantmatter = 25, /datum/reagent/consumable/drink/tomatojuice = 6, /datum/reagent/medicine/oculine = 12, /datum/reagent/consumable/nutriment/vitamin = 5)
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "carrot" = 1, "vegetables" = 1)
 	foodtype = GRAIN | DAIRY | VEGETABLES
 
@@ -93,7 +93,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "hawaiianpizza" //NEEDED
 	slice_path = /obj/item/reagent_containers/food/snacks/hawaiianpizzaslice
-	list_reagents = list("protein" = 15, "tomatojuice" = 6, "plantmatter" = 20, "pineapplejuice" = 6, "vitamin" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 15, /datum/reagent/consumable/drink/tomatojuice = 6, /datum/reagent/consumable/nutriment/plantmatter = 20, /datum/reagent/consumable/drink/pineapplejuice = 6, /datum/reagent/consumable/nutriment/vitamin = 5)
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "pineapple" = 1)
 	foodtype = GRAIN | DAIRY | FRUIT | MEAT
 
@@ -113,7 +113,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "macpizza"
 	slice_path = /obj/item/reagent_containers/food/snacks/macpizzaslice
-	list_reagents = list("nutriment" = 40, "vitamin" = 5) //More nutriment because carbs, but it's not any more vitaminicious
+	list_reagents = list(/datum/reagent/consumable/nutriment = 40, /datum/reagent/consumable/nutriment/vitamin = 5) //More nutriment because carbs, but it's not any more vitaminicious
 	filling_color = "#ffe45d"
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 2, "pasta" = 1)
 
@@ -133,7 +133,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "fishpizza"
 	slice_path = /obj/item/reagent_containers/food/snacks/seapizzaslice
-	list_reagents = list("nutriment" = 30, "vitamin" = 15, "protein" = 15)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 30, /datum/reagent/consumable/nutriment/vitamin = 15, /datum/reagent/consumable/nutriment/protein = 15)
 	filling_color = "#ffe45d"
 	tastes = list("crust" = 1, "garlic" = 1, "cheese" = 2, "seafood" = 1, "sourness" = 1)
 	foodtype = MEAT | DAIRY
@@ -154,7 +154,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "baconpizza"
 	slice_path = /obj/item/reagent_containers/food/snacks/baconpizzaslice
-	list_reagents = list("nutriment" = 40, "vitamin" = 5, "protein" = 15)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 40, /datum/reagent/consumable/nutriment/vitamin = 5, /datum/reagent/consumable/nutriment/protein = 15)
 	filling_color = "#ffe45d"
 	tastes = list("crust" = 1, "mushroom" = 1, "cheese" = 2, "bacon" = 1)
 	foodtype = MEAT | DAIRY
@@ -175,7 +175,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "tajarpizza"
 	slice_path = /obj/item/reagent_containers/food/snacks/tajpizzaslice
-	list_reagents = list("nutriment" = 30, "vitamin" = 15, "protein" = 15)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 30, /datum/reagent/consumable/nutriment/vitamin = 15, /datum/reagent/consumable/nutriment/protein = 15)
 	filling_color = "#ffe45d"
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 2, "tajaroni" = 1, "olives" = 1)
 	foodtype = MEAT | DAIRY
@@ -196,7 +196,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "diablopizza"
 	slice_path = /obj/item/reagent_containers/food/snacks/diablopizzaslice
-	list_reagents = list("nutriment" = 30, "vitamin" = 15, "protein" = 15, "capsaicin" = 15)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 30, /datum/reagent/consumable/nutriment/vitamin = 15, /datum/reagent/consumable/nutriment/protein = 15, /datum/reagent/consumable/capsaicin = 15)
 	filling_color = "#ffe45d"
 	tastes = list("crust" = 1, "hotness" = 1, "cheese" = 2, "meat" = 1, "spice" = 1)
 	foodtype = MEAT | DAIRY

@@ -229,7 +229,7 @@
 	target.adjust_bodytemperature(-200) //Extreme amount of initial cold
 	if(!target.reagents)
 		return
-	target.reagents.add_reagent("frostoil", 15) //Half of a cryosting
+	target.reagents.add_reagent(/datum/reagent/consumable/frostoil, 15) //Half of a cryosting
 
 /datum/action/cooldown/spell/pointed/shadowling_enthrall //Turns a target into the shadowling's slave. This overrides all previous loyalties
 	name = "Enthrall"
@@ -459,31 +459,11 @@
 	to_chat(cast_on, span_deadsay("Вы изрыгаете огромное облако слепящего дыма."))
 	playsound(cast_on, 'sound/effects/bamf.ogg', 50, TRUE)
 	var/datum/reagents/reagents_list = new (1000)
-	reagents_list.add_reagent("blindness_smoke", 810)
+	reagents_list.add_reagent(/datum/reagent/shadowling_blindness_smoke, 810)
 	var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
 	smoke.set_up(range = 3, location = cast_on.loc, carry = reagents_list, silent = TRUE)
 	smoke.start()
 
-/datum/reagent/shadowling_blindness_smoke //Blinds non-shadowlings, heals shadowlings/thralls
-	name = "Странная чёрная жидкость"
-	id = "blindness_smoke"
-	description = "ЗАПИСЬ В БАЗЕ ДАННЫХ ОТСУТСТВУЕТ"
-	metabolization_rate = 250 * REAGENTS_METABOLISM //still lel
-
-/datum/reagent/shadowling_blindness_smoke/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	if(!is_shadow_or_thrall(M))
-		to_chat(M, span_warning("Вы вдыхаете чёрный дым, и ваши глаза ужасно горят!"))
-		M.EyeBlind(10 SECONDS)
-		if(prob(25))
-			M.visible_message(span_warning("[M] яростно тр[PLUR_YOT_UT(M)] свои глаза!"))
-			M.Stun(4 SECONDS)
-	else
-		to_chat(M, span_notice("Вы вдыхаете чёрный дым и чувствуете лёгкость!"))
-		update_flags |= M.heal_organ_damage(10, 10, updating_health = FALSE)
-		update_flags |= M.adjustOxyLoss(-10, FALSE)
-		update_flags |= M.adjustToxLoss(-10, FALSE)
-	return ..() | update_flags
 
 /datum/action/cooldown/spell/aoe/shadowling_screech
 	name = "Sonic Screech"
