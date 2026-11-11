@@ -40,6 +40,7 @@
 
 	// For chemical fire
 	var/chemfiresupp = FALSE
+	var/chemfirescpec = FALSE
 	var/intensitymod = 0
 	var/durationmod = 0
 	var/radiusmod = 0
@@ -63,16 +64,48 @@
 
 	var/metabolizing
 	var/list/metabolized_traits
+	var/list/datum/chem_property/properties
 
 /datum/reagent/New()
 	addict_supertype = type
+	if(properties)
+		properties = string_assoc_list(properties_to_datums())
+	recalculate_variables()
 
 /datum/reagent/Destroy()
+	properties = null
 	. = ..()
 	holder = null
 	if(islist(data))
 		data.Cut()
 	data = null
+
+/datum/reagent/proc/recalculate_variables()
+	for(var/datum/chem_property/property, level in properties)
+		property.reset_reagent(src)
+
+	for(var/datum/chem_property/property, level in properties)
+		property.update_reagent(src, level)
+
+	for(var/datum/chem_property/property, level in properties)
+		property.post_update_reagent(src, level)
+
+/datum/reagent/proc/properties_to_datums()
+#ifdef UNIT_TESTS
+	if(!GLOB.chemical_properties_list)
+		CRASH("Chemistry reagents are not set up!")
+#endif
+
+	var/list/new_properties = list()
+	for(var/prop, level in properties)
+		if(istype(prop, /datum/chem_property))
+			new_properties += prop
+			continue
+		var/datum/chem_property/chem = GLOB.chemical_properties_list[prop]
+		if(!chem)
+			continue
+		new_properties[chem] = level
+	return new_properties
 
 /datum/reagent/proc/reaction_temperature(exposed_temperature, exposed_volume) //By default we do nothing.
 	return
