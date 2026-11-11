@@ -4,16 +4,16 @@
  * A lightweight component that dynamically overrides the parent object's standard 'req_access'
  * requirements, replacing them with the access configurations copied from an inserted control item.
  *
- * This allows players to customize access requirements for machines, consoles, or lockers in-round
+ * This allows players to customize access requirements for vending machines, lockers or something else in-round
  * by inserting access electronics. The component clones the data and deletes the item on initialization.
  *
  * ## Initialization Requirements:
- * Requires an instance of [/obj/item/access_control/electronics_in] and [mob/user] upon creation
+ * Requires an instance of [/obj/item/access_control/electronics_in] upon creation
  * to extract and copy the access configurations.
  *
  * ## Implementation Notes for Developers:
  * You must manually handle the conditions under which this component is attached to a parent object
- * (e.g., when a console is nearly disassembled, a locker is hacked open, or a new machine is built).
+ * (e.g., when a locker is hacked open, or a new machine is built).
  * Supports [COMSIG_ITEM_CHECK_CUSTOM_ACCESS] to dynamically detect if this component is already attached.
  * Sends [COMSIG_CUSTOM_ACCESS_REMOVAL_ATTEMPT] to the parent before allowing players to crowbar the electronics out.
  */
@@ -24,7 +24,7 @@
 	var/copied_one_access
 	var/emagged
 
-/datum/component/custom_access/Initialize(electronics_in, mob/user)
+/datum/component/custom_access/Initialize(electronics_in)
 	var/obj/item/access_control/installing_electronics = electronics_in
 	copied_accesses = installing_electronics.selected_accesses.Copy()
 	copied_one_access = installing_electronics.one_access

@@ -402,5 +402,5 @@
 
 /// Check for /datum/component/custom_access at some object
 #define COMSIG_ITEM_CHECK_CUSTOM_ACCESS "check_custom_access"
-	/// Returns that if /datum/component/custom_access attached to object
+	/// Returns that if /datum/component/custom_access already attached to object
 	#define COMPONENT_CUSTOM_ACCESS_EXIST (1<<0)

@@ -151,7 +151,7 @@
 		if(SEND_SIGNAL(src, COMSIG_ITEM_CHECK_CUSTOM_ACCESS, user) & COMPONENT_CUSTOM_ACCESS_EXIST)
 			return NONE
 		var/obj/item/access_control/access_electronics = tool
-		AddComponent(/datum/component/custom_access, access_electronics, user)
+		AddComponent(/datum/component/custom_access, access_electronics)
 		RegisterSignal(src, COMSIG_CUSTOM_ACCESS_REMOVAL_ATTEMPT, PROC_REF(try_remove_electronics))
 		broken = FALSE
 		desc = initial(desc)

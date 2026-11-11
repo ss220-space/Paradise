@@ -1590,7 +1590,7 @@
 			return NONE
 
 		var/obj/item/access_control/access_electronics = tool
-		AddComponent(/datum/component/custom_access, access_electronics, user)
+		AddComponent(/datum/component/custom_access, access_electronics)
 		RegisterSignal(src, COMSIG_CUSTOM_ACCESS_REMOVAL_ATTEMPT, PROC_REF(try_remove_electronics))
 		scan_id = TRUE
 		return ITEM_INTERACT_SUCCESS
