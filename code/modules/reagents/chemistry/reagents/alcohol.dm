@@ -13,6 +13,10 @@
 	var/dizzy_adj = 6 SECONDS
 	var/alcohol_perc = 1 //percentage of ethanol in a beverage 0.0 - 1.0
 	taste_description = "жидкого огня"
+	chemfiresupp = TRUE
+	burncolor = "#6897f7"
+	burncolormod = 2
+	properties = list(PROPERTY_FUELING = 3, PROPERTY_OXIDIZING = 3, PROPERTY_FLOWING = 2)
 
 /datum/reagent/consumable/ethanol/New()
 	addict_supertype = /datum/reagent/consumable/ethanol

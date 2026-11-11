@@ -13,6 +13,13 @@
 	var/list/addiction_threshold_accumulated = new/list()
 	var/flags
 	var/locked = FALSE
+	var/max_fire_rad = 5
+	var/max_fire_int = 20
+	var/max_fire_dur = 24
+	var/min_fire_rad = 1
+	var/min_fire_int = 3
+	var/min_fire_dur = 3
+	var/trigger_volatiles = FALSE
 
 /datum/reagents/New(maximum = 100, temperature_minimum, temperature_maximum)
 	maximum_volume = maximum
@@ -399,10 +406,34 @@
 		return //Yup, no reactions here. No siree.
 
 	var/reaction_occured = FALSE
+	var/radius = 0
+	var/intensity = 0
+	var/duration = 0
+	var/supplemented = 0 //for determining fire shape. Intensifying chems add, moderating chems remove.
+	var/fire_penetrating = FALSE
+	var/intensityfire = 0
+	var/durationfire = 0
+	var/rangefire = 0 // Set to -1 if you want an infinite range
+	var/max_spec_volume = 20
+	var/list/supplements = list()
 	do
 		reaction_occured = FALSE
 		for(var/A in reagent_list) // Usually a small list
 			var/datum/reagent/R = A
+			if(R.chemfiresupp)
+				supplements += R
+				supplemented += R.intensitymod * R.volume
+				intensity += R.intensitymod * R.volume
+				duration += R.durationmod * R.volume
+				radius += R.radiusmod * R.volume
+				if(R.fire_penetrating && R.volume >= CHEM_FIRE_PENETRATION_THRESHOLD)
+					fire_penetrating = TRUE
+			if(R.chemfirescpec && R.volume > max_spec_volume)
+				max_spec_volume = R.volume
+				intensityfire = R.intensityfire
+				durationfire = R.durationfire
+				rangefire = R.rangefire // Set to -1 if you want an infinite range
+
 			for(var/reaction in GLOB.chemical_reactions_list[R.type]) // Was a big list but now it should be smaller since we filtered it with our reagent id
 				if(!reaction)
 					continue
@@ -493,10 +524,58 @@
 					C.on_reaction(src, created_volume)
 					reaction_occured = TRUE
 					break
-
 	while(reaction_occured)
+	if(trigger_volatiles && intensity > 0)
+		var/firecolor = mix_burn_colors(supplements)
+		clear_reagents()
+		combust(get_turf(my_atom), max(radius, rangefire), max(intensity, intensityfire), max(duration, durationfire), max(supplemented, intensityfire), firecolor, fire_penetrating)
+		trigger_volatiles = FALSE
 	update_total()
 	return FALSE
+
+/datum/reagents/proc/combust(turf/sourceturf, radius, intensity, duration, supplemented, firecolor, fire_penetrating, flush_beaker = TRUE)
+	if(!sourceturf)
+		return
+	if(sourceturf.density || sourceturf.blocks_air)
+		return // Has recently exploded, so no explosion this time. Prevents instagib satchel charges.
+
+	var/flameshape = FLAMESHAPE_DEFAULT
+
+	// some upper and lower limits
+	if(radius <= min_fire_rad)
+		radius = min_fire_rad
+	else if(radius >= max_fire_rad)
+		radius = max_fire_rad
+	if(intensity <= min_fire_int)
+		intensity = min_fire_int
+	else if(intensity >= max_fire_int)
+		intensity = max_fire_int
+	if(duration <= min_fire_dur)
+		duration = min_fire_dur
+	else if(duration >= max_fire_dur)
+		duration = max_fire_dur
+
+	// shape
+	if(supplemented > 0 && intensity > CHEM_FIRE_STAR_THRESHOLD)
+		flameshape = FLAMESHAPE_STAR
+
+	if(supplemented < 0 && intensity < CHEM_FIRE_IRREGULAR_THRESHOLD)
+		flameshape = FLAMESHAPE_IRREGULAR
+		radius += 2 //  to make up for tiles lost to irregular shape
+
+	log_and_message_admins("Chemical fire with Intensity: [intensity], Duration: [duration], Radius: [radius], Flameshape: [flameshape] in [sourceturf.loc.name] ([sourceturf.x],[sourceturf.y],[sourceturf.z]).", sourceturf.x, sourceturf.y, sourceturf.z)
+
+	var/datum/reagent/reagent = new()
+	reagent.durationfire = duration
+	reagent.intensityfire = intensity
+	reagent.rangefire = radius
+
+	reagent.burncolor = firecolor
+	reagent.color = firecolor
+
+	reagent.fire_penetrating = fire_penetrating
+
+	new /obj/flamer_fire(sourceturf, reagent, radius, FALSE, flameshape)
 
 /datum/reagents/proc/floor_reagent(reagent)
 	for(var/A in reagent_list)
@@ -980,3 +1059,56 @@
 		return
 	for(var/mob/viewer in viewers(5, location))
 		to_chat(viewer, notification)
+
+/proc/mix_one_color(list/weight, list/color)
+	if(!weight || !color || length(weight) != length(color))
+		return 0
+
+	var/contents = length(weight)
+	var/i
+
+	//normalize weights
+	var/listsum = 0
+	for(i in 1 to contents)
+		listsum += weight[i]
+	for(i in 1 to contents)
+		weight[i] /= listsum
+
+	//mix them
+	var/mixedcolor = 0
+	for(i in 1 to contents)
+		mixedcolor += weight[i]*color[i]
+	mixedcolor = floor(mixedcolor)
+
+	mixedcolor = min(max(mixedcolor, 0), 255)
+
+	return mixedcolor
+
+/proc/mix_burn_colors(list/reagent_list)
+	var/contents = length(reagent_list)
+	var/list/weight = new /list(contents)
+	var/list/redcolor = new /list(contents)
+	var/list/greencolor = new /list(contents)
+	var/list/bluecolor = new /list(contents)
+
+	for(var/i in 1 to contents)
+		//fill the list of weights
+		var/datum/reagent/re = reagent_list[i]
+		weight[i] = max(re.volume, 1) * re.burncolormod
+		//fill the lists of colors
+		var/hue = re.burncolor
+		if(length(hue) != 7)
+			return 0
+		var/list/color_list = rgb2num(hue)
+		redcolor[i] = color_list[1]
+		greencolor[i] = color_list[2]
+		bluecolor[i] = color_list[3]
+
+	//mix all the colors
+	var/red = mix_one_color(weight,redcolor)
+	var/green = mix_one_color(weight,greencolor)
+	var/blue = mix_one_color(weight,bluecolor)
+
+	//assemble all the pieces
+	var/finalcolor = rgb(red, green, blue)
+	return finalcolor
