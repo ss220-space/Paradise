@@ -64,7 +64,8 @@
 #define RICOCHET_SPECIAL (1<<3)
 
 //Reagent flags
-#define REAGENT_NOREACT 1
+#define REAGENT_NOREACT (1<<0)
+#define REAGENT_STABILIZED (1<<1)
 
 //Species clothing flags
 #define HAS_UNDERWEAR 1

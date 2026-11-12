@@ -256,11 +256,17 @@
 	result = /datum/reagent/napalm
 	required_reagents = list(/datum/reagent/aluminum = 1, /datum/reagent/toxin/phoron = 1, /datum/reagent/acid = 1)
 	result_amount = 1
+	mix_sound = null
 
 /datum/chemical_reaction/chemfire/on_reaction(datum/reagents/holder, created_volume)
 	. = ..()
 	holder.trigger_volatiles = TRUE
 	return
+
+/datum/chemical_reaction/chemfire/last_can_react_check(datum/reagents/holder)
+	if(holder.has_reagent(/datum/reagent/stabilizing_agent) && !isturf(holder.my_atom))
+		return FALSE
+	return ..()
 
 /datum/chemical_reaction/custom/sticky
 	name = "Sticky-Napalm"
