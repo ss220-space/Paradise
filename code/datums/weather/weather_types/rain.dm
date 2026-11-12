@@ -142,6 +142,6 @@
 		human_target.apply_damage(((100 - min(human_target.getarmor(zone, ACID), 100)) / 50) * (burn_per_second / length(acid_zones)), BURN, zone)
 
 	if(human_target.reagents)
-			var/acid_multiplier = ((100 - min(human_target.getarmor(BODY_ZONE_CHEST, ACID), 100)) / 100) * 6
-			if(acid_multiplier > 0)
-				human_target.reagents.add_reagent(/datum/reagent/fluorine, acid_reagent_dose * acid_multiplier)
+		var/acid_multiplier = ((100 - min(human_target.getarmor(BODY_ZONE_CHEST, ACID), 100)) / 100) * 6
+		if(acid_multiplier > 0)
+			human_target.reagents.add_reagent(/datum/reagent/fluorine, acid_reagent_dose * acid_multiplier)
