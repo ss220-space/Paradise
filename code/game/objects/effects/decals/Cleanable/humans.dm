@@ -107,6 +107,11 @@
 /obj/effect/decal/cleanable/blood/can_bloodcrawl_in()
 	return TRUE
 
+/obj/effect/decal/cleanable/blood/never_should_have_come_here(turf/here_turf)
+	if(istype(here_turf, /turf/simulated/floor/water))
+		return TRUE
+	return ..()
+
 /obj/effect/decal/cleanable/blood/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
