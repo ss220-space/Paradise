@@ -250,6 +250,10 @@
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
+	if(istype(I, /obj/item/reagent_containers/cup/bucket) || istype(I, /obj/item/reagent_containers/cup/coffeepot))
+		balloon_alert(user, "неподходящая ёмкость!")
+		return ..()
+
 	if(iscup(I) || istype(I, /obj/item/reagent_containers/cup/glass))
 		add_fingerprint(user)
 		if(panel_open)
