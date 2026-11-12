@@ -278,7 +278,7 @@
 
 GAME_VERB_SRC(/obj/item/card/id, remove_guest_pass, usr, "Убрать гостевой пропуск", VERB_CATEGORY_HIDDEN)
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(guest_pass)

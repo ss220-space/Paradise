@@ -746,7 +746,7 @@
 		toner_cartridge.charges = 0
 
 /obj/machinery/photocopier/mouse_drop_receive(mob/target, mob/living/user, params)
-	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || isAI(user))
+	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || isAI(user))
 		return
 	if(check_mob()) //is target mob or another mob on this photocopier already?
 		return

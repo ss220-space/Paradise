@@ -37,7 +37,7 @@
 	return song.ui_data(user)
 
 /obj/item/instrument/ui_interact(mob/user, datum/tgui/ui = null)
-	if(!isliving(user) || user.incapacitated())
+	if(!isliving(user) || user.incapacitated)
 		return
 	song.ui_interact(user, ui)
 
@@ -56,6 +56,6 @@
 	if(!ismob(music_player))
 		return STOP_PLAYING
 	var/mob/user = music_player
-	if(user.incapacitated() || !((loc == user) || (isturf(loc) && Adjacent(user)))) // sorry, no more TK playing.
+	if(user.incapacitated || !((loc == user) || (isturf(loc) && Adjacent(user)))) // sorry, no more TK playing.
 		return STOP_PLAYING
 
