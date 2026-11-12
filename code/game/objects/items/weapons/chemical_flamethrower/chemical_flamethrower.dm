@@ -14,6 +14,7 @@
 	materials = list(MAT_METAL = 5000)
 	resistance_flags = FIRE_PROOF
 	origin_tech = "combat=1;plasmatech=2;engineering=2"
+	attack_speed = 1.6 SECONDS
 
 	/// All our loaded canisters in a list
 	var/obj/item/chemical_canister/canister
