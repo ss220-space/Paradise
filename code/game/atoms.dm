@@ -1449,6 +1449,46 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		return TRUE
 	return !density
 
+/*
+ * Checks whether an atom can pass through the calling atom into its target turf.
+ * Returns the blocking direction.
+ * If the atom's movement is not blocked, returns 0.
+ * If the object is completely solid, returns ALL
+ */
+/atom/proc/BlockedPassDirs(atom/movable/mover, target_dir)
+	if(!mover)
+		return NONE
+
+	if(CanAllowThrough(mover, target_dir))
+		return NONE
+
+	if(flags & ON_BORDER)
+		var/reverse_dir = REVERSE_DIR(dir)
+		if(!(target_dir & reverse_dir))
+			return NONE
+
+		// This is to properly handle diagonal movement (a cade to your NE facing west when you are trying to move NE should block for north instead of east)
+		if(target_dir in GLOB.diagonals)
+			return target_dir - (target_dir & reverse_dir)
+		return target_dir & reverse_dir
+	else
+		return NONE
+
+/*
+ * Checks whether an atom can leave its current turf through the calling atom.
+ * Returns the blocking direction.
+ * If the atom's movement is not blocked, returns 0 (no directions)
+ * If the object is completely solid, returns all directions
+ */
+/atom/proc/BlockedExitDirs(atom/movable/mover, target_dir)
+	if(!mover)
+		return NONE
+
+	if(flags & ON_BORDER && !CanAllowThrough(mover, target_dir))
+		return target_dir & dir
+
+	return NONE
+
 /**
  * Returns `TRUE` if this atom has gravity for the passed in turf
  *
