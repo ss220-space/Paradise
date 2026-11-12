@@ -137,7 +137,7 @@ SUBSYSTEM_DEF(blood)
 		if(1 to BLOOD_VOLUME_SURVIVE)
 			if(!target.undergoing_cardiac_arrest())
 				target.set_heartattack(TRUE)
-			if(!target.incapacitated())
+			if(!target.incapacitated)
 				target.Stun(30 SECONDS)
 
 		if(-INFINITY to 1)

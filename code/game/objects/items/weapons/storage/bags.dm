@@ -488,7 +488,7 @@
 
 GAME_VERB_SRC(/obj/item/storage/bag/plants/portaseeder, dissolve_contents, usr, "Конвертация в семена", VERB_CATEGORY_HIDDEN)
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	for(var/obj/item/O in contents)
 		seedify(O, 1)

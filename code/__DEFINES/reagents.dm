@@ -58,3 +58,10 @@
 #define PROPERTY_RADIUS "radius" // Fire related admin property
 #define PROPERTY_INTENSITY "intensity" // Fire related admin property
 #define PROPERTY_DURATION "duration" // Fire related admin property
+
+#define COMBUST_DATA_RADIUS "radius"
+#define COMBUST_DATA_INTENSITY "intensity"
+#define COMBUST_DATA_DURATION "duration"
+#define COMBUST_DATA_SUPPLEMENTED "supplemented"
+#define COMBUST_DATA_FIRECOLOR "firecolor"
+#define COMBUST_DATA_PENETRATING "fire_penetrating"

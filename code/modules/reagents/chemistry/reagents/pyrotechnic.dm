@@ -53,6 +53,7 @@
 	taste_description = "горения"
 	color = "#ffb300"
 	chemfiresupp = TRUE
+	chemfirescpec = TRUE
 	burncolor = "#d05006"
 	burn_sprite = "red"
 	properties = list(PROPERTY_OXIDIZING = 6, PROPERTY_FUELING = 7, PROPERTY_FLOWING = 1)

@@ -484,7 +484,7 @@
 	return TRUE
 
 /obj/spacepod/mouse_drop_receive(mob/living/dropping, mob/living/user, params)
-	if(user == pilot || (user in passengers) || !isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user == pilot || (user in passengers) || !isliving(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	// if(isobj(dropping))
@@ -579,7 +579,7 @@
 
 
 /obj/spacepod/proc/enter_pod(mob/user)
-	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!ishuman(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return FALSE
 
 	if(!unlocked)
@@ -944,7 +944,7 @@
 
 // MARK: Misc actions
 /obj/spacepod/proc/toggle_doors(mob/user)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(user != pilot)
 		to_chat(user, span_notice("Вы не можете дотянуться до штурвала."))
@@ -975,7 +975,7 @@
 	to_chat(user, span_warning("Рядом нет шлюзов."))
 
 /obj/spacepod/proc/check_seat(mob/user)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	to_chat(user, span_notice("Вы начинаете искать потерянные вещи под сиденьем."))
@@ -1002,7 +1002,7 @@
 		to_chat(user, span_notice("Вы решаете не обыскивать [declent_ru(ACCUSATIVE)]."))
 
 /obj/spacepod/proc/toggle_lights(mob/user)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(user != pilot)

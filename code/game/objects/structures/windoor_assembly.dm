@@ -336,7 +336,7 @@ GAME_VERB_SRC(/obj/structure/windoor_assembly, revrotate, oview(1), "Повер�
 
 //Flips the windoor assembly, determines whather the door opens to the left or the right
 GAME_VERB_SRC(/obj/structure/windoor_assembly, flip, oview(1), "Повернуть", VERB_CATEGORY_HIDDEN)
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(facing == "l")

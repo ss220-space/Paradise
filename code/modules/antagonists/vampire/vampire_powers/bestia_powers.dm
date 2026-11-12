@@ -1162,7 +1162,7 @@
 
 /datum/action/cooldown/spell/anabiosis/can_cast_spell(feedback)
 	var/mob/living/carbon/human/user = owner
-	if(user.incapacitated())
+	if(user.incapacitated)
 		if(feedback)
 			user.balloon_alert(user, "нельзя использовать сейчас!")
 		return FALSE
