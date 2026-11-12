@@ -572,7 +572,6 @@
 /datum/design/chemical_canister/extended
 	id = "chemical_canister_extended"
 	req_tech = list(RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_PLASMA = 4)
-	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 10000)
 	reagents_list = list(/datum/reagent/fuel = 40)
 	build_path = /obj/item/chemical_canister/extended

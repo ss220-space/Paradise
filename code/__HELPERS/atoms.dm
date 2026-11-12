@@ -254,7 +254,7 @@ GLOBAL_ALIST_EMPTY(debris_handlers)
 		adjacent_turf = get_step(start_turf, fd2)
 		if(adjacent_turf.BlockedExitDirs(mover, fd1) || adjacent_turf.BlockedPassDirs(mover, fd2))
 			blocking_direction |= fd2
-			if ((!fd1 || blocking_direction & fd1) && (!fd2 || blocking_direction & fd2))
+			if((!fd1 || blocking_direction & fd1) && (!fd2 || blocking_direction & fd2))
 				return adjacent_turf
 		for(current_obstacle in adjacent_turf)
 			if(current_obstacle in forget)
