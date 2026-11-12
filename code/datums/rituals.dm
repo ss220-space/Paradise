@@ -180,52 +180,33 @@
 
 	return TRUE
 
-/datum/ritual/ashwalker/summon_ashstorm
-	name = "Призыв Пепельной Бури"
-	description = "Проведение данного ритуала обрушивает на Лазис суровую пепельную бурю, значительно уменьшая видимость и затрудняя перемещение по Лазису на некоторое время. \
+/datum/ritual/ashwalker/necropolis_voice
+	name = "Глас Некрополя"
+	description = "Проведение данного ритуала позволяет передать сообщение для соплеменников. \
 					Катастрофическая неудача приведёт к заражению трупной лихорадкой всех причастных к ритуалу."
 	shaman_only = TRUE
 	disaster_prob = 20
-	charges = 2
-	cooldown_after_cast = 1200 SECONDS
-	cast_time = 20 SECONDS
+	cooldown_after_cast = 300 SECONDS
+	cast_time = 15 SECONDS
 	fail_chance = 20
-	extra_invokers = 2
 	fluff_tgui_dye = "Янтарная краска"
 	needed_dye = "Amber Dyes"
 	totem_dye = "amber"
-	required_things = list(
-		/mob/living/simple_animal/hostile/asteroid/goldgrub = 1,
-	)
 
-/datum/ritual/ashwalker/summon_ashstorm/check_contents(mob/living/carbon/invoker, list/used_things)
-	. = ..()
+/datum/ritual/ashwalker/necropolis_voice/do_ritual(mob/living/carbon/invoker, list/invokers, list/used_things)
+	var/necropolis_announce
+	var/sound/announce_sound = sound('sound/weather/ashstorm/outside/active_end.ogg')
+	necropolis_announce = tgui_input_text(invoker, "Введите сообщение для передачи", "Глас Некрополя", max_length = 100)
 
-	if(!.)
-		return FALSE
-
-	for(var/mob/living/living in used_things)
-		if(living.stat != DEAD)
-			invoker.balloon_alert(invoker, "существа должны быть мертвы!")
-			return FALSE
-
-	return TRUE
-
-/datum/ritual/ashwalker/summon_ashstorm/del_things(list/used_things)
-	. = ..()
-
-	for(var/mob/living/living in used_things)
-		living.gib()
-
-	return
-
-/datum/ritual/ashwalker/summon_ashstorm/do_ritual(mob/living/carbon/invoker, list/invokers, list/used_things)
-	SSweather.run_weather(/datum/weather/ash_storm)
-	message_admins("[key_name(invoker)] accomplished ashstorm ritual and summoned ashstorm")
+	for(var/mob/a in GLOB.player_list)
+		if("ashwalker" in a.faction)
+			to_chat(a, span_fontsize4(span_green("Порыв ветра доносит до вас искажённый магией голос...")))
+			to_chat(a, span_fontsize2(span_green(necropolis_announce)))
+			a.playsound_local(a, null, 100, FALSE, 0, FALSE, pressure_affected = FALSE, sound_to_use = announce_sound)
 
 	return RITUAL_SUCCESSFUL
 
-/datum/ritual/ashwalker/summon_ashstorm/disaster(mob/living/carbon/invoker, list/invokers, list/used_things)
+/datum/ritual/ashwalker/necropolis_voice/disaster(mob/living/carbon/invoker, list/invokers, list/used_things)
 	var/list/targets = list()
 
 	for(var/mob/living/carbon/human/human in SSmobs.clients_by_zlevel[invoker.z])
