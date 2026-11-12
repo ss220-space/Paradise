@@ -106,7 +106,7 @@
 	var/obj/item/camera_bug/syndicate/parent_item
 
 /obj/machinery/computer/camera_advanced/portable/check_eye(mob/user)
-	if(!parent_item || QDELETED(parent_item) || parent_item.loc != user || user.incapacitated() || user.stat != CONSCIOUS)
+	if(!parent_item || QDELETED(parent_item) || parent_item.loc != user || user.incapacitated || user.stat != CONSCIOUS)
 		user.unset_machine()
 		return
 

@@ -130,7 +130,7 @@
 /obj/machinery/atmospherics/unary/cryo_cell/mouse_drop_receive(atom/movable/O, mob/living/user, params)
 	if(O.loc == user) //no you can't pull things out of your ass
 		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
 		return
 	if(get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
 		return
@@ -506,7 +506,7 @@ GAME_VERB_SRC(/obj/machinery/atmospherics/unary/cryo_cell, move_eject, oview(1),
 	else
 		if(usr.default_can_use_topic(src) != UI_INTERACTIVE)
 			return
-		if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
+		if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
 			return
 		add_attack_logs(usr, occupant, "Ejected from cryo cell at [COORD(src)]")
 		go_out()

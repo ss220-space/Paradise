@@ -1689,6 +1689,8 @@ GAME_VERB_DESC(/mob/living/silicon/robot, toggle_own_cover, "Блокировк�
 	else if(.)
 		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, LOCKED_BORG_TRAIT)
 
+	update_incapacitated()
+
 // Proc that calls radial menu for borg to choose AFTER he chose his module.
 // In module there is borg_skins
 /mob/living/silicon/robot/proc/choose_icon()

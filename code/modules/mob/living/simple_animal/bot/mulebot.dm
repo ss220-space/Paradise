@@ -259,7 +259,7 @@
 	if(..())
 		return TRUE
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	switch(href_list["op"])
@@ -423,7 +423,7 @@
 // mousedrop a crate to load the bot
 // can load anything if hacked
 /mob/living/simple_animal/bot/mulebot/mouse_drop_receive(atom/movable/AM, mob/user, params)
-	if(!istype(AM) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !in_range(user, src))
+	if(!istype(AM) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !in_range(user, src))
 		return
 
 	load(AM)
@@ -869,7 +869,7 @@
 /mob/living/simple_animal/bot/mulebot/relaymove(mob/user)
 	if(ispulsedemon(user))
 		return ..()
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 	if(load == user)
 		unload(0)

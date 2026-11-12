@@ -48,7 +48,7 @@
 	var/list/message_pieces = message_to_multilingual(message)
 	user.handle_speech_problems(message_pieces)
 	message = multilingual_to_message(message_pieces)
-	if((loc == user && !user.incapacitated()))
+	if(loc == user && !user.incapacitated)
 		if(emagged)
 			if(insults)
 				saymsg(user, pick(insultmsg))

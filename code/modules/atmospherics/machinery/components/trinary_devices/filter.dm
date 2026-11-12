@@ -16,7 +16,7 @@
 /obj/machinery/atmospherics/trinary/filter/CtrlClick(mob/living/user)
 	if(!ishuman(user) && !issilicon(user))
 		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, span_warning("You can't do that right now!"))
 		return
 	if(!in_range(src, user) && !issilicon(user))

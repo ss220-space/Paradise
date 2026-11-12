@@ -107,7 +107,7 @@
 				var/obj/item/gripper/G = locate() in owner
 				if(item != G?.gripped_item)
 					return
-		if(QDELETED(src) || owner.incapacitated())
+		if(QDELETED(src) || owner.incapacitated)
 			return
 	if(length(item?.enchants)) // it just works
 		if(item.enchant_type == CASTING_SPELL)
@@ -132,7 +132,7 @@
 			possible_enchant_icons += list(S.name = I)
 		entered_spell_name = show_radial_menu(owner, owner, possible_enchant_icons, require_near = TRUE)
 		var/datum/spell_enchant/spell_enchant = possible_enchants[entered_spell_name]
-		if(QDELETED(src) || owner.incapacitated() || !spell_enchant)
+		if(QDELETED(src) || owner.incapacitated || !spell_enchant)
 			return
 		if(!(item in owner.contents))
 			var/obj/item/gripper/G = locate() in owner
@@ -171,7 +171,7 @@
 		if(midas_spell && do_midas)
 			to_chat(owner, span_clockitalic("You already prepared midas touch!"))
 			return
-		if(QDELETED(src) || owner.incapacitated())
+		if(QDELETED(src) || owner.incapacitated)
 			return
 
 		if(!channeling)
@@ -247,7 +247,7 @@
 	return ..()
 
 /datum/action/innate/clockwork/hand_spell/IsAvailable(feedback = FALSE)
-	if(!isclocker(owner) || owner.incapacitated())
+	if(!isclocker(owner) || owner.incapacitated)
 		return FALSE
 	return ..()
 
@@ -349,7 +349,7 @@
 		var/list/choosable_items = list("Clock Slab" = /obj/item/clockwork/clockslab, "Integration Cog" = /obj/item/clockwork/integration_cog)
 		var/choice = show_radial_menu(user, src, choosable_items, require_near = TRUE)
 		var/picked_type = choosable_items[choice]
-		if(QDELETED(src) || !picked_type || !target.Adjacent(user) || user.incapacitated())
+		if(QDELETED(src) || !picked_type || !target.Adjacent(user) || user.incapacitated)
 			return
 		var/obj/O = new picked_type
 		if(!user.put_in_hands(O))

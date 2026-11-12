@@ -91,7 +91,7 @@
 
 /obj/item/mod/universal_modkit/proc/choose_skin(mob/living/user, obj/item/mod/control/mod, list/possibilities)
 	var/choice = tgui_input_list(user, "Выберите подходящую раскраску", "раскраски", possibilities)
-	if(!choice || user.incapacitated() || !user.is_in_hands(src) || !user.Adjacent(mod))
+	if(!choice || user.incapacitated || !user.is_in_hands(src) || !user.Adjacent(mod))
 		return
 
 	balloon_alert(user, "применение раскраски...")

@@ -108,7 +108,7 @@
 
 GAME_PROC_SRC(/obj/item/gun/projectile/revolver, spin, usr, "Провернуть барабан", VERB_CATEGORY_HIDDEN)
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder))

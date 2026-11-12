@@ -142,7 +142,7 @@
 		return
 
 	var/obj/item/book/choice = tgui_input_list(user, "Какую книгу вы хотели бы достать из книжного шкафа?", "Книжный шкаф", contents)
-	if(!choice || user.incapacitated() || !Adjacent(user))
+	if(!choice || user.incapacitated || !Adjacent(user))
 		return
 	add_fingerprint(user)
 	choice.forceMove_turf()
