@@ -263,11 +263,6 @@
 	holder.trigger_volatiles = TRUE
 	return
 
-/datum/chemical_reaction/chemfire/last_can_react_check(datum/reagents/holder)
-	if(holder.has_reagent(/datum/reagent/stabilizing_agent) && !isturf(holder.my_atom))
-		return FALSE
-	return ..()
-
 /datum/chemical_reaction/custom/sticky
 	name = "Sticky-Napalm"
 	id = "stickynapalm"

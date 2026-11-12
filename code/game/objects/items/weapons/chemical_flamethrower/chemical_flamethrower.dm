@@ -213,6 +213,7 @@
 /obj/item/chemical_canister/Initialize(mapload)
 	. = ..()
 	create_reagents(ammo)
+	reagents.set_reacting(FALSE)
 
 /obj/item/chemical_canister/on_reagent_change()
 	var/datum/reagents/chem_content = reagents
