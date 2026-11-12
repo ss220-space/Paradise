@@ -1562,6 +1562,34 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике заготовок для снарядов миномета",
 	)
 
+/datum/supply_packs/security/armory/chemical_flamethrower
+	name = "химический огнемёт"
+	contains = list(/obj/item/chemical_flamethrower, /obj/item/chemical_canister, /obj/item/chemical_canister)
+	cost = 50
+	containername = "ящик с химическим огнемётом"
+	container_ru_names = alist(
+		NOMINATIVE = "ящик с химическим огнемётом",
+		GENITIVE = "ящика с химическим огнемёта",
+		DATIVE = "ящику с химическим огнемётом",
+		ACCUSATIVE = "ящик с химическим огнемётом",
+		INSTRUMENTAL = "ящиком с химическим огнемётом",
+		PREPOSITIONAL = "ящике с химическим огнемётом",
+	)
+
+/datum/supply_packs/security/armory/chemical_canister
+	name = "баллоны для химического огнемёта"
+	contains = list(/obj/item/chemical_canister, /obj/item/chemical_canister, /obj/item/chemical_canister, /obj/item/chemical_canister, /obj/item/chemical_canister/extended) // One extended canister, as a treat
+	cost = 30
+	containername = "ящик с баллонами для химического огнемёта"
+	container_ru_names = alist(
+		NOMINATIVE = "ящик с баллонами для химического огнемёта",
+		GENITIVE = "ящика с баллонами для химического огнемёта",
+		DATIVE = "ящику с баллонами для химического огнемёта",
+		ACCUSATIVE = "ящик с баллонами для химического огнемёта",
+		INSTRUMENTAL = "ящиком с баллонами для химического огнемёта",
+		PREPOSITIONAL = "ящике с баллонами для химического огнемёта",
+	)
+
 /////// Implants & etc
 
 /datum/supply_packs/security/armory/mindshield

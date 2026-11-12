@@ -195,7 +195,7 @@
 
 GAME_VERB_SRC(/obj/item/pipe, flip, view(1), "Перевернуть трубу", VERB_CATEGORY_HIDDEN)
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(pipe_type in list(PIPE_GAS_FILTER, PIPE_GAS_MIXER, PIPE_TVALVE, PIPE_DTVALVE, PIPE_CIRCULATOR))

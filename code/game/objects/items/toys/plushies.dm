@@ -1205,7 +1205,7 @@
 			desc = "Остерегайся злых воксов!"
 
 /obj/item/toy/plushie/pig/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(over_object != user || user.incapacitated() || !ishuman(user))
+	if(over_object != user || user.incapacitated || !ishuman(user))
 		return
 
 	if(!user.put_in_hands(src, ignore_anim = FALSE))

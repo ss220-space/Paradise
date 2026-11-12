@@ -336,3 +336,4 @@ GLOBAL_LIST_EMPTY(sfx_datum_by_key)
 #define SFX_THUNDER_HEAVY "thunder_heavy"
 #define SFX_THUNDER_MEDIUM "thunder_medium"
 #define SFX_THUNDER_LOW "thunder_low"
+#define SFX_FLAMETHROWER "flamethrower"

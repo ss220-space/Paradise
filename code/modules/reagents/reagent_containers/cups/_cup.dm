@@ -270,7 +270,7 @@
 		. += "assembly"
 
 GAME_VERB_SRC(/obj/item/reagent_containers/cup/beaker, remove_assembly, usr, "Отсоединить", VERB_CATEGORY_HIDDEN)
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	if(assembly)
 		balloon_alert(usr, "заготовка отсоединена")

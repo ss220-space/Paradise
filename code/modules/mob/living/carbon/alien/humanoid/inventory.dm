@@ -74,7 +74,7 @@
 				return FALSE
 			if(!I.allowed_for_alien())
 				return FALSE
-			if(!bypass_incapacitated && incapacitated())
+			if(!bypass_incapacitated && incapacitated)
 				return FALSE
 			return TRUE
 
@@ -83,7 +83,7 @@
 				return FALSE
 			if(!I.allowed_for_alien())
 				return FALSE
-			if(!bypass_incapacitated && incapacitated())
+			if(!bypass_incapacitated && incapacitated)
 				return FALSE
 			return TRUE
 

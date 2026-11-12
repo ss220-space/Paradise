@@ -39,9 +39,9 @@
 	leaning_mob = leaner
 	if(!iscarbon(dropped) && !isrobot(dropped)) //Are we not a cyborg or carbon?
 		return
-	if(!(usr == leaner)) //Are we trying to lean someone else?
+	if(usr != leaner) //Are we trying to lean someone else?
 		return
-	if(leaner.incapacitated(IGNORE_RESTRAINTS) || leaner.stat != CONSCIOUS || leaner.buckled || leaner.body_position == LYING_DOWN) //Are we in a valid state?
+	if(INCAPACITATED_IGNORING(leaner, INCAPABLE_RESTRAINTS) || leaner.stat != CONSCIOUS || leaner.buckled || leaner.body_position == LYING_DOWN) //Are we in a valid state?
 		return
 	if(leaner.leaned_object) //Are we leaning already?
 		return

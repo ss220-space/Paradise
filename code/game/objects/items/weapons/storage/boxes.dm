@@ -932,7 +932,7 @@
 			return ATTACK_CHAIN_PROCEED
 		var/static/list/designs = list(NODESIGN, NANOTRASEN, SYNDI, HEART, SMILE)
 		var/switchDesign = tgui_input_list(user, "Select a Design:", "Paper Sack Design", designs)
-		if(!switchDesign || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		if(!switchDesign || !Adjacent(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 			return ATTACK_CHAIN_BLOCKED_ALL
 		if(design == switchDesign)
 			return ATTACK_CHAIN_PROCEED
