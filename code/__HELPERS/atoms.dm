@@ -219,23 +219,21 @@ GLOBAL_ALIST_EMPTY(debris_handlers)
 	var/turf/adjacent_turf
 	var/atom/blocking_atom
 
-	var/datum/can_pass_info/pass_info = new(mover, no_id = FALSE)
-
-	blocking_direction |= start_turf.CanAStarPass(move_direction, pass_info)
-	for(current_obstacle in start_turf) // First, check objects to block exit
+	blocking_direction |= start_turf.BlockedExitDirs(mover, move_direction)
+	for(current_obstacle in start_turf) //First, check objects to block exit
 		if(mover == current_obstacle || (current_obstacle in forget))
 			continue
 		if(!isstructure(current_obstacle) && !ismob(current_obstacle) && !isvehicle(current_obstacle))
 			continue
 		blocking_atom = current_obstacle
-		blocking_direction |= blocking_atom.CanAStarPass(move_direction, pass_info)
+		blocking_direction |= blocking_atom.BlockedExitDirs(mover, move_direction)
 		if((!fd1 || blocking_direction & fd1) && (!fd2 || blocking_direction & fd2))
 			return blocking_atom
 
 	// Check for atoms in adjacent turf EAST/WEST
 	if(fd1 && fd1 != move_direction)
 		adjacent_turf = get_step(start_turf, fd1)
-		if(adjacent_turf.CanAStarPass(fd2, pass_info) || adjacent_turf.CanAStarPass(fd1, pass_info))
+		if(adjacent_turf.BlockedExitDirs(mover, fd2) || adjacent_turf.BlockedPassDirs(mover, fd1))
 			blocking_direction |= fd1
 			if((!fd1 || blocking_direction & fd1) && (!fd2 || blocking_direction & fd2))
 				return adjacent_turf
@@ -245,7 +243,7 @@ GLOBAL_ALIST_EMPTY(debris_handlers)
 			if(!isstructure(current_obstacle) && !ismob(current_obstacle) && !isvehicle(current_obstacle))
 				continue
 			blocking_atom = current_obstacle
-			if(blocking_atom.CanAStarPass(fd2, pass_info) || blocking_atom.CanAStarPass(fd1, pass_info))
+			if(blocking_atom.BlockedExitDirs(mover, fd2) || blocking_atom.BlockedPassDirs(mover, fd1))
 				blocking_direction |= fd1
 				if((!fd1 || blocking_direction & fd1) && (!fd2 || blocking_direction & fd2))
 					return blocking_atom
@@ -254,7 +252,7 @@ GLOBAL_ALIST_EMPTY(debris_handlers)
 	// Check for atoms in adjacent turf NORTH/SOUTH
 	if(fd2 && fd2 != move_direction)
 		adjacent_turf = get_step(start_turf, fd2)
-		if(adjacent_turf.CanAStarPass(fd1, pass_info) || adjacent_turf.CanAStarPass(fd2, pass_info))
+		if(adjacent_turf.BlockedExitDirs(mover, fd1) || adjacent_turf.BlockedPassDirs(mover, fd2))
 			blocking_direction |= fd2
 			if((!fd1 || blocking_direction & fd1) && (!fd2 || blocking_direction & fd2))
 				return adjacent_turf
@@ -264,14 +262,14 @@ GLOBAL_ALIST_EMPTY(debris_handlers)
 			if(!isstructure(current_obstacle) && !ismob(current_obstacle) && !isvehicle(current_obstacle))
 				continue
 			blocking_atom = current_obstacle
-			if(blocking_atom.CanAStarPass(fd1, pass_info) || blocking_atom.CanAStarPass(fd2, pass_info))
+			if(blocking_atom.BlockedExitDirs(mover, fd1) || blocking_atom.BlockedPassDirs(mover, fd2))
 				blocking_direction |= fd2
 				if((!fd1 || blocking_direction & fd1) && (!fd2 || blocking_direction & fd2))
 					return blocking_atom
 				break
 
 	// Check the turf itself
-	blocking_direction |= target_turf.CanAStarPass(move_direction, pass_info)
+	blocking_direction |= target_turf.BlockedPassDirs(mover, move_direction)
 	if((!fd1 || blocking_direction & fd1) && (!fd2 || blocking_direction & fd2))
 		return target_turf
 	for(current_obstacle in target_turf) // Finally, check atoms in the target turf
@@ -280,9 +278,7 @@ GLOBAL_ALIST_EMPTY(debris_handlers)
 		if(!isstructure(current_obstacle) && !ismob(current_obstacle) && !isvehicle(current_obstacle))
 			continue
 		blocking_atom = current_obstacle
-		blocking_direction |= blocking_atom.CanAStarPass(move_direction, pass_info)
-		if((fd1 && blocking_direction == fd1) || (fd2 && blocking_direction == fd2))
-			return blocking_atom
+		blocking_direction |= blocking_atom.BlockedPassDirs(mover, move_direction)
 		if((!fd1 || blocking_direction & fd1) && (!fd2 || blocking_direction & fd2))
 			return blocking_atom
 

@@ -221,7 +221,7 @@
 	if(!iswryn(user))
 		return FALSE
 	var/mob/living/carbon/human/wryn = user
-	if(wryn.incapacitated())
+	if(wryn.incapacitated)
 		return FALSE
 
 	switch_state()

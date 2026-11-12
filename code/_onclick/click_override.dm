@@ -47,7 +47,7 @@
 /datum/middleClickOverride/power_gloves/onClick(atom/A, mob/living/carbon/human/user)
 	if(A == user || user.a_intent == INTENT_HELP || user.a_intent == INTENT_GRAB)
 		return
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 	if(!(A in view(user)))
 		return

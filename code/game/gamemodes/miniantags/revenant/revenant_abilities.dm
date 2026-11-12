@@ -141,7 +141,7 @@
 
 /datum/action/cooldown/spell/pointed/revenant_transmit/cast(atom/cast_on)
 	. = ..()
-	INVOKE_ASYNC(src, PROC_REF(cast_async), target)
+	INVOKE_ASYNC(src, PROC_REF(cast_async), cast_on)
 
 /datum/action/cooldown/spell/pointed/revenant_transmit/proc/cast_async(mob/living/target)
 	var/msg = tgui_input_text(usr, "Что вы хотите передать [target]?", null, "")

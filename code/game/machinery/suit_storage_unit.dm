@@ -427,7 +427,7 @@
 	qdel(src)
 
 /obj/machinery/suit_storage_unit/mouse_drop_receive(atom/A, mob/user, params)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !Adjacent(A) || !isliving(A))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !Adjacent(A) || !isliving(A))
 		return
 	var/mob/living/target = A
 	if(!state_open)
@@ -797,7 +797,7 @@ GAME_VERB_SRC(/obj/machinery/suit_storage_unit, get_out, oview(1), "Извлеч
 	playsound(loc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 
 /obj/machinery/suit_storage_unit/shove_impact(mob/living/target, mob/living/attacker)
-	if(target.incapacitated() || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED) || target.buckled)
+	if(target.incapacitated || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED) || target.buckled)
 		return
 	if(!state_open && !locked)
 		state_open = TRUE

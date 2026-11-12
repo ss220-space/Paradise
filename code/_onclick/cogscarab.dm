@@ -46,7 +46,7 @@
 		CtrlClickOn(A)
 		return
 
-	if(incapacitated())
+	if(incapacitated)
 		return
 
 	if(next_move >= world.time)

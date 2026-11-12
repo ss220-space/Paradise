@@ -55,7 +55,7 @@
 		var/new_timer = tgui_input_number(user, "Set a timer, from one second to ten seconds.", "Timer", timer / 10, 10, 1)
 		if(!new_timer)
 			return
-		if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		if(!Adjacent(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 			timer_set = 0
 			name = "pizza box"
 			desc = "A box suited for pizzas."
@@ -109,7 +109,7 @@
 
 	to_chat(user, span_danger("Oh God, what wire do you cut?!"))
 	var/chosen_wire = tgui_input_list(user, "OH GOD, OH GOD", "WHAT WIRE?!", wires)
-	if(!chosen_wire || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!chosen_wire || !Adjacent(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return .
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .

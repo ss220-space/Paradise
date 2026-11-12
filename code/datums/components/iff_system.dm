@@ -97,7 +97,7 @@
 	var/obj/item/gun/gun = parent
 	if(QDELETED(gun) || QDELETED(src) || !user)
 		return FALSE
-	if(user.incapacitated() || gun.loc != user)
+	if(user.incapacitated || gun.loc != user)
 		return FALSE
 	return TRUE
 

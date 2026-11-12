@@ -408,7 +408,7 @@
 
 /obj/item/universal_paintkit/proc/choose_paint(mob/living/user, obj/mecha/mech, list/possibilities)
 	var/choice = tgui_input_list(user, "Pick your skin for mech.", "Paints", possibilities)
-	if(!choice || user.incapacitated() || !user.is_in_hands(src) || !user.Adjacent(mech))
+	if(!choice || user.incapacitated || !user.is_in_hands(src) || !user.Adjacent(mech))
 		return
 
 	user.visible_message(span_notice("[user] opens [src] and customises [mech.name]."))

@@ -45,12 +45,12 @@
 		else
 			var/obj/flamer_fire/temp = new()
 			var/atom/A = LinkBlocked(temp, source_turf, T)
+			qdel(temp)
 
 			if(A)
 				A.flamer_fire_act(burn_dam)
 				new_spread_amt = 0
-
-		addtimer(CALLBACK(src, PROC_REF(generate_fire), T, F, new_spread_amt, F.flameshape, null, FALSE, fuel_pressure), 0)
+		END_OF_TICK(CALLBACK(src, PROC_REF(generate_fire), T, F, new_spread_amt, F.flameshape, null, FALSE, fuel_pressure))
 
 /datum/flameshape/default/irregular
 	name = "Irregular"
