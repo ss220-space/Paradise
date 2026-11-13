@@ -35,7 +35,7 @@
  */
 /obj/item/storage/internal/proc/handle_mousedrop(mob/living/carbon/human/user, obj/over_object)
 	. = FALSE
-	if(over_object == user && ishuman(user) && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) && !ismecha(user.loc) && !is_ventcrawling(user) && master_item.IsReachableBy(user))
+	if(over_object == user && ishuman(user) && !user.incapacitated && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) && !ismecha(user.loc) && !is_ventcrawling(user) && master_item.IsReachableBy(user))
 		open(user)
 		master_item.add_fingerprint(user)
 		return TRUE
@@ -47,7 +47,7 @@
  */
 /obj/item/storage/internal/proc/handle_attack_hand(mob/living/carbon/human/user)
 	. = TRUE
-	if(master_item.loc != user || !ishuman(user) || user.incapacitated() || ismecha(user.loc) || is_ventcrawling(user))
+	if(master_item.loc != user || !ishuman(user) || user.incapacitated || ismecha(user.loc) || is_ventcrawling(user))
 		return FALSE
 
 	//Prevents opening if it's in a pocket.

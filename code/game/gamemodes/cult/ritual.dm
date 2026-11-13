@@ -98,7 +98,7 @@
 				return TRUE
 
 /obj/item/melee/cultblade/dagger/proc/can_scribe(mob/living/user)
-	if(!src || !user || loc != user || user.incapacitated())
+	if(!src || !user || loc != user || user.incapacitated)
 		return FALSE
 	var/turf/T = get_turf(user)
 	if(isspaceturf(T))

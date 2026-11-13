@@ -13,7 +13,7 @@
 	return ..()
 
 /datum/ai_core_display_picker/ui_status(mob/user, datum/ui_state/state)
-	if(!ai_user || user != ai_user || ai_user.incapacitated())
+	if(!ai_user || user != ai_user || ai_user.incapacitated)
 		return UI_CLOSE
 	return ..()
 

@@ -528,7 +528,7 @@
 	cut_overlay(zap_appearance)
 
 /mob/living/carbon/human/Topic(href, href_list)
-	if(in_range(src, usr) && !usr.incapacitated() && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(in_range(src, usr) && !usr.incapacitated && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 
 		if(href_list["embedded_object"])
 			var/obj/item/organ/external/bodypart = locateUID(href_list["embedded_limb"])
@@ -598,7 +598,7 @@
 
 	if(href_list["criminal"])
 		if(hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE))
-			if(usr.incapacitated())
+			if(usr.incapacitated)
 				return
 			var/found_record = 0
 			var/perpname = get_visible_name(add_id_name = FALSE)
@@ -646,7 +646,7 @@
 
 	if(href_list["secrecord"])
 		if(hasHUD(usr, EXAMINE_HUD_SECURITY_READ))
-			if(usr.incapacitated())
+			if(usr.incapacitated)
 				return
 			var/perpname = get_visible_name(add_id_name = FALSE)
 			var/read = 0
@@ -670,7 +670,7 @@
 
 	if(href_list["secrecordComment"])
 		if(hasHUD(usr, EXAMINE_HUD_SECURITY_READ))
-			if(usr.incapacitated() && !isobserver(usr)) //give the ghosts access to "View Comment Log" while they can't manipulate it
+			if(usr.incapacitated && !isobserver(usr)) //give the ghosts access to "View Comment Log" while they can't manipulate it
 				return
 			var/perpname = get_visible_name(add_id_name = FALSE)
 			var/read = 0
@@ -693,17 +693,17 @@
 				to_chat(usr, span_warning("Unable to locate a data core entry for this person."))
 
 	if(href_list["secrecordadd"])
-		if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE))
+		if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE))
 			return
 		var/raw_input = tgui_input_text(usr, "Add Comment:", "Security records", multiline = TRUE, encode = FALSE)
 		var/sanitized = copytext(trim(sanitize(raw_input)), 1, MAX_MESSAGE_LEN)
-		if(!sanitized || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !hasHUD(usr,  EXAMINE_HUD_SECURITY_WRITE))
+		if(!sanitized || usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !hasHUD(usr,  EXAMINE_HUD_SECURITY_WRITE))
 			return
 		add_comment(usr, "security", sanitized)
 
 	if(href_list["medical"])
 		if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
-			if(usr.incapacitated())
+			if(usr.incapacitated)
 				return
 			var/modified = 0
 			var/perpname = get_visible_name(add_id_name = FALSE)
@@ -729,7 +729,7 @@
 
 	if(href_list["medrecord"])
 		if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
-			if(usr.incapacitated())
+			if(usr.incapacitated)
 				return
 			var/read = 0
 			var/perpname = get_visible_name(add_id_name = FALSE)
@@ -754,7 +754,7 @@
 
 	if(href_list["medrecordComment"])
 		if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
-			if(usr.incapacitated())
+			if(usr.incapacitated)
 				return
 			var/perpname = get_visible_name(add_id_name = FALSE)
 			var/read = FALSE
@@ -776,17 +776,17 @@
 				to_chat(usr, span_warning("Unable to locate a data core entry for this person."))
 
 	if(href_list["medrecordadd"])
-		if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !hasHUD(usr, EXAMINE_HUD_MEDICAL))
+		if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !hasHUD(usr, EXAMINE_HUD_MEDICAL))
 			return
 		var/raw_input = tgui_input_text(usr, "Add Comment:", "Medical records", multiline = TRUE, encode = FALSE)
 		var/sanitized = copytext(trim(sanitize(raw_input)), 1, MAX_MESSAGE_LEN)
-		if(!sanitized || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !hasHUD(usr,  EXAMINE_HUD_MEDICAL))
+		if(!sanitized || usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !hasHUD(usr,  EXAMINE_HUD_MEDICAL))
 			return
 		add_comment(usr, "medical", sanitized)
 
 	if(href_list["employment_more"])
 		if(hasHUD(usr, EXAMINE_HUD_SKILLS))
-			if(usr.incapacitated() && !isobserver(usr))
+			if(usr.incapacitated && !isobserver(usr))
 				return
 
 			var/skills
@@ -991,7 +991,7 @@
 GAME_VERB_SRC(/mob/living/carbon/human, check_pulse, view(1), "Проверить пульс", VERB_CATEGORY_HIDDEN)
 	var/self = 0
 
-	if(!isliving(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(!isliving(usr) || usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(usr == src)
@@ -1315,7 +1315,7 @@ GAME_VERB_PROC_DESC(/mob/living/carbon/human, bloody_doodle, "Рисовать �
 
 	if(usr != src)
 		return 0 //something is terribly wrong
-	if(incapacitated())
+	if(incapacitated)
 		balloon_alert(src, "невозможно в данный момент!")
 		return
 	if(!bloody_hands)
@@ -2076,7 +2076,7 @@ GAME_VERB_DESC(/mob/living/carbon/human, set_flavor, "Описание внеш�
 	return ishuman(target) && target.body_position == LYING_DOWN
 
 /mob/living/carbon/human/proc/fireman_carry(mob/living/carbon/target)
-	if(!can_be_firemanned(target) || incapacitated(IGNORE_GRAB))
+	if(!can_be_firemanned(target) || INCAPACITATED_IGNORING(src, INCAPABLE_GRAB))
 		target.balloon_alert(src, "цель не лежит!")
 		return
 	/// if you have latex you are faster at grabbing
@@ -2100,7 +2100,7 @@ GAME_VERB_DESC(/mob/living/carbon/human, set_flavor, "Описание внеш�
 		return
 
 	//Second check to make sure they're still valid to be carried
-	if(!can_be_firemanned(target) || incapacitated(IGNORE_GRAB) || target.buckled)
+	if(!can_be_firemanned(target) || INCAPACITATED_IGNORING(src, INCAPABLE_GRAB) || target.buckled)
 		visible_message(
 			span_warning("[declent_ru(DATIVE)] не удаётся взять [target.declent_ru(ACCUSATIVE)] в пожарный захват."),
 			ignored_mobs = src

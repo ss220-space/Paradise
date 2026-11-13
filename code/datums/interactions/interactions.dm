@@ -57,7 +57,7 @@
 		local_cached_checks |= INTERACTION_CHECH_MOUTH
 
 	if(intaraction_flags & INTERACTION_CHECH_INCAPITATED)
-		if(user.incapacitated())
+		if(user.incapacitated)
 			local_cached_failed_checks |= INTERACTION_CHECH_INCAPITATED
 			return FALSE
 		local_cached_checks |= INTERACTION_CHECH_INCAPITATED

@@ -446,7 +446,7 @@ GAME_VERB_PROC_DESC(/mob/living/silicon/ai, pick_icon, "Поменять дис�
 	if(stat || aiRestorePowerRoutine)
 		return
 
-	if(incapacitated())
+	if(incapacitated)
 		to_chat(src, span_warning("You cannot access the core display controls in your current state."))
 		return
 

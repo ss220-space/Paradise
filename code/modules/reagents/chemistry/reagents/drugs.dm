@@ -4,6 +4,11 @@
 	description = "Химический элемент."
 	color = "#808080" // rgb: 128, 128, 128
 	taste_description = "металла"
+	chemfiresupp = TRUE
+	intensitymod = 0.15
+	burncolor = "#ff356f"
+	burncolormod = 5
+	properties = list(PROPERTY_OXIDIZING = 1)
 
 /datum/reagent/lithium/on_mob_life(mob/living/M)
 	if(isturf(M.loc) && !isspaceturf(M.loc))

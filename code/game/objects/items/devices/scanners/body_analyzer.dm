@@ -74,7 +74,7 @@
 /obj/item/bodyanalyzer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
 
-	if(user.incapacitated() || !user.Adjacent(target))
+	if(user.incapacitated || !user.Adjacent(target))
 		return .
 
 	if(!ready)
@@ -92,7 +92,7 @@
 /obj/item/bodyanalyzer/borg/attack(mob/living/target, mob/living/silicon/robot/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
 
-	if(user.incapacitated() || !user.Adjacent(target))
+	if(user.incapacitated || !user.Adjacent(target))
 		return .
 
 	if(!ready)

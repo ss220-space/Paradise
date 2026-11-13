@@ -41,3 +41,27 @@
 
 /// Sanity check limit to clamp chems to sane amounts and prevent rounding errors during transfer.
 #define CHEMICAL_VOLUME_ROUNDING 0.01
+
+/// The minimum amount of a fire penetrating chemical required to turn a fire into fire penetrating
+#define CHEM_FIRE_PENETRATION_THRESHOLD 10
+/// An intensity greater than this will cause a fire to be star shape
+#define CHEM_FIRE_STAR_THRESHOLD 30
+
+#define CHEM_FIRE_IRREGULAR_THRESHOLD 15
+
+//Reaction Properties
+#define PROPERTY_FUELING "fueling"
+#define PROPERTY_OXIDIZING "oxidizing"
+#define PROPERTY_FLOWING "flowing"
+#define PROPERTY_FIRE_PENETRATING "fire-penetrating"
+
+#define PROPERTY_RADIUS "radius" // Fire related admin property
+#define PROPERTY_INTENSITY "intensity" // Fire related admin property
+#define PROPERTY_DURATION "duration" // Fire related admin property
+
+#define COMBUST_DATA_RADIUS "radius"
+#define COMBUST_DATA_INTENSITY "intensity"
+#define COMBUST_DATA_DURATION "duration"
+#define COMBUST_DATA_SUPPLEMENTED "supplemented"
+#define COMBUST_DATA_FIRECOLOR "firecolor"
+#define COMBUST_DATA_PENETRATING "fire_penetrating"

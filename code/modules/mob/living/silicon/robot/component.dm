@@ -140,6 +140,14 @@
 	external_type = /obj/item/robot_parts/robot_component/actuator
 	max_damage = 50
 
+/datum/robot_component/actuator/go_online()
+	. = ..()
+	owner.update_incapacitated()
+
+/datum/robot_component/actuator/go_offline()
+	. = ..()
+	owner.update_incapacitated()
+
 /datum/robot_component/cell
 	name = "power cell"
 	max_damage = 50

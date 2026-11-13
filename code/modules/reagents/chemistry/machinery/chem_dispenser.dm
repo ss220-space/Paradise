@@ -37,7 +37,7 @@
 		/datum/reagent/saltpetre, /datum/reagent/ammonia,
 		/datum/reagent/diethylamine, /datum/reagent/fuel,
 	)
-	var/list/hacked_reagents = list(/datum/reagent/toxin)
+	var/list/hacked_reagents = list(/datum/reagent/toxin, /datum/reagent/toxin/phoron)
 	var/is_drink = FALSE
 	var/base_skill = /datum/skill/medical/chemistry
 	var/dispence_skill_name = CHEMISTRY_DISPENSE_RAND_SIZE

@@ -318,7 +318,7 @@
 	. = ..()
 	var/failure = FALSE
 	var/mob/living/user = cast_on
-	if(ismob(user.loc) || user.incapacitated(IGNORE_RESTRAINTS) || user.buckled)
+	if(ismob(user.loc) || INCAPACITATED_IGNORING(user, INCAPABLE_RESTRAINTS) || user.buckled)
 		to_chat(user, span_warning("Вы не можете прыгнуть прямо сейчас!"))
 		return
 	var/turf/turf_to_check = get_turf(user)

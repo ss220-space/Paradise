@@ -1,0 +1,4 @@
+author: "broodjeh-lang"
+delete-after: True
+changes:
+  - bugfix: "Теперь кравмага синдиката себя ведет как положено. (PR #10020)"

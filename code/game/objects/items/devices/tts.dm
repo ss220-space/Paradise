@@ -27,7 +27,7 @@
 
 /obj/item/ttsdevice/click_alt(mob/living/user)
 	var/noisechoice = tgui_input_list(user, "What noise would you like to make?", "Robot Noises", list("Beep", "Buzz", "Ping"))
-	if(!noisechoice || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!noisechoice || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return CLICK_ACTION_BLOCKING
 	switch(noisechoice)
 		if("Beep")
@@ -42,10 +42,10 @@
 	return CLICK_ACTION_SUCCESS
 
 /obj/item/ttsdevice/CtrlClick(mob/living/user)
-	if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!Adjacent(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	var/new_name = tgui_input_text(user, "Name your Text-to-Speech device: \nThis matters for displaying it in the chat bar:", "TTS Device")
-	if(!new_name || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!new_name || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	new_name = reject_bad_name(new_name)
 	name = "[new_name]’s [initial(name)]"

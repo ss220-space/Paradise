@@ -26,7 +26,7 @@
 			. += filling
 
 /obj/machinery/iv_drip/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 
 	if(!ishuman(user) || !ishuman(over_object))

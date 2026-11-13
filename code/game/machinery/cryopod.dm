@@ -302,7 +302,7 @@
 
 // So the user can use movement keys to get out of the cryopod
 /obj/machinery/cryopod/relaymove(mob/user)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return FALSE
 	go_out()
 
@@ -539,7 +539,7 @@
 /obj/machinery/cryopod/mouse_drop_receive(atom/movable/O, mob/user, params)
 	if(O.loc == user) //no you can't pull things out of your ass
 		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
 		return
 	if(get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
 		return

@@ -330,3 +330,4 @@ GLOBAL_LIST_EMPTY(sfx_datum_by_key)
 #define SFX_TRAY_DROP "tray_drop"
 #define SFX_MENDER "mender"
 #define SFX_GLITCHED_PDA_RINGTONE "glitched_pda"
+#define SFX_FLAMETHROWER "flamethrower"

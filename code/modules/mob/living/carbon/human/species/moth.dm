@@ -194,7 +194,7 @@
 		return
 	H.visible_message(span_notice("[H] замирает, начиная плести кокон..."), span_notice("Вы концентрируетесь на создании кокона... (Это займёт [COCOON_WEAVE_DELAY / 10] секунд, вы должны оставаться неподвижным.)"))
 	if(do_after(H, COCOON_WEAVE_DELAY, H, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
-		if(H.incapacitated())
+		if(H.incapacitated)
 			to_chat(H, span_warning("Вы не можете создать кокон в текущем состоянии."))
 			return
 		H.visible_message(span_notice("[H] заканчивает плести кокон!"), span_notice("Вы заканчиваете плести свой кокон."))

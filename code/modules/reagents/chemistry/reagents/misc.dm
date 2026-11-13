@@ -38,6 +38,12 @@
 	reagent_state = GAS
 	color = "#808080" // rgb: 128, 128, 128
 	taste_mult = 0
+	chemfiresupp = TRUE
+	intensitymod = 0.75
+	radiusmod = -0.08
+	burncolor = "#58daff"
+	burncolormod = 2
+	properties = list(PROPERTY_OXIDIZING = 2)
 
 /datum/reagent/nitrogen
 	name = "Азот"
@@ -54,6 +60,13 @@
 	reagent_state = GAS
 	color = "#808080" // rgb: 128, 128, 128
 	taste_mult = 0
+	chemfiresupp = TRUE
+	durationmod = -0.5
+	radiusmod = 0.2
+	intensitymod = -0.5
+	burncolor = "#b6f8ff"
+	burncolormod = 2
+	properties = list(PROPERTY_FUELING = 1)
 
 /datum/reagent/potassium
 	name = "Калий"
@@ -82,6 +95,12 @@
 	description = "Химический элемент."
 	color = "#832828" // rgb: 131, 40, 40
 	taste_description = "неправильных выборов"
+	chemfiresupp = TRUE
+	intensitymod = 1
+	durationmod = 0.1
+	radiusmod = -0.12
+	burncolor = "#ffdba4"
+	burncolormod = 5
 
 /datum/reagent/carbon
 	name = "Углерод"
@@ -89,6 +108,10 @@
 	description = "Химический элемент."
 	color = "#1C1300" // rgb: 30, 20, 0
 	taste_description = "пишущей части карандаша"
+	chemfiresupp = TRUE
+	durationmod = 1
+	burncolor = "#ffd700"
+	burncolormod = 3
 
 /datum/reagent/carbon/reaction_turf(turf/target_turf, volume)
 	if(!(locate(/obj/effect/decal/cleanable/dirt) in target_turf) && !isspaceturf(target_turf)) // Only add one dirt per turf.  Was causing people to crash.
@@ -127,6 +150,9 @@
 	description = "Высокопластичный металл."
 	color = "#6E3B08" // rgb: 110, 59, 8
 	taste_description = "меди"
+	chemfiresupp = TRUE
+	burncolor = "#78be5a"
+	burncolormod = 4
 
 /datum/reagent/chromium
 	name = "Хром"
@@ -398,7 +424,7 @@
 		var/lovely_phrase = pick("оценивают по достоинству", "любят", "ценят", "уважают", "признают")
 		to_chat(target_mob, span_notice("Вы чувствуете, что вас [lovely_phrase]."))
 
-	else if(!target_mob.incapacitated() && !HAS_TRAIT(target_mob, TRAIT_HANDS_BLOCKED))
+	else if(!target_mob.incapacitated && !HAS_TRAIT(target_mob, TRAIT_HANDS_BLOCKED))
 		for(var/mob/living/carbon/target_carbon in orange(1, target_mob))
 			if(target_carbon)
 				if(target_carbon == target_mob)
