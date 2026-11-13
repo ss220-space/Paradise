@@ -48806,10 +48806,7 @@
 	},
 /area/station/medical/chemistry)
 "lqV" = (
-/mob/living/simple_animal/hostile/retaliate/goat{
-	name = "Pete";
-	real_name = "Pete"
-	},
+/mob/living/simple_animal/hostile/retaliate/goat/Piti,
 /obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"

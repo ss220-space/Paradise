@@ -101069,10 +101069,7 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/command/east)
 "rnW" = (
-/mob/living/simple_animal/hostile/retaliate/goat{
-	name = "Pete";
-	real_name = "Pete"
-	},
+/mob/living/simple_animal/hostile/retaliate/goat/Piti,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
