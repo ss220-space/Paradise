@@ -216,11 +216,11 @@
 
 	var/space_left = fuel_max - fuel_count
 	var/needed_units = max(1, round(space_left / FUEL_TRANSFER_MULTIPLIER))
-	var/pour_amount = min(container.amount_per_transfer_from_this, container.reagents.get_reagent_amount("fuel"), needed_units)
+	var/pour_amount = min(container.amount_per_transfer_from_this, container.reagents.get_reagent_amount(/datum/reagent/fuel), needed_units)
 	if(pour_amount <= 0)
 		return
 	var/fuel_added = min(pour_amount * FUEL_TRANSFER_MULTIPLIER, space_left)
-	container.reagents.remove_reagent("fuel", pour_amount)
+	container.reagents.remove_reagent(/datum/reagent/fuel, pour_amount)
 	fuel_count += fuel_added
 
 	playsound(loc, 'sound/effects/refill.ogg', 25, TRUE)
