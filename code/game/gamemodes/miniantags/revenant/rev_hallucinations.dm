@@ -40,11 +40,6 @@
 	var/mob/living/mobtarget
 	var/image_icon = 'icons/effects/revenant.dmi'
 	var/image_icon_state = "ghostlyfireball"
-	var/list/sounds = list(
-		'sound/hallucinations/revfireball1.ogg',
-		'sound/hallucinations/revfireball2.ogg',
-		'sound/hallucinations/revfireball3.ogg',
-	)
 
 /obj/projectile/cursed_fireball/get_ru_names()
 	return alist(
@@ -76,7 +71,7 @@
 	if(target != original)
 		return FALSE
 	. = ..()
-	SEND_SOUND(target, sound(pick(sounds)))
+	SEND_SOUND(target, SFX_REV_HALLUCINATIONS)
 	if(prob(15))
 		mobtarget.apply_status_effect(/datum/status_effect/cursed_flame, 5 SECONDS, firer)
 	qdel(src)

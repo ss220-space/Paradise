@@ -650,11 +650,6 @@
 	aoe_radius = 3
 	radius_increase_per_level = 2
 	targeting_type = /datum/aoe_targeting/human
-	var/list/sounds = list(
-		'sound/hallucinations/revfireball1.ogg',
-		'sound/hallucinations/revfireball2.ogg',
-		'sound/hallucinations/revfireball3.ogg',
-	)
 
 
 /datum/action/cooldown/spell/aoe/revenant/soul_fire/get_spell_title()
@@ -669,7 +664,7 @@
 /datum/action/cooldown/spell/aoe/revenant/soul_fire/cast(atom/cast_on)
 	. = ..()
 	revenant_fire_ring(owner.loc, aoe_radius)
-	playsound(owner.loc, pick(sounds), 50, TRUE)
+	playsound(owner.loc, SFX_REV_HALLUCINATIONS, 50, TRUE)
 
 /datum/action/cooldown/spell/aoe/revenant/soul_fire/cast_on_thing_in_aoe(atom/victim, atom/caster)
 	if(!ishuman(victim))
@@ -822,11 +817,6 @@
 	forcedodge = -1
 	ricochets_max = 0
 	suppressed = TRUE
-	var/list/sounds = list(
-		'sound/hallucinations/revfireball1.ogg',
-		'sound/hallucinations/revfireball2.ogg',
-		'sound/hallucinations/revfireball3.ogg',
-	)
 
 /obj/projectile/rev_tear/get_ru_names()
 	return alist(
@@ -842,7 +832,7 @@
 	if(target != original)
 		return FALSE
 	. = ..()
-	SEND_SOUND(target, sound(pick(sounds)))
+	SEND_SOUND(target, SFX_REV_HALLUCINATIONS)
 	var/mob/living/carbon/human/mobtarget = target
 	mobtarget.apply_status_effect(/datum/status_effect/cursed_flame, jitter, firer)
 	qdel(src)
