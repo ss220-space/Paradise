@@ -48806,7 +48806,7 @@
 	},
 /area/station/medical/chemistry)
 "lqV" = (
-/mob/living/simple_animal/hostile/retaliate/goat/Piti,
+/mob/living/simple_animal/hostile/retaliate/goat/piti,
 /obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
