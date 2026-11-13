@@ -238,7 +238,7 @@
 		return TRUE
 	if(!isliving(user))
 		return FALSE
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return FALSE
 	if(!Adjacent(user))
 		return FALSE

@@ -13,6 +13,13 @@
 	var/list/addiction_threshold_accumulated = new/list()
 	var/flags
 	var/locked = FALSE
+	var/max_fire_rad = 5
+	var/max_fire_int = 20
+	var/max_fire_dur = 24
+	var/min_fire_rad = 1
+	var/min_fire_int = 3
+	var/min_fire_dur = 3
+	var/trigger_volatiles = FALSE
 
 /datum/reagents/New(maximum = 100, temperature_minimum, temperature_maximum)
 	maximum_volume = maximum
@@ -48,7 +55,7 @@
 			current_list_element = 1
 		var/datum/reagent/current_reagent = cached_reagents[current_list_element]
 
-		remove_reagent(current_reagent.id, min(1, amount - total_transfered))
+		remove_reagent(current_reagent.type, min(1, amount - total_transfered))
 
 		current_list_element++
 		total_transfered++
@@ -62,7 +69,7 @@
 		var/part = amount / total_volume
 		for(var/A in reagent_list)
 			var/datum/reagent/R = A
-			remove_reagent(R.id, R.volume * part)
+			remove_reagent(R.type, R.volume * part)
 
 		update_total()
 		handle_reactions()
@@ -92,15 +99,15 @@
 
 /// Get the id of the reagent there is the most of in this holder
 /datum/reagents/proc/get_master_reagent_id()
-	var/the_id
+	var/the_type
 	var/max_volume = 0
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
 		if(R.volume > max_volume)
 			max_volume = R.volume
-			the_id = R.id
+			the_type = R.type
 
-	return the_id
+	return the_type
 
 /datum/reagents/proc/trans_to(target, amount = 1, multiplier = 1, preserve_data = TRUE, no_react = FALSE) //if preserve_data=0, the reagents data will be lost. Usefull if you use data for some strange stuff and don't want it to be transferred.
 	if(!target)
@@ -133,8 +140,8 @@
 		if(preserve_data)
 			trans_data = copy_data(current_reagent)
 
-		R.add_reagent(current_reagent.id, (current_reagent_transfer * multiplier), trans_data, chem_temp, no_react = TRUE)
-		remove_reagent(current_reagent.id, current_reagent_transfer)
+		R.add_reagent(current_reagent.type, (current_reagent_transfer * multiplier), trans_data, chem_temp, no_react = TRUE)
+		remove_reagent(current_reagent.type, current_reagent_transfer)
 
 	update_total()
 	R.update_total()
@@ -160,7 +167,7 @@
 		var/current_reagent_transfer = current_reagent.volume * part
 		if(preserve_data)
 			trans_data = copy_data(current_reagent)
-		R.add_reagent(current_reagent.id, (current_reagent_transfer * multiplier), trans_data)
+		R.add_reagent(current_reagent.type, (current_reagent_transfer * multiplier), trans_data)
 
 	update_total()
 	R.update_total()
@@ -209,11 +216,11 @@
 	var/trans_data = null
 	for(var/A in reagent_list)
 		var/datum/reagent/current_reagent = A
-		if(current_reagent.id == reagent)
+		if(current_reagent.type == reagent)
 			if(preserve_data)
 				trans_data = copy_data(current_reagent)
-			R.add_reagent(current_reagent.id, amount, trans_data, chem_temp)
-			remove_reagent(current_reagent.id, amount, TRUE)
+			R.add_reagent(current_reagent.type, amount, trans_data, chem_temp)
+			remove_reagent(current_reagent.type, amount, TRUE)
 			break
 
 	update_total()
@@ -277,12 +284,12 @@
 			//If the mob can't process it, remove the reagent at it's normal rate without doing any addictions, overdoses, or on_mob_life() for the reagent
 			if(!can_process)
 				if(!species_handled)
-					reagent.holder.remove_reagent(reagent.id, reagent.metabolization_rate)
+					reagent.holder.remove_reagent(reagent.type, reagent.metabolization_rate)
 				continue
 		//We'll assume that non-human mobs lack the ability to process synthetic-oriented reagents (adjust this if we need to change that assumption)
 		else
 			if(reagent.process_flags == SYNTHETIC)
-				reagent.holder.remove_reagent(reagent.id, reagent.metabolization_rate)
+				reagent.holder.remove_reagent(reagent.type, reagent.metabolization_rate)
 				continue
 		//If you got this far, that means we can process whatever reagent this iteration is for. Handle things normally from here.
 		if(M && reagent)
@@ -359,7 +366,7 @@
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
 		if(R.overdosed)
-			od_chems.Add(R.id)
+			od_chems.Add(R.type)
 	return od_chems
 
 /datum/reagents/proc/set_reacting(react = TRUE)
@@ -382,14 +389,14 @@
 
 /datum/reagents/proc/find_blood_group(datum/chemical_reaction/reaction)
 	for(var/K in reaction.required_blood_group)
-		var/datum/reagent/I = has_reagent("blood", reaction.required_reagents["blood"])
+		var/datum/reagent/I = has_reagent(/datum/reagent/blood, reaction.required_reagents[/datum/reagent/blood])
 		if(I.data["blood_group"] == K)
 			return TRUE
 	return FALSE
 
 /datum/reagents/proc/find_blood_species(datum/chemical_reaction/reaction)
 	for(var/K in reaction.required_blood_species)
-		var/datum/reagent/I = has_reagent("blood", reaction.required_reagents["blood"])
+		var/datum/reagent/I = has_reagent(/datum/reagent/blood, reaction.required_reagents[/datum/reagent/blood])
 		if(I.data["blood_species"] == K)
 			return TRUE
 	return FALSE
@@ -403,7 +410,7 @@
 		reaction_occured = FALSE
 		for(var/A in reagent_list) // Usually a small list
 			var/datum/reagent/R = A
-			for(var/reaction in GLOB.chemical_reactions_list[R.id] | GLOB.chemical_reactions_list[R.type]) // Was a big list but now it should be smaller since we filtered it with our reagent id
+			for(var/reaction in GLOB.chemical_reactions_list[R.type]) // Was a big list but now it should be smaller since we filtered it with our reagent id
 				if(!reaction)
 					continue
 
@@ -420,7 +427,7 @@
 				for(var/B in C.required_reagents)
 					if(!has_reagent(B, C.required_reagents[B]))
 						break
-					if((B == "blood" || B == /datum/reagent/blood) && (C.required_blood_group || C.required_blood_species))
+					if((B == /datum/reagent/blood) && (C.required_blood_group || C.required_blood_species))
 						if(C.required_blood_group)
 							if(!find_blood_group(C))
 								break
@@ -493,15 +500,109 @@
 					C.on_reaction(src, created_volume)
 					reaction_occured = TRUE
 					break
-
 	while(reaction_occured)
+	if(trigger_volatiles)
+		var/list/combust_data = calc_combust_data()
+		if(combust_data)
+			clear_reagents()
+			combust(get_turf(my_atom), combust_data[COMBUST_DATA_RADIUS], combust_data[COMBUST_DATA_INTENSITY], combust_data[COMBUST_DATA_DURATION], combust_data[COMBUST_DATA_SUPPLEMENTED], combust_data[COMBUST_DATA_FIRECOLOR], combust_data[COMBUST_DATA_PENETRATING])
+		trigger_volatiles = FALSE
 	update_total()
 	return FALSE
+
+/datum/reagents/proc/calc_combust_data()
+	var/radius = 0
+	var/intensity = 0
+	var/duration = 0
+	var/supplemented = 0
+	var/fire_penetrating = FALSE
+	var/intensityfire = 0
+	var/durationfire = 0
+	var/rangefire = 0
+	var/max_spec_volume = 20
+	var/list/supplements = list()
+
+	for(var/datum/reagent/reagent as anything in reagent_list)
+		var/reagent_volume = reagent.volume
+		if(reagent.chemfiresupp)
+			supplements += reagent
+			supplemented += reagent.intensitymod * reagent_volume
+			intensity += reagent.intensitymod * reagent_volume
+			duration += reagent.durationmod * reagent_volume
+			radius += reagent.radiusmod * reagent_volume
+			if(reagent.fire_penetrating && reagent_volume >= CHEM_FIRE_PENETRATION_THRESHOLD)
+				fire_penetrating = TRUE
+		if(reagent.chemfirescpec && reagent_volume > max_spec_volume)
+			max_spec_volume = reagent_volume
+			intensityfire = reagent.intensityfire
+			durationfire = reagent.durationfire
+			rangefire = reagent.rangefire
+
+	radius = max(radius, rangefire)
+	intensity = max(intensity, intensityfire)
+	duration = max(duration, durationfire)
+	supplemented = max(supplemented, intensityfire)
+
+	if(intensity <= 0)
+		return null
+
+	// some upper and lower limits
+	if(radius <= min_fire_rad)
+		radius = min_fire_rad
+	else if(radius >= max_fire_rad)
+		radius = max_fire_rad
+	if(intensity <= min_fire_int)
+		intensity = min_fire_int
+	else if(intensity >= max_fire_int)
+		intensity = max_fire_int
+	if(duration <= min_fire_dur)
+		duration = min_fire_dur
+	else if(duration >= max_fire_dur)
+		duration = max_fire_dur
+
+	return list(
+		COMBUST_DATA_RADIUS = radius,
+		COMBUST_DATA_INTENSITY = intensity,
+		COMBUST_DATA_DURATION = duration,
+		COMBUST_DATA_SUPPLEMENTED = supplemented,
+		COMBUST_DATA_FIRECOLOR = mix_burn_colors(supplements),
+		COMBUST_DATA_PENETRATING = fire_penetrating,
+	)
+
+/datum/reagents/proc/combust(turf/sourceturf, radius, intensity, duration, supplemented, firecolor, fire_penetrating, flush_beaker = TRUE)
+	if(!sourceturf)
+		return
+	if(sourceturf.density || sourceturf.blocks_air)
+		return // Has recently exploded, so no explosion this time. Prevents instagib satchel charges.
+
+	var/flameshape = FLAMESHAPE_DEFAULT
+
+	// shape
+	if(supplemented > 0 && intensity > CHEM_FIRE_STAR_THRESHOLD)
+		flameshape = FLAMESHAPE_STAR
+
+	if(supplemented < 0 && intensity < CHEM_FIRE_IRREGULAR_THRESHOLD)
+		flameshape = FLAMESHAPE_IRREGULAR
+		radius += 2 //  to make up for tiles lost to irregular shape
+
+	log_and_message_admins("Chemical fire with Intensity: [intensity], Duration: [duration], Radius: [radius], Flameshape: [flameshape] in [sourceturf.loc.name] ([sourceturf.x],[sourceturf.y],[sourceturf.z]).", sourceturf.x, sourceturf.y, sourceturf.z)
+
+	var/datum/reagent/reagent = new()
+	reagent.durationfire = duration
+	reagent.intensityfire = intensity
+	reagent.rangefire = radius
+
+	reagent.burncolor = firecolor
+	reagent.color = firecolor
+
+	reagent.fire_penetrating = fire_penetrating
+
+	new /obj/flamer_fire(sourceturf, reagent, radius, null, flameshape)
 
 /datum/reagents/proc/floor_reagent(reagent)
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
-		if(R.id == reagent)
+		if(R.type == reagent)
 			R.volume = floor(R.volume)
 			update_total()
 			return TRUE
@@ -510,14 +611,14 @@
 /datum/reagents/proc/isolate_reagent(reagent)
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
-		if(R.id != reagent)
-			del_reagent(R.id)
+		if(R.type != reagent)
+			del_reagent(R.type)
 			update_total()
 
-/datum/reagents/proc/del_reagent(reagent_id)
+/datum/reagents/proc/del_reagent(reagent_type)
 	var/list/cached_reagents = reagent_list
 	for(var/datum/reagent/reagent as anything in cached_reagents)
-		if(reagent.id == reagent_id || reagent.type == reagent_id)
+		if(reagent.type == reagent_type)
 			if(isliving(my_atom))
 				if(reagent.metabolizing)
 					reagent.metabolizing = FALSE
@@ -537,7 +638,7 @@
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
 		if(R.volume < 0.1)
-			del_reagent(R.id)
+			del_reagent(R.type)
 		else
 			total_volume += R.volume
 	return FALSE
@@ -545,7 +646,7 @@
 /datum/reagents/proc/clear_reagents()
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
-		del_reagent(R.id)
+		del_reagent(R.type)
 	return FALSE
 
 /datum/reagents/proc/reaction_check(mob/living/M, datum/reagent/R)
@@ -635,73 +736,67 @@
 			if("OBJ")
 				R.reaction_obj(A, R.volume * volume_modifier)
 
-/datum/reagents/proc/add_reagent_list(list/list_reagents, list/data = null) // Like add_reagent but you can enter a list. Format it like this: list("toxin" = 10, "beer" = 15)
+/datum/reagents/proc/add_reagent_list(list/list_reagents, list/data = null) // Like add_reagent but you can enter a list. Format it like this: list(/datum/reagent/toxin = 10, /datum/reagent/consumable/ethanol/beer = 15)
 	for(var/r_id in list_reagents)
 		var/amt = list_reagents[r_id]
 		add_reagent(r_id, amt, data)
 
-/datum/reagents/proc/add_reagent(reagent, amount, list/data=null, reagtemp = T20C, no_react = FALSE)
-	if(!isnum(amount))
+/datum/reagents/proc/add_reagent(reagent_type, amount, list/data=null, reagtemp = T20C, no_react = FALSE)
+	if(!ispath(reagent_type))
+		stack_trace("invalid reagent passed to add reagent [reagent_type]")
+		return FALSE
+
+	if(!IS_FINITE(amount))
+		stack_trace("non finite amount passed to add reagent [amount] [reagent_type]")
 		return TRUE
 
 	update_total()
-	if(total_volume + amount > maximum_volume) amount = (maximum_volume - total_volume) // Doesnt fit in. Make it disappear. Shouldnt happen. Will happen.
-
+	if(total_volume + amount > maximum_volume)
+		amount = (maximum_volume - total_volume) // Doesnt fit in. Make it disappear. Shouldnt happen. Will happen.
 	if(amount <= 0)
 		return FALSE
 
 	chem_temp = clamp((chem_temp * total_volume + reagtemp * amount) / (total_volume + amount), temperature_min, temperature_max) // equalize with new chems
-	if(SEND_SIGNAL(src, COMSIG_EARLY_REAGENT_ADDED, reagent, amount, data, reagtemp, no_react, chem_temp) & COMPONENT_PREVENT_ADD_REAGENT)
+	if(SEND_SIGNAL(src, COMSIG_EARLY_REAGENT_ADDED, reagent_type, amount, data, reagtemp, no_react, chem_temp) & COMPONENT_PREVENT_ADD_REAGENT)
 		return FALSE
 
 	var/list/cached_reagents = reagent_list
-	for(var/A in cached_reagents)
-		var/datum/reagent/R = A
-		if(R.id == reagent || R.type == reagent)
-			R.volume += amount
-			update_total()
+	for(var/datum/reagent/cached_reagent in cached_reagents)
+		if(cached_reagent.type != reagent_type)
+			continue
 
-			if(my_atom)
-				my_atom.on_reagent_change()
-
-			R.on_merge(data)
-
-			if(!no_react)
-				temperature_react()
-				handle_reactions()
-
-			return FALSE
-
-	var/datum/reagent/D = (ispath(reagent))? new reagent() : GLOB.chemical_reagents_list[reagent]
-	if(D)
-		var/datum/reagent/R = new D.type()
-		cached_reagents += R
-		R.holder = src
-		R.volume = amount
-		R.on_new(data)
-
-		if(data)
-			R.data = data
-
-		if(isliving(my_atom))
-			R.on_mob_add(my_atom) // Must occur befor it could posibly run on_mob_delete
-
+		cached_reagent.volume += amount
 		update_total()
-
 		if(my_atom)
 			my_atom.on_reagent_change()
-
+		cached_reagent.on_merge(data)
 		if(!no_react)
 			temperature_react()
 			handle_reactions()
-
 		return FALSE
 
-	else
-		stack_trace("[my_atom] attempted to add a reagent called '[reagent]' which doesn't exist. ([usr])")
+	var/datum/reagent/reagent = new reagent_type()
+	cached_reagents += reagent
+	reagent.holder = src
+	reagent.volume = amount
+	reagent.on_new(data)
 
-	handle_reactions()
-	return TRUE
+	if(data)
+		reagent.data = data
+
+	if(isliving(my_atom))
+		reagent.on_mob_add(my_atom) // Must occur befor it could posibly run on_mob_delete
+
+	update_total()
+	if(my_atom)
+		my_atom.on_reagent_change()
+
+	if(!no_react)
+		temperature_react()
+		handle_reactions()
+
+	return amount
+
 
 /datum/reagents/proc/check_and_add(reagent, check, add)
 	if(get_reagent_amount(reagent) < check)
@@ -709,12 +804,16 @@
 		return TRUE
 
 /datum/reagents/proc/remove_reagent(reagent, amount, safety) //Added a safety check for the trans_id_to
+	if(!ispath(reagent))
+		stack_trace("invalid reagent passed to remove reagent [reagent]")
+		return FALSE
+
 	if(!isnum(amount) || amount <= 0 || !IS_FINITE(amount))
 		return TRUE
 
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
-		if(R.id == reagent || R.type == reagent)
+		if(R.type == reagent)
 			R.volume -= amount
 			update_total()
 			if(!safety) //So it does not handle reactions when it need not to
@@ -733,8 +832,12 @@
 	return FALSE
 
 /datum/reagents/proc/has_reagent(reagent, amount = -1)
+	if(!ispath(reagent))
+		stack_trace("invalid reagent passed to has reagent [reagent]")
+		return FALSE
+
 	for(var/datum/reagent/R in reagent_list)
-		if(R.id == reagent || R.type == reagent)
+		if(R.type == reagent)
 			if(!amount)
 				return R
 			else
@@ -745,8 +848,12 @@
 	return FALSE
 
 /datum/reagents/proc/has_addict_supertype_reagent(reagent, amount = -1)
+	if(!ispath(reagent))
+		stack_trace("invalid reagent passed to has addict supertype reagent [reagent]")
+		return FALSE
+
 	for(var/datum/reagent/R in reagent_list)
-		if(R.id == R.addict_supertype)
+		if(R.addict_supertype == reagent)
 			if(!amount)
 				return R
 			else
@@ -756,17 +863,19 @@
 					return FALSE
 	return FALSE
 
-/datum/reagents/proc/get_reagent_amount(reagent_id)
+/datum/reagents/proc/get_reagent_amount(reagent)
+	if(!ispath(reagent))
+		return FALSE
+
+	var/datum/reagent/found_reagent = get_reagent(reagent)
+	return found_reagent ? found_reagent.volume : FALSE
+
+/datum/reagents/proc/get_reagent_amount_by_id(reagent_id)
 	if(ispath(reagent_id))
-		var/datum/reagent/found_reagent = get_reagent(reagent_id)
-		return found_reagent ? found_reagent.volume : FALSE
+		return get_reagent_amount(reagent_id)
 
-	for(var/datum/reagent/current_reagent as anything in reagent_list)
-		if(current_reagent.id != reagent_id || current_reagent.type == reagent_id)
-			continue
-		return current_reagent.volume
-
-	return FALSE
+	var/datum/reagent/found_reagent = get_reagent_by_id(reagent_id)
+	return found_reagent ? found_reagent.volume : FALSE
 
 /datum/reagents/proc/get_reagents()
 	var/result = ""
@@ -804,7 +913,7 @@
 		// We found a match, proceed to remove the reagent.	Keep looping, we might find other reagents of the same type.
 		if(matches)
 			// Have our other proc handle removement
-			has_removed_reagent = remove_reagent(R.id, amount, safety)
+			has_removed_reagent = remove_reagent(R.type, amount, safety)
 
 	return has_removed_reagent
 
@@ -839,16 +948,16 @@
 	return TRUE
 
 //two helper functions to preserve data across reactions (needed for xenoarch)
-/datum/reagents/proc/get_data(reagent_id)
+/datum/reagents/proc/get_data(reagent_type)
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
-		if(R.id == reagent_id)
+		if(R.type == reagent_type)
 			return R.data
 
-/datum/reagents/proc/set_data(reagent_id, new_data)
+/datum/reagents/proc/set_data(reagent_type, new_data)
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
-		if(R.id == reagent_id)
+		if(R.type == reagent_type)
 			R.data = new_data
 
 /datum/reagents/proc/copy_data(datum/reagent/current_reagent)
@@ -916,13 +1025,13 @@
 	reagents = new /datum/reagents(max_vol, temperature_minimum, temperature_maximum)
 	reagents.my_atom = src
 
-/proc/get_random_reagent_id()	// Returns a random reagent ID minus blacklisted reagents
+/proc/get_random_reagent_type()	// Returns a random reagent ID minus blacklisted reagents
 	var/static/list/random_reagents = list()
 	if(!length(random_reagents))
 		for(var/thing  in subtypesof(/datum/reagent))
 			var/datum/reagent/R = thing
 			if(initial(R.can_synth))
-				random_reagents += initial(R.id)
+				random_reagents += R
 	var/picked_reagent = pick(random_reagents)
 	return picked_reagent
 
@@ -972,3 +1081,56 @@
 		return
 	for(var/mob/viewer in viewers(5, location))
 		to_chat(viewer, notification)
+
+/proc/mix_one_color(list/weight, list/color)
+	if(!weight || !color || length(weight) != length(color))
+		return 0
+
+	var/contents = length(weight)
+	var/i
+
+	//normalize weights
+	var/listsum = 0
+	for(i in 1 to contents)
+		listsum += weight[i]
+	for(i in 1 to contents)
+		weight[i] /= listsum
+
+	//mix them
+	var/mixedcolor = 0
+	for(i in 1 to contents)
+		mixedcolor += weight[i]*color[i]
+	mixedcolor = floor(mixedcolor)
+
+	mixedcolor = min(max(mixedcolor, 0), 255)
+
+	return mixedcolor
+
+/proc/mix_burn_colors(list/reagent_list)
+	var/contents = length(reagent_list)
+	var/list/weight = new /list(contents)
+	var/list/redcolor = new /list(contents)
+	var/list/greencolor = new /list(contents)
+	var/list/bluecolor = new /list(contents)
+
+	for(var/i in 1 to contents)
+		//fill the list of weights
+		var/datum/reagent/re = reagent_list[i]
+		weight[i] = max(re.volume, 1) * re.burncolormod
+		//fill the lists of colors
+		var/hue = re.burncolor
+		if(length(hue) != 7)
+			return 0
+		var/list/color_list = rgb2num(hue)
+		redcolor[i] = color_list[1]
+		greencolor[i] = color_list[2]
+		bluecolor[i] = color_list[3]
+
+	//mix all the colors
+	var/red = mix_one_color(weight,redcolor)
+	var/green = mix_one_color(weight,greencolor)
+	var/blue = mix_one_color(weight,bluecolor)
+
+	//assemble all the pieces
+	var/finalcolor = rgb(red, green, blue)
+	return finalcolor

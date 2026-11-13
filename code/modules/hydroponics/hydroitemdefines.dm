@@ -23,7 +23,7 @@
 	item_state = "plantbgone"
 	volume = 100
 	throw_range = 10
-	list_reagents = list("atrazine" = 100)
+	list_reagents = list(/datum/reagent/glyphosate/atrazine = 100)
 
 /obj/item/reagent_containers/spray/weedspray/get_ru_names()
 	return alist(
@@ -47,7 +47,7 @@
 	item_state = "plantbgone"
 	volume = 100
 	throw_range = 10
-	list_reagents = list("pestkiller" = 100)
+	list_reagents = list(/datum/reagent/pestkiller = 100)
 
 /obj/item/reagent_containers/spray/pestspray/get_ru_names()
 	return alist(
@@ -304,7 +304,7 @@
 	name = "jug of E-Z-Nutrient"
 	desc = "Пластиковая канистра для различных жидкостей. В ней содержится И-ЗИ-Нутриент."
 	icon_state = "plastic_jug_ez"
-	list_reagents = list("eznutriment" = 80)
+	list_reagents = list(/datum/reagent/plantnutriment/eznutriment = 80)
 
 /obj/item/reagent_containers/cup/bottle/nutrient/ez/get_ru_names()
 	return alist(
@@ -320,7 +320,7 @@
 	name = "jug of Left 4 Zed"
 	desc = "Пластиковая канистра для различных жидкостей. В ней содержится Лефт-Фо-Зед."
 	icon_state = "plastic_jug_l4z"
-	list_reagents = list("left4zednutriment" = 80)
+	list_reagents = list(/datum/reagent/plantnutriment/left4zednutriment = 80)
 
 /obj/item/reagent_containers/cup/bottle/nutrient/l4z/get_ru_names()
 	return alist(
@@ -336,7 +336,7 @@
 	name = "jug of Robust Harvest"
 	desc = "Пластиковая канистра для различных жидкостей. В ней содержится Робаст-Харвест."
 	icon_state = "plastic_jug_rh"
-	list_reagents = list("robustharvestnutriment" = 80)
+	list_reagents = list(/datum/reagent/plantnutriment/robustharvestnutriment = 80)
 
 /obj/item/reagent_containers/cup/bottle/nutrient/rh/get_ru_names()
 	return alist(
@@ -362,7 +362,7 @@
 	name = "jug of weed killer"
 	desc = "Пластиковая канистра для различных жидкостей. В ней содержится атразин."
 	icon_state = "plastic_jug_wk"
-	list_reagents = list("atrazine" = 80)
+	list_reagents = list(/datum/reagent/glyphosate/atrazine = 80)
 
 /obj/item/reagent_containers/cup/bottle/nutrient/killer/weedkiller/get_ru_names()
 	return alist(
@@ -378,7 +378,7 @@
 	name = "jug of pest spray"
 	desc = "Пластиковая канистра для различных жидкостей. В ней содержатся пестициды."
 	icon_state = "plastic_jug_pk"
-	list_reagents = list("pestkiller" = 80)
+	list_reagents = list(/datum/reagent/pestkiller = 80)
 
 /obj/item/reagent_containers/cup/bottle/nutrient/killer/pestkiller/get_ru_names()
 	return alist(

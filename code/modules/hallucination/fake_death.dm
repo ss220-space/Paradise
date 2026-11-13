@@ -13,7 +13,7 @@
 	return ..()
 
 /datum/hallucination/death/start()
-	if(hallucinator.incapacitated())
+	if(hallucinator.incapacitated)
 		return FALSE
 
 	if(floor_them)

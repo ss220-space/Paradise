@@ -368,7 +368,10 @@
 			to_chat(grabber, span_warning("Вы не хотите навредить [name]!"))
 		return FALSE
 
-	return grippedby(grabber)
+	var/result = grippedby(grabber)
+	update_incapacitated()
+
+	return result
 
 /// Proc to upgrade a simple pull into a more aggressive grab.
 /mob/living/proc/grippedby(mob/living/grabber, grab_state_override)

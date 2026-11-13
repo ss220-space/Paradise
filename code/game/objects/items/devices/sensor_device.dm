@@ -33,7 +33,7 @@
 	ui_interact(user)
 
 /obj/item/sensor_device/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(user.incapacitated() || !ishuman(user))
+	if(user.incapacitated || !ishuman(user))
 		return
 
 	if(over_object != user)

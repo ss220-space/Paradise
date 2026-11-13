@@ -1,4 +1,0 @@
-author: "vovakons"
-delete-after: True
-changes:
-  - add: "Добавлен дополнительный функционал для навыка лечения. (PR #9980)"

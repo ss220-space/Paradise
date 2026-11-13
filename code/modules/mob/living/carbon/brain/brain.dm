@@ -24,9 +24,6 @@
 /mob/living/carbon/brain/blob_act(obj/structure/blob/B)
 	return
 
-/mob/living/carbon/brain/incapacitated(ignore_flags)
-	return FALSE
-
 /mob/living/carbon/brain/update_mouse_pointer()
 	if(!client)
 		return

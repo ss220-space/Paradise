@@ -74,7 +74,7 @@
 	new /obj/effect/decal/ants(ant_turf)
 	antable = FALSE
 	desc += " It appears to be infested with space ants. Yuck!"
-	reagents.add_reagent("ants", 1) // Don't eat things with ants in i you weirdo.
+	reagents.add_reagent(/datum/reagent/ants, 1) // Don't eat things with ants in i you weirdo.
 
 /obj/item/reagent_containers/food/proc/check_liked(fraction, mob/eater)
 	if(!COOLDOWN_FINISHED(src, last_check_time))

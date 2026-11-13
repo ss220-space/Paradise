@@ -24,7 +24,7 @@
 	req_tech = list(RESEARCH_TREE_COMBAT = 5, RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_BIOTECH = 6, RESEARCH_TREE_PLASMA = 7)
 	build_type = PROTOLATHE
 	materials = list(MAT_GOLD = 5000,MAT_URANIUM = 10000)
-	reagents_list = list("mutagen" = 40)
+	reagents_list = list(/datum/reagent/mutagen = 40)
 	build_path = /obj/item/gun/energy/decloner
 	locked = TRUE
 	category = list(PROTOLATHE_CATEGORY_WEAPON)
@@ -305,7 +305,7 @@
 	req_tech = list(RESEARCH_TREE_COMBAT = 7, RESEARCH_TREE_MAGNETS = 6, RESEARCH_TREE_ENGINEERING = 6, RESEARCH_TREE_BIOTECH = 7)
 	build_type = PROTOLATHE
 	materials = list(MAT_GOLD = 5000, MAT_URANIUM = 4000, MAT_METAL = 10000, MAT_TITANIUM = 2000, MAT_BLUESPACE = 2000)
-	reagents_list = list("blood" = 50)
+	reagents_list = list(/datum/reagent/blood = 50)
 	build_path = /obj/item/v1_arm_shell
 	category = list(PROTOLATHE_CATEGORY_WEAPON)
 
@@ -433,7 +433,7 @@
 	req_tech = list(RESEARCH_TREE_BIOTECH = 7, RESEARCH_TREE_PROGRAMMING = 7, RESEARCH_TREE_ILLEGAL = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_DIAMOND = 1500)
-	reagents_list = list("stable_mutagen" = 20)
+	reagents_list = list(/datum/reagent/stable_mutagen = 20)
 	build_path = /obj/item/dnascrambler
 	locked = TRUE
 	category = list(PROTOLATHE_CATEGORY_ILLEGAL)
@@ -546,8 +546,33 @@
 
 /datum/design/laser_mod_upgrade
 	id = "laser_mod_upgrade"
-	req_tech = list(RESEARCH_TREE_COMBAT = 6, RESEARCH_TREE_MAGNETS = 5, RESEARCH_TREE_POWERSTORAGE = 5, RESEARCH_TREE_ENGINEERING = 4,RESEARCH_TREE_PROGRAMMING = 5)
+	req_tech = list(RESEARCH_TREE_COMBAT = 6, RESEARCH_TREE_MAGNETS = 5, RESEARCH_TREE_POWERSTORAGE = 5, RESEARCH_TREE_ENGINEERING = 4, RESEARCH_TREE_PROGRAMMING = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 30000, MAT_GLASS = 8000, MAT_GOLD = 6000, MAT_DIAMOND = 5000)
 	build_path = /obj/item/laser_modification_case
+	category = list(PROTOLATHE_CATEGORY_WEAPON)
+
+/datum/design/upgraded_chemical_flamethrower
+	id = "chem_flamethrower_extended"
+	req_tech = list(RESEARCH_TREE_COMBAT = 6, RESEARCH_TREE_ENGINEERING = 7, RESEARCH_TREE_PLASMA = 5)
+	materials = list(MAT_TITANIUM = 7000, MAT_METAL = 13000, MAT_GOLD = 1000)
+	build_path = /obj/item/chemical_flamethrower/extended
+	category = list(PROTOLATHE_CATEGORY_WEAPON)
+
+// The normal and extended canisters can be obtained from cargo aswell, pyrotechnical ones are RnD exclusive
+/datum/design/chemical_canister
+	id = "chemical_canister"
+	req_tech = list(RESEARCH_TREE_MATERIALS = 3, RESEARCH_TREE_PLASMA = 4)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 5000)
+	reagents_list = list(/datum/reagent/fuel = 20)
+	build_path = /obj/item/chemical_canister
+	category = list(PROTOLATHE_CATEGORY_WEAPON)
+
+/datum/design/chemical_canister/extended
+	id = "chemical_canister_extended"
+	req_tech = list(RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_PLASMA = 4)
+	materials = list(MAT_METAL = 10000)
+	reagents_list = list(/datum/reagent/fuel = 40)
+	build_path = /obj/item/chemical_canister/extended
 	category = list(PROTOLATHE_CATEGORY_WEAPON)

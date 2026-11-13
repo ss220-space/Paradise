@@ -22,7 +22,7 @@
 
 GAME_VERB_SRC(/obj/item/paper/carbon, removecopy, usr, "Удалить копию", VERB_CATEGORY_HIDDEN)
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(copied == 0)

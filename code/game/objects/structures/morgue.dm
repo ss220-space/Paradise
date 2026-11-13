@@ -185,7 +185,7 @@
 	return TRUE
 
 /obj/structure/morgue/relaymove(mob/user)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	tray_toggle(user)
 
@@ -206,7 +206,7 @@
 	QDEL_NULL(connected)
 
 /obj/structure/morgue/container_resist_act(mob/living/carbon/user)
-	if(!iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!iscarbon(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	to_chat(user, span_alert("Вы пытаетесь вылезти из [declent_ru(GENITIVE)]..."))
@@ -294,7 +294,7 @@
 	if(!ismob(dropping) && !istype(dropping, /obj/structure/closet/body_bag))
 		return
 
-	if(!ismob(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!ismob(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(isliving(dropping))
@@ -499,12 +499,12 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	QDEL_NULL(connected)
 
 /obj/machinery/crematorium/relaymove(mob/user)
-	if(cremating || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(cremating || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	tray_toggle(user)
 
 /obj/machinery/crematorium/container_resist_act(mob/living/carbon/user)
-	if(cremating || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(cremating || !iscarbon(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	to_chat(user, span_alert("Вы пытаетесь вылезти из [declent_ru(GENITIVE)]..."))
 	tray_toggle(user)
@@ -517,7 +517,7 @@ GAME_VERB_SRC(/obj/machinery/crematorium, cremate_verb, oview(1), "Кремир�
 	try_cremate(usr)
 
 /obj/machinery/crematorium/proc/try_cremate(mob/user)
-	if(user.incapacitated() || !isAI(user) && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || !isAI(user) && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(stat & NOPOWER)
@@ -709,7 +709,7 @@ GAME_VERB_SRC(/obj/machinery/crematorium, cremate_verb, oview(1), "Кремир�
 	if(!ismob(dropping) && !istype(dropping, /obj/structure/closet/body_bag))
 		return
 
-	if(!ismob(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!ismob(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(isliving(dropping))

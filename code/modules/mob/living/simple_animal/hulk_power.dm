@@ -69,7 +69,7 @@
 		return
 
 	var/failure = 0
-	if(ismob(user.loc) || user.incapacitated() || user.buckled)
+	if(ismob(user.loc) || user.incapacitated || user.buckled)
 		to_chat(user, span_warning("You can't dash right now!"))
 		casted = FALSE
 		return
@@ -233,7 +233,7 @@
 	if(!user)
 		return
 
-	if(ismob(user.loc) || user.incapacitated() || user.buckled)
+	if(ismob(user.loc) || user.incapacitated || user.buckled)
 		to_chat(user, span_warning("You can't jump right now!"))
 		casted = FALSE
 		return
@@ -439,7 +439,7 @@
 	spell_requirements = NONE
 
 /datum/action/cooldown/spell/pointed/projectile/hulk_spit/can_cast_spell(feedback)
-	if(owner.incapacitated())
+	if(owner.incapacitated)
 		return FALSE
 	return ..()
 

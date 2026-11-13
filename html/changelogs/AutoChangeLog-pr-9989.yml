@@ -1,4 +1,0 @@
-author: "vovakons"
-delete-after: True
-changes:
-  - tweak: "сильная отдача откидывает карликов при стрельбе. (PR #9989)"

@@ -176,7 +176,7 @@
 /datum/ai_controller/dog/proc/check_menu(mob/user)
 	if(!istype(user))
 		CRASH("A non-mob is trying to issue an order to [pawn].")
-	if(user.incapacitated() || !user.can_see(pawn, length = AI_DOG_VISION_RANGE))
+	if(user.incapacitated || !user.can_see(pawn, length = AI_DOG_VISION_RANGE))
 		return FALSE
 	return TRUE
 

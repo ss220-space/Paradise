@@ -54,16 +54,24 @@
 	. = ..()
 	if(!has_antimagic)
 		return
-	AddComponent(/datum/component/anti_magic, MAGIC_RESISTANCE_HOLY)
+	AddComponent(/datum/component/anti_magic, MAGIC_RESISTANCE_HOLY, inventory_flags = ITEM_SLOT_HANDS)
 
 /obj/item/storage/bible/proc/bless_bible()
 	if(has_antimagic)
 		return
-	AddComponent(/datum/component/anti_magic, MAGIC_RESISTANCE_HOLY)
-	addtimer(CALLBACK(src, PROC_REF(unbless_bible)), 6 MINUTES)
+	AddComponent(/datum/component/anti_magic, \
+		antimagic_flags = MAGIC_RESISTANCE_HOLY, \
+		inventory_flags = ITEM_SLOT_HANDS, \
+		charges = 2, \
+		expiration = CALLBACK(src, PROC_REF(expire_antimagic)) \
+	)
+	has_antimagic = TRUE
 
-/obj/item/storage/bible/proc/unbless_bible()
-	qdel(GetComponent(/datum/component/anti_magic))
+/// When the plant our gene is hosted in is drained of all of its anti-magic charges.
+/obj/item/storage/bible/proc/expire_antimagic(mob/user)
+	to_chat(user, span_warning("[src] rapidly turns into ash!"))
+	new /obj/effect/decal/cleanable/ash(drop_location())
+	qdel(src)
 
 /obj/item/storage/bible/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] смотр[PLUR_IT_YAT(user)] в [declent_ru(ACCUSATIVE)] и пыта[PLUR_ET_YUT(user)]ся превзойти собственное понимание Вселенной!"))
@@ -228,17 +236,17 @@
 		add_holy_water(user, target)
 
 /obj/item/storage/bible/proc/add_holy_water(mob/user, atom/target)
-	if(target.reagents.has_reagent("water")) //blesses all the water in the holder
+	if(target.reagents.has_reagent(/datum/reagent/water)) //blesses all the water in the holder
 		to_chat(user, span_notice("Вы освящаете [target.declent_ru(GENITIVE)]."))
-		var/water2holy = target.reagents.get_reagent_amount("water")
-		target.reagents.del_reagent("water")
-		target.reagents.add_reagent("holywater", water2holy)
+		var/water2holy = target.reagents.get_reagent_amount(/datum/reagent/water)
+		target.reagents.del_reagent(/datum/reagent/water)
+		target.reagents.add_reagent(/datum/reagent/holywater, water2holy)
 
-	if(target.reagents.has_reagent("unholywater")) //yeah yeah, copy pasted code - sue me
+	if(target.reagents.has_reagent(/datum/reagent/fuel/unholywater)) //yeah yeah, copy pasted code - sue me
 		to_chat(user, span_notice("Вы очищаете [target.declent_ru(GENITIVE)]."))
-		var/unholy2clean = target.reagents.get_reagent_amount("unholywater")
-		target.reagents.del_reagent("unholywater")
-		target.reagents.add_reagent("holywater", unholy2clean)
+		var/unholy2clean = target.reagents.get_reagent_amount(/datum/reagent/fuel/unholywater)
+		target.reagents.del_reagent(/datum/reagent/fuel/unholywater)
+		target.reagents.add_reagent(/datum/reagent/holywater, unholy2clean)
 
 /obj/item/storage/bible/attack_self(mob/user)
 	. = ..()
@@ -271,6 +279,6 @@
 	if(!HAS_MIND_TRAIT(user, TRAIT_HOLY) || !ishuman(user))
 		return FALSE
 	var/mob/living/carbon/human/H = user
-	if(!src || !H.is_type_in_hands(src) || H.incapacitated())
+	if(!src || !H.is_type_in_hands(src) || H.incapacitated)
 		return FALSE
 	return TRUE

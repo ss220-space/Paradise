@@ -1425,6 +1425,171 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком боеприпасов для пистолета-пулемёта А-12 \"Искра\"",
 		PREPOSITIONAL = "ящике боеприпасов для пистолета-пулемёта А-12 \"Искра\"",
 	)
+
+/datum/supply_packs/security/armory/mortar
+	name = "Миномет M402S"
+	contains = list(
+		/obj/item/mortar_kit,
+		/obj/item/mortar_shell/he,
+		/obj/item/mortar_shell/he,
+		/obj/item/mortar_shell/flare,
+		/obj/item/mortar_shell/frag,
+		/obj/item/mortar_shell/frag,
+		/obj/item/mortar_shell/incendiary,
+		/obj/item/wrench,
+		/obj/item/binoculars/range,
+	)
+	cost = 150
+	containertype = /obj/structure/closet/crate/secure/mortar
+	containername = "ящик M402S"
+	container_ru_names = alist(
+		NOMINATIVE = "ящик M402S",
+		GENITIVE = "ящика M402S",
+		DATIVE = "ящику M402S",
+		ACCUSATIVE = "ящик M402S",
+		INSTRUMENTAL = "ящиком M402S",
+		PREPOSITIONAL = "ящике M402S",
+	)
+
+/datum/supply_packs/security/armory/mortar_shells_he
+	name = "фугасные снаряды для миномета"
+	contains = list(
+		/obj/item/mortar_shell/he,
+		/obj/item/mortar_shell/he,
+		/obj/item/mortar_shell/he,
+		/obj/item/mortar_shell/he,
+		/obj/item/mortar_shell/he,
+	)
+	cost = 20
+	containertype = /obj/structure/closet/crate/secure/mortar
+	containername = "ящик фугасных снарядов для миномета"
+	container_ru_names = alist(
+		NOMINATIVE = "ящик фугасных снарядов для миномета",
+		GENITIVE = "ящика фугасных снарядов для миномета",
+		DATIVE = "ящику фугасных снарядов для миномета",
+		ACCUSATIVE = "ящик фугасных снарядов для миномета",
+		INSTRUMENTAL = "ящиком фугасных снарядов для миномета",
+		PREPOSITIONAL = "ящике фугасных снарядов для миномета",
+	)
+
+/datum/supply_packs/security/armory/mortar_shells_frag
+	name = "осколочные снаряды для миномета"
+	contains = list(
+		/obj/item/mortar_shell/frag,
+		/obj/item/mortar_shell/frag,
+		/obj/item/mortar_shell/frag,
+		/obj/item/mortar_shell/frag,
+		/obj/item/mortar_shell/frag,
+	)
+	cost = 20
+	containertype = /obj/structure/closet/crate/secure/mortar
+	containername = "ящик осколочных снарядов для миномета"
+	container_ru_names = alist(
+		NOMINATIVE = "ящик осколочных снарядов для миномета",
+		GENITIVE = "ящика осколочных снарядов для миномета",
+		DATIVE = "ящику осколочных снарядов для миномета",
+		ACCUSATIVE = "ящик осколочных снарядов для миномета",
+		INSTRUMENTAL = "ящиком осколочных снарядов для миномета",
+		PREPOSITIONAL = "ящике осколочных снарядов для миномета",
+	)
+
+/datum/supply_packs/security/armory/mortar_shells_flare
+	name = "снаряды с камерой для миномета"
+	contains = list(
+		/obj/item/mortar_shell/flare,
+		/obj/item/mortar_shell/flare,
+		/obj/item/mortar_shell/flare,
+	)
+	cost = 20
+	containertype = /obj/structure/closet/crate/secure/mortar
+	containername = "ящик снарядов с камерой для миномета"
+	container_ru_names = alist(
+		NOMINATIVE = "ящик снарядов с камерой для миномета",
+		GENITIVE = "ящика снарядов с камерой для миномета",
+		DATIVE = "ящику снарядов с камерой для миномета",
+		ACCUSATIVE = "ящик снарядов с камерой для миномета",
+		INSTRUMENTAL = "ящиком снарядов с камерой для миномета",
+		PREPOSITIONAL = "ящике снарядов с камерой для миномета",
+	)
+
+/datum/supply_packs/security/armory/mortar_shells_incendiary
+	name = "зажигательные снаряды для миномета"
+	contains = list(
+		/obj/item/mortar_shell/incendiary,
+		/obj/item/mortar_shell/incendiary,
+		/obj/item/mortar_shell/incendiary,
+		/obj/item/mortar_shell/incendiary,
+		/obj/item/mortar_shell/incendiary,
+	)
+	cost = 20
+	containertype = /obj/structure/closet/crate/secure/mortar
+	containername = "ящик зажигательных снарядов для миномета"
+	container_ru_names = alist(
+		NOMINATIVE = "ящик зажигательных снарядов для миномета",
+		GENITIVE = "ящика зажигательных снарядов для миномета",
+		DATIVE = "ящику зажигательных снарядов для миномета",
+		ACCUSATIVE = "ящик зажигательных снарядов для миномета",
+		INSTRUMENTAL = "ящиком зажигательных снарядов для миномета",
+		PREPOSITIONAL = "ящике зажигательных снарядов для миномета",
+	)
+
+/datum/supply_packs/security/armory/mortar_shells_custom
+	name = "заготовки для снарядов миномета"
+	contains = list(
+		/obj/item/mortar_shell/custom,
+		/obj/item/mortar_shell/custom,
+		/obj/item/mortar_shell/custom,
+		/obj/item/mortar_shell/custom,
+		/obj/item/mortar_shell/custom,
+		/obj/item/mortar_shell/custom,
+		/obj/item/warhead/mortar,
+		/obj/item/warhead/mortar,
+		/obj/item/warhead/mortar,
+		/obj/item/warhead/mortar/camera,
+		/obj/item/warhead/mortar/camera,
+		/obj/item/warhead/mortar/camera,
+		/obj/item/paper/mortar,
+	)
+	cost = 10
+	containertype = /obj/structure/closet/crate/secure/mortar
+	containername = "ящик заготовок для снарядов миномета"
+	container_ru_names = alist(
+		NOMINATIVE = "ящик заготовок для снарядов миномета",
+		GENITIVE = "ящика заготовок для снарядов миномета",
+		DATIVE = "ящику заготовок для снарядов миномета",
+		ACCUSATIVE = "ящик заготовок для снарядов миномета",
+		INSTRUMENTAL = "ящиком заготовок для снарядов миномета",
+		PREPOSITIONAL = "ящике заготовок для снарядов миномета",
+	)
+
+/datum/supply_packs/security/armory/chemical_flamethrower
+	name = "химический огнемёт"
+	contains = list(/obj/item/chemical_flamethrower, /obj/item/chemical_canister, /obj/item/chemical_canister)
+	cost = 50
+	containername = "ящик с химическим огнемётом"
+	container_ru_names = alist(
+		NOMINATIVE = "ящик с химическим огнемётом",
+		GENITIVE = "ящика с химическим огнемёта",
+		DATIVE = "ящику с химическим огнемётом",
+		ACCUSATIVE = "ящик с химическим огнемётом",
+		INSTRUMENTAL = "ящиком с химическим огнемётом",
+		PREPOSITIONAL = "ящике с химическим огнемётом",
+	)
+
+/datum/supply_packs/security/armory/chemical_canister
+	name = "баллоны для химического огнемёта"
+	contains = list(/obj/item/chemical_canister, /obj/item/chemical_canister, /obj/item/chemical_canister, /obj/item/chemical_canister, /obj/item/chemical_canister/extended) // One extended canister, as a treat
+	cost = 30
+	containername = "ящик с баллонами для химического огнемёта"
+	container_ru_names = alist(
+		NOMINATIVE = "ящик с баллонами для химического огнемёта",
+		GENITIVE = "ящика с баллонами для химического огнемёта",
+		DATIVE = "ящику с баллонами для химического огнемёта",
+		ACCUSATIVE = "ящик с баллонами для химического огнемёта",
+		INSTRUMENTAL = "ящиком с баллонами для химического огнемёта",
+		PREPOSITIONAL = "ящике с баллонами для химического огнемёта",
+	)
+
 /////// Implants & etc
 
 /datum/supply_packs/security/armory/mindshield

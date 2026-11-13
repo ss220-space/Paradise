@@ -793,3 +793,11 @@
 		'sound/hallucinations/revfireball2.ogg',
 		'sound/hallucinations/revfireball3.ogg',
 	)
+
+/datum/sound_effect/flamethrower
+	key = SFX_FLAMETHROWER
+	file_paths = list(
+		'sound/weapons/gun_flamethrower1.ogg',
+		'sound/weapons/gun_flamethrower2.ogg',
+		'sound/weapons/gun_flamethrower3.ogg',
+	)

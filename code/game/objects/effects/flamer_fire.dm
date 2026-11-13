@@ -25,6 +25,29 @@
 
 	new /obj/flamer_fire(epicenter, reagent, reagent.rangefire, null, flameshape, target, , , fire_type)
 
+GLOBAL_LIST_EMPTY(flamer_particles)
+/particles/flamer_fire
+	icon = 'icons/effects/particles/fire.dmi'
+	icon_state = "bonfire"
+	width = 100
+	height = 100
+	count = 200
+	spawning = 5
+	lifespan = 0.6 SECONDS
+	fade = 0.8 SECONDS
+	grow = -0.01
+	velocity = list(0, 0)
+	position = generator("box", list(-16, -16), list(16, 16), NORMAL_RAND)
+	drift = generator("vector", list(0, -0.2), list(0, 0.2))
+	gravity = list(0, 0.95)
+	scale = generator("vector", list(0.3, 0.3), list(1,1), NORMAL_RAND)
+	rotation = 30
+	spin = generator("num", -20, 20)
+
+/particles/flamer_fire/New(set_color)
+	..()
+	color = set_color
+
 /obj/flamer_fire
 	name = "fire"
 	desc = "Ouch!"
@@ -33,6 +56,7 @@
 	icon = 'icons/effects/fire.dmi'
 	icon_state = "dynamic_2"
 	layer = ABOVE_OBJ_LAYER
+	pass_flags = PASSFENCE|PASSGRILLE|PASSBLOB|PASSITEM|PASSFLAPS
 
 	light_range = 3
 	light_power = 3
@@ -83,7 +107,19 @@
 
 	set_light(l_color = reagent.burncolor)
 
+	if(reagent.fire_penetrating)
+		var/new_burncolor = color_matrix_multiply(color_matrix_rotate_x(5), color_hex2color_matrix(reagent.burncolor))
+		if(!GLOB.flamer_particles[new_burncolor])
+			GLOB.flamer_particles[new_burncolor] = new /particles/flamer_fire(new_burncolor)
+		particles = GLOB.flamer_particles[new_burncolor]
+
 	tied_reagent = new reagent.type() // Can't get deleted this way
+	tied_reagent.durationfire = reagent.durationfire
+	tied_reagent.intensityfire = reagent.intensityfire
+	tied_reagent.rangefire = reagent.rangefire
+	tied_reagent.burncolor = reagent.burncolor
+	tied_reagent.burn_sprite = reagent.burn_sprite
+	tied_reagent.fire_penetrating = reagent.fire_penetrating
 
 	if(obj_reagents)
 		tied_reagents = obj_reagents
@@ -106,7 +142,7 @@
 	var/burn_dam = burnlevel * FIRE_DAMAGE_PER_LEVEL
 
 	if(tied_reagents && !tied_reagents.locked)
-		var/removed = tied_reagents.remove_reagent(tied_reagent.id, FLAME_REAGENT_USE_AMOUNT * fuel_pressure)
+		var/removed = tied_reagents.remove_reagent(tied_reagent.type, FLAME_REAGENT_USE_AMOUNT * fuel_pressure)
 		if(removed)
 			qdel(src)
 			return
@@ -146,7 +182,7 @@
 	to_call = null
 	tied_reagent = null
 	tied_reagents = null
-	. = ..()
+	return ..()
 
 /obj/flamer_fire/extinguish()
 	. = ..()
@@ -171,7 +207,7 @@
 			burn_damage = burnlevel
 	var/fire_intensity_resistance = mob.run_armor_check(attack_flag = FIRE)
 
-	if(!tied_reagent.fire_penetrating)
+	if(tied_reagent && !tied_reagent.fire_penetrating)
 		burn_damage = max(burn_damage * (100 - fire_intensity_resistance) / 100, 0)
 
 	mob.adjust_fire_stacks(tied_reagent.durationfire)
@@ -179,7 +215,7 @@
 
 	mob.apply_damage(burn_damage, BURN) //This makes fire stronk.
 
-	to_chat(mob, span_danger("You are burned!"))
+	to_chat(mob, span_danger("Вы загорелись!"))
 	mob.updatehealth()
 
 /obj/flamer_fire/proc/update_flame()
@@ -248,7 +284,7 @@
 
 		var/spread_direction_angle = dir2angle(spread_direction)
 
-		var/angle = 180 - abs( abs( direction_angle - spread_direction_angle ) - 180 ) // the angle difference between the spread direction and initial direction
+		var/angle = 180 - abs(abs( direction_angle - spread_direction_angle) - 180) // the angle difference between the spread direction and initial direction
 
 		switch(angle) //this reduces power when the explosion is going around corners
 			if(45)
@@ -257,7 +293,7 @@
 				continue
 
 		switch(spread_direction)
-			if(NORTH,SOUTH,EAST,WEST)
+			if(NORTH, SOUTH, EAST, WEST)
 				spread_power--
 			else
 				spread_power -= 1.414 //diagonal spreading
@@ -278,9 +314,7 @@
 
 		if(!has_pass)
 			return
-
-		ASYNC
-			fire_spread_recur(picked_turf, spread_power, spread_direction, fire_lvl, burn_lvl, f_color, burn_sprite)
+		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(fire_spread_recur), picked_turf, spread_power, spread_direction, fire_lvl, burn_lvl, f_color, burn_sprite)
 
 /proc/fire_spread(turf/target, range, fire_lvl, burn_lvl, f_color, burn_sprite = "dynamic")
 	var/datum/reagent/fire_reag = new()
