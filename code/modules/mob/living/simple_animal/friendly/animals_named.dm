@@ -39,10 +39,10 @@
 		PREPOSITIONAL = "Бетси",
 	)
 
-/mob/living/simple_animal/hostile/retaliate/goat/Piti
+/mob/living/simple_animal/hostile/retaliate/goat/piti
 	name = "Piti"
 
-/mob/living/simple_animal/hostile/retaliate/goat/Piti/get_ru_names()
+/mob/living/simple_animal/hostile/retaliate/goat/piti/get_ru_names()
 	return alist(
 		NOMINATIVE = "Пити",
 		GENITIVE = "Пити",
