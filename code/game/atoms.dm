@@ -1472,7 +1472,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 			return target_dir - (target_dir & reverse_dir)
 		return target_dir & reverse_dir
 	else
-		return NONE
+		return ALL
 
 /*
  * Checks whether an atom can leave its current turf through the calling atom.
