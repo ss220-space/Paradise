@@ -50,7 +50,8 @@
 	)
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/Initialize(mapload)
-	udder = new()
+	var/datum/component/udder/milk_component = AddComponent(/datum/component/udder, /obj/item/udder/gutlunch, FALSE, CALLBACK(src, PROC_REF(regenerate_icons)))
+	udder = milk_component.udder
 	. = ..()
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/examine(mob/user)
@@ -59,29 +60,13 @@
 		. += span_notice("В его [udder.declent_ru(PREPOSITIONAL)] содержится [udder.reagents.total_volume] единиц[DECL_A_Y_0(udder.reagents.total_volume)] молока.")
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/Destroy()
-	QDEL_NULL(udder)
+	udder = null
 	return ..()
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/regenerate_icons()
 	..()
 	if(udder.reagents.total_volume == udder.reagents.maximum_volume)
 		add_overlay("gl_full")
-
-/mob/living/simple_animal/hostile/asteroid/gutlunch/attackby(obj/item/I, mob/user, params)
-	if(user.a_intent == INTENT_HARM)
-		return ..()
-
-	if(iscup(I))
-		add_fingerprint(user)
-		if(stat != CONSCIOUS)
-			to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] выглядит нездоровым."))
-			return ATTACK_CHAIN_PROCEED
-		if(udder.milkAnimal(I, user))
-			regenerate_icons()
-			return ATTACK_CHAIN_PROCEED_SUCCESS
-		return ATTACK_CHAIN_PROCEED
-
-	return ..()
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/ListTargetsLazy(check_z)//override to include wanted_objects as valid targets
 	. = ..()
