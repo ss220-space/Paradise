@@ -268,6 +268,20 @@
 		PREPOSITIONAL = "торговом автомате",
 	)
 
+/obj/machinery/vending/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+	context[SCREENTIP_CONTEXT_LMB] = "Посмотреть содержимое"
+	if(!held_item)
+		return CONTEXTUAL_SCREENTIP_SET
+
+	switch(held_item.tool_behaviour)
+		if(TOOL_SCREWDRIVER)
+			context[SCREENTIP_CONTEXT_LMB] = "[panel_open ? "Закрыть" : "Открыть"] панель"
+		if(TOOL_WRENCH)
+			context[SCREENTIP_CONTEXT_LMB] = "[anchored ? "Ослабить" : "Затянуть"] болты"
+		if(TOOL_CROWBAR || panel_open)
+			context[SCREENTIP_CONTEXT_LMB] = "Разобрать"
+	return CONTEXTUAL_SCREENTIP_SET
+
 /**
  * Initialize the vending machine
  *
@@ -330,6 +344,7 @@
 		)
 
 	update_icon(UPDATE_OVERLAYS)
+	register_context()
 
 /obj/machinery/vending/click_alt(mob/user)
 	if(!tilted)
