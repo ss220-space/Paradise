@@ -278,7 +278,7 @@
 			context[SCREENTIP_CONTEXT_LMB] = "[panel_open ? "Закрыть" : "Открыть"] панель"
 		if(TOOL_WRENCH)
 			context[SCREENTIP_CONTEXT_LMB] = "[anchored ? "Ослабить" : "Затянуть"] болты"
-		if(TOOL_CROWBAR || panel_open)
+		if(TOOL_CROWBAR)
 			context[SCREENTIP_CONTEXT_LMB] = "Разобрать"
 	return CONTEXTUAL_SCREENTIP_SET
 
