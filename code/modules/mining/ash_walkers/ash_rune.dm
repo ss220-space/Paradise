@@ -1,16 +1,18 @@
-/obj/effect/decal/ash_rune_centre
+/obj/ash_rune_centre
 	name = "ash sigil"
 	desc = "Незаконченная руна, нарисованная на пепле."
 	gender = MALE
 	icon = 'icons/effects/ash_runes.dmi'
 	icon_state = "runaash_1"
+	anchored = TRUE
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 	///Is our rune being transformed right now? Sanity check
 	var/transforming = FALSE
 	///Is our rune activated? Another sanity check, love it
 	var/activated = FALSE
 
-/obj/effect/decal/ash_rune_centre/get_ru_names()
+/obj/ash_rune_centre/get_ru_names()
 	return alist(
 		NOMINATIVE = "пепельный сигил",
 		GENITIVE = "пепельного сигила",
@@ -20,12 +22,12 @@
 		PREPOSITIONAL = "пепельном сигиле",
 	)
 
-/obj/effect/decal/ash_rune_centre/Initialize(mapload)
+/obj/ash_rune_centre/Initialize(mapload)
 	. = ..()
 	var/number = rand(1, 36)
 	icon_state = "runaash_[number]"
 
-/obj/effect/decal/ash_rune_centre/attackby(obj/item/I, mob/user, params)
+/obj/ash_rune_centre/attackby(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/melee/touch_attack/healtouch/shaman))
 		return ..()
 	if(transforming)
@@ -43,7 +45,7 @@
 	qdel(I)
 	return ATTACK_CHAIN_PROCEED
 
-/obj/effect/decal/ash_rune_centre/proc/activate_rune()
+/obj/ash_rune_centre/proc/activate_rune()
 	if(activated)
 		return
 	activated = TRUE

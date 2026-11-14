@@ -84,9 +84,9 @@
 /datum/recipe/tribal_oven/wings_n_fangs_n_tentacles
 	reagents = list()
 	items = list(
-		/obj/item/crusher_trophy/goliath_tentacle,
-		/obj/item/crusher_trophy/watcher_wing,
-		/obj/item/crusher_trophy/fang,
+		/obj/item/reagent_containers/food/snacks/monstermeat/goliath,
+		/obj/item/stack/sheet/sinew,
+		/obj/item/reagent_containers/food/snacks/monstermeat/spiderleg,
 	)
 	result = /obj/item/reagent_containers/food/snacks/lavaland_food/wings_n_fangs_n_tentacles
 
@@ -228,3 +228,12 @@
 		/obj/item/reagent_containers/food/snacks/monstermeat/goliath,
 	)
 	result = /obj/item/storage/lava_tray/full
+
+/datum/recipe/tribal_oven/necropolis_blessing
+	reagents = list()
+	items = list(
+		/obj/item/reagent_containers/food/snacks/monstermeat/spiderleg,
+		/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat,
+		/obj/item/reagent_containers/food/snacks/grown/mushroom/reishi,
+	)
+	result = /obj/item/reagent_containers/food/snacks/lavaland_food/necropolis_blessing

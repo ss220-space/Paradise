@@ -723,3 +723,53 @@
 		new /obj/item/reagent_containers/food/snacks/lavaland/thali_lazis_crunchie(src)
 		new /obj/item/reagent_containers/food/snacks/lavaland/thali_lazis_bungus(src)
 	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/reagent_containers/food/snacks/lavaland_food/necropolis_blessing
+	name = "Necropolis blessing"
+	desc = "Отвратительная субстанция, служаящая для расширения возможностей разума."
+	icon_state = "necropolis_blessing"
+	tastes = list("усталости" = 1)
+	var/active = FALSE
+
+/obj/item/reagent_containers/food/snacks/lavaland_food/necropolis_blessing/get_ru_names()
+	return alist(
+		NOMINATIVE = "блюдо \"Благословение Некрополя\"",
+		GENITIVE = "блюда \"Благословения Некрополя\"",
+		DATIVE = "блюду \"Благословению Некрополя\"",
+		ACCUSATIVE = "блюдо\"Благословение Некрополя\"",
+		INSTRUMENTAL = "блюдом \"Благословением Некрополя\"",
+		PREPOSITIONAL = "блюде \"Благословении Некрополя\"",
+	)
+
+/obj/item/reagent_containers/food/snacks/lavaland_food/necropolis_blessing/examine(mob/user)
+	. = ..()
+	if(active)
+		. += span_notice("Тошнотворная масса бурлит.")
+	else
+		. += span_danger("Ничего необычного.")
+
+/obj/item/reagent_containers/food/snacks/lavaland_food/necropolis_blessing/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(!istype(I, /obj/item/melee/touch_attack/healtouch/shaman))
+		return
+	if(active)
+		balloon_alert(user, "уже активно!")
+		return
+	user.say("NWOC EGEVNER")
+	active = TRUE
+	qdel(I)
+	update_icon(UPDATE_ICON_STATE)
+	return ATTACK_CHAIN_PROCEED
+
+/obj/item/reagent_containers/food/snacks/lavaland_food/necropolis_blessing/update_icon_state()
+	. = ..()
+	icon_state = "[initial(icon_state)][active ? "_active" : ""]"
+
+/obj/item/reagent_containers/food/snacks/lavaland_food/necropolis_blessing/on_mob_eating_effect(mob/user)
+	if(!active)
+		return
+	else
+		var/mob/living/living_user = user
+		living_user.add_language(LANGUAGE_HIVE_ASHWALKER)
+		living_user.AdjustSleeping(30 SECONDS)
+		living_user.EyeBlurry(45 SECONDS)

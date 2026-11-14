@@ -51,6 +51,11 @@
 /obj/structure/lavaland/ash_walker/deconstruct(disassembled)
 	var/core_to_drop = pick(subtypesof(/obj/item/assembly/signaler/core))
 	new core_to_drop (get_step(loc, pick(GLOB.alldirs)))
+	var/sound/tendril_destroyed = sound('sound/effects/tendril_destroyed.ogg')
+	for(var/mob/a in GLOB.player_list)
+		if("ashwalker" in a.faction)
+			to_chat(a, span_userdanger("Вы чувствуете как утрачиваете связь с Некрополем. Что-то ужасное случилось в Логове!"))
+			a.playsound_local(a, null, 100, FALSE, 0, FALSE, pressure_affected = FALSE, sound_to_use = tendril_destroyed)
 	new	/obj/effect/collapse(loc)
 	return ..()
 
@@ -125,6 +130,7 @@
 		/datum/skill/combat/fists = SKILL_LEVEL_ADVANCED,
 		/datum/skill/combat/melee = SKILL_LEVEL_ADVANCED,
 		/datum/skill/combat/bows = SKILL_LEVEL_BASIC,
+		/datum/skill/service/mining = SKILL_LEVEL_BASIC,
 	)
 	var/eggtype = "пеплоходца"
 
