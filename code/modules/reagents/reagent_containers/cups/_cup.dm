@@ -523,6 +523,7 @@ GAME_VERB_SRC(/obj/item/reagent_containers/cup/beaker, remove_assembly, usr, "О
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 75, ACID = 50) //Weak melee protection, because you can wear it on your head
 	slot_flags = ITEM_SLOT_HEAD
 	resistance_flags = NONE
+	can_lid = TRUE
 	var/paintable = TRUE
 
 /obj/item/reagent_containers/cup/bucket/get_ru_names()
@@ -589,7 +590,8 @@ GAME_VERB_SRC(/obj/item/reagent_containers/cup/beaker, remove_assembly, usr, "О
 	. = ..()
 	if(color)
 		var/mutable_appearance/bucket_mask = mutable_appearance(icon='icons/obj/janitor.dmi', icon_state = "bucket_mask")
-		. += bucket_mask
+		var/list/bucket_overlays = .
+		bucket_overlays.Insert(1, bucket_mask)
 
 		var/mutable_appearance/bucket_hand = mutable_appearance(icon='icons/obj/janitor.dmi', icon_state = "bucket_hand", appearance_flags = RESET_COLOR)
 		. += bucket_hand
@@ -624,6 +626,8 @@ GAME_VERB_SRC(/obj/item/reagent_containers/cup/beaker, remove_assembly, usr, "О
 
 /obj/item/reagent_containers/cup/bucket/wooden/update_overlays()
 	. = list()
+	if(has_lid)
+		. += mutable_appearance(icon, "[icon_state]_lid")
 
 /obj/item/reagent_containers/cup/bucket/wooden/shit
 	name = "shit bucket"
