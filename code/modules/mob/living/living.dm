@@ -117,7 +117,7 @@
 		return .
 
 	// If you are incapped, you probably can't brace yourself
-	var/can_help_themselves = !incapacitated(IGNORE_RESTRAINTS)
+	var/can_help_themselves = !INCAPACITATED_IGNORING(src, INCAPABLE_RESTRAINTS)
 	if(can_help_themselves)
 		var/obj/item/organ/external/wing/bodypart_wing = get_organ(BODY_ZONE_WING)
 		if(bodypart_wing && !bodypart_wing.has_fracture()) // wings can soften
@@ -429,11 +429,12 @@
 	if(!(interaction_flags_atom & INTERACT_ATOM_IGNORE_INCAPACITATED))
 		var/ignore_flags = NONE
 		if(interaction_flags_atom & INTERACT_ATOM_IGNORE_RESTRAINED)
-			ignore_flags |= IGNORE_RESTRAINTS
-		if(!(interaction_flags_atom & INTERACT_ATOM_CHECK_GRAB))
-			ignore_flags |= IGNORE_GRAB
+			ignore_flags |= INCAPABLE_RESTRAINTS
 
-		if(incapacitated(ignore_flags))
+		if(!(interaction_flags_atom & INTERACT_ATOM_CHECK_GRAB))
+			ignore_flags |= INCAPABLE_GRAB
+
+		if(INCAPACITATED_IGNORING(src, ignore_flags))
 			to_chat(src, span_warning("Вы сейчас недееспособны!"))
 			return FALSE
 
@@ -579,7 +580,7 @@
 
 //same as above
 /mob/living/pointed(atom/A)
-	if(incapacitated())
+	if(incapacitated)
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		return FALSE
@@ -1815,6 +1816,8 @@ GAME_VERB(/mob/living, resist, "Сопротивляться", VERB_CATEGORY_IC)
 	. = ..()
 	if(. == FALSE) //null is a valid value here, we only want to return if FALSE is explicitly passed.
 		return .
+
+	update_incapacitated()
 	/*
 	if(pulledby)
 		if(!. && stat == SOFT_CRIT)

@@ -1,5 +1,5 @@
-///Used to allow reaching the maximum offset range without exiting the boundaries of the game screen.
-#define MOUSE_POINTER_OFFSET_MULT 1.1
+/// The red crosshair cursor used while looking through a gun scope.
+#define SCOPE_CURSOR_ICON 'icons/effects/mouse_pointers/scope_pointer.dmi'
 
 /**
  * A component that allows the parent item to be used as a scope,
@@ -8,8 +8,7 @@
  * Mainly intended for binoculars, but can be applied to any item.
  */
 /datum/component/scope
-	/// How far we can extend the view. Its meaning depends on [range_is_multiplier]:
-	/// either a multiplier of half the viewport, or a maximum distance in tiles.
+	/// How far we can extend the view.
 	var/range_modifier = 1
 	/// The fullscreen object we use for tracking the user's cursor.
 	var/atom/movable/screen/fullscreen/cursor_catcher/scope/tracker
@@ -25,8 +24,9 @@
 	/// A trait you want to add when scoped in to the mob.
 	var/trait_to_add
 	var/severity
+	var/crosshair_icon
 
-/datum/component/scope/Initialize(range_modifier = 1, zoom_method = ZOOM_METHOD_RIGHT_CLICK, item_action_type = /datum/action/zoom, flags, trait_to_add, severity = SEVERITY_GUN)
+/datum/component/scope/Initialize(range_modifier = 1, zoom_method = ZOOM_METHOD_RIGHT_CLICK, item_action_type = /datum/action/zoom, flags, trait_to_add, severity = SEVERITY_GUN, crosshair_icon)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -36,6 +36,9 @@
 	src.flags = flags
 	src.trait_to_add = trait_to_add
 	src.severity = severity
+	src.crosshair_icon = crosshair_icon
+	if(severity == SEVERITY_GUN && !src.crosshair_icon)
+		src.crosshair_icon = SCOPE_CURSOR_ICON
 
 /datum/component/scope/Destroy(force)
 	if(tracker?.owner)
@@ -183,6 +186,9 @@
 
 	user.playsound_local(get_turf(parent), 'sound/weapons/gun_interactions/scope.ogg', 75, TRUE)
 	tracker = user.overlay_fullscreen("scope", /atom/movable/screen/fullscreen/cursor_catcher/scope, severity)
+	if(crosshair_icon)
+		user.scope_pointer_icon = crosshair_icon
+		user.update_mouse_pointer()
 	tracker.assign_to_mob(user, range_modifier)
 	if(flags & SCOPE_MOVEMENT_CANCELS)
 		RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
@@ -239,7 +245,7 @@
 
 /datum/component/scope/proc/generic_click(/obj/source, location, control, params)
 	SIGNAL_HANDLER // COMSIG_CLICK
-	INVOKE_ASYNC(tracker.owner, TYPE_PROC_REF(/mob, ClickOn), get_target(tracker.given_turf), params)
+	INVOKE_ASYNC(tracker.owner, TYPE_PROC_REF(/mob, ClickOn), get_scope_target(tracker.given_turf, tracker), params)
 
 /**
  * We find and return the best target to hit on a given turf.
@@ -247,7 +253,7 @@
  * Arguments:
  * * target_turf: The turf we are looking for targets on.
 */
-/datum/component/scope/proc/get_target(turf/target_turf)
+/proc/get_scope_target(turf/target_turf, atom/movable/screen/fullscreen/cursor_catcher/scope/tracker)
 	var/list/object_targets = list()
 	var/list/non_dense_targets = list()
 	for(var/atom/movable/possible_target in target_turf)
@@ -304,6 +310,9 @@
 
 	user.playsound_local(get_turf(parent), 'sound/weapons/gun_interactions/scope.ogg', 75, TRUE, frequency = -1)
 	user.clear_fullscreen("scope")
+	if(crosshair_icon && user.scope_pointer_icon == crosshair_icon)
+		user.scope_pointer_icon = null
+		user.update_mouse_pointer()
 
 	// if the client has ended up in another mob, find that mob so we can fix their cursor
 	var/mob/true_user
@@ -313,13 +322,20 @@
 	if(!isnull(true_user))
 		user = true_user
 
+	if(crosshair_icon && user.scope_pointer_icon == crosshair_icon)
+		user.scope_pointer_icon = null
+		user.update_mouse_pointer()
+
 	if(user.client)
 		animate(user.client, 0.2 SECONDS, pixel_x = 0, pixel_y = 0)
 	tracker = null
 	tracker_owner_ckey = null
 
+#undef SCOPE_CURSOR_ICON
+
 /atom/movable/screen/fullscreen/cursor_catcher/scope
 	icon_state = "scope"
+	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	/// How far the view center can move. See [datum/component/scope/var/range_modifier].
 	var/range_modifier = 1
 	/// The turf currently under the cursor/crosshair.
@@ -330,6 +346,12 @@
 	return ..()
 
 /atom/movable/screen/fullscreen/cursor_catcher/scope/Click(location, control, params)
+	if(usr == owner)
+		calculate_params()
+	return ..()
+
+/atom/movable/screen/fullscreen/cursor_catcher/scope/MouseDrag(over_object, src_location, over_location, src_control, over_control, params)
+	MouseMove(over_location, over_control, params)
 	if(usr == owner)
 		calculate_params()
 	return ..()
@@ -346,15 +368,23 @@
 		icon_y = text2num(LAZYACCESS(modifiers, ICON_Y))
 		if(isnull(icon_y))
 			icon_y = view_list[2] * ICON_SIZE_Y / 2
-	var/x_cap = range_modifier * view_list[1] * ICON_SIZE_X / 2
-	var/y_cap = range_modifier * view_list[2] * ICON_SIZE_Y / 2
-	var/uncapped_x = round(range_modifier * (icon_x - view_list[1] * ICON_SIZE_X / 2) * MOUSE_POINTER_OFFSET_MULT)
-	var/uncapped_y = round(range_modifier * (icon_y - view_list[2] * ICON_SIZE_Y / 2) * MOUSE_POINTER_OFFSET_MULT)
-	given_x = clamp(uncapped_x, -x_cap, x_cap)
-	given_y = clamp(uncapped_y, -y_cap, y_cap)
-	given_turf = locate(owner.x + round(given_x / ICON_SIZE_X, 1), owner.y + round(given_y / ICON_SIZE_Y, 1), owner.z)
+	var/half_x = view_list[1] * ICON_SIZE_X / 2
+	var/half_y = view_list[2] * ICON_SIZE_Y / 2
+	var/ax = (view_list[1] - 1) * ICON_SIZE_X / 2
+	var/ay = (view_list[2] - 1) * ICON_SIZE_Y / 2
 
-#undef MOUSE_POINTER_OFFSET_MULT
+	var/dx = icon_x - half_x
+	var/dy = icon_y - half_y
+	var/nx = dx / ax
+	var/ny = dy / ay
+	var/n = sqrt(nx * nx + ny * ny)
+	if(n > 1)
+		nx /= n
+		ny /= n
+	given_x = range_modifier * nx * ax
+	given_y = range_modifier * ny * ay
+	given_turf = locate(owner.x + round(given_x / ICON_SIZE_X, 1), owner.y + round(given_y / ICON_SIZE_Y, 1), owner.z)
+	crosshair_turf = locate(owner.x + floor((icon_x - half_x + given_x) / ICON_SIZE_X), owner.y + floor((icon_y - half_y + given_y) / ICON_SIZE_Y), owner.z)
 
 /datum/action/zoom
 	name = "Масштаб"

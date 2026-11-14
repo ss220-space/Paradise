@@ -15,8 +15,8 @@
 	dir = WEST
 	interaction_flags_mouse_drop = NEED_DEXTERITY
 	var/mob/living/carbon/human/occupant = null
-	var/possible_chems = list("ephedrine", "salglu_solution", "salbutamol", "charcoal")
-	var/emergency_chems = list("ephedrine") // Desnowflaking
+	var/possible_chems = list(/datum/reagent/medicine/ephedrine, /datum/reagent/medicine/salglu_solution, /datum/reagent/medicine/salbutamol, /datum/reagent/medicine/charcoal)
+	var/emergency_chems = list(/datum/reagent/medicine/ephedrine) // Desnowflaking
 	var/amounts = list(5, 10)
 	/// Beaker loaded into the sleeper. Used for dialysis.
 	var/obj/item/reagent_containers/cup/beaker = null
@@ -91,7 +91,7 @@
 	return ..()
 
 /obj/machinery/sleeper/relaymove(mob/user as mob)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return 0 //maybe they should be able to get out with cuffs, but whatever
 	go_out()
 
@@ -246,28 +246,31 @@
 		data["isBeakerLoaded"] = FALSE
 
 	var/chemicals[0]
-	for(var/re in possible_chems)
-		var/datum/reagent/temp = GLOB.chemical_reagents_list[re]
-		if(temp)
-			var/reagent_amount = 0
-			var/pretty_amount
-			var/injectable = occupant ? 1 : 0
-			var/overdosing = 0
-			var/caution = 0 // To make things clear that you're coming close to an overdose
-			if(crisis && !(temp.id in emergency_chems))
-				injectable = 0
+	for(var/reagent_type in possible_chems)
+		var/datum/reagent/temp = GLOB.chemical_reagents_list[reagent_type]
+		if(!temp)
+			continue
 
-			if(occupant?.reagents)
-				reagent_amount = occupant.reagents.get_reagent_amount(temp.id)
-				// If they're mashing the highest concentration, they get one warning
-				if(temp.overdose_threshold && reagent_amount + 10 > temp.overdose_threshold)
-					caution = 1
-				if(temp.id in occupant.reagents.overdose_list())
-					overdosing = 1
+		var/reagent_amount = 0
+		var/pretty_amount
+		var/injectable = occupant ? 1 : 0
+		var/overdosing = 0
+		var/caution = 0 // To make things clear that you're coming close to an overdose
+		if(crisis && !(reagent_type in emergency_chems))
+			injectable = 0
 
-			pretty_amount = round(reagent_amount, 0.05)
+		if(occupant?.reagents)
+			reagent_amount = occupant.reagents.get_reagent_amount(reagent_type)
+			// If they're mashing the highest concentration, they get one warning
+			if(temp.overdose_threshold && reagent_amount + 10 > temp.overdose_threshold)
+				caution = 1
+			if(temp.type in occupant.reagents.overdose_list())
+				overdosing = 1
 
-			chemicals.Add(list(list("title" = temp.name, "id" = temp.id, "commands" = list("chemical" = temp.id), "occ_amount" = reagent_amount, "pretty_amount" = pretty_amount, "injectable" = injectable, "overdosing" = overdosing, "od_warning" = caution)))
+		pretty_amount = round(reagent_amount, 0.05)
+
+		chemicals.Add(list(list("title" = temp.name, "id" = "[reagent_type]", "commands" = list("chemical" = "[reagent_type]"), "occ_amount" = reagent_amount, "pretty_amount" = pretty_amount, "injectable" = injectable, "overdosing" = overdosing, "od_warning" = caution)))
+
 	data["chemicals"] = chemicals
 	return data
 
@@ -290,9 +293,9 @@
 			if(occupant.stat == DEAD)
 				to_chat(usr, span_danger("Пациент мёртв, ввод веществ невозможен."))
 				return
-			var/chemical = params["chemid"]
+			var/chemical = text2path(params["chemid"])
 			var/amount = text2num(params["amount"])
-			if(!length(chemical) || amount <= 0)
+			if(!ispath(chemical) || amount <= 0)
 				return
 			if(occupant.health > min_health || (chemical in emergency_chems))
 				inject_chemical(usr, chemical, amount)
@@ -470,7 +473,7 @@ GAME_VERB_SRC(/obj/machinery/sleeper, eject, oview(1), "Извлечь паци�
 
 	if(usr.default_can_use_topic(src) != UI_INTERACTIVE)
 		return
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
 		return
 
 	go_out()
@@ -478,7 +481,7 @@ GAME_VERB_SRC(/obj/machinery/sleeper, eject, oview(1), "Извлечь паци�
 
 GAME_VERB_SRC(/obj/machinery/sleeper, remove_beaker, oview(1), "Достать ёмкость", VERB_CATEGORY_HIDDEN)
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !Adjacent(usr))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !Adjacent(usr))
 		return
 
 	if(beaker)
@@ -492,7 +495,7 @@ GAME_VERB_SRC(/obj/machinery/sleeper, remove_beaker, oview(1), "Достать �
 /obj/machinery/sleeper/mouse_drop_receive(atom/movable/O, mob/user, params)
 	if(O.loc == user) //no you can't pull things out of your ass
 		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
 		return
 	if(get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
 		return
@@ -550,8 +553,8 @@ GAME_VERB_SRC(/obj/machinery/sleeper, remove_beaker, oview(1), "Достать �
 /obj/machinery/sleeper/syndie
 	icon_state = "sleeper_s-open"
 	base_icon = "sleeper_s"
-	possible_chems = list("epinephrine", "ether", "salbutamol", "styptic_powder", "silver_sulfadiazine")
-	emergency_chems = list("epinephrine")
+	possible_chems = list(/datum/reagent/medicine/epinephrine, /datum/reagent/medicine/ether, /datum/reagent/medicine/salbutamol, /datum/reagent/medicine/styptic_powder, /datum/reagent/medicine/silver_sulfadiazine)
+	emergency_chems = list(/datum/reagent/medicine/epinephrine)
 	controls_inside = TRUE
 
 	light_color = COLOR_SOFT_RED

@@ -302,7 +302,7 @@
 /obj/item/pen/sleepy/Initialize(mapload)
 	. = ..()
 	create_reagents(100)
-	reagents.add_reagent("ketamine", 100)
+	reagents.add_reagent(/datum/reagent/ketamine, 100)
 
 /*
  * MARK: Edagger
@@ -349,7 +349,7 @@
 /obj/item/pen/edagger/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	var/extra_force_applied = FALSE
 	var/cached_sound = hitsound
-	if(on && user != target && user.dir == target.dir && COOLDOWN_FINISHED(src, backstab_cooldown) && !target.incapacitated(IGNORE_RESTRAINTS))
+	if(on && user != target && user.dir == target.dir && COOLDOWN_FINISHED(src, backstab_cooldown) && !INCAPACITATED_IGNORING(target, INCAPABLE_RESTRAINTS))
 		hitsound = null
 		force += backstab_damage
 		extra_force_applied = TRUE
@@ -395,7 +395,7 @@
 		to_chat(user, span_warning("[P] is already coated."))
 	else if(uses_left)
 		uses_left--
-		P.contact_poison = "amanitin"
+		P.contact_poison = /datum/reagent/amanitin
 		P.contact_poison_volume = 15
 		P.contact_poison_poisoner = user.name
 		add_attack_logs(user, P, "Poison pen'ed")

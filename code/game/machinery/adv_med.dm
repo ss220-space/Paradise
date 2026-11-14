@@ -124,7 +124,7 @@
 /obj/machinery/bodyscanner/mouse_drop_receive(mob/living/carbon/human/H, mob/user, params)
 	if(!istype(H))
 		return //not human
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return //user shouldn't be doing things
 	if(H.anchored)
 		return //mob is anchored???
@@ -196,13 +196,13 @@
 	. = ..()
 
 /obj/machinery/bodyscanner/relaymove(mob/user)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return FALSE //maybe they should be able to get out with cuffs, but whatever
 	go_out()
 
 GAME_VERB_SRC(/obj/machinery/bodyscanner, eject, oview(1), "Извлечь пациента", VERB_CATEGORY_HIDDEN)
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	go_out()
 	add_fingerprint(usr)
@@ -485,17 +485,17 @@ GAME_VERB_SRC(/obj/machinery/bodyscanner, eject, oview(1), "Извлечь па�
 		dat += "[extra_font]\tУровень крови: [blood_percent] ([occupant.blood_volume] u)</font><br>"
 
 		if(occupant.reagents)
-			dat += "Эпинефрин: [occupant.reagents.get_reagent_amount("epinephrine")] u<br>"
-			dat += "Эфир: [occupant.reagents.get_reagent_amount("ether")] u<br>"
+			dat += "Эпинефрин: [occupant.reagents.get_reagent_amount(/datum/reagent/medicine/epinephrine)] u<br>"
+			dat += "Эфир: [occupant.reagents.get_reagent_amount(/datum/reagent/medicine/ether)] u<br>"
 
-			extra_font = (occupant.reagents.get_reagent_amount("silver_sulfadiazine") < 30 ? "<font color='black'>" : "<font color='red'>")
-			dat += "[extra_font]\tСульфадиазин серебра: [occupant.reagents.get_reagent_amount("silver_sulfadiazine")] u</font><br>"
+			extra_font = (occupant.reagents.get_reagent_amount(/datum/reagent/medicine/silver_sulfadiazine) < 30 ? "<font color='black'>" : "<font color='red'>")
+			dat += "[extra_font]\tСульфадиазин серебра: [occupant.reagents.get_reagent_amount(/datum/reagent/medicine/silver_sulfadiazine)] u</font><br>"
 
-			extra_font = (occupant.reagents.get_reagent_amount("styptic_powder") < 30 ? "<font color='black'>" : "<font color='red'>")
-			dat += "[extra_font]\tКровоостанавливающая пудра: [occupant.reagents.get_reagent_amount("styptic_powder")] u<br>"
+			extra_font = (occupant.reagents.get_reagent_amount(/datum/reagent/medicine/styptic_powder) < 30 ? "<font color='black'>" : "<font color='red'>")
+			dat += "[extra_font]\tКровоостанавливающая пудра: [occupant.reagents.get_reagent_amount(/datum/reagent/medicine/styptic_powder)] u<br>"
 
-			extra_font = (occupant.reagents.get_reagent_amount("salbutamol") < 30 ? "<font color='black'>" : "<font color='red'>")
-			dat += "[extra_font]\tСальбутамол: [occupant.reagents.get_reagent_amount("salbutamol")] u<br>"
+			extra_font = (occupant.reagents.get_reagent_amount(/datum/reagent/medicine/salbutamol) < 30 ? "<font color='black'>" : "<font color='red'>")
+			dat += "[extra_font]\tСальбутамол: [occupant.reagents.get_reagent_amount(/datum/reagent/medicine/salbutamol)] u<br>"
 
 		dat += "<hr><table border='1'>"
 		dat += "<tr>"

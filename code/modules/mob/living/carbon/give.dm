@@ -6,7 +6,7 @@ GAME_VERB_CONTEXT_RANGE(/mob/living/carbon, give, "Передать", VERB_NO_DE
 		to_chat(usr, span_danger("Погодите-ка... у [target.declent_ru(ACCUSATIVE)] НЕТ РУК! ААА!"))
 		return
 
-	if(target.incapacitated() || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || target.client == null)
+	if(target.incapacitated || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED) || usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || target.client == null)
 		return
 
 	var/obj/item/item = get_active_hand()
@@ -23,7 +23,7 @@ GAME_VERB_CONTEXT_RANGE(/mob/living/carbon, give, "Передать", VERB_NO_DE
 			return
 		switch(ans)
 			if("Взять")
-				if(target.incapacitated() || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+				if(target.incapacitated || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED) || usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 					return
 				if(!Adjacent(target))
 					to_chat(usr, span_warning("Нужно оставаться в пределах досягаемости!"))
@@ -55,7 +55,7 @@ GAME_VERB_CONTEXT_RANGE(/mob/living/carbon, give, "Передать", VERB_NO_DE
  * Toggles the [/datum/click_intercept/give] on or off for the src mob.
  */
 /mob/living/carbon/proc/toggle_give()
-	if(incapacitated() || HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+	if(incapacitated || HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return
 	if(has_status_effect(STATUS_EFFECT_OFFERING_ITEM))
 		to_chat(src, span_warning("Вы уже предлагаете предмет другому игроку!"))
@@ -135,7 +135,7 @@ GAME_VERB_CONTEXT_RANGE(/mob/living/carbon, give, "Передать", VERB_NO_DE
 	..()
 	if(!holder.mouse_override_icon)
 		holder.mouse_override_icon = 'icons/misc/mouse_icons/give_item.dmi'
-		holder.mouse_pointer_icon = holder.mouse_override_icon
+		holder.mob?.update_mouse_pointer()
 
 	giver = holder.mob
 	giving_item = giver.get_active_hand()
@@ -147,7 +147,7 @@ GAME_VERB_CONTEXT_RANGE(/mob/living/carbon, give, "Передать", VERB_NO_DE
 /datum/click_intercept/give/Destroy(force = FALSE)
 	if(holder.mouse_override_icon == 'icons/misc/mouse_icons/give_item.dmi')
 		holder.mouse_override_icon = null
-		holder.mouse_pointer_icon = initial(holder.mouse_pointer_icon)
+		holder.mob?.update_mouse_pointer()
 	if(!item_offered)
 		to_chat(giver, span_notice("Вы прекратили попытку передачи предмета."))
 	if(giving_item)

@@ -25,7 +25,7 @@
 	COOLDOWN_DECLARE(recently_moved_cd)
 
 /obj/structure/closet/cardboard/relaymove(mob/living/user, direction)
-	if(!COOLDOWN_FINISHED(src, recently_moved_cd) || !istype(user) || opened || user.incapacitated() || !isturf(loc) || no_gravity() || !relaymove_multiz_check(direction))
+	if(!COOLDOWN_FINISHED(src, recently_moved_cd) || !istype(user) || opened || user.incapacitated || !isturf(loc) || no_gravity() || !relaymove_multiz_check(direction))
 		return
 
 	var/turf/cur_pos = get_turf(src)
@@ -168,7 +168,7 @@
 	var/new_decal = tgui_input_list(user, "Please select a decal", "Paint box", decal_collection)
 	if(!new_decal)
 		return .
-	if(user.incapacitated())
+	if(user.incapacitated)
 		to_chat(user, span_warning("You're in no condition to perform this action."))
 		return .
 	if(can != user.get_active_hand())

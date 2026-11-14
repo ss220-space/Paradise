@@ -3,7 +3,7 @@
 	hallucination_tier = HALLUCINATION_TIER_COMMON
 
 /datum/hallucination/message/start()
-	if(hallucinator.incapacitated())
+	if(hallucinator.incapacitated)
 		return FALSE
 
 	var/list/nearby_humans = list()

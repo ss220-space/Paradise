@@ -299,7 +299,7 @@
 	desc = "Toxic to nonbelievers; this water renews and reinvigorates the faithful of a cult."
 	icon_state = "holyflask"
 	color = "#333333"
-	list_reagents = list("unholywater" = 40)
+	list_reagents = list(/datum/reagent/fuel/unholywater = 40)
 
 /obj/item/clothing/glasses/hud/health/night/cultblind
 	name = "zealot's blindfold"

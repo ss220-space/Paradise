@@ -60,7 +60,7 @@
 			jaunt.teleport(user, target)
 			if(user.client)
 				user.client.mouse_override_icon = jaunt.update_cursor()
-				user.client.mouse_pointer_icon = user.client.mouse_override_icon
+				user?.update_mouse_pointer()
 				jaunt.update_action_style(color_style)
 		else
 			var/mob/living/carbon/human/H = user
@@ -76,7 +76,7 @@
 	if(user?.client)
 		jaunt.Grant(user, src)
 		user.client.mouse_override_icon = jaunt.update_cursor()
-		user.client.mouse_pointer_icon = user.client.mouse_override_icon
+		user.update_mouse_pointer()
 		jaunt.update_action_style(color_style)
 		user.update_icons()
 		playsound(get_turf(src), 'sound/items/unsheath.ogg', 25, TRUE, 5)
@@ -90,7 +90,7 @@
 	if(user?.client)
 		jaunt.Remove(user)
 		user.client.mouse_override_icon = null
-		user.client.mouse_pointer_icon = initial(user.client.mouse_pointer_icon)
+		user.update_mouse_pointer()
 		user.update_icons()
 
 /obj/item/melee/energy_katana/attack(mob/living/target, mob/living/carbon/human/user, params, def_zone, skip_attack_anim = FALSE)
@@ -200,7 +200,7 @@
 	. = ..()
 	if(owner?.client)
 		owner.client.mouse_override_icon = update_cursor()
-		owner.client.mouse_pointer_icon = owner.client.mouse_override_icon
+		owner.update_mouse_pointer()
 		var/obj/item/melee/energy_katana/katana = dashing_item
 		update_action_style(katana.color_style)
 

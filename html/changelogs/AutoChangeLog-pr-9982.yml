@@ -1,4 +1,0 @@
-author: "Dimempers"
-delete-after: True
-changes:
-  - bugfix: "Заклинание healtouch и подобные больше не рантаймит если попробовать его на не человеке (PR #9982)"

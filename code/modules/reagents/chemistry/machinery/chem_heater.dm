@@ -146,7 +146,7 @@
 	add_fingerprint(usr)
 
 /obj/machinery/chem_heater/ui_interact(mob/user, datum/tgui/ui = null)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	ui = SStgui.try_update_ui(user, src, ui)

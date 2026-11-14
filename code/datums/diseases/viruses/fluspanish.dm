@@ -3,9 +3,9 @@
 	agent = "Вирион гриппа uHKBu3uLIu9I"
 	desc = "Если не лечить, заражённый сгорит заживо за ересь."
 	max_stages = 3
-	spread_flags = AIRBORNE
+	spread_flags = BLOOD|AIRBORNE
 	cure_text = "Космоциллин и антитела к обычному гриппу"
-	cures = list("spaceacillin")
+	cures = list(/datum/reagent/medicine/spaceacillin)
 	cure_prob = 10
 	permeability_mod = 0.75
 	severity = DISEASE_SEVERITY_DANGEROUS

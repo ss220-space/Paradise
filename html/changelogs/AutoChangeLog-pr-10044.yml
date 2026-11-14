@@ -1,0 +1,4 @@
+author: "pilygun"
+delete-after: True
+changes:
+  - image: "Добавлены всем револьверам инхенды, спраты на слоте брони и поясе. (PR #10044)"

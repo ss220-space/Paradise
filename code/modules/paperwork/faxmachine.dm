@@ -335,7 +335,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 GAME_VERB_SRC(/obj/machinery/photocopier/faxmachine, eject_id, oview(1), "Достать ID-карту", VERB_CATEGORY_HIDDEN)
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(scan)

@@ -222,7 +222,7 @@
 
 /obj/item/gun/projectile/bow/tactical/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/scope, range_modifier = 0.86, range_is_multiplier = FALSE)
+	AddComponent(/datum/component/scope, range_modifier = 0.86)
 
 // MARK: Handmade
 /obj/item/gun/projectile/bow/handmade

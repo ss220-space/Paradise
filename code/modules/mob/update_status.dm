@@ -40,9 +40,6 @@
 /mob/proc/can_speak()
 	return 1
 
-/mob/proc/incapacitated(ignore_flags)
-	return FALSE
-
 // Procs that update other things about the mob
 
 /mob/proc/update_stat()

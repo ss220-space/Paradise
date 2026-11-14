@@ -13,6 +13,10 @@
 	var/dizzy_adj = 6 SECONDS
 	var/alcohol_perc = 1 //percentage of ethanol in a beverage 0.0 - 1.0
 	taste_description = "жидкого огня"
+	chemfiresupp = TRUE
+	burncolor = "#6897f7"
+	burncolormod = 2
+	properties = list(PROPERTY_FUELING = 3, PROPERTY_OXIDIZING = 3, PROPERTY_FLOWING = 2)
 
 /datum/reagent/consumable/ethanol/New()
 	addict_supertype = /datum/reagent/consumable/ethanol
@@ -1045,7 +1049,7 @@
 		M.AdjustStunned(-2 SECONDS)
 		M.AdjustWeakened(-2 SECONDS)
 	if(prob(8))
-		M.reagents.add_reagent("methamphetamine",1.2)
+		M.reagents.add_reagent(/datum/reagent/methamphetamine, 1.2)
 		var/sonic_message = pick("НАДО! ЕЩЁ! БЫСТРЕЕ!!!", "БЫСТРЕЕ, БЫСТРЕЕ, ЕЩЁ БЫСТРЕЕ!!!", "ДА, ДЕТКА!!!", "БОДРИТ!!!", "ПОШЁЛ, ПОШЁЛ!!!", "На старт... МАРШ!!!", "ПОНЕСЛАСЬ!!!")
 		if(prob(50))
 			M.say("[sonic_message]")
@@ -1113,10 +1117,10 @@
 
 /datum/reagent/consumable/ethanol/dragons_breath/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(M.reagents.has_reagent("milk"))
+	if(M.reagents.has_reagent(/datum/reagent/consumable/drink/milk))
 		to_chat(M, span_notice("Молоко останавливает горение. Фух."))
-		M.reagents.del_reagent("milk")
-		M.reagents.del_reagent("dragonsbreath")
+		M.reagents.del_reagent(/datum/reagent/consumable/drink/milk)
+		M.reagents.del_reagent(/datum/reagent/consumable/ethanol/dragons_breath)
 		return
 	if(prob(8))
 		to_chat(M, span_userdanger("Господи! ГОСПОДИ БЛЯДЬ!!!"))
@@ -2400,6 +2404,6 @@
 			M.SetDruggy(0)
 			M.set_resting(FALSE, instant = TRUE)
 			M.get_up(instant = TRUE)
-			var/restart_amount = clamp(M.reagents.get_reagent_amount("restart")-0.4, 0, 330)
-			M.reagents.remove_reagent("restart",restart_amount)
+			var/restart_amount = clamp(M.reagents.get_reagent_amount(/datum/reagent/consumable/ethanol/synthanol/restart)-0.4, 0, 330)
+			M.reagents.remove_reagent(/datum/reagent/consumable/ethanol/synthanol/restart,restart_amount)
 	return ..() | update_flags
