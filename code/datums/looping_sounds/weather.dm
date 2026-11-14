@@ -95,3 +95,63 @@
 		return
 
 	timer_id = addtimer(CALLBACK(src, PROC_REF(sound_loop)), sound_to_length[picked_sound], TIMER_CLIENT_TIME | TIMER_STOPPABLE | TIMER_DELETE_ME, SSsound_loops)
+
+/datum/looping_sound/weak_outside_rain
+	start_sound = list(
+		'sound/ambience/weather/rain/outside/sfx_rain_external_light_1.ogg' = 1,
+		'sound/ambience/weather/rain/outside/sfx_rain_external_light_2.ogg' = 1,
+		'sound/ambience/weather/rain/outside/sfx_rain_external_light_3.ogg' = 1,
+	)
+	start_length = 10 SECONDS
+	mid_sounds = list(
+		'sound/ambience/weather/rain/outside/sfx_rain_external_medium_1.ogg' = 1,
+		'sound/ambience/weather/rain/outside/sfx_rain_external_medium_1.ogg' = 1,
+		'sound/ambience/weather/rain/outside/sfx_rain_external_medium_1.ogg' = 1,
+	)
+	mid_length = 10 SECONDS
+	end_sound = list(
+		'sound/ambience/weather/rain/outside/sfx_rain_external_light_1.ogg' = 1,
+		'sound/ambience/weather/rain/outside/sfx_rain_external_light_2.ogg' = 1,
+		'sound/ambience/weather/rain/outside/sfx_rain_external_light_3.ogg' = 1,
+	)
+	volume = 50
+	sound_channel = CHANNEL_WEATHER
+
+/datum/looping_sound/weak_inside_rain
+	start_sound = 'sound/ambience/weather/rain/inside/rain_weak_inside_start.ogg'
+	start_length = 14 SECONDS
+	mid_sounds = list('sound/ambience/weather/rain/inside/rain_weak_inside_midloop.ogg' = 1)
+	mid_length = 14 SECONDS
+	end_sound = 'sound/ambience/weather/rain/inside/rain_active_inside_end.ogg'
+	sound_channel = CHANNEL_WEATHER
+	volume = 40
+
+/datum/looping_sound/active_outside_rain
+	start_sound = list(
+		'sound/ambience/weather/rain/outside/sfx_rain_external_medium_1.ogg' = 1,
+		'sound/ambience/weather/rain/outside/sfx_rain_external_medium_2.ogg' = 1,
+		'sound/ambience/weather/rain/outside/sfx_rain_external_medium_3.ogg' = 1,
+	)
+	start_length = 10 SECONDS
+	mid_sounds = list(
+		'sound/ambience/weather/rain/outside/sfx_rain_external_heavy_1.ogg' = 1,
+		'sound/ambience/weather/rain/outside/sfx_rain_external_heavy_2.ogg' = 1,
+		'sound/ambience/weather/rain/outside/sfx_rain_external_heavy_3.ogg' = 1,
+	)
+	mid_length = 10 SECONDS
+	end_sound = list(
+		'sound/ambience/weather/rain/outside/sfx_rain_external_light_1.ogg' = 1,
+		'sound/ambience/weather/rain/outside/sfx_rain_external_light_2.ogg' = 1,
+		'sound/ambience/weather/rain/outside/sfx_rain_external_light_3.ogg' = 1,
+	)
+	sound_channel = CHANNEL_WEATHER
+	volume = 50
+
+/datum/looping_sound/active_inside_rain
+	start_sound = 'sound/ambience/weather/rain/inside/rain_active_inside_start.ogg'
+	start_length = 14 SECONDS
+	mid_sounds = list('sound/ambience/weather/rain/inside/rain_weak_inside_midloop.ogg' = 1)
+	mid_length = 14 SECONDS
+	end_sound = 'sound/ambience/weather/rain/inside/rain_active_inside_end.ogg'
+	volume = 40
+	sound_channel = CHANNEL_WEATHER
