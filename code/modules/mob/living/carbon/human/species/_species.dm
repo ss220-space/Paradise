@@ -739,6 +739,8 @@
 	if(target.check_martial_art_defense(target, user, null, message))
 		return FALSE
 
+	target.try_melee_counterattack(user)
+
 	if(attacker_style && attacker_style.disarm_act(user, target) == TRUE)
 		return TRUE
 

@@ -607,15 +607,21 @@
 	return speed
 
 /mob/living/carbon/proc/get_throw_range(range)
+	var/range_multiplier = 1
+	if(ishuman(src))
+		GET_SKILL_LEVEL(src, /datum/skill/combat/melee, melee_skill_level)
+		if(melee_skill_level >= SKILL_LEVEL_ADVANCED)
+			range_multiplier = 2
+
 	var/list/range_deltas = list()
 	if(range <= 1)
-		return range
+		return range * range_multiplier
 
 	SEND_SIGNAL(src, COMSIG_GET_THROW_RANGE_DELTAS, range_deltas)
 	for(var/delta in range_deltas)
 		range += delta
 
-	return max(0, range)
+	return max(0, range * range_multiplier)
 
 /mob/living/carbon/throw_item(atom/target)
 	. = ..()

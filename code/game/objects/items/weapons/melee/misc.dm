@@ -4,6 +4,9 @@
 	lefthand_file = 'icons/mob/inhands/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
 
+/obj/item/melee/is_melee_weapon()
+	return TRUE
+
 /obj/item/melee/energy/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_MELEE_WEAPON, ROUNDSTART_TRAIT)

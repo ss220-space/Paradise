@@ -130,6 +130,9 @@
 	embed_chance = 70
 	embedded_ignore_throwspeed_threshold = TRUE
 
+/obj/item/hatchet/is_melee_weapon()
+	return TRUE
+
 /obj/item/hatchet/ComponentInitialize()
 	. = ..()
 	AddComponent( \
