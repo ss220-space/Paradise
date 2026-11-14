@@ -76,6 +76,15 @@
 /datum/martial_art/proc/can_use(mob/living/carbon/human/human)
 	return !HAS_TRAIT(human, TRAIT_PACIFISM) && !HAS_TRAIT(human, TRAIT_MARTIAL_ARTS_SUPPRESSED)
 
+/// Whether this style can use the rapid attack speed from Polar Star gloves and clockwork FASTPUNCH gauntlets.
+/datum/martial_art/proc/can_use_rapid_gloves()
+	return FALSE
+
+/// Whether the mob can use the rapid attack speed from Polar Star gloves and clockwork FASTPUNCH gauntlets.
+/mob/living/proc/can_use_rapid_gloves()
+	var/datum/martial_art/martial_art = mind?.martial_art
+	return !martial_art || martial_art.can_use_rapid_gloves()
+
 /datum/martial_art/proc/act(step, mob/living/carbon/human/user, mob/living/carbon/human/target, could_start_new_combo = TRUE)
 	if(!can_use(user))
 		return MARTIAL_ARTS_CANNOT_USE
