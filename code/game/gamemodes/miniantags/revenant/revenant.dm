@@ -365,18 +365,13 @@
 /obj/item/ectoplasm/revenant/attack_self(mob/user)
 	if(!reforming || inert)
 		return ..()
+	if(!user.can_block_magic(MAGIC_RESISTANCE_HOLY, 0))
+		to_chat(user, span_revennotice("Для этого вам нужен святой предмет!"))
 	user.visible_message(
 		span_notice("[user] рассыпает [declent_ru(NOMINATIVE)] во всех направлениях."), \
 		span_notice("Вы рассыпаете [declent_ru(NOMINATIVE)] по области. Частицы медленно исчезают.")
 	)
 	user.drop_from_active_hand()
-	qdel(src)
-
-/obj/item/ectoplasm/revenant/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	..()
-	if(inert)
-		return
-	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] рассыпается на частицы при ударе, которые исчезают в никуда."))
 	qdel(src)
 
 /obj/item/ectoplasm/revenant/examine(mob/user)
