@@ -824,6 +824,7 @@
 #include "code\datums\components\contsruction_regenerate.dm"
 #include "code\datums\components\conveyor_movement.dm"
 #include "code\datums\components\cross_shock.dm"
+#include "code\datums\components\custom_access.dm"
 #include "code\datums\components\deadchat_control.dm"
 #include "code\datums\components\death_linked.dm"
 #include "code\datums\components\defibrillator.dm"

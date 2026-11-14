@@ -394,3 +394,13 @@
 	#define COMPONENT_STOP_EXPORT_REPORT (1<<0)
 
 #define COMSIG_GRIPPED_ITEM_CHANGE "gripped_item_change"
+
+/// Called when a /datum/component/custom_access attempts to be crowbared out of its parent object.
+#define COMSIG_CUSTOM_ACCESS_REMOVAL_ATTEMPT "custom_access_removal_attempt"
+	/// Stops the removal of the custom access control item, preventing the component from being uninstalled.
+	#define COMPONENT_BLOCK_ACCESS_REMOVAL (1<<0)
+
+/// Check for /datum/component/custom_access at some object
+#define COMSIG_ITEM_CHECK_CUSTOM_ACCESS "check_custom_access"
+	/// Returns that if /datum/component/custom_access already attached to object
+	#define COMPONENT_CUSTOM_ACCESS_EXIST (1<<0)
