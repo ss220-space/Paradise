@@ -4,6 +4,7 @@
 	desc = "Бюджетный револьвер производства \"Mars Special\" калибра .38. Простая конструкция из композитных материалов, шестизарядный барабан, \
 			отсутствие направляющих для тактических модулей. Популярен на гражданском рынке за счёт своей доступности."
 	icon_state = "detective"
+	item_state = "detective"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38
 	fire_sound = 'sound/weapons/gunshots/1rev38.ogg'
 	accuracy = GUN_ACCURACY_PISTOL
@@ -41,6 +42,7 @@
 	desc = "Тяжёлый шестизарядный револьвер калибра .45 Colt производства \"Mars Special\". Отличается высокой убойной силой, \
 			модульностью и надёжностью. Закупается \"Нанотрейзен\" для снабжения сотрудников корпоративной службы безопасности."
 	icon_state = "taurus"
+	item_state = "taurus"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/taurus
 	fire_sound = 'sound/weapons/gunshots/1rev38.ogg'
 	accuracy = GUN_ACCURACY_PISTOL
@@ -88,6 +90,7 @@
 	desc = "Ваши пальцы, превращённые в оружие."
 	gender = PLURAL
 	icon_state = "fingergun"
+	item_state = "fingergun"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible
 	origin_tech = ""
 	item_flags = ABSTRACT|DROPDEL
@@ -148,6 +151,7 @@
 	name = "Unica 6 revolver"
 	desc = "Тяжёлый револьвер калибра .357. Классическая конструкция, барабан на 6 патронов, высокая убойная сила."
 	icon_state = "mateba"
+	item_state = "mateba"
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_HIGH
 	attachable_offset = list(
@@ -170,6 +174,7 @@
 	desc = "Массивный револьвер 12-го калибра производства \"Дядя Чанг\". Колоссальная огневая мощь компенсируется \
 			экстремальной отдачей, низкой скорострельностью и барабаном на 3 патрона. Популярен среди наёмников и бандитов пограничных секторов."
 	icon_state = "12garevolver"
+	item_state = "12garevolver"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/ga12
 	fire_sound = 'sound/weapons/gunshots/1rev12.ogg'
 	accuracy = new /datum/gun_accuracy/pistol/extends_spread()
@@ -209,6 +214,7 @@
 	name = "golden revolver"
 	desc = "Золотой револьвер калибра .357."
 	icon_state = "goldrevolver"
+	item_state = "goldrevolver"
 	fire_sound = 'sound/weapons/resonator_blast.ogg'
 	accuracy = GUN_ACCURACY_PISTOL_UPLINK
 	recoil = GUN_RECOIL_MEGA
@@ -252,7 +258,7 @@
 	desc = "Собранный из подручных материалов револьвер калибра .257. Экстремальная отдача, минимальная точность и \
 			нулевое удобство использования."
 	icon_state = "irevolver"
-	item_state = "revolver"
+	item_state = "irevolver"
 	mag_type = null
 	fire_sound = 'sound/weapons/gunshots/1rev257.ogg'
 	var/unscrewed = TRUE
@@ -387,6 +393,7 @@
 	desc = "Крупнокалиберный револьвер под калибр 12.7х55 мм. \
 			Отличается высокой убойностью и страшной отдачей."
 	icon_state = "rsh-12"
+	item_state = "rsh-12"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rsh_12
 	fire_sound = 'sound/weapons/gunshots/bulldog.ogg'
 	accuracy = GUN_ACCURACY_RIFLE
@@ -448,6 +455,7 @@
 	name = "nagant revolver"
 	desc = "Старинный револьвер калибра 7,62x38."
 	icon_state = "nagant"
+	item_state = "nagant"
 	origin_tech = "combat=3"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev762
 	accuracy = GUN_ACCURACY_PISTOL_UPLINK
@@ -621,6 +629,7 @@
 	name = "peashooter"
 	desc = "Дикая мутация растительности, стреляющая затвердевшим горохом. Невероятно."
 	icon_state = "peashooter"
+	item_state = "peashooter"
 	w_class = WEIGHT_CLASS_BULKY
 	origin_tech = "combat=3;biotech=5"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/peashooter
