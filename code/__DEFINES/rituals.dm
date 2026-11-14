@@ -19,3 +19,9 @@
 #define RITUAL_FAILED_ON_PROCEED (1<<4)
 #define RITUAL_FAILED_INVALID_SPECIAL_ROLE (1<<5)
 
+// Flags for /datum/component/ritual_object ritual_state_flags
+#define RITUAL_STATE_UI_OPEN (1<<0)
+#define RITUAL_STATE_IN_PROGRESS (1<<1)
+#define RITUAL_STATE_CAST_CANCELLED (1<<2)
+#define RITUAL_STATE_BUSY (RITUAL_STATE_UI_OPEN|RITUAL_STATE_IN_PROGRESS)
+

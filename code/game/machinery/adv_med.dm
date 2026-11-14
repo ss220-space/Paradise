@@ -382,6 +382,7 @@ GAME_VERB_SRC(/obj/machinery/bodyscanner, eject, oview(1), "Извлечь па�
 		occupantData["blind"] = HAS_TRAIT(occupant, TRAIT_BLIND)
 		occupantData["colourblind"] = HAS_TRAIT(occupant, TRAIT_COLORBLIND)
 		occupantData["nearsighted"] = HAS_TRAIT(occupant, TRAIT_NEARSIGHTED)
+		occupantData["hasIrradiated"] = HAS_TRAIT(occupant, TRAIT_IRRADIATED)
 
 	data["occupant"] = occupantData
 	return data
