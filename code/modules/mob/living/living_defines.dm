@@ -34,6 +34,8 @@
 
 	///Used by the resist verb, likely used to prevent players from bypassing next_move by logging in/out.
 	var/last_special = 0
+	/// when the mob goes from "normal" to crit
+	var/crit_threshold = HEALTH_THRESHOLD_CRIT
 
 	//Allows mobs to move through dense areas without restriction. For instance, in space or out of holder objects.
 	var/incorporeal_move = INCORPOREAL_NONE
@@ -109,8 +111,8 @@
 
 	var/deathgasp_on_death = FALSE
 
-	/// Used to halt stamina regen temporarily
-	var/stam_regen_start_time = 0
+	/// How long it takes to return to 0 stam
+	var/stamina_regen_time = 15 SECONDS
 	/// Modifier of time until regeneration starts
 	var/stam_regen_start_modifier = 1
 
