@@ -14,6 +14,7 @@
 	pickup_sound = 'sound/items/handling/pickup/generic_small_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/generic_small_drop.ogg'
 	custom_price = PAYCHECK_MIN * 0.3
+	eat_time = 1 SECONDS
 
 /obj/item/reagent_containers/food/pill/get_ru_names()
 	return alist(
@@ -29,9 +30,6 @@
 	if(icon_state == "pill")
 		icon_state = "pill[rand(1,20)]"
 	. = ..()
-
-/obj/item/reagent_containers/food/pill/attack_self(mob/user)
-	return
 
 /obj/item/reagent_containers/food/pill/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
