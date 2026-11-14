@@ -80,7 +80,7 @@ GLOBAL_LIST_EMPTY(disposals_pipe_areas)
 
 /datum/event/disposals_explosion/announce()
 	GLOB.minor_announcement.announce(
-		message = "Зафиксировано повышенное давление в сегменте трубопровода в зоне [picked_disposals_pipe_area]. Инженерному отделу рекомендуется устранить неисправность как можно скорее, пока это не привело к разрыву данного сегмета мусоропровода.",
+		message = "Зафиксировано повышенное давление в сегменте трубопровода в зоне [picked_disposals_pipe_area]. Инженерному отделу рекомендуется устранить неисправность как можно скорее, пока это не привело к разрыву данного сегмента мусоропровода.",
 		new_title = ANNOUNCE_TITLE_DISPOSAL_EXPLOSION_RU,
 	)
 
