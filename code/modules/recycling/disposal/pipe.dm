@@ -187,6 +187,7 @@
 	icon_state = "pipe-s"
 	base_icon_state = "pipe-s"
 	initialize_dirs = DISP_DIR_FLIP
+	var/explodes = FALSE
 
 //a three-way junction with dir being the dominant direction
 /obj/structure/disposalpipe/junction

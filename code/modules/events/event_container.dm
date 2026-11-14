@@ -195,6 +195,8 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 			EVENT_LEVEL_MUNDANE, EVENT_KOI_MIGRATION, /datum/event/carp_migration/koi, 80),
 		new /datum/event_meta(
 			EVENT_LEVEL_MUNDANE, EVENT_APPENDIX, /datum/event/spontaneous_appendicitis, 0, list(ASSIGNMENT_MEDICAL = 10), TRUE),
+		new /datum/event_meta(
+			EVENT_LEVEL_MUNDANE, EVENT_DISPOSAL_PIPE_EXPLOSION, /datum/event/disposals_explosion, 200),
 	)
 
 /datum/event_container/moderate

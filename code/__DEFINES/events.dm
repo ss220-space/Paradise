@@ -67,6 +67,7 @@
 #define EVENT_WORMHOLES "Червоточины"
 #define EVENT_XENOMORPH_INFESTATION "Заражение ксеноморфами"
 #define EVENT_ZOMBIE "Капсула с зомби"
+#define EVENT_DISPOSAL_PIPE_EXPLOSION "Взрыв мусоропровода"
 
 // Events from bluespace rift scanner(BRS) station goal
 #define EVENT_BRS_TELEPORT_LIVINGS "Телепортация живых"
