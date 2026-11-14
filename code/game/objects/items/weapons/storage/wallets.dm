@@ -29,7 +29,7 @@
 		/obj/item/reagent_containers/food/pill/patch,
 		/obj/item/reagent_containers/syringe,
 		/obj/item/seeds,
-		/obj/item/spacepod_equipment/key,
+		/obj/item/spacepod_key,
 		/obj/item/stack/medical,
 		/obj/item/tourniquet,
 		/obj/item/stack/spacecash,

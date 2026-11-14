@@ -137,6 +137,12 @@
 		var/obj/mecha/M = loc
 		return M.click_action(A, src, modifiers)
 
+	if(isspacepod(loc))
+		if(!isturf(A) && !isturf(A.loc)) // Prevents inventory from being drilled
+			return
+		var/obj/spacepod/pod = loc
+		return pod.click_action(A, src, modifiers)
+
 	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		changeNext_move(CLICK_CD_HANDCUFFED) //Doing shit in cuffs shall be vey slow
 		RestrainedClickOn(A)

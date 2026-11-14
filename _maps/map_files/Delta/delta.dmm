@@ -24400,6 +24400,10 @@
 	dir = 1;
 	network = list("SS13","Security")
 	},
+/obj/item/tank/internals/plasma/full,
+/obj/item/tank/internals/plasma/full,
+/obj/item/tank/internals/plasma/full,
+/obj/item/tank/internals/plasma/full,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -25101,6 +25105,13 @@
 	pixel_y = -32
 	},
 /obj/structure/closet/toolcloset,
+/obj/item/spacepod_module/battery/full,
+/obj/item/spacepod_module/fuel_tank/engine,
+/obj/item/spacepod_module/fuel_tank/engine/apu,
+/obj/item/spacepod_module/fuel_tank,
+/obj/item/spacepod_module/gyroscope,
+/obj/item/spacepod_module/fuel_pump,
+/obj/item/spacepod_module/fuel_pump,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "yellow"
@@ -30162,13 +30173,12 @@
 /area/station/maintenance/electrical)
 "gyq" = (
 /obj/structure/table/wood,
-/obj/item/spacepod_equipment/key{
+/obj/item/spacepod_key{
 	id = 100000;
 	pixel_x = 5;
 	pixel_y = 11
 	},
 /obj/machinery/firealarm/directional/south,
-/obj/item/reagent_containers/cup/glass/mug/hos,
 /obj/item/paper/safe_code{
 	owner = "hos";
 	pixel_x = -6;
@@ -30181,6 +30191,7 @@
 	pixel_x = 10;
 	pixel_y = -3
 	},
+/obj/item/reagent_containers/cup/glass/mug/hos,
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
 "gyr" = (
@@ -55527,6 +55538,7 @@
 "lLy" = (
 /obj/effect/turf_decal/delivery/red,
 /obj/structure/closet/firecloset,
+/obj/item/spacepod_module/fire_extingusher,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -68963,6 +68975,13 @@
 	icon_state = "vault"
 	},
 /area/station/command/vault)
+"oBT" = (
+/obj/machinery/portable_atmospherics/canister/toxins,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkyellow"
+	},
+/area/station/engineering/mechanic_workshop/hangar)
 "oCj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -77427,6 +77446,12 @@
 /area/station/security/prison/perma)
 "qkc" = (
 /obj/item/radio/intercom/directional/south,
+/obj/structure/rack,
+/obj/item/tank/internals/plasma/full,
+/obj/item/tank/internals/plasma/full,
+/obj/item/tank/internals/plasma/full,
+/obj/item/tank/internals/plasma/full,
+/obj/item/tank/internals/plasma/full,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
 	},
@@ -97831,7 +97856,7 @@
 /turf/simulated/floor/engine,
 /area/station/science/chem_lab/chamber)
 "upN" = (
-/obj/spacepod/sec{
+/obj/spacepod/template/two_engine/raptor{
 	dir = 4
 	},
 /obj/structure/cable,
@@ -98166,6 +98191,7 @@
 "uti" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/double,
+/obj/item/spacepod_module/life_support,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -116587,13 +116613,11 @@
 /obj/structure/closet/secure_closet/security,
 /obj/effect/turf_decal/delivery/red/hollow,
 /obj/machinery/light,
-/obj/item/spacepod_equipment/key{
+/obj/item/spacepod_key{
 	id = 100000
 	},
-/obj/item/spacepod_equipment/weaponry/laser,
 /obj/item/clothing/suit/jacket/pilot,
 /obj/item/clothing/head/beret/sec,
-/obj/item/spacepod_equipment/weaponry/burst_taser,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -158945,7 +158969,7 @@ mzD
 nrO
 wMF
 xsc
-trh
+oBT
 geg
 axZ
 iQV

@@ -185,10 +185,6 @@
 /obj/item/stack/sheet/metal,
 /turf/space,
 /area/space)
-"aqN" = (
-/obj/item/spacepod_equipment/weaponry/mining_laser_basic,
-/turf/space,
-/area/space)
 "arr" = (
 /obj/structure/chair/sofa{
 	dir = 1
@@ -257,10 +253,6 @@
 /obj/item/stack/tape_roll,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
-"aum" = (
-/obj/item/spacepod_equipment/weaponry/laser,
-/turf/space,
-/area/space)
 "auB" = (
 /turf/simulated/mineral/diamond,
 /area/ruin/unpowered)
@@ -53172,7 +53164,7 @@ mEC
 mEC
 mEC
 mEC
-aqN
+mEC
 mEC
 lEF
 mEC
@@ -54203,7 +54195,7 @@ mEC
 mEC
 mEC
 mEC
-aum
+mEC
 mEC
 mEC
 mEC
