@@ -224,7 +224,7 @@ effective or pretty fucking useless.
 	var/inner_tp_range = 3
 	var/charges = 4
 	var/max_charges = 4
-	var/saving_throw_distance = 3
+	var/saving_throw_distance = 1
 	var/flawless = FALSE
 
 /obj/item/teleporter/Destroy()
@@ -351,14 +351,14 @@ effective or pretty fucking useless.
 	switch(direction)
 		if(NORTH, SOUTH)
 			if(prob(50))
-				saving_throw = EAST
-			else
-				saving_throw = WEST
-		if(EAST, WEST)
-			if(prob(50))
 				saving_throw = NORTH
 			else
 				saving_throw = SOUTH
+		if(EAST, WEST)
+			if(prob(50))
+				saving_throw = EAST
+			else
+				saving_throw = WEST
 		else
 			saving_throw = NORTH // just in case
 
