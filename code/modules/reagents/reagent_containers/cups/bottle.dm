@@ -30,6 +30,20 @@
 		icon_state = "bottle"
 	update_appearance()
 
+/obj/item/reagent_containers/glass/bottle/defile()
+	. = ..()
+	name = /obj/item/reagent_containers/glass/bottle::name
+	ru_names = alist(
+		NOMINATIVE = "бутылка",
+		GENITIVE = "бутылки",
+		DATIVE = "бутылке",
+		ACCUSATIVE = "бутылку",
+		INSTRUMENTAL = "бутылкой",
+		PREPOSITIONAL = "бутылке",
+	)
+	desc = /obj/item/reagent_containers/glass/bottle::desc
+	update_appearance()
+
 /obj/item/reagent_containers/cup/bottle/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!reagents.total_volume)
 		C.stored_comms["glass"] += 3

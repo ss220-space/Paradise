@@ -1,0 +1,23 @@
+.theme-revenant {
+  &:root {
+
+    // Base
+    --color-base: hsl(281, 100%, 6%);
+    --color-primary: hsl(280, 64%, 32.5%);
+
+    // Components
+    --button-background-default: hsl(280, 64%, 32.5%);
+    --button-color: hsl(283, 21%, 93.5%);
+    --button-background-selected: hsl(227, 37%, 44%);
+    --button-background-caution: hsl(29.5, 91%, 39%);
+    --progress-bar-fill: hsl(280, 64%, 32.5%);
+    --progress-bar-color: hsl(280, 64%, 32.5%);
+    --tooltip-background: hsl(283, 21%, 93.5%);
+    --tab-background-selected: hsl(255, 132, 153);
+	--base-gradient-spread: -6;
+
+  .Layout__content {
+    background-image: none;
+  }
+}
+}
