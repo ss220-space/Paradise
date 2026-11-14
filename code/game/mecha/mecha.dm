@@ -183,6 +183,7 @@
 	ui_view = new()
 	ui_view.generate_view("mech_view_[UID()]")
 	ADD_TRAIT(src, TRAIT_WEATHER_IMMUNE, INNATE_TRAIT)
+	ADD_TRAIT(src, TRAIT_IGNORE_OWN_PROJECTILE, INNATE_TRAIT)
 	icon_state += "-open"
 	add_radio()
 	add_cabin()

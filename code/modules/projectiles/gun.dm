@@ -507,13 +507,13 @@
 	return TRUE
 
 ///Checks if the gun is on cooldown
-/obj/item/gun/proc/gun_on_cooldown(mob/user)
+/obj/item/gun/proc/gun_on_cooldown(mob/user, check_mob_cooldown = TRUE)
 	var/added_delay = fire_delay
 	var/delay = last_fired + added_delay
 	if(gun_firemode == GUN_FIREMODE_BURSTFIRE)
 		delay += extra_delay
 
-	if(world.time >= delay && (!user || SEND_SIGNAL(user, COMSIG_MOB_GUN_COOLDOWN, src)))
+	if(world.time >= delay && (!check_mob_cooldown || !user || SEND_SIGNAL(user, COMSIG_MOB_GUN_COOLDOWN, src)))
 		return FALSE
 
 	return TRUE
@@ -698,6 +698,11 @@
 
 	if(chambered.muzzle_flash_effect)
 		var/obj/effect/temp_visual/target_angled/muzzle_flash/effect = new chambered.muzzle_flash_effect(get_turf(src), target, muzzle_flash_time)
+		effect.pixel_x = src.pixel_x
+		effect.pixel_y = src.pixel_y
+		var/matrix/muzzle_matrix = new
+		muzzle_matrix.Turn(get_angle(effect, target))
+		effect.transform = muzzle_matrix
 		effect.alpha = min(255, muzzle_strength * 255)
 		if(chambered.muzzle_flash_color)
 			effect.color = chambered.muzzle_flash_color
