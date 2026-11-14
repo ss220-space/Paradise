@@ -1,0 +1,4 @@
+author: "broodjeh-lang"
+delete-after: True
+changes:
+  - add: "Добавлено молоко в химический диспенсер сервисного борга. (PR #10034)"
