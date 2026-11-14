@@ -39,6 +39,19 @@
 		PREPOSITIONAL = "Бетси",
 	)
 
+/mob/living/simple_animal/hostile/retaliate/goat/piti
+	name = "Piti"
+
+/mob/living/simple_animal/hostile/retaliate/goat/piti/get_ru_names()
+	return alist(
+		NOMINATIVE = "Пити",
+		GENITIVE = "Пити",
+		DATIVE = "Пити",
+		ACCUSATIVE = "Пити",
+		INSTRUMENTAL = "Пити",
+		PREPOSITIONAL = "Пити",
+	)
+
 /mob/living/simple_animal/chicken/Wife
 	name = "Galya"
 	desc = "Почетная наседка. Жена Коммандора, следующая за ним в коммандировках по космическим станциям."
