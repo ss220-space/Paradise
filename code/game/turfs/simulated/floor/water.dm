@@ -82,6 +82,18 @@
 	UnregisterSignal(src, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON)
 	return ..()
 
+/turf/simulated/floor/water/ex_act(severity, target)
+	return
+
+/turf/simulated/floor/water/fire_act(exposed_temperature, exposed_volume)
+	return
+
+/turf/simulated/floor/water/remove_plating()
+	return
+
+/turf/simulated/floor/water/crowbar_act(mob/user, obj/item/I)
+	return
+
 /turf/simulated/floor/water/jungle
 
 /turf/simulated/floor/water/no_planet_atmos

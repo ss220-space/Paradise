@@ -103,8 +103,7 @@
 		return
 
 	step(movable_parent, direction)
-	last_move_diagonal = ((direction & (direction - 1)) && (movable_parent.loc == next))
-	COOLDOWN_START(src, vehicle_move_cooldown, (last_move_diagonal? 2 : 1) * vehicle_move_delay)
+	COOLDOWN_START(src, vehicle_move_cooldown, vehicle_move_delay)
 
 	if(QDELETED(src))
 		return
@@ -215,6 +214,19 @@
 /datum/component/riding/vehicle/bicycle/handle_specials()
 	. = ..()
 	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 4), TEXT_SOUTH = list(0, 4), TEXT_EAST = list(0, 4), TEXT_WEST = list(0, 4)))
+
+/datum/component/riding/vehicle/motorbike
+	vehicle_move_delay = 1.5
+	keytype = /obj/item/key/motorbike
+	ride_check_flags = RIDER_NEEDS_LEGS | RIDER_NEEDS_ARMS | UNBUCKLE_DISABLED_RIDER
+
+/datum/component/riding/vehicle/motorbike/handle_specials()
+	. = ..()
+	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 3), TEXT_SOUTH = list(0, 3), TEXT_EAST = list(-2, 3), TEXT_WEST = list(2, 3)))
+	set_vehicle_dir_layer(SOUTH, ABOVE_MOB_LAYER)
+	set_vehicle_dir_layer(NORTH, OBJ_LAYER)
+	set_vehicle_dir_layer(EAST, OBJ_LAYER)
+	set_vehicle_dir_layer(WEST, OBJ_LAYER)
 
 /*
 /datum/component/riding/vehicle/scooter/handle_specials(mob/living/riding_mob)

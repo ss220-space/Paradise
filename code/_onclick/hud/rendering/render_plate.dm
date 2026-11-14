@@ -207,6 +207,35 @@ INITIALIZE_IMMEDIATE(/atom/movable/render_plane_relay)
 	. = ..()
 	add_filter("specular_mask", 1, alpha_mask_filter(render_source = OFFSET_RENDER_TARGET(SPECULAR_MASK_RENDER_TARGET, offset)))
 
+/// Renders world-space particle weather (rain drops, ash, etc): real in-world emitters land directly on this
+/// plane, and the weather mask filter cuts them so they only show over impacted areas.
+/atom/movable/screen/plane_master/rendering_plate/particle_weather
+	name = "Particle Weather Plate"
+	documentation = "Renders in-world particle weather emitters. Masked by the weather mask so it doesn't draw over unaffected areas."
+	plane = RENDER_PLANE_PARTICLE_WEATHER
+	start_hidden = TRUE
+	critical = PLANE_CRITICAL_DISPLAY
+
+/atom/movable/screen/plane_master/rendering_plate/particle_weather/Initialize(mapload, datum/hud/hud_owner, datum/plane_master_group/home, offset)
+	. = ..()
+	add_filter("weather_mask", 1, alpha_mask_filter(render_source = OFFSET_RENDER_TARGET(WEATHER_MASK_RENDER_TARGET, offset)))
+
+/atom/movable/screen/plane_master/rendering_plate/particle_weather/set_home(datum/plane_master_group/home)
+	. = ..()
+	if(!.)
+		return
+	home.AddComponent(/datum/component/hide_weather_planes, src)
+
+/// Emissive secondary plate for glowing weather embers; rendered onto the emissive plane as well.
+/atom/movable/screen/plane_master/rendering_plate/particle_weather/emissive
+	name = "Emissive Particle Weather Plate"
+	documentation = "Secondary particle weather plate for glowing weather embers, additionally rendered onto the emissive plane."
+	plane = RENDER_PLANE_EMISSIVE_PARTICLE_WEATHER
+
+/atom/movable/screen/plane_master/rendering_plate/particle_weather/emissive/Initialize(mapload, datum/hud/hud_owner, datum/plane_master_group/home, offset)
+	. = ..()
+	add_relay_to(GET_NEW_PLANE(EMISSIVE_PLANE, offset), relay_color = GLOB.emissive_color)
+
 ///Contains all lighting objects
 /atom/movable/screen/plane_master/rendering_plate/lighting
 	name = "Lighting plate"
