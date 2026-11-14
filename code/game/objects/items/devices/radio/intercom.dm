@@ -57,18 +57,18 @@
 	add_fingerprint(user)
 	attack_self(user)
 
-/obj/item/radio/intercom/receive_range(freq, level)
+/obj/item/radio/intercom/can_receive(freq, level)
 	if(!is_listening())
-		return -1
+		return FALSE
 	if(!(0 in level))
 		var/turf/position = get_turf(src)
 		// TODO: Integrate radio with the space manager
 		if(isnull(position) || !(position.z in level))
-			return -1
+			return FALSE
 	if(freq in SSradio.ANTAG_FREQS)
 		if(!(syndiekey))
-			return -1//Prevents broadcast of messages over devices lacking the encryption
-	return canhear_range
+			return FALSE//Prevents broadcast of messages over devices lacking the encryption
+	return TRUE
 
 /obj/item/radio/intercom/examine(mob/user)
 	. = ..()
