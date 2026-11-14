@@ -8,21 +8,20 @@ GLOBAL_LIST_EMPTY(disposals_pipe_areas)
 /datum/event/disposals_explosion
 	name = "Взрыв мусоропровода"
 	announceWhen = 20
-	endWhen = 150 // Should be plenty of time to find it
+	endWhen = 80 // Should be plenty of time to find it
 	var/obj/structure/disposalpipe/segment/bursting_pipe = null
 	var/area/picked_disposals_pipe_area = null
 
 // Predicates for the pick_area and pick_area_turf proc
-/datum/event/disposals_explosion/proc/area_has_disposals_pipe(area/A)
-	for(var/turf/T in A)
-		if(has_disposals_pipe(T))
+/datum/event/disposals_explosion/proc/area_has_disposals_pipe(area/picked_area)
+	for(var/turf/picked_turf in picked_area)
+		if(has_disposals_pipe(picked_turf))
 			return TRUE
 	return FALSE
 
-/datum/event/disposals_explosion/proc/has_disposals_pipe(turf/T)
-	for(var/atom/A in T)
-		if(istype(A, /obj/structure/disposalpipe/segment))
-			return TRUE
+/datum/event/disposals_explosion/proc/has_disposals_pipe(turf/picked_turf)
+	for(var/obj/structure/disposalpipe/segment/picked_pipe in picked_turf)
+		return TRUE
 	return FALSE
 
 /datum/event/disposals_explosion/proc/pick_disposal_pipe_in_area()
@@ -33,8 +32,8 @@ GLOBAL_LIST_EMPTY(disposals_pipe_areas)
 
 	var/list/disposal_pipe_in_area = list()
 
-	for(var/turf/T in picked_disposals_pipe_area)
-		for(var/obj/structure/disposalpipe/segment/disposal_pipe in T)
+	for(var/turf/picked_turf in picked_disposals_pipe_area)
+		for(var/obj/structure/disposalpipe/segment/disposal_pipe in picked_turf)
 			disposal_pipe_in_area += disposal_pipe
 
 	if(!length(disposal_pipe_in_area))
@@ -55,10 +54,10 @@ GLOBAL_LIST_EMPTY(disposals_pipe_areas)
 	if(length(GLOB.disposals_pipe_areas))
 		return
 
-	for(var/area/A in SSmapping.existing_station_areas)
-		if(!area_has_disposals_pipe(A))
+	for(var/area/station_area in SSmapping.existing_station_areas)
+		if(!area_has_disposals_pipe(station_area))
 			continue
-		GLOB.disposals_pipe_areas += A
+		GLOB.disposals_pipe_areas += station_area
 
 /datum/event/disposals_explosion/setup()
 	cache_disposals_pipe_area()
@@ -101,19 +100,15 @@ GLOBAL_LIST_EMPTY(disposals_pipe_areas)
 	UnregisterSignal(bursting_pipe, COMSIG_OBJ_DECONSTRUCT)
 
 	if(bursting_pipe.explodes)
-		// Make a disposals holder for the trash
 		var/obj/structure/disposalholder/trash_holder = new()
 
-		for(var/i = 0 to rand(5,8))
-			var/chosen_trash = pick(subtypesof(/obj/item/trash))
-			var/obj/item/trash/T = new chosen_trash()
-			T.forceMove(trash_holder)
+		for(var/i in 0 to rand(5, 8))
+			var/chosen_trash = pick(valid_subtypesof(/obj/item/trash))
+			var/obj/item/trash/random_trash = new chosen_trash()
+			random_trash.forceMove(trash_holder)
 
-		// Add the trash to the pipe
 		trash_holder.forceMove(bursting_pipe)
 
-		// Make a scary noise
-		playsound(bursting_pipe, get_sfx(SFX_EXPLOSION), 40, 0, 0, 5)
+		playsound(bursting_pipe, SFX_EXPLOSION, 40, 0, 0, 5)
 
-		// Burst the pipe, spewing trash all over
 		bursting_pipe.deconstruct(FALSE)
