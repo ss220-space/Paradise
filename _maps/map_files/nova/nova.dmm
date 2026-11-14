@@ -80916,6 +80916,9 @@
 	dir = 8;
 	icon_state = "whitepurple"
 	},
+/obj/item/integrated_circuit/loaded/rnd_automation,
+/obj/item/usb_cable,
+/obj/item/shell/bot,
 /area/station/science/rnd)
 "nPB" = (
 /obj/machinery/door/airlock/maintenance,

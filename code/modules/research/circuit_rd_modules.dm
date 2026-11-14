@@ -10,6 +10,7 @@
 	var/datum/port/output/output_error
 	var/datum/port/output/output_design
 	var/datum/port/output/output_all_designs
+	var/datum/port/output/output_named_designs
 
 	var/obj/machinery/computer/rdconsole/attached_console
 
@@ -20,7 +21,8 @@
 	output_found = add_output_port("Чертеж найден", PORT_TYPE_SIGNAL)
 	output_error = add_output_port("Ошибка поиска", PORT_TYPE_SIGNAL)
 	output_design = add_output_port("Выход чертежа", PORT_TYPE_DATUM)
-	output_all_designs = add_output_port("Список доступных чертежей", PORT_TYPE_LIST(PORT_TYPE_STRING))
+	output_all_designs = add_output_port("Список доступных Id чертежей", PORT_TYPE_LIST(PORT_TYPE_STRING))
+	output_named_designs = add_output_port("Список адаптированных названий", PORT_TYPE_LIST(PORT_TYPE_STRING))
 
 /obj/item/circuit_component/rd_search/register_usb_parent(atom/movable/shell)
 	. = ..()
@@ -32,8 +34,7 @@
 	return ..()
 
 /obj/item/circuit_component/rd_search/input_received(datum/port/input/port)
-	if(port == input_search)
-		execute_search()
+	return
 
 /obj/item/circuit_component/rd_search/trigger_component()
 	if(!attached_console && loc && istype(loc, /obj/machinery/computer/rdconsole))
@@ -42,34 +43,33 @@
 	if(!attached_console)
 		return ..()
 
-	var/list/designs_list = attached_console.usb_get_all_designs()
-	output_all_designs.set_output(designs_list)
+	var/list/designs_data = attached_console.usb_get_all_designs()
+	output_all_designs.set_output(designs_data["ids"])
+	output_named_designs.set_output(designs_data["named"])
 
-	execute_search()
+	if(input_search.value)
+		input_search.value = null
+		execute_search()
+
 	return ..()
 
 /obj/item/circuit_component/rd_search/proc/execute_search()
-	if(!attached_console && loc && istype(loc, /obj/machinery/computer/rdconsole))
-		attached_console = loc
-
 	if(!attached_console)
 		return
 
 	output_design.set_output(null)
-	output_found.set_output(FALSE)
-	output_error.set_output(FALSE)
 
 	var/search_id = input_id.value
 	if(!search_id || search_id == "")
-		output_error.set_output(TRUE)
+		output_error.set_output(COMPONENT_SIGNAL)
 		return
 
 	var/datum/design/found_design = attached_console.usb_find_design(lowertext(search_id))
 	if(found_design)
 		output_design.set_output(found_design)
-		output_found.set_output(TRUE)
+		output_found.set_output(COMPONENT_SIGNAL)
 	else
-		output_error.set_output(TRUE)
+		output_error.set_output(COMPONENT_SIGNAL)
 
 /obj/item/circuit_component/rd_lathe
 	display_name = "Интерфейс Печати НИО"
@@ -116,45 +116,68 @@
 	return ..()
 
 /obj/item/circuit_component/rd_lathe/input_received(datum/port/input/port)
-	if(port == input_print)
-		execute_print()
-	if(port == input_eject)
-		execute_eject()
+	return
+
+/obj/item/circuit_component/rd_lathe/input_received(datum/port/input/port)
+	return
 
 /obj/item/circuit_component/rd_lathe/trigger_component()
+	if(!attached_console && loc && istype(loc, /obj/machinery/computer/rdconsole))
+		attached_console = loc
+
 	if(input_print.value)
+		input_print.value = null
 		execute_print()
+
 	if(input_eject.value)
+		input_eject.value = null
 		execute_eject()
+
 	return ..()
 
 /obj/item/circuit_component/rd_lathe/proc/execute_print()
 	if(!attached_console && loc && istype(loc, /obj/machinery/computer/rdconsole))
 		attached_console = loc
 
-	if(!attached_console || QDELETED(attached_console) || held_item)
-		output_error.set_output(TRUE)
+	output_error.value = null
+
+	if(!attached_console || QDELETED(attached_console))
+		output_error.set_output(COMPONENT_SIGNAL)
 		return
+
+	if(held_item && held_item.loc == attached_console)
+		var/obj/machinery/r_n_d/old_machine = attached_console.linked_lathe
+		if(last_printed_design && (last_printed_design.build_type & IMPRINTER))
+			old_machine = attached_console.linked_imprinter
+
+		if(old_machine)
+			held_item.forceMove(old_machine.loc)
+		else
+			held_item.forceMove(attached_console.loc)
+
+		held_item = null
+		output_item.set_output(null)
+		desc = initial(desc)
 
 	var/datum/design/target_design = input_design.value
 	if(!istype(target_design))
-		output_error.set_output(TRUE)
+		output_error.set_output(COMPONENT_SIGNAL)
 		return
 
 	var/obj/machinery/r_n_d/target_machine = attached_console.linked_lathe
 	if(target_design.build_type & IMPRINTER)
 		target_machine = attached_console.linked_imprinter
 
-	if(!target_machine || QDELETED(target_machine) || target_machine.busy)
-		output_error.set_output(TRUE)
+	if(!target_machine || QDELETED(target_machine))
+		output_error.set_output(COMPONENT_SIGNAL)
 		return
 
 	last_printed_design = target_design
 
-	var/print_success = attached_console.start_machine(target_machine, target_design.id, 1, null)
-
-	if(!print_success)
-		output_error.set_output(TRUE)
+	if(!attached_console.start_machine(target_machine, target_design.id, 1, null))
+		if(!target_machine.busy)
+			output_error.set_output(COMPONENT_SIGNAL)
+			return
 
 /obj/item/circuit_component/rd_lathe/proc/execute_eject()
 	if(!attached_console && loc && istype(loc, /obj/machinery/computer/rdconsole))
@@ -182,7 +205,7 @@
 /obj/item/circuit_component/rd_lathe/proc/on_print_finished(datum/source, obj/item/printed_result)
 	SIGNAL_HANDLER
 	if(!printed_result)
-		output_error.set_output(TRUE)
+		output_error.set_output(COMPONENT_SIGNAL)
 		return
 
 	held_item = printed_result
@@ -191,8 +214,7 @@
 	if(held_item)
 		desc = "Модуль печати. Хранящийся предмет: [held_item.name]"
 
-	output_printed.set_output(TRUE)
-
+	output_printed.set_output(COMPONENT_SIGNAL)
 /obj/item/circuit_component/rd_destructor
 	display_name = "Интерфейс Деконструктора НИО"
 	desc = "Модуль автоматической разборки предметов, повышающий уровень технологий НИО."
@@ -203,6 +225,7 @@
 
 	var/datum/port/output/output_tech_up
 	var/datum/port/output/output_error
+	var/datum/port/output/output_item_inserted
 
 	var/obj/machinery/computer/rdconsole/attached_console
 
@@ -212,8 +235,11 @@
 
 	output_tech_up = add_output_port("Повышение технологий", PORT_TYPE_SIGNAL)
 	output_error = add_output_port("Провал изучений", PORT_TYPE_SIGNAL)
+	output_item_inserted = add_output_port("Предмет загружен", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/rd_destructor/Destroy()
+	if(attached_console?.linked_destroy)
+		UnregisterSignal(attached_console.linked_destroy, COMSIG_ATOM_ENTERED)
 	attached_console = null
 	return ..()
 
@@ -221,17 +247,26 @@
 	. = ..()
 	if(istype(shell, /obj/machinery/computer/rdconsole))
 		attached_console = shell
+		if(attached_console.linked_destroy)
+			RegisterSignal(attached_console.linked_destroy, COMSIG_ATOM_ENTERED, PROC_REF(on_destroyer_entered))
 
 /obj/item/circuit_component/rd_destructor/unregister_usb_parent(atom/movable/shell)
+	if(attached_console?.linked_destroy)
+		UnregisterSignal(attached_console.linked_destroy, COMSIG_ATOM_ENTERED)
 	attached_console = null
 	return ..()
 
 /obj/item/circuit_component/rd_destructor/input_received(datum/port/input/port)
-	if(port == input_recycle)
-		execute_recycle()
+	return
 
 /obj/item/circuit_component/rd_destructor/trigger_component()
+	if(!attached_console && loc && istype(loc, /obj/machinery/computer/rdconsole))
+		attached_console = loc
+		if(attached_console.linked_destroy)
+			RegisterSignal(attached_console.linked_destroy, COMSIG_ATOM_ENTERED, PROC_REF(on_destroyer_entered), override = TRUE)
+
 	if(input_recycle.value)
+		input_recycle.value = null
 		execute_recycle()
 	return ..()
 
@@ -239,29 +274,42 @@
 	if(!attached_console && loc && istype(loc, /obj/machinery/computer/rdconsole))
 		attached_console = loc
 
+	output_tech_up.set_output(null)
+	output_error.set_output(null)
+
 	if(!attached_console || QDELETED(attached_console))
-		output_error.set_output(TRUE)
+		output_error.set_output(COMPONENT_SIGNAL)
 		return
 
-	if(!attached_console.linked_destroy || QDELETED(attached_console.linked_destroy))
-		output_error.set_output(TRUE)
-		return
+	var/obj/item/item_to_recycle = input_item.value
+	if(QDELETED(item_to_recycle))
+		item_to_recycle = null
 
-	var/obj/item/I = input_item.value
-	var/result = attached_console.usb_recycle_item(I)
+	var/result = attached_console.usb_recycle_item(item_to_recycle)
 
 	if(isnull(result))
-		output_error.set_output(TRUE)
+		output_error.set_output(COMPONENT_SIGNAL)
 		return
 
 	if(result == TRUE)
-		output_tech_up.set_output(TRUE)
+		output_tech_up.set_output(COMPONENT_SIGNAL)
 	else
-		output_error.set_output(TRUE)
+		output_error.set_output(COMPONENT_SIGNAL)
 
-	var/obj/item/circuit_component/rd_lathe/lathe = locate() in attached_console
-	if(lathe)
-		lathe.held_item = null
-		if(lathe.output_item)
-			lathe.output_item.set_output(null)
-		lathe.desc = initial(lathe.desc)
+/obj/item/circuit_component/rd_destructor/proc/on_destroyer_entered(datum/source, atom/movable/arrived)
+	SIGNAL_HANDLER
+	if(!isitem(arrived))
+		return
+	if(!attached_console || !attached_console.linked_destroy)
+		return
+	if(attached_console.linked_destroy.busy && attached_console.linked_destroy.loaded_item)
+		return
+	addtimer(CALLBACK(src, PROC_REF(trigger_item_inserted), arrived), 1.1 SECONDS)
+
+/obj/item/circuit_component/rd_destructor/proc/trigger_item_inserted(obj/item/arrived)
+	if(QDELETED(arrived) || !attached_console || !attached_console.linked_destroy)
+		return
+	if(attached_console.linked_destroy.loaded_item != arrived || attached_console.linked_destroy.busy)
+		return
+	output_item_inserted.set_output(COMPONENT_SIGNAL)
+
