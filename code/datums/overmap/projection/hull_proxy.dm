@@ -84,19 +84,26 @@
 	return rebuilt
 
 /datum/hull_proxy/proc/rebuild_tiles()
-	QDEL_LIST(tiles)
+	var/list/previous = tiles_by_turf
 	tiles = list()
 	tiles_by_turf = list()
 	for(var/turf/hull_turf as anything in vessel.hull_turfs)
-		var/obj/effect/abstract/hull_proxy_tile/tile = new(null)
+		var/obj/effect/abstract/hull_proxy_tile/tile = previous[hull_turf]
+		var/fresh = !tile
+		if(fresh)
+			tile = new(null)
 		tile.base_x = (hull_turf.x - vessel.hull_center_x) * ICON_SIZE_X
 		tile.base_y = (hull_turf.y - vessel.hull_center_y) * ICON_SIZE_Y
 		tile.hull_turf = hull_turf
 		tile.frame_turf = viewer_turf
 
-		tile.setup_shading()
+		if(fresh)
+			tile.setup_shading()
 		tiles += tile
 		tiles_by_turf[hull_turf] = tile
+	for(var/turf/removed as anything in previous)
+		if(!tiles_by_turf[removed])
+			qdel(previous[removed])
 	mapped_hull_version = vessel.hull_version
 
 	fog.drawn = tiles_by_turf
@@ -119,3 +126,85 @@
 	var/glow_range = lit ? clamp(round(vessel.hull_radius) + 2, HULL_PROXY_GLOW_MIN_RANGE, HULL_PROXY_GLOW_MAX_RANGE) : 0
 	if(glow.light_range != glow_range)
 		glow.set_light_range(glow_range)
+
+/datum/hull_proxy/virtual
+	copy_lighting = FALSE
+
+/datum/hull_proxy/virtual/create_fog()
+	return new /datum/fog_scene/projected(round(vessel.hull_radius) + OVERMAP_FOG_HULL_REACH)
+
+/datum/hull_proxy/virtual/Destroy(force)
+	QDEL_LIST_ASSOC_VAL(tiles_by_turf)
+	return ..()
+
+/datum/hull_proxy/virtual/rebuild_tiles()
+	var/obj/overmap/entity/virtual_structure/structure = vessel
+	var/datum/fog_scene/projected/projected = fog
+	projected.opaque_chunks = list()
+	for(var/key, cell_entry in structure.virtual_cells)
+		var/list/cell = cell_entry
+		var/datum/overmap_virtual_model/model = cell[3]
+		if(cell[4] > 0 && model.opaque)
+			projected.add_opaque_point(cell)
+	mapped_hull_version = vessel.hull_version
+	fog.mark_dirty()
+
+/datum/hull_proxy/virtual/place(new_center_x, new_center_y, new_z, new_heading, list/bounds, time)
+	update_fog(new_center_x, new_center_y, new_z, new_heading)
+	center_x = new_center_x
+	center_y = new_center_y
+	proxy_z = new_z
+	heading = new_heading
+	var/obj/overmap/entity/virtual_structure/structure = vessel
+	var/datum/fog_scene/projected/projected = fog
+	projected.drawn = list()
+	projected.source_positions = list()
+	var/cosine = cos(new_heading)
+	var/sine = sin(new_heading)
+	var/list/wanted = list()
+	for(var/client/viewer as anything in SSovermap.client_eyes)
+		var/turf/eye = get_turf(viewer.eye || viewer.mob)
+		if(eye?.z != new_z)
+			continue
+		var/dx = eye.x - new_center_x
+		var/dy = eye.y - new_center_y
+		var/local_x = vessel.hull_center_x + dx * cosine - dy * sine
+		var/local_y = vessel.hull_center_y + dx * sine + dy * cosine
+		var/reach = CEILING(((viewer.maxview() || world.view) + 3) * 1.42, 1)
+		for(var/ix in FLOOR(local_x - reach, 1) to CEILING(local_x + reach, 1))
+			for(var/iy in FLOOR(local_y - reach, 1) to CEILING(local_y + reach, 1))
+				var/key = "[ix],[iy]"
+				var/list/cell = structure.virtual_cells[key]
+				if(cell && cell[4] > 0)
+					wanted[key] = cell
+	var/matrix/turned = matrix()
+	turned.Scale(OVERMAP_TERRAIN_SEAM_SCALE)
+	turned.Turn(new_heading)
+	for(var/key in wanted)
+		var/list/cell = wanted[key]
+		var/obj/effect/abstract/hull_proxy_tile/tile = tiles_by_turf[key]
+		var/fresh = !tile
+		if(fresh)
+			var/datum/overmap_virtual_model/model = cell[3]
+			tile = new(null)
+			tile.appearance = model.visual
+			tile.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+			SET_PLANE_EXPLICIT(tile, GAME_PLANE, viewer_turf)
+			tiles_by_turf[key] = tile
+			fog.mark_dirty()
+		else
+			var/datum/overmap_virtual_model/model = cell[3]
+			if(model.warp_portal)
+				tile.appearance = model.visual
+				tile.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+				SET_PLANE_EXPLICIT(tile, GAME_PLANE, viewer_turf)
+		projected.drawn[tile] = tile
+		projected.source_positions[tile] = cell
+		var/dx = cell[1] - vessel.hull_center_x
+		var/dy = cell[2] - vessel.hull_center_y
+		tile.glide(new_center_x + dx * cosine + dy * sine, new_center_y + dy * cosine - dx * sine, new_z, turned, bounds, fresh ? 0 : time)
+	for(var/key in tiles_by_turf)
+		if(!wanted[key])
+			qdel(tiles_by_turf[key])
+			tiles_by_turf -= key
+			fog.mark_dirty()

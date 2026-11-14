@@ -34,6 +34,7 @@ export const OvermapWeapons = () => {
               <OvermapRadar
                 outlines={data.radar_outlines}
                 locked={!!data.radar_locked}
+                docked={!!data.radar_docked}
                 tick={data.radar_tick}
                 epoch={data.radar_epoch}
                 shapes={data.radar_shapes || {}}
@@ -47,6 +48,7 @@ export const OvermapWeapons = () => {
                 terrain={data.radar_terrain}
                 world={data.radar_world}
                 engines={data.radar_engines || []}
+                poses={data.radar_poses}
                 objects={data.objects}
                 self={data.self_pos}
                 sectorSize={data.sector_size}

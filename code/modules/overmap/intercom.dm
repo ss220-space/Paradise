@@ -14,6 +14,7 @@
 
 	var/list/datum/overmap_comms_cipher/known_ciphers
 	var/beep_muted = FALSE
+	var/overmap_key_printed = FALSE
 
 	var/saved_send_key = ""
 
@@ -35,6 +36,7 @@
 	snap_to_wall()
 	if(SSovermap?.initialized)
 		link_vessel()
+		print_overmap_key()
 
 /obj/machinery/overmap_intercom/setDir(newdir)
 	. = ..()

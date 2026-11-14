@@ -1,3 +1,54 @@
+/obj/machinery/computer/ship_console
+	var/obj/overmap/entity/vessel
+	var/radar_reach = OVERMAP_RADAR_TERRAIN_RANGE
+	var/list/selected_weapons = list()
+
+/obj/machinery/computer/ship_console/Initialize(mapload)
+	. = ..()
+	GLOB.ship_consoles += src
+	if(SSovermap?.initialized)
+		link_vessel()
+
+/obj/machinery/computer/ship_console/Destroy()
+	GLOB.ship_consoles -= src
+	if(vessel)
+		UnregisterSignal(vessel, list(COMSIG_OVERMAP_NOTICE, COMSIG_OVERMAP_DISPLAY_CHANGED))
+		vessel.helms -= src
+	vessel = null
+	return ..()
+
+/obj/machinery/computer/ship_console/proc/link_vessel()
+	var/obj/overmap/entity/resolved = SSovermap?.resolve_vessel(src)
+	if(!resolved)
+		return
+	if(vessel && vessel != resolved)
+		UnregisterSignal(vessel, list(COMSIG_OVERMAP_NOTICE, COMSIG_OVERMAP_DISPLAY_CHANGED))
+		vessel.helms -= src
+	vessel = resolved
+	resolved.helms |= src
+	RegisterSignal(resolved, COMSIG_OVERMAP_NOTICE, PROC_REF(on_overmap_notice), override = TRUE)
+	RegisterSignal(resolved, COMSIG_OVERMAP_DISPLAY_CHANGED, PROC_REF(on_overmap_display_changed), override = TRUE)
+
+/obj/machinery/computer/ship_console/proc/on_overmap_notice(datum/source, text)
+	SIGNAL_HANDLER
+	if(text)
+		atom_say(text)
+
+/obj/machinery/computer/ship_console/proc/on_overmap_display_changed()
+	SIGNAL_HANDLER
+	SStgui.update_uis(src)
+
+/obj/machinery/computer/ship_console/attack_hand(mob/user)
+	if(stat & (BROKEN|NOPOWER))
+		return
+	if(..())
+		return TRUE
+	add_fingerprint(user)
+	ui_interact(user)
+
+/obj/machinery/computer/ship_console/attack_ai(mob/user)
+	attack_hand(user)
+
 /obj/machinery/computer/shuttle/proc/uses_overmap_programmed_ui()
 	if(!shuttleId || !GLOB.overmap_programmed_shuttle_ids[shuttleId])
 		return FALSE
@@ -145,12 +196,6 @@
 			if(result != TRUE)
 				to_chat(user, span_warning("[result]"))
 			. = TRUE
-
-/obj/machinery/computer/shuttle/process()
-	. = ..()
-	if(!uses_overmap_remote_ui())
-		return
-	SStgui.update_uis(src)
 
 /obj/machinery/computer/shuttle/mining
 	name = "Mining Shuttle Console"

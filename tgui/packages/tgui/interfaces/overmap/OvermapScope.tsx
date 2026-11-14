@@ -1,4 +1,5 @@
 import { useLocalState } from '../../backend';
+import type { RadarPose } from './OvermapRadar';
 import {
   type GalaxyMap,
   type HazardField,
@@ -17,6 +18,7 @@ export type OvermapScopeData = {
   radar_outlines?: Record<string, string>;
   radar_show_self?: boolean | number;
   radar_locked?: boolean | number;
+  radar_docked?: boolean | number;
   radar_tick?: number;
   radar_epoch?: number;
   radar_shapes?: Record<string, RadarShape>;
@@ -29,6 +31,7 @@ export type OvermapScopeData = {
   radar_peels?: RadarPeel[];
   radar_scatter?: RadarScatterChunk[];
   objects?: RadarObject[];
+  radar_poses?: RadarPose[];
   self_pos?: number[];
   sector_size?: number;
   cell_span?: number;
@@ -46,6 +49,7 @@ export const OvermapScope = ({ data }: { data: OvermapScopeData }) => {
       outlines={data.radar_outlines}
       showSelf
       locked={!!data.radar_locked}
+      docked={!!data.radar_docked}
       tick={data.radar_tick}
       epoch={data.radar_epoch}
       shapes={data.radar_shapes || {}}
@@ -56,6 +60,7 @@ export const OvermapScope = ({ data }: { data: OvermapScopeData }) => {
       facing={data.facing || 0}
       terrain={data.radar_terrain}
       world={data.radar_world}
+      poses={data.radar_poses}
       objects={data.objects || []}
       self={data.self_pos}
       sectorSize={data.sector_size}

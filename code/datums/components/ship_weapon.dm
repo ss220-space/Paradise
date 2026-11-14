@@ -20,9 +20,13 @@
 	src.muzzle_distance = muzzle_distance
 	src.damage_scale = damage_scale
 	src.penetration_chance = penetration_chance
-	GLOB.overmap_weapons += src
+	GLOB.overmap_weapons += parent
+	SSovermap.weapon_index_until = 0
 
 /datum/component/ship_weapon/RegisterWithParent()
+	RegisterSignal(parent, COMSIG_OVERMAP_WEAPON_HOST, PROC_REF(on_host))
+	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_mount_moved))
+	RegisterSignal(parent, COMSIG_OVERMAP_WEAPON_CONFIGURE, PROC_REF(on_configure))
 	RegisterSignal(parent, COMSIG_OVERMAP_WEAPON_QUERY, PROC_REF(on_query))
 	RegisterSignal(parent, COMSIG_OVERMAP_WEAPON_FIRE, PROC_REF(on_fire))
 	RegisterSignal(parent, COMSIG_OVERMAP_WEAPON_CAN_AIM, PROC_REF(on_can_aim))
@@ -32,7 +36,22 @@
 		RegisterSignal(parent, COMSIG_OVERMAP_WEAPON_PROCESS, PROC_REF(on_process))
 
 /datum/component/ship_weapon/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_OVERMAP_WEAPON_QUERY, COMSIG_OVERMAP_WEAPON_FIRE, COMSIG_OVERMAP_WEAPON_CAN_AIM, COMSIG_OVERMAP_WEAPON_ROTATED, COMSIG_OVERMAP_WEAPON_AUTOMATIC, COMSIG_OVERMAP_WEAPON_PROCESS))
+	UnregisterSignal(parent, list(COMSIG_OVERMAP_WEAPON_HOST, COMSIG_MOVABLE_MOVED, COMSIG_OVERMAP_WEAPON_CONFIGURE, COMSIG_OVERMAP_WEAPON_QUERY, COMSIG_OVERMAP_WEAPON_FIRE, COMSIG_OVERMAP_WEAPON_CAN_AIM, COMSIG_OVERMAP_WEAPON_ROTATED, COMSIG_OVERMAP_WEAPON_AUTOMATIC, COMSIG_OVERMAP_WEAPON_PROCESS))
+
+/datum/component/ship_weapon/proc/on_host(datum/source, list/data)
+	SIGNAL_HANDLER
+	data["host"] = host()
+
+/datum/component/ship_weapon/proc/on_mount_moved()
+	SIGNAL_HANDLER
+	SSovermap.weapon_index_until = 0
+
+/datum/component/ship_weapon/proc/on_configure(datum/source, list/settings)
+	SIGNAL_HANDLER
+	if(!isnull(settings["arc"]))
+		arc = settings["arc"]
+	if(!isnull(settings["automatic"]))
+		automatic = settings["automatic"]
 
 /datum/component/ship_weapon/proc/on_query(datum/source, obj/overmap/entity/vessel, list/data)
 	SIGNAL_HANDLER
@@ -41,15 +60,17 @@
 	data["position"] = world_position(vessel)
 	data["heading"] = heading(vessel)
 	data["arc"] = arc
+	data["muzzle_distance"] = muzzle_distance
+	data["next_fire"] = next_fire
 	data["automatic"] = automatic
 	data["cooldown_total"] = cooldown_duration / (1 SECONDS)
 	var/obj/machinery/gun = parent
 	data["cooldown"] = vessel.overmap_pod ? vessel.overmap_pod.pod()?.next_firetime : max(next_fire, gun.ship_emp_until, burst_remaining ? world.time + burst_remaining * max(world.tick_lag, gun.ship_burst_delay) : 0)
 	return TRUE
 
-/datum/component/ship_weapon/proc/on_fire(datum/source, obj/overmap/entity/vessel, x, y, mob/user)
+/datum/component/ship_weapon/proc/on_fire(datum/source, obj/overmap/entity/vessel, x, y, mob/user, manual = TRUE)
 	SIGNAL_HANDLER
-	return fire_at(vessel, x, y, TRUE, user)
+	return fire_at(vessel, x, y, manual, user)
 
 /datum/component/ship_weapon/proc/on_can_aim(datum/source, obj/overmap/entity/vessel, x, y)
 	SIGNAL_HANDLER
@@ -69,7 +90,9 @@
 	return process_turret()
 
 /datum/component/ship_weapon/Destroy()
-	GLOB.overmap_weapons -= src
+	GLOB.overmap_weapons -= parent
+	SSovermap.weapon_index_until = 0
+	SSovermap.weapons_by_vessel.Cut()
 	return ..()
 
 /datum/component/ship_weapon/proc/host()
@@ -161,7 +184,7 @@
 	if(QDELETED(gun) || QDELETED(vessel) || host() != vessel || (gun.stat & BROKEN) || world.time < gun.ship_emp_until || !gun.anchored || !vessel.sector || vessel.is_jumping())
 		return FALSE
 	if(vessel.ship_ai && !manual)
-		var/list/ai_aim = vessel.ship_ai.burst_aim(src)
+		var/list/ai_aim = vessel.ship_ai.burst_aim(gun)
 		if(!ai_aim)
 			return FALSE
 		x = ai_aim[1]
@@ -201,6 +224,9 @@
 	var/angle = delta_to_angle(x - point[1], y - point[2]) + (rand(-1000, 1000) / 1000) * gun.ship_spread
 	point[1] += sin(angle) * muzzle_distance
 	point[2] += cos(angle) * muzzle_distance
+	if(vessel.ship_ai && !vessel.ship_ai.safe_firing_path(gun, point, angle))
+		qdel(shot)
+		return FALSE
 	if(!SSovermap.launch_sector_projectile(shot, vessel.sector, point[1], point[2], angle, vessel, manual || !!vessel.ship_ai))
 		qdel(shot)
 		return FALSE
@@ -213,6 +239,8 @@
 	if(!vessel || !vessel.sector)
 		return FALSE
 	var/obj/machinery/porta_turret/turret = parent
+	if(vessel.ship_ai || vessel.structure_faction == "neutral")
+		return TRUE
 	if(!automatic || !turret.enabled || turret.disabled || (turret.stat & BROKEN) || world.time < next_fire)
 		return TRUE
 	var/list/point = world_position(vessel)

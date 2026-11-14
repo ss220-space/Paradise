@@ -266,6 +266,7 @@
 	if(src_object.tgui_shared_states)
 		json_data["shared"] = src_object.tgui_shared_states
 
+	SEND_SIGNAL(src, COMSIG_TGUI_PAYLOAD, json_data, with_static_data)
 	return json_data
 
 /**

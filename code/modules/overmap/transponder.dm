@@ -101,7 +101,6 @@
 	if(vessel && vessel != resolved)
 		vessel.unregister_transponder(src)
 	vessel = resolved
-	adopt_vessel_identity()
 	resolved.register_transponder(src)
 
 /obj/machinery/transponder/proc/adopt_vessel_identity()
@@ -114,12 +113,26 @@
 	broadcasting = vessel.identity_broadcasting
 	identity_locked = vessel.identity_locked
 	lock_icon = vessel.identity_locked
-	QDEL_LIST(iff_channels)
+	var/list/previous = iff_channels
 	iff_channels = list()
 	if(!length(vessel.virtual_iff_channels))
 		vessel.rebuild_identity_iff()
 	for(var/datum/overmap_iff_channel/channel as anything in vessel.virtual_iff_channels)
-		iff_channels += new /datum/overmap_iff_channel(channel.id, channel.label, channel.permanent, channel.receive, channel.transmit)
+		var/datum/overmap_iff_channel/matching
+		for(var/datum/overmap_iff_channel/known as anything in previous)
+			if(known.id == channel.id)
+				matching = known
+				break
+		if(matching)
+			previous -= matching
+			matching.label = channel.label
+			matching.permanent = channel.permanent
+			matching.receive = channel.receive
+			matching.transmit = channel.transmit
+		else
+			matching = new(channel.id, channel.label, channel.permanent, channel.receive, channel.transmit)
+		iff_channels += matching
+	QDEL_LIST(previous)
 	if(distress)
 		use_power = ACTIVE_POWER_USE
 	else
@@ -319,3 +332,16 @@
 			. = TRUE
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/transponder, 26, 26)
+
+/obj/machinery/transponder/eisenwehr
+	desc = "TEMP123TEMP"
+	broadcast_color = "#B5443C"
+
+/obj/machinery/transponder/eisenwehr/ensure_iff_channels()
+	. = ..()
+	for(var/datum/overmap_iff_channel/channel as anything in iff_channels)
+		if(channel.id == OVERMAP_IFF_ERW)
+			return
+	iff_channels += new /datum/overmap_iff_channel(OVERMAP_IFF_ERW, overmap_iff_label_for_id(OVERMAP_IFF_ERW), TRUE, TRUE, TRUE)
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/transponder/eisenwehr, 26, 26)

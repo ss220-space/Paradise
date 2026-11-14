@@ -1,0 +1,1838 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"alr" = (
+/obj/effect/turf_decal{
+	icon = 'icons/obj/syndie_logo.dmi';
+	icon_state = "logo10"
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"axb" = (
+/obj/machinery/ship_gun/prometheus{
+	dir = 1
+	},
+/turf/simulated/wall/shuttle/onlyselfsmooth{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/shuttle/syndicate)
+"aOb" = (
+/obj/item/radio/intercom/syndicate/directional/south,
+/obj/machinery/light/small,
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate)
+"aPp" = (
+/obj/machinery/iv_drip,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/syndicate)
+"aSJ" = (
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate)
+"aVc" = (
+/obj/effect/turf_decal{
+	icon = 'icons/obj/syndie_logo.dmi';
+	icon_state = "logo19"
+	},
+/obj/item/flag/syndi,
+/obj/machinery/light,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"aZP" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/syndicate{
+	pixel_y = 7
+	},
+/obj/item/stack/sheet/glass{
+	amount = 10
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"bdQ" = (
+/obj/machinery/sleeper/syndie,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate)
+"bkW" = (
+/obj/docking_port/mobile{
+	dwidth = 8;
+	height = 22;
+	id = "syndicate";
+	name = "syndicate shuttle";
+	pixel_y = 5;
+	port_direction = 2;
+	roundstart_move = null;
+	width = 18;
+	timid = 1
+	},
+/obj/structure/fans/tiny,
+/obj/machinery/door_control{
+	id = "smindicate_bottom";
+	name = "External Door Control";
+	pixel_x = -22;
+	req_access = list(150)
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "smindicate_bottom";
+	layer = 5;
+	name = "Outer Airlock Bottom"
+	},
+/obj/machinery/door/airlock/external/docking{
+	frequency = 1331;
+	req_access = list(150);
+	dock_name = "Южный шлюз"
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/syndicate)
+"bqS" = (
+/obj/item/radio/intercom/syndicate/directional/east,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate)
+"bTC" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/syndicate)
+"cfW" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/marker_beacon{
+	icon_state = "markerjade-on"
+	},
+/turf/simulated/floor/shuttle/transparent_floor{
+	dir = 6;
+	icon = 'icons/turf/shuttle/misc.dmi';
+	icon_state = "router_dir"
+	},
+/area/shuttle/syndicate)
+"cgz" = (
+/obj/effect/turf_decal{
+	icon = 'icons/obj/syndie_logo.dmi';
+	icon_state = "logo18"
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"cgM" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/syndicate)
+"cjk" = (
+/obj/effect/turf_decal{
+	icon = 'icons/obj/syndie_logo.dmi';
+	icon_state = "logo9"
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"ckv" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/machinery/sensor_array/long_range,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/syndicate)
+"cxX" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external{
+	frequency = 1331;
+	id_tag = "synd_outer_bottom";
+	name = "Ship External Access";
+	req_access = list(150)
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "smindicate_bottom";
+	layer = 5;
+	name = "Outer Airlock Bottom"
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/syndicate)
+"cAo" = (
+/obj/machinery/porta_turret/syndicate/ship{
+	dir = 4
+	},
+/obj/structure/lattice/catwalk,
+/obj/structure/marker_beacon{
+	icon_state = "markerjade-on"
+	},
+/turf/simulated/floor/shuttle/transparent_floor{
+	dir = 8;
+	icon = 'icons/turf/shuttle/misc.dmi';
+	icon_state = "router_dir"
+	},
+/area/shuttle/syndicate)
+"cNh" = (
+/obj/structure/lattice,
+/turf/simulated/floor/shuttle/transparent_floor{
+	icon = 'icons/turf/shuttle/misc.dmi';
+	icon_state = "tube"
+	},
+/area/shuttle/syndicate)
+"cWy" = (
+/obj/structure/table,
+/obj/item/reagent_containers/syringe/charcoal,
+/obj/item/reagent_containers/syringe/charcoal{
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/syringe/charcoal{
+	pixel_y = 4
+	},
+/obj/item/gun/syringe/syndicate,
+/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/adv,
+/obj/item/storage/box/syndie_kit/bonerepair,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"dfs" = (
+/obj/machinery/optable,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/syndicate)
+"dzF" = (
+/obj/effect/turf_decal{
+	icon = 'icons/obj/syndie_logo.dmi';
+	icon_state = "logo7"
+	},
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"dFn" = (
+/obj/structure/computerframe,
+/obj/item/paper/synditele,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"dNG" = (
+/obj/structure/lattice,
+/turf/simulated/floor/shuttle/transparent_floor,
+/area/shuttle/syndicate)
+"dVc" = (
+/obj/structure/shuttle/engine/heater{
+	icon_state = "heater3x3_side_inv"
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#FF0000";
+	dir = 1
+	},
+/obj/structure/shuttle/engine/platform,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/syndicate)
+"dWD" = (
+/obj/structure/shuttle/engine/platform{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle/transparent_floor,
+/area/shuttle/syndicate)
+"dZL" = (
+/obj/machinery/porta_turret/syndicate/ship/gun_50cal{
+	dir = 8
+	},
+/turf/simulated/wall/shuttle{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/shuttle/syndicate)
+"eas" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle/gray,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/syndicate)
+"ehp" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor12"
+	},
+/area/shuttle/syndicate)
+"eVy" = (
+/obj/machinery/porta_turret/syndicate/ship{
+	pixel_y = 2;
+	dir = 4
+	},
+/turf/simulated/wall/shuttle{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/shuttle/syndicate)
+"fdS" = (
+/obj/structure/shuttle/engine/heater{
+	icon_state = "heater3x3_side"
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#FF0000";
+	dir = 1
+	},
+/obj/structure/shuttle/engine/platform,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/syndicate)
+"feP" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"fnJ" = (
+/turf/simulated/floor/shuttle/transparent_floor,
+/area/shuttle/syndicate)
+"fTw" = (
+/obj/structure/table,
+/obj/item/robot_parts/robot_component/armour{
+	pixel_x = -4
+	},
+/obj/item/stack/nanopaste{
+	pixel_x = 5
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor12"
+	},
+/area/shuttle/syndicate)
+"gga" = (
+/obj/structure/table,
+/obj/item/aicard,
+/obj/item/storage/box/zipties,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/visible,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate)
+"gxT" = (
+/obj/effect/turf_decal/stripes/corner,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate)
+"gxW" = (
+/obj/effect/turf_decal/box,
+/obj/structure/extinguisher_cabinet/directional/east,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"gFp" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 4
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"gTc" = (
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/syndicate)
+"gWt" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/marker_beacon{
+	icon_state = "markerjade-on"
+	},
+/turf/simulated/floor/shuttle/transparent_floor{
+	dir = 4;
+	icon = 'icons/turf/shuttle/misc.dmi';
+	icon_state = "router_dir"
+	},
+/area/shuttle/syndicate)
+"gXl" = (
+/obj/structure/grille,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
+	id_tag = "syndieshutters";
+	name = "Blast Shutters"
+	},
+/obj/structure/window/full/shuttle/gray,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/syndicate)
+"hcH" = (
+/obj/machinery/door/window/brigdoor/westleft{
+	base_state = "rightsecure";
+	color = "#d70000";
+	dir = 2;
+	icon_state = "rightsecure";
+	req_access = list(150)
+	},
+/obj/effect/turf_decal/box,
+/obj/structure/table,
+/obj/item/book/manual/nuclear{
+	pixel_x = 2;
+	pixel_y = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"hfZ" = (
+/obj/structure/closet/crate/internals,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate)
+"hBy" = (
+/obj/structure/table,
+/obj/item/storage/box/syndidonkpockets,
+/obj/item/storage/box/syndidonkpockets,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor12"
+	},
+/area/shuttle/syndicate)
+"hNS" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/syndicate)
+"hVL" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate)
+"icl" = (
+/obj/effect/turf_decal{
+	icon = 'icons/obj/syndie_logo.dmi';
+	icon_state = "logo6"
+	},
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"ieK" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate)
+"ieX" = (
+/obj/machinery/mech_bay_recharge_port/upgraded/unsimulated{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"ilK" = (
+/obj/structure/table/glass,
+/obj/item/storage/backpack/duffel/syndie/surgery,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/syndicate)
+"isl" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/marker_beacon{
+	icon_state = "markerjade-on"
+	},
+/turf/simulated/floor/shuttle/transparent_floor{
+	dir = 10;
+	icon = 'icons/turf/shuttle/misc.dmi';
+	icon_state = "router_dir"
+	},
+/area/shuttle/syndicate)
+"isI" = (
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"itD" = (
+/obj/effect/turf_decal/number/number_5{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium_red"
+	},
+/area/shuttle/syndicate)
+"izj" = (
+/obj/structure/sign/poster/contraband/syndicate_recruitment{
+	pixel_x = -32
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/syndicate)
+"iBv" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/syndicate)
+"iDv" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/machinery/atmospherics/unary/tank/air{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate)
+"iIf" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/shuttle/syndicate)
+"iUy" = (
+/obj/structure/closet/crate/medical,
+/obj/item/reagent_containers/cup/bottle/morphine,
+/obj/item/storage/box/beakers,
+/obj/item/robot_parts/l_arm,
+/obj/item/robot_parts/r_arm,
+/obj/item/clothing/mask/surgical,
+/obj/item/tank/internals/anesthetic,
+/obj/item/clothing/mask/breath/medical,
+/obj/item/robot_parts/l_leg,
+/obj/item/robot_parts/r_leg,
+/obj/item/radio/intercom/syndicate/directional/west,
+/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/syndicate)
+"iVu" = (
+/obj/machinery/recharge_station/upgraded,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"jdl" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"jeF" = (
+/obj/machinery/porta_turret/syndicate/ship/gun_50cal{
+	dir = 4
+	},
+/turf/simulated/wall/shuttle{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/shuttle/syndicate)
+"jhr" = (
+/obj/effect/turf_decal/number/number_6{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium_red"
+	},
+/area/shuttle/syndicate)
+"jjd" = (
+/obj/effect/turf_decal{
+	icon = 'icons/obj/syndie_logo.dmi';
+	icon_state = "logo4"
+	},
+/obj/machinery/computer/engines,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"jlp" = (
+/turf/simulated/floor/shuttle{
+	icon_state = "floor12"
+	},
+/area/shuttle/syndicate)
+"joc" = (
+/obj/machinery/door/airlock/syndicate/security/glass{
+	name = "Security Airlock";
+	req_access = list(150)
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate)
+"jsY" = (
+/obj/machinery/computer/mech_bay_power_console,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"jAM" = (
+/obj/effect/turf_decal{
+	icon = 'icons/obj/syndie_logo.dmi';
+	icon_state = "logo16"
+	},
+/obj/item/flag/syndi,
+/obj/item/radio/intercom/syndicate/directional/south,
+/obj/machinery/light,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"jIK" = (
+/obj/effect/turf_decal{
+	icon = 'icons/obj/syndie_logo.dmi';
+	icon_state = "logo1"
+	},
+/obj/machinery/computer/ship_console/weapons,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"jVc" = (
+/obj/machinery/door/airlock/syndicate/security/glass{
+	name = "Security Airlock";
+	req_access = list(150)
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/syndicate)
+"koM" = (
+/obj/structure/table,
+/obj/machinery/door_control{
+	id = "syndieshutters";
+	name = "remote shutter control";
+	req_access = list(150)
+	},
+/obj/machinery/overmap_intercom/directional/east,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium_red"
+	},
+/area/shuttle/syndicate)
+"kqG" = (
+/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
+	frequency = 1331;
+	id_tag = "synd_airlock_bottom";
+	pixel_x = -32;
+	req_access = list(150);
+	tag_airpump = "synd_pump_bottom";
+	tag_chamber_sensor = "synd_sensor_bottom";
+	tag_exterior_door = "synd_outer_bottom";
+	tag_interior_door = "synd_inner_bottom"
+	},
+/obj/machinery/airlock_sensor{
+	frequency = 1331;
+	id_tag = "synd_sensor_bottom";
+	pixel_x = -31;
+	pixel_y = -9;
+	req_access = list(150)
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/syndicate)
+"ksq" = (
+/obj/effect/turf_decal/number/number_4{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium_red"
+	},
+/area/shuttle/syndicate)
+"ksz" = (
+/obj/structure/table,
+/obj/item/grenade/plastic/c4{
+	pixel_x = -4;
+	pixel_y = -2
+	},
+/obj/item/grenade/syndieminibomb{
+	pixel_x = 8
+	},
+/obj/item/beacon/syndicate/bomb{
+	pixel_x = -5;
+	pixel_y = 12
+	},
+/obj/item/beacon/syndicate/bomb{
+	pixel_x = -5;
+	pixel_y = 12
+	},
+/obj/item/grenade/plastic/c4{
+	pixel_x = -4;
+	pixel_y = -2
+	},
+/obj/item/grenade/syndieminibomb{
+	pixel_x = 8
+	},
+/obj/machinery/recharger/wallcharger{
+	pixel_x = 30
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor12"
+	},
+/area/shuttle/syndicate)
+"kFa" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/door/airlock/syndicate/security/glass{
+	name = "Security Airlock";
+	req_access = list(150)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/syndicate)
+"lhE" = (
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/syndicate)
+"lkH" = (
+/obj/structure/shuttle/engine/heater{
+	icon_state = "heater3x3"
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#FF0000";
+	dir = 1
+	},
+/obj/structure/shuttle/engine/platform,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/syndicate)
+"lpR" = (
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor12"
+	},
+/area/shuttle/syndicate)
+"lrh" = (
+/obj/machinery/ship_engine/huge{
+	opacity = 0
+	},
+/turf/simulated/floor/shuttle/transparent_floor,
+/area/shuttle/syndicate)
+"lrF" = (
+/obj/item/radio/intercom/syndicate/directional/west,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate)
+"ltK" = (
+/obj/effect/turf_decal{
+	icon = 'icons/obj/syndie_logo.dmi';
+	icon_state = "logo5"
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"lvJ" = (
+/obj/structure/table,
+/obj/machinery/kitchen_machine/microwave{
+	pixel_y = 6
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor12"
+	},
+/area/shuttle/syndicate)
+"mbI" = (
+/obj/machinery/porta_turret/syndicate/ship{
+	pixel_y = 2;
+	dir = 8
+	},
+/obj/structure/lattice/catwalk,
+/obj/structure/marker_beacon{
+	icon_state = "markerjade-on"
+	},
+/turf/simulated/floor/shuttle/transparent_floor{
+	dir = 4;
+	icon = 'icons/turf/shuttle/misc.dmi';
+	icon_state = "router_dir"
+	},
+/area/shuttle/syndicate)
+"mgl" = (
+/obj/machinery/vending/wallmed/syndicate{
+	pixel_x = -30
+	},
+/obj/machinery/door/airlock/external{
+	frequency = 1331;
+	id_tag = "synd_inner_bottom";
+	locked = 1;
+	name = "Ship External Access";
+	req_access = list(150)
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/shuttle/syndicate)
+"mjO" = (
+/obj/effect/turf_decal{
+	icon = 'icons/obj/syndie_logo.dmi';
+	icon_state = "logo11"
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"msk" = (
+/obj/structure/table/glass,
+/obj/item/circular_saw,
+/obj/item/surgicaldrill,
+/obj/item/clothing/gloves/color/latex/nitrile,
+/obj/structure/sink/directional/south,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/syndicate)
+"mIl" = (
+/obj/machinery/teleport/hub/upgraded,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"mSF" = (
+/obj/structure/sign/vacuum{
+	pixel_y = -32
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/syndicate)
+"mTe" = (
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/obj/item/stack/cable_coil{
+	pixel_y = 10
+	},
+/obj/item/stock_parts/cell/bluespace{
+	pixel_x = 6;
+	pixel_y = 1
+	},
+/obj/item/stock_parts/cell/bluespace{
+	pixel_x = 6;
+	pixel_y = 1
+	},
+/obj/item/stock_parts/cell/bluespace{
+	pixel_x = 6;
+	pixel_y = 1
+	},
+/obj/item/stock_parts/cell/bluespace{
+	pixel_x = 6;
+	pixel_y = 1
+	},
+/obj/item/robot_parts/robot_component/armour,
+/obj/machinery/recharger/wallcharger{
+	pixel_x = 30
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor12"
+	},
+/area/shuttle/syndicate)
+"nbl" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 10
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate)
+"neB" = (
+/obj/structure/sign/poster/contraband/syndicate_pistol{
+	pixel_y = 32
+	},
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate)
+"nnQ" = (
+/obj/machinery/light/small,
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate)
+"nCG" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/machinery/sensor_array/short_range,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/syndicate)
+"nFX" = (
+/obj/machinery/computer/operating,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/syndicate)
+"nZz" = (
+/obj/machinery/teleport/station,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"obw" = (
+/obj/effect/turf_decal/number/number_2{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium_red"
+	},
+/area/shuttle/syndicate)
+"obB" = (
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate)
+"orT" = (
+/obj/machinery/bodyscanner{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/syndicate)
+"ouM" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate)
+"owb" = (
+/obj/structure/grille,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "syndieshutters";
+	name = "Blast Shutters"
+	},
+/obj/structure/window/full/shuttle/gray,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/syndicate)
+"oPT" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 1;
+	frequency = 1331;
+	id_tag = "synd_pump_bottom"
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/syndicate)
+"oXH" = (
+/obj/effect/turf_decal{
+	icon = 'icons/obj/syndie_logo.dmi';
+	icon_state = "logo3"
+	},
+/obj/machinery/computer/sensors,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"psW" = (
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 6
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate)
+"ptC" = (
+/obj/effect/turf_decal/box,
+/obj/effect/landmark/spawner/nuclear_bomb,
+/obj/machinery/door/window/brigdoor/westleft{
+	color = "#d70000";
+	dir = 2;
+	req_access = list(150)
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"puY" = (
+/obj/effect/turf_decal{
+	icon = 'icons/obj/syndie_logo.dmi';
+	icon_state = "logo14"
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"pAc" = (
+/obj/structure/table,
+/obj/item/coin/antagtoken/syndicate,
+/obj/machinery/transponder/directional/west,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium_red"
+	},
+/area/shuttle/syndicate)
+"pAT" = (
+/obj/effect/turf_decal{
+	icon = 'icons/obj/syndie_logo.dmi';
+	icon_state = "logo2"
+	},
+/obj/machinery/computer/helm,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"qqs" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/syndicate{
+	pixel_y = 7
+	},
+/obj/item/storage/toolbox/syndicate,
+/obj/machinery/recharger/wallcharger{
+	pixel_x = 30
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor12"
+	},
+/area/shuttle/syndicate)
+"raD" = (
+/turf/template_noop,
+/area/template_noop)
+"rEx" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"rEV" = (
+/obj/effect/turf_decal{
+	icon = 'icons/obj/syndie_logo.dmi';
+	icon_state = "logo8"
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"rGd" = (
+/obj/structure/grille,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "syndieshutters";
+	name = "Blast Shutters"
+	},
+/obj/structure/window/full/shuttle/gray,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/syndicate)
+"rNH" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/marker_beacon{
+	icon_state = "markerjade-on"
+	},
+/turf/simulated/floor/shuttle/transparent_floor{
+	dir = 8;
+	icon = 'icons/turf/shuttle/misc.dmi';
+	icon_state = "router_dir"
+	},
+/area/shuttle/syndicate)
+"scE" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"seI" = (
+/obj/structure/closet/syndicate/nuclear,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate)
+"shd" = (
+/obj/machinery/suit_storage_unit/syndicate{
+	pixel_y = 6
+	},
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"smO" = (
+/obj/machinery/porta_turret/syndicate/ship{
+	pixel_y = 2;
+	dir = 8
+	},
+/turf/simulated/wall/shuttle{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/shuttle/syndicate)
+"sHi" = (
+/obj/effect/turf_decal{
+	icon = 'icons/obj/syndie_logo.dmi';
+	icon_state = "logo13"
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"sPr" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate)
+"teU" = (
+/obj/effect/turf_decal{
+	icon = 'icons/obj/syndie_logo.dmi';
+	icon_state = "logo15"
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"tmz" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate)
+"tCs" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate)
+"tOW" = (
+/obj/effect/turf_decal{
+	icon = 'icons/obj/syndie_logo.dmi';
+	icon_state = "logo17"
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"tYQ" = (
+/obj/machinery/door/airlock/external{
+	frequency = 1331;
+	id_tag = "synd_inner_bottom";
+	locked = 1;
+	name = "Ship External Access";
+	req_access = list(150)
+	},
+/obj/structure/fans/tiny,
+/obj/machinery/atmospherics/pipe/simple/visible,
+/turf/simulated/floor/plating,
+/area/shuttle/syndicate)
+"umc" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate)
+"uUZ" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/syndicate)
+"uZR" = (
+/obj/effect/turf_decal{
+	icon = 'icons/obj/syndie_logo.dmi';
+	icon_state = "logo12"
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"vlR" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/visible,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/syndicate)
+"voy" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/syndicate)
+"vDb" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/syndicate)
+"wsw" = (
+/obj/effect/turf_decal/number/number_3{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium_red"
+	},
+/area/shuttle/syndicate)
+"wIW" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium"
+	},
+/area/shuttle/syndicate)
+"xhN" = (
+/obj/machinery/sleeper/syndie,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/syndicate)
+"xIR" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/syndicate)
+"xJW" = (
+/obj/machinery/sleeper/syndie,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate)
+"yes" = (
+/turf/simulated/wall/shuttle{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/shuttle/syndicate)
+"ylX" = (
+/obj/effect/turf_decal/number/number_1{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "plastitanium_red"
+	},
+/area/shuttle/syndicate)
+
+(1,1,1) = {"
+raD
+raD
+raD
+raD
+raD
+raD
+raD
+raD
+raD
+raD
+raD
+raD
+iIf
+gWt
+dNG
+mbI
+dNG
+gWt
+iIf
+raD
+raD
+raD
+"}
+(2,1,1) = {"
+raD
+raD
+raD
+raD
+raD
+raD
+raD
+raD
+yes
+dNG
+mbI
+dNG
+yes
+iIf
+yes
+iIf
+yes
+iIf
+yes
+yes
+raD
+raD
+"}
+(3,1,1) = {"
+raD
+raD
+raD
+raD
+raD
+smO
+owb
+owb
+yes
+yes
+iIf
+yes
+yes
+iIf
+iUy
+orT
+dfs
+nFX
+dVc
+dWD
+fnJ
+fnJ
+"}
+(4,1,1) = {"
+raD
+raD
+raD
+cfW
+cNh
+yes
+shd
+sPr
+aZP
+mIl
+nZz
+dFn
+cWy
+hNS
+gTc
+gTc
+gTc
+msk
+lkH
+dWD
+lrh
+fnJ
+"}
+(5,1,1) = {"
+raD
+dZL
+yes
+iIf
+yes
+yes
+shd
+ieK
+umc
+umc
+umc
+umc
+umc
+umc
+umc
+sPr
+aPp
+ilK
+fdS
+dWD
+fnJ
+fnJ
+"}
+(6,1,1) = {"
+yes
+yes
+jdl
+gFp
+rEx
+yes
+shd
+obB
+obB
+bqS
+obB
+obB
+obB
+obB
+obB
+tCs
+xhN
+iIf
+yes
+yes
+raD
+raD
+"}
+(7,1,1) = {"
+axb
+pAc
+wsw
+obw
+ylX
+yes
+yes
+joc
+joc
+yes
+yes
+obB
+obB
+gxT
+bdQ
+xJW
+yes
+yes
+yes
+yes
+yes
+yes
+"}
+(8,1,1) = {"
+gXl
+jIK
+ltK
+cjk
+sHi
+jAM
+iIf
+hVL
+obB
+yes
+iIf
+yes
+obB
+nnQ
+iIf
+yes
+yes
+ckv
+kqG
+uUZ
+bTC
+iIf
+"}
+(9,1,1) = {"
+gXl
+pAT
+icl
+alr
+isI
+tOW
+jVc
+obB
+obB
+seI
+eas
+ptC
+obB
+aSJ
+mgl
+izj
+uUZ
+vDb
+lhE
+lhE
+xIR
+bkW
+"}
+(10,1,1) = {"
+gXl
+oXH
+dzF
+mjO
+puY
+cgz
+kFa
+obB
+obB
+seI
+eas
+hcH
+obB
+psW
+tYQ
+vlR
+voy
+oPT
+lhE
+lhE
+xIR
+cxX
+"}
+(11,1,1) = {"
+gXl
+jjd
+rEV
+uZR
+teU
+aVc
+iIf
+neB
+obB
+yes
+iIf
+yes
+obB
+aOb
+iIf
+yes
+yes
+nCG
+iBv
+cgM
+mSF
+iIf
+"}
+(12,1,1) = {"
+axb
+koM
+ksq
+itD
+jhr
+yes
+yes
+joc
+joc
+yes
+yes
+obB
+obB
+nbl
+gga
+iDv
+yes
+yes
+yes
+yes
+yes
+yes
+"}
+(13,1,1) = {"
+yes
+yes
+feP
+wIW
+scE
+yes
+shd
+obB
+obB
+lrF
+obB
+obB
+obB
+obB
+obB
+hfZ
+lpR
+iIf
+yes
+yes
+raD
+raD
+"}
+(14,1,1) = {"
+raD
+jeF
+yes
+iIf
+yes
+yes
+shd
+gxT
+tmz
+tmz
+tmz
+tmz
+tmz
+tmz
+tmz
+ouM
+jlp
+fTw
+dVc
+dWD
+fnJ
+fnJ
+"}
+(15,1,1) = {"
+raD
+raD
+raD
+isl
+cNh
+yes
+shd
+ouM
+iVu
+iVu
+jsY
+gxW
+ieX
+ehp
+jlp
+jlp
+jlp
+hBy
+lkH
+dWD
+lrh
+fnJ
+"}
+(16,1,1) = {"
+raD
+raD
+raD
+raD
+raD
+eVy
+rGd
+rGd
+yes
+yes
+iIf
+yes
+yes
+iIf
+qqs
+ksz
+mTe
+lvJ
+fdS
+dWD
+fnJ
+fnJ
+"}
+(17,1,1) = {"
+raD
+raD
+raD
+raD
+raD
+raD
+raD
+raD
+yes
+dNG
+cAo
+dNG
+yes
+iIf
+yes
+iIf
+yes
+iIf
+yes
+yes
+raD
+raD
+"}
+(18,1,1) = {"
+raD
+raD
+raD
+raD
+raD
+raD
+raD
+raD
+raD
+raD
+raD
+raD
+iIf
+rNH
+dNG
+cAo
+dNG
+rNH
+iIf
+raD
+raD
+raD
+"}

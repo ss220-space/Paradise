@@ -12,6 +12,11 @@ import {
 } from 'tgui-core/components';
 import type { BooleanLike } from 'tgui-core/react';
 import { useBackend } from '../../backend';
+import {
+  AIDiplomacy,
+  type AIDiplomacyValue,
+  type AIRelationOption,
+} from './AIDiplomacy';
 import { AIFleetOrders } from './AIFleetOrders';
 
 type Ship = {
@@ -38,8 +43,11 @@ type Template = {
   name: string;
   width: number;
   height: number;
+  ai_role?: string;
+  faction?: string;
 };
 type Draft = {
+  ship_class: string;
   key: number;
   role: string;
   name: string;
@@ -48,11 +56,13 @@ type Draft = {
 };
 type Data = {
   ai: {
-    enemy_options: Record<string, string>;
+    name_template: string;
+    ship_classes: Record<string, string>;
+    faction_options: Record<string, string>;
+    relation_options: AIRelationOption[];
     default_enemies: Record<string, string[]>;
     ships: Ship[];
     uploads: Template[];
-    limit: number;
     feedback?: string;
     failed?: BooleanLike;
   };
@@ -72,9 +82,10 @@ const roles: Record<string, string> = {
   flagship: 'Флагман',
 };
 const factions: Record<string, string> = {
+  erw: 'Eisenwehr Raumfahrtwerke',
+  neutral: 'Нейтральная',
   syndicate: 'Синдикат',
   nt: 'Нанотрейзен',
-  rogue: 'Агрессивные автоматы',
 };
 const states: Record<string, string> = {
   patrol: 'Патруль',
@@ -103,15 +114,31 @@ export const AIShipsAdmin = () => {
     data.suggest_sector || sectors[0]?.id || '',
   );
   const [faction, setFaction] = useState('syndicate');
-  const [enemyDrafts, setEnemyDrafts] = useState<Record<string, string[]>>({});
-  const enemies =
-    enemyDrafts[faction] ?? data.ai?.default_enemies?.[faction] ?? [];
+  const [diplomacyDrafts, setDiplomacyDrafts] = useState<
+    Record<string, AIDiplomacyValue>
+  >({});
+  const diplomacy = diplomacyDrafts[faction] ?? {
+    enemies: data.ai?.default_enemies?.[faction] ?? [],
+    friends: [...new Set([faction, 'neutral'])],
+    relations: [],
+  };
   const [group, setGroup] = useState('');
+  const [radioSilence, setRadioSilence] = useState(false);
+  const [nameTemplate, setNameTemplate] = useState(
+    data.ai?.name_template || '$faction$-$class$-$id$ $shipname$',
+  );
   const [x, setX] = useState(data.suggest_x || 10);
   const [y, setY] = useState(data.suggest_y || 10);
   const [search, setSearch] = useState('');
   const [draft, setDraft] = useState<Draft[]>([
-    { key: 0, role: 'medium', name: '', template: '', unarmed: false },
+    {
+      key: 0,
+      role: 'medium',
+      ship_class: '',
+      name: '',
+      template: '',
+      unarmed: false,
+    },
   ]);
   const nextKey = useRef(1);
   const update = (key: number, change: Partial<Draft>) =>
@@ -125,8 +152,8 @@ export const AIShipsAdmin = () => {
     (item) =>
       item.width > 0 &&
       item.height > 0 &&
-      item.width <= 64 &&
-      item.height <= 64,
+      item.width <= 256 &&
+      item.height <= 256,
   );
   const templateOptions = templates
     .filter((item) =>
@@ -162,6 +189,18 @@ export const AIShipsAdmin = () => {
               onChange={setGroup}
             />
           </LabeledList.Item>
+          <LabeledList.Item label="Радиообмен">
+            <Button.Checkbox
+              checked={radioSilence}
+              onClick={() => setRadioSilence(!radioSilence)}
+            >
+              Радиомолчание
+            </Button.Checkbox>
+          </LabeledList.Item>
+          <LabeledList.Item label="Шаблон имени">
+            <Input fluid value={nameTemplate} onChange={setNameTemplate} />
+            <Box color="label">{'$faction$ · $class$ · $id$ · $shipname$'}</Box>
+          </LabeledList.Item>
           <LabeledList.Item label="Фракция">
             <Dropdown
               fluid
@@ -174,27 +213,15 @@ export const AIShipsAdmin = () => {
               onSelected={setFaction}
             />
           </LabeledList.Item>
-          <LabeledList.Item label="Атаковать при обнаружении">
-            {Object.entries(data.ai?.enemy_options || {}).map(([id, label]) => (
-              <Button.Checkbox
-                key={id}
-                checked={enemies.includes(id)}
-                onClick={() =>
-                  setEnemyDrafts({
-                    ...enemyDrafts,
-                    [faction]: enemies.includes(id)
-                      ? enemies.filter((enemy) => enemy !== id)
-                      : [...enemies, id],
-                  })
-                }
-              >
-                {label}
-              </Button.Checkbox>
-            ))}
-            <Box color="label">
-              Пустой список отключает автоматический выбор врагов. При
-              пополнении соединения настройки применятся ко всему его составу.
-            </Box>
+          <LabeledList.Item label="Дипломатия">
+            <AIDiplomacy
+              value={diplomacy}
+              factions={data.ai?.faction_options || {}}
+              contacts={data.ai?.relation_options || []}
+              onChange={(value) =>
+                setDiplomacyDrafts({ ...diplomacyDrafts, [faction]: value })
+              }
+            />
           </LabeledList.Item>
           <LabeledList.Item label="Сектор">
             <Dropdown
@@ -265,12 +292,28 @@ export const AIShipsAdmin = () => {
             }
           >
             <LabeledList>
-              <LabeledList.Item label="Название">
+              <LabeledList.Item label="Имя корабля">
                 <Input
                   fluid
                   value={row.name}
-                  placeholder="По роли корабля"
+                  placeholder="Из зоны карты или шаблона"
                   onChange={(name) => update(row.key, { name })}
+                />
+              </LabeledList.Item>
+              <LabeledList.Item label="Класс в позывном">
+                <Dropdown
+                  fluid
+                  selected={row.ship_class}
+                  options={[
+                    { value: '', displayText: 'Из карты или тактической роли' },
+                    ...Object.entries(data.ai?.ship_classes || {}).map(
+                      ([value, label]) => ({
+                        value,
+                        displayText: `${value} — ${label}`,
+                      }),
+                    ),
+                  ]}
+                  onSelected={(ship_class) => update(row.key, { ship_class })}
                 />
               </LabeledList.Item>
               <LabeledList.Item label="Роль">
@@ -297,7 +340,15 @@ export const AIShipsAdmin = () => {
                     { value: '', displayText: 'Готовый корпус выбранной роли' },
                     ...templateOptions,
                   ]}
-                  onSelected={(template) => update(row.key, { template })}
+                  onSelected={(template) => {
+                    const selected = templates.find(
+                      (item) => `${item.kind}:${item.id}` === template,
+                    );
+                    update(row.key, {
+                      template,
+                      ...(selected?.ai_role ? { role: selected.ai_role } : {}),
+                    });
+                  }}
                 />
               </LabeledList.Item>
               {!row.template && (
@@ -316,7 +367,6 @@ export const AIShipsAdmin = () => {
         <Button
           mt={1}
           icon="plus"
-          disabled={draft.length >= 32}
           onClick={() =>
             setDraft((rows) => [
               ...rows,
@@ -324,6 +374,7 @@ export const AIShipsAdmin = () => {
                 key: nextKey.current++,
                 role: 'medium',
                 name: '',
+                ship_class: '',
                 template: '',
                 unarmed: false,
               },
@@ -335,15 +386,13 @@ export const AIShipsAdmin = () => {
         <Button
           mt={1}
           icon="space-shuttle"
-          disabled={
-            !sector ||
-            !valid ||
-            ships.length + draft.length > (data.ai?.limit || 32)
-          }
+          disabled={!sector || !valid}
           onClick={() =>
             act('ai_spawn', {
               faction,
-              enemies,
+              name_template: nameTemplate,
+              radio_silence: radioSilence,
+              ...diplomacy,
               group,
               sector: sector?.id,
               x,
@@ -355,6 +404,7 @@ export const AIShipsAdmin = () => {
                 return {
                   role: row.role,
                   name: row.name,
+                  ship_class: row.ship_class,
                   unarmed: row.unarmed,
                   template_id: template?.id || '',
                   template_kind: template?.kind,
@@ -365,13 +415,8 @@ export const AIShipsAdmin = () => {
         >
           Создать соединение · {draft.length}
         </Button>
-        <Box mt={1} color="label">
-          Карты до 64×64, оружие необязательно. Безоружные корабли отступают от
-          врага. Уничтожение — потеря 35% клеток корпуса. Чтобы пополнить
-          существующее соединение, укажите его название и фракцию.
-        </Box>
       </Section>
-      <Section title={`ИИ-корабли · ${ships.length}/${data.ai?.limit || 32}`}>
+      <Section title={`ИИ-корабли · ${ships.length}`}>
         {!ships.length && <Box color="label">Соединения не созданы.</Box>}
         {groups.map((fleet) => (
           <Section
@@ -411,6 +456,12 @@ export const AIShipsAdmin = () => {
                   </Box>
                   {!!ship.target && <Box>Цель: {ship.target}</Box>}
                   <Box mt={0.5}>
+                    <Button
+                      icon="wrench"
+                      onClick={() => act('ai_repair', { id: ship.id })}
+                    >
+                      Починить
+                    </Button>
                     <Button
                       disabled={!!ship.destroyed}
                       icon={ship.enabled ? 'pause' : 'play'}

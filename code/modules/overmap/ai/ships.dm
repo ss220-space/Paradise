@@ -1,20 +1,17 @@
 /obj/overmap/entity/virtual_structure/ai
 	abstract_type = /obj/overmap/entity/virtual_structure/ai
 	name = "AI ship"
+	structure_faction = null
 	desc = "TEMP123TEMP"
 	wraparound = FALSE
 	vessel_flags = OVERMAP_VESSEL_SHUTTLE
-	var/list/ai_drive_cells = list()
+	closed_blastdoors = TRUE
 	var/list/ai_sensor_cell
-	var/ai_structure_version = -1
-	var/ai_drive_force = 0
 	var/ai_hull_cells = 0
 	var/ai_destroyed_cells = 0
 	var/ai_destroyed = FALSE
 
 /obj/overmap/entity/virtual_structure/ai/Destroy()
-	QDEL_NULL(ship_ai)
-	ai_drive_cells = null
 	ai_sensor_cell = null
 	return ..()
 
@@ -25,13 +22,13 @@
 	return FALSE
 
 /obj/overmap/entity/virtual_structure/ai/on_virtual_cell_loaded(datum/overmap_virtual_model/model, cell_x, cell_y)
+	..()
 	var/list/cell = virtual_cells["[cell_x],[cell_y]"]
-	if(model.thrust > 0)
-		ai_drive_cells += list(cell)
 	if(!ai_sensor_cell || (cell_x - hull_center_x) ** 2 + (cell_y - hull_center_y) ** 2 < (ai_sensor_cell[1] - hull_center_x) ** 2 + (ai_sensor_cell[2] - hull_center_y) ** 2)
 		ai_sensor_cell = cell
 
 /obj/overmap/entity/virtual_structure/ai/proc/build_hull(datum/overmap_ai_profile/profile, armed = TRUE)
+	mapped_ship_class = profile.ship_class
 	hull_center_x = (profile.width + 1) / 2
 	hull_center_y = (profile.height + 1) / 2
 	var/datum/overmap_virtual_model/floor_model = new("/turf/simulated/floor/plasteel,/area/space")
@@ -64,33 +61,22 @@
 				add_virtual_weapon(spec, ix, iy)
 	hull_radius = sqrt(profile.width ** 2 + profile.height ** 2) / 2
 	hull_inertia = max(1, (profile.width ** 2 + profile.height ** 2) / 12)
-	vessel_mass = (OVERMAP_MASS_BASE + length(virtual_cells) * OVERMAP_MASS_PER_TURF) * OVERMAP_DYNAMIC_MASS_MULTIPLIER
+	vessel_mass = estimated_hull_mass(length(virtual_cells), TRUE)
 	radar_shape = list("tiles" = shape, "collars" = list())
 	overmap_kind = OVERMAP_KIND_SHUTTLE
 	movable = TRUE
 	halted = FALSE
 	free_flight_view = TRUE
 	AddComponent(/datum/component/overmap_flight)
-	admin_virtual_engine = TRUE
-	ensure_virtual_engine()
 	return TRUE
 
 /obj/overmap/entity/virtual_structure/ai/proc/prepare_ai(datum/overmap_ai_profile/profile)
 	ai_hull_cells = length(virtual_cells)
 	if(!flight || !ai_hull_cells)
 		return FALSE
-	if(!length(ai_drive_cells) && ai_sensor_cell)
-		ai_drive_cells += list(ai_sensor_cell)
-	if(!length(ai_drive_cells))
-		return FALSE
-	ai_drive_force = vessel_mass * profile.acceleration / 200
-	virtual_engine.generated_thrust = ai_drive_force
-	virtual_engine.end_processing()
 	for(var/obj/machinery/gun as anything in virtual_weapons)
 		gun.end_processing()
-		var/datum/component/ship_weapon/mount = gun.GetComponent(/datum/component/ship_weapon)
-		if(mount)
-			mount.automatic = FALSE
+		SEND_SIGNAL(gun, COMSIG_OVERMAP_WEAPON_CONFIGURE, list("automatic" = FALSE))
 	if(!sensor_pack)
 		AddComponent(/datum/component/overmap_sensors/ai)
 	short_sensors_on = TRUE
@@ -99,17 +85,7 @@
 	return TRUE
 
 /obj/overmap/entity/virtual_structure/ai/proc/drive_intact()
-	if(ai_destroyed)
-		return FALSE
-	if(ai_structure_version != hull_version)
-		ai_structure_version = hull_version
-		var/intact = 0
-		for(var/list/cell as anything in ai_drive_cells)
-			if(cell[4] > 0)
-				intact++
-		virtual_engine.generated_thrust = ai_drive_force * intact / max(1, length(ai_drive_cells))
-		virtual_engine.on = intact > 0
-	return virtual_engine?.can_burn() && virtual_engine.generated_thrust > 0
+	return !ai_destroyed && flight?.has_working_engines()
 
 /obj/overmap/entity/virtual_structure/ai/damage_cell(list/cell, damage)
 	if(cell[4] <= 0)
@@ -119,11 +95,12 @@
 		ai_destroyed_cells++
 		if(!ai_destroyed && ai_hull_cells > 0 && ai_destroyed_cells / ai_hull_cells >= 0.35)
 			ai_destroyed = TRUE
+			ship_ai?.controller.report_loss(src)
 			ship_ai?.set_enabled(FALSE)
 			if(ship_ai)
 				ship_ai.state = "destroyed"
 				ship_ai.controller.index_until = 0
-			virtual_engine.on = FALSE
+			flight.stop_burn()
 			flight.engines_state = FALSE
 			map_color = "#888888"
 			identity_color = map_color
@@ -149,3 +126,38 @@
 		var/list/point = record
 		var/list/local_point = world_to_hull(point[1], point[2])
 		. += list(list(local_point[1] - hull_center_x, local_point[2] - hull_center_y, TRUE))
+
+/obj/overmap/entity/virtual_structure/ai/proc/repair_ai_ship()
+	var/resume = ship_ai.enabled || ai_destroyed
+	ship_ai.set_enabled(FALSE)
+	ship_ai.weapons.Cut()
+	ship_ai.weapon_targets.Cut()
+	ship_ai.weapon_snapshots.Cut()
+	ship_ai.weapon_snapshot_tick = -1
+	QDEL_LIST(virtual_weapons)
+	for(var/key, record in virtual_cells)
+		var/list/cell = record
+		var/datum/overmap_virtual_model/model = cell[3]
+		cell[4] = model.health
+		for(var/list/spec as anything in model.weapons)
+			add_virtual_weapon(spec, cell[1], cell[2])
+	for(var/obj/machinery/ship_engine/engine as anything in virtual_engines)
+		engine.stat &= ~(BROKEN|NOPOWER)
+		engine.obj_integrity = engine.max_integrity
+	ai_destroyed = FALSE
+	ai_destroyed_cells = 0
+	prepare_ai(ship_ai.profile)
+	for(var/obj/machinery/gun as anything in virtual_weapons)
+		ship_ai.weapons += gun
+	flight.engines_state = TRUE
+	flight.refresh_thrust()
+	map_color = GLOB.overmap_faction_colors[ship_ai.faction] || COLOR_WHITE
+	identity_color = map_color
+	shape_dirty = TRUE
+	hull_version++
+	radar_epoch++
+	last_attacker_uid = null
+	ship_ai.reported_state = null
+	ship_ai.set_enabled(resume)
+	ship_ai.controller.index_until = 0
+	update_overmap_visibility()

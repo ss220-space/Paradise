@@ -1,4 +1,4 @@
-/obj/machinery/computer/helm/weapons
+/obj/machinery/computer/ship_console/weapons
 	name = "ship weapons console"
 	desc = "TEMP123TEMP"
 	circuit = /obj/item/circuitboard/ship_weapons
@@ -6,7 +6,7 @@
 	icon_keyboard = "security_key"
 	light_color = COLOR_SOFT_RED
 
-/obj/machinery/computer/helm/weapons/ui_interact(mob/user, datum/tgui/ui = null)
+/obj/machinery/computer/ship_console/weapons/ui_interact(mob/user, datum/tgui/ui = null)
 	if(!user.client)
 		return
 	link_vessel()
@@ -16,13 +16,7 @@
 		ui.open()
 	vessel?.watch_radar(ui)
 
-/obj/machinery/computer/helm/weapons/ui_close(mob/user)
-	return
-
-/obj/machinery/computer/helm/weapons/can_pilot(mob/user)
-	return FALSE
-
-/obj/machinery/computer/helm/weapons/ui_data(mob/user)
+/obj/machinery/computer/ship_console/weapons/ui_data(mob/user)
 	overmap_watch_radar(src, user, vessel)
 	var/list/data = list("linked" = !!vessel)
 	if(!vessel)
@@ -38,16 +32,9 @@
 	vessel.fill_radar_data(data, radar_reach)
 	return data
 
-/obj/machinery/computer/helm/weapons/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+/obj/machinery/computer/ship_console/weapons/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(!(action in list("select_weapon", "weapon_auto", "radar_point", "set_dest", "helm_radar_reach", "relink")))
 		return TRUE
 	if((action == "radar_point" || action == "set_dest") && !length(selected_weapons))
 		return TRUE
 	return ..()
-
-/obj/item/circuitboard/ship_weapons
-	desc = "TEMP123TEMP"
-	board_name = "Ship Weapons Console"
-	greyscale_colors = CIRCUIT_COLOR_COMMAND
-	build_path = /obj/machinery/computer/helm/weapons
-	origin_tech = "programming=3;magnets=2"

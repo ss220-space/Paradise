@@ -197,10 +197,12 @@
 	var/ship_piercing = FALSE
 	var/list/ship_pierced_tiles
 	var/overmap_persistent = FALSE
-	var/overmap_velocity = 50
+	var/overmap_velocity = 100
 	var/overmap_radar_kind = "light"
 	var/overmap_radar_visible = FALSE
 	var/overmap_effect_until = 0
+	var/list/overmap_hit_vessels
+	var/list/overmap_hit_groups
 	var/obj/overmap/entity/overmap_firer_vessel
 
 /obj/projectile/Initialize(mapload)
@@ -222,6 +224,8 @@
 	firer_source_atom = null
 	firer = null
 	overmap_firer_vessel = null
+	overmap_hit_vessels = null
+	overmap_hit_groups = null
 	ship_pierced_tiles = null
 	if(trajectory)
 		QDEL_NULL(trajectory)
@@ -490,7 +494,7 @@
 	var/required_moves = hitscan ? MOVES_HITSCAN : floor(elapsed_time_deciseconds / speed)
 	if(required_moves == MOVES_HITSCAN)
 		required_moves = SSprojectiles.global_max_tick_moves
-	if(required_moves > SSprojectiles.global_max_tick_moves)
+	if(!overmap_persistent && required_moves > SSprojectiles.global_max_tick_moves)
 		var/overrun = required_moves - SSprojectiles.global_max_tick_moves
 		required_moves = SSprojectiles.global_max_tick_moves
 		time_offset += overrun * speed

@@ -16,31 +16,44 @@
 	return requires_apc && (!place || place.requires_power)
 
 /obj/machinery/ship_engine/proc/valid_wall_mount()
+	if(virtual_engine_owner)
+		var/list/cell = virtual_engine_owner.virtual_cells["[virtual_engine_x],[virtual_engine_y]"]
+		var/datum/overmap_virtual_model/model = cell?[3]
+		var/exhaust_x = virtual_engine_x + (!!(dir & EAST) - !!(dir & WEST))
+		var/exhaust_y = virtual_engine_y + (!!(dir & NORTH) - !!(dir & SOUTH))
+		var/list/exhaust_cell = virtual_engine_owner.virtual_cells["[exhaust_x],[exhaust_y]"]
+		var/datum/overmap_virtual_model/exhaust_model = exhaust_cell?[3]
+		return ispath(model?.turf_type, /turf/simulated/wall) && (!exhaust_model || ispath(exhaust_model.turf_type, /turf/space))
 	if(!iswallturf(loc))
 		return FALSE
 	var/turf/exhaust = get_step(src, dir)
 	return isspaceturf(exhaust)
 
 /obj/machinery/ship_engine/proc/thrust_origin_x()
-	return x + (engine_size - 1) / 2 + (pixel_x + pixel_w) / ICON_SIZE_X
+	return (virtual_engine_owner ? virtual_engine_x : x) + (engine_size - 1) / 2 + (pixel_x + pixel_w) / ICON_SIZE_X
 
 /obj/machinery/ship_engine/proc/thrust_origin_y()
-	return y + (engine_size - 1) / 2 + (pixel_y + pixel_z) / ICON_SIZE_Y
-
-/obj/machinery/ship_engine/proc/fuel_available()
-	return TRUE
-
-/obj/machinery/ship_engine/proc/consume_fuel(elapsed)
-	return TRUE
+	return (virtual_engine_owner ? virtual_engine_y : y) + (engine_size - 1) / 2 + (pixel_y + pixel_z) / ICON_SIZE_Y
 
 /obj/machinery/ship_engine/proc/resource_fraction(elapsed)
+	if(virtual_engine_owner)
+		return 1
+	if(requires_plasma)
+		var/cost = fuel_rate * thrust_limit * elapsed / (1 SECONDS)
+		return clamp(fuel_port?.air_contents?.toxins() / max(cost, 0.001), 0, 1)
 	if(!requires_apc_power() || !active_power_usage || !thrust_limit)
 		return 1
 	var/cost = active_power_usage * thrust_limit * elapsed / (1 SECONDS) * GLOB.CELLRATE
 	return clamp(get_power_apc()?.cell?.charge / max(cost, 0.001), 0, 1)
 
 /obj/machinery/ship_engine/proc/push_directions()
-	var/list/result = list()
+	var/static/list/directions_cache = list()
+	var/key = "[omnidirectional]:[dir]:[side_thrust_fraction]"
+	var/list/result = directions_cache[key]
+	if(result)
+		return result
+	result = list()
+	directions_cache[key] = result
 	if(omnidirectional)
 		for(var/push in GLOB.cardinal)
 			result["[push]"] = 1
@@ -70,6 +83,9 @@
 /obj/machinery/ship_engine/ion
 	omnidirectional = FALSE
 	requires_apc = TRUE
+	generated_thrust = OVERMAP_ENGINE_SMALL_THRUST
+	idle_power_usage = 100
+	active_power_usage = 400
 	name = "small ion engine"
 	desc = "Малый ионный двигатель. Питается от APC корабля; вспомогательные сопла дают слабую боковую тягу. dir задаёт направление выхлопа."
 	icon = 'icons/obj/machines/ship_engine.dmi'
@@ -86,14 +102,14 @@
 	engine_size = 2
 	max_integrity = 600
 	generated_thrust = OVERMAP_ENGINE_LARGE_THRUST
-	active_power_usage = 6000
+	active_power_usage = 1200
 	side_thrust_fraction = 0
 	engine_board = /obj/item/circuitboard/ship_engine_ion/large
 
 /obj/machinery/ship_engine/thruster/rcs
 	name = "RCS ion thruster"
 	desc = "Настенный ионный RCS. Три сопла дают тягу от стены и вдоль неё. Слабее обычного маневрового трастера."
-	generated_thrust = OVERMAP_ENGINE_THRUSTER_THRUST * 0.7
+	generated_thrust = OVERMAP_ENGINE_THRUSTER_THRUST * 1.4
 	side_thrust_fraction = 1
 	color = "#a7dfff"
 
@@ -107,8 +123,5 @@
 	if(firing || !tool.use_tool(src, user, 1 SECONDS, volume = tool.tool_volume))
 		return TRUE
 	setDir(turn(dir, 90))
-	var/obj/machinery/ship_engine/plasma/plasma = src
-	if(istype(plasma))
-		plasma.fuel_port?.set_inlet_direction(REVERSE_DIR(dir))
 	update_icon(UPDATE_OVERLAYS)
 	return TRUE

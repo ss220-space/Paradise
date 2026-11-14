@@ -190,7 +190,7 @@
 	var/list/point = hull_to_world(hull_center_x + side * 0.5, hull_center_y + 1.5)
 	var/heading = isnum(target_x) && isnum(target_y) ? delta_to_angle(target_x - point[1], target_y - point[2]) : get_facing()
 	if(!projectile.hitscan)
-		projectile.overmap_velocity = (1 SECONDS) / (projectile.speed * 3)
+		projectile.overmap_velocity = (2 SECONDS) / (projectile.speed * 3)
 		return SSovermap.launch_sector_projectile(projectile, sector, point[1], point[2], heading, src)
 	var/datum/overmap_bubble/space = flight_space(point[1], point[2])
 	var/turf/muzzle = space?.turf_at(point[1], point[2])

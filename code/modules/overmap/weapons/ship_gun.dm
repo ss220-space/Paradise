@@ -37,11 +37,3 @@
 /obj/machinery/ship_gun/shuttleRotate(rotation, params = ROTATE_DIR | ROTATE_SMOOTH | ROTATE_OFFSET)
 	. = ..(rotation, params & ~ROTATE_OFFSET)
 	SEND_SIGNAL(src, COMSIG_OVERMAP_WEAPON_ROTATED, rotation, dir)
-
-/obj/machinery/porta_turret/syndicate/ship/gun_50cal/Initialize(mapload)
-	. = ..()
-	var/datum/component/ship_weapon/mount = GetComponent(/datum/component/ship_weapon)
-	mount.arc = ship_arc
-
-/obj/machinery/porta_turret/syndicate/ship/gun_50cal/shuttleRotate(rotation, params = ROTATE_DIR | ROTATE_SMOOTH | ROTATE_OFFSET)
-	return ..(rotation, params & ~ROTATE_OFFSET)

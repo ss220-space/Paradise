@@ -14,6 +14,9 @@ SUBSYSTEM_DEF(overmap)
 	var/list/datum/overmap_sector/sector_order = list()
 
 	var/galaxy_revision = 0
+	var/galaxy_snapshot_tick = -1
+	var/galaxy_snapshot_revision = -1
+	var/list/galaxy_snapshot
 	var/list/galaxy_positions
 	var/list/galaxy_layout
 	var/list/galaxy_systems = list()
@@ -43,6 +46,8 @@ SUBSYSTEM_DEF(overmap)
 	var/list/client/drifting_viewers = list()
 
 	var/list/client_eyes = list()
+	var/list/visual_watched = list()
+	var/list/visual_eyes = list()
 	var/list/datum/overmap_bubble/bubbles = list()
 	var/list/obj/overmap/entity/flying_vessels = list()
 	var/list/obj/overmap/entity/flight_reservations = list()
@@ -58,6 +63,9 @@ SUBSYSTEM_DEF(overmap)
 	var/list/relay_drifter_positions = list()
 	var/list/relay_drifter_captures = list()
 	var/slow_elapsed = 0
+	var/list/faction_comms_keys = list()
+	var/observation_comms_key
+	var/obj/overmap/entity/virtual_structure/observation_post/observation_post
 	var/iff_key_centcom
 	var/iff_key_syndicate
 	var/list/admin_shuttle_spawns = list()
@@ -70,6 +78,10 @@ SUBSYSTEM_DEF(overmap)
 	var/list/obj/overmap/entity/pod/flying_pods = list()
 	var/weapon_targets_until = 0
 	var/list/weapon_targets = list()
+	var/list/weapons_by_vessel = list()
+	var/weapon_index_until = 0
+	var/collision_revision = 0
+	var/datum/overmap_spatial_index/flight_index = new
 	var/list/projectile_poses = list()
 	var/projectile_snapshot_tick = -1
 	var/list/projectile_snapshots = list()
@@ -81,6 +93,7 @@ SUBSYSTEM_DEF(overmap)
 	iff_key_syndicate = generate_overmap_iff_key()
 	while(iff_key_syndicate == iff_key_centcom)
 		iff_key_syndicate = generate_overmap_iff_key()
+	ensure_comms_keys()
 	station_sector = new /datum/overmap_sector/station
 	local_sector = station_sector
 	sectors[station_sector.id] = station_sector
@@ -111,11 +124,13 @@ SUBSYSTEM_DEF(overmap)
 	create_local_spaces()
 	create_station_docking_zone()
 	spawn_taipan()
+	spawn_observation_post()
 	start_programmed_roundstart_routes()
 	snap_roundstart_docks()
 	seed_shuttle_helm_waypoints()
 	refresh_ruin_space_lighting()
 	RegisterSignal(SSdcs, COMSIG_GLOB_EXPLOSION, PROC_REF(mirror_explosion))
+	print_roundstart_comms_keys()
 	last_fire_time = world.time
 	return SS_INIT_SUCCESS
 
@@ -160,7 +175,7 @@ SUBSYSTEM_DEF(overmap)
 		flight.process_tick(elapsed)
 	process_hyperrelay_portals(elapsed)
 	process_flight_views(elapsed)
-	update_proxy_huds()
+	flight_index.rebuild(flying_vessels)
 	process_sector_projectiles(elapsed)
 	draw_sector_projectiles(elapsed)
 	push_radars()
@@ -294,6 +309,9 @@ SUBSYSTEM_DEF(overmap)
 	vessel.recalculate_mass()
 	attach_shuttle_to_resolved_host(vessel)
 	vessel.setup_programmed_defaults()
+	var/list/mapped = vessel.mapped_ship_identity()
+	if(mapped["name"])
+		vessel.assign_ship_name(mapped["faction"])
 	notify_vessel_registered(vessel)
 	return vessel
 
@@ -528,6 +546,8 @@ SUBSYSTEM_DEF(overmap)
 	return best
 
 /datum/controller/subsystem/overmap/proc/resolve_vessel(atom/source)
+	if(SSshuttle.is_loading_ship_template(source))
+		return null
 	var/atom/cursor = source
 	while(cursor && !isturf(cursor) && !isarea(cursor))
 		if(isspacepod(cursor))
@@ -554,7 +574,7 @@ SUBSYSTEM_DEF(overmap)
 	for(var/obj/machinery/ship_engine/engine as anything in GLOB.ship_engines)
 		if(!QDELETED(engine) && !engine.vessel)
 			engine.link_vessel()
-	for(var/obj/machinery/computer/helm/helm as anything in GLOB.helm_computers)
+	for(var/obj/machinery/computer/ship_console/helm as anything in GLOB.ship_consoles)
 		if(!QDELETED(helm) && !helm.vessel)
 			helm.link_vessel()
 	for(var/obj/machinery/transponder/transponder as anything in GLOB.transponders)
@@ -587,7 +607,7 @@ SUBSYSTEM_DEF(overmap)
 		if(QDELETED(existing) || existing.vessel != station_entity)
 			continue
 		return
-	for(var/obj/machinery/computer/helm/helm as anything in GLOB.helm_computers)
+	for(var/obj/machinery/computer/ship_console/helm as anything in GLOB.ship_consoles)
 		if(QDELETED(helm) || istype(helm, /obj/machinery/computer/helm/pod) || isspacepod(helm.loc))
 			continue
 		if(get_shuttle_at(helm) || !is_station_level(helm.z))
@@ -719,7 +739,9 @@ SUBSYSTEM_DEF(overmap)
 			var/datum/eye_frame = frame_owner(eye_turf)
 			if(eye_frame)
 				watched[eye_frame] = TRUE
-	process_encounters(flying, elapsed, watched, eyes)
+	visual_watched = watched
+	visual_eyes = eyes
+	process_encounters(flying, elapsed)
 	var/drifting_bubble = FALSE
 	for(var/datum/overmap_bubble/bubble as anything in bubbles)
 		if(bubble.speed_x || bubble.speed_y)

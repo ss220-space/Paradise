@@ -233,17 +233,28 @@
 	var/last_y = round(min(spot[2] + reach, world.maxy) / OVERMAP_RADAR_CHUNK)
 	var/list/anchor = local_space.to_world(0, 0)
 	var/key = "\ref[local_space]:[first_x]:[last_x]:[first_y]:[last_y]:[anchor[1]]:[anchor[2]]"
-	if(radar_terrain_cache && radar_terrain_key == key && world.time < radar_terrain_until)
-		return radar_terrain_cache
+	if(radar_cache.terrain_cache && radar_cache.terrain_key == key && world.time < radar_cache.terrain_until)
+		return radar_cache.terrain_cache
+	var/list/chunks = list()
+	var/unchanged = radar_cache.terrain_cache && radar_cache.terrain_key == key
 	for(var/chunk_x in first_x to last_x)
 		for(var/chunk_y in first_y to last_y)
 			var/list/chunk = local_space.radar_chunk(chunk_x, chunk_y)
-			walls += chunk[OVERMAP_RADAR_WALL]
-			frames += chunk[OVERMAP_RADAR_FRAME]
-			floors += chunk[OVERMAP_RADAR_FLOOR]
-	radar_terrain_key = key
-	radar_terrain_until = world.time + 1 SECONDS
+			chunks += list(chunk)
+			if(length(chunks) > length(radar_cache.terrain_chunks) || radar_cache.terrain_chunks[length(chunks)] != chunk)
+				unchanged = FALSE
+	radar_cache.terrain_key = key
+	radar_cache.terrain_until = world.time + 1 SECONDS
 	var/list/docks = radar_station_docks()
-	var/revision = md5("[key]:[jointext(walls, ",")]:[jointext(frames, ",")]:[jointext(floors, ",")]:[jointext(docks, ",")]")
-	radar_terrain_cache = list("revision" = revision, "x" = anchor[1], "y" = anchor[2], "walls" = walls, "frames" = frames, "floors" = floors, "docks" = docks)
-	return radar_terrain_cache
+	var/dock_key = jointext(docks, ",")
+	if(unchanged && length(chunks) == length(radar_cache.terrain_chunks) && dock_key == radar_cache.terrain_docks)
+		return radar_cache.terrain_cache
+	radar_cache.terrain_chunks = chunks
+	radar_cache.terrain_docks = dock_key
+	for(var/list/chunk as anything in chunks)
+		walls += chunk[OVERMAP_RADAR_WALL]
+		frames += chunk[OVERMAP_RADAR_FRAME]
+		floors += chunk[OVERMAP_RADAR_FLOOR]
+	var/revision = "[UID()]:[++radar_cache.terrain_revision]"
+	radar_cache.terrain_cache = list("revision" = revision, "x" = anchor[1], "y" = anchor[2], "walls" = walls, "frames" = frames, "floors" = floors, "docks" = docks)
+	return radar_cache.terrain_cache

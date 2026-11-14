@@ -1,0 +1,986 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aqs" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/blue,
+/area/shuttle/trade/sol)
+"awx" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/docking/shuttle/support/glass,
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"aDo" = (
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/shuttle/trade/sol)
+"aLg" = (
+/obj/structure/table/wood/fancy/red,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/blue,
+/area/shuttle/trade/sol)
+"boH" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 5
+	},
+/obj/machinery/door_control{
+	id = "trader_privacy";
+	name = "Privacy Shutters Control";
+	pixel_x = 24;
+	req_access = list(160)
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/trade/sol)
+"cKp" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
+	id_tag = "trader_privacy";
+	name = "Privacy Shutters"
+	},
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/trade/sol)
+"dcs" = (
+/obj/effect/spawner/lootdrop/trade_sol/vehicle,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-birch"
+	},
+/area/shuttle/trade/sol)
+"drh" = (
+/obj/machinery/flasher{
+	id = "soltraderflash";
+	pixel_x = 32
+	},
+/obj/structure/chair/sofa/corp/left{
+	dir = 8
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/shuttle/trade/sol)
+"dFb" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/turf_decal/siding/wood,
+/obj/machinery/door/airlock/shuttle/glass{
+	name = "trader shuttle airlock";
+	req_access = list(160);
+	security_level = 6
+	},
+/turf/simulated/floor/carpet/orange,
+/area/shuttle/trade/sol)
+"dSV" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/light/spot{
+	dir = 1
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-birch"
+	},
+/area/shuttle/trade/sol)
+"ewK" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/green,
+/area/shuttle/trade/sol)
+"exe" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "trader_privacy";
+	name = "Privacy Shutters"
+	},
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/trade/sol)
+"eSZ" = (
+/obj/item/flag/species/human,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/shuttle/trade/sol)
+"fjK" = (
+/obj/structure/closet{
+	custom_door_overlay = "grey";
+	name = "Donksoft gear"
+	},
+/obj/effect/spawner/lootdrop/trade_sol/donksoft,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/shuttle/trade/sol)
+"fri" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/machinery/door_control{
+	id = "trader_privacy";
+	name = "Privacy Shutters Control";
+	pixel_x = 24;
+	pixel_y = -32;
+	req_access = list(160)
+	},
+/obj/machinery/flasher_button{
+	id = "soltraderflash";
+	pixel_x = 24;
+	pixel_y = -40
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/shuttle/trade/sol)
+"fIB" = (
+/obj/structure/window/full/shuttle,
+/obj/structure/grille,
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/trade/sol)
+"gdl" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4;
+	icon_state = "heater2x2"
+	},
+/obj/structure/window/reinforced{
+	color = "yellow";
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/trade/sol)
+"giN" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4;
+	icon_state = "heater2x2_side"
+	},
+/obj/structure/window/reinforced{
+	color = "yellow";
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/trade/sol)
+"guT" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	closingLayer = 5;
+	id_tag = "trader_privacy";
+	layer = 5;
+	name = "Privacy Shutters"
+	},
+/obj/machinery/door/window/brigdoor/southright{
+	dir = 4;
+	name = "Customs Desk";
+	req_access = list(160)
+	},
+/obj/structure/table/wood/fancy/orange,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/shuttle/trade/sol)
+"gzI" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 5
+	},
+/turf/simulated/floor/carpet/blue,
+/area/shuttle/trade/sol)
+"hhA" = (
+/obj/machinery/light/spot,
+/obj/machinery/atm{
+	pixel_y = -32
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/shuttle/trade/sol)
+"hlM" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-birch"
+	},
+/area/shuttle/trade/sol)
+"hqO" = (
+/turf/simulated/floor/plating/airless,
+/area/shuttle/trade/sol)
+"htg" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 9
+	},
+/turf/simulated/floor/carpet/green,
+/area/shuttle/trade/sol)
+"hGL" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/turf/simulated/floor/carpet/green,
+/area/shuttle/trade/sol)
+"ijW" = (
+/obj/structure/chair/sofa/corp/left{
+	dir = 8
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/shuttle/trade/sol)
+"inb" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/obj/machinery/sensor_array/short_range,
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/trade/sol)
+"iqD" = (
+/obj/structure/table/wood/fancy/orange,
+/obj/item/paper_bin{
+	pixel_y = 8
+	},
+/obj/item/pen/fountain{
+	pixel_x = -3;
+	pixel_y = 8
+	},
+/obj/item/pen/fountain{
+	pixel_x = -3;
+	pixel_y = 8
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-birch"
+	},
+/area/shuttle/trade/sol)
+"iEY" = (
+/obj/machinery/light/spot{
+	dir = 1
+	},
+/obj/machinery/atm{
+	pixel_y = 32
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/shuttle/trade/sol)
+"iFA" = (
+/obj/structure/table/wood/fancy/orange,
+/obj/item/paper_bin{
+	pixel_x = -5;
+	pixel_y = 8
+	},
+/obj/item/pen/fountain{
+	pixel_x = 5;
+	pixel_y = 2
+	},
+/obj/item/pen/fountain{
+	pixel_x = 5;
+	pixel_y = 2
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-birch"
+	},
+/area/shuttle/trade/sol)
+"iIB" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 9
+	},
+/turf/simulated/floor/carpet/blue,
+/area/shuttle/trade/sol)
+"iQt" = (
+/obj/machinery/flasher{
+	id = "soltraderflash";
+	pixel_x = 32
+	},
+/obj/structure/chair/sofa/corp/right{
+	dir = 8
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/shuttle/trade/sol)
+"jxk" = (
+/turf/simulated/wall/shuttle,
+/area/shuttle/trade/sol)
+"jXn" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/trade/sol)
+"kja" = (
+/turf/template_noop,
+/area/template_noop)
+"kkr" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-birch"
+	},
+/area/shuttle/trade/sol)
+"kon" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "soltradeship_north";
+	name = "Security Doors"
+	},
+/obj/machinery/door/airlock/shuttle/glass{
+	id_tag = "soltradeship_north";
+	name = "trader shuttle airlock";
+	req_access = list(160);
+	security_level = 6
+	},
+/turf/simulated/floor/carpet/orange,
+/area/shuttle/trade/sol)
+"kqd" = (
+/obj/structure/closet{
+	custom_door_overlay = "pink";
+	name = "Science gear"
+	},
+/obj/machinery/light/spot{
+	dir = 1
+	},
+/obj/effect/spawner/lootdrop/trade_sol/sci,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/shuttle/trade/sol)
+"kFS" = (
+/obj/machinery/ship_engine/large{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/trade/sol)
+"kMN" = (
+/obj/machinery/light/spot,
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-birch"
+	},
+/area/shuttle/trade/sol)
+"kPr" = (
+/obj/machinery/light/spot{
+	dir = 1
+	},
+/obj/machinery/transponder/directional/north,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/shuttle/trade/sol)
+"lgc" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/obj/machinery/door/airlock/shuttle/glass{
+	name = "trader shuttle airlock";
+	req_access = list(160);
+	security_level = 6
+	},
+/turf/simulated/floor/carpet/orange,
+/area/shuttle/trade/sol)
+"lrt" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/blue,
+/area/shuttle/trade/sol)
+"lvN" = (
+/obj/effect/spawner/lootdrop/trade_sol/largeitem,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-birch"
+	},
+/area/shuttle/trade/sol)
+"lQJ" = (
+/turf/simulated/floor/shuttle/transparent_floor,
+/area/shuttle/trade/sol)
+"mSf" = (
+/obj/machinery/light/spot,
+/obj/machinery/overmap_intercom/directional/south,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/shuttle/trade/sol)
+"nlZ" = (
+/obj/structure/closet{
+	custom_door_overlay = "red";
+	name = "Sec. gear"
+	},
+/obj/effect/spawner/lootdrop/trade_sol/sec,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-birch"
+	},
+/area/shuttle/trade/sol)
+"npH" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 5
+	},
+/obj/machinery/sensor_array/long_range,
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/trade/sol)
+"nNo" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/turf/simulated/floor/carpet/blue,
+/area/shuttle/trade/sol)
+"ohi" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-birch"
+	},
+/area/shuttle/trade/sol)
+"oqD" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 5
+	},
+/turf/simulated/floor/carpet/green,
+/area/shuttle/trade/sol)
+"ovX" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/blue,
+/area/shuttle/trade/sol)
+"pbV" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/shuttle/trade/sol)
+"pfo" = (
+/obj/machinery/door_control{
+	id = "soltradeship_north";
+	name = "Trade Deposits Door";
+	pixel_x = 24;
+	pixel_y = 24;
+	req_access = list(160)
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/shuttle/trade/sol)
+"ptW" = (
+/obj/structure/closet{
+	custom_door_overlay = "black";
+	name = "Mineral's"
+	},
+/obj/effect/spawner/lootdrop/trade_sol/minerals,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/shuttle/trade/sol)
+"pCI" = (
+/obj/machinery/atm{
+	pixel_y = 32
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-birch"
+	},
+/area/shuttle/trade/sol)
+"pGh" = (
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-birch"
+	},
+/area/shuttle/trade/sol)
+"pLm" = (
+/turf/simulated/floor/carpet/blue,
+/area/shuttle/trade/sol)
+"pWM" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 10
+	},
+/turf/simulated/floor/carpet/blue,
+/area/shuttle/trade/sol)
+"qBB" = (
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "soltradeship_south";
+	name = "Security Doors"
+	},
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/machinery/door/airlock/shuttle/glass{
+	id_tag = "soltradeship_south";
+	name = "trader shuttle airlock";
+	req_access = list(160);
+	security_level = 6
+	},
+/turf/simulated/floor/carpet/orange,
+/area/shuttle/trade/sol)
+"qFU" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	closingLayer = 5;
+	id_tag = "trader_privacy";
+	layer = 5;
+	name = "Privacy Shutters"
+	},
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/trade/sol)
+"qTk" = (
+/obj/effect/turf_decal/siding/wood/corner,
+/obj/machinery/computer/sensors,
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/trade/sol)
+"rzQ" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/turf/simulated/floor/carpet/green,
+/area/shuttle/trade/sol)
+"rOA" = (
+/obj/machinery/atm{
+	pixel_y = -32
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-birch"
+	},
+/area/shuttle/trade/sol)
+"sHb" = (
+/obj/structure/closet{
+	custom_door_overlay = "yellow";
+	name = "Engineering gear"
+	},
+/obj/machinery/light/spot,
+/obj/effect/spawner/lootdrop/trade_sol/eng,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/shuttle/trade/sol)
+"sHU" = (
+/obj/machinery/door_control{
+	id = "soltradeship_south";
+	name = "Trade Deposits Door";
+	pixel_x = 24;
+	pixel_y = -24;
+	req_access = list(160)
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/shuttle/trade/sol)
+"sTA" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/green,
+/area/shuttle/trade/sol)
+"tvW" = (
+/obj/structure/closet{
+	custom_door_overlay = "green";
+	name = "Service gear"
+	},
+/obj/effect/spawner/lootdrop/trade_sol/serv,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/shuttle/trade/sol)
+"twh" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/trade/sol)
+"txQ" = (
+/obj/item/bedsheet/brown,
+/obj/structure/bed,
+/turf/simulated/floor/carpet/blue,
+/area/shuttle/trade/sol)
+"tGG" = (
+/obj/docking_port/mobile{
+	dheight = 1;
+	dir = 8;
+	dwidth = 7;
+	height = 18;
+	id = "trade_sol";
+	name = "sol trade shuttle";
+	pixel_x = -5;
+	port_direction = 2;
+	preferred_direction = 8;
+	roundstart_move = null;
+	width = 15;
+	timid = 1
+	},
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/docking/shuttle/glass{
+	dir = 4;
+	dock_name = "Южный шлюз"
+	},
+/turf/simulated/floor/wood,
+/area/shuttle/trade/sol)
+"tTt" = (
+/obj/effect/turf_decal/siding/wood,
+/turf/simulated/floor/carpet/blue,
+/area/shuttle/trade/sol)
+"uka" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/trade/sol)
+"utR" = (
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
+	},
+/obj/machinery/computer/helm,
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/trade/sol)
+"uPb" = (
+/obj/structure/chair/sofa/corp/right{
+	dir = 8
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/shuttle/trade/sol)
+"uVH" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	closingLayer = 5;
+	id_tag = "trader_privacy";
+	layer = 5;
+	name = "Privacy Shutters"
+	},
+/obj/machinery/door/window/brigdoor/southright{
+	base_state = "leftsecure";
+	dir = 4;
+	icon_state = "leftsecure";
+	name = "Customs Desk";
+	req_access = list(160)
+	},
+/obj/structure/table/wood/fancy/orange,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/shuttle/trade/sol)
+"vmO" = (
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/shuttle/trade/sol)
+"vEm" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/effect/turf_decal/siding/wood,
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/trade/sol)
+"wBN" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/shuttle/trade/sol)
+"wBY" = (
+/obj/structure/closet{
+	custom_door_overlay = "white";
+	name = "Medical gear"
+	},
+/obj/effect/spawner/lootdrop/trade_sol/med,
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/shuttle/trade/sol)
+"wKV" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "trader_privacy";
+	name = "Privacy Shutters"
+	},
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/trade/sol)
+"xnq" = (
+/obj/item/hand_labeler,
+/obj/item/stack/packageWrap,
+/obj/item/stack/packageWrap,
+/obj/item/stack/packageWrap,
+/obj/structure/table/wood/fancy/orange,
+/turf/simulated/floor/carpet/blue,
+/area/shuttle/trade/sol)
+"xPT" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/machinery/door_control{
+	id = "trader_privacy";
+	name = "Privacy Shutters Control";
+	pixel_x = 24;
+	pixel_y = 32;
+	req_access = list(160)
+	},
+/obj/machinery/flasher_button{
+	id = "soltraderflash";
+	pixel_x = 24;
+	pixel_y = 24
+	},
+/turf/simulated/floor/wood{
+	icon_state = "fancy-wood-cherry"
+	},
+/area/shuttle/trade/sol)
+
+(1,1,1) = {"
+kja
+kja
+kja
+jxk
+jxk
+exe
+exe
+exe
+exe
+jxk
+jxk
+kja
+kja
+kja
+"}
+(2,1,1) = {"
+kja
+jxk
+exe
+jxk
+jxk
+npH
+utR
+qTk
+inb
+jxk
+jxk
+exe
+jxk
+kja
+"}
+(3,1,1) = {"
+kja
+wKV
+pLm
+pLm
+dFb
+aDo
+twh
+vEm
+aDo
+dFb
+pLm
+pLm
+cKp
+kja
+"}
+(4,1,1) = {"
+kja
+wKV
+txQ
+aLg
+jxk
+kPr
+boH
+uka
+mSf
+jxk
+aLg
+txQ
+cKp
+kja
+"}
+(5,1,1) = {"
+jxk
+wBN
+jxk
+wBN
+jxk
+lgc
+wBN
+wBN
+lgc
+jxk
+wBN
+jxk
+wBN
+jxk
+"}
+(6,1,1) = {"
+jxk
+lvN
+ohi
+dFb
+aDo
+aDo
+fjK
+tvW
+aDo
+aDo
+dFb
+ohi
+dcs
+jxk
+"}
+(7,1,1) = {"
+jxk
+nlZ
+pGh
+wBN
+kqd
+iIB
+aqs
+aqs
+pWM
+sHb
+wBN
+pGh
+lvN
+jxk
+"}
+(8,1,1) = {"
+wBN
+jXn
+lgc
+wBN
+wBY
+lrt
+xnq
+xnq
+tTt
+ptW
+wBN
+lgc
+fIB
+wBN
+"}
+(9,1,1) = {"
+wBN
+pGh
+pGh
+dFb
+pfo
+gzI
+ovX
+ovX
+nNo
+sHU
+dFb
+pGh
+pGh
+wBN
+"}
+(10,1,1) = {"
+wKV
+kkr
+pGh
+wBN
+eSZ
+xPT
+aDo
+aDo
+fri
+eSZ
+wBN
+pGh
+kkr
+cKp
+"}
+(11,1,1) = {"
+wKV
+iFA
+rOA
+jxk
+jxk
+uVH
+qFU
+qFU
+guT
+jxk
+jxk
+pCI
+iqD
+cKp
+"}
+(12,1,1) = {"
+wKV
+hlM
+pGh
+wBN
+eSZ
+pbV
+vmO
+vmO
+pbV
+eSZ
+wBN
+pGh
+hlM
+cKp
+"}
+(13,1,1) = {"
+wBN
+dSV
+pGh
+kon
+aDo
+htg
+sTA
+sTA
+hGL
+aDo
+qBB
+pGh
+kMN
+wBN
+"}
+(14,1,1) = {"
+wBN
+gdl
+giN
+wBN
+iEY
+oqD
+ewK
+ewK
+rzQ
+hhA
+wBN
+gdl
+giN
+wBN
+"}
+(15,1,1) = {"
+jxk
+hqO
+kFS
+jxk
+drh
+uPb
+aDo
+aDo
+ijW
+iQt
+jxk
+hqO
+kFS
+jxk
+"}
+(16,1,1) = {"
+kja
+lQJ
+lQJ
+wBN
+jxk
+jxk
+awx
+tGG
+jxk
+jxk
+wBN
+lQJ
+lQJ
+kja
+"}

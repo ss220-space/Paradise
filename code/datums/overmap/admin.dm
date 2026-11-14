@@ -65,6 +65,8 @@
 		data["suggest_x"] = hint ? hint_sector.coord_x(hint) : round(hint_sector.size / 2)
 		data["suggest_y"] = hint ? hint_sector.coord_y(hint) : round(hint_sector.size / 2)
 		data["suggest_sector"] = hint_sector.id
+	data["faction_comms_keys"] = SSovermap?.faction_comms_keys
+	data["observation_comms_key"] = SSovermap?.observation_comms_key
 	data["iff_centcom"] = SSovermap?.iff_key_centcom
 	data["iff_syndicate"] = SSovermap?.iff_key_syndicate
 	data["transponders"] = serialize_transponders()
@@ -173,7 +175,11 @@
 	data["status"] = istype(vessel) ? vessel.status : null
 	data["sensors_on"] = istype(vessel) && (vessel.long_sensors_on || vessel.short_sensors_on)
 	data["has_flight"] = istype(vessel) && !!vessel.flight
-	data["virtual_engine"] = istype(vessel) && vessel.admin_virtual_engine
+	data["radio_silence"] = istype(vessel) && vessel.radio_silence
+	data["supports_structure_ai"] = istype(vessel) && vessel.supports_stationary_ai()
+	data["structure_ai"] = istype(vessel) && vessel.stationary_ai
+	data["structure_faction"] = istype(vessel) ? overmap_ai_faction(vessel) : null
+	data["structure_fire_range"] = istype(vessel) ? vessel.structure_fire_range : null
 	return data
 
 /datum/overmap_admin_panel/proc/serialize_dump_list()
@@ -226,14 +232,14 @@
 	. = list()
 	for(var/template_name, template_entry in GLOB.map_templates)
 		var/datum/map_template/template = template_entry
-		if(!template)
+		if(!template || istype(template, /datum/map_template/shuttle))
 			continue
 		. += list(list("id" = template_name, "name" = template.name, "width" = template.width, "height" = template.height, "kind" = "map"))
 	for(var/shuttle_id, template_entry in GLOB.shuttle_templates)
 		var/datum/map_template/shuttle/template = template_entry
 		if(!template)
 			continue
-		. += list(list("id" = shuttle_id, "name" = template.name || shuttle_id, "width" = template.width, "height" = template.height, "kind" = "shuttle"))
+		. += list(list("id" = shuttle_id, "name" = template.name || shuttle_id, "width" = template.width, "height" = template.height, "kind" = "shuttle", "ai_role" = template.overmap_ai_role, "faction" = template.overmap_faction))
 
 /datum/overmap_admin_panel/proc/serialize_transponders()
 	. = list()
@@ -521,17 +527,33 @@
 			token.hidden_from_contacts = truthy(value)
 		if("wraparound")
 			token.wraparound = truthy(value)
-		if("virtual_engine")
-			if(!istype(vessel))
+		if("structure_ai", "structure_faction", "structure_fire_range")
+			if(!istype(vessel) || !vessel.supports_stationary_ai())
 				return
-			vessel.admin_virtual_engine = truthy(value)
-			if(vessel.admin_virtual_engine)
-				if(!vessel.flight)
-					vessel.AddComponent(/datum/component/overmap_flight)
-				vessel.ensure_virtual_engine()
-			else if(!vessel.programmed && !vessel.programmed_mission && !vessel.overmap_pod)
-				QDEL_NULL(vessel.virtual_engine)
-			vessel.flight?.refresh_thrust()
+			switch(field)
+				if("structure_ai")
+					vessel.set_stationary_ai(truthy(value))
+				if("structure_faction")
+					if(!(value in list("neutral", "nt", "syndicate", "erw")))
+						return
+					vessel.structure_faction = value
+					vessel.map_color = GLOB.overmap_faction_colors[value] || vessel.map_color
+					vessel.identity_color = vessel.map_color
+					if(vessel.ship_ai)
+						vessel.ship_ai.faction = value
+						vessel.ship_ai.target = null
+						vessel.ship_ai.target_visible = FALSE
+						vessel.ship_ai.next_think = 0
+				if("structure_fire_range")
+					var/range = isnum(value) ? value : (istext(value) ? text2num(value) : null)
+					if(!isnum(range) || !(range >= 0 && range <= 10000))
+						return
+					vessel.structure_fire_range = round(range, 0.1)
+			if(SSovermap.ai_controller)
+				SSovermap.ai_controller.index_until = 0
+		if("radio_silence")
+			if(istype(vessel))
+				vessel.radio_silence = truthy(value)
 		if("speed_x")
 			token.speed[1] = text2num(value) || 0
 			token.refresh_heading_overlay()
@@ -544,7 +566,6 @@
 				return
 			if(!vessel.flight)
 				vessel.AddComponent(/datum/component/overmap_flight)
-			vessel.ensure_virtual_engine()
 			vessel.movable = TRUE
 			vessel.halted = FALSE
 			if(vessel.status == OVERMAP_STATUS_DOCKED && isturf(vessel.loc))
@@ -579,8 +600,6 @@
 		shell.bind_slave(token)
 	if(!vessel.flight)
 		vessel.AddComponent(/datum/component/overmap_flight)
-	vessel.admin_virtual_engine = TRUE
-	vessel.ensure_virtual_engine()
 	if(!vessel.sensor_pack)
 		vessel.AddComponent(/datum/component/overmap_sensors)
 	vessel.long_sensors_on = TRUE
@@ -627,9 +646,9 @@
 		qdel(template)
 		return
 	if(for_ai)
-		if(template.width <= 0 || template.height <= 0 || template.width > 64 || template.height > 64 || length(ai_uploaded_templates) >= 32)
+		if(template.width <= 0 || template.height <= 0 || template.width > 256 || template.height > 256 || length(ai_uploaded_templates) >= 32)
 			qdel(template)
-			throw EXCEPTION("Можно хранить до 32 карт ИИ-кораблей размером не больше 64×64.")
+			throw EXCEPTION("Можно хранить до 32 карт ИИ-кораблей размером не больше 256×256.")
 		ai_uploaded_templates["[length(ai_uploaded_templates) + 1]"] = template
 		ai_feedback = "Карта добавлена: [template.name]. Теперь её можно назначить любому кораблю соединения."
 		return
@@ -808,7 +827,7 @@
 	if(!anchor)
 		return null
 	var/obj/docking_port/mobile/port = new /obj/docking_port/mobile{timid = TRUE}(anchor)
-	port.name = "admin shuttle"
+	port.name = template?.name || "Shuttle"
 	port.dir = collar ? REVERSE_DIR(collar.dir) : NORTH
 	if(collar)
 		port.overmap_collar = collar

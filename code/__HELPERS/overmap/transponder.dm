@@ -16,6 +16,8 @@
 			return "Центком"
 		if(OVERMAP_IFF_SYNDICATE)
 			return "Синдикат"
+		if(OVERMAP_IFF_ERW)
+			return "Eisenwehr Raumfahrtwerke"
 		if(OVERMAP_IFF_HIJACK)
 			return "sys.iff_signal = %ERR#NULL%"
 	return id

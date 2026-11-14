@@ -17,6 +17,9 @@
 	var/list/obj/overmap/entity/ships = list()
 	var/list/obj/effect/abstract/overmap_contact_proxy/contact_proxies = list()
 	var/list/terrain_chunks = list()
+	var/list/solid_chunks = list()
+	var/solid_chunks_tick = -1
+	var/solid_chunks_revision = -1
 	var/list/atom/movable/drifters = list()
 	var/last_occupied
 	var/static_level = FALSE
@@ -28,7 +31,6 @@
 	var/datum/fog_scene/scatter/scatter_fog
 	var/list/navigation_density_cache
 	var/navigation_density_until = 0
-	var/navigation_density_busy = FALSE
 	var/list/navigation_extent
 	var/navigation_extent_until = 0
 
@@ -71,6 +73,7 @@
 	SSovermap.bubbles_by_z[level] = src
 
 /datum/overmap_bubble/Destroy(force)
+	SSovermap_visuals.remove(src)
 	SSovermap.bubbles -= src
 	SSovermap.bubbles_by_reservation -= reservation
 	if(static_level && bubble_z <= length(SSovermap.bubbles_by_z) && SSovermap.bubbles_by_z[bubble_z] == src)
@@ -81,6 +84,8 @@
 	QDEL_LIST_ASSOC_VAL(scatter_proxies)
 	QDEL_NULL(scatter_fog)
 	terrain_chunks.Cut()
+	solid_chunks.Cut()
+	navigation_density_cache = null
 	for(var/atom/movable/drifter as anything in drifters)
 		remove_drifter(drifter)
 	reservation?.Release()
@@ -132,16 +137,33 @@
 		if(hull_turf)
 			return list(vessel, hull_turf)
 
-/datum/overmap_bubble/proc/process_bubble(list/flying, elapsed, list/eyes)
-	var/list/seen = list()
-	var/list/drawn = list()
+/datum/overmap_bubble/proc/process_bubble(list/flying)
+	ships = list()
 	for(var/obj/overmap/entity/vessel as anything in flying)
 		if(QDELETED(vessel) || !vessel.free_flight_view || vessel.sector != sector || vessel.formation_pad)
 			continue
-		var/list/spot = to_bubble(vessel.get_world_x(), vessel.get_world_y())
-		if(!covers(spot, vessel.hull_radius))
+		if(covers(to_bubble(vessel.get_world_x(), vessel.get_world_y()), vessel.hull_radius))
+			ships[vessel] = TRUE
+	if(length(ships))
+		last_occupied = world.time
+	if(static_level && !length(ships))
+		for(var/atom/movable/drifter as anything in drifters)
+			remove_drifter(drifter)
+		return
+	for(var/obj/overmap/entity/vessel as anything in ships)
+		sweep_hull(vessel)
+	for(var/atom/movable/drifter as anything in drifters)
+		try_board(drifter)
+	if(length(drifters))
+		last_occupied = world.time
+
+/datum/overmap_bubble/proc/update_flight_visuals(elapsed)
+	var/list/eyes = SSovermap.visual_eyes
+	var/list/drawn = list()
+	for(var/obj/overmap/entity/vessel as anything in ships)
+		if(QDELETED(vessel) || !vessel.free_flight_view || vessel.sector != sector || vessel.formation_pad)
 			continue
-		seen[vessel] = TRUE
+		var/list/spot = to_bubble(vessel.get_world_x(), vessel.get_world_y())
 		if(!watched_near(spot, vessel.hull_radius + OVERMAP_NEIGHBOR_RANGE, eyes))
 			continue
 		drawn[vessel] = TRUE
@@ -154,21 +176,8 @@
 		if(!drawn[vessel])
 			qdel(ship_proxies[vessel])
 			ship_proxies -= vessel
-	ships = seen
-	if(length(ships))
-		last_occupied = world.time
 	update_contact_proxies(eyes)
 	update_scatter_proxies(eyes, elapsed)
-	if(static_level && !length(ships))
-		for(var/atom/movable/drifter as anything in drifters)
-			remove_drifter(drifter)
-		return
-	for(var/obj/overmap/entity/vessel as anything in ships)
-		sweep_hull(vessel)
-	for(var/atom/movable/drifter as anything in drifters)
-		try_board(drifter)
-	if(length(drifters))
-		last_occupied = world.time
 
 /datum/overmap_bubble/proc/update_contact_proxies(list/eyes)
 	var/list/wanted = list()

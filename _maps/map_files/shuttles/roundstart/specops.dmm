@@ -1,0 +1,228 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aoZ" = (
+/obj/machinery/ship_engine{
+	icon_state = "burst_l"
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/specops)
+"aYO" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/shuttle/specops)
+"hfX" = (
+/turf/simulated/wall/shuttle{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/shuttle/specops)
+"hAU" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/specops)
+"hUP" = (
+/obj/machinery/vending/wallmed{
+	pixel_x = -30;
+	pixel_y = -30
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/specops)
+"jni" = (
+/obj/machinery/camera{
+	c_tag = "CentComm Special Ops. Shuttle";
+	dir = 4;
+	network = list("ERT","CentComm")
+	},
+/obj/machinery/recharge_station/ert,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/specops)
+"kpm" = (
+/obj/machinery/computer/communications,
+/obj/machinery/computer/security/telescreen{
+	desc = "Used for watching the Special Ops team.";
+	name = "Security Station Monitor";
+	network = list("SS13","Research  Outpost","Mining Outpost");
+	pixel_x = 30
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/specops)
+"llC" = (
+/obj/machinery/sensor_array/short_range,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/specops)
+"mHP" = (
+/obj/machinery/light/spot,
+/obj/machinery/computer/sensors,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/specops)
+"nkP" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/machinery/overmap_intercom/directional/east,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/specops)
+"oGq" = (
+/turf/template_noop,
+/area/template_noop)
+"qyK" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/docking/support{
+	id_tag = "syndicate_away";
+	req_access = list(150)
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/specops)
+"qER" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "s_docking_airlock";
+	name = "Shuttle Hatch";
+	req_access = list(109)
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/specops)
+"rcz" = (
+/obj/structure/table,
+/obj/item/clothing/gloves/color/yellow,
+/obj/item/multitool,
+/obj/item/storage/toolbox/mechanical,
+/obj/machinery/transponder/directional/west,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/specops)
+"rBC" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/item/radio/intercom/specops/directional/east,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/specops)
+"tNZ" = (
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/specops)
+"upw" = (
+/obj/machinery/computer/security/telescreen{
+	desc = "Used for watching the Special Ops team.";
+	name = "Spec Ops Monitor";
+	network = list("ERT");
+	pixel_x = -30
+	},
+/obj/machinery/computer/helm,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/specops)
+"wOI" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/specops)
+"xUy" = (
+/obj/structure/fans/tiny,
+/obj/structure/extinguisher_cabinet/directional/north,
+/obj/machinery/door/airlock/external/docking{
+	dir = 8;
+	dock_name = "Боковой стыковочный шлюз"
+	},
+/obj/docking_port/mobile{
+	dir = 4;
+	dwidth = 2;
+	height = 11;
+	id = "specops";
+	name = "ert shuttle";
+	pixel_y = -5;
+	roundstart_move = null;
+	width = 5;
+	timid = 1
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/specops)
+
+(1,1,1) = {"
+oGq
+hfX
+hfX
+aYO
+xUy
+qyK
+aYO
+hfX
+hfX
+aYO
+hfX
+"}
+(2,1,1) = {"
+hfX
+tNZ
+hAU
+hAU
+tNZ
+hUP
+jni
+rcz
+upw
+wOI
+aoZ
+"}
+(3,1,1) = {"
+qER
+tNZ
+tNZ
+tNZ
+tNZ
+tNZ
+tNZ
+hAU
+mHP
+wOI
+aoZ
+"}
+(4,1,1) = {"
+hfX
+llC
+rBC
+hAU
+hAU
+hAU
+nkP
+rBC
+kpm
+wOI
+aoZ
+"}
+(5,1,1) = {"
+oGq
+hfX
+hfX
+hfX
+hfX
+hfX
+hfX
+hfX
+hfX
+aYO
+hfX
+"}

@@ -1,11 +1,3 @@
-/obj/overmap/entity/proc/ensure_virtual_engine()
-	if(!admin_virtual_engine)
-		return
-	if(virtual_engine && !QDELETED(virtual_engine))
-		return
-	virtual_engine = new /obj/machinery/ship_engine/virtual(null)
-	register_engine(virtual_engine)
-
 /obj/overmap/entity/proc/snap_physical_redock()
 	if(!shuttle)
 		return FALSE
@@ -52,7 +44,7 @@
 	var/mark_x = host.sector.coord_x(spot)
 	var/mark_y = host.sector.coord_y(spot)
 	var/label = pad.overmap_dock_label || pad.name || dock_id
-	for(var/obj/machinery/computer/helm/helm as anything in helms)
+	for(var/obj/machinery/computer/helm/helm in helms)
 		if(QDELETED(helm))
 			continue
 		if(!helm.preset_waypoints)

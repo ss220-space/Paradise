@@ -110,7 +110,9 @@
 			data["scan_progress"] = clamp((world.time - scan_started_at) / OVERMAP_SENSOR_SCAN_TIME, 0, 1)
 	data["selected"] = selected_uid
 	data["map_jammed"] = !!vessel?.is_overmap_jammed()
-	data["journal"] = vessel?.sensor_journal || list()
+	data["journal"] = list()
+	if(vessel)
+		SEND_SIGNAL(vessel, COMSIG_OVERMAP_SENSOR_JOURNAL, data)
 	var/list/alerts = list()
 	alerts += list(list("id" = "appear", "label" = "Контакт", "on" = !!alert_enabled["appear"]))
 	alerts += list(list("id" = "disappear", "label" = "Пропажа", "on" = !!alert_enabled["disappear"]))

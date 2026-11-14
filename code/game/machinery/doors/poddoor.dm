@@ -132,3 +132,24 @@
 	icon = 'icons/obj/doors/1x2blast_hor.dmi'
 	width = 2
 	dir = EAST
+
+/obj/machinery/door/poddoor/shuttle
+	name = "shuttle blast door"
+	desc = "TEMP123TEMP"
+	max_integrity = 800
+	obj_flags = NODECONSTRUCT
+
+/obj/machinery/door/poddoor/shuttle/get_ru_names()
+	return alist(
+		NOMINATIVE = "бластдверь шаттла",
+		GENITIVE = "бластдвери шаттла",
+		DATIVE = "бластдвери шаттла",
+		ACCUSATIVE = "бластдверь шаттла",
+		INSTRUMENTAL = "бластдверью шаттла",
+		PREPOSITIONAL = "бластдвери шаттла",
+	)
+
+/obj/machinery/door/poddoor/shuttle/preopen
+	icon_state = "open"
+	density = FALSE
+	opacity = FALSE

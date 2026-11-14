@@ -353,19 +353,34 @@
 			continue
 		if(space.terrain_near(space.to_bubble(vessel.get_world_x(), vessel.get_world_y()), vessel.hull_radius + vessel.pose_travel() + 1))
 			vessel.collide()
+			collision_revision++
+			update_collision_index(vessel)
 	for(var/index in 1 to length(flying))
 		var/obj/overmap/entity/vessel = flying[index]
 		if(vessel.formation_transfer || vessel.formation_pad)
 			continue
 		var/obj/overmap/entity/body = vessel.docked_ship || vessel
+		var/list/candidates = flight_index.nearby(vessel.sector, vessel.get_world_x(), vessel.get_world_y(), vessel.hull_radius + vessel.pose_travel())
 		for(var/other_index in index + 1 to length(flying))
 			var/obj/overmap/entity/other = flying[other_index]
+			if(!candidates[other])
+				continue
 			if(other.formation_transfer || other.formation_pad || other.sector != vessel.sector || (other.docked_ship || other) == body || vessel.docking_approach?.aligning || other.docking_approach?.aligning || vessel.navigation_collision_disabled() || other.navigation_collision_disabled())
 				continue
 			var/reach = vessel.hull_radius + other.hull_radius + vessel.pose_travel() + other.pose_travel()
 			if(sqrt((vessel.get_world_x() - other.get_world_x()) ** 2 + (vessel.get_world_y() - other.get_world_y()) ** 2) > reach)
 				continue
 			vessel.collide(other)
+			collision_revision++
+			update_collision_index(vessel)
+			update_collision_index(other)
+			candidates = flight_index.nearby(vessel.sector, vessel.get_world_x(), vessel.get_world_y(), vessel.hull_radius + vessel.pose_travel())
+
+/datum/controller/subsystem/overmap/proc/update_collision_index(obj/overmap/entity/vessel)
+	var/obj/overmap/entity/body = vessel.docked_ship || vessel
+	flight_index.update(body)
+	for(var/obj/overmap/entity/guest as anything in body.docked_guests)
+		flight_index.update(guest)
 
 /obj/projectile/proc/cross_frames(angle_offset)
 	set_angle(SIMPLIFY_DEGREES(Angle + angle_offset))

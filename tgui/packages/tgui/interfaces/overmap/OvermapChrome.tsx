@@ -186,7 +186,7 @@ export const overmapKindLabel = (kind?: string) => {
     case 'station':
       return 'станция';
     case 'shuttle':
-      return 'шаттл';
+      return 'судно';
     case 'pod':
       return 'челнок';
     case 'planet':
@@ -199,6 +199,8 @@ export const overmapKindLabel = (kind?: string) => {
       return 'угроза';
     case 'relay':
       return 'гипертранслятор';
+    case 'other':
+      return 'объект';
     case 'unknown':
       return 'неизв.';
     default:

@@ -1,5 +1,16 @@
 /datum/controller/subsystem/overmap/proc/update_proxy_huds()
 	var/list/wanted_views = list()
+	var/list/tiles_by_cell = list()
+	for(var/obj/effect/abstract/hull_proxy_tile/tile as anything in proxy_hud_tiles)
+		var/turf/anchor = get_turf(tile)
+		if(!anchor)
+			continue
+		var/key = "[anchor.z]/[FLOOR((anchor.x + tile.pixel_x / ICON_SIZE_X) / 16, 1)],[FLOOR((anchor.y + tile.pixel_y / ICON_SIZE_Y) / 16, 1)]"
+		var/list/cell = tiles_by_cell[key]
+		if(!cell)
+			cell = list()
+			tiles_by_cell[key] = cell
+		cell += tile
 	for(var/client/viewer as anything in client_eyes)
 		if(QDELETED(viewer) || !viewer.mob)
 			continue
@@ -14,7 +25,13 @@
 		if(!eye)
 			continue
 		var/list/view_size = getviewsize(viewer.view)
-		for(var/obj/effect/abstract/hull_proxy_tile/tile as anything in proxy_hud_tiles)
+		var/list/nearby_tiles = list()
+		for(var/cell_x in FLOOR((eye.x - view_size[1] / 2 - 1) / 16, 1) to FLOOR((eye.x + view_size[1] / 2 + 1) / 16, 1))
+			for(var/cell_y in FLOOR((eye.y - view_size[2] / 2 - 1) / 16, 1) to FLOOR((eye.y + view_size[2] / 2 + 1) / 16, 1))
+				var/list/cell = tiles_by_cell["[eye.z]/[cell_x],[cell_y]"]
+				if(cell)
+					nearby_tiles += cell
+		for(var/obj/effect/abstract/hull_proxy_tile/tile as anything in nearby_tiles)
 			var/turf/anchor = get_turf(tile)
 			if(!anchor || anchor.z != eye.z || abs(anchor.x + tile.pixel_x / ICON_SIZE_X - eye.x) > view_size[1] / 2 + 1 || abs(anchor.y + tile.pixel_y / ICON_SIZE_Y - eye.y) > view_size[2] / 2 + 1)
 				continue

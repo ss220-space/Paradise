@@ -47,7 +47,7 @@
 	for(var/area/place as anything in vessel.shuttle.shuttle_areas)
 		for(var/turf/hull in place)
 			turfs++
-	vessel.vessel_mass = (OVERMAP_MASS_BASE + turfs * OVERMAP_MASS_PER_TURF) * OVERMAP_DYNAMIC_MASS_MULTIPLIER
+	vessel.vessel_mass = vessel.estimated_hull_mass(turfs, TRUE)
 
 /datum/component/overmap_shuttle/proc/play_area_sound(soundfile)
 	var/obj/overmap/entity/vessel = parent

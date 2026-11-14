@@ -3,17 +3,20 @@
 	var/datum/overmap_ai_controller/controller = SSovermap?.ai_controller
 	var/list/fleets = list()
 	for(var/datum/overmap_ship_ai/brain as anything in controller?.ships)
-		if(QDELETED(brain) || QDELETED(brain.owner) || !brain.owner.sector)
+		if(QDELETED(brain) || QDELETED(brain.owner) || brain.owner.stationary_ai || !brain.owner.sector)
 			continue
 		var/key = controller.group_key(brain)
 		var/list/entry = fleets[key]
 		if(!entry)
 			var/datum/overmap_sector/sector = brain.owner.sector
-			entry = list("id" = key, "name" = brain.group, "faction" = brain.faction, "enemies" = controller.enemies_for(brain), "sector" = sector.name, "sector_id" = sector.id, "size" = sector.size, "min" = OVERMAP_EDGE + 1, "max" = sector.size - OVERMAP_EDGE, "count" = 0, "alive" = 0, "order" = controller.orders[key]?["kind"] || "auto")
+			entry = list("id" = key, "name" = brain.group, "faction" = brain.faction, "enemies" = controller.enemies_for(brain), "friends" = controller.friends_for(brain), "relations" = list(), "sector" = sector.name, "sector_id" = sector.id, "size" = sector.size, "min" = OVERMAP_EDGE + 1, "max" = sector.size - OVERMAP_EDGE, "count" = 0, "alive" = 0, "order" = controller.orders[key]?["kind"] || "auto")
+			var/list/relations = controller.fleet_relations[controller.diplomacy_key(brain)]
+			for(var/contact, relation in relations)
+				entry["relations"] += list(list("id" = contact, "relation" = relation))
 			fleets[key] = entry
 			. += list(entry)
 		entry["count"]++
-		if(!brain.owner.ai_destroyed)
+		if(!brain.owner.is_ai_destroyed())
 			entry["alive"]++
 
 /datum/overmap_admin_panel/proc/ai_order_targets()
@@ -21,10 +24,10 @@
 	var/datum/overmap_ai_controller/controller = SSovermap?.ai_controller
 	var/list/sectors = list()
 	for(var/datum/overmap_ship_ai/brain as anything in controller?.ships)
-		if(!QDELETED(brain.owner) && brain.owner.sector)
+		if(!QDELETED(brain.owner) && !brain.owner.stationary_ai && brain.owner.sector)
 			sectors[brain.owner.sector] = TRUE
 	for(var/obj/overmap/entity/ship as anything in SSovermap?.vessels)
-		if(QDELETED(ship) || !sectors[ship.sector] || !isturf(ship.loc) || ship.ship_ai?.owner.ai_destroyed || !(ship.overmap_kind in list(OVERMAP_KIND_SHUTTLE, OVERMAP_KIND_POD, OVERMAP_KIND_STATION)))
+		if(QDELETED(ship) || !sectors[ship.sector] || !isturf(ship.loc) || ship.ship_ai?.owner.is_ai_destroyed() || !(ship.overmap_kind in list(OVERMAP_KIND_SHUTTLE, OVERMAP_KIND_POD, OVERMAP_KIND_STATION)))
 			continue
 		. += list(list("id" = ship.UID(), "name" = ship.get_overmap_display_name(), "sector_id" = ship.sector.id, "fleet" = ship.ship_ai ? controller.group_key(ship.ship_ai) : null))
 
@@ -39,7 +42,7 @@
 	var/datum/overmap_sector/sector
 	var/spacing = 12
 	for(var/datum/overmap_ship_ai/brain as anything in controller?.ships)
-		if(QDELETED(brain) || QDELETED(brain.owner) || brain.owner.ai_destroyed || controller.group_key(brain) != params["fleet"])
+		if(QDELETED(brain) || QDELETED(brain.owner) || brain.owner.is_ai_destroyed() || controller.group_key(brain) != params["fleet"])
 			continue
 		members += brain
 		sector = brain.owner.sector
@@ -71,9 +74,14 @@
 			order["y"] = center[2]
 			order["half"] = half
 	if(kind == "attack")
+		var/datum/overmap_ship_ai/leader = members[1]
+		if(leader.faction == "neutral")
+			throw EXCEPTION("Нейтральное соединение не может атаковать.")
 		var/obj/overmap/entity/target = locateUID(params["target"])
-		if(!istype(target) || QDELETED(target) || target.sector != sector || !isturf(target.loc) || target.ship_ai?.owner.ai_destroyed || !(target.overmap_kind in list(OVERMAP_KIND_SHUTTLE, OVERMAP_KIND_POD, OVERMAP_KIND_STATION)))
+		if(!istype(target) || QDELETED(target) || target.sector != sector || !isturf(target.loc) || target.is_ai_destroyed() || !(target.overmap_kind in list(OVERMAP_KIND_SHUTTLE, OVERMAP_KIND_POD, OVERMAP_KIND_STATION)))
 			throw EXCEPTION("Выберите действующую цель в секторе соединения.")
+		if(overmap_ai_faction(target) == "neutral")
+			throw EXCEPTION("Нейтральную структуру или корабль нельзя назначить целью ИИ.")
 		if(target.ship_ai && controller.group_key(target.ship_ai) == params["fleet"])
 			throw EXCEPTION("Нельзя назначить целью корабль этого же соединения.")
 		order["target"] = target.UID()
@@ -101,7 +109,7 @@
 	log_admin("[key_name(user)] ordered AI fleet [params["fleet"]] to [kind]: [json_encode(params)].")
 
 /datum/overmap_ship_ai/proc/is_fleet_member(obj/overmap/entity/ship)
-	return ship?.ship_ai && controller.group_key(ship.ship_ai) == controller.group_key(src)
+	return ship?.ship_ai?.controller == controller && controller.diplomacy_key(ship.ship_ai) == controller.diplomacy_key(src)
 
 /datum/overmap_ship_ai/proc/is_ordered_target(obj/overmap/entity/ship)
 	return order?["kind"] == "attack" && order["target"] == ship?.UID()
@@ -153,7 +161,7 @@
 			wanted_facing = delta_to_angle(wanted_x, wanted_y)
 	return TRUE
 
-/datum/overmap_ship_ai/proc/suppression_aim(datum/component/ship_weapon/mount)
+/datum/overmap_ship_ai/proc/suppression_aim(obj/machinery/mount)
 	if(!order || order["kind"] != "suppress" || order["sector"] != owner.sector || !has_weapons())
 		return null
 	for(var/attempt in 1 to 12)
@@ -162,6 +170,6 @@
 		if((x - owner.get_world_x()) ** 2 + (y - owner.get_world_y()) ** 2 > profile.fire_range ** 2)
 			continue
 		var/list/aim = aim_at_point(mount, x, y)
-		if(aim && mount.can_aim(owner, aim[1], aim[2]) && clear_shot(mount, aim))
+		if(aim && SEND_SIGNAL(mount, COMSIG_OVERMAP_WEAPON_CAN_AIM, owner, aim[1], aim[2]) && clear_shot(mount, aim))
 			return aim
 	return null

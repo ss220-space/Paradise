@@ -4,6 +4,7 @@
 	return role
 
 /datum/overmap_ship_ai/proc/think()
+	weapon_snapshots.Cut()
 	if(QDELETED(owner) || !owner.sector || !isturf(owner.loc))
 		return
 	if(home_sector != owner.sector)
@@ -13,8 +14,9 @@
 		target = null
 		goal_x = null
 		order = null
-	if(owner.ai_destroyed || !owner.drive_intact())
+	if(owner.is_ai_destroyed() || !owner.ai_drive_intact())
 		state = "disabled"
+		report_state()
 		target = null
 		wanted_x = 0
 		wanted_y = 0
@@ -50,6 +52,7 @@
 	else
 		combat_movement()
 		aim_and_fire()
+	report_state()
 	avoid_collisions()
 	var/speed = sqrt(wanted_x ** 2 + wanted_y ** 2)
 	if(speed > navigation_speed())
@@ -144,111 +147,3 @@
 		wanted_x = clamp((limits[1] + limits[3]) / 2 - x, -navigation_speed(), navigation_speed())
 	if(y + wanted_y * 3 < limits[2] || y + wanted_y * 3 > limits[4])
 		wanted_y = clamp((limits[2] + limits[4]) / 2 - y, -navigation_speed(), navigation_speed())
-
-/datum/overmap_ship_ai/proc/aim_point(datum/component/ship_weapon/mount, live = FALSE)
-	if(order?["kind"] == "suppress")
-		return aim_at_point(mount, order["x"], order["y"])
-	return aim_at_point(mount, live ? target.get_world_x() : last_x, live ? target.get_world_y() : last_y, live ? target.speed[1] * OVERMAP_TILE_SPAN * (1 SECONDS) : last_vx, live ? target.speed[2] * OVERMAP_TILE_SPAN * (1 SECONDS) : last_vy)
-
-/datum/overmap_ship_ai/proc/aim_at_point(datum/component/ship_weapon/mount, aim_x, aim_y, velocity_x = 0, velocity_y = 0)
-	var/obj/machinery/gun = mount.parent
-	var/shot_type = gun.ship_round_type || /obj/projectile/bullet/ship_artillery
-	var/obj/machinery/porta_turret/turret = gun
-	if(istype(turret))
-		shot_type = (turret.lethal || turret.emagged) ? turret.eprojectile : turret.projectile
-	if(!ispath(shot_type, /obj/projectile))
-		return null
-	var/obj/projectile/prototype = shot_type
-	var/list/origin = mount.world_position(owner)
-	var/list/inherited = owner.projectile_inherited_velocity(origin[1], origin[2])
-	var/relative_x = velocity_x - inherited[1]
-	var/relative_y = velocity_y - inherited[2]
-	var/obj/overmap/entity/carrier = owner.docked_ship || owner
-	var/turn_speed = mount.muzzle_distance * TORADIANS(carrier.flight?.angular_velocity || 0) * (1 SECONDS)
-	var/shot_speed = initial(prototype.overmap_velocity)
-	var/time = overmap_ai_intercept(aim_x - origin[1], aim_y - origin[2], relative_x, relative_y, shot_speed, mount.muzzle_distance, turn_speed)
-	if(isnull(time) || time > 90)
-		return null
-	var/dx = aim_x + relative_x * time - origin[1]
-	var/dy = aim_y + relative_y * time - origin[2]
-	var/forward = mount.muzzle_distance + shot_speed * time
-	var/correction = forward > 0 ? arctan(turn_speed * time / forward) : 0
-	var/angle = delta_to_angle(dx, dy) - correction
-	var/distance = sqrt(dx ** 2 + dy ** 2)
-	return list(origin[1] + sin(angle) * distance, origin[2] + cos(angle) * distance)
-
-/datum/overmap_ship_ai/proc/burst_aim(datum/component/ship_weapon/mount)
-	if(enabled && order?["kind"] == "suppress")
-		return suppression_aim(mount)
-	if(!enabled || !target_visible || QDELETED(target) || !can_see(controller.contacts[target]) || (!is_ordered_target(target) && (is_fleet_member(target) || !hostile(perceived_faction(target)))))
-		return null
-	var/list/aim = aim_point(mount, TRUE)
-	return aim && clear_shot(mount, aim) ? aim : null
-
-/datum/overmap_ship_ai/proc/aim_and_fire()
-	var/list/ready = list()
-	var/list/aims = list()
-	for(var/datum/component/ship_weapon/mount as anything in weapons)
-		if(!weapon_operational(mount))
-			continue
-		var/list/aim = aim_point(mount)
-		if(!aim)
-			continue
-		aims[mount] = aim
-		if(world.time >= mount.next_fire)
-			ready += mount
-	var/list/orientation_guns = length(ready) ? ready : weapons
-	var/best_score = -1
-	for(var/datum/component/ship_weapon/candidate as anything in orientation_guns)
-		var/list/aim = aims[candidate]
-		if(!aim)
-			continue
-		var/list/origin = candidate.world_position(owner)
-		var/heading = delta_to_angle(aim[1] - origin[1], aim[2] - origin[2]) - (candidate.heading(owner) - owner.get_facing())
-		var/score = 0
-		for(var/datum/component/ship_weapon/mount as anything in orientation_guns)
-			var/list/other_aim = aims[mount]
-			if(!other_aim)
-				continue
-			var/list/point = mount.world_position(owner)
-			var/barrel = heading + mount.heading(owner) - owner.get_facing()
-			if(abs(closer_angle_difference(barrel, delta_to_angle(other_aim[1] - point[1], other_aim[2] - point[2]))) <= max(0, mount.arc / 2 - 1))
-				score += 1 + 30 / max(10, mount.arc)
-		score -= abs(closer_angle_difference(owner.get_facing(), heading)) / 720
-		if(score > best_score)
-			best_score = score
-			wanted_facing = heading
-	var/area_fire = order?["kind"] == "suppress"
-	var/distance = sqrt(((area_fire ? order["x"] : last_x) - owner.get_world_x()) ** 2 + ((area_fire ? order["y"] : last_y) - owner.get_world_y()) ** 2) - (area_fire ? 0 : overmap_ai_radius(target))
-	if(distance > profile.fire_range)
-		return
-	for(var/datum/component/ship_weapon/mount as anything in ready)
-		var/list/aim = aims[mount]
-		if(mount.can_aim(owner, aim[1], aim[2]) && clear_shot(mount, aim))
-			mount.fire_at(owner, aim[1], aim[2], FALSE)
-
-/datum/overmap_ship_ai/proc/clear_shot(datum/component/ship_weapon/mount, list/aim, obj/overmap/entity/intended_target = target)
-	var/list/start = mount.world_position(owner)
-	var/angle = delta_to_angle(aim[1] - start[1], aim[2] - start[2])
-	start[1] += sin(angle) * mount.muzzle_distance
-	start[2] += cos(angle) * mount.muzzle_distance
-	for(var/distance in 0 to CEILING(owner.hull_radius * 2 + 2, 1) step 0.5)
-		var/list/cell = owner.cell_at(start[1] + sin(angle) * distance, start[2] + cos(angle) * distance, TRUE)
-		var/obj/machinery/gun = mount.parent
-		if(cell && (cell[1] != gun.virtual_weapon_x || cell[2] != gun.virtual_weapon_y))
-			return FALSE
-	var/dx = aim[1] - start[1]
-	var/dy = aim[2] - start[2]
-	var/length_squared = dx ** 2 + dy ** 2
-	if(length_squared <= 0.001)
-		return FALSE
-	var/range = sqrt(length_squared)
-	for(var/list/entry as anything in controller.nearby(owner.sector, (start[1] + aim[1]) / 2, (start[2] + aim[2]) / 2, range / 2 + 1))
-		if(entry["ship"] == owner || (order?["kind"] != "suppress" && entry["ship"] == intended_target))
-			continue
-		if(order?["kind"] == "suppress" && !is_fleet_member(entry["ship"]) && hostile(perceived_faction(entry["ship"])))
-			continue
-		var/fraction = clamp(((entry["x"] - start[1]) * dx + (entry["y"] - start[2]) * dy) / length_squared, 0, 1)
-		if((entry["x"] - start[1] - dx * fraction) ** 2 + (entry["y"] - start[2] - dy * fraction) ** 2 <= (entry["radius"] + 1) ** 2)
-			return FALSE
-	return TRUE

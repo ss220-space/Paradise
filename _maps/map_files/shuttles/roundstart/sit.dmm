@@ -1,0 +1,276 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"acd" = (
+/obj/machinery/ship_engine{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/syndicate_sit)
+"aiE" = (
+/obj/machinery/door_control{
+	id = "syndicate_sit_1";
+	name = "Blast Doors";
+	pixel_x = -25;
+	req_access = list(150)
+	},
+/obj/structure/fans/tiny,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "syndicate_sit_1";
+	name = "Front Hull Door";
+	req_access = list(150)
+	},
+/obj/machinery/door/airlock/external/docking{
+	dir = 1;
+	req_access = list(150);
+	dock_name = "Южный шлюз"
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/syndicate_sit)
+"ent" = (
+/obj/machinery/ship_engine{
+	dir = 1;
+	icon_state = "propulsion_r"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/syndicate_sit)
+"eAx" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	color = "red"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/syndicate_sit)
+"fWh" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 4
+	},
+/obj/machinery/overmap_intercom/directional/west,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate_sit)
+"hBy" = (
+/obj/machinery/sensor_array/short_range,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate_sit)
+"iym" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/shuttle/syndicate_sit)
+"izr" = (
+/obj/structure/window/reinforced{
+	color = "red"
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate_sit)
+"jZp" = (
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "syndicate_sit_1";
+	name = "Side Hull Door";
+	req_access = list(150)
+	},
+/obj/structure/fans/tiny,
+/obj/machinery/door_control/secure{
+	id = "syndicate_sit_1";
+	name = "Blast Doors";
+	pixel_y = -23;
+	req_access = list(150)
+	},
+/obj/docking_port/mobile{
+	dir = 4;
+	dwidth = 7;
+	height = 5;
+	id = "sit";
+	name = "SIT shuttle";
+	pixel_x = 5;
+	port_direction = 4;
+	preferred_direction = 2;
+	roundstart_move = null;
+	width = 11;
+	timid = 1
+	},
+/obj/machinery/door/airlock/external/docking{
+	dir = 8;
+	req_access = list(150);
+	dock_name = "Западный шлюз"
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/syndicate_sit)
+"lGs" = (
+/obj/structure/table,
+/obj/item/stack/sheet/metal,
+/obj/item/clothing/glasses/welding,
+/obj/item/weldingtool,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate_sit)
+"nfY" = (
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate_sit)
+"nsh" = (
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	color = "red"
+	},
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate_sit)
+"onB" = (
+/obj/structure/chair/comfy/shuttle/dark,
+/obj/machinery/transponder/directional/west,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate_sit)
+"rdI" = (
+/obj/machinery/computer/sensors,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate_sit)
+"rjX" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate_sit)
+"sfs" = (
+/obj/structure/table,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate_sit)
+"ttc" = (
+/obj/machinery/door/window/brigdoor{
+	color = "red";
+	dir = 2;
+	name = "Cell Door";
+	req_access = list(150)
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate_sit)
+"ucg" = (
+/turf/template_noop,
+/area/template_noop)
+"uyy" = (
+/turf/simulated/wall/shuttle{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/shuttle/syndicate_sit)
+"uYT" = (
+/obj/machinery/computer/helm,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate_sit)
+"vlQ" = (
+/obj/machinery/ship_engine{
+	dir = 1;
+	icon_state = "propulsion_l"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/syndicate_sit)
+"vLF" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate_sit)
+"wHE" = (
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate_sit)
+
+(1,1,1) = {"
+uyy
+uyy
+uyy
+uyy
+uyy
+uyy
+iym
+jZp
+iym
+uyy
+uyy
+"}
+(2,1,1) = {"
+ent
+eAx
+wHE
+ttc
+wHE
+vLF
+fWh
+wHE
+onB
+uYT
+uyy
+"}
+(3,1,1) = {"
+acd
+eAx
+wHE
+izr
+wHE
+wHE
+wHE
+wHE
+wHE
+wHE
+aiE
+"}
+(4,1,1) = {"
+vlQ
+eAx
+hBy
+nsh
+sfs
+rjX
+rjX
+nfY
+lGs
+rdI
+uyy
+"}
+(5,1,1) = {"
+uyy
+uyy
+uyy
+uyy
+uyy
+uyy
+uyy
+uyy
+uyy
+uyy
+uyy
+"}

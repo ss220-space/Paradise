@@ -1,14 +1,3 @@
-/obj/machinery/computer/helm/attack_hand(mob/user)
-	if(stat & (BROKEN|NOPOWER))
-		return
-	if(..())
-		return TRUE
-	add_fingerprint(user)
-	ui_interact(user)
-
-/obj/machinery/computer/helm/attack_ai(mob/user)
-	attack_hand(user)
-
 /obj/machinery/computer/helm/ui_interact(mob/user, datum/tgui/ui = null)
 	if(!user.client)
 		return
@@ -47,6 +36,7 @@
 		data["self_pos"] = list(vessel.sector.coord_x(here) + vessel.position[1], vessel.sector.coord_y(here) + vessel.position[2])
 	var/speed = vessel.get_speed()
 	data["speed"] = round(OVERMAP_DISPLAY_SPEED(speed), 0.01)
+	data["stealth_speed"] = vessel.sensor_pack?.long_range_detection_speed()
 	data["heading"] = vessel.get_heading_angle()
 	data["facing"] = round(vessel.flight?.facing || 0)
 	data["phase"] = flight_phase()
@@ -157,7 +147,7 @@
 /obj/machinery/computer/helm/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	var/mob/user = ui.user
 	if(..())
-		return
+		return TRUE
 	if(!vessel)
 		link_vessel()
 		if(!vessel)
@@ -175,9 +165,6 @@
 		to_chat(user, span_warning("Выполняется автодоводка. Сначала отмените стыковку."))
 		return TRUE
 	switch(action)
-		if("select_weapon", "weapon_auto")
-			weapon_action(action, params, user)
-			return TRUE
 		if("prepare_landing")
 			if(!vessel.can_radar_land())
 				return TRUE
@@ -220,26 +207,7 @@
 			. = TRUE
 
 		if("take_helm", "inspect")
-			if(vessel.overmap_pod)
-				return TRUE
-			var/datum/component/overmap_flight/nav = vessel.flight
-			if(!nav)
-				return TRUE
-			if(nav.pilot == user)
-				nav.release_pilot()
-			else if(nav.pilot)
-				to_chat(user, span_warning("За штурвалом уже [nav.pilot.name]."))
-			else if(!can_pilot(user))
-				to_chat(user, span_warning("Нужно стоять у консоли."))
-			else if(!vessel.can_steer())
-				to_chat(user, span_warning("Судно не может маневрировать."))
-			else if(vessel.docked_ship)
-				to_chat(user, span_warning("Корабль пристыкован к [vessel.docked_ship.get_overmap_display_name()]."))
-			else if(vessel.is_jumping())
-				to_chat(user, span_warning("Идёт гиперпрыжок."))
-			else
-
-				nav.take_pilot(user, src)
+			toggle_helm(user)
 			. = TRUE
 		if("dock_ship")
 			if(vessel.docked_ship)
@@ -267,12 +235,6 @@
 			if(vessel.flight)
 				vessel.flight.avoid_obstacles = !vessel.flight.avoid_obstacles
 			. = TRUE
-		if("helm_radar_reach")
-			var/reach = clamp(round(text2num(params["reach"])), 32, OVERMAP_RADAR_TERRAIN_MAX)
-			if(radar_reach == reach)
-				return FALSE
-			radar_reach = reach
-			. = TRUE
 		if("set_thrust_limit")
 			if(vessel.flight)
 				vessel.flight.thrust_limit = clamp(text2num(params["value"]) / 100, 0, 1)
@@ -297,18 +259,6 @@
 			beacon.handle_action(params["op"], params, user)
 			. = TRUE
 		if("set_dest", "radar_point")
-			if(length(selected_weapons))
-				var/target_x = text2num(params["x"])
-				var/target_y = text2num(params["y"])
-				if(action == "set_dest")
-					var/obj/overmap/target = locateUID(params["id"])
-					if(!target || target.sector != vessel.sector)
-						return TRUE
-					var/obj/overmap/entity/entity = target
-					target_x = istype(entity) ? entity.get_world_x() : target.x * OVERMAP_TILE_SPAN * vessel.sector.tile_travel
-					target_y = istype(entity) ? entity.get_world_y() : target.y * OVERMAP_TILE_SPAN * vessel.sector.tile_travel
-				fire_weapons(target_x, target_y, user)
-				return TRUE
 			if(!vessel.flight || !vessel.sector)
 				return TRUE
 			var/dest_x = text2num(params["x"])
@@ -448,15 +398,9 @@
 			to_chat(user, span_notice("Навигационные ограничители сняты."))
 		return TRUE
 
-/obj/machinery/computer/helm/process()
-	if(..())
-		SStgui.update_uis(src)
-
 /obj/machinery/computer/helm/proc/build_ui_engines()
 	var/list/engines = list()
 	for(var/obj/machinery/ship_engine/engine as anything in vessel.engines)
-		if(engine == vessel.virtual_engine)
-			continue
 		engines += list(list(
 			"name" = engine.name,
 			"ref" = engine.UID(),

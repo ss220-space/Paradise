@@ -1,5 +1,6 @@
 /datum/overmap_ai_profile
 	var/long_scan = FALSE
+	var/ship_class = "MC"
 	var/name
 	var/acceleration = 1.5
 	var/distance = 65
@@ -10,6 +11,7 @@
 	var/gun_count = 2
 
 /datum/overmap_ai_profile/light
+	ship_class = "LC"
 	name = "Лёгкий"
 	acceleration = 2
 	distance = 30
@@ -24,6 +26,7 @@
 	gun_type = /obj/machinery/ship_gun/fang
 
 /datum/overmap_ai_profile/heavy
+	ship_class = "HC"
 	name = "Тяжёлый"
 	acceleration = 0.8
 	distance = 180
@@ -33,6 +36,7 @@
 	gun_type = /obj/machinery/ship_gun/charon
 
 /datum/overmap_ai_profile/support
+	ship_class = "SC"
 	name = "Поддержка"
 	acceleration = 0.6
 	distance = 300
@@ -43,6 +47,7 @@
 	gun_count = 1
 
 /datum/overmap_ai_profile/support/flagship
+	ship_class = "FS"
 	name = "Флагман"
 	long_scan = TRUE
 	width = 15

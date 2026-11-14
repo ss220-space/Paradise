@@ -13,10 +13,17 @@
 	max_integrity = 300
 	use_power = NO_POWER_USE
 	smoothing_groups = SMOOTH_GROUP_SHUTTLE_PARTS
+	var/obj/overmap/entity/virtual_structure/virtual_engine_owner
+	var/virtual_engine_x
+	var/virtual_engine_y
 	var/obj/overmap/entity/vessel
+	var/fuel_rate = 0
+	var/requires_plasma = FALSE
+	var/plasma_boost = 1
+	var/obj/machinery/atmospherics/unary/ship_engine_feed/fuel_port
 	var/on = TRUE
 	var/thrust_limit = 1
-	var/generated_thrust = OVERMAP_ENGINE_SMALL_THRUST
+	var/generated_thrust = OVERMAP_ENGINE_SMALL_THRUST * 2
 	var/requires_apc = FALSE
 	var/side_thrust_fraction = 0.08
 	var/wall_mounted = FALSE
@@ -45,9 +52,17 @@
 		PREPOSITIONAL = "[omnidirectional ? "продвинутом " : ""]двигателе корабля",
 	)
 
-/obj/machinery/ship_engine/Initialize(mapload)
+/obj/machinery/ship_engine/Initialize(mapload, obj/overmap/entity/virtual_structure/mapped_owner, mapped_x, mapped_y)
+	virtual_engine_owner = mapped_owner
+	virtual_engine_x = mapped_x
+	virtual_engine_y = mapped_y
 	. = ..()
+	if(virtual_engine_owner)
+		stat &= ~NOPOWER
+		return
 	GLOB.ship_engines += src
+	if(fuel_rate && isturf(loc))
+		fuel_port = new(get_turf(src), src)
 	create_engine_parts()
 	if(engine_size == 2)
 		spawn_engine_fillers(list(EAST, NORTH, NORTHEAST))
@@ -58,20 +73,29 @@
 		link_vessel()
 
 /obj/machinery/ship_engine/Destroy()
+	QDEL_NULL(fuel_port)
 	QDEL_LIST(fillers)
 	QDEL_NULL(burn_sound)
 	GLOB.ship_engines -= src
 	vessel?.unregister_engine(src)
+	virtual_engine_owner?.virtual_engines -= src
+	virtual_engine_owner = null
 	vessel = null
 	return ..()
 
 /obj/machinery/ship_engine/CanAtmosPass(direction)
 	return !density
 
+/obj/machinery/ship_engine/setDir(newdir)
+	. = ..()
+	fuel_port?.set_inlet_direction(REVERSE_DIR(dir))
+
 /obj/machinery/ship_engine/shuttleRotate(rotation, params)
 	setDir(angle2dir(rotation + dir2angle(dir)))
 
 /obj/machinery/ship_engine/proc/link_vessel()
+	if(virtual_engine_owner)
+		return
 	var/obj/overmap/entity/resolved = SSovermap?.resolve_vessel(src)
 	if(!resolved)
 		return
@@ -80,20 +104,26 @@
 /obj/machinery/ship_engine/proc/can_burn()
 	if(!on || (stat & BROKEN) || (wall_mounted && !valid_wall_mount()))
 		return FALSE
+	if(virtual_engine_owner)
+		var/list/cell = virtual_engine_owner.virtual_cells["[virtual_engine_x],[virtual_engine_y]"]
+		return cell && cell[4] > 0 && !virtual_engine_owner.is_ai_destroyed()
 	if(requires_apc_power() && !get_power_apc()?.can_supply_equipment())
 		return FALSE
 	return fuel_available()
 
-/obj/machinery/ship_engine/proc/get_thrust()
+/obj/machinery/ship_engine/proc/get_thrust(elapsed = OVERMAP_FLIGHT_TICK)
 	if(!can_burn())
 		return 0
-	return generated_thrust * thrust_limit * 4 * resource_fraction(OVERMAP_FLIGHT_TICK)
+	return generated_thrust * thrust_limit * 4 * resource_fraction(elapsed) * plasma_multiplier(elapsed)
 
 /obj/machinery/ship_engine/proc/apply_thrust(elapsed = 1 SECONDS)
 	last_applied_thrust = 0
 	if(!can_burn())
 		return 0
-	var/thrust = get_thrust()
+	var/thrust = get_thrust(elapsed)
+	if(virtual_engine_owner)
+		last_applied_thrust = thrust
+		return thrust
 	var/fraction = resource_fraction(elapsed)
 	if(requires_apc_power() && !get_power_apc()?.cell?.use(active_power_usage * thrust_limit * elapsed / (1 SECONDS) * GLOB.CELLRATE * fraction))
 		return 0
@@ -130,6 +160,8 @@
 		return "Выключен"
 	if(wall_mounted && !valid_wall_mount())
 		return "Нужна внешняя стена"
+	if(virtual_engine_owner)
+		return can_burn() ? "Готов" : "Повреждён"
 	if(requires_apc_power())
 		var/obj/machinery/power/apc/apc = get_power_apc()
 		if(!apc)
@@ -149,13 +181,13 @@
 			. += glow
 			var/mutable_appearance/flame = mutable_appearance(icon, "thrust_burn_unshaded", appearance_flags = PIXEL_SCALE)
 			flame.dir = dir
-			flame.pixel_x = (!!(dir & EAST) - !!(dir & WEST)) * engine_size * ICON_SIZE_X
-			flame.pixel_y = (!!(dir & NORTH) - !!(dir & SOUTH)) * engine_size * ICON_SIZE_Y
+			flame.pixel_w = (!!(dir & EAST) - !!(dir & WEST)) * engine_size * ICON_SIZE_X
+			flame.pixel_z = (!!(dir & NORTH) - !!(dir & SOUTH)) * engine_size * ICON_SIZE_Y
 			. += flame
 			var/mutable_appearance/light = emissive_appearance(icon, "thrust_burn_unshaded", src, appearance_flags = PIXEL_SCALE)
 			light.dir = dir
-			light.pixel_x = flame.pixel_x
-			light.pixel_y = flame.pixel_y
+			light.pixel_w = flame.pixel_w
+			light.pixel_z = flame.pixel_z
 			. += light
 		return
 	if(firing)
@@ -196,7 +228,7 @@
 	icon = 'icons/obj/2x2.dmi'
 	icon_state = "large_engine"
 	appearance_flags = LONG_GLIDE | KEEP_TOGETHER
-	generated_thrust = OVERMAP_ENGINE_LARGE_THRUST
+	generated_thrust = OVERMAP_ENGINE_LARGE_THRUST * 2
 	idle_power_usage = 1500
 	active_power_usage = 6000
 	engine_size = 2
@@ -220,7 +252,7 @@
 	pixel_x = -32
 	pixel_y = -32
 	appearance_flags = LONG_GLIDE | KEEP_TOGETHER
-	generated_thrust = OVERMAP_ENGINE_LARGE_THRUST
+	generated_thrust = OVERMAP_ENGINE_LARGE_THRUST * 2
 	idle_power_usage = 1500
 	active_power_usage = 6000
 	engine_size = 3
@@ -235,31 +267,6 @@
 		INSTRUMENTAL = "огромным продвинутым двигателем корабля",
 		PREPOSITIONAL = "огромном продвинутом двигателе корабля",
 	)
-
-/obj/machinery/ship_engine/virtual
-	name = "virtual overmap drive"
-	desc = "Служебный двигатель автопилота."
-	generated_thrust = 40
-	idle_power_usage = 0
-	active_power_usage = 0
-	density = FALSE
-	opacity = FALSE
-	invisibility = INVISIBILITY_ABSTRACT
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-
-/obj/machinery/ship_engine/virtual/Initialize(mapload)
-	. = ..()
-	stat &= ~NOPOWER
-
-/obj/machinery/ship_engine/virtual/powered(chan)
-	return TRUE
-
-/obj/machinery/ship_engine/virtual/link_vessel()
-	return
-
-/obj/machinery/ship_engine/virtual/can_burn()
-	return on && !(stat & BROKEN)
 
 /obj/machinery/ship_engine/thruster
 	omnidirectional = FALSE
@@ -277,7 +284,7 @@
 	smoothing_groups = null
 	idle_power_usage = 50
 	active_power_usage = 400
-	generated_thrust = OVERMAP_ENGINE_THRUSTER_THRUST
+	generated_thrust = OVERMAP_ENGINE_THRUSTER_THRUST * 2
 	burn_icon = 'icons/obj/machines/ship_thruster.dmi'
 	burn_state = "thruster_burn"
 	burn_sound_type = /datum/looping_sound/ship_engine/thruster

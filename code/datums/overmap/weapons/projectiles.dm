@@ -77,14 +77,19 @@
 	var/max_travel = 0
 	if(clear_from && (!clear_from.hull_turfs || !clear_from.hull_turf_at(world_x, world_y)))
 		clear_from = null
-	for(var/obj/overmap/entity/vessel as anything in SSovermap.flying_vessels)
+	for(var/obj/overmap/entity/vessel as anything in SSovermap.flight_index.nearby(sector, center_x, center_y, distance / 2 + 1))
 		if(vessel == clear_from || vessel.sector != sector || (vessel.overmap_pod && vessel.overmap_pod.pod() == payload.firer_source_atom))
 			continue
 		var/list/previous = SSovermap.projectile_poses[vessel]
 		var/list/pose = previous && previous[4] == sector ? previous : list(vessel.get_world_x(), vessel.get_world_y(), vessel.get_facing())
 		var/travel = sqrt((vessel.get_world_x() - pose[1]) ** 2 + (vessel.get_world_y() - pose[2]) ** 2) + abs(TORADIANS(closer_angle_difference(pose[3], vessel.get_facing()))) * vessel.hull_radius
+		var/fraction = distance ? clamp(((vessel.get_world_x() - world_x) * delta_x + (vessel.get_world_y() - world_y) * delta_y) / (distance * distance), 0, 1) : 0
+		var/near_x = world_x + delta_x * fraction
+		var/near_y = world_y + delta_y * fraction
+		if((vessel.get_world_x() - near_x) ** 2 + (vessel.get_world_y() - near_y) ** 2 > (vessel.hull_radius + travel + 1) ** 2)
+			continue
 		if(abs(vessel.get_world_x() - center_x) <= vessel.hull_radius + distance / 2 + travel + 1 && abs(vessel.get_world_y() - center_y) <= vessel.hull_radius + distance / 2 + travel + 1)
-			vessels[vessel] = pose
+			vessels[vessel] = list(pose[1], pose[2], pose[3], vessel.get_world_x() - pose[1], vessel.get_world_y() - pose[2], closer_angle_difference(pose[3], vessel.get_facing()))
 			max_travel = max(max_travel, travel)
 	var/list/fields = SSovermap.scatter_fields_at(sector, center_x, center_y, distance / 2 + 1)
 	var/list/spaces = list()
@@ -94,6 +99,13 @@
 		var/list/region = space.ensure_region()
 		if(region && center_x + distance / 2 + 1 >= region[1] && center_x - distance / 2 - 1 <= region[3] && center_y + distance / 2 + 1 >= region[2] && center_y - distance / 2 - 1 <= region[4])
 			spaces += space
+	if(!length(vessels) && !length(fields) && !length(spaces))
+		world_x += delta_x
+		world_y += delta_y
+		if(!in_bounds(world_x, world_y))
+			qdel(src)
+		return
+	var/list/empty_turfs = list()
 	var/steps = max(1, CEILING((distance + max_travel) / 0.4, 1))
 	var/list/sample_pose = list(0, 0, 0)
 	for(var/step in 1 to steps)
@@ -105,9 +117,11 @@
 		for(var/obj/overmap/entity/vessel as anything in vessels)
 			var/list/previous = vessels[vessel]
 			var/fraction = step / steps
-			var/pose_x = previous[1] + (vessel.get_world_x() - previous[1]) * fraction
-			var/pose_y = previous[2] + (vessel.get_world_y() - previous[2]) * fraction
-			var/pose_facing = previous[3] + closer_angle_difference(previous[3], vessel.get_facing()) * fraction
+			var/pose_x = previous[1] + previous[4] * fraction
+			var/pose_y = previous[2] + previous[5] * fraction
+			if((x - pose_x) ** 2 + (y - pose_y) ** 2 > (vessel.hull_radius + 1) ** 2)
+				continue
+			var/pose_facing = previous[3] + previous[6] * fraction
 			if(istype(vessel, /obj/overmap/entity/virtual_structure))
 				sample_pose[1] = pose_x
 				sample_pose[2] = pose_y
@@ -119,7 +133,7 @@
 			if(own_hull && vessel.overmap_pod)
 				continue
 			var/turf/spot = vessel.hull_turf_at(x, y, pose_x, pose_y, pose_facing)
-			if(!spot)
+			if(!spot || empty_turfs[spot])
 				continue
 			var/list/local_point = vessel.world_to_hull(x, y, pose_x, pose_y, pose_facing)
 			var/pixel_x = (local_point[1] - spot.x) * ICON_SIZE_X
@@ -130,13 +144,16 @@
 					continue
 				world_x = x
 				world_y = y
+				payload.record_overmap_hit(vessel)
 				materialize(spot, angle - pose_facing, pod, pixel_x, pixel_y)
 			else
 				var/atom/target = payload.sector_target_at(spot)
 				if(!target)
+					empty_turfs[spot] = TRUE
 					continue
 				world_x = x
 				world_y = y
+				payload.record_overmap_hit(vessel)
 				materialize(spot, angle - pose_facing, target, pixel_x, pixel_y)
 			return
 		for(var/datum/overmap_bubble/space as anything in spaces)
@@ -144,7 +161,7 @@
 			if(local_point[1] < space.bounds[1] - 0.5 || local_point[1] >= space.bounds[3] + 0.5 || local_point[2] < space.bounds[2] - 0.5 || local_point[2] >= space.bounds[4] + 0.5)
 				continue
 			var/turf/spot = locate(FLOOR(local_point[1] + 0.5, 1), FLOOR(local_point[2] + 0.5, 1), space.bubble_z)
-			if(!spot)
+			if(!spot || empty_turfs[spot])
 				continue
 			var/atom/target = payload.sector_target_at(spot)
 			if(target)
@@ -152,6 +169,7 @@
 				world_y = y
 				materialize(spot, angle, target, (local_point[1] - spot.x) * ICON_SIZE_X, (local_point[2] - spot.y) * ICON_SIZE_Y)
 				return
+			empty_turfs[spot] = TRUE
 		for(var/obj/overmap/feature/hazard/field as anything in fields)
 			var/index = field.scatter_at(x, y)
 			if(index && scatter_hit(field, index, x, y))
@@ -170,8 +188,9 @@
 		var/list/spot = is_vessel ? vessel.world_to_hull(world_x, world_y) : space.to_bubble(world_x, world_y)
 		var/visible = FALSE
 		var/z
-		for(var/turf/eye as anything in frames[owner])
-			if(abs(spot[1] - eye.x) <= OVERMAP_TERRAIN_VIEW_RANGE + 6 && abs(spot[2] - eye.y) <= OVERMAP_TERRAIN_VIEW_RANGE + 6)
+		for(var/list/viewport as anything in frames[owner])
+			var/turf/eye = viewport[1]
+			if(abs(spot[1] - eye.x) <= viewport[2] && abs(spot[2] - eye.y) <= viewport[3])
 				visible = TRUE
 				z = eye.z
 				break

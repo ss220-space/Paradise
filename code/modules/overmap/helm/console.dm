@@ -1,11 +1,11 @@
 /obj/machinery/computer/helm
+	parent_type = /obj/machinery/computer/ship_console
 	name = "helm control console"
 	desc = "Используется для навигации космического аппарата в гиперпространстве."
 	icon_keyboard = "teleport_key"
 	icon_screen = "comm"
 	light_color = LIGHT_COLOR_CYAN
 	circuit = /obj/item/circuitboard/helm
-	var/obj/overmap/entity/vessel
 
 	var/list/waypoints = list()
 
@@ -13,8 +13,6 @@
 	var/obj/machinery/computer/camera_advanced/shuttle_docker/overmap/dock_picker
 	var/helm_tab = "flight"
 
-	var/radar_reach = OVERMAP_RADAR_TERRAIN_RANGE
-	var/list/selected_weapons = list()
 
 /obj/machinery/computer/helm/get_ru_names()
 	return alist(
@@ -26,53 +24,19 @@
 		PREPOSITIONAL = "консоли управления кораблём",
 	)
 
-/obj/machinery/computer/helm/Initialize(mapload)
-	. = ..()
-	GLOB.helm_computers += src
-	dock_picker = new(src)
-	if(SSovermap?.initialized)
-		link_vessel()
-
 /obj/machinery/computer/helm/Destroy()
-	GLOB.helm_computers -= src
-	if(vessel)
-		UnregisterSignal(vessel, list(COMSIG_OVERMAP_NOTICE, COMSIG_OVERMAP_DISPLAY_CHANGED))
-		vessel.helms -= src
-	vessel = null
 	QDEL_NULL(dock_picker)
 	return ..()
 
-/obj/machinery/computer/helm/proc/link_vessel()
-	var/obj/overmap/entity/resolved = SSovermap?.resolve_vessel(src)
-	if(!resolved)
-		return
-	if(vessel && vessel != resolved)
-		UnregisterSignal(vessel, list(COMSIG_OVERMAP_NOTICE, COMSIG_OVERMAP_DISPLAY_CHANGED))
-		vessel.helms -= src
-	vessel = resolved
-	resolved.helms |= src
-	RegisterSignal(resolved, COMSIG_OVERMAP_NOTICE, PROC_REF(on_overmap_notice), override = TRUE)
-	RegisterSignal(resolved, COMSIG_OVERMAP_DISPLAY_CHANGED, PROC_REF(on_overmap_display_changed), override = TRUE)
-
 /obj/machinery/computer/helm/proc/can_pilot(mob/user)
 	return isliving(user) && user.Adjacent(src)
-
-/obj/machinery/computer/helm/proc/on_overmap_notice(datum/source, text)
-	SIGNAL_HANDLER
-	if(text)
-		atom_say(text)
-
-/obj/machinery/computer/helm/proc/on_overmap_display_changed()
-	SIGNAL_HANDLER
-	SStgui.update_uis(src)
 
 /obj/machinery/computer/helm/proc/open_custom_dock_picker(mob/user)
 	if(!vessel?.shuttle)
 		to_chat(user, span_warning("Нет физического шаттла."))
 		return FALSE
 	if(!dock_picker)
-		to_chat(user, span_warning("Камера посадки недоступна."))
-		return FALSE
+		dock_picker = new(src)
 	var/obj/overmap/entity/host = vessel.get_dock_host()
 	if(!host)
 		to_chat(user, span_warning("Невозможно установить произвольную точку посадки."))
@@ -97,3 +61,36 @@
 	waypoints.Cut()
 	waypoints[waypoint_name] = list("x" = waypoint_x, "y" = waypoint_y)
 	return waypoint_name
+
+/obj/machinery/computer/helm/click_alt(mob/user)
+	if(!can_pilot(user) || user.incapacitated() || (stat & (NOPOWER|BROKEN)))
+		return NONE
+	link_vessel()
+	toggle_helm(user)
+	return CLICK_ACTION_SUCCESS
+
+/obj/machinery/computer/helm/proc/toggle_helm(mob/user)
+	var/datum/component/overmap_flight/nav = vessel?.flight
+	if(!nav || vessel.overmap_pod)
+		return FALSE
+	if(nav.pilot == user)
+		nav.release_pilot()
+		return TRUE
+	if(!can_pilot(user) || user.incapacitated() || (stat & (NOPOWER|BROKEN)) || !allowed(user))
+		return FALSE
+	if(nav.pilot)
+		to_chat(user, span_warning("За штурвалом уже [nav.pilot.name]."))
+	else if(vessel.is_programmed_locked() || vessel.is_overmap_jammed())
+		to_chat(user, span_warning("Ручное управление недоступно."))
+	else if(vessel.docking_approach?.aligning)
+		to_chat(user, span_warning("Выполняется автодоводка. Сначала отмените стыковку."))
+	else if(!vessel.can_steer())
+		to_chat(user, span_warning("Судно не может маневрировать."))
+	else if(vessel.docked_ship)
+		to_chat(user, span_warning("Судно пристыковано к [vessel.docked_ship.get_overmap_display_name()]."))
+	else if(vessel.is_jumping())
+		to_chat(user, span_warning("Идёт гиперпрыжок."))
+	else
+		nav.take_pilot(user, src)
+		return TRUE
+	return FALSE

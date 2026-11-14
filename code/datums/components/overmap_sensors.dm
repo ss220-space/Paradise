@@ -1,5 +1,8 @@
 /datum/component/overmap_sensors
 	dupe_mode = COMPONENT_DUPE_UNIQUE
+	var/list/sensor_journal
+	var/journal_notification_pending = FALSE
+	var/journal_notification_kind
 	var/list/contact_memory
 
 	var/list/peel_hit_times
@@ -18,8 +21,10 @@
 /datum/component/overmap_sensors/RegisterWithParent()
 	var/obj/overmap/entity/token = parent
 	token.sensor_pack = src
+	RegisterSignal(parent, COMSIG_OVERMAP_SENSOR_JOURNAL, PROC_REF(on_journal_query))
 
 /datum/component/overmap_sensors/UnregisterFromParent()
+	UnregisterSignal(parent, COMSIG_OVERMAP_SENSOR_JOURNAL)
 	if(peel_timer)
 		deltimer(peel_timer)
 		peel_timer = null
@@ -39,8 +44,14 @@
 		short_peel_timer = null
 	return ..()
 
+/datum/component/overmap_sensors/proc/on_journal_query(datum/source, list/data)
+	SIGNAL_HANDLER
+	data["journal"] = sensor_journal || list()
+
 /datum/component/overmap_sensors/proc/has_working_sensor(kind)
 	var/obj/overmap/entity/vessel = parent
+	if(kind == OVERMAP_SENSOR_KIND_SHORT && vessel.stationary_ai && vessel.ai_sensor_intact() && !vessel.is_overmap_jammed())
+		return TRUE
 	for(var/obj/machinery/sensor_array/array as anything in vessel.sensor_arrays)
 		if(array.sensor_kind == kind && array.is_ready())
 			return TRUE
@@ -93,13 +104,13 @@
 
 /datum/component/overmap_sensors/proc/add_sensor_journal(message, kind = "info", turf/spot, display_name, tone, note)
 	var/obj/overmap/entity/vessel = parent
-	if(!vessel.sensor_journal)
-		vessel.sensor_journal = list()
+	if(!sensor_journal)
+		sensor_journal = list()
 	if(!spot)
 		spot = vessel.get_overmap_turf()
 	if(isnull(tone))
 		tone = sensor_journal_tone(kind)
-	vessel.sensor_journal += list(list(
+	sensor_journal += list(list(
 		"time" = station_time_timestamp(),
 		"text" = message,
 		"kind" = kind,
@@ -109,8 +120,20 @@
 		"tone" = tone,
 		"note" = note,
 	))
-	if(length(vessel.sensor_journal) > OVERMAP_SENSOR_LOG_MAX)
-		vessel.sensor_journal.Cut(1, length(vessel.sensor_journal) - OVERMAP_SENSOR_LOG_MAX + 1)
+	if(length(sensor_journal) > OVERMAP_SENSOR_LOG_MAX)
+		sensor_journal.Cut(1, length(sensor_journal) - OVERMAP_SENSOR_LOG_MAX + 1)
+	if(!journal_notification_pending)
+		journal_notification_pending = TRUE
+		journal_notification_kind = kind
+		addtimer(CALLBACK(src, PROC_REF(flush_sensor_journal)), 0, TIMER_DELETE_ME)
+	else if(sensor_journal_tone(kind) == "bad")
+		journal_notification_kind = kind
+
+/datum/component/overmap_sensors/proc/flush_sensor_journal()
+	journal_notification_pending = FALSE
+	var/obj/overmap/entity/vessel = parent
+	var/kind = journal_notification_kind
+	journal_notification_kind = null
 	for(var/obj/machinery/computer/sensors/console as anything in vessel.sensors)
 		if(!QDELETED(console))
 			console.play_sensor_alert(kind)
@@ -364,7 +387,7 @@
 	for(var/obj/machinery/computer/sensors/console as anything in vessel.sensors)
 		if(!QDELETED(console))
 			SStgui.update_uis(console)
-	for(var/obj/machinery/computer/helm/helm as anything in vessel.helms)
+	for(var/obj/machinery/computer/ship_console/helm as anything in vessel.helms)
 		if(!QDELETED(helm))
 			SStgui.update_uis(helm)
 	return TRUE
@@ -384,7 +407,7 @@
 	for(var/obj/machinery/computer/sensors/console as anything in vessel.sensors)
 		if(!QDELETED(console))
 			SStgui.update_uis(console)
-	for(var/obj/machinery/computer/helm/helm as anything in vessel.helms)
+	for(var/obj/machinery/computer/ship_console/helm as anything in vessel.helms)
 		if(!QDELETED(helm))
 			SStgui.update_uis(helm)
 	return TRUE
@@ -598,9 +621,10 @@
 	var/obj/overmap/entity/vessel = parent
 	if(!isturf(vessel.loc))
 		return FALSE
+	return OVERMAP_DISPLAY_SPEED(vessel.get_speed()) >= long_range_detection_speed()
+
+/datum/component/overmap_sensors/proc/long_range_detection_speed()
+	var/obj/overmap/entity/vessel = parent
 	if(vessel.vessel_mass > OVERMAP_SENSOR_STEALTH_MASS_HEAVY)
-		return TRUE
-	var/displayed_speed = OVERMAP_DISPLAY_SPEED(vessel.get_speed())
-	if(vessel.vessel_mass > OVERMAP_SENSOR_STEALTH_MASS_MED)
-		return displayed_speed >= OVERMAP_SENSOR_STEALTH_SPEED_MED
-	return displayed_speed >= OVERMAP_SENSOR_STEALTH_SPEED_SMALL
+		return 0
+	return vessel.vessel_mass > OVERMAP_SENSOR_STEALTH_MASS_MED ? OVERMAP_SENSOR_STEALTH_SPEED_MED : OVERMAP_SENSOR_STEALTH_SPEED_SMALL

@@ -105,5 +105,5 @@
 		vessel.helms -= src
 	vessel = target
 	target.helms |= src
-	RegisterSignal(target, COMSIG_OVERMAP_NOTICE, PROC_REF(on_overmap_notice), override = TRUE)
-	RegisterSignal(target, COMSIG_OVERMAP_DISPLAY_CHANGED, PROC_REF(on_overmap_display_changed), override = TRUE)
+	RegisterSignal(target, COMSIG_OVERMAP_NOTICE, TYPE_PROC_REF(/obj/machinery/computer/ship_console, on_overmap_notice), override = TRUE)
+	RegisterSignal(target, COMSIG_OVERMAP_DISPLAY_CHANGED, TYPE_PROC_REF(/obj/machinery/computer/ship_console, on_overmap_display_changed), override = TRUE)

@@ -5,14 +5,19 @@
 	overmap_kind = OVERMAP_KIND_STATION
 	map_color = "#7ec8e3"
 
+	var/datum/overmap_radar_cache/radar_cache = new
 	var/project_terrain = TRUE
 	var/vessel_flags = OVERMAP_VESSEL_STATION
+	var/radio_silence = FALSE
+	var/sector_visit = 0
+	var/traffic_number
+	var/last_attacker_uid
 	var/status = OVERMAP_STATUS_OVERMAP
 	var/vessel_mass = 10000
 	var/list/obj/machinery/ship_engine/engines = list()
 	var/obj/overmap/entity/docked_to
 	var/obj/docking_port/mobile/shuttle
-	var/list/obj/machinery/computer/helm/helms = list()
+	var/list/obj/machinery/computer/ship_console/helms = list()
 
 	var/list/obj/machinery/computer/engines/engine_consoles = list()
 	var/list/obj/machinery/computer/sensors/sensors = list()
@@ -25,12 +30,17 @@
 	var/sensor_peel_at = 0
 
 	var/short_peel_at = 0
-	var/list/sensor_journal
 	var/selected_dock_id
 	var/last_dock_id
 
 	var/list/obj/docking_port/stationary/custom_docks
+	var/list/obj/machinery/transponder/transponders = list()
 	var/obj/machinery/transponder/transponder
+	var/ship_name_format = OVERMAP_SHIP_NAME_TEMPLATE
+	var/ship_basename
+	var/registration_class
+	var/registration_id
+	var/registered_name
 	var/identity_name
 	var/identity_color = COLOR_WHITE
 	var/identity_icon
@@ -62,8 +72,6 @@
 	var/programmed_emag_resume_dock
 	var/programmed_selected_dock
 	var/programmed_has_routes = TRUE
-	var/obj/machinery/ship_engine/virtual_engine
-	var/admin_virtual_engine = FALSE
 	var/free_flight_view = FALSE
 	var/list/hull_turfs
 
@@ -119,7 +127,6 @@
 	var/datum/fog_scene/scatter/scatter_fog
 	var/list/scatter_candidates = list()
 	var/list/radar_scatter = list()
-	var/list/pushed_scatter
 	var/scatter_radar_key
 	var/obj/overmap/entity/station_docking_zone/undock_zone
 	var/datum/overmap_docking_approach/docking_approach
@@ -128,28 +135,18 @@
 	var/formation_transfer = FALSE
 	var/obj/docking_port/stationary/overmap/formation/formation_pad
 	var/next_ram_damage = 0
-	var/list/radar_terrain_cache
-	var/radar_terrain_key
-	var/radar_terrain_until = 0
 	var/radar_outline_cache
 	var/radar_outline_version = -1
 	var/radar_outline_until = 0
 	var/radar_outline_busy = FALSE
-	var/radar_snapshot_tick = -1
-	var/radar_snapshot_epoch = -1
-	var/list/radar_snapshots = list()
 	var/turf/radar_docked_at
 	var/radar_docked_dir
 	var/radar_epoch = 0
 	var/radar_transitioning = FALSE
 	var/list/radar_uis = list()
-	var/list/radar_motion_frame
-	var/radar_motion_epoch
-	var/datum/overmap_sector/radar_motion_sector
-	var/list/radar_object_sources = list()
-	var/datum/overmap_sector/radar_objects_sector
-	var/list/ship_weapons_cache
-	var/ship_weapons_until = 0
+	var/stationary_ai = FALSE
+	var/structure_faction
+	var/structure_fire_range = 50
 	var/datum/overmap_ship_ai/ship_ai
 
 /obj/overmap/entity/shuttle
@@ -157,7 +154,7 @@
 	icon_state = "shuttle_c"
 	overmap_kind = OVERMAP_KIND_SHUTTLE
 	vessel_flags = OVERMAP_VESSEL_SHUTTLE
-	vessel_mass = 500 * OVERMAP_DYNAMIC_MASS_MULTIPLIER
+	vessel_mass = 250 * OVERMAP_DYNAMIC_MASS_MULTIPLIER
 	map_color = "#e3c56e"
 	overmap_icon_preset = "shuttle_c"
 	status = OVERMAP_STATUS_DOCKED
@@ -211,6 +208,8 @@
 	AddComponent(/datum/component/overmap_shuttle)
 
 /obj/overmap/entity/Destroy()
+	QDEL_NULL(ship_ai)
+	SSovermap_visuals.remove(src)
 	QDEL_NULL(relay_capture)
 	for(var/datum/tgui/ui as anything in radar_uis)
 		unwatch_radar(ui)
@@ -224,15 +223,24 @@
 	if(physical_space?.host == src)
 		QDEL_NULL(physical_space)
 	undock_host = null
+	SSovermap.ai_controller?.release_ship_id(src)
+	for(var/obj/machinery/transponder/beacon as anything in transponders)
+		if(beacon.vessel == src)
+			beacon.vessel = null
+	transponders = null
+	transponder = null
 	SSovermap.vessels -= src
+	SSovermap.weapons_by_vessel -= src
 	SSovermap.projectile_poses -= src
+	SSovermap.flight_index.remove(src)
+	var/list/indexed_sector = SSovermap.flight_index.by_sector[sector]
+	if(indexed_sector)
+		indexed_sector -= src
 	for(var/obj/machinery/ship_engine/engine as anything in engines)
 		if(engine.vessel == src)
 			engine.vessel = null
 	engines.Cut()
-	if(virtual_engine)
-		QDEL_NULL(virtual_engine)
-	for(var/obj/machinery/computer/helm/helm as anything in helms)
+	for(var/obj/machinery/computer/ship_console/helm as anything in helms)
 		if(helm.vessel == src)
 			helm.vessel = null
 	helms.Cut()
@@ -251,6 +259,7 @@
 	transponder = null
 	QDEL_LIST(virtual_iff_channels)
 	clear_encounter_visuals()
+	QDEL_NULL(radar_cache)
 	return ..()
 
 /obj/overmap/entity/proc/register_engine(obj/machinery/ship_engine/engine)
@@ -273,17 +282,24 @@
 /obj/overmap/entity/is_overmap_visible()
 	if(identity_distress)
 		return TRUE
-	if(transponder && (transponder.stat & (NOPOWER|BROKEN)))
+	var/obj/machinery/transponder/beacon = active_transponder()
+	if(beacon && (beacon.stat & (NOPOWER|BROKEN)))
 		return FALSE
 	return identity_broadcasting
 
 /obj/overmap/entity/proc/is_overmap_jammed()
 	return world.time < overmap_jammed_until
 
+/obj/overmap/entity/proc/active_transponder()
+	for(var/obj/machinery/transponder/beacon as anything in transponders)
+		if(!QDELETED(beacon) && !(beacon.stat & (NOPOWER|BROKEN)))
+			transponder = beacon
+			return beacon
+	transponder = length(transponders) ? transponders[1] : null
+	return transponder
+
 /obj/overmap/entity/proc/get_iff_channels()
-	if(transponder)
-		transponder.ensure_iff_channels()
-		return transponder.iff_channels
+	active_transponder()
 	return virtual_iff_channels
 
 /obj/overmap/entity/proc/identity_channel_transmits(id)
@@ -336,7 +352,8 @@
 	var/obj/overmap/entity/contact = other
 	if(!istype(contact))
 		return FALSE
-	if(contact.transponder && (contact.transponder.stat & (NOPOWER|BROKEN)) && !contact.identity_distress)
+	var/obj/machinery/transponder/beacon = contact.active_transponder()
+	if(beacon && (beacon.stat & (NOPOWER|BROKEN)) && !contact.identity_distress)
 		return FALSE
 	var/list/ours = get_iff_channels()
 	var/list/theirs = contact.get_iff_channels()
@@ -351,15 +368,41 @@
 	return FALSE
 
 /obj/overmap/entity/proc/register_transponder(obj/machinery/transponder/new_transponder)
-	if(transponder && transponder != new_transponder)
-		transponder.vessel = null
-	transponder = new_transponder
-	sync_transponder()
+	if(new_transponder in transponders)
+		return
+	var/first = !length(transponders)
+	if(!length(virtual_iff_channels))
+		rebuild_identity_iff()
+	new_transponder.ensure_iff_channels()
+	for(var/datum/overmap_iff_channel/channel as anything in new_transponder.iff_channels)
+		if(!channel.permanent || channel.id == OVERMAP_IFF_GLOBAL)
+			continue
+		var/found = FALSE
+		for(var/datum/overmap_iff_channel/known as anything in virtual_iff_channels)
+			if(known.id == channel.id)
+				found = TRUE
+				break
+		if(!found)
+			virtual_iff_channels += new /datum/overmap_iff_channel(channel.id, channel.label, TRUE, channel.receive, channel.transmit)
+			LAZYSET(identity_iff_ids, channel.id, channel.transmit)
+	transponders |= new_transponder
+	new_transponder.vessel = src
+	active_transponder()
+	if(first && registration_id && identity_name == registered_name)
+		assign_ship_name()
+	else
+		sync_transponder()
 
 /obj/overmap/entity/proc/unregister_transponder(obj/machinery/transponder/old_transponder)
-	if(transponder == old_transponder)
-		capture_iff_from_transponder(old_transponder)
-		transponder = null
+	transponders -= old_transponder
+	if(old_transponder.vessel == src)
+		old_transponder.vessel = null
+	active_transponder()
+	if(!length(transponders))
+		identity_broadcasting = FALSE
+		for(var/datum/overmap_iff_channel/channel as anything in virtual_iff_channels)
+			if(channel.id == OVERMAP_IFF_GLOBAL)
+				channel.transmit = FALSE
 	sync_transponder()
 
 /obj/overmap/entity/proc/apply_icon_preset(preset)
@@ -389,6 +432,10 @@
 	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 
 /obj/overmap/entity/proc/sync_transponder()
+	active_transponder()
+	for(var/obj/machinery/transponder/beacon as anything in transponders)
+		if(!QDELETED(beacon))
+			beacon.adopt_vessel_identity()
 	name = get_overmap_display_name()
 	color = identity_color || "#fffffe"
 	map_color = identity_color || map_color

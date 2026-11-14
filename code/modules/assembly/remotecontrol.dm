@@ -111,3 +111,34 @@
 		if(!(M.id in ids))
 			continue
 		M.increment()
+
+/obj/item/assembly/control/shuttle_blastdoors
+	name = "shuttle blast door controller"
+	desc = "TEMP123TEMP"
+	configurable = FALSE
+
+/obj/item/assembly/control/shuttle_blastdoors/get_ru_names()
+	return alist(
+		NOMINATIVE = "контроллер бластдверей шаттла",
+		GENITIVE = "контроллера бластдверей шаттла",
+		DATIVE = "контроллеру бластдверей шаттла",
+		ACCUSATIVE = "контроллер бластдверей шаттла",
+		INSTRUMENTAL = "контроллером бластдверей шаттла",
+		PREPOSITIONAL = "контроллере бластдверей шаттла",
+	)
+
+/obj/item/assembly/control/shuttle_blastdoors/activate()
+	if(!..())
+		return FALSE
+	var/obj/docking_port/mobile/shuttle = SSovermap.get_shuttle_at(src)
+	var/turf/source_turf = get_turf(src)
+	if(!shuttle || !source_turf)
+		return FALSE
+	for(var/obj/machinery/door/poddoor/shuttle/door in GLOB.airlocks)
+		if(QDELETED(door) || door.z != source_turf.z || SSovermap.get_shuttle_at(door) != shuttle)
+			continue
+		if(door.density)
+			INVOKE_ASYNC(door, TYPE_PROC_REF(/obj/machinery/door, open))
+		else
+			INVOKE_ASYNC(door, TYPE_PROC_REF(/obj/machinery/door, close))
+	return TRUE

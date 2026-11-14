@@ -9,25 +9,21 @@
 	opacity = FALSE
 	generated_thrust = OVERMAP_ENGINE_SMALL_THRUST * 3
 	active_power_usage = 0
-	var/fuel_rate = 1
-	var/obj/machinery/atmospherics/unary/ship_engine_feed/fuel_port
+	fuel_rate = 1
+	requires_plasma = TRUE
 
-/obj/machinery/ship_engine/plasma/Initialize(mapload)
-	. = ..()
-	fuel_port = new(get_turf(src), src)
+/obj/machinery/ship_engine/proc/fuel_available()
+	return !requires_plasma || (fuel_port?.node && fuel_port.air_contents?.toxins() > 0)
 
-/obj/machinery/ship_engine/plasma/Destroy()
-	QDEL_NULL(fuel_port)
-	return ..()
-
-/obj/machinery/ship_engine/plasma/fuel_available()
-	return fuel_port?.node && fuel_port.air_contents?.toxins() > 0
-
-/obj/machinery/ship_engine/plasma/resource_fraction(elapsed)
+/obj/machinery/ship_engine/proc/plasma_multiplier(elapsed)
+	if(plasma_boost <= 1 || !fuel_port?.node || !thrust_limit)
+		return 1
 	var/cost = fuel_rate * thrust_limit * elapsed / (1 SECONDS)
-	return clamp(fuel_port?.air_contents?.toxins() / max(cost, 0.001), 0, 1)
+	return fuel_port.air_contents.toxins() >= cost ? plasma_boost : 1
 
-/obj/machinery/ship_engine/plasma/consume_fuel(elapsed)
+/obj/machinery/ship_engine/proc/consume_fuel(elapsed)
+	if(!requires_plasma && plasma_multiplier(elapsed) == 1)
+		return TRUE
 	if(!fuel_port?.node)
 		return FALSE
 	var/cost = fuel_rate * thrust_limit * elapsed / (1 SECONDS)
@@ -40,7 +36,14 @@
 
 /obj/machinery/ship_engine/plasma/examine(mob/user)
 	. = ..()
-	. += span_notice("Плазма: [round(fuel_port?.air_contents?.toxins() || 0, 0.01)] моль. Расход: [fuel_rate] моль/с при полной тяге. Подача трубы: [dir2text(REVERSE_DIR(dir))].")
+	. += plasma_supply_description()
+
+/obj/machinery/ship_engine/frontier/examine(mob/user)
+	. = ..()
+	. += plasma_supply_description()
+
+/obj/machinery/ship_engine/proc/plasma_supply_description()
+	return span_notice("??????: [round(fuel_port?.air_contents?.toxins() || 0, 0.01)] ????. ??????: [fuel_rate] ????/? ??? ?????? ????. ?????? ?????: [dir2text(REVERSE_DIR(dir))].")
 
 /obj/machinery/ship_engine/plasma/large
 	name = "large plasma engine"
@@ -61,9 +64,9 @@
 	vis_flags = VIS_HIDE
 	use_power = NO_POWER_USE
 	vent_movement = NONE
-	var/obj/machinery/ship_engine/plasma/engine
+	var/obj/machinery/ship_engine/engine
 
-/obj/machinery/atmospherics/unary/ship_engine_feed/Initialize(mapload, obj/machinery/ship_engine/plasma/engine)
+/obj/machinery/atmospherics/unary/ship_engine_feed/Initialize(mapload, obj/machinery/ship_engine/engine)
 	src.engine = engine
 	dir = REVERSE_DIR(engine.dir)
 	. = ..()
@@ -78,6 +81,7 @@
 
 /obj/machinery/atmospherics/unary/ship_engine_feed/shuttleRotate(rotation, params)
 	. = ..()
+	set_inlet_direction(REVERSE_DIR(engine.dir))
 	initialize_directions = dir
 
 /obj/machinery/atmospherics/unary/ship_engine_feed/proc/set_inlet_direction(new_direction)

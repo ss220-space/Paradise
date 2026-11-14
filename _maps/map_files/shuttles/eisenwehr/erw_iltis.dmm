@@ -1,0 +1,250 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"b" = (
+/obj/machinery/ship_engine/rogue{
+	dir = 4
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/iltis)
+"d" = (
+/obj/structure/lattice,
+/obj/machinery/ship_gun/serpent{
+	dir = 4
+	},
+/turf/space,
+/area/shuttle/eisenwehr/light/iltis)
+"e" = (
+/obj/machinery/porta_turret/syndicate/ship/gun_50cal{
+	dir = 1
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/iltis)
+"f" = (
+/obj/machinery/ship_engine/rogue{
+	dir = 8
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/iltis)
+"i" = (
+/obj/machinery/computer/helm,
+/obj/machinery/light/directional/north,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/iltis)
+"j" = (
+/obj/machinery/computer/ship_console/weapons,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/iltis)
+"k" = (
+/obj/machinery/overmap_intercom/directional/east,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/iltis)
+"l" = (
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/shuttle/eisenwehr/light/iltis)
+"m" = (
+/obj/machinery/porta_turret/syndicate/ship/gun_50cal,
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/iltis)
+"o" = (
+/obj/machinery/ship_engine/thruster/rcs{
+	dir = 1
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/iltis)
+"p" = (
+/obj/structure/lattice,
+/obj/machinery/ship_gun/cerberus{
+	dir = 1
+	},
+/turf/space,
+/area/shuttle/eisenwehr/light/iltis)
+"q" = (
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/iltis)
+"r" = (
+/obj/machinery/computer/sensors,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/iltis)
+"s" = (
+/obj/structure/lattice,
+/turf/space,
+/area/shuttle/eisenwehr/light/iltis)
+"u" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/eisenwehr/light/iltis)
+"x" = (
+/obj/machinery/sensor_array/short_range,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/iltis)
+"B" = (
+/obj/machinery/transponder/directional/west,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/iltis)
+"C" = (
+/obj/machinery/vending/wallmed{
+	pixel_x = 26
+	},
+/obj/machinery/light/directional/west,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/iltis)
+"D" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/iltis)
+"I" = (
+/turf/space,
+/area/space)
+"J" = (
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/iltis)
+"K" = (
+/obj/machinery/ship_engine/rogue_large,
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/shuttle/eisenwehr/light/iltis)
+"L" = (
+/obj/structure/window/plastitanium,
+/obj/machinery/door/poddoor/shuttle/preopen,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/iltis)
+"Q" = (
+/obj/machinery/door/airlock/external/docking/hatch,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/iltis)
+"R" = (
+/obj/structure/lattice,
+/obj/machinery/ship_gun/serpent{
+	dir = 8
+	},
+/turf/space,
+/area/shuttle/eisenwehr/light/iltis)
+"T" = (
+/obj/machinery/ship_engine/thruster/rcs{
+	dir = 8
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/iltis)
+"U" = (
+/obj/structure/closet/crate/internals,
+/obj/item/storage/toolbox/syndicate,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/iltis)
+"V" = (
+/obj/machinery/door_control/shuttle_blastdoors/directional/east,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/iltis)
+"W" = (
+/obj/machinery/atmospherics/unary/tank/oxygen,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/iltis)
+"Y" = (
+/obj/machinery/ship_engine/thruster/rcs{
+	dir = 4
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/iltis)
+"Z" = (
+/obj/machinery/ship_engine/rogue{
+	dir = 1
+	},
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/shuttle/eisenwehr/light/iltis)
+
+(1,1,1) = {"
+I
+s
+I
+I
+I
+I
+I
+R
+Z
+T
+f
+"}
+(2,1,1) = {"
+s
+p
+L
+T
+J
+s
+l
+o
+T
+u
+K
+"}
+(3,1,1) = {"
+I
+L
+r
+B
+x
+T
+Q
+J
+W
+u
+l
+"}
+(4,1,1) = {"
+I
+e
+i
+D
+q
+q
+q
+C
+q
+J
+m
+"}
+(5,1,1) = {"
+I
+L
+j
+k
+V
+Y
+Q
+J
+U
+u
+K
+"}
+(6,1,1) = {"
+s
+p
+L
+Y
+J
+s
+l
+o
+Y
+u
+l
+"}
+(7,1,1) = {"
+I
+s
+I
+I
+I
+I
+I
+d
+Z
+Y
+b
+"}

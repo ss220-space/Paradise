@@ -333,3 +333,31 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/door_control/secure, 24, 24)
 
 /obj/machinery/door_control/mimic/screwdriver_act(mob/living/user, obj/item/I)
 	return
+
+/obj/machinery/door_control/shuttle_blastdoors
+	name = "shuttle blast door button"
+	desc = "TEMP123TEMP"
+	obj_flags = NODECONSTRUCT
+
+/obj/machinery/door_control/shuttle_blastdoors/get_ru_names()
+	return alist(
+		NOMINATIVE = "кнопка бластдверей шаттла",
+		GENITIVE = "кнопки бластдверей шаттла",
+		DATIVE = "кнопке бластдверей шаттла",
+		ACCUSATIVE = "кнопку бластдверей шаттла",
+		INSTRUMENTAL = "кнопкой бластдверей шаттла",
+		PREPOSITIONAL = "кнопке бластдверей шаттла",
+	)
+
+/obj/machinery/door_control/shuttle_blastdoors/build_device()
+	var/obj/item/assembly/control/shuttle_blastdoors/controller = new(src)
+	controller.ids = list("shuttle")
+	device = controller
+
+/obj/machinery/door_control/shuttle_blastdoors/screwdriver_act(mob/living/user, obj/item/item)
+	return TRUE
+
+/obj/machinery/door_control/shuttle_blastdoors/wrench_act(mob/living/user, obj/item/item)
+	return TRUE
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/door_control/shuttle_blastdoors, 26, 26)

@@ -45590,7 +45590,7 @@
 /obj/machinery/light/floor,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plating,
-/area/space)
+/area/station/security/prisoner_shuttle)
 "jOr" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
@@ -76987,7 +76987,7 @@
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
-/area/space)
+/area/station/security/prisoner_shuttle)
 "qif" = (
 /obj/structure/table/reinforced,
 /obj/item/pen/red,
@@ -114925,9 +114925,6 @@
 	icon_state = "browncorner"
 	},
 /area/station/hallway/primary/fore)
-"xRl" = (
-/turf/simulated/wall/r_wall,
-/area/space)
 "xRt" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/effect/turf_decal/stripes/line{
@@ -179157,7 +179154,7 @@ acF
 acF
 acF
 aaq
-xRl
+acF
 acF
 acF
 aaq

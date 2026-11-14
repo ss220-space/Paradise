@@ -25,6 +25,7 @@ export class RadarTimeline {
   push(frame: RadarFrame, arrival: number) {
     const last = this.frames[this.frames.length - 1];
     const time = frame.tick ?? last.time + arrival - last.arrival;
+    if (time < last.time) return;
     if (radarFrameDiscontinuous(last.frame, frame)) {
       this.frames = [{ frame, time, arrival }];
       this.timing = [{ time, arrival }];
@@ -33,7 +34,6 @@ export class RadarTimeline {
       this.rate = 1;
       return;
     }
-    if (time < last.time) return;
     if (time === last.time) {
       last.frame = frame;
       return;

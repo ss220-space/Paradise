@@ -9,12 +9,19 @@ import {
   Stack,
 } from 'tgui-core/components';
 import { useBackend } from '../../backend';
+import {
+  AIDiplomacy,
+  type AIRelation,
+  type AIRelationOption,
+} from './AIDiplomacy';
 
 type Fleet = {
   id: string;
   name: string;
   faction: string;
   enemies: string[];
+  friends: string[];
+  relations: AIRelation[];
   sector: string;
   sector_id: string;
   size: number;
@@ -30,7 +37,8 @@ type Data = {
   ai?: {
     fleets?: Fleet[];
     targets?: Target[];
-    enemy_options?: Record<string, string>;
+    faction_options?: Record<string, string>;
+    relation_options?: AIRelationOption[];
   };
 };
 const commands: Record<string, string> = {
@@ -42,9 +50,10 @@ const commands: Record<string, string> = {
   auto: 'Отменить приказ · свободные действия',
 };
 const factions: Record<string, string> = {
+  erw: 'Eisenwehr Raumfahrtwerke',
+  neutral: 'Нейтральная',
   nt: 'Нанотрейзен',
   syndicate: 'Синдикат',
-  rogue: 'Автоматы',
 };
 
 export const AIFleetOrders = () => {
@@ -105,27 +114,15 @@ export const AIFleetOrders = () => {
           />
         </LabeledList.Item>
         {!!fleet && (
-          <LabeledList.Item label="Атаковать при обнаружении">
-            {Object.entries(data.ai?.enemy_options || {}).map(([id, label]) => (
-              <Button.Checkbox
-                key={id}
-                checked={fleet.enemies.includes(id)}
-                onClick={() =>
-                  act('ai_enemies', {
-                    fleet: fleet.id,
-                    enemies: fleet.enemies.includes(id)
-                      ? fleet.enemies.filter((enemy) => enemy !== id)
-                      : [...fleet.enemies, id],
-                  })
-                }
-              >
-                {label}
-              </Button.Checkbox>
-            ))}
-            <Box color="label">
-              По транспондеру. Свои корабли не атакуют. Изменения применяются
-              сразу; прямой приказ атаки имеет приоритет.
-            </Box>
+          <LabeledList.Item label="Дипломатия">
+            <AIDiplomacy
+              value={fleet}
+              factions={data.ai?.faction_options || {}}
+              contacts={data.ai?.relation_options || []}
+              onChange={(value) =>
+                act('ai_diplomacy', { fleet: fleet.id, ...value })
+              }
+            />
           </LabeledList.Item>
         )}
         <LabeledList.Item label="Приказ">
@@ -243,10 +240,6 @@ export const AIFleetOrders = () => {
           />
         </Box>
       )}
-      <Box mt={1} color="label">
-        Координаты — клетки секторной карты. Приказ действует в секторе
-        выбранного соединения.
-      </Box>
       {command === 'patrol' && (
         <Box color="label">
           Точки обходятся по кругу. После боя корабли возвращаются на маршрут.

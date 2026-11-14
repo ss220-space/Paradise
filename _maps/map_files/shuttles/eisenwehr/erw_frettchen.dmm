@@ -1,0 +1,288 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/machinery/transponder/directional/west,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/frettchen)
+"c" = (
+/obj/machinery/door/airlock/external/docking/hatch,
+/obj/machinery/door/poddoor/shuttle/preopen,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/frettchen)
+"e" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/frettchen)
+"h" = (
+/obj/machinery/ship_engine/thruster/rcs,
+/obj/machinery/porta_turret/syndicate/ship/gun_50cal,
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/frettchen)
+"i" = (
+/turf/space,
+/area/space)
+"k" = (
+/obj/machinery/ship_engine/thruster/rcs{
+	dir = 1
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/frettchen)
+"l" = (
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/frettchen)
+"p" = (
+/obj/machinery/ship_engine/thruster/rcs{
+	dir = 1
+	},
+/obj/machinery/porta_turret/syndicate/ship/gun_50cal{
+	dir = 1
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/frettchen)
+"q" = (
+/obj/machinery/ship_engine/rogue{
+	dir = 8
+	},
+/turf/space,
+/area/shuttle/eisenwehr/light/frettchen)
+"r" = (
+/obj/machinery/ship_engine/rogue_large{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/eisenwehr/light/frettchen)
+"s" = (
+/obj/machinery/sensor_array/short_range,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/frettchen)
+"t" = (
+/turf/simulated/floor/plating/airless,
+/area/shuttle/eisenwehr/light/frettchen)
+"u" = (
+/obj/machinery/ship_engine/thruster/rcs,
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/frettchen)
+"v" = (
+/obj/structure/closet/crate/internals,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/frettchen)
+"w" = (
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/frettchen)
+"z" = (
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/shuttle/eisenwehr/light/frettchen)
+"A" = (
+/obj/machinery/computer/ship_console/weapons,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/frettchen)
+"B" = (
+/obj/machinery/porta_turret/syndicate/ship/hlgg9{
+	dir = 1
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/frettchen)
+"C" = (
+/obj/machinery/computer/engines,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/frettchen)
+"E" = (
+/obj/machinery/computer/sensors,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/frettchen)
+"F" = (
+/obj/structure/table,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/frettchen)
+"G" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/machinery/door/poddoor/shuttle/preopen,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/eisenwehr/light/frettchen)
+"J" = (
+/turf/space,
+/area/shuttle/eisenwehr/light/frettchen)
+"K" = (
+/obj/machinery/door/poddoor/shuttle/preopen,
+/obj/structure/window/plastitanium,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/frettchen)
+"L" = (
+/obj/machinery/overmap_intercom/directional/east,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/frettchen)
+"N" = (
+/obj/machinery/ship_engine/rogue_large,
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/shuttle/eisenwehr/light/frettchen)
+"O" = (
+/obj/machinery/computer/helm,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/frettchen)
+"Q" = (
+/obj/machinery/ship_engine/rogue{
+	dir = 4
+	},
+/turf/space,
+/area/shuttle/eisenwehr/light/frettchen)
+"U" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/syndicate,
+/obj/machinery/door_control/shuttle_blastdoors/directional/west,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/frettchen)
+"Z" = (
+/obj/machinery/atmospherics/unary/tank/oxygen,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/frettchen)
+
+(1,1,1) = {"
+i
+p
+w
+c
+w
+h
+i
+"}
+(2,1,1) = {"
+J
+r
+w
+l
+l
+w
+i
+"}
+(3,1,1) = {"
+J
+t
+w
+l
+F
+w
+q
+"}
+(4,1,1) = {"
+q
+w
+Z
+l
+F
+w
+u
+"}
+(5,1,1) = {"
+k
+w
+w
+l
+l
+G
+N
+"}
+(6,1,1) = {"
+B
+U
+a
+l
+l
+G
+z
+"}
+(7,1,1) = {"
+B
+E
+l
+l
+l
+w
+u
+"}
+(8,1,1) = {"
+K
+O
+e
+l
+v
+G
+N
+"}
+(9,1,1) = {"
+K
+A
+e
+l
+l
+G
+z
+"}
+(10,1,1) = {"
+B
+C
+l
+l
+l
+w
+u
+"}
+(11,1,1) = {"
+B
+F
+L
+l
+l
+G
+N
+"}
+(12,1,1) = {"
+k
+w
+w
+l
+F
+G
+z
+"}
+(13,1,1) = {"
+Q
+w
+s
+l
+F
+w
+u
+"}
+(14,1,1) = {"
+J
+r
+w
+l
+l
+w
+Q
+"}
+(15,1,1) = {"
+J
+t
+w
+l
+l
+w
+i
+"}
+(16,1,1) = {"
+i
+p
+w
+c
+w
+h
+i
+"}

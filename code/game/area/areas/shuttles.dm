@@ -10,6 +10,9 @@
 	has_gravity = STANDARD_GRAVITY
 	sound_environment = SOUND_ENVIRONMENT_ROOM
 	holomap_should_draw = FALSE
+	var/overmap_ship_name
+	var/overmap_ship_faction
+	var/overmap_ship_class
 
 /area/shuttle/Initialize(mapload)
 	requires_power = FALSE

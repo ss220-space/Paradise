@@ -8,7 +8,6 @@ import {
   Stack,
 } from 'tgui-core/components';
 import { type BooleanLike, classes } from 'tgui-core/react';
-
 import { useBackend, useLocalState } from '../backend';
 import {
   OVERMAP_KIND_ORDER,
@@ -21,6 +20,7 @@ import {
   overmapKindIcon,
   overmapKindLabel,
 } from './overmap/OvermapChrome';
+import type { RadarPose } from './overmap/OvermapRadar';
 import {
   formatRadarDistance,
   type GalaxyMap,
@@ -110,6 +110,7 @@ export type OvermapHelmData = {
   pilot_name?: string | null;
   radar_enabled?: BooleanLike;
   radar_locked?: BooleanLike;
+  radar_docked?: BooleanLike;
   radar_tick?: number;
   radar_epoch?: number;
   can_relay_jump?: BooleanLike;
@@ -141,6 +142,7 @@ export type OvermapHelmData = {
   dest_range?: number;
   dest_relay?: string;
   max_speed: number;
+  stealth_speed?: number;
   engines_on: BooleanLike;
   braking: BooleanLike;
   dampeners?: BooleanLike;
@@ -180,6 +182,7 @@ export type OvermapHelmData = {
   distress?: BooleanLike;
   broadcasting?: BooleanLike;
   objects: OvermapObject[];
+  radar_poses?: RadarPose[];
   hazard_fields?: HazardField[];
   programmed_locked?: BooleanLike;
   programmed_has_routes?: BooleanLike;
@@ -443,6 +446,14 @@ const RadarBottomBar = (props: { onLanding: () => void }) => {
           max={45}
           step={1}
           value={speed}
+          style={{
+            accentColor:
+              data.stealth_speed == null
+                ? undefined
+                : speed < data.stealth_speed
+                  ? '#7ce3bf'
+                  : '#f07878',
+          }}
           onChange={(event) => setSpeed(Number(event.target.value))}
         />
         <em>{speed} м/с</em>
@@ -679,6 +690,7 @@ const RadarPanel = (props: {
           <OvermapRadar
             outlines={data.radar_outlines}
             locked={!!data.radar_locked}
+            docked={!!data.radar_docked}
             tick={data.radar_tick}
             epoch={data.radar_epoch}
             overlay={
@@ -763,6 +775,7 @@ const RadarPanel = (props: {
             terrain={data.radar_terrain}
             world={data.radar_world}
             engines={data.radar_engines || []}
+            poses={data.radar_poses}
             objects={data.objects}
             self={data.self_pos}
             sectorSize={data.sector_size}

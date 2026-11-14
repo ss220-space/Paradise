@@ -367,6 +367,9 @@
 	smooth = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
 	smoothing_groups = SMOOTH_GROUP_PLASTITANIUM_WALLS
 	canSmoothWith = SMOOTH_GROUP_PLASTITANIUM_WALLS
+	var/reinforcement_material = /obj/item/stack/sheet/plasteel
+	var/reinforcement_amount = 5
+	var/reinforcement_type = /turf/simulated/wall/mineral/plastitanium/composite
 
 /turf/simulated/wall/mineral/plastitanium/nodiagonal
 	smooth = SMOOTH_BITMASK

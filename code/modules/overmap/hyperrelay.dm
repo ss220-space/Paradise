@@ -267,13 +267,14 @@
 	relay_jump_ends = world.time + duration
 	radar_epoch++
 	overmap_jammed_until = relay_jump_ends
-	for(var/obj/machinery/computer/helm/helm as anything in helms)
+	for(var/obj/machinery/computer/ship_console/helm as anything in helms)
 		if(!QDELETED(helm))
 			SStgui.update_uis(helm)
 	for(var/obj/machinery/computer/sensors/sensor as anything in sensors)
 		if(!QDELETED(sensor))
 			sensor.update_scan_info(TRUE)
 			SStgui.update_uis(sensor)
+	SEND_SIGNAL(SSovermap, COMSIG_OVERMAP_RELAY_TRANSIT, src, sector, relay.paired.sector, FALSE)
 	start_hyperrelay_transit_fx(duration)
 	addtimer(CALLBACK(src, PROC_REF(finish_hyperrelay_jump), relay), duration)
 	return TRUE
@@ -303,8 +304,10 @@
 	if(!dest)
 		refresh_sensor_displays()
 		return
+	var/datum/overmap_sector/source_sector = sector
 	sector?.remove_object(src)
 	dest_relay.sector?.add_object(src, dest)
+	SEND_SIGNAL(SSovermap, COMSIG_OVERMAP_RELAY_TRANSIT, src, source_sector, sector, TRUE)
 	position = list(0, 0)
 	if(was_portal_jump)
 		var/list/exit_point = dest_relay.relay_exit_position(src)

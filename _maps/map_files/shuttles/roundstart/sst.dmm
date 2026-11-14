@@ -1,0 +1,254 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"bLj" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	color = "red"
+	},
+/obj/machinery/sensor_array/short_range,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/syndicate_elite)
+"bXA" = (
+/obj/structure/chair/comfy/shuttle/dark,
+/obj/machinery/transponder/directional/west,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate_elite)
+"dMi" = (
+/obj/machinery/sleeper/syndie{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate_elite)
+"gEg" = (
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate_elite)
+"itL" = (
+/turf/simulated/wall/shuttle{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/shuttle/syndicate_elite)
+"kGH" = (
+/obj/machinery/ship_engine{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/syndicate_elite)
+"kID" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate_elite)
+"nrH" = (
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "syndicate_elite";
+	name = "Side Hull Door";
+	req_access = list(150)
+	},
+/obj/structure/fans/tiny,
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 3;
+	height = 5;
+	id = "sst";
+	name = "SST shuttle";
+	pixel_x = -5;
+	port_direction = 8;
+	preferred_direction = 2;
+	roundstart_move = null;
+	width = 11;
+	timid = 1
+	},
+/obj/machinery/door/airlock/external/docking{
+	dir = 4;
+	dock_name = "Восточный шлюз";
+	req_access = list(150)
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/syndicate_elite)
+"nDN" = (
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "syndicate_elite";
+	name = "Front Hull Door";
+	req_access = list(150)
+	},
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/docking{
+	req_access = list(150);
+	dock_name = "Южный шлюз"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/syndicate_elite)
+"nNe" = (
+/obj/machinery/computer/helm,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate_elite)
+"ofH" = (
+/obj/machinery/ship_engine{
+	dir = 1;
+	icon_state = "propulsion_l"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/syndicate_elite)
+"oqO" = (
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate_elite)
+"ozP" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 8
+	},
+/obj/machinery/overmap_intercom/directional/east,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate_elite)
+"sQI" = (
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate_elite)
+"tfC" = (
+/obj/machinery/sleeper/syndie,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate_elite)
+"tBE" = (
+/turf/template_noop,
+/area/template_noop)
+"ufE" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/shuttle/syndicate_elite)
+"umY" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	color = "red"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/syndicate_elite)
+"uzm" = (
+/obj/machinery/ship_engine{
+	dir = 1;
+	icon_state = "propulsion_r"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/syndicate_elite)
+"uzA" = (
+/obj/machinery/computer/sensors,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate_elite)
+"wSw" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate_elite)
+"xNq" = (
+/obj/machinery/door_control{
+	id = "syndicate_elite";
+	name = "Blast Doors";
+	pixel_x = -30;
+	pixel_y = -11;
+	req_access = list(150)
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate_elite)
+
+(1,1,1) = {"
+itL
+itL
+itL
+itL
+itL
+itL
+itL
+itL
+itL
+itL
+tBE
+"}
+(2,1,1) = {"
+uzm
+umY
+dMi
+gEg
+kID
+kID
+oqO
+bXA
+nNe
+itL
+itL
+"}
+(3,1,1) = {"
+kGH
+umY
+sQI
+sQI
+sQI
+sQI
+sQI
+sQI
+sQI
+xNq
+nDN
+"}
+(4,1,1) = {"
+ofH
+bLj
+tfC
+wSw
+wSw
+wSw
+ozP
+sQI
+uzA
+itL
+itL
+"}
+(5,1,1) = {"
+itL
+itL
+itL
+itL
+itL
+itL
+ufE
+nrH
+ufE
+itL
+tBE
+"}

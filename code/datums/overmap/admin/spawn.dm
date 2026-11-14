@@ -44,11 +44,15 @@
 	port.assigned_transit = pad
 	pad.forceMove(get_turf(port))
 	pad.setDir(port.dir)
+	if(!port.name || port.name == initial(port.name) || lowertext(port.name) == "admin shuttle")
+		port.name = template.name
 	register_spawned_mobile_port(port)
 	qdel(anchor, TRUE)
 	var/obj/overmap/entity/vessel = SSovermap.get_or_register_shuttle(port)
 	if(!vessel)
 		return null
+	var/datum/map_template/shuttle/ship_template = template
+	vessel.assign_ship_name(istype(ship_template) ? ship_template.overmap_faction : null, template.name)
 	if(vessel.docked_to)
 		vessel.release_to_overmap(spot)
 	if(vessel.sector != sector)

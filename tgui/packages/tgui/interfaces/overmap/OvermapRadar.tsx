@@ -1,6 +1,8 @@
 import {
   type MouseEvent,
+  memo,
   type ReactNode,
+  type RefObject,
   useEffect,
   useId,
   useMemo,
@@ -19,7 +21,12 @@ import { OvermapGalaxy } from './OvermapGalaxy';
 import { type RadarEngine, RadarEngines } from './RadarEngines';
 import { RadarProjectiles } from './RadarProjectiles';
 import { type RadarWeapon, RadarWeapons } from './RadarWeapons';
-import { type RadarDock, radarClickWorld } from './radarInterpolation';
+import {
+  mergeRadarPoses,
+  type RadarDock,
+  type RadarFrame,
+  radarClickWorld,
+} from './radarInterpolation';
 import { GEOMETRY_FADE, GEOMETRY_FULL, radarWheelZoom } from './radarZoom';
 import { useRadarInterpolation } from './useRadarInterpolation';
 import { WeaponAimPreview } from './WeaponAimPreview';
@@ -95,7 +102,9 @@ export type RadarObject = {
   hazard_kind?: string | null;
 };
 
+export type RadarPose = { id: string; x: number; y: number; facing?: number };
 const EMPTY_OBJECTS: RadarObject[] = [];
+const MemoizedGalaxy = memo(OvermapGalaxy);
 
 export type { GalaxyMap, GalaxySector } from './galaxyTypes';
 
@@ -284,6 +293,17 @@ const GeometryLayer = (props: {
     }),
     [terrain?.revision ?? terrain],
   );
+  const terrainPaths = useMemo(
+    () => (
+      <>
+        <path className="OvermapRadar__floor" d={paths.floors} />
+        <path className="OvermapRadar__frame" d={paths.frames} />
+        <path className="OvermapRadar__wall" d={paths.walls} />
+        <path className="OvermapRadar__collar" d={paths.docks} />
+      </>
+    ),
+    [paths],
+  );
   const hullCache = useRef(
     new Map<
       string,
@@ -343,12 +363,7 @@ const GeometryLayer = (props: {
     >
       {!!terrain && (
         <g transform={`rotate(${worldRotation})`}>
-          <g transform={`translate(${shift[0]} ${shift[1]})`}>
-            <path className="OvermapRadar__floor" d={paths.floors} />
-            <path className="OvermapRadar__frame" d={paths.frames} />
-            <path className="OvermapRadar__wall" d={paths.walls} />
-            <path className="OvermapRadar__collar" d={paths.docks} />
-          </g>
+          <g transform={`translate(${shift[0]} ${shift[1]})`}>{terrainPaths}</g>
         </g>
       )}
       <g transform={`rotate(${frameRotation})`}>
@@ -453,8 +468,30 @@ const HazardLayer = (props: {
 }) => {
   const { fields, self, cellSpan, rotation, offset, sensorReach, soft } = props;
   const prefix = useId().replace(/:/g, '');
-  const paths = useMemo(
-    () => fields.map((field) => cloudPath(field.contours || [], cellSpan)),
+  const geometry = useMemo(
+    () =>
+      fields.map((field) => {
+        const contours = field.contours || [];
+        let minX = Infinity;
+        let minY = Infinity;
+        let maxX = -Infinity;
+        let maxY = -Infinity;
+        for (const ring of contours) {
+          for (let i = 0; i + 1 < ring.length; i += 2) {
+            minX = Math.min(minX, ring[i] * cellSpan);
+            minY = Math.min(minY, ring[i + 1] * cellSpan);
+            maxX = Math.max(maxX, ring[i] * cellSpan);
+            maxY = Math.max(maxY, ring[i + 1] * cellSpan);
+          }
+        }
+        return {
+          path: cloudPath(contours, cellSpan),
+          minX: minX - 1,
+          minY: minY - 1,
+          width: maxX - minX + 2,
+          height: maxY - minY + 2,
+        };
+      }),
     [fields, cellSpan],
   );
   return (
@@ -479,20 +516,9 @@ const HazardLayer = (props: {
       </defs>
       <g transform={`translate(${-self[0] * cellSpan} ${-self[1] * cellSpan})`}>
         {fields.map((field, index) => {
-          const path = paths[index];
+          const { path, minX, minY, width, height } = geometry[index];
           if (!path) return null;
           const mask = `${prefix}-cloud-${index}`;
-          const vertices = field.contours || [];
-          const xs = vertices.flatMap((ring) =>
-            ring.filter((_, i) => i % 2 === 0),
-          );
-          const ys = vertices.flatMap((ring) =>
-            ring.filter((_, i) => i % 2 === 1),
-          );
-          const minX = Math.min(...xs) * cellSpan - 1;
-          const minY = Math.min(...ys) * cellSpan - 1;
-          const width = Math.max(...xs) * cellSpan - minX + 1;
-          const height = Math.max(...ys) * cellSpan - minY + 1;
           const tone = field.scanned
             ? field.kind === 'emp'
               ? '#589bff'
@@ -644,6 +670,12 @@ const ObjectLayer = (props: {
           transform={`translate(${-offset[0]} ${-offset[1]})`}
         >
           {built.map(({ object, index, cx, cy, size, color, opacity }) => {
+            const extent = Math.max(size * cellSpan, ...(object.extent || [0]));
+            if (
+              Math.hypot(cx - offset[0], cy - offset[1]) >
+              radius * 1.5 + extent
+            )
+              return null;
             if (object.kind === 'planet') {
               const planetRadius = (size / 2) * cellSpan;
               return (
@@ -764,19 +796,19 @@ const SectorLayer = (props: {
   } = props;
   const step = radius > cellSpan * 7 ? 5 : 1;
   const grid = useMemo(() => {
-    if (!self || sectorSize <= 0) {
+    if (sectorSize <= 0) {
       return [];
     }
     const built: ReactNode[] = [];
-    const lowX = (0 - self[0]) * cellSpan;
-    const highX = (sectorSize - self[0]) * cellSpan;
-    const lowY = (0 - self[1]) * cellSpan;
-    const highY = (sectorSize - self[1]) * cellSpan;
+    const lowX = 0;
+    const highX = sectorSize * cellSpan;
+    const lowY = 0;
+    const highY = sectorSize * cellSpan;
     const labelSize = Math.max(radius / 46, 8);
     for (let cell = 0; cell <= sectorSize; cell += step) {
       const major = cell % 5 === 0;
-      const x = (cell - self[0]) * cellSpan;
-      const y = (cell - self[1]) * cellSpan;
+      const x = cell * cellSpan;
+      const y = cell * cellSpan;
       built.push(
         <line
           key={`x${cell}`}
@@ -828,7 +860,7 @@ const SectorLayer = (props: {
       }
     }
     return built;
-  }, [self, sectorSize, cellSpan, radius, step]);
+  }, [sectorSize, cellSpan, radius, step]);
   if (opacity <= 0.01 || !self || sectorSize <= 0) {
     return null;
   }
@@ -841,14 +873,18 @@ const SectorLayer = (props: {
           className="OvermapRadar__bloom"
           transform={`translate(${-offset[0]} ${-offset[1]})`}
         >
-          <rect
-            className="OvermapRadar__cellArea"
-            x={(0 - self[0]) * cellSpan}
-            y={(0 - self[1]) * cellSpan}
-            width={sectorSize * cellSpan}
-            height={sectorSize * cellSpan}
-          />
-          {grid}
+          <g
+            transform={`translate(${-self[0] * cellSpan} ${-self[1] * cellSpan})`}
+          >
+            <rect
+              className="OvermapRadar__cellArea"
+              x={0}
+              y={0}
+              width={sectorSize * cellSpan}
+              height={sectorSize * cellSpan}
+            />
+            {grid}
+          </g>
           {!!dest && (
             <g
               className="OvermapRadar__destMark"
@@ -1126,7 +1162,7 @@ const MarkerOverlay = (props: {
       }
       markers.push(
         <div
-          key={`${object.kind}-${object.name}-${object.x}-${object.y}`}
+          key={object.id || `${object.kind}-${object.name}`}
           className={classes([
             'OvermapRadar__marker',
             filter !== 'all' &&
@@ -1184,7 +1220,7 @@ const MarkerOverlay = (props: {
   return <div className="OvermapRadar__overlay">{markers}</div>;
 };
 
-export const OvermapRadar = (props: {
+type OvermapRadarProps = {
   outlines?: Record<string, string>;
   showSelf?: boolean;
   shapes: Record<string, RadarShape>;
@@ -1205,6 +1241,7 @@ export const OvermapRadar = (props: {
   world?: number[];
   engines: RadarEngine[];
   objects?: RadarObject[];
+  poses?: RadarPose[] | null;
   self?: number[];
   sectorSize?: number;
 
@@ -1235,17 +1272,11 @@ export const OvermapRadar = (props: {
   tick?: number;
   epoch?: number;
   locked?: boolean;
-}) => {
+  docked?: boolean;
+};
+
+export const OvermapRadar = (props: OvermapRadarProps) => {
   const {
-    shapes,
-    contacts: rawContacts,
-    drifters: rawDrifters,
-    facing: rawFacing,
-    terrain,
-    world: rawWorld,
-    engines,
-    objects: rawObjects,
-    self: rawSelf,
     sectorSize = 0,
     cellSpan = RADAR_TILE_SPAN,
     sectorId,
@@ -1254,16 +1285,13 @@ export const OvermapRadar = (props: {
     onZoom,
     onReach,
     followHeading = true,
-    onToggleFollow,
-    dest,
-    filter = 'all',
-    hazardFields = [],
   } = props;
   const [galaxyEntry, setGalaxyEntry] = useState<'close' | 'overview'>(
     'overview',
   );
   const [galaxyReset, setGalaxyReset] = useState(0);
   const scope = useRef<HTMLDivElement>(null);
+  const displayed = useRef<RadarFrame | null>(null);
   const [scopeSide, setScopeSide] = useState(640);
   useEffect(() => {
     if (!scope.current) return;
@@ -1279,51 +1307,12 @@ export const OvermapRadar = (props: {
   const radius = props.locked
     ? galaxyBandFor(sectorSpan) * 1.15
     : requestedRadius;
-  const {
-    contacts,
-    drifters,
-    facing,
-    world,
-    self,
-    objects,
-    dockTargets,
-    projectiles,
-  } = useRadarInterpolation({
-    tick: props.tick,
-    epoch: props.epoch,
-    sectorId,
-    cellSpan,
-    contacts: rawContacts,
-    drifters: rawDrifters,
-    facing: rawFacing,
-    world: rawWorld,
-    self: rawSelf,
-    objects: rawObjects || EMPTY_OBJECTS,
-    dockTargets: props.dockTargets,
-    projectiles: props.projectiles,
-  });
+  const galaxyBand = !!props.locked || radius > galaxyBandFor(sectorSpan);
   const geometry = geometryOpacity(radius);
 
   const galaxySlot = galaxySlotFor(sectorSpan);
   const galaxyBandRadius = galaxyBandFor(sectorSpan);
   const zoomCeiling = radarZoomCeiling(sectorSpan);
-  const galaxyBand = !!props.locked || radius > galaxyBandRadius;
-  const rotation = followHeading ? facing : 0;
-  const nearBand = !galaxyBand && radius <= BAND_GEOMETRY_FULL;
-
-  const drift = Math.max(
-    0,
-    Math.min(1, (radius - sectorSpan * 0.35) / (sectorSpan * 0.45)),
-  );
-  const offset: [number, number] = self
-    ? [
-        ((sectorSize + 1) / 2 - self[0]) * cellSpan * drift,
-        ((sectorSize + 1) / 2 - self[1]) * cellSpan * drift,
-      ]
-    : [0, 0];
-
-  const chartOffset = offset;
-
   const reach =
     geometry > 0.01
       ? Math.min(128, Math.max(32, Math.round(radius * 1.1)))
@@ -1337,11 +1326,6 @@ export const OvermapRadar = (props: {
     requestedReach.current = reach;
     onReach(reach);
   }, [onReach, reach]);
-  const north =
-    followHeading && !galaxyBand ? ((-facing % 360) + 360) % 360 : 0;
-  const labelSize = radius / 20;
-
-  const hatchPitch = cellSpan * 0.2;
   const wheel = (event: WheelEvent<HTMLDivElement>) => {
     if (!onZoom || props.locked) {
       return;
@@ -1356,6 +1340,14 @@ export const OvermapRadar = (props: {
     );
   };
   const selectPoint = (event: MouseEvent<HTMLDivElement>, firing: boolean) => {
+    const frame = displayed.current;
+    const world = frame?.world;
+    const self = frame?.self;
+    const facing = frame?.facing ?? props.facing;
+    const rotation = followHeading ? facing : 0;
+
+    const chartOffset = radarChartOffset(self, sectorSize, cellSpan, radius);
+
     if (galaxyBand || props.overlay || !props.onSelectPoint || !world) return;
     if (
       (event.target as Element).closest(
@@ -1420,335 +1412,15 @@ export const OvermapRadar = (props: {
         onClick={(event) => selectPoint(event, false)}
       >
         {!galaxyBand && (
-          <svg
-            className="OvermapRadar__peels"
-            viewBox={`${-radius} ${-radius} ${radius * 2} ${radius * 2}`}
-          >
-            {!nearBand &&
-              props.peels?.map((peel) => {
-                const own =
-                  peel.id === contacts.find((contact) => contact.own)?.id;
-                const [px, py] = worldFrameFraction(
-                  (own ? 0 : (peel.x - (self?.[0] || 0)) * cellSpan) -
-                    chartOffset[0],
-                  (own ? 0 : (peel.y - (self?.[1] || 0)) * cellSpan) -
-                    chartOffset[1],
-                  radius,
-                  followHeading,
-                  facing,
-                );
-                return (
-                  <SensorPeel
-                    key={peel.id}
-                    peel={peel}
-                    x={px * radius}
-                    y={py * radius}
-                    cellSpan={cellSpan}
-                  />
-                );
-              })}
-          </svg>
+          <RadarScene
+            data={props}
+            radius={radius}
+            scope={scope}
+            displayed={displayed}
+          />
         )}
-        {!!props.onSelectObject &&
-          !galaxyBand &&
-          hazardFields
-            .filter((field) => field.id)
-            .map((field) => {
-              const cell = field.cells[0];
-              if (!cell) return null;
-              const [px, py] = worldFrameFraction(
-                (cell[0] - (self?.[0] || 0)) * cellSpan - chartOffset[0],
-                (cell[1] - (self?.[1] || 0)) * cellSpan - chartOffset[1],
-                radius,
-                followHeading,
-                facing,
-              );
-              return (
-                <button
-                  type="button"
-                  key={field.id}
-                  title="Выбрать облако для сканирования"
-                  className="OvermapRadar__pick"
-                  style={{ left: `${50 + px * 50}%`, top: `${50 + py * 50}%` }}
-                  onClick={() => props.onSelectObject?.(field.id!)}
-                />
-              );
-            })}
-        {nearBand &&
-          dockTargets?.map((dock) => {
-            const [px, py] = worldFrameFraction(
-              dock.x - (world?.[0] || 0) - chartOffset[0],
-              dock.y - (world?.[1] || 0) - chartOffset[1],
-              radius,
-              followHeading,
-              facing,
-            );
-            if (Math.abs(px) > 1 || Math.abs(py) > 1) return null;
-            return (
-              <button
-                type="button"
-                key={dock.id}
-                title={`${dock.own ? 'Свой шлюз' : 'Стыковка'}: ${dock.name}${dock.available === false || dock.available === 0 ? ' · недоступен' : ''}`}
-                className={classes([
-                  'OvermapRadar__pick',
-                  'OvermapRadar__pick--dock',
-                  dock.own && 'OvermapRadar__pick--own',
-                  dock.selected && 'OvermapRadar__pick--selected',
-                ])}
-                disabled={dock.available === false || dock.available === 0}
-                style={{ left: `${50 + px * 50}%`, top: `${50 + py * 50}%` }}
-                onClick={() => props.onSelectDock?.(dock.id)}
-              >
-                <Icon name="anchor" />
-              </button>
-            );
-          })}
-        {!!props.dockPreview && nearBand && (
-          <svg
-            className="OvermapRadar__approach"
-            viewBox={`${-radius} ${-radius} ${radius * 2} ${radius * 2}`}
-          >
-            {(() => {
-              const preview = props.dockPreview!;
-              const [px, py] = worldFrameFraction(
-                preview.x - (world?.[0] || 0) - chartOffset[0],
-                preview.y - (world?.[1] || 0) - chartOffset[1],
-                radius,
-                followHeading,
-                facing,
-              );
-              return (
-                <g
-                  transform={`translate(${px * radius} ${py * radius}) rotate(${preview.facing - (followHeading ? facing : 0)}) scale(1 -1)`}
-                >
-                  <path
-                    d={cellsPath(preview.tiles || [])}
-                    fill="rgba(70,150,255,0.3)"
-                    stroke="#68b5ff"
-                    strokeWidth={0.1}
-                  />
-                </g>
-              );
-            })()}
-          </svg>
-        )}
-        {!!props.onSelectObject &&
-          !galaxyBand &&
-          objects
-            .filter((object) => object.id && !object.is_self)
-            .map((object) => {
-              const [px, py] = worldFrameFraction(
-                (object.x +
-                  Math.max(object.size || 1, 1) / 2 -
-                  0.5 -
-                  (self?.[0] || 0)) *
-                  cellSpan -
-                  chartOffset[0],
-                (object.y +
-                  Math.max(object.size || 1, 1) / 2 -
-                  0.5 -
-                  (self?.[1] || 0)) *
-                  cellSpan -
-                  chartOffset[1],
-                radius,
-                followHeading,
-                facing,
-              );
-              if (Math.abs(px) > 1 || Math.abs(py) > 1) return null;
-              return (
-                <button
-                  type="button"
-                  key={object.id}
-                  title={object.name}
-                  className="OvermapRadar__pick"
-                  style={{ left: `${50 + px * 50}%`, top: `${50 + py * 50}%` }}
-                  onClick={() => props.onSelectObject?.(object.id!)}
-                />
-              );
-            })}
-        <svg
-          className="OvermapRadar__svg"
-          viewBox={`${-radius} ${-radius} ${radius * 2} ${radius * 2}`}
-          preserveAspectRatio="xMidYMid meet"
-        >
-          <defs>
-            <filter
-              id="overmap-radar-bloom"
-              x="-20%"
-              y="-20%"
-              width="140%"
-              height="140%"
-            >
-              <feGaussianBlur stdDeviation={radius / 90} result="blur" />
-              <feMerge>
-                <feMergeNode in="blur" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
-            {HAZARD_HATCH_FLAVOURS.map((flavour) =>
-              Array.from({ length: HAZARD_HATCH_STEPS }, (_, stepIndex) => {
-                const step = stepIndex + 1;
-                const pitch = hatchPitch / step;
-                return (
-                  <pattern
-                    key={flavour + step}
-                    id={hazardHatchId(flavour, step)}
-                    patternUnits="userSpaceOnUse"
-                    width={pitch}
-                    height={pitch}
-                    patternTransform="rotate(45)"
-                  >
-                    <line
-                      className={`OvermapRadar__hatch OvermapRadar__hatch--${flavour}`}
-                      x1={0}
-                      y1={0}
-                      x2={0}
-                      y2={pitch}
-                      strokeWidth={Math.max(pitch * 0.34, 1)}
-                    />
-                  </pattern>
-                );
-              }),
-            )}
-          </defs>
-          {!galaxyBand && (
-            <g className="OvermapRadar__furniture">
-              <RadarRim radius={radius} />
-            </g>
-          )}
-          {!galaxyBand && (
-            <>
-              {
-                <HazardLayer
-                  soft={geometry > 0.01}
-                  sensorReach={Math.max(
-                    0,
-                    ...(props.peels || [])
-                      .filter(
-                        (peel) =>
-                          peel.id ===
-                          contacts.find((contact) => contact.own)?.id,
-                      )
-                      .map((peel) => peel.range),
-                  )}
-                  fields={hazardFields}
-                  objects={objects}
-                  self={self || [0, 0]}
-                  cellSpan={cellSpan}
-                  rotation={rotation}
-                  offset={chartOffset}
-                />
-              }
-              {geometry > 0.01 && !!props.scatter && (
-                <ScatterLayer
-                  chunks={props.scatter}
-                  world={world}
-                  facing={facing}
-                  followHeading={followHeading}
-                  opacity={geometry}
-                />
-              )}
-              <GeometryLayer
-                terrain={terrain}
-                shapes={shapes}
-                contacts={contacts}
-                world={world}
-                facing={facing}
-                followHeading={followHeading}
-                drifters={drifters}
-                engines={engines}
-                opacity={geometry}
-                activeDock={dockTargets?.find(
-                  (dock) => dock.own && dock.selected,
-                )}
-              />
-              {!!props.weaponArcs?.length && rawWorld && (
-                <g
-                  transform={`scale(1 -1) rotate(${rotation}) translate(${-chartOffset[0]} ${-chartOffset[1]}) rotate(${-facing})`}
-                  pointerEvents="none"
-                >
-                  {props.weaponArcs.map((weapon) => {
-                    const half = (weapon.arc * Math.PI) / 360;
-                    const reach = radius * 1.5;
-                    const edge = Math.sin(half) * reach;
-                    const forward = Math.cos(half) * reach;
-                    return (
-                      <path
-                        key={weapon.id}
-                        transform={`translate(${weapon.x} ${weapon.y}) rotate(${-weapon.heading})`}
-                        d={`M 0 0 L ${-edge} ${forward} A ${reach} ${reach} 0 0 0 ${edge} ${forward} Z`}
-                        fill="#ffb15a"
-                        fillOpacity={0.09}
-                        stroke="#ffc17c"
-                        strokeOpacity={0.6}
-                        strokeWidth={1}
-                        vectorEffect="non-scaling-stroke"
-                      />
-                    );
-                  })}
-                </g>
-              )}
-              {!!props.weaponArcs?.length && world && !props.overlay && (
-                <WeaponAimPreview
-                  scope={scope}
-                  weapons={props.weaponArcs}
-                  radius={radius}
-                  rotation={rotation}
-                  facing={facing}
-                  world={world}
-                  offset={chartOffset}
-                />
-              )}
-              {world && (
-                <g
-                  transform={`scale(1 -1) rotate(${rotation}) translate(${-chartOffset[0]} ${-chartOffset[1]})`}
-                  opacity={0.9}
-                  pointerEvents="none"
-                >
-                  <RadarProjectiles
-                    shots={projectiles || []}
-                    world={world}
-                    radius={radius}
-                  />
-                </g>
-              )}
-              <ObjectLayer
-                showSelf={props.showSelf}
-                outlines={props.outlines}
-                objects={objects}
-                self={self}
-                cellSpan={cellSpan}
-                radius={radius}
-                rotation={rotation}
-                offset={chartOffset}
-              />
-              <SectorLayer
-                sectorSize={sectorSize}
-                cellSpan={cellSpan}
-                self={self}
-                radius={radius}
-                opacity={1}
-                rotation={rotation}
-                offset={chartOffset}
-                dest={dest}
-              />
-            </>
-          )}
-          {!galaxyBand && (
-            <text
-              className="OvermapRadar__north"
-              x={Math.sin((north * Math.PI) / 180) * radius * 0.86}
-              y={-Math.cos((north * Math.PI) / 180) * radius * 0.86}
-              fontSize={labelSize * 1.3}
-              textAnchor="middle"
-              dominantBaseline="middle"
-            >
-              N
-            </text>
-          )}
-        </svg>
         {galaxyBand && (
-          <OvermapGalaxy
+          <MemoizedGalaxy
             key={galaxyReset}
             galaxy={galaxy || { revision: 0, sectors: [] }}
             sectorId={sectorId}
@@ -1760,29 +1432,8 @@ export const OvermapRadar = (props: {
             }
           />
         )}
-        {!galaxyBand && (
-          <MarkerOverlay
-            radius={radius}
-            cellSpan={cellSpan}
-            followHeading={followHeading}
-            facing={facing}
-            contacts={contacts}
-            objects={objects}
-            self={self}
-            geometry={geometry}
-            offset={offset}
-            filter={filter}
-          />
-        )}
-        {!galaxyBand && (
-          <RadarWeapons
-            weapons={props.weapons || []}
-            radius={radius}
-            facing={facing}
-            followHeading={followHeading}
-            offset={chartOffset}
-            onSelect={props.locked ? undefined : props.onSelectWeapon}
-          />
+        {!galaxyBand && props.docked && (
+          <div className="OvermapRadar__docked">СОСТЫКОВАН</div>
         )}
         {galaxyBand && !(galaxy?.sectors || []).length && (
           <div className="OvermapRadar__galaxyEmpty">
@@ -1802,13 +1453,6 @@ export const OvermapRadar = (props: {
             ? ` · узлов ${galaxy.sectors.length}`
             : ''}
         </span>
-        {!!onToggleFollow && !galaxyBand && (
-          <RadarCompass
-            facing={followHeading ? 0 : facing}
-            followHeading={followHeading}
-            onToggle={onToggleFollow}
-          />
-        )}
         <div className="OvermapRadar__controls">
           {!!onZoom && !props.locked && !galaxyBand && (
             <RadarZoom
@@ -1841,4 +1485,441 @@ export const OvermapRadar = (props: {
       </div>
     </div>
   );
+};
+
+const RadarScene = ({
+  data: props,
+  radius,
+  scope,
+  displayed,
+}: {
+  data: OvermapRadarProps;
+  radius: number;
+  scope: RefObject<HTMLDivElement | null>;
+  displayed: { current: RadarFrame | null };
+}) => {
+  const {
+    shapes,
+    contacts: rawContacts,
+    drifters: rawDrifters,
+    facing: rawFacing,
+    terrain,
+    world: rawWorld,
+    engines,
+    objects: rawObjects,
+    self: rawSelf,
+    sectorSize = 0,
+    cellSpan = RADAR_TILE_SPAN,
+    sectorId,
+    followHeading = true,
+    onToggleFollow,
+    dest,
+    filter = 'all',
+    hazardFields = [],
+  } = props;
+  const geometry = geometryOpacity(radius);
+  const posedObjects = useMemo(
+    () => mergeRadarPoses(rawObjects || EMPTY_OBJECTS, props.poses),
+    [rawObjects, props.poses],
+  );
+  const frame = useRadarInterpolation({
+    tick: props.tick,
+    epoch: props.epoch,
+    sectorId,
+    cellSpan,
+    contacts: rawContacts,
+    drifters: rawDrifters,
+    facing: rawFacing,
+    world: rawWorld,
+    self: rawSelf,
+    objects: posedObjects,
+    dockTargets: props.dockTargets,
+    projectiles: props.projectiles,
+  });
+  displayed.current = frame;
+  const {
+    contacts,
+    drifters,
+    facing,
+    world,
+    self,
+    objects,
+    dockTargets,
+    projectiles,
+  } = frame;
+  const rotation = followHeading ? facing : 0;
+  const nearBand = radius <= BAND_GEOMETRY_FULL;
+
+  const offset = radarChartOffset(self, sectorSize, cellSpan, radius);
+  const chartOffset = offset;
+
+  const north = followHeading ? ((-facing % 360) + 360) % 360 : 0;
+  const labelSize = radius / 20;
+
+  return (
+    <>
+      <svg
+        className="OvermapRadar__peels"
+        viewBox={`${-radius} ${-radius} ${radius * 2} ${radius * 2}`}
+      >
+        {!nearBand &&
+          props.peels?.map((peel) => {
+            const own = peel.id === contacts.find((contact) => contact.own)?.id;
+            const [px, py] = worldFrameFraction(
+              (own ? 0 : (peel.x - (self?.[0] || 0)) * cellSpan) -
+                chartOffset[0],
+              (own ? 0 : (peel.y - (self?.[1] || 0)) * cellSpan) -
+                chartOffset[1],
+              radius,
+              followHeading,
+              facing,
+            );
+            return (
+              <SensorPeel
+                key={peel.id}
+                peel={peel}
+                x={px * radius}
+                y={py * radius}
+                cellSpan={cellSpan}
+              />
+            );
+          })}
+      </svg>
+      {!!props.onSelectObject &&
+        hazardFields
+          .filter((field) => field.id)
+          .map((field) => {
+            const cell = field.cells[0];
+            if (!cell) return null;
+            const [px, py] = worldFrameFraction(
+              (cell[0] - (self?.[0] || 0)) * cellSpan - chartOffset[0],
+              (cell[1] - (self?.[1] || 0)) * cellSpan - chartOffset[1],
+              radius,
+              followHeading,
+              facing,
+            );
+            return (
+              <button
+                type="button"
+                key={field.id}
+                title="Выбрать облако для сканирования"
+                className="OvermapRadar__pick"
+                style={{ left: `${50 + px * 50}%`, top: `${50 + py * 50}%` }}
+                onClick={() => props.onSelectObject?.(field.id!)}
+              />
+            );
+          })}
+      {nearBand &&
+        dockTargets?.map((dock) => {
+          const [px, py] = worldFrameFraction(
+            dock.x - (world?.[0] || 0) - chartOffset[0],
+            dock.y - (world?.[1] || 0) - chartOffset[1],
+            radius,
+            followHeading,
+            facing,
+          );
+          if (Math.abs(px) > 1 || Math.abs(py) > 1) return null;
+          return (
+            <button
+              type="button"
+              key={dock.id}
+              title={`${dock.own ? 'Свой шлюз' : 'Стыковка'}: ${dock.name}${dock.available === false || dock.available === 0 ? ' · недоступен' : ''}`}
+              className={classes([
+                'OvermapRadar__pick',
+                'OvermapRadar__pick--dock',
+                dock.own && 'OvermapRadar__pick--own',
+                dock.selected && 'OvermapRadar__pick--selected',
+              ])}
+              disabled={dock.available === false || dock.available === 0}
+              style={{ left: `${50 + px * 50}%`, top: `${50 + py * 50}%` }}
+              onClick={() => props.onSelectDock?.(dock.id)}
+            >
+              <Icon name="anchor" />
+            </button>
+          );
+        })}
+      {!!props.dockPreview && nearBand && (
+        <svg
+          className="OvermapRadar__approach"
+          viewBox={`${-radius} ${-radius} ${radius * 2} ${radius * 2}`}
+        >
+          {(() => {
+            const preview = props.dockPreview!;
+            const [px, py] = worldFrameFraction(
+              preview.x - (world?.[0] || 0) - chartOffset[0],
+              preview.y - (world?.[1] || 0) - chartOffset[1],
+              radius,
+              followHeading,
+              facing,
+            );
+            return (
+              <g
+                transform={`translate(${px * radius} ${py * radius}) rotate(${preview.facing - (followHeading ? facing : 0)}) scale(1 -1)`}
+              >
+                <path
+                  d={cellsPath(preview.tiles || [])}
+                  fill="rgba(70,150,255,0.3)"
+                  stroke="#68b5ff"
+                  strokeWidth={0.1}
+                />
+              </g>
+            );
+          })()}
+        </svg>
+      )}
+      {!!props.onSelectObject &&
+        objects
+          .filter((object) => object.id && !object.is_self)
+          .map((object) => {
+            const [px, py] = worldFrameFraction(
+              (object.x +
+                Math.max(object.size || 1, 1) / 2 -
+                0.5 -
+                (self?.[0] || 0)) *
+                cellSpan -
+                chartOffset[0],
+              (object.y +
+                Math.max(object.size || 1, 1) / 2 -
+                0.5 -
+                (self?.[1] || 0)) *
+                cellSpan -
+                chartOffset[1],
+              radius,
+              followHeading,
+              facing,
+            );
+            if (Math.abs(px) > 1 || Math.abs(py) > 1) return null;
+            return (
+              <button
+                type="button"
+                key={object.id}
+                title={object.name}
+                className="OvermapRadar__pick"
+                style={{ left: `${50 + px * 50}%`, top: `${50 + py * 50}%` }}
+                onClick={() => props.onSelectObject?.(object.id!)}
+              />
+            );
+          })}
+      <svg
+        className="OvermapRadar__svg"
+        viewBox={`${-radius} ${-radius} ${radius * 2} ${radius * 2}`}
+        preserveAspectRatio="xMidYMid meet"
+      >
+        <RadarDefinitions radius={radius} cellSpan={cellSpan} />
+        <g className="OvermapRadar__furniture">
+          <MemoizedRadarRim radius={radius} />
+        </g>
+        <HazardLayer
+          soft={geometry > 0.01}
+          sensorReach={Math.max(
+            0,
+            ...(props.peels || [])
+              .filter(
+                (peel) =>
+                  peel.id === contacts.find((contact) => contact.own)?.id,
+              )
+              .map((peel) => peel.range),
+          )}
+          fields={hazardFields}
+          objects={objects}
+          self={self || [0, 0]}
+          cellSpan={cellSpan}
+          rotation={rotation}
+          offset={chartOffset}
+        />
+        {geometry > 0.01 && !!props.scatter && (
+          <ScatterLayer
+            chunks={props.scatter}
+            world={world}
+            facing={facing}
+            followHeading={followHeading}
+            opacity={geometry}
+          />
+        )}
+        <GeometryLayer
+          terrain={terrain}
+          shapes={shapes}
+          contacts={contacts}
+          world={world}
+          facing={facing}
+          followHeading={followHeading}
+          drifters={drifters}
+          engines={engines}
+          opacity={geometry}
+          activeDock={dockTargets?.find((dock) => dock.own && dock.selected)}
+        />
+        {!!props.weaponArcs?.length && rawWorld && (
+          <g
+            transform={`scale(1 -1) rotate(${rotation}) translate(${-chartOffset[0]} ${-chartOffset[1]}) rotate(${-facing})`}
+            pointerEvents="none"
+          >
+            {props.weaponArcs.map((weapon) => {
+              const half = (weapon.arc * Math.PI) / 360;
+              const reach = radius * 1.5;
+              const edge = Math.sin(half) * reach;
+              const forward = Math.cos(half) * reach;
+              return (
+                <path
+                  key={weapon.id}
+                  transform={`translate(${weapon.x} ${weapon.y}) rotate(${-weapon.heading})`}
+                  d={`M 0 0 L ${-edge} ${forward} A ${reach} ${reach} 0 0 0 ${edge} ${forward} Z`}
+                  fill="#ffb15a"
+                  fillOpacity={0.09}
+                  stroke="#ffc17c"
+                  strokeOpacity={0.6}
+                  strokeWidth={1}
+                  vectorEffect="non-scaling-stroke"
+                />
+              );
+            })}
+          </g>
+        )}
+        {!!props.weaponArcs?.length && world && !props.overlay && (
+          <WeaponAimPreview
+            scope={scope}
+            weapons={props.weaponArcs}
+            radius={radius}
+            rotation={rotation}
+            facing={facing}
+            world={world}
+            offset={chartOffset}
+          />
+        )}
+        <ObjectLayer
+          showSelf={props.showSelf}
+          outlines={props.outlines}
+          objects={objects}
+          self={self}
+          cellSpan={cellSpan}
+          radius={radius}
+          rotation={rotation}
+          offset={chartOffset}
+        />
+        <SectorLayer
+          sectorSize={sectorSize}
+          cellSpan={cellSpan}
+          self={self}
+          radius={radius}
+          opacity={1}
+          rotation={rotation}
+          offset={chartOffset}
+          dest={dest}
+        />
+        <text
+          className="OvermapRadar__north"
+          x={Math.sin((north * Math.PI) / 180) * radius * 0.86}
+          y={-Math.cos((north * Math.PI) / 180) * radius * 0.86}
+          fontSize={labelSize * 1.3}
+          textAnchor="middle"
+          dominantBaseline="middle"
+        >
+          N
+        </text>
+      </svg>
+      {world && (
+        <RadarProjectiles
+          shots={projectiles || []}
+          world={world}
+          radius={radius}
+          rotation={rotation}
+          offset={chartOffset}
+        />
+      )}
+      <MarkerOverlay
+        radius={radius}
+        cellSpan={cellSpan}
+        followHeading={followHeading}
+        facing={facing}
+        contacts={contacts}
+        objects={objects}
+        self={self}
+        geometry={geometry}
+        offset={offset}
+        filter={filter}
+      />
+      <RadarWeapons
+        weapons={props.weapons || []}
+        radius={radius}
+        facing={facing}
+        followHeading={followHeading}
+        offset={chartOffset}
+        onSelect={props.locked ? undefined : props.onSelectWeapon}
+      />
+      {!!onToggleFollow && (
+        <RadarCompass
+          facing={followHeading ? 0 : facing}
+          followHeading={followHeading}
+          onToggle={onToggleFollow}
+        />
+      )}
+    </>
+  );
+};
+
+const RadarDefinitions = memo(
+  ({ radius, cellSpan }: { radius: number; cellSpan: number }) => {
+    const hatchPitch = cellSpan * 0.2;
+    return (
+      <defs>
+        <filter
+          id="overmap-radar-bloom"
+          x="-20%"
+          y="-20%"
+          width="140%"
+          height="140%"
+        >
+          <feGaussianBlur stdDeviation={radius / 90} result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+        {HAZARD_HATCH_FLAVOURS.map((flavour) =>
+          Array.from({ length: HAZARD_HATCH_STEPS }, (_, stepIndex) => {
+            const step = stepIndex + 1;
+            const pitch = hatchPitch / step;
+            return (
+              <pattern
+                key={flavour + step}
+                id={hazardHatchId(flavour, step)}
+                patternUnits="userSpaceOnUse"
+                width={pitch}
+                height={pitch}
+                patternTransform="rotate(45)"
+              >
+                <line
+                  className={`OvermapRadar__hatch OvermapRadar__hatch--${flavour}`}
+                  x1={0}
+                  y1={0}
+                  x2={0}
+                  y2={pitch}
+                  strokeWidth={Math.max(pitch * 0.34, 1)}
+                />
+              </pattern>
+            );
+          }),
+        )}
+      </defs>
+    );
+  },
+);
+
+const MemoizedRadarRim = memo(RadarRim);
+
+const radarChartOffset = (
+  self: number[] | undefined,
+  sectorSize: number,
+  cellSpan: number,
+  radius: number,
+): [number, number] => {
+  if (!self) return [0, 0];
+  const sectorSpan = Math.max(cellSpan * sectorSize, cellSpan * 4);
+  const drift = Math.max(
+    0,
+    Math.min(1, (radius - sectorSpan * 0.35) / (sectorSpan * 0.45)),
+  );
+  return [
+    ((sectorSize + 1) / 2 - self[0]) * cellSpan * drift,
+    ((sectorSize + 1) / 2 - self[1]) * cellSpan * drift,
+  ];
 };

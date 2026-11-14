@@ -1,0 +1,182 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aZk" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/assault_pod)
+"dgJ" = (
+/obj/machinery/door/airlock/centcom{
+	aiControlDisabled = 1;
+	name = "Assault Pod";
+	opacity = 1;
+	req_access = list(150)
+	},
+/obj/docking_port/mobile/assault_pod{
+	port_direction = 2;
+	timid = 1;
+	roundstart_move = null
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/assault_pod)
+"ePi" = (
+/turf/simulated/wall/shuttle{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/shuttle/assault_pod)
+"fpx" = (
+/obj/machinery/computer/shuttle/syndicate/drop_pod,
+/turf/simulated/wall/shuttle{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/shuttle/assault_pod)
+"iPC" = (
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/assault_pod)
+"lMh" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/assault_pod)
+"ohK" = (
+/obj/structure/chair/comfy/shuttle/dark,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/assault_pod)
+"pPr" = (
+/obj/machinery/door/airlock/centcom{
+	aiControlDisabled = 1;
+	name = "Assault Pod";
+	opacity = 1;
+	req_access = list(150)
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/assault_pod)
+"qoJ" = (
+/obj/machinery/porta_turret/syndicate/pod,
+/turf/simulated/wall/shuttle{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/shuttle/assault_pod)
+"qHD" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/assault_pod)
+"saS" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/assault_pod)
+"sog" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/shuttle/assault_pod)
+"sUT" = (
+/turf/template_noop,
+/area/template_noop)
+"uwT" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/assault_pod)
+"uTF" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/assault_pod)
+"vmg" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/assault_pod)
+
+(1,1,1) = {"
+sUT
+qoJ
+sog
+pPr
+sog
+qoJ
+sUT
+"}
+(2,1,1) = {"
+qoJ
+ePi
+vmg
+iPC
+vmg
+ePi
+qoJ
+"}
+(3,1,1) = {"
+sog
+ohK
+iPC
+uTF
+iPC
+lMh
+sog
+"}
+(4,1,1) = {"
+pPr
+iPC
+aZk
+fpx
+uwT
+iPC
+dgJ
+"}
+(5,1,1) = {"
+sog
+ohK
+iPC
+saS
+iPC
+lMh
+sog
+"}
+(6,1,1) = {"
+qoJ
+ePi
+qHD
+iPC
+qHD
+ePi
+qoJ
+"}
+(7,1,1) = {"
+sUT
+qoJ
+sog
+pPr
+sog
+qoJ
+sUT
+"}

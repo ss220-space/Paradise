@@ -1,0 +1,289 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"dxI" = (
+/obj/structure/fans/tiny,
+/obj/docking_port/mobile/gamma{
+	pixel_x = 11;
+	port_direction = 8;
+	timid = 1;
+	roundstart_move = null
+	},
+/obj/machinery/door/airlock/external/docking/shuttle,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/gamma)
+"eeP" = (
+/obj/machinery/power/apc/directional/south,
+/obj/structure/cable,
+/obj/structure/sign/securearea{
+	pixel_x = -32
+	},
+/obj/structure/closet/secure_closet/guncabinet,
+/obj/item/gun/projectile/revolver/rocketlauncher/rpg232,
+/obj/item/ammo_casing/caseless/rocket/a70mm_he,
+/obj/item/ammo_casing/caseless/rocket/a70mm_he,
+/obj/item/ammo_casing/caseless/rocket/a70mm_he,
+/obj/item/kitchen/knife/combat,
+/obj/item/kitchen/knife/combat,
+/obj/item/kitchen/knife/combat,
+/obj/item/grenade/chem_grenade/incendiary{
+	name = "Incendiary Grenade"
+	},
+/obj/item/grenade/clusterbuster,
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/obj/item/gun/projectile/automatic/m52,
+/obj/item/ammo_box/magazine/m52mag,
+/obj/item/ammo_box/magazine/m52mag,
+/obj/item/ammo_box/magazine/m52mag,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/gamma)
+"ewh" = (
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/gamma)
+"fAP" = (
+/obj/structure/closet/secure_closet/guncabinet{
+	layer = 2.9;
+	name = "advanced energy gun"
+	},
+/obj/item/gun/energy/gun/nuclear,
+/obj/item/gun/energy/gun/nuclear,
+/obj/item/gun/energy/gun/nuclear,
+/obj/item/gun/energy/gun/nuclear,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/gamma)
+"gEF" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/docking/shuttle/support,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/gamma)
+"gQP" = (
+/obj/machinery/transponder/directional/east,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/gamma)
+"huG" = (
+/obj/machinery/recharger/wallcharger{
+	pixel_x = -24;
+	pixel_y = -12
+	},
+/obj/machinery/recharger/wallcharger{
+	pixel_x = -24;
+	pixel_y = -2
+	},
+/obj/machinery/recharger/wallcharger{
+	pixel_x = -24;
+	pixel_y = 8
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/gamma)
+"iFB" = (
+/obj/machinery/recharger/wallcharger{
+	pixel_x = 32;
+	pixel_y = -12
+	},
+/obj/machinery/recharger/wallcharger{
+	pixel_x = 32;
+	pixel_y = 8
+	},
+/obj/machinery/recharger/wallcharger{
+	pixel_x = 32;
+	pixel_y = -2
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/gamma)
+"jLK" = (
+/obj/structure/closet/secure_closet/guncabinet{
+	layer = 2.9;
+	name = "Enforcer"
+	},
+/obj/item/ammo_box/magazine/enforcer/lethal,
+/obj/item/ammo_box/magazine/enforcer/lethal,
+/obj/item/ammo_box/magazine/enforcer/lethal,
+/obj/item/ammo_box/magazine/enforcer/lethal,
+/obj/item/gun/projectile/automatic/pistol/enforcer/lethal{
+	icon_state = "enforcer_red"
+	},
+/obj/item/gun/projectile/automatic/pistol/enforcer/lethal{
+	icon_state = "enforcer_red"
+	},
+/obj/item/gun/projectile/automatic/pistol/enforcer/lethal{
+	icon_state = "enforcer_red"
+	},
+/obj/item/gun/projectile/automatic/pistol/enforcer/lethal{
+	icon_state = "enforcer_red"
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/gamma)
+"lZN" = (
+/obj/structure/cable,
+/obj/machinery/mech_bay_recharge_port/upgraded,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/gamma)
+"mTM" = (
+/obj/mecha/combat/durand/loaded{
+	operation_req_access = list(1)
+	},
+/obj/structure/cable,
+/obj/effect/turf_decal/mech,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/gamma)
+"qbE" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/shuttle/gamma)
+"qEM" = (
+/obj/structure/closet/secure_closet/guncabinet{
+	layer = 2.9;
+	name = "L.W.A.P. Sniper Rifle"
+	},
+/obj/item/gun/energy/sniperrifle,
+/obj/item/gun/energy/sniperrifle,
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/obj/machinery/ai_status_display{
+	pixel_y = 32
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/gamma)
+"rpl" = (
+/obj/structure/cable,
+/obj/machinery/computer/mech_bay_power_console,
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/gamma)
+"soQ" = (
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_x = -32
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/gamma)
+"tGx" = (
+/obj/structure/closet/secure_closet/guncabinet{
+	layer = 2.9;
+	name = "combat shotgun"
+	},
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_y = 32
+	},
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/obj/item/ammo_box/shotgun/buck,
+/obj/item/ammo_box/shotgun/buck,
+/obj/item/ammo_box/shotgun/buck,
+/obj/item/gun/projectile/shotgun/automatic/combat,
+/obj/item/gun/projectile/shotgun/automatic/combat,
+/obj/item/gun/projectile/shotgun/automatic/combat,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/gamma)
+"veh" = (
+/turf/template_noop,
+/area/template_noop)
+"wUE" = (
+/turf/simulated/wall/shuttle,
+/area/shuttle/gamma)
+
+(1,1,1) = {"
+wUE
+wUE
+wUE
+qbE
+dxI
+qbE
+wUE
+"}
+(2,1,1) = {"
+wUE
+tGx
+huG
+soQ
+ewh
+eeP
+wUE
+"}
+(3,1,1) = {"
+wUE
+jLK
+ewh
+ewh
+ewh
+lZN
+wUE
+"}
+(4,1,1) = {"
+wUE
+fAP
+ewh
+ewh
+ewh
+mTM
+wUE
+"}
+(5,1,1) = {"
+wUE
+qEM
+iFB
+ewh
+gQP
+rpl
+wUE
+"}
+(6,1,1) = {"
+wUE
+wUE
+qbE
+gEF
+qbE
+wUE
+wUE
+"}

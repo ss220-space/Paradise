@@ -31,10 +31,30 @@
 	var/high_y = min(CEILING(spot[2] + reach, 1), bounds[4])
 	if(low_x > high_x || low_y > high_y)
 		return FALSE
-	for(var/turf/nearby as anything in block(locate(low_x, low_y, bubble_z), locate(high_x, high_y, bubble_z)))
-		if(is_solid(nearby))
-			return TRUE
+	for(var/chunk_x in FLOOR(low_x / OVERMAP_RADAR_CHUNK, 1) to FLOOR(high_x / OVERMAP_RADAR_CHUNK, 1))
+		for(var/chunk_y in FLOOR(low_y / OVERMAP_RADAR_CHUNK, 1) to FLOOR(high_y / OVERMAP_RADAR_CHUNK, 1))
+			for(var/turf/nearby as anything in solid_chunk(chunk_x, chunk_y))
+				if(nearby.x >= low_x && nearby.x <= high_x && nearby.y >= low_y && nearby.y <= high_y)
+					return TRUE
 	return FALSE
+
+/datum/overmap_bubble/proc/solid_chunk(chunk_x, chunk_y)
+	if(solid_chunks_tick != world.time || solid_chunks_revision != SSovermap.collision_revision)
+		solid_chunks = list()
+		solid_chunks_tick = world.time
+		solid_chunks_revision = SSovermap.collision_revision
+	var/key = "[chunk_x],[chunk_y]"
+	var/list/cells = solid_chunks[key]
+	if(cells)
+		return cells
+	cells = list()
+	var/turf/low = locate(max(bounds[1], chunk_x * OVERMAP_RADAR_CHUNK), max(bounds[2], chunk_y * OVERMAP_RADAR_CHUNK), bubble_z)
+	var/turf/high = locate(min(bounds[3], (chunk_x + 1) * OVERMAP_RADAR_CHUNK - 1), min(bounds[4], (chunk_y + 1) * OVERMAP_RADAR_CHUNK - 1), bubble_z)
+	for(var/turf/spot as anything in block(low, high))
+		if(is_solid(spot))
+			cells += spot
+	solid_chunks[key] = cells
+	return cells
 
 /datum/overmap_bubble/proc/radar_chunk(chunk_x, chunk_y)
 	var/key = "[chunk_x]_[chunk_y]"

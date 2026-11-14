@@ -339,7 +339,7 @@
 	highlight("#0f0")
 	#endif
 
-	if(SSovermap?.is_loading_admin_shuttle(src))
+	if(SSovermap?.is_loading_admin_shuttle(src) || SSshuttle.is_loading_ship_template(src))
 		timid = TRUE
 	if(!timid)
 		register()

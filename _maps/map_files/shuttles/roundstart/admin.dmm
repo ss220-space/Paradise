@@ -1,0 +1,1471 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"apf" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/black{
+	dir = 5
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"aqt" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/obj/machinery/access_button{
+	command = "cycle_interior";
+	frequency = 1331;
+	master_tag = "admin_s_air_control";
+	pixel_x = -1;
+	pixel_y = -29;
+	req_access = list(101)
+	},
+/obj/machinery/door/airlock/external/docking/support{
+	id_tag = "admin_s_inner";
+	req_access = list(101)
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"aOc" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/structure/table/wood/fancy/royalblack,
+/obj/item/reagent_containers/cup/glass/bottle/wine{
+	pixel_x = -12;
+	pixel_y = 10
+	},
+/obj/item/reagent_containers/cup/glass/drinkingglass,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"aPk" = (
+/obj/item/storage/fancy/cigarettes/dromedaryco{
+	pixel_y = 6
+	},
+/obj/item/lighter/zippo{
+	pixel_x = 5;
+	pixel_y = 4
+	},
+/obj/structure/table/wood/fancy/royalblue,
+/turf/simulated/floor/carpet/black,
+/area/shuttle/administration)
+"aPF" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/black{
+	dir = 6
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"aTI" = (
+/obj/machinery/door_control/secure{
+	id = "adminshuttleshutters";
+	name = "Shutter control";
+	pixel_x = 5;
+	pixel_y = -23;
+	req_access = list(101)
+	},
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"aTK" = (
+/obj/machinery/suit_storage_unit/standard_unit,
+/obj/effect/turf_decal/stripes/black{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/shuttle/administration)
+"bfD" = (
+/turf/simulated/floor/carpet/red,
+/area/shuttle/administration)
+"bwI" = (
+/obj/effect/turf_decal/stripes/gold{
+	dir = 6;
+	icon_state = "gs_deadlock"
+	},
+/obj/machinery/computer/helm,
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/administration)
+"bEF" = (
+/obj/structure/table/reinforced,
+/obj/machinery/kitchen_machine/microwave/upgraded{
+	pixel_y = 6
+	},
+/turf/simulated/floor/carpet/black,
+/area/shuttle/administration)
+"ciD" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
+/area/shuttle/administration)
+"cme" = (
+/obj/machinery/vending/cigarette,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"csW" = (
+/obj/machinery/sensor_array/short_range,
+/turf/simulated/wall/shuttle,
+/area/shuttle/administration)
+"cGM" = (
+/obj/structure/table/wood/fancy/royalblack,
+/obj/item/candle/eternal,
+/obj/item/reagent_containers/cup/glass/drinkingglass{
+	pixel_x = 6;
+	pixel_y = 9
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"cRH" = (
+/obj/effect/turf_decal/stripes/black,
+/obj/effect/turf_decal/stripes/black{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "white"
+	},
+/area/shuttle/administration)
+"cWC" = (
+/obj/machinery/ship_engine/huge{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle/transparent_floor,
+/area/shuttle/administration)
+"dfX" = (
+/obj/machinery/vending/snack,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"dBM" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "adminshuttleshutters";
+	name = "Blast Shutters"
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/administration)
+"dMI" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/machinery/vending/coffee,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"eaK" = (
+/obj/machinery/computer/communications{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/gold{
+	dir = 6
+	},
+/obj/machinery/light/small,
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/administration)
+"ehf" = (
+/obj/structure/table/wood/fancy/royalblue,
+/obj/item/storage/ashtray/glass{
+	pixel_x = -6;
+	pixel_y = 7
+	},
+/turf/simulated/floor/carpet/black,
+/area/shuttle/administration)
+"eic" = (
+/turf/simulated/floor/shuttle/transparent_floor,
+/area/shuttle/administration)
+"ekJ" = (
+/obj/machinery/computer/card{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/gold{
+	dir = 5;
+	icon_state = "gs_deadlock"
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/administration)
+"exT" = (
+/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
+	frequency = 1331;
+	id_tag = "admin_s_air_control";
+	pixel_y = 24;
+	req_access = list(152);
+	tag_airpump = "admin_s_pump";
+	tag_chamber_sensor = "admin_s_sensor";
+	tag_exterior_door = "admin_s_outer";
+	tag_interior_door = "admin_s_inner"
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/shuttle/administration)
+"eAP" = (
+/obj/machinery/light,
+/turf/simulated/floor/carpet/red,
+/area/shuttle/administration)
+"eES" = (
+/obj/structure/table/wood/fancy/royalblue,
+/obj/structure/window/plasmareinforced{
+	color = "#22aab7";
+	dir = 8
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#22aab7";
+	dir = 1
+	},
+/obj/item/reagent_containers/cup/glass/shaker,
+/turf/simulated/floor/carpet/black,
+/area/shuttle/administration)
+"eIL" = (
+/obj/machinery/sleeper/upgraded{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"eSN" = (
+/obj/effect/turf_decal/stripes/black,
+/obj/effect/turf_decal/stripes/black{
+	dir = 1
+	},
+/obj/machinery/door/airlock/centcom{
+	id_tag = "adminshuttle";
+	name = "Workshop";
+	opacity = 1;
+	req_access = list(101)
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"fog" = (
+/obj/structure/shuttle/engine/platform{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/administration)
+"fol" = (
+/obj/machinery/atmospherics/unary/tank/air{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/black{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"fFC" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/airlock_sensor{
+	frequency = 1331;
+	id_tag = "admin_s_sensor";
+	pixel_y = 26;
+	req_access = list(101)
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/shuttle/administration)
+"fLz" = (
+/obj/structure/table,
+/obj/item/storage/box/chemimp{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/storage/box/trackimp,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"glu" = (
+/obj/structure/table/wood/fancy/royalblack,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"haZ" = (
+/obj/effect/turf_decal/stripes/black{
+	dir = 5
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/administration)
+"hwJ" = (
+/obj/machinery/optable,
+/obj/machinery/defibrillator_mount/loaded/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"hDp" = (
+/obj/machinery/computer/cloning{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"ifI" = (
+/turf/simulated/floor/carpet/black,
+/area/shuttle/administration)
+"iip" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/black{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"iSH" = (
+/obj/machinery/overmap_intercom/directional/south,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"jbX" = (
+/obj/structure/table/reinforced,
+/obj/machinery/chem_dispenser/beer/upgraded,
+/turf/simulated/floor/carpet/black,
+/area/shuttle/administration)
+"jdM" = (
+/obj/machinery/door/airlock/external/docking/support{
+	id_tag = "admin_s_inner";
+	req_access = list(101)
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"jMs" = (
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"koN" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/item/flag/nt,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkgrey"
+	},
+/area/shuttle/administration)
+"kDU" = (
+/obj/machinery/door/airlock/public/glass,
+/obj/effect/turf_decal/stripes/black,
+/obj/effect/turf_decal/stripes/black{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"kNi" = (
+/obj/effect/turf_decal/stripes/black{
+	dir = 10
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/administration)
+"kXa" = (
+/obj/structure/table/reinforced,
+/obj/item/clothing/gloves/color/latex/nitrile,
+/obj/item/storage/toolbox/surgery,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"lkw" = (
+/obj/machinery/door/airlock/centcom{
+	id_tag = "adminshuttle";
+	name = "Medbay";
+	opacity = 1;
+	req_access = list(101)
+	},
+/obj/effect/turf_decal/stripes/black{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/black{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"lLe" = (
+/obj/machinery/door/airlock/centcom{
+	id_tag = "adminshuttle";
+	name = "Bridge";
+	opacity = 1;
+	req_access = list(101)
+	},
+/obj/effect/turf_decal/stripes/black{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/black{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"lOh" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4;
+	icon_state = "heater3x3_side_inv"
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#22aab7";
+	dir = 8
+	},
+/obj/structure/shuttle/engine/platform{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/administration)
+"lPH" = (
+/turf/simulated/wall/shuttle/nodiagonal,
+/area/shuttle/administration)
+"maa" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "adminshuttleshutters";
+	name = "Blast Shutters"
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/administration)
+"mNu" = (
+/obj/item/flag/nt,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkgrey"
+	},
+/area/shuttle/administration)
+"mUY" = (
+/obj/machinery/bsa/portable{
+	dir = 8
+	},
+/turf/simulated/wall/shuttle,
+/area/shuttle/administration)
+"nwJ" = (
+/obj/machinery/dna_scannernew/upgraded,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"nER" = (
+/obj/machinery/bodyscanner{
+	dir = 4;
+	layer = 3.5
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"nFm" = (
+/obj/structure/table/reinforced,
+/obj/machinery/chem_dispenser/soda/upgraded,
+/obj/item/storage/box/drinkingglasses{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/turf/simulated/floor/carpet/black,
+/area/shuttle/administration)
+"nQw" = (
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 8;
+	frequency = 1331;
+	id_tag = "admin_s_pump"
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/shuttle/administration)
+"nUr" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 6
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkgrey"
+	},
+/area/shuttle/administration)
+"oCr" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/structure/chair/comfy/lime{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"oDo" = (
+/obj/machinery/iv_drip,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"oFs" = (
+/obj/machinery/vending/security,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"oJi" = (
+/obj/machinery/computer/engines,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"oKI" = (
+/obj/structure/table/wood/fancy/royalblue,
+/turf/simulated/floor/carpet/black,
+/area/shuttle/administration)
+"oNx" = (
+/obj/machinery/transponder/directional/north,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"oUT" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
+	id_tag = "adminshuttleshutters";
+	name = "Blast Shutters"
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/administration)
+"pfl" = (
+/obj/structure/chair/comfy/lime,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"pfQ" = (
+/obj/machinery/door/airlock/public/glass,
+/obj/effect/turf_decal/stripes/black{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/black{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"pmh" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/black,
+/area/shuttle/administration)
+"pot" = (
+/obj/effect/turf_decal/stripes/black{
+	dir = 9
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/administration)
+"pvR" = (
+/turf/simulated/wall/shuttle,
+/area/shuttle/administration)
+"pzC" = (
+/obj/machinery/sensor_array/long_range,
+/turf/simulated/wall/shuttle,
+/area/shuttle/administration)
+"pGM" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/shuttle/administration)
+"pXl" = (
+/obj/machinery/suit_storage_unit/standard_unit,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/black{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/shuttle/administration)
+"qhH" = (
+/obj/effect/turf_decal/stripes/gold{
+	dir = 5
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/computer/sensors,
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/administration)
+"qJm" = (
+/obj/machinery/door/window/brigdoor{
+	color = "#22aab7";
+	dir = 8;
+	icon_state = "rightsecure";
+	req_access = list(101)
+	},
+/turf/simulated/floor/carpet/black,
+/area/shuttle/administration)
+"qNO" = (
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkgrey"
+	},
+/area/shuttle/administration)
+"qPt" = (
+/obj/machinery/computer/operating,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"qRO" = (
+/obj/effect/turf_decal/stripes/black{
+	dir = 5
+	},
+/obj/effect/turf_decal/stripes/black{
+	dir = 10;
+	icon_state = "bs_deadlock"
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "white"
+	},
+/area/shuttle/administration)
+"rha" = (
+/obj/machinery/clonepod/upgraded,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"rhb" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/structure/chair/comfy/lime{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"rrs" = (
+/obj/structure/chair/comfy/lime{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"rPT" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkgrey"
+	},
+/area/shuttle/administration)
+"saq" = (
+/obj/effect/turf_decal/stripes/black{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/black{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "white"
+	},
+/area/shuttle/administration)
+"sbR" = (
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"scm" = (
+/obj/effect/turf_decal/stripes/black{
+	dir = 10
+	},
+/obj/effect/turf_decal/stripes/black{
+	dir = 5;
+	icon_state = "bs_deadlock"
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "white"
+	},
+/area/shuttle/administration)
+"sdC" = (
+/obj/structure/table,
+/obj/item/storage/box/handcuffs,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"sjM" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/structure/chair/comfy/lime{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"swP" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external{
+	frequency = 1331;
+	id_tag = "admin_s_outer";
+	name = "Ship External Access";
+	req_access = list(101)
+	},
+/obj/machinery/access_button{
+	command = "cycle_exterior";
+	frequency = 1331;
+	master_tag = "admin_s_air_control";
+	pixel_x = -1;
+	pixel_y = -29;
+	req_access = list(101)
+	},
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 8;
+	height = 18;
+	id = "admin";
+	name = "administration shuttle";
+	pixel_x = -5;
+	port_direction = 2;
+	preferred_direction = 8;
+	roundstart_move = null;
+	width = 18;
+	timid = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"sWb" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/black,
+/obj/effect/turf_decal/stripes/black{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "white"
+	},
+/area/shuttle/administration)
+"sYH" = (
+/obj/machinery/vending/medical,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"tjK" = (
+/obj/machinery/vending/boozeomat,
+/turf/simulated/floor/carpet/black,
+/area/shuttle/administration)
+"tmJ" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4;
+	icon_state = "heater3x3_side"
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#22aab7";
+	dir = 8
+	},
+/obj/structure/shuttle/engine/platform{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/administration)
+"tyL" = (
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/shuttle/administration)
+"tBw" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4;
+	icon_state = "heater3x3"
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#22aab7";
+	dir = 8
+	},
+/obj/structure/shuttle/engine/platform{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/administration)
+"tGy" = (
+/obj/effect/turf_decal/stripes/black{
+	dir = 8;
+	icon_state = "bs_deadlock"
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "white"
+	},
+/area/shuttle/administration)
+"tNH" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/gold{
+	dir = 6
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/administration)
+"tPW" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/hatch{
+	name = "NVT Argos";
+	req_access = list(101)
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"usR" = (
+/obj/structure/dispenser/oxygen,
+/obj/effect/turf_decal/stripes/black{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"vgO" = (
+/turf/template_noop,
+/area/template_noop)
+"vkN" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/docking/support{
+	id_tag = "admin_s_outer";
+	req_access = list(101)
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"vof" = (
+/obj/effect/turf_decal/stripes/black{
+	dir = 6
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/administration)
+"vpu" = (
+/obj/structure/chair/stool/bar,
+/turf/simulated/floor/carpet/red,
+/area/shuttle/administration)
+"vXe" = (
+/obj/item/stack/sheet/metal,
+/obj/structure/table,
+/obj/item/stack/sheet/glass{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/stack/sheet/metal,
+/obj/item/stack/sheet/metal,
+/obj/item/stack/sheet/glass{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/stack/sheet/glass{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"whW" = (
+/obj/structure/table/reinforced,
+/obj/item/stack/nanopaste,
+/obj/item/mmi,
+/obj/item/stack/nanopaste,
+/obj/structure/sink/directional/north,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"wrH" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 5
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkgrey"
+	},
+/area/shuttle/administration)
+"wtA" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/shuttle/administration)
+"xbw" = (
+/obj/structure/table,
+/obj/item/storage/lockbox/mindshield,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"xcn" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/gold{
+	dir = 5
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/administration)
+"xge" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/structure/chair/comfy/lime,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"xhC" = (
+/obj/machinery/autolathe/security{
+	hacked = 1
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"xAQ" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/machinery/iv_drip,
+/obj/item/reagent_containers/iv_bag/salglu,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/nitrogen,
+/obj/item/tank/internals/emergency_oxygen/plasma,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"xBM" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkgrey"
+	},
+/area/shuttle/administration)
+
+(1,1,1) = {"
+vgO
+vgO
+mUY
+maa
+maa
+maa
+pvR
+vgO
+vgO
+vgO
+vgO
+pvR
+pvR
+pvR
+pvR
+mUY
+vgO
+vgO
+"}
+(2,1,1) = {"
+vgO
+pvR
+pvR
+xge
+cGM
+rhb
+pvR
+pGM
+maa
+maa
+pGM
+pvR
+qPt
+hwJ
+kXa
+pvR
+pvR
+vgO
+"}
+(3,1,1) = {"
+pvR
+pvR
+cme
+pfl
+aOc
+rrs
+pvR
+qhH
+ekJ
+bwI
+eaK
+pvR
+whW
+tGy
+nER
+eIL
+pvR
+pvR
+"}
+(4,1,1) = {"
+pvR
+dMI
+bfD
+bfD
+bfD
+eAP
+pvR
+jMs
+xcn
+tNH
+aTI
+pvR
+xAQ
+qRO
+saq
+scm
+rha
+pvR
+"}
+(5,1,1) = {"
+pGM
+dfX
+bfD
+bfD
+bfD
+bfD
+lPH
+lPH
+oNx
+iSH
+lPH
+pvR
+pvR
+pvR
+lPH
+cRH
+hDp
+pvR
+"}
+(6,1,1) = {"
+dBM
+oCr
+bfD
+bfD
+eES
+qJm
+jbX
+pGM
+lLe
+lLe
+pGM
+oJi
+xhC
+vXe
+pvR
+cRH
+nwJ
+pvR
+"}
+(7,1,1) = {"
+dBM
+glu
+bfD
+vpu
+aPk
+ifI
+nFm
+pvR
+qNO
+qNO
+pvR
+pot
+kNi
+xbw
+pvR
+sWb
+sYH
+pvR
+"}
+(8,1,1) = {"
+dBM
+sjM
+bfD
+vpu
+ehf
+ifI
+bEF
+pvR
+xBM
+qNO
+eSN
+haZ
+vof
+fLz
+pvR
+cRH
+sYH
+pvR
+"}
+(9,1,1) = {"
+pGM
+jMs
+bfD
+vpu
+oKI
+pmh
+tjK
+pvR
+qNO
+qNO
+pvR
+oFs
+sbR
+sdC
+pvR
+cRH
+oDo
+pvR
+"}
+(10,1,1) = {"
+pvR
+ciD
+pfQ
+ciD
+pvR
+pvR
+pvR
+ciD
+lLe
+lLe
+ciD
+pvR
+pvR
+pvR
+ciD
+lkw
+ciD
+pvR
+"}
+(11,1,1) = {"
+pGM
+aPF
+qNO
+apf
+pGM
+iip
+iip
+aPF
+qNO
+qNO
+apf
+iip
+iip
+pGM
+aPF
+qNO
+apf
+pGM
+"}
+(12,1,1) = {"
+tPW
+qNO
+qNO
+qNO
+kDU
+qNO
+qNO
+qNO
+qNO
+qNO
+qNO
+qNO
+qNO
+kDU
+qNO
+qNO
+qNO
+oUT
+"}
+(13,1,1) = {"
+tPW
+qNO
+qNO
+qNO
+kDU
+qNO
+qNO
+qNO
+qNO
+qNO
+qNO
+qNO
+qNO
+kDU
+qNO
+qNO
+qNO
+oUT
+"}
+(14,1,1) = {"
+pGM
+aTK
+pXl
+aTK
+pGM
+qNO
+qNO
+mNu
+qNO
+nUr
+koN
+rPT
+wrH
+pGM
+aTK
+pXl
+aTK
+pGM
+"}
+(15,1,1) = {"
+pvR
+lOh
+tBw
+tmJ
+pvR
+usR
+lPH
+pGM
+jdM
+aqt
+pGM
+lPH
+fol
+pvR
+lOh
+tBw
+tmJ
+pvR
+"}
+(16,1,1) = {"
+pvR
+fog
+fog
+fog
+csW
+pvR
+pvR
+exT
+tyL
+nQw
+tyL
+pvR
+pvR
+pzC
+fog
+fog
+fog
+pvR
+"}
+(17,1,1) = {"
+pvR
+eic
+cWC
+eic
+pvR
+vgO
+pvR
+fFC
+tyL
+tyL
+wtA
+pvR
+vgO
+pvR
+eic
+cWC
+eic
+pvR
+"}
+(18,1,1) = {"
+vgO
+eic
+eic
+eic
+vgO
+vgO
+pvR
+pGM
+vkN
+swP
+pGM
+pvR
+vgO
+vgO
+eic
+eic
+eic
+vgO
+"}

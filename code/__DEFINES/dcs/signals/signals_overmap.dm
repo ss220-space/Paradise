@@ -8,6 +8,8 @@
 
 #define COMSIG_OVERMAP_NOTICE "overmap_notice"
 
+#define COMSIG_OVERMAP_RELAY_TRANSIT "overmap_relay_transit"
+
 #define COMSIG_OVERMAP_MANUAL_CONTROL "overmap_manual_control"
 
 #define COMSIG_OVERMAP_NAVIGATION_ARRIVED "overmap_navigation_arrived"
@@ -27,3 +29,9 @@
 #define COMSIG_OVERMAP_WEAPON_AUTOMATIC "overmap_weapon_automatic"
 
 #define COMSIG_OVERMAP_WEAPON_PROCESS "overmap_weapon_process"
+
+#define COMSIG_OVERMAP_WEAPON_CONFIGURE "overmap_weapon_configure"
+
+#define COMSIG_OVERMAP_WEAPON_HOST "overmap_weapon_host"
+
+#define COMSIG_OVERMAP_SENSOR_JOURNAL "overmap_sensor_journal"

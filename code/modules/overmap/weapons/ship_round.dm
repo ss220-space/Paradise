@@ -3,7 +3,7 @@
 	name = "ship shell"
 	damage = 60
 	pass_flags = PASSPROJECTILE
-	overmap_velocity = 70 / 3.6
+	overmap_velocity = 140 / 3.6
 	overmap_radar_visible = TRUE
 	overmap_radar_kind = "medium"
 	var/structure_damage = 60
@@ -181,9 +181,10 @@
 				target.ex_act(severity)
 		if(!severity)
 			continue
+		round.record_overmap_hit(resolve_vessel(spot))
 		if(!round.preserve_floors)
 			spot.ex_act(severity)
-		else if(istype(spot, /turf/simulated/wall) && !(spot.resistance_flags & INDESTRUCTIBLE))
+		else if(iswallturf(spot) && !(spot.resistance_flags & INDESTRUCTIBLE))
 			var/turf/simulated/wall/wall = spot
 			var/amount = overmap_explosion_damage(severity)
 			if(round.preserve_walls)
@@ -205,6 +206,7 @@
 				var/amount = overmap_explosion_damage(severity)
 				if(round.preserve_walls)
 					amount = min(10, amount, max(0, cell[4] - 1))
+				round.record_overmap_hit(structure)
 				structure.damage_cell(cell, amount)
 		for(var/obj/machinery/gun as anything in structure.virtual_weapons)
 			var/list/point = structure.hull_to_world(gun.virtual_weapon_x, gun.virtual_weapon_y)

@@ -1,0 +1,220 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"afE" = (
+/obj/machinery/computer/sensors,
+/turf/simulated/floor/pod/light,
+/area/shuttle/mining)
+"amA" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/mining)
+"btG" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/mining)
+"cJo" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/sensor_array/short_range,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/mining)
+"dzg" = (
+/obj/structure/rack,
+/obj/item/storage/box/donkpockets{
+	pixel_x = 6;
+	pixel_y = 14
+	},
+/obj/item/storage/firstaid/regular,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/mining)
+"ecg" = (
+/turf/simulated/wall/mineral/titanium/survival/pod,
+/area/shuttle/mining)
+"eRF" = (
+/obj/machinery/ship_engine/thruster{
+	dir = 1
+	},
+/obj/machinery/ship_engine/thruster/rcs{
+	dir = 8
+	},
+/turf/simulated/wall/mineral/titanium/survival/pod,
+/area/shuttle/mining)
+"fEV" = (
+/obj/structure/window/shuttle/survival_pod,
+/turf/simulated/wall/mineral/titanium/survival/pod,
+/area/shuttle/mining)
+"hEo" = (
+/turf/template_noop,
+/area/template_noop)
+"jgL" = (
+/obj/item/toy/figure/miner,
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/pod/light,
+/area/shuttle/mining)
+"knX" = (
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/mining)
+"kRQ" = (
+/obj/machinery/ship_engine/thruster{
+	dir = 1
+	},
+/obj/machinery/ship_engine/thruster/rcs{
+	dir = 4
+	},
+/turf/simulated/wall/mineral/titanium/survival/pod,
+/area/shuttle/mining)
+"lVa" = (
+/obj/machinery/overmap_intercom/directional/west,
+/obj/machinery/computer/helm,
+/turf/simulated/floor/pod/light,
+/area/shuttle/mining)
+"pAy" = (
+/obj/machinery/door/airlock/external/docking{
+	req_access = list(48);
+	dock_name = "Западный шлюз";
+	overmap_collar_id = "mining_west";
+	dir = 8
+	},
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 3;
+	height = 5;
+	id = "mining";
+	name = "mining shuttle";
+	port_direction = 4;
+	rebuildable = 1;
+	roundstart_move = null;
+	width = 7;
+	timid = 1
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/pod/light,
+/area/shuttle/mining)
+"qoA" = (
+/obj/machinery/ship_engine/thruster/rcs{
+	dir = 8
+	},
+/turf/simulated/wall/mineral/titanium/survival/pod,
+/area/shuttle/mining)
+"qsp" = (
+/obj/structure/ore_box,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/mining)
+"rib" = (
+/turf/simulated/floor/pod/light,
+/area/shuttle/mining)
+"rry" = (
+/obj/structure/window/shuttle/survival_pod,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/mining)
+"rTq" = (
+/obj/machinery/transponder/directional/east,
+/obj/machinery/computer/engines,
+/turf/simulated/floor/pod/light,
+/area/shuttle/mining)
+"tms" = (
+/obj/structure/rack,
+/obj/item/tank/internals/oxygen,
+/obj/item/multitool,
+/obj/machinery/vending/wallmed{
+	pixel_x = 26
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/mining)
+"wfR" = (
+/obj/machinery/ship_engine/ion,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/mining)
+"xEV" = (
+/obj/machinery/door/airlock/external/docking{
+	req_access = list(48);
+	dock_name = "Западный шлюз";
+	overmap_collar_id = "mining_west";
+	dir = 4
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/pod/light,
+/area/shuttle/mining)
+"xFI" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/mining)
+"xSO" = (
+/obj/machinery/ship_engine/thruster/rcs{
+	dir = 4
+	},
+/turf/simulated/wall/mineral/titanium/survival/pod,
+/area/shuttle/mining)
+
+(1,1,1) = {"
+eRF
+fEV
+ecg
+qoA
+pAy
+ecg
+ecg
+qoA
+"}
+(2,1,1) = {"
+ecg
+lVa
+dzg
+amA
+rib
+xFI
+qsp
+ecg
+"}
+(3,1,1) = {"
+rry
+afE
+jgL
+rib
+rib
+xFI
+cJo
+wfR
+"}
+(4,1,1) = {"
+ecg
+rTq
+tms
+btG
+rib
+xFI
+knX
+ecg
+"}
+(5,1,1) = {"
+kRQ
+fEV
+ecg
+xSO
+xEV
+ecg
+ecg
+xSO
+"}

@@ -74,7 +74,7 @@
 	if(drifter.throwing)
 		qdel(drifter.throwing)
 		drifter.end_throw()
-	qdel(drifter.GetComponent(/datum/component/drift))
+	SEND_SIGNAL(drifter, COMSIG_MOVABLE_NEWTONIAN_MOVE, NONE)
 	SSovermap.relay_drifter_captures[drifter] = src
 
 /datum/overmap_relay_drifter_capture/Destroy()

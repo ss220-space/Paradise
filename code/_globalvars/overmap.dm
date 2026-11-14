@@ -1,6 +1,6 @@
 GLOBAL_LIST_EMPTY(ship_engines)
 
-GLOBAL_LIST_EMPTY(helm_computers)
+GLOBAL_LIST_EMPTY(ship_consoles)
 
 GLOBAL_LIST_EMPTY(transponders)
 
@@ -22,7 +22,7 @@ GLOBAL_LIST_INIT(overmap_ai_profiles, list(
 	"flagship" = new /datum/overmap_ai_profile/support/flagship,
 ))
 
-GLOBAL_LIST_INIT(default_ship_engines, list(
+GLOBAL_LIST_INIT(ship_engine_types, list(
 	/obj/machinery/ship_engine/small,
 	/obj/machinery/ship_engine/large,
 	/obj/machinery/ship_engine/huge,
@@ -32,15 +32,10 @@ GLOBAL_LIST_INIT(default_ship_engines, list(
 	/obj/machinery/ship_engine/plasma/large,
 	/obj/machinery/ship_engine/thruster,
 	/obj/machinery/ship_engine/thruster/rcs,
-))
-
-GLOBAL_LIST_INIT(frontier_ship_engines, list(
 	/obj/machinery/ship_engine/frontier_large,
-	/obj/machinery/ship_engine/nfsd_stealth,
 	/obj/machinery/ship_engine/nfsd_large,
 	/obj/machinery/ship_engine/rogue,
 	/obj/machinery/ship_engine/rogue_large,
-	/obj/machinery/ship_engine/rogue_stealth,
 	/obj/machinery/ship_engine/ussp,
 	/obj/machinery/ship_engine/ussp_large,
 ))
@@ -152,17 +147,20 @@ GLOBAL_LIST_INIT(overmap_transponder_colors, list(
 
 GLOBAL_LIST_EMPTY(overmap_virtual_structures)
 
-GLOBAL_LIST_INIT(monofrontier_ship_weapons, list(
+GLOBAL_LIST_INIT(ship_weapon_catalog, list(
 	/obj/machinery/porta_turret/syndicate/ship/gun_50cal,
 	/obj/machinery/porta_turret/syndicate/ship/adder,
 	/obj/machinery/ship_gun/ak820,
+	/obj/machinery/ship_gun/ak820/stealth,
 	/obj/machinery/ship_gun/apollo,
 	/obj/machinery/ship_gun/bofors,
 	/obj/machinery/ship_gun/cerberus,
 	/obj/machinery/ship_gun/charon,
+	/obj/machinery/ship_gun/charon/stealth,
 	/obj/machinery/ship_gun/cyrexa,
 	/obj/machinery/ship_gun/dymere,
 	/obj/machinery/ship_gun/fang,
+	/obj/machinery/ship_gun/fang/stealth,
 	/obj/machinery/ship_gun/hades,
 	/obj/machinery/ship_gun/harbringer,
 	/obj/machinery/porta_turret/syndicate/ship/hlgg9,
@@ -182,10 +180,44 @@ GLOBAL_LIST_INIT(monofrontier_ship_weapons, list(
 
 GLOBAL_LIST_EMPTY(overmap_weapons)
 
-GLOBAL_LIST_INIT(overmap_ai_enemy_options, list("nt" = "Nanotrasen", "syndicate" = "Синдикат", "unknown" = "Неизвестные / без транспондера"))
+GLOBAL_LIST_INIT(overmap_ai_faction_options, list("nt" = "Nanotrasen", "syndicate" = "Синдикат", "unknown" = "Неизвестные / без транспондера", "neutral" = "Нейтральные", "erw" = "Eisenwehr Raumfahrtwerke"))
 
 GLOBAL_LIST_INIT(overmap_ai_default_enemies, list(
-	"nt" = list("syndicate"),
+	"nt" = list("syndicate", "unknown"),
 	"syndicate" = list("nt", "unknown"),
-	"rogue" = list("nt", "syndicate", "unknown"),
+	"neutral" = list(),
+	"erw" = list(),
+))
+
+GLOBAL_LIST_INIT(overmap_faction_prefixes, list("nt" = "NT", "syndicate" = "SY", "erw" = "ERW", "neutral" = "IN", "unknown" = "UN"))
+
+GLOBAL_LIST_INIT(overmap_faction_colors, list("nt" = "#78bded", "syndicate" = "#e77575", "erw" = "#B5443C", "neutral" = "#a0a0a0"))
+
+GLOBAL_LIST_INIT(overmap_ship_mass_multipliers, list("LC" = 1, "MC" = 2, "HC" = 4, "SC" = 4, "FS" = 6))
+
+GLOBAL_LIST_INIT(overmap_ship_classes, list("LC" = "Light Combatant", "MC" = "Medium Combatant", "HC" = "Heavy Combatant", "SC" = "Support Combatant", "FS" = "Flagship", "ISS" = "Independent Space Ship", "TSS" = "Trade Space Ship"))
+
+GLOBAL_LIST_INIT(overmap_ai_report_phrases, list(
+	"engage" = list(
+		"Соединение $group$: обнаружена враждебная цель '$target$'. Начинаю сближение, орудиям приготовиться к открытию огня.",
+		"Боевая тревога соединению $group$. Контакт '$target$' принят на сопровождение. Перехожу к перехвату.",
+		"Зафиксирован противник '$target$'. Соединение $group$, разрешаю боевое маневрирование и поражение цели.",
+	),
+	"fire" = list(
+		"Открываю огонь по '$target$'.",
+		"Цель '$target$' в секторе обстрела. Начинаю огневое воздействие, остальным кораблям соблюдать дистанцию.",
+		"Захожу на цель '$target$'. Орудия наведены, начинаю обстрел из доступных установок.",
+	),
+	"flank" = list("Выполняю заход во фланг '$target$'. Занимаю позицию за бортом, проход в строй противника не планируется.", "Смещаюсь к борту '$target$'. Соединение $group$, сохраняйте интервалы и перекрёстные сектора огня."),
+	"orbit" = list("Начинаю обход '$target$' по дуге. Поддерживаю скорость, огонь веду по мере выхода цели в углы наведения.", "Занимаю подвижную орбиту вокруг '$target$'. Продолжаю маневрирование и поиск окна для стрельбы."),
+	"standoff" = list("Занимаю дальнюю огневую позицию относительно '$target$'. В ближний бой не вступаю, поддерживаю соединение огнём.", "Дистанция до '$target$' принята."),
+	"search" = list("Визуальное сопровождение '$target$' потеряно.", "Контакт '$target$' пропал с датчиков. Подтверждения уничтожения нет."),
+	"patrol" = list("Соединение $group$, продолжаю патрулирование назначенного района. Датчики работают, цели для немедленного поражения не обнаружены.", "Возвращаюсь к патрульному маршруту соединения $group$. Веду наблюдение за подходами и гиперпространственными связями."),
+	"retreat" = list("Отступаю от '$target$'. Боеспособные орудия отсутствуют; прошу прикрыть отход и не сближаться с моим курсом.", "Начинаю отход: огневой контакт с '$target$' поддерживать не могу. Увеличиваю дистанцию, требуется прикрытие.", "Соединению $group$: вынужден отступить от '$target$'."),
+	"cancel" = list("Отбой атаки на '$target$'. Получен и проверен дружественный сигнал транспондера. Орудиям прекратить огонь, сопровождение переведено в небоевой режим.", "Контакт '$target$' опознан как дружественный. Приказ на поражение отменён, дальнейшая стрельба по этой цели запрещена."),
+	"warning" = list("По соединению $group$ ведётся огонь со стороны '$target$'. Требую немедленно прекратить стрельбу; факт попадания зарегистрирован.", "Внимание '$target$': зафиксирован огонь по невоюющему с вами соединению $group$. Прекратите стрельбу и восстановите безопасную дистанцию."),
+	"retaliate" = list("Корабль '$target$' признан непосредственным агрессором. Соединение $group$ переходит к самообороне.", "Соединение $group$ подверглось атаке со стороны '$target$'. Переход к ответным действиям разрешён."),
+	"suppress" = list("Выполняю огневое подавление указанного района. Соединение $group$, не входить в квадрат обстрела до отмены приказа.", "Начинаю неприцельный обстрел назначенного квадрата. Секторы наведения и безопасность собственного корпуса проверены."),
+	"lost" = list("Соединению $group$: подтверждена потеря корабля. Перестраивайте боевой порядок и закройте образовавшийся разрыв.", "Зафиксировано критическое разрушение дружественного корпуса. Соединение $group$, корректируйте построение и распределение целей."),
+	"destroyed" = list("Подтверждаю нейтрализацию противника. Огневое воздействие по поражённому корпусу прекращаю, проверяю оставшиеся угрозы.", "Противник выведен из боя. Соединение $group$, готовность к переносу огня на следующую цель."),
 ))

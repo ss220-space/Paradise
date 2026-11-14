@@ -65,3 +65,39 @@
 		new /obj/item/ship_engine_mount(get_turf(user))
 	qdel(src)
 	return TRUE
+
+/obj/item/circuitboard/ship_engine_ion/frontier_large
+	desc = "TEMP123TEMP"
+	board_name = "Frontier large thruster"
+	build_path = /obj/machinery/ship_engine/frontier_large
+	req_components = list(/obj/item/stock_parts/capacitor = 4, /obj/item/stock_parts/micro_laser = 2, /obj/item/stack/cable_coil = 10)
+
+/obj/item/circuitboard/ship_engine_ion/nfsd_large
+	desc = "TEMP123TEMP"
+	board_name = "NFSD large thruster"
+	build_path = /obj/machinery/ship_engine/nfsd_large
+	req_components = list(/obj/item/stock_parts/capacitor = 4, /obj/item/stock_parts/micro_laser = 2, /obj/item/stack/cable_coil = 10)
+
+/obj/item/circuitboard/ship_engine_ion/rogue
+	desc = "TEMP123TEMP"
+	board_name = "Rogue thruster"
+	build_path = /obj/machinery/ship_engine/rogue
+	req_components = list(/obj/item/stock_parts/capacitor = 2, /obj/item/stock_parts/micro_laser = 1, /obj/item/stack/cable_coil = 5)
+
+/obj/item/circuitboard/ship_engine_ion/rogue_large
+	desc = "TEMP123TEMP"
+	board_name = "Rogue large thruster"
+	build_path = /obj/machinery/ship_engine/rogue_large
+	req_components = list(/obj/item/stock_parts/capacitor = 4, /obj/item/stock_parts/micro_laser = 2, /obj/item/stack/cable_coil = 10)
+
+/obj/item/circuitboard/ship_engine_ion/ussp
+	desc = "TEMP123TEMP"
+	board_name = "USSP thruster"
+	build_path = /obj/machinery/ship_engine/ussp
+	req_components = list(/obj/item/stock_parts/capacitor = 2, /obj/item/stock_parts/micro_laser = 1, /obj/item/stack/cable_coil = 5)
+
+/obj/item/circuitboard/ship_engine_ion/ussp_large
+	desc = "TEMP123TEMP"
+	board_name = "USSP large thruster"
+	build_path = /obj/machinery/ship_engine/ussp_large
+	req_components = list(/obj/item/stock_parts/capacitor = 4, /obj/item/stock_parts/micro_laser = 2, /obj/item/stack/cable_coil = 10)

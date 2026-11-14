@@ -41,6 +41,7 @@
 	return
 
 /obj/overmap/entity/feature/ruin
+	structure_faction = "neutral"
 	name = "аномальная зона"
 
 /obj/overmap/entity/feature/ruin/get_ru_names()

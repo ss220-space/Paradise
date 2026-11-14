@@ -17,6 +17,8 @@ SUBSYSTEM_DEF(shuttle)
 	var/list/transit = list()
 	var/list/assoc_mobile = list()
 	var/list/assoc_stationary = list()
+	var/list/obj/effect/ship_spawner/pending_ship_spawners = list()
+	var/list/loading_ship_templates = list()
 
 	/// A list of all the mobile docking ports currently requesting a spot in hyperspace.
 	var/list/transit_requesters = list()
@@ -65,6 +67,7 @@ SUBSYSTEM_DEF(shuttle)
 	ordernum = rand(1,9000)
 
 	cargo_money_account = GLOB.department_accounts[STATION_DEPARTMENT_SUPPLY]
+	initial_load()
 
 	if(!emergency)
 		WARNING("No /obj/docking_port/mobile/emergency placed on the map!")
@@ -74,8 +77,6 @@ SUBSYSTEM_DEF(shuttle)
 		WARNING("No /obj/docking_port/mobile/supply placed on the map!")
 	if(!emergency && !backup_shuttle)
 		message_admins("There's no emergency docking ports on the map! The game will be unresolvable. To resolve this problem load emergency shuttle template manually, and call register() on the mobile docking port.")
-
-	initial_load()
 
 	for(var/typepath in subtypesof(/datum/supply_packs))
 		var/datum/supply_packs/P = new typepath()
@@ -98,6 +99,10 @@ SUBSYSTEM_DEF(shuttle)
 /datum/controller/subsystem/shuttle/proc/initial_load()
 	for(var/obj/docking_port/D in world)
 		D.register()
+		CHECK_TICK
+	for(var/obj/effect/ship_spawner/spawner as anything in pending_ship_spawners)
+		if(!QDELETED(spawner))
+			spawner.spawn_ship()
 		CHECK_TICK
 
 /datum/controller/subsystem/shuttle/fire(resumed = FALSE)

@@ -284,6 +284,31 @@
 			. += other
 
 /datum/controller/subsystem/overmap/proc/galaxy_map(obj/overmap/entity/viewer)
+	if(galaxy_snapshot_tick != world.time || galaxy_snapshot_revision != galaxy_revision)
+		galaxy_snapshot = build_galaxy_map()
+		galaxy_snapshot_tick = world.time
+		galaxy_snapshot_revision = galaxy_revision
+	if(!viewer)
+		return galaxy_snapshot
+	. = galaxy_snapshot.Copy()
+	var/list/signals = list()
+	for(var/obj/overmap/entity/hyperrelay/relay in viewer.sector?.objects)
+		if(relay.enabled && relay.paired?.sector && viewer.iff_detects(relay))
+			signals |= relay.paired.sector.id
+	var/list/sector_data = list()
+	for(var/list/entry as anything in galaxy_snapshot["sectors"])
+		var/list/personal = entry.Copy()
+		personal["signal_links"] = entry["id"] == viewer.sector?.id ? signals : list()
+		sector_data += list(personal)
+	.["sectors"] = sector_data
+	var/list/transits = list()
+	for(var/list/entry as anything in galaxy_snapshot["transits"])
+		var/list/personal = entry.Copy()
+		personal["own"] = entry["id"] == viewer.UID()
+		transits += list(personal)
+	.["transits"] = transits
+
+/datum/controller/subsystem/overmap/proc/build_galaxy_map()
 	. = list("revision" = galaxy_revision, "center" = station_sector?.id, "sectors" = list(), "transits" = list(),
 		"name" = galaxy_layout?["name"], "units" = galaxy_layout?["units"],
 		"factions" = galaxy_layout?["factions"] || list(), "territories" = galaxy_layout?["territories"] || list(),
@@ -316,7 +341,7 @@
 			var/id = relay.paired.sector.id
 			links |= id
 			distances[id] = relay.get_link_distance()
-			if(relay.enabled && (!viewer || (viewer.sector == sector && viewer.iff_detects(relay))))
+			if(relay.enabled)
 				signals |= id
 		var/contacts = 0
 		var/distress = FALSE
@@ -335,4 +360,4 @@
 		.["transits"] += list(list("id" = vessel.UID(), "from" = relay.sector.id, "to" = relay.paired.sector.id,
 			"path" = relay.galaxy_route_points,
 			"progress" = clamp((world.time - vessel.relay_jump_started) / max(1, vessel.relay_jump_ends - vessel.relay_jump_started), 0, 1),
-			"remaining" = (vessel.relay_jump_ends - world.time) * 100, "own" = vessel == viewer))
+			"remaining" = (vessel.relay_jump_ends - world.time) * 100, "own" = FALSE))

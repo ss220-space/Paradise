@@ -1,11 +1,11 @@
 /obj/effect/spawner/ship_engine_catalog
-	name = "all ship engines spawner (17 engines)"
+	name = "all ship engines spawner (15 engines)"
 	desc = "TEMP123TEMP"
 	icon = 'icons/turf/shuttle/misc.dmi'
 	icon_state = "propulsion"
 
 /obj/effect/spawner/ship_engine_catalog/proc/engine_types()
-	return GLOB.default_ship_engines + GLOB.frontier_ship_engines
+	return GLOB.ship_engine_types
 
 /obj/effect/spawner/ship_engine_catalog/Initialize(mapload)
 	. = ..()
@@ -41,10 +41,3 @@
 		var/obj/machinery/ship_engine/engine = new path(locations[index])
 		engine.setDir(dir)
 	return INITIALIZE_HINT_QDEL
-
-/obj/effect/spawner/frontier_ship_engines
-	parent_type = /obj/effect/spawner/ship_engine_catalog
-	name = "MonoFrontier engines spawner (8 engines)"
-
-/obj/effect/spawner/frontier_ship_engines/engine_types()
-	return GLOB.frontier_ship_engines

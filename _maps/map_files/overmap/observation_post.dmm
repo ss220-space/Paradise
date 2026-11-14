@@ -1,0 +1,118 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"l" = (
+/turf/space,
+/area/space)
+"o" = (
+/turf/simulated/floor/plasteel,
+/area/space)
+"z" = (
+/obj/machinery/computer/communications,
+/turf/simulated/floor/plasteel,
+/area/space)
+"P" = (
+/obj/machinery/sensor_array,
+/turf/simulated/wall/mineral/titanium/reinforced,
+/area/space)
+"Y" = (
+/turf/simulated/wall/mineral/titanium/reinforced,
+/area/space)
+
+(1,1,1) = {"
+l
+l
+l
+l
+l
+l
+l
+l
+l
+"}
+(2,1,1) = {"
+l
+Y
+Y
+Y
+Y
+Y
+Y
+Y
+l
+"}
+(3,1,1) = {"
+l
+Y
+o
+o
+o
+o
+o
+Y
+l
+"}
+(4,1,1) = {"
+l
+Y
+o
+o
+o
+o
+o
+Y
+l
+"}
+(5,1,1) = {"
+l
+P
+o
+o
+z
+o
+o
+Y
+l
+"}
+(6,1,1) = {"
+l
+Y
+o
+o
+o
+o
+o
+Y
+l
+"}
+(7,1,1) = {"
+l
+Y
+o
+o
+o
+o
+o
+Y
+l
+"}
+(8,1,1) = {"
+l
+Y
+Y
+Y
+Y
+Y
+Y
+Y
+l
+"}
+(9,1,1) = {"
+l
+l
+l
+l
+l
+l
+l
+l
+l
+"}

@@ -81,7 +81,7 @@
 
 /datum/component/overmap_flight/proc/process_tick(elapsed)
 	var/obj/overmap/entity/vessel = parent
-	if(QDELETED(vessel) || vessel.formation_transfer || vessel.docked_ship || vessel.docking_approach?.aligning)
+	if(QDELETED(vessel) || vessel.stationary_ai || vessel.formation_transfer || vessel.docked_ship || vessel.docking_approach?.aligning)
 		return
 	if(vessel.overmap_pod)
 		var/obj/overmap/entity/pod/pod_vessel = vessel
@@ -167,8 +167,6 @@
 	engine_vectors.Cut()
 	omni_thrust = !!vessel.overmap_pod
 	for(var/obj/machinery/ship_engine/engine as anything in vessel.engines)
-		if(engine == vessel.virtual_engine && !vessel.admin_virtual_engine)
-			continue
 		var/thrust = engine.get_thrust()
 		if(!thrust)
 			continue
@@ -455,8 +453,7 @@
 	var/total_thrust = 0
 	var/obj/overmap/entity/vessel = parent
 	for(var/obj/machinery/ship_engine/engine as anything in vessel.engines)
-		if(engine != vessel.virtual_engine || vessel.admin_virtual_engine)
-			total_thrust += engine.get_thrust()
+		total_thrust += engine.get_thrust()
 	return total_thrust
 
 /datum/component/overmap_flight/proc/inertial_mass()
@@ -469,7 +466,7 @@
 /datum/component/overmap_flight/proc/has_working_engines()
 	var/obj/overmap/entity/vessel = parent
 	for(var/obj/machinery/ship_engine/engine as anything in vessel.engines)
-		if((engine != vessel.virtual_engine || vessel.admin_virtual_engine) && engine.can_burn())
+		if(engine.can_burn())
 			return TRUE
 	return FALSE
 

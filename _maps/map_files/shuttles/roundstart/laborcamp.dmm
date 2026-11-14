@@ -1,0 +1,318 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"bwC" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/siberia)
+"chP" = (
+/obj/machinery/computer/sensors,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/siberia)
+"dxc" = (
+/obj/machinery/door/window/brigdoor/security{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/siberia)
+"dLU" = (
+/obj/structure/window/shuttle/survival_pod,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/siberia)
+"epo" = (
+/obj/machinery/computer/helm,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/siberia)
+"gfb" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/siberia)
+"grN" = (
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/siberia)
+"gLv" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/mineral/stacking_machine/laborstacker{
+	input_dir = 2;
+	output_dir = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/siberia)
+"imA" = (
+/obj/machinery/ship_engine/thruster/rcs{
+	dir = 4
+	},
+/turf/simulated/wall/mineral/titanium/survival/pod,
+/area/shuttle/siberia)
+"kaV" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/siberia)
+"kxT" = (
+/turf/template_noop,
+/area/template_noop)
+"lqy" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/siberia)
+"lzr" = (
+/obj/machinery/sensor_array/short_range,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/siberia)
+"lRS" = (
+/obj/machinery/ship_engine/thruster/rcs{
+	dir = 8
+	},
+/obj/machinery/ship_engine/thruster{
+	dir = 1
+	},
+/turf/simulated/wall/mineral/titanium/survival/pod,
+/area/shuttle/siberia)
+"nDh" = (
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/siberia)
+"nTC" = (
+/obj/machinery/ship_engine/thruster/rcs{
+	dir = 8
+	},
+/turf/simulated/wall/mineral/titanium/survival/pod,
+/area/shuttle/siberia)
+"nWk" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/siberia)
+"ofZ" = (
+/obj/machinery/computer/engines,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/siberia)
+"pna" = (
+/obj/structure/table,
+/obj/item/restraints/handcuffs,
+/obj/item/folder/red,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/siberia)
+"pTU" = (
+/obj/machinery/mineral/labor_claim_console{
+	pixel_x = 30;
+	pixel_y = 30
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/flasher_button{
+	id = "gulagshuttleflasher";
+	name = "Flash Control";
+	pixel_y = -26;
+	req_access = list(1)
+	},
+/obj/machinery/transponder/directional/east,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/siberia)
+"qoQ" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/siberia)
+"rGU" = (
+/obj/machinery/door/airlock/external/docking{
+	req_access = list(2);
+	dock_name = "Западный шлюз пилота";
+	overmap_collar_id = "labor_west";
+	dir = 8
+	},
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 2;
+	height = 5;
+	id = "laborcamp";
+	name = "labor camp shuttle";
+	port_direction = 4;
+	rebuildable = 1;
+	roundstart_move = null;
+	width = 9;
+	timid = 1
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/siberia)
+"vCq" = (
+/obj/machinery/ship_engine/thruster/rcs{
+	dir = 4
+	},
+/obj/machinery/ship_engine/thruster{
+	dir = 1
+	},
+/turf/simulated/wall/mineral/titanium/survival/pod,
+/area/shuttle/siberia)
+"vCY" = (
+/obj/machinery/overmap_intercom/directional/west,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/siberia)
+"wDW" = (
+/obj/machinery/door/airlock/external{
+	name = "Labor Shuttle Airlock";
+	req_access = list(2)
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/siberia)
+"wNq" = (
+/obj/machinery/mineral/labor_claim_console,
+/turf/simulated/wall/mineral/titanium/survival/pod,
+/area/shuttle/siberia)
+"xah" = (
+/obj/machinery/ship_engine/ion,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/siberia)
+"yaS" = (
+/obj/machinery/door/airlock/external/docking{
+	dock_name = "Восточный шлюз пилота";
+	overmap_collar_id = "labor_east";
+	dir = 4
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/siberia)
+"yhw" = (
+/turf/simulated/wall/mineral/titanium/survival/pod,
+/area/shuttle/siberia)
+"yla" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/machinery/flasher{
+	id = "gulagshuttleflasher";
+	pixel_x = 25
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/siberia)
+
+(1,1,1) = {"
+kxT
+kxT
+kxT
+kxT
+lRS
+rGU
+dLU
+yhw
+yhw
+nTC
+"}
+(2,1,1) = {"
+nTC
+yhw
+yhw
+yhw
+yhw
+nDh
+nWk
+pna
+kaV
+xah
+"}
+(3,1,1) = {"
+yhw
+epo
+vCY
+yhw
+nDh
+nDh
+nDh
+lzr
+yhw
+yhw
+"}
+(4,1,1) = {"
+dLU
+chP
+bwC
+wDW
+nDh
+nDh
+nDh
+qoQ
+yhw
+kxT
+"}
+(5,1,1) = {"
+yhw
+ofZ
+pTU
+yhw
+gLv
+dxc
+gfb
+gfb
+yhw
+yhw
+"}
+(6,1,1) = {"
+imA
+yhw
+yhw
+yhw
+wNq
+grN
+yla
+lqy
+kaV
+xah
+"}
+(7,1,1) = {"
+kxT
+kxT
+kxT
+kxT
+vCq
+yaS
+yhw
+yhw
+yhw
+imA
+"}

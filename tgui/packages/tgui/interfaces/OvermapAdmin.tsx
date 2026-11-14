@@ -64,7 +64,11 @@ type Token = {
   status?: string;
   sensors_on?: BooleanLike;
   has_flight?: BooleanLike;
-  virtual_engine?: BooleanLike;
+  radio_silence?: BooleanLike;
+  supports_structure_ai?: BooleanLike;
+  structure_ai?: BooleanLike;
+  structure_faction?: string;
+  structure_fire_range?: number;
 };
 
 type Console = {
@@ -129,6 +133,8 @@ type Data = {
   suggest_x?: number;
   suggest_y?: number;
   suggest_sector?: string;
+  faction_comms_keys?: Record<string, string>;
+  observation_comms_key?: string;
   iff_centcom?: string;
   iff_syndicate?: string;
   transponders?: Transponder[] | Record<string, Transponder>;
@@ -468,15 +474,70 @@ const ControlTab = () => {
                   Переместить
                 </Button>
               </LabeledList.Item>
-              <LabeledList.Item label="Флаги">
+              {!!selected.supports_structure_ai && (
+                <LabeledList.Item label="Оборона структуры">
+                  <FlagButton
+                    uid={selected.uid}
+                    field="structure_ai"
+                    value={selected.structure_ai}
+                    label="ИИ орудий"
+                  />
+                  <Dropdown
+                    selected={
+                      ['neutral', 'nt', 'syndicate', 'rogue', 'erw'].includes(
+                        selected.structure_faction || '',
+                      )
+                        ? selected.structure_faction
+                        : 'neutral'
+                    }
+                    options={[
+                      { value: 'neutral', displayText: 'Нейтральная' },
+                      { value: 'nt', displayText: 'Nanotrasen' },
+                      { value: 'syndicate', displayText: 'Синдикат' },
+                      { value: 'erw', displayText: 'Eisenwehr Raumfahrtwerke' },
+                    ]}
+                    onSelected={(value) =>
+                      act('set_field', {
+                        uid: selected.uid,
+                        field: 'structure_faction',
+                        value,
+                      })
+                    }
+                  />
+                  <Box mt={1}>
+                    Дальность огня, тайлы:{' '}
+                    <NumberInput
+                      width="100px"
+                      value={selected.structure_fire_range || 0}
+                      minValue={0}
+                      maxValue={10000}
+                      step={0.1}
+                      onChange={(value) =>
+                        act('set_field', {
+                          uid: selected.uid,
+                          field: 'structure_fire_range',
+                          value,
+                        })
+                      }
+                    />
+                  </Box>
+                  <Box color="label">
+                    От каждого орудия до цели. Нейтральные не участвуют в боях
+                    ИИ.
+                  </Box>
+                </LabeledList.Item>
+              )}
+              <LabeledList.Item label="Радиообмен">
                 {!!selected.is_entity && (
                   <FlagButton
                     uid={selected.uid}
-                    field="virtual_engine"
-                    value={selected.virtual_engine}
-                    label="Тестовый двигатель"
+                    field="radio_silence"
+                    value={selected.radio_silence}
+                    label="Радиомолчание"
                   />
                 )}
+              </LabeledList.Item>
+              <LabeledList.Item label="Флаги">
                 <FlagButton
                   uid={selected.uid}
                   field="movable"
@@ -949,17 +1010,40 @@ const TransponderTab = () => {
   );
 };
 
+const commsFactions: Record<string, string> = {
+  nt: 'Nanotrasen',
+  syndicate: 'Синдикат',
+  erw: 'Eisenwehr Raumfahrtwerke',
+};
+
 const CommsTab = () => {
   const { act, data } = useBackend<Data>();
   const sectors = asList(data.comms);
   const [sectorId, setSectorId] = useState(sectors[0]?.id || '');
   const [body, setBody] = useState('');
   const [key, setKey] = useState('');
-  const [sender, setSender] = useState('Админ');
+  const [sender, setSender] = useState('');
   const current =
     sectors.find((sector) => sector.id === sectorId) || sectors[0];
   return (
     <Section title="Межсекторная связь">
+      <Section title="Ключи связи текущей смены">
+        <LabeledList>
+          <LabeledList.Item label="Наблюдательный пост">
+            {data.observation_comms_key || '—'}
+          </LabeledList.Item>
+          {Object.entries(data.faction_comms_keys || {}).map(
+            ([faction, cipher]) => (
+              <LabeledList.Item
+                key={faction}
+                label={commsFactions[faction] || faction}
+              >
+                {cipher}
+              </LabeledList.Item>
+            ),
+          )}
+        </LabeledList>
+      </Section>
       <LabeledList>
         <LabeledList.Item label="Сектор">
           <Dropdown

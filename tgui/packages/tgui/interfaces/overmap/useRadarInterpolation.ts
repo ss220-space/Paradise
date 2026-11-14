@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import type { RadarFrame } from './radarInterpolation';
 import { RadarTimeline } from './radarTimeline';
 
-export const useRadarInterpolation = (input: RadarFrame) => {
+export const useRadarInterpolation = (input: RadarFrame, enabled = true) => {
   const sample = useMemo(
     () => input,
     [
@@ -29,6 +29,7 @@ export const useRadarInterpolation = (input: RadarFrame) => {
   useEffect(() => {
     timeline.current!.push(sample, performance.now());
     if (animation.current) cancelAnimationFrame(animation.current);
+    if (!enabled) return;
     const tick = (time: number) => {
       setShown(timeline.current!.at(time));
       animation.current = timeline.current!.pending(time)
@@ -40,6 +41,6 @@ export const useRadarInterpolation = (input: RadarFrame) => {
       if (animation.current) cancelAnimationFrame(animation.current);
       animation.current = 0;
     };
-  }, [sample]);
-  return shown;
+  }, [sample, enabled]);
+  return enabled ? shown : sample;
 };

@@ -8,7 +8,6 @@ import {
   Stack,
 } from 'tgui-core/components';
 import type { BooleanLike } from 'tgui-core/react';
-
 import { useBackend, useLocalState } from '../backend';
 import {
   OvermapCoord,
@@ -21,6 +20,7 @@ import {
   OvermapStats,
   overmapKindLabel,
 } from './overmap/OvermapChrome';
+import type { RadarPose } from './overmap/OvermapRadar';
 import {
   type GalaxyMap,
   type HazardField,
@@ -87,6 +87,7 @@ type OvermapSensorsData = {
   radar_terrain?: RadarTerrain;
   radar_world?: number[];
   objects?: RadarObject[];
+  radar_poses?: RadarPose[];
   self_pos?: number[];
   sector_size?: number;
   cell_span?: number;
@@ -125,6 +126,7 @@ type OvermapSensorsData = {
   alerts?: { id: string; label: string; on: BooleanLike }[];
   map_jammed?: BooleanLike;
   radar_locked?: BooleanLike;
+  radar_docked?: BooleanLike;
   radar_tick?: number;
   radar_epoch?: number;
 };
@@ -343,6 +345,7 @@ export const OvermapSensors = () => {
                   <OvermapRadar
                     outlines={data.radar_outlines}
                     locked={!!data.radar_locked}
+                    docked={!!data.radar_docked}
                     tick={data.radar_tick}
                     epoch={data.radar_epoch}
                     peels={data.radar_peels}
@@ -355,6 +358,7 @@ export const OvermapSensors = () => {
                     facing={data.facing || 0}
                     terrain={data.radar_terrain}
                     world={data.radar_world}
+                    poses={data.radar_poses}
                     objects={data.objects || []}
                     self={data.self_pos}
                     sectorSize={data.sector_size}

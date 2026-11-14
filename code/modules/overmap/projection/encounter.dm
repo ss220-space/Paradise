@@ -105,6 +105,7 @@
 			bubble.ship_proxies -= src
 
 /obj/overmap/entity/proc/clear_encounter_visuals()
+	SSovermap_visuals.remove(src)
 	scatter_candidates = list()
 	QDEL_LIST_ASSOC_VAL(scatter_proxies)
 	QDEL_NULL(scatter_fog)
@@ -346,30 +347,48 @@
 /obj/overmap/entity/proc/quarter_turns()
 	return round(get_facing() / 90, 1) * 90
 
-/obj/overmap/entity/proc/show_neighbors(list/flying, elapsed, watched)
-	var/list/seen = list()
-	var/list/nearby = list()
+/obj/overmap/entity/proc/update_neighbors(list/flying)
+	nearby_ships = list()
 	for(var/obj/overmap/entity/other as anything in flying)
 		if(other == src || other.sector != sector || other.formation_pad || (formation_pad && other == docked_ship))
 			continue
-		var/list/spot = world_to_hull(other.get_world_x(), other.get_world_y())
-		var/distance = sqrt((spot[1] - hull_center_x) ** 2 + (spot[2] - hull_center_y) ** 2) - hull_radius - other.hull_radius
-		if(distance > OVERMAP_CONTACT_RANGE)
-			continue
-		nearby[other] = TRUE
-		if(!watched || distance > OVERMAP_NEIGHBOR_RANGE)
-			continue
-		seen[other] = TRUE
-		var/datum/hull_proxy/proxy = neighbor_proxies[other]
-		if(QDELETED(proxy))
-			proxy = other.create_hull_proxy(locate(round(hull_center_x), round(hull_center_y), hull_z))
-			neighbor_proxies[other] = proxy
-		proxy.place(spot[1], spot[2], hull_z, other.get_facing() - get_facing(), flight_bounds, elapsed)
+		var/distance = sqrt((other.get_world_x() - get_world_x()) ** 2 + (other.get_world_y() - get_world_y()) ** 2) - hull_radius - other.hull_radius
+		if(distance <= OVERMAP_CONTACT_RANGE)
+			nearby_ships[other] = TRUE
+
+/obj/overmap/entity/proc/show_neighbors(elapsed, watched)
+	var/list/seen = list()
+	if(watched)
+		for(var/obj/overmap/entity/other as anything in nearby_ships)
+			if(QDELETED(other) || other.sector != sector || !other.free_flight_view)
+				continue
+			var/list/spot = world_to_hull(other.get_world_x(), other.get_world_y())
+			var/distance = sqrt((spot[1] - hull_center_x) ** 2 + (spot[2] - hull_center_y) ** 2) - hull_radius - other.hull_radius
+			if(distance > OVERMAP_NEIGHBOR_RANGE)
+				continue
+			seen[other] = TRUE
+			var/datum/hull_proxy/proxy = neighbor_proxies[other]
+			if(QDELETED(proxy))
+				proxy = other.create_hull_proxy(locate(round(hull_center_x), round(hull_center_y), hull_z))
+				neighbor_proxies[other] = proxy
+			proxy.place(spot[1], spot[2], hull_z, other.get_facing() - get_facing(), flight_bounds, elapsed)
 	for(var/obj/overmap/entity/other as anything in neighbor_proxies)
 		if(!seen[other])
 			qdel(neighbor_proxies[other])
 			neighbor_proxies -= other
-	nearby_ships = nearby
+
+/obj/overmap/entity/proc/update_flight_visuals(elapsed)
+	if(!free_flight_view || formation_pad || formation_transfer)
+		return
+	var/is_watched = SSovermap.visual_watched[src]
+	draw_scatter(scatter_candidates, elapsed, is_watched)
+	show_neighbors(elapsed, is_watched)
+	if(is_watched)
+		show_drifters(SSovermap.bubbles, elapsed)
+		update_terrain_view(elapsed)
+	else
+		QDEL_LIST_ASSOC_VAL(drifter_mirrors)
+		QDEL_NULL(terrain_view)
 
 /obj/overmap/entity/proc/radar_contacts()
 	. = list(list("id" = UID(), "x" = 0, "y" = 0, "rot" = 0, "own" = TRUE))
@@ -386,7 +405,7 @@
 			"distance" = round(distance, 1),
 			"closing" = distance ? round(closing / distance * OVERMAP_TILE_SPAN * (1 SECONDS), 0.1) : 0,
 			"docked" = other.docked_ship == src || docked_ship == other,
-			"destroyed" = other.ship_ai?.owner.ai_destroyed,
+			"destroyed" = other.is_ai_destroyed(),
 		))
 
 /obj/overmap/entity/proc/radar_drifters()
@@ -399,7 +418,7 @@
 /obj/overmap/entity/proc/radar_engines()
 	. = list()
 	for(var/obj/machinery/ship_engine/engine as anything in engines)
-		if(engine == virtual_engine || engine.z != hull_z)
+		if(!engine.virtual_engine_owner && engine.z != hull_z)
 			continue
 		var/list/directions = engine.push_directions()
 		for(var/key in directions)
@@ -417,28 +436,6 @@
 		if(other.radar_shape)
 			other.radar_shape["revision"] = other.hull_version
 		.[other.UID()] = other.radar_shape
-
-/obj/overmap/entity/proc/push_radar()
-	if(radar_transitioning)
-		return
-	if(!length(radar_uis) || !sector)
-		return
-	var/list/scatter = radar_scatter_data()
-	var/list/data = list("radar_tick" = SSovermap.radar_frame_time * 100, "radar_epoch" = radar_epoch, "radar_locked" = !!relay_jump_from, "self_pos" = radar_sector_position(), "radar_docks" = radar_dock_targets(), "dock_ready" = docking_approach?.ready(), "dock_in_range" = docking_approach?.in_alignment_range(), "dock_aligning" = docking_approach?.aligning, "radar" = radar_contacts(), "radar_drifters" = radar_drifters(), "radar_engines" = radar_engines(), "facing" = free_flight_view ? get_facing() : 0, "radar_world" = radar_world_origin())
-	if(scatter != pushed_scatter)
-		data["radar_scatter"] = scatter
-		pushed_scatter = scatter
-	var/list/objects = radar_object_positions()
-	if(objects)
-		data["objects"] = objects
-	data["radar_projectiles"] = radar_projectiles()
-	radar_motion_frame = data
-	radar_motion_epoch = radar_epoch
-	radar_motion_sector = sector
-	for(var/datum/tgui/ui as anything in radar_uis)
-		if(QDELETED(ui) || ui.status < UI_UPDATE)
-			continue
-		ui.send_update(data)
 
 /obj/overmap/entity/proc/show_drifters(list/bubbles, elapsed)
 	var/list/seen = list()
@@ -785,7 +782,7 @@
 	spare_bubble_space = SSmapping.request_turf_block_reservation(OVERMAP_BUBBLE_SIZE, OVERMAP_BUBBLE_SIZE)
 	preparing_bubble_space = FALSE
 
-/datum/controller/subsystem/overmap/proc/process_encounters(list/flying, elapsed, list/watched, list/eyes)
+/datum/controller/subsystem/overmap/proc/process_encounters(list/flying, elapsed)
 	for(var/obj/item/overmap_hull_grip/grip as anything in hull_grips)
 		grip.carry()
 	for(var/obj/overmap/entity/vessel as anything in flying)
@@ -799,24 +796,22 @@
 	for(var/obj/overmap/entity/vessel as anything in flying)
 		if(!vessel.formation_pad && !vessel.formation_transfer)
 			vessel.process_scatter(elapsed)
+	flight_index.rebuild(flying)
 	process_collisions(flying)
 	for(var/obj/overmap/entity/vessel as anything in flying)
 		if(!vessel.formation_transfer)
 			vessel.docking_approach?.process_approach(elapsed)
+	flight_index.rebuild(flying)
 	for(var/obj/overmap/entity/vessel as anything in flying)
 		if(vessel.formation_pad || vessel.formation_transfer)
 			continue
-		var/is_watched = watched[vessel]
-		vessel.draw_scatter(vessel.scatter_candidates, elapsed, is_watched)
-		vessel.show_neighbors(flying, elapsed, is_watched)
-		if(is_watched)
-			vessel.show_drifters(bubbles, elapsed)
-			vessel.update_terrain_view(elapsed)
-		else
-			QDEL_LIST_ASSOC_VAL(vessel.drifter_mirrors)
-			QDEL_NULL(vessel.terrain_view)
+		vessel.update_neighbors(flight_index.nearby(vessel.sector, vessel.get_world_x(), vessel.get_world_y(), vessel.hull_radius + OVERMAP_CONTACT_RANGE))
+		SSovermap_visuals.queue_update(vessel)
 	for(var/datum/overmap_bubble/bubble as anything in bubbles)
-		bubble.process_bubble(flying, elapsed, eyes)
+		var/list/center = bubble.to_world(bubble.center_x, bubble.center_y)
+		var/reach = max(bubble.bounds[3] - bubble.bounds[1], bubble.bounds[4] - bubble.bounds[2]) / 2 + 1
+		bubble.process_bubble(flight_index.nearby(bubble.sector, center[1], center[2], reach))
+		SSovermap_visuals.queue_update(bubble)
 	for(var/obj/overmap/entity/vessel as anything in flying)
 		vessel.remember_pose()
 

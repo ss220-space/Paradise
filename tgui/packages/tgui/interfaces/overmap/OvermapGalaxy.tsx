@@ -267,7 +267,7 @@ export const OvermapGalaxy = ({
             );
           })}
         {links
-          .filter((l) => !hidden.includes(`link-${l.state}`))
+          .filter(() => !hidden.includes('paths'))
           .map((link) => {
             const points = linkPoints(link, systems).map(at);
             const active = link.from === selected || link.to === selected;
@@ -452,47 +452,20 @@ export const OvermapGalaxy = ({
               </label>
             ))}
             <hr />
-            {(['active', 'closed', 'unstable'] as const).map((state) => (
-              <label key={state}>
-                <input
-                  type="checkbox"
-                  checked={!hidden.includes(`link-${state}`)}
-                  onChange={() =>
-                    setHidden(
-                      hidden.includes(`link-${state}`)
-                        ? hidden.filter((id) => id !== `link-${state}`)
-                        : [...hidden, `link-${state}`],
-                    )
-                  }
-                />
-                <svg width="23" height="8">
-                  <path
-                    d="M0 4H23"
-                    stroke={
-                      links.find((l) => l.state === state)?.color ||
-                      (state === 'closed'
-                        ? '#ef8791'
-                        : state === 'unstable'
-                          ? '#cf9bea'
-                          : '#89c9ec')
-                    }
-                    strokeDasharray={lineDash(
-                      links.find((l) => l.state === state)?.line ||
-                        (state === 'active'
-                          ? 'solid'
-                          : state === 'closed'
-                            ? 'dashed'
-                            : 'dash-dot'),
-                    )}
-                  />
-                </svg>
-                {state === 'active'
-                  ? 'Активный переход'
-                  : state === 'closed'
-                    ? 'Закрытый переход'
-                    : 'Нестабильный переход'}
-              </label>
-            ))}
+            <label>
+              <input
+                type="checkbox"
+                checked={!hidden.includes('paths')}
+                onChange={() =>
+                  setHidden(
+                    hidden.includes('paths')
+                      ? hidden.filter((id) => id !== 'paths')
+                      : [...hidden, 'paths'],
+                  )
+                }
+              />
+              Пути
+            </label>
             <hr />
             <label>
               <input
@@ -508,7 +481,7 @@ export const OvermapGalaxy = ({
                 checked={showLabels}
                 onChange={() => setShowLabels(!showLabels)}
               />
-              Подписи систем
+              Системы
             </label>
           </>
         )}

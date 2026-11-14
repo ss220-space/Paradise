@@ -5,6 +5,7 @@
 	var/obj/machinery/gun = payload.firer_source_atom
 	if(istype(gun) && gun.virtual_weapon_owner == structure && cell[1] == gun.virtual_weapon_x && cell[2] == gun.virtual_weapon_y)
 		return FALSE
+	payload.record_overmap_hit(structure)
 	if(ion_impact(x, y))
 		return TRUE
 	var/key = "[structure.UID()]:[cell[1]],[cell[2]]"

@@ -1,22 +1,23 @@
 /obj/overmap/entity/proc/fill_radar_data(list/data, reach = OVERMAP_RADAR_TERRAIN_RANGE)
-	if(radar_snapshot_tick != world.time || radar_snapshot_epoch != radar_epoch)
-		radar_snapshot_tick = world.time
-		radar_snapshot_epoch = radar_epoch
-		radar_snapshots = list()
+	if(radar_cache.snapshot_tick != world.time || radar_cache.snapshot_epoch != radar_epoch)
+		radar_cache.snapshot_tick = world.time
+		radar_cache.snapshot_epoch = radar_epoch
+		radar_cache.snapshots = list()
 	var/key = "[reach]"
-	var/list/snapshot = radar_snapshots[key]
+	var/list/snapshot = radar_cache.snapshots[key]
 	if(!snapshot)
 		snapshot = list()
 		build_radar_data_uncached(snapshot, reach)
-		radar_snapshots[key] = snapshot
+		radar_cache.snapshots[key] = snapshot
 	for(var/field in snapshot)
 		data[field] = snapshot[field]
-	if(radar_motion_frame && radar_motion_epoch == radar_epoch && radar_motion_sector == sector)
-		for(var/field in radar_motion_frame)
-			if(field != "objects")
-				data[field] = radar_motion_frame[field]
+	data["radar_poses"] = null
+	if(radar_cache.motion_frame && radar_cache.motion_epoch == radar_epoch && radar_cache.motion_sector == sector)
+		for(var/field in radar_cache.motion_frame)
+			if(field != "radar_poses")
+				data[field] = radar_cache.motion_frame[field]
 		var/list/positions = list()
-		for(var/list/entry as anything in radar_motion_frame["objects"])
+		for(var/list/entry as anything in radar_cache.motion_frame["radar_poses"])
 			positions[entry["id"]] = entry
 		var/list/objects = list()
 		for(var/list/entry as anything in data["objects"])
@@ -67,6 +68,7 @@
 	data["radar_tick"] = SSovermap.radar_frame_time * 100
 	data["radar_epoch"] = radar_epoch
 	data["radar_locked"] = !!relay_jump_from
+	data["radar_docked"] = !!(docked_to || docked_ship || is_physically_docked())
 	var/docked_radar = prepare_docked_radar()
 	var/turf/here = get_overmap_turf()
 	data["sector_id"] = sector?.id
@@ -101,8 +103,8 @@
 		data["self_pos"] = radar_sector_position()
 	var/list/objects = list()
 	var/list/outlines = list()
-	radar_object_sources = list()
-	radar_objects_sector = sector
+	radar_cache.object_sources = list()
+	radar_cache.objects_sector = sector
 	var/view_range = sector?.size || OVERMAP_DEFAULT_SIZE
 	var/sensor_reach = sensor_reach_cells()
 	if(sector)
@@ -143,8 +145,8 @@
 				"kind" = identified || is_self ? overmap_object.overmap_kind : "unknown",
 				"x" = is_self ? data["self_pos"][1] : sector.coord_x(object_turf) + overmap_object.position[1],
 				"y" = is_self ? data["self_pos"][2] : sector.coord_y(object_turf) + overmap_object.position[2],
-				"color" = is_entity && contact.ship_ai?.owner.ai_destroyed ? "#888888" : identified ? overmap_object.map_color : "#fffffe",
-				"destroyed" = is_entity && contact.ship_ai?.owner.ai_destroyed,
+				"color" = is_entity && contact.is_ai_destroyed() ? "#888888" : identified ? overmap_object.map_color : "#fffffe",
+				"destroyed" = is_entity && contact.is_ai_destroyed(),
 				"is_self" = is_self,
 				"nested" = !isturf(overmap_object.loc),
 				"speed" = round(OVERMAP_DISPLAY_SPEED(overmap_object.get_speed()), 0.01),
@@ -161,7 +163,7 @@
 				"scanned" = identified || is_self,
 			)
 			objects += list(entry)
-			radar_object_sources[overmap_object] = entry
+			radar_cache.object_sources[overmap_object] = entry
 			if(is_entity)
 				outlines[overmap_object.UID()] = contact.radar_outline()
 	data["objects"] = objects

@@ -2,31 +2,52 @@
 	var/list/ships = list()
 	var/list/orders = list()
 	var/list/fleet_enemies = list()
+	var/list/fleet_friends = list()
+	var/list/fleet_relations = list()
+	var/list/fleet_recognized = list()
+	var/list/fleet_incidents = list()
+	var/list/fleet_reports = list()
+	var/list/fleet_report_queue = list()
+	var/list/fleet_next_report = list()
 	var/list/buckets = list()
 	var/list/contacts = list()
+	var/list/sector_contacts = list()
 	var/list/fleet_contacts = list()
 	var/list/fleet_life = list()
 	var/list/medium_cover = list()
 	var/index_until = 0
 	var/next_slot = 0
 	var/next_fleet = 0
+	var/next_ship_id = 0
+	var/list/ship_ids = list()
 	var/cursor = 1
 	var/pending_spawns = 0
-	var/max_ships = 32
 
 /datum/overmap_ai_controller/Destroy()
 	clear_index()
+	sector_contacts = null
 	for(var/datum/overmap_ship_ai/brain as anything in ships)
 		qdel(brain)
 	ships = null
 	orders = null
 	fleet_enemies = null
+	fleet_friends = null
+	fleet_relations = null
+	fleet_recognized = null
+	fleet_incidents = null
+	fleet_reports = null
+	for(var/key in fleet_report_queue)
+		clear_report_queue(key)
+	fleet_report_queue = null
+	fleet_next_report = null
+	ship_ids = null
 	return ..()
 
 /datum/overmap_ai_controller/proc/clear_index()
 	for(var/obj/overmap/entity/ship as anything in contacts)
 		UnregisterSignal(ship, COMSIG_QDELETING)
 	contacts = list()
+	sector_contacts = list()
 	fleet_contacts = list()
 	fleet_life = list()
 	buckets = list()
@@ -35,6 +56,17 @@
 /datum/overmap_ai_controller/proc/on_ship_deleted(obj/overmap/entity/ship)
 	SIGNAL_HANDLER
 	var/list/entry = contacts[ship]
+	var/list/sector_entries = sector_contacts[ship.sector]
+	if(sector_entries)
+		sector_entries -= list(entry)
+		if(!length(sector_entries))
+			sector_contacts -= ship.sector
+	var/id = ship.UID()
+	for(var/key, record in fleet_reports)
+		var/list/history = record
+		for(var/signature in history)
+			if(findtextEx(signature, "/[id]/"))
+				history -= signature
 	contacts -= ship
 	fleet_contacts = list()
 	fleet_life = list()
@@ -42,6 +74,9 @@
 		var/list/bucket = value
 		bucket -= list(entry)
 	for(var/datum/overmap_ship_ai/brain as anything in ships)
+		for(var/obj/machinery/gun, contact in brain.weapon_targets)
+			if(contact == ship)
+				brain.weapon_targets -= gun
 		if(brain.target == ship)
 			brain.target = null
 			brain.target_visible = FALSE
@@ -52,13 +87,14 @@
 	return "[brain.owner.sector?.id]/[brain.faction]/[brain.group]"
 
 /datum/overmap_ai_controller/proc/enemies_for(datum/overmap_ship_ai/brain)
-	var/list/enemies = fleet_enemies[group_key(brain)]
+	var/list/enemies = fleet_enemies[diplomacy_key(brain)]
 	return isnull(enemies) ? GLOB.overmap_ai_default_enemies[brain.faction] : enemies
 
 /datum/overmap_ai_controller/proc/rebuild_index()
 	var/list/previous = contacts
 	buckets = list()
 	contacts = list()
+	sector_contacts = list()
 	medium_cover = list()
 	index_until = world.time + (0.5 SECONDS)
 	for(var/obj/overmap/entity/ship as anything in SSovermap.vessels)
@@ -69,11 +105,16 @@
 		var/x = ship.get_world_x()
 		var/y = ship.get_world_y()
 		var/radius = overmap_ai_radius(ship)
-		var/targetable = ship.overmap_kind in list(OVERMAP_KIND_SHUTTLE, OVERMAP_KIND_STATION, OVERMAP_KIND_POD)
-		if(istype(ship, /obj/overmap/entity/virtual_structure) && !ship.movable)
-			targetable = FALSE
-		var/list/entry = list("ship" = ship, "x" = x, "y" = y, "radius" = radius, "targetable" = targetable)
+		var/targetable = (ship.overmap_kind in list(OVERMAP_KIND_SHUTTLE, OVERMAP_KIND_STATION, OVERMAP_KIND_POD))
+		if(!isnull(ship.structure_faction))
+			targetable = TRUE
+		var/destroyed = ship.is_ai_destroyed()
+		var/list/entry = list("ship" = ship, "x" = x, "y" = y, "radius" = radius, "targetable" = targetable && !destroyed, "destroyed" = destroyed)
+		var/list/old_entry = previous[ship]
+		if(ship.shuttle && destroyed && old_entry && !old_entry["destroyed"])
+			report_loss(ship)
 		contacts[ship] = entry
+		LAZYADD(sector_contacts[ship.sector], list(entry))
 		if(!(ship in previous))
 			RegisterSignal(ship, COMSIG_QDELETING, PROC_REF(on_ship_deleted))
 		for(var/ix in FLOOR((x - radius) / 128, 1) to FLOOR((x + radius) / 128, 1))
@@ -88,17 +129,45 @@
 		if(!(ship in contacts))
 			UnregisterSignal(ship, COMSIG_QDELETING)
 	var/list/active_groups = list()
+	var/list/active_fleets = list()
 	for(var/datum/overmap_ship_ai/brain as anything in ships)
 		if(!QDELETED(brain) && !QDELETED(brain.owner))
 			active_groups[group_key(brain)] = TRUE
-		if(!QDELETED(brain) && !QDELETED(brain.owner) && brain.role == "medium" && !brain.owner.ai_destroyed && brain.owner.sector)
+			active_fleets[diplomacy_key(brain)] = TRUE
+		if(!QDELETED(brain) && !QDELETED(brain.owner) && brain.role == "medium" && !brain.owner.is_ai_destroyed() && brain.owner.sector)
 			var/key = group_key(brain)
 			medium_cover[key] = (medium_cover[key] || 0) + 1
 
 	for(var/key in fleet_enemies)
-		if(!active_groups[key])
+		if(!active_fleets[key])
 			fleet_enemies -= key
+	for(var/key in fleet_friends)
+		if(!active_fleets[key])
+			fleet_friends -= key
+	for(var/key in fleet_relations)
+		if(!active_fleets[key])
+			fleet_relations -= key
+			continue
+		var/list/relations = fleet_relations[key]
+		for(var/contact in relations)
+			if(findtextEx(contact, "ship/") == 1 && !locateUID(copytext(contact, 6)))
+				relations -= contact
+			else if(findtextEx(contact, "fleet/") == 1 && !active_fleets[copytext(contact, 7)])
+				relations -= contact
 
+	for(var/key in fleet_incidents)
+		if(!active_fleets[key])
+			fleet_incidents -= key
+	for(var/key in fleet_next_report)
+		var/fleet = copytext(key, 1, findlasttext(key, "/"))
+		if(!active_fleets[fleet])
+			fleet_next_report -= key
+	for(var/key in fleet_recognized)
+		if(!active_groups[key])
+			fleet_recognized -= key
+	for(var/key in fleet_reports)
+		if(!active_groups[key])
+			fleet_reports -= key
 	rebuild_fleet_sensors()
 
 /datum/overmap_ai_controller/proc/nearby(datum/overmap_sector/sector, x, y, reach)
@@ -127,6 +196,14 @@
 			clear_index()
 		orders.Cut()
 		fleet_enemies.Cut()
+		fleet_friends.Cut()
+		fleet_relations.Cut()
+		fleet_recognized.Cut()
+		fleet_reports.Cut()
+		for(var/key in fleet_report_queue)
+			clear_report_queue(key)
+		fleet_next_report.Cut()
+		fleet_incidents.Cut()
 		return
 	if(world.time >= index_until)
 		rebuild_index()
@@ -141,9 +218,10 @@
 			brain.think()
 		if(world.tick_usage - budget_start > 5)
 			break
+	process_reports()
 
 /datum/overmap_ship_ai
-	var/obj/overmap/entity/virtual_structure/ai/owner
+	var/obj/overmap/entity/owner
 	var/datum/overmap_ai_controller/controller
 	var/datum/overmap_ai_profile/profile
 	var/role
@@ -152,6 +230,8 @@
 	var/slot
 	var/enabled = TRUE
 	var/state = "patrol"
+	var/reported_state
+	var/target_affiliation
 	var/next_think = 0
 	var/obj/overmap/entity/target
 	var/target_visible = FALSE
@@ -170,12 +250,15 @@
 	var/wanted_x = 0
 	var/wanted_y = 0
 	var/wanted_facing = 0
-	var/list/weapons = list()
+	var/list/obj/machinery/weapons = list()
+	var/list/weapon_snapshots = list()
+	var/list/weapon_targets = list()
+	var/weapon_snapshot_tick = -1
 	var/list/order
 	var/order_index = 1
 	var/order_slot = 0
 
-/datum/overmap_ship_ai/New(obj/overmap/entity/virtual_structure/ai/ship, datum/overmap_ai_controller/manager, class_id, affiliation, squad)
+/datum/overmap_ship_ai/New(obj/overmap/entity/ship, datum/overmap_ai_controller/manager, class_id, affiliation, squad)
 	owner = ship
 	owner.ship_ai = src
 	controller = manager
@@ -189,23 +272,25 @@
 	home_y = owner.get_world_y()
 	wanted_facing = owner.get_facing()
 	next_think = world.time + slot % 5
-	for(var/obj/machinery/gun as anything in owner.virtual_weapons)
-		var/datum/component/ship_weapon/mount = gun.GetComponent(/datum/component/ship_weapon)
-		if(mount)
-			weapons += mount
-	owner.identity_broadcasting = faction != "rogue"
-	owner.identity_iff_ids = faction == "syndicate" ? list(OVERMAP_IFF_SYNDICATE) : faction == "nt" ? list(OVERMAP_IFF_CENTCOM) : list()
-	owner.map_color = faction == "syndicate" ? "#e77575" : faction == "nt" ? "#78bded" : "#bca2e5"
-	owner.identity_color = owner.map_color
-	owner.identity_name = owner.name
-	owner.rebuild_identity_iff()
-	owner.update_overmap_visibility()
+	for(var/obj/machinery/gun in owner.ai_weapons())
+		weapons += gun
+	if(!owner.stationary_ai)
+		var/obj/overmap/entity/virtual_structure/ai/craft = owner
+		if(istype(craft))
+			controller.name_ship(craft, faction, profile)
+		owner.identity_broadcasting = TRUE
+		owner.identity_iff_ids = faction == "syndicate" ? list(OVERMAP_IFF_SYNDICATE) : faction == "nt" ? list(OVERMAP_IFF_CENTCOM) : faction == "erw" ? list(OVERMAP_IFF_ERW) : list()
+		owner.map_color = GLOB.overmap_faction_colors[faction] || COLOR_WHITE
+		owner.identity_color = owner.map_color
+		owner.identity_name = owner.name
+		owner.rebuild_identity_iff()
+		owner.update_overmap_visibility()
 	RegisterSignal(owner, COMSIG_OVERMAP_MANUAL_CONTROL, PROC_REF(on_manual_control))
 	controller.ships += src
 	order = controller.orders[controller.group_key(src)]
 	order_slot = 0
 	for(var/datum/overmap_ship_ai/member as anything in controller.ships)
-		if(member != src && controller.group_key(member) == controller.group_key(src) && !member.owner.ai_destroyed)
+		if(member != src && controller.group_key(member) == controller.group_key(src) && !member.owner.is_ai_destroyed())
 			order_slot++
 	if(order)
 		order["spacing"] = max(order["spacing"], owner.hull_radius * 2 + 12)
@@ -219,6 +304,7 @@
 /datum/overmap_ship_ai/Destroy()
 	controller?.ships -= src
 	if(!QDELETED(controller))
+		controller.release_ship_id(owner)
 		controller.index_until = 0
 	if(owner)
 		UnregisterSignal(owner, COMSIG_OVERMAP_MANUAL_CONTROL)
@@ -230,6 +316,8 @@
 	profile = null
 	order = null
 	weapons = null
+	weapon_snapshots = null
+	weapon_targets = null
 	controller = null
 	return ..()
 
@@ -240,35 +328,37 @@
 	state = "stopped"
 
 /datum/overmap_ship_ai/proc/set_enabled(value)
-	enabled = !!value && !owner.ai_destroyed
+	enabled = !!value && !owner.is_ai_destroyed()
 	if(enabled)
-		owner.flight.release_pilot()
+		owner.flight?.release_pilot()
 	target = null
 	target_visible = FALSE
 	wanted_x = 0
 	wanted_y = 0
-	owner.flight.autopilot = FALSE
-	owner.flight.clear_navigation()
-	owner.flight.held_brake = !enabled
-	owner.flight.engines_state = !owner.ai_destroyed
-	owner.halted = FALSE
-	state = owner.ai_destroyed ? "destroyed" : enabled ? "patrol" : "stopped"
+	if(owner.flight)
+		owner.flight.autopilot = FALSE
+		owner.flight.clear_navigation()
+		owner.flight.held_brake = !enabled
+		owner.flight.engines_state = !owner.is_ai_destroyed()
+	if(!owner.stationary_ai)
+		owner.halted = FALSE
+	state = owner.is_ai_destroyed() ? "destroyed" : enabled ? "patrol" : "stopped"
 	next_think = 0
 
-/datum/overmap_ship_ai/proc/weapon_operational(datum/component/ship_weapon/mount)
-	if(QDELETED(mount) || QDELETED(mount.parent))
+/datum/overmap_ship_ai/proc/weapon_operational(obj/machinery/mount)
+	if(QDELETED(mount) || !weapon_data(mount)["position"])
 		return FALSE
-	var/obj/machinery/gun = mount.parent
+	var/obj/machinery/gun = mount
 	if((gun.stat & BROKEN) || !gun.anchored || world.time < gun.ship_emp_until)
 		return FALSE
 	var/obj/machinery/porta_turret/turret = gun
 	return !istype(turret) || (turret.enabled && !turret.disabled && turret.health > 0)
 
 /datum/overmap_ship_ai/proc/combat_ready()
-	return !QDELETED(owner) && !owner.ai_destroyed && owner.sector && owner.drive_intact() && has_weapons()
+	return !QDELETED(owner) && !owner.is_ai_destroyed() && owner.sector && (owner.stationary_ai || owner.ai_drive_intact()) && has_weapons()
 
 /datum/overmap_ship_ai/proc/has_weapons()
-	for(var/datum/component/ship_weapon/mount as anything in weapons)
+	for(var/obj/machinery/mount as anything in weapons)
 		if(weapon_operational(mount))
 			return TRUE
 	return FALSE
@@ -283,16 +373,20 @@
 	var/obj/overmap/entity/ship = entry?["ship"]
 	if(QDELETED(ship) || ship == owner || ship.sector != owner.sector || !isturf(ship.loc) || ship.hidden_from_sensors || ship.hidden_from_contacts || ship.is_jumping() || !sensors_online())
 		return FALSE
-	if(ship.ship_ai?.owner.ai_destroyed)
+	if(ship.is_ai_destroyed())
 		return FALSE
+	if(!ship.is_overmap_jammed() && owner.iff_detects(ship))
+		return TRUE
 	return (ship.get_world_x() - owner.get_world_x()) ** 2 + (ship.get_world_y() - owner.get_world_y()) ** 2 <= (detection_range() + entry["radius"]) ** 2
 
 /datum/overmap_ship_ai/proc/acquire_target()
 	target_visible = FALSE
+	var/obj/overmap/entity/previous_target = target
+	var/previous_affiliation = target_affiliation
 	if(order?["kind"] == "attack")
 		target = locateUID(order["target"])
 		var/list/assigned = controller.contacts[target]
-		if(QDELETED(target) || target.sector != owner.sector || target.ship_ai?.owner.ai_destroyed)
+		if(QDELETED(target) || target.sector != owner.sector || target.is_ai_destroyed() || is_fleet_member(target))
 			target = null
 			return
 		if(!can_see(assigned))
@@ -314,9 +408,27 @@
 		last_vx = target.speed[1] * OVERMAP_TILE_SPAN * (1 SECONDS)
 		last_vy = target.speed[2] * OVERMAP_TILE_SPAN * (1 SECONDS)
 		last_seen = world.time
-	else if(QDELETED(target) || target.sector != owner.sector || (controller.contacts[target] && !hostile(perceived_faction(target))) || world.time - last_seen > (8 SECONDS))
+	else if(QDELETED(target) || target.sector != owner.sector || (controller.contacts[target] && !hostile_to(target)) || world.time - last_seen > (8 SECONDS))
 		target = null
+
+	if(target_visible)
+		target_affiliation = perceived_faction(target)
+		if(target != previous_target)
+			report("engage", target)
+	if(previous_target && previous_target != target && previous_affiliation == "unknown" && !QDELETED(previous_target) && previous_target.sector == owner.sector && !hostile_to(previous_target) && perceived_faction(previous_target) != "unknown")
+		report("cancel", previous_target)
 
 /datum/overmap_ship_ai/proc/flight_control(elapsed)
 	owner.flight.match_navigation_velocity(wanted_x / (1 SECONDS), wanted_y / (1 SECONDS), elapsed)
 	return wanted_facing + owner.flight.main_axis_angle()
+
+/datum/overmap_ship_ai/proc/weapon_data(obj/machinery/gun)
+	if(weapon_snapshot_tick != world.time)
+		weapon_snapshots = list()
+		weapon_snapshot_tick = world.time
+	var/list/data = weapon_snapshots[gun]
+	if(!data)
+		data = list()
+		SEND_SIGNAL(gun, COMSIG_OVERMAP_WEAPON_QUERY, owner, data)
+		weapon_snapshots[gun] = data
+	return data

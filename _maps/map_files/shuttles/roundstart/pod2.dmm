@@ -1,0 +1,152 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"bDH" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/pod_2)
+"bJg" = (
+/obj/machinery/ship_engine{
+	dir = 4;
+	icon_state = "burst_l"
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/pod_2)
+"cJu" = (
+/turf/simulated/wall/shuttle,
+/area/shuttle/pod_2)
+"dnV" = (
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/shuttle/engine/heater{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/pod_2)
+"ftf" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/pod_2)
+"jNg" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/item/radio/intercom/directional/south,
+/turf/simulated/floor/shuttle,
+/area/shuttle/pod_2)
+"kpz" = (
+/obj/machinery/door/airlock/shuttle{
+	id_tag = "s_docking_airlock";
+	name = "Escape Pod Hatch"
+	},
+/obj/docking_port/mobile/pod{
+	dir = 8;
+	id = "pod2";
+	name = "escape pod 2";
+	pixel_x = -5;
+	port_direction = 2;
+	roundstart_move = null;
+	timid = 1
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/shuttle,
+/area/shuttle/pod_2)
+"kXx" = (
+/obj/machinery/ship_engine{
+	dir = 4;
+	icon_state = "burst_l"
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/pod_2)
+"ocI" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/shuttle/engine/heater{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/pod_2)
+"tjQ" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/machinery/light,
+/obj/machinery/overmap_intercom/directional/south,
+/turf/simulated/floor/shuttle,
+/area/shuttle/pod_2)
+"tNg" = (
+/obj/structure/chair/comfy/shuttle,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/transponder/directional/north,
+/turf/simulated/floor/shuttle,
+/area/shuttle/pod_2)
+"uJg" = (
+/obj/structure/chair/comfy/shuttle,
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_y = 32
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/pod_2)
+"wWx" = (
+/turf/simulated/floor/shuttle,
+/area/shuttle/pod_2)
+"xSu" = (
+/turf/template_noop,
+/area/template_noop)
+
+(1,1,1) = {"
+xSu
+cJu
+bDH
+cJu
+xSu
+"}
+(2,1,1) = {"
+cJu
+cJu
+ftf
+cJu
+cJu
+"}
+(3,1,1) = {"
+cJu
+tNg
+wWx
+tjQ
+cJu
+"}
+(4,1,1) = {"
+cJu
+uJg
+wWx
+jNg
+cJu
+"}
+(5,1,1) = {"
+cJu
+dnV
+wWx
+ocI
+cJu
+"}
+(6,1,1) = {"
+xSu
+kXx
+kpz
+bJg
+xSu
+"}

@@ -1150,6 +1150,20 @@
   overflow-y: auto;
 }
 
+.OvermapRadar__docked {
+  position: absolute;
+  z-index: 4;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0.5em 1em;
+  background: rgba(5, 13, 22, 0.85);
+  color: #89c9ec;
+  font-weight: bold;
+  letter-spacing: 0.15em;
+  pointer-events: none;
+}
+
 .OvermapRadar {
   display: flex;
   flex-direction: column;
@@ -2759,4 +2773,12 @@
   &--ready { color: #8cdcab; }
   &--selected { color: #fff2a5; filter: drop-shadow(0 0 3px #f3b84a); }
   &:hover, &:focus-visible { outline: 1px solid #fff2a5; }
+}
+
+.OvermapRadar__projectiles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }

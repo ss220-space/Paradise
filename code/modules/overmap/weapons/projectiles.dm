@@ -75,7 +75,8 @@
 		if(!eyes)
 			eyes = list()
 			frames[owner] = eyes
-		eyes += eye
+		var/list/view_size = getviewsize(viewer.view)
+		eyes += list(list(eye, view_size[1] / 2 + 3, view_size[2] / 2 + 3))
 	for(var/datum/overmap_projectile/shot as anything in sector_projectiles)
 		shot.draw(frames, elapsed)
 

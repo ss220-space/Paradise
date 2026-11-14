@@ -230,6 +230,9 @@
 	if(istype(overmap_object, /obj/overmap/feature/hazard))
 		hazard_clusters = null
 		hazard_shapes = null
+	if(istype(overmap_object, /obj/overmap/entity) && overmap_object.sector != src)
+		var/obj/overmap/entity/vessel = overmap_object
+		vessel.sector_visit++
 	overmap_object.sector = src
 	objects |= overmap_object
 	if(target)

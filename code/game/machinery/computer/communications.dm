@@ -27,6 +27,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 	circuit = /obj/item/circuitboard/communications
 	var/list/messagetitle = list()
 	var/list/messagetext = list()
+	var/overmap_key_printed = FALSE
 	var/currmsg
 
 	var/authenticated = COMM_AUTHENTICATION_NONE
@@ -60,6 +61,8 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 /obj/machinery/computer/communications/Initialize(mapload)
 	. = ..()
 	GLOB.shuttle_caller_list += src
+	if(SSovermap?.initialized)
+		print_overmap_key()
 
 /obj/machinery/computer/communications/Destroy()
 	GLOB.shuttle_caller_list -= src
