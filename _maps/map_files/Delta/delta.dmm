@@ -8954,9 +8954,9 @@
 /area/station/science/robotics)
 "bWK" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
-/obj/item/clothing/under/lawyer/black,
-/obj/item/clothing/under/lawyer/blue,
-/obj/item/clothing/under/kilt,
+/obj/item/clothing/under/rank/procedure/lawyer/black,
+/obj/item/clothing/under/rank/procedure/lawyer/blue,
+/obj/item/clothing/under/costumes/kilt,
 /obj/item/clothing/head/beret,
 /obj/machinery/power/apc/directional/north,
 /obj/structure/cable,
@@ -28437,7 +28437,7 @@
 /obj/item/clothing/suit/pirate_brown,
 /obj/item/clothing/suit/soldiercoat,
 /obj/machinery/alarm/directional/north,
-/obj/item/clothing/under/rank/security/formal,
+/obj/item/clothing/under/rank/security/officer/formal,
 /turf/simulated/floor/plating,
 /area/station/commons/trading)
 "ggW" = (
@@ -42620,8 +42620,8 @@
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/item/stack/sheet/cardboard,
-/obj/item/clothing/under/rank/warden/formal,
-/obj/item/clothing/under/officeruniform,
+/obj/item/clothing/under/rank/security/warden/formal,
+/obj/item/clothing/under/ussp/clown/officer,
 /turf/simulated/floor/plating,
 /area/station/commons/trading)
 "jdd" = (
@@ -47178,7 +47178,7 @@
 "kdf" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/head/kitty,
-/obj/item/clothing/under/maid,
+/obj/item/clothing/under/costumes/maid,
 /obj/item/clothing/suit/storage/browntrenchcoat,
 /turf/simulated/floor/wood,
 /area/station/commons/cabin/three)
@@ -59873,7 +59873,7 @@
 	},
 /area/station/ai/satellite)
 "mDX" = (
-/obj/item/clothing/under/soviet,
+/obj/item/clothing/under/ussp/soviet,
 /turf/simulated/floor/light,
 /area/station/maintenance/kitchen)
 "mEd" = (
@@ -64950,7 +64950,7 @@
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/suit/leathercoat,
 /obj/item/clothing/head/fedora,
-/obj/item/clothing/under/blacktango,
+/obj/item/clothing/under/dress/blacktango,
 /obj/item/clothing/head/bowlerhat,
 /obj/machinery/light{
 	dir = 1
@@ -89728,7 +89728,7 @@
 	},
 /obj/machinery/alarm/directional/east,
 /obj/item/clothing/suit/soldiercoat,
-/obj/item/clothing/under/soldieruniform,
+/obj/item/clothing/under/ussp/clown/soldier,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},

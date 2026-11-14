@@ -208,10 +208,10 @@
 /area/ruin/powered/seedvault)
 "G" = (
 /obj/structure/closet/crate/hydroponics,
-/obj/item/clothing/under/rank/hydroponics,
-/obj/item/clothing/under/rank/hydroponics,
-/obj/item/clothing/under/rank/hydroponics,
-/obj/item/clothing/under/rank/hydroponics,
+/obj/item/clothing/under/rank/service/hydroponics,
+/obj/item/clothing/under/rank/service/hydroponics,
+/obj/item/clothing/under/rank/service/hydroponics,
+/obj/item/clothing/under/rank/service/hydroponics,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "H" = (

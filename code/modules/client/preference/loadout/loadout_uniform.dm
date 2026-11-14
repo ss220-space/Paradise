@@ -43,44 +43,44 @@
 
 /datum/gear/uniform/suit/soviet
 	index_name = "USSP uniform"
-	path = /obj/item/clothing/under/soviet
+	path = /obj/item/clothing/under/ussp/soviet
 
 /datum/gear/uniform/suit/federal
 	index_name = "Solar Federation uniform"
-	path = /obj/item/clothing/under/solgov/civ
+	path = /obj/item/clothing/under/solgov/marine/civ
 
 /datum/gear/uniform/suit/federal/forest
 	index_name = "Solar Federation forest uniform"
-	path = /obj/item/clothing/under/solgov/forest/civ
+	path = /obj/item/clothing/under/solgov/marine/forest/civ
 
 /datum/gear/uniform/suit/federal/urban
 	index_name = "Solar Federation urban uniform"
-	path = /obj/item/clothing/under/solgov/urban/civ
+	path = /obj/item/clothing/under/solgov/marine/urban/civ
 
 /datum/gear/uniform/suit/kilt
 	index_name = "a kilt"
-	path = /obj/item/clothing/under/kilt
+	path = /obj/item/clothing/under/costumes/kilt
 
 /datum/gear/uniform/suit/executive
 	index_name = "executive suit"
-	path = /obj/item/clothing/under/suit_jacket/really_black
+	path = /obj/item/clothing/under/suit/jacket/really_black
 
 /datum/gear/uniform/suit/amish_suit
 	index_name = "amish suit"
-	path = /obj/item/clothing/under/sl_suit
+	path = /obj/item/clothing/under/suit/sl
 
 /datum/gear/uniform/chaps
 	index_name = "chaps, select"
 	display_name = "Чапсы"
-	path = /obj/item/clothing/under/red_chaps
+	path = /obj/item/clothing/under/suit/red_chaps
 
 /datum/gear/uniform/chaps/New()
 	..()
 	var/list/chaps = list(
-		/obj/item/clothing/under/red_chaps,
-		/obj/item/clothing/under/white_chaps,
-		/obj/item/clothing/under/tan_chaps,
-		/obj/item/clothing/under/brown_chaps,
+		/obj/item/clothing/under/suit/red_chaps,
+		/obj/item/clothing/under/suit/white_chaps,
+		/obj/item/clothing/under/suit/tan_chaps,
+		/obj/item/clothing/under/suit/brown_chaps,
 	)
 	gear_tweaks += new /datum/gear_tweak/path(chaps, src, TRUE)
 /datum/gear/uniform/skirt
@@ -100,7 +100,7 @@
 
 /datum/gear/uniform/skirt/dyeable
 	index_name = "dyeable skirt, color"
-	path = /obj/item/clothing/under/colour/skirt
+	path = /obj/item/clothing/under/miscellaneous/colour/skirt
 
 /datum/gear/uniform/skirt/dyeable/New()
 	..()
@@ -122,11 +122,11 @@
 
 /datum/gear/uniform/skirt/redeveninggown
 	index_name = "red evening gown"
-	path = /obj/item/clothing/under/redeveninggown
+	path = /obj/item/clothing/under/dress/redeveninggown
 
 /datum/gear/uniform/skirt/black
 	index_name = "skirt, black"
-	path = /obj/item/clothing/under/blackskirt
+	path = /obj/item/clothing/under/miscellaneous/blackskirt
 
 /datum/gear/uniform/skirt/job
 	subtype_path = /datum/gear/uniform/skirt/job
@@ -134,27 +134,27 @@
 
 /datum/gear/uniform/skirt/job/ce
 	index_name = "skirt, ce"
-	path = /obj/item/clothing/under/rank/chief_engineer/skirt
+	path = /obj/item/clothing/under/rank/engineering/chief_engineer/skirt
 	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER)
 
 /datum/gear/uniform/skirt/job/atmos
 	index_name = "skirt, atmos"
-	path = /obj/item/clothing/under/rank/atmospheric_technician/skirt
+	path = /obj/item/clothing/under/rank/engineering/atmospheric_technician/skirt
 	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ATMOSTECH)
 
 /datum/gear/uniform/skirt/job/eng
 	index_name = "skirt, engineer"
-	path = /obj/item/clothing/under/rank/engineer/skirt
+	path = /obj/item/clothing/under/rank/engineering/engineer/skirt
 	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ENGINEER)
 
 /datum/gear/uniform/skirt/job/roboticist
 	index_name = "skirt, roboticist"
-	path = /obj/item/clothing/under/rank/roboticist/skirt
+	path = /obj/item/clothing/under/rank/science/roboticist/skirt
 	allowed_roles = list(JOB_TITLE_RD, JOB_TITLE_ROBOTICIST)
 
 /datum/gear/uniform/skirt/job/cmo
 	index_name = "skirt, cmo"
-	path = /obj/item/clothing/under/rank/chief_medical_officer/skirt
+	path = /obj/item/clothing/under/rank/medical/chief_medical_officer/skirt
 	allowed_roles = list(JOB_TITLE_CMO)
 
 /datum/gear/uniform/skirt/job/paramedic
@@ -164,17 +164,17 @@
 
 /datum/gear/uniform/skirt/job/chem
 	index_name = "skirt, chemist"
-	path = /obj/item/clothing/under/rank/chemist/skirt
+	path = /obj/item/clothing/under/rank/medical/chemist/skirt
 	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_CHEMIST)
 
 /datum/gear/uniform/skirt/job/viro
 	index_name = "skirt, virologist"
-	path = /obj/item/clothing/under/rank/virologist/skirt
+	path = /obj/item/clothing/under/rank/medical/virologist/skirt
 	allowed_roles = list(JOB_TITLE_VIROLOGIST)
 
 /datum/gear/uniform/skirt/job/med
 	index_name = "skirt, medical"
-	path = /obj/item/clothing/under/rank/medical/skirt
+	path = /obj/item/clothing/under/rank/medical/doctor/skirt
 	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_MEDICAL_INTERN, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_CORONER)
 
 /datum/gear/uniform/skirt/job/phys
@@ -189,32 +189,32 @@
 
 /datum/gear/uniform/skirt/job/hydro
 	index_name = "skirt, botanist"
-	path = /obj/item/clothing/under/rank/hydroponics/skirt
+	path = /obj/item/clothing/under/rank/service/hydroponics/skirt
 	allowed_roles = list(JOB_TITLE_BOTANIST)
 
 /datum/gear/uniform/skirt/job/sci
 	index_name = "skirt, scientist"
-	path = /obj/item/clothing/under/rank/scientist/skirt
+	path = /obj/item/clothing/under/rank/science/scientist/skirt
 	allowed_roles = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENCE_STUDENT)
 
 /datum/gear/uniform/skirt/job/cargo
 	index_name = "skirt, cargo"
-	path = /obj/item/clothing/under/rank/cargotech/skirt
+	path = /obj/item/clothing/under/rank/cargo/cargotech/skirt
 	allowed_roles = list(JOB_TITLE_QUARTERMASTER, JOB_TITLE_CARGOTECH)
 
 /datum/gear/uniform/skirt/job/qm
 	index_name = "skirt, QM"
-	path = /obj/item/clothing/under/rank/cargo/skirt
+	path = /obj/item/clothing/under/rank/cargo/qm/skirt
 	allowed_roles = list(JOB_TITLE_QUARTERMASTER)
 
 /datum/gear/uniform/skirt/job/warden
 	index_name = "skirt, warden"
-	path = /obj/item/clothing/under/rank/warden/skirt
+	path = /obj/item/clothing/under/rank/security/warden/skirt
 	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN)
 
 /datum/gear/uniform/skirt/job/security
 	index_name = "skirt, security"
-	path = /obj/item/clothing/under/rank/security/skirt
+	path = /obj/item/clothing/under/rank/security/officer/skirt
 	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_OFFICER, JOB_TITLE_PILOT)
 
 /datum/gear/uniform/skirt/job/podpilot
@@ -224,42 +224,42 @@
 
 /datum/gear/uniform/skirt/job/head_of_security
 	index_name = "skirt, hos"
-	path = /obj/item/clothing/under/rank/head_of_security/skirt
+	path = /obj/item/clothing/under/rank/security/head_of_security/skirt
 	allowed_roles = list(JOB_TITLE_HOS)
 
 /datum/gear/uniform/skirt/job/ntrep
 	index_name = "skirt, nt rep"
-	path = /obj/item/clothing/under/rank/ntrep/skirt
+	path = /obj/item/clothing/under/rank/procedure/ntrep/skirt
 	allowed_roles = list(JOB_TITLE_REPRESENTATIVE)
 
 /datum/gear/uniform/skirt/job/blueshield
 	index_name = "skirt, blueshield"
-	path = /obj/item/clothing/under/rank/blueshield/skirt
+	path = /obj/item/clothing/under/rank/procedure/blueshield/skirt
 	allowed_roles = list(JOB_TITLE_BLUESHIELD)
 
 /datum/gear/uniform/skirt/job/librarian
 	index_name = "skirt, librarian"
-	path = /obj/item/clothing/under/suit_jacket/red/skirt
+	path = /obj/item/clothing/under/suit/jacket/red/skirt
 	allowed_roles = list(JOB_TITLE_LIBRARIAN)
 
 /datum/gear/uniform/skirt/job/bartender
 	index_name = "skirt, bartender"
-	path = /obj/item/clothing/under/rank/bartender/skirt
+	path = /obj/item/clothing/under/rank/service/bartender/skirt
 	allowed_roles = list(JOB_TITLE_BARTENDER)
 
 /datum/gear/uniform/skirt/job/chaplain
 	index_name = "skirt, chaplain"
-	path = /obj/item/clothing/under/rank/chaplain/skirt
+	path = /obj/item/clothing/under/rank/service/chaplain/skirt
 	allowed_roles = list(JOB_TITLE_CHAPLAIN)
 
 /datum/gear/uniform/skirt/job/nanotrasenofficer
 	index_name = "skirt, NNO"
-	path = /obj/item/clothing/under/rank/centcom/officer/skirt
+	path = /obj/item/clothing/under/rank/centcom/lieutenant/skirt
 	allowed_roles = list(JOB_TITLE_CCOFFICER)
 
 /datum/gear/uniform/skirt/job/internalaffairs
 	index_name = "skirt, lawyer"
-	path = /obj/item/clothing/under/rank/lawyer/skirt
+	path = /obj/item/clothing/under/rank/procedure/internal/skirt
 	allowed_roles = list(JOB_TITLE_LAWYER)
 
 /datum/gear/uniform/medical
@@ -268,15 +268,15 @@
 /datum/gear/uniform/medical/scrubs
 	index_name = "medical scrubs, select"
 	display_name = "Медицинская одежда"
-	path = /obj/item/clothing/under/rank/medical/purple
+	path = /obj/item/clothing/under/rank/medical/scrub/purple
 	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_MEDICAL_INTERN)
 
 /datum/gear/uniform/medical/scrubs/New()
 	..()
 	var/list/scrubs = list(
-		/obj/item/clothing/under/rank/medical/purple,
-		/obj/item/clothing/under/rank/medical/lightgreen,
-		/obj/item/clothing/under/rank/medical/green
+		/obj/item/clothing/under/rank/medical/scrub/purple,
+		/obj/item/clothing/under/rank/medical/scrub/lightgreen,
+		/obj/item/clothing/under/rank/medical/scrub/green
 	)
 	gear_tweaks += new /datum/gear_tweak/path(scrubs, src, TRUE)
 
@@ -285,22 +285,22 @@
 
 /datum/gear/uniform/sec/formal
 	index_name = "security uniform, formal"
-	path = /obj/item/clothing/under/rank/security/formal
+	path = /obj/item/clothing/under/rank/security/officer/formal
 	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_OFFICER, JOB_TITLE_PILOT)
 
 /datum/gear/uniform/sec/secorporate
 	index_name = "security uniform, corporate"
-	path = /obj/item/clothing/under/rank/security/corp
+	path = /obj/item/clothing/under/rank/security/officer/corp
 	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_OFFICER, JOB_TITLE_PILOT)
 
 /datum/gear/uniform/sec/dispatch
 	index_name = "security uniform, dispatch"
-	path = /obj/item/clothing/under/rank/dispatch
+	path = /obj/item/clothing/under/rank/security/officer/dispatch
 	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_OFFICER, JOB_TITLE_PILOT)
 
 /datum/gear/uniform/sec/casual
 	index_name = "security uniform, casual"
-	path = /obj/item/clothing/under/rank/security2
+	path = /obj/item/clothing/under/rank/security/officer/alt
 	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_OFFICER, JOB_TITLE_PILOT)
 
 /datum/gear/uniform/cargo
@@ -308,17 +308,17 @@
 
 /datum/gear/uniform/cargo/qm
 	index_name = "quartermaster dress"
-	path = /obj/item/clothing/under/rank/cargo/alt
+	path = /obj/item/clothing/under/rank/cargo/qm/alt
 	allowed_roles = list(JOB_TITLE_QUARTERMASTER)
 
 /datum/gear/uniform/cargo/tech
 	index_name = "cargo technician dress"
-	path = /obj/item/clothing/under/rank/cargotech/alt
+	path = /obj/item/clothing/under/rank/cargo/cargotech/alt
 	allowed_roles = list(JOB_TITLE_QUARTERMASTER, JOB_TITLE_CARGOTECH)
 
 /datum/gear/uniform/cargo/miner
 	index_name = "shaft miner sweater"
-	path = /obj/item/clothing/under/rank/miner/alt
+	path = /obj/item/clothing/under/rank/cargo/miner/alt
 	allowed_roles = list(JOB_TITLE_QUARTERMASTER, JOB_TITLE_MINER, JOB_TITLE_MINING_MEDIC)
 
 /datum/gear/uniform/shorts
@@ -384,52 +384,52 @@
 
 /datum/gear/uniform/hawaii
 	index_name = "hawaiian shirt (red)"
-	path = /obj/item/clothing/under/redhawaiianshirt
+	path = /obj/item/clothing/under/miscellaneous/redhawaiianshirt
 
 /datum/gear/uniform/hawaii/pink
 	index_name = "hawaiian shirt (pink)"
-	path = /obj/item/clothing/under/pinkhawaiianshirt
+	path = /obj/item/clothing/under/miscellaneous/pinkhawaiianshirt
 
 /datum/gear/uniform/hawaii/blue
 	index_name = "hawaiian shirt (blue)"
-	path = /obj/item/clothing/under/bluehawaiianshirt
+	path = /obj/item/clothing/under/miscellaneous/bluehawaiianshirt
 
 /datum/gear/uniform/hawaii/orange
 	index_name = "hawaiian shirt (orange)"
-	path = /obj/item/clothing/under/orangehawaiianshirt
+	path = /obj/item/clothing/under/miscellaneous/orangehawaiianshirt
 
 /datum/gear/uniform/ussptracksuit_red
 	index_name = "track suit (red)"
-	path = /obj/item/clothing/under/ussptracksuit_red
+	path = /obj/item/clothing/under/ussp/tracksuit_red
 
 /datum/gear/uniform/ussptracksuit_blue
 	index_name = "track suit (blue)"
-	path = /obj/item/clothing/under/ussptracksuit_blue
+	path = /obj/item/clothing/under/ussp/tracksuit_blue
 
 /datum/gear/uniform/dress50s
 	index_name = "old Soviet dress"
-	path = /obj/item/clothing/under/dress50s
+	path = /obj/item/clothing/under/dress/ussp
 
 /datum/gear/uniform/bandit_uniform
 	index_name = "bandit uniform"
-	path = /obj/item/clothing/under/bandit
+	path = /obj/item/clothing/under/miscellaneous/bandit
 
 /datum/gear/uniform/goon_uniform
 	index_name = "goon uniform"
-	path = /obj/item/clothing/under/goon
+	path = /obj/item/clothing/under/miscellaneous/goon
 
 /datum/gear/uniform/gopnik_uniform
 	index_name = "gopnik uniform"
-	path = /obj/item/clothing/under/gopnik
+	path = /obj/item/clothing/under/miscellaneous/gopnik
 
 /datum/gear/uniform/chainsmoker
 	index_name = "chainsmoker uniform"
-	path = /obj/item/clothing/under/chainsmoker
+	path = /obj/item/clothing/under/miscellaneous/chainsmoker
 
 /datum/gear/uniform/male_club_uniform
 	index_name = "male club uniform"
-	path = /obj/item/clothing/under/maleclub
+	path = /obj/item/clothing/under/miscellaneous/maleclub
 
 /datum/gear/uniform/girl_club_uniform
 	index_name = "girl club uniform"
-	path = /obj/item/clothing/under/girlclub
+	path = /obj/item/clothing/under/miscellaneous/girlclub

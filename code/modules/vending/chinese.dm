@@ -30,7 +30,7 @@
 		/obj/item/poster/cheng = 5,
 		/obj/item/storage/box/mr_cheng = 3,
 		/obj/item/clothing/head/rice_hat = 3,
-		/obj/item/clothing/under/martialsuit/random = 1,
+		/obj/item/clothing/under/miscellaneous/martialsuit/random = 1,
 	)
 
 /obj/machinery/vending/chinese/get_ru_names()

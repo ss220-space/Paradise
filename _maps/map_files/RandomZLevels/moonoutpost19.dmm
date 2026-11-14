@@ -192,7 +192,7 @@
 	item_state = "facehugger_impregnated";
 	stat = 2
 	},
-/obj/item/clothing/under/rank/security,
+/obj/item/clothing/under/rank/security/officer,
 /obj/item/clothing/suit/armor/vest,
 /obj/item/melee/baton/security/loaded,
 /obj/item/clothing/head/helmet,
@@ -5278,7 +5278,7 @@
 	name = "Kitchen Crate"
 	},
 /obj/item/storage/box/mousetraps,
-/obj/item/clothing/under/waiter,
+/obj/item/clothing/under/miscellaneous/waiter,
 /turf/simulated/floor/plasteel/t0c{
 	icon_state = "showroomfloor"
 	},
@@ -5955,7 +5955,7 @@
 /obj/structure/table,
 /obj/structure/bedsheetbin,
 /obj/item/clothing/accessory/black,
-/obj/item/clothing/under/lawyer/black,
+/obj/item/clothing/under/rank/procedure/lawyer/black,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "barber";
 	name = "floor"
@@ -6395,7 +6395,7 @@
 /obj/structure/closet/secure_closet/personal/cabinet{
 	req_access = list(271)
 	},
-/obj/item/clothing/under/suit_jacket/navy,
+/obj/item/clothing/under/suit/jacket/navy,
 /turf/simulated/floor/carpet,
 /area/moonoutpost19/mo19arrivals)
 "oB" = (
@@ -6585,7 +6585,7 @@
 /obj/structure/closet/secure_closet/personal/cabinet{
 	req_access = list(271)
 	},
-/obj/item/clothing/under/assistantformal,
+/obj/item/clothing/under/miscellaneous/assistantformal,
 /turf/simulated/floor/carpet,
 /area/moonoutpost19/mo19arrivals)
 "pa" = (
@@ -6604,7 +6604,7 @@
 /obj/structure/closet/secure_closet/personal/cabinet{
 	req_access = list(271)
 	},
-/obj/item/clothing/under/suit_jacket/burgundy,
+/obj/item/clothing/under/suit/jacket/burgundy,
 /turf/simulated/floor/carpet{
 	germ_level = 20
 	},

@@ -11,7 +11,7 @@
 "af" = (
 /obj/item/clothing/shoes/jackboots,
 /obj/item/clothing/head/sovietsidecap,
-/obj/item/clothing/under/soviet,
+/obj/item/clothing/under/ussp/soviet,
 /obj/item/clothing/suit/sovietcoat,
 /obj/item/clothing/head/ushanka,
 /obj/structure/closet/secure_closet/personal/cabinet{
@@ -429,7 +429,7 @@
 "hJ" = (
 /obj/item/clothing/shoes/jackboots,
 /obj/item/clothing/head/sovietsidecap,
-/obj/item/clothing/under/soviet,
+/obj/item/clothing/under/ussp/soviet,
 /obj/item/clothing/suit/sovietcoat,
 /obj/item/clothing/head/ushanka,
 /obj/structure/closet/secure_closet/personal/cabinet{
@@ -465,7 +465,7 @@
 	},
 /obj/item/clothing/shoes/jackboots,
 /obj/item/clothing/head/sovietsidecap,
-/obj/item/clothing/under/soviet,
+/obj/item/clothing/under/ussp/soviet,
 /obj/item/clothing/suit/sovietcoat,
 /obj/item/clothing/head/ushanka,
 /turf/simulated/floor/plating,
@@ -751,7 +751,7 @@
 	},
 /obj/item/clothing/suit/sovietcoat/officer,
 /obj/item/clothing/head/sovietofficerhat,
-/obj/item/clothing/under/sovietofficer,
+/obj/item/clothing/under/ussp/soviet/officer,
 /obj/item/clothing/gloves/combat,
 /obj/item/clothing/shoes/combat/commando,
 /obj/item/radio/headset/alt/soviet,
@@ -2444,7 +2444,7 @@
 "OR" = (
 /obj/item/clothing/shoes/jackboots,
 /obj/item/clothing/head/sovietsidecap,
-/obj/item/clothing/under/soviet,
+/obj/item/clothing/under/ussp/soviet,
 /obj/item/clothing/suit/sovietcoat,
 /obj/item/clothing/head/ushanka,
 /obj/effect/decal/cleanable/dirt,

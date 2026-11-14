@@ -607,13 +607,13 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 
 /obj/effect/landmark/costume/gladiator/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/gladiator(loc)
+	new /obj/item/clothing/under/costumes/gladiator(loc)
 	new /obj/item/clothing/head/helmet/gladiator(loc)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/madscientist/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/gimmick/rank/captain/suit(loc)
+	new /obj/item/clothing/under/suit/gimmick/captain(loc)
 	new /obj/item/clothing/head/flatcap(loc)
 	new /obj/item/clothing/suit/storage/labcoat/mad(loc)
 	new /obj/item/clothing/glasses/gglasses(loc)
@@ -621,7 +621,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 
 /obj/effect/landmark/costume/elpresidente/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/gimmick/rank/captain/suit(loc)
+	new /obj/item/clothing/under/suit/gimmick/captain(loc)
 	new /obj/item/clothing/head/flatcap(loc)
 	new /obj/item/clothing/mask/cigarette/cigar/havana(loc)
 	new /obj/item/clothing/shoes/jackboots(loc)
@@ -629,13 +629,13 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 
 /obj/effect/landmark/costume/nyangirl/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/schoolgirl(loc)
+	new /obj/item/clothing/under/costumes/schoolgirl(loc)
 	new /obj/item/clothing/head/kitty(loc)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/maid/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/blackskirt(loc)
+	new /obj/item/clothing/under/miscellaneous/blackskirt(loc)
 	var/choice = pick(
 		/obj/item/clothing/head/beret,
 		/obj/item/clothing/head/rabbitears,
@@ -647,7 +647,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 /obj/effect/landmark/costume/butler/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/suit/wcoat(loc)
-	new /obj/item/clothing/under/suit_jacket(loc)
+	new /obj/item/clothing/under/suit/jacket(loc)
 	new /obj/item/clothing/head/that(loc)
 	return INITIALIZE_HINT_QDEL
 
@@ -655,14 +655,14 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	. = ..()
 	new /obj/item/clothing/gloves/color/white(loc)
 	new /obj/item/clothing/shoes/color/white(loc)
-	new /obj/item/clothing/under/scratch(loc)
+	new /obj/item/clothing/under/miscellaneous/scratch(loc)
 	if(prob(30))
 		new /obj/item/clothing/head/cueball(loc)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/highlander/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/kilt(loc)
+	new /obj/item/clothing/under/costumes/kilt(loc)
 	new /obj/item/clothing/head/beret(loc)
 	return INITIALIZE_HINT_QDEL
 
@@ -677,7 +677,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	new choice(loc)
 	new /obj/item/clothing/shoes/color/black(loc)
 	new /obj/item/cane(loc)
-	new /obj/item/clothing/under/sl_suit(loc)
+	new /obj/item/clothing/under/suit/sl(loc)
 	new /obj/item/clothing/mask/fakemoustache(loc)
 	return INITIALIZE_HINT_QDEL
 
@@ -689,13 +689,13 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 
 /obj/effect/landmark/costume/nightowl/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/owl(loc)
+	new /obj/item/clothing/under/costumes/owl(loc)
 	new /obj/item/clothing/mask/gas/owl_mask(loc)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/waiter/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/waiter(loc)
+	new /obj/item/clothing/under/miscellaneous/waiter(loc)
 	var/choice= pick(
 		/obj/item/clothing/head/kitty,
 		/obj/item/clothing/head/rabbitears,
@@ -706,7 +706,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 
 /obj/effect/landmark/costume/pirate/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/pirate(loc)
+	new /obj/item/clothing/under/costumes/pirate(loc)
 	new /obj/item/clothing/suit/pirate_black(loc)
 	var/choice = pick(
 		/obj/item/clothing/head/pirate,
@@ -718,7 +718,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 
 /obj/effect/landmark/costume/commie/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/soviet(loc)
+	new /obj/item/clothing/under/ussp/soviet(loc)
 	new /obj/item/clothing/head/ushanka(loc)
 	return INITIALIZE_HINT_QDEL
 
@@ -742,7 +742,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 
 /obj/effect/landmark/costume/cutewitch/Initialize(mapload)
 	. = ..()
-	new /obj/item/clothing/under/sundress(loc)
+	new /obj/item/clothing/under/dress/sun(loc)
 	new /obj/item/clothing/head/witchwig(loc)
 	new /obj/item/twohanded/staff/broom(loc)
 	return INITIALIZE_HINT_QDEL
@@ -757,13 +757,13 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 /obj/effect/landmark/costume/sexyclown/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/mask/gas/clown_hat/sexy(loc)
-	new /obj/item/clothing/under/rank/clown/sexy(loc)
+	new /obj/item/clothing/under/rank/service/clown/sexy(loc)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/sexymime/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/mask/gas/mime/sexy(loc)
-	new /obj/item/clothing/under/sexymime(loc)
+	new /obj/item/clothing/under/service/mime/sexy(loc)
 	return INITIALIZE_HINT_QDEL
 
 // MARK: RUIN

@@ -1,6 +1,7 @@
 /obj/item/clothing/suit/storage/labcoat
 	name = "labcoat"
 	desc = "Стерильный белый халат. Защищает тело и одежду от попадания на неё опасных реагентов."
+	icon = 'icons/obj/clothing/suits/labcoat.dmi'
 	icon_state = "labcoat_open"
 	item_state = "labcoat_open"
 	ignore_suitadjust = FALSE

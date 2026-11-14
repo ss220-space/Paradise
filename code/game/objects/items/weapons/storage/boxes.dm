@@ -1195,7 +1195,7 @@
 
 /obj/item/storage/box/sec/populate_contents()
 	new /obj/item/clothing/head/helmet(src)
-	new /obj/item/clothing/under/rank/security(src)
+	new /obj/item/clothing/under/rank/security/officer(src)
 	new /obj/item/clothing/shoes/jackboots(src)
 	new /obj/item/clothing/gloves/combat(src)
 	new /obj/item/storage/backpack/security(src)
@@ -1350,7 +1350,7 @@
 
 /obj/item/storage/box/bombsecurity/populate_contents()
 	new /obj/item/clothing/suit/bomb_suit/security(src)
-	new /obj/item/clothing/under/rank/security(src)
+	new /obj/item/clothing/under/rank/security/officer(src)
 	new /obj/item/clothing/shoes/color/brown(src)
 	new /obj/item/clothing/head/bomb_hood/security(src)
 

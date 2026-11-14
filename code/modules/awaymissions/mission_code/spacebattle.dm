@@ -655,7 +655,7 @@
 	name = "Bridge Officer"
 	mob_name = "Bridge Officer"
 	id = /obj/item/card/id/away/old/sec
-	uniform = /obj/item/clothing/under/rank/blueshield{name = "Bridge Officer uniform"}
+	uniform = /obj/item/clothing/under/rank/procedure/blueshield{name = "Bridge Officer uniform"}
 	belt = /obj/item/clothing/accessory/holster/waist
 	suit = /obj/item/clothing/suit/armor/vest/security
 	shoes = /obj/item/clothing/shoes/jackboots

@@ -167,7 +167,7 @@
 	var/complete = 0
 
 /obj/effect/mob_spawn/human/addition_goal/funeral
-	uniform = /obj/item/clothing/under/suit_jacket/charcoal
+	uniform = /obj/item/clothing/under/suit/jacket/charcoal
 	shoes = /obj/item/clothing/shoes/centcom
 
 #undef CORPSE_METHOD_CREMATION

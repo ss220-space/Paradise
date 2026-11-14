@@ -505,7 +505,7 @@ GLOBAL_LIST_INIT(durathread_recipes, list(
 	new/datum/stack_recipe("durathread beanie", /obj/item/clothing/head/beanie/durathread, 2, time = 4 SECONDS),
 	new/datum/stack_recipe("durathread beret", /obj/item/clothing/head/beret/durathread, 2, time = 4 SECONDS),
 	new/datum/stack_recipe("durathread duffelbag", /obj/item/storage/backpack/duffel/durathread, 6, time = 4 SECONDS),
-	new/datum/stack_recipe("durathread jumpsuit", /obj/item/clothing/under/misc/durathread, 4, time = 4 SECONDS),
+	new/datum/stack_recipe("durathread jumpsuit", /obj/item/clothing/under/miscellaneous/durathread, 4, time = 4 SECONDS),
 ))
 
 /obj/item/stack/sheet/durathread

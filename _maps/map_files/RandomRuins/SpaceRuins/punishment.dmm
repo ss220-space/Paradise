@@ -78,7 +78,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/powered)
 "P" = (
-/obj/item/clothing/under/rank/atmospheric_technician,
+/obj/item/clothing/under/rank/engineering/atmospheric_technician,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/powered)
 "T" = (

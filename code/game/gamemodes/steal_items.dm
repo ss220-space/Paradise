@@ -715,31 +715,31 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	min=3
 	max=6
 	type_list = list(
-		/obj/item/clothing/under/det,
+		/obj/item/clothing/under/security/det,
 		/obj/item/clothing/suit/storage/det_suit,
-		/obj/item/clothing/under/rank/warden,
+		/obj/item/clothing/under/rank/security/warden,
 		/obj/item/clothing/suit/armor/vest/warden,
-		/obj/item/clothing/under/rank/head_of_security,
+		/obj/item/clothing/under/rank/security/head_of_security,
 		/obj/item/clothing/suit/armor/hos,
 		/obj/item/clothing/suit/storage/labcoat/cmo,
-		/obj/item/clothing/under/rank/chief_medical_officer,
-		/obj/item/clothing/under/rank/research_director,
-		/obj/item/clothing/under/rank/chief_engineer,
+		/obj/item/clothing/under/rank/medical/chief_medical_officer,
+		/obj/item/clothing/under/rank/science/research_director,
+		/obj/item/clothing/under/rank/engineering/chief_engineer,
 		/obj/item/clothing/suit/armor/vest/capcarapace,
 		/obj/item/clothing/under/rank/captain,
 		/obj/item/clothing/suit/hop_jacket,
-		/obj/item/clothing/under/rank/ntrep,
-		/obj/item/clothing/under/rank/ntrep/skirt,
+		/obj/item/clothing/under/rank/procedure/ntrep,
+		/obj/item/clothing/under/rank/procedure/ntrep/skirt,
 		/obj/item/clothing/suit/storage/ntrep,
-		/obj/item/clothing/under/rank/blueshield,
+		/obj/item/clothing/under/rank/procedure/blueshield,
 		/obj/item/clothing/suit/armor/vest/blueshield,
 		/obj/item/clothing/suit/judgerobe,
-		/obj/item/clothing/under/rank/clown,	//honk honk... ur panties my now
+		/obj/item/clothing/under/rank/service/clown,	//honk honk... ur panties my now
 		/obj/item/clothing/mask/gas/clown_hat,
 		/obj/item/clothing/shoes/clown_shoes,
-		/obj/item/clothing/under/mime,
+		/obj/item/clothing/under/rank/service/mime,
 		/obj/item/clothing/mask/gas/mime,
-		/obj/item/clothing/under/rank/lawyer,
+		/obj/item/clothing/under/rank/procedure/internal,
 		/obj/item/clothing/suit/storage/lawyer,
 	)
 

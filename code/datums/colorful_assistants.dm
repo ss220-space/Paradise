@@ -129,8 +129,8 @@
 			- /obj/item/clothing/under/color/blue/dodgeball \
 			- /obj/item/clothing/under/color/orange/prison \
 			- /obj/item/clothing/under/color/red/dodgeball \
-			- /obj/item/clothing/under/color/red/jersey \
-			- /obj/item/clothing/under/color/blue/jersey \
+			- /obj/item/clothing/under/color/miscellaneous/red/jersey \
+			- /obj/item/clothing/under/color/miscellaneous/blue/jersey \
 			- /obj/item/clothing/under/color/random \
 			/*- /obj/item/clothing/under/color/grey/ancient \*/
 			- /obj/item/clothing/under/color/black/ghost \

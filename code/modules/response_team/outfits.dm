@@ -33,7 +33,7 @@
 	ert_job = JOB_TITLE_ERT_LEADER
 	special_message = "В обычных условий вы подчиняетесь <span class='red'>старшим по рангу офицерам Защиты Активов</span>. \n Впрочем, на время проведения операции вы подчиняетесь <span class='red'>Офицеру Специальных Операций</span>. \n Исключениями являются случаи, когда его приказания прямо противоречат интересам Отдела Защиты Активов или приказаниям членов ОЗА в более высоком звании, чем вы. \n Вы имеете абсолютную власть в рамках вашего отряда, и практически абсолютную в рамках зоны проведения операции. Пресекайте прямое неподчинение, но не забывайте прислушиваться к мнению специалистов."
 	exp_type = EXP_TYPE_COMMAND
-	uniform = /obj/item/clothing/under/rank/centcom_officer/sensor
+	uniform = /obj/item/clothing/under/rank/centcom/official/sensor
 	back = /obj/item/storage/backpack/ert/commander
 	l_ear = /obj/item/radio/headset/ert/alt/commander
 	id = /obj/item/card/id/ert/commander
@@ -136,7 +136,7 @@
 /datum/outfit/job/centcom/response_team/security
 	name = "Штурмовик ОБР"
 	ert_job = JOB_TITLE_ERT_OFFICER
-	uniform = /obj/item/clothing/under/rank/security/sensor
+	uniform = /obj/item/clothing/under/rank/security/officer/sensor
 	back = /obj/item/storage/backpack/ert/security
 	belt = /obj/item/storage/belt/security/sec
 	pda = /obj/item/pda/heads/ert/security
@@ -240,7 +240,7 @@
 	ert_job = JOB_TITLE_ERT_ENGINEER
 	toggle_helmet = TRUE
 	back = /obj/item/storage/backpack/ert/engineer
-	uniform = /obj/item/clothing/under/rank/engineer
+	uniform = /obj/item/clothing/under/rank/engineering/engineer
 	belt = /obj/item/storage/belt/utility/full/multitool
 	pda = /obj/item/pda/heads/ert/engineering
 	id = /obj/item/card/id/ert/engineering
@@ -346,7 +346,7 @@
 /datum/outfit/job/centcom/response_team/medic
 	name = "Медик ОБР"
 	ert_job = JOB_TITLE_ERT_MEDIC
-	uniform = /obj/item/clothing/under/rank/medical
+	uniform = /obj/item/clothing/under/rank/medical/doctor
 	back = /obj/item/storage/backpack/ert/medical
 	pda = /obj/item/pda/heads/ert/medical
 	id = /obj/item/card/id/ert/medic
@@ -466,7 +466,7 @@
 /datum/outfit/job/centcom/response_team/paranormal
 	name = "Инквизитор ОБР"
 	ert_job = JOB_TITLE_ERT_INQUISITOR
-	uniform = /obj/item/clothing/under/rank/chaplain
+	uniform = /obj/item/clothing/under/rank/service/chaplain
 	back = /obj/item/storage/backpack/ert/security
 	gloves = /obj/item/clothing/gloves/combat/swat
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses

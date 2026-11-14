@@ -819,7 +819,7 @@
 "cz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/closet/secure_closet/personal/cabinet,
-/obj/item/clothing/under/pj/blue,
+/obj/item/clothing/under/miscellaneous/pj/blue,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/central_hall)
 "cA" = (
@@ -828,7 +828,7 @@
 	initialize_directions = 7
 	},
 /obj/structure/closet/secure_closet/personal/cabinet,
-/obj/item/clothing/under/suit_jacket/female,
+/obj/item/clothing/under/suit/jacket/female,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/central_hall)
 "cB" = (
@@ -2335,7 +2335,7 @@
 	name = "Kitchen Crate"
 	},
 /obj/item/storage/box/mousetraps,
-/obj/item/clothing/under/waiter,
+/obj/item/clothing/under/miscellaneous/waiter,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -5106,7 +5106,7 @@
 /area/awaymission/UO45/crew_quarters)
 "mw" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
-/obj/item/clothing/under/pj/red,
+/obj/item/clothing/under/miscellaneous/pj/red,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/crew_quarters)
 "mx" = (
@@ -5356,7 +5356,7 @@
 /area/awaymission/UO45/crew_quarters)
 "mZ" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
-/obj/item/clothing/under/suit_jacket/navy,
+/obj/item/clothing/under/suit/jacket/navy,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/crew_quarters)
 "na" = (

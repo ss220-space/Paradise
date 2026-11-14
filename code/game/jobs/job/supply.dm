@@ -37,7 +37,7 @@
 	name = JOB_TITLE_RU_QUARTERMASTER
 	jobtype = /datum/job/head_of_staff/qm
 
-	uniform = /obj/item/clothing/under/rank/cargo
+	uniform = /obj/item/clothing/under/rank/cargo/qm
 	shoes = /obj/item/clothing/shoes/color/brown
 	l_ear = /obj/item/radio/headset/heads/qm
 	glasses = /obj/item/clothing/glasses/sunglasses
@@ -89,7 +89,7 @@
 	name = JOB_TITLE_RU_CARGOTECH
 	jobtype = /datum/job/supply/cargo_tech
 
-	uniform = /obj/item/clothing/under/rank/cargotech
+	uniform = /obj/item/clothing/under/rank/cargo/cargotech
 	l_ear = /obj/item/radio/headset/headset_cargo
 	id = /obj/item/card/id/supply
 	pda = /obj/item/pda/cargo
@@ -126,7 +126,7 @@
 	l_ear = /obj/item/radio/headset/headset_cargo/mining
 	shoes = /obj/item/clothing/shoes/workboots/mining
 	gloves = /obj/item/clothing/gloves/color/black
-	uniform = /obj/item/clothing/under/rank/miner/lavaland
+	uniform = /obj/item/clothing/under/rank/cargo/miner/lavaland
 	l_pocket = /obj/item/reagent_containers/hypospray/autoinjector/survival
 	r_pocket = /obj/item/storage/bag/ore
 	id = /obj/item/card/id/supply
@@ -199,7 +199,7 @@
 	glasses = /obj/item/clothing/glasses/hud/health/meson
 	l_ear = /obj/item/radio/headset/headset_mining_medic
 	shoes = /obj/item/clothing/shoes/workboots/mining
-	uniform = /obj/item/clothing/under/rank/medical/mining_medic
+	uniform = /obj/item/clothing/under/rank/cargo/mining_medic
 	suit = /obj/item/clothing/suit/storage/labcoat/mining_medic
 	l_pocket = /obj/item/roller/holo
 	r_pocket = /obj/item/flash

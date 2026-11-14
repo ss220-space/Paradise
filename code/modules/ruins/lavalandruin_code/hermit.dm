@@ -38,7 +38,7 @@
 		if(1)
 			flavour_text += "Вы были помощником [pick("торговца оружием", "кораблестроителя", "управляющего доком")] на небольшой торговой станции в нескольких секторах отсюда. На вас напали рейдеры, и когда вы добрались до отсека с капсулами, \
 			осталась только одна. Вы заняли её и запустили в одиночестве, а толпа испуганных лиц, теснящихся у шлюза, пока двигатели капсулы запустились и отправили вас в этот ад, навсегда осталась в вашей памяти."
-			outfit.uniform = /obj/item/clothing/under/assistantformal
+			outfit.uniform = /obj/item/clothing/under/miscellaneous/assistantformal
 			outfit.shoes = /obj/item/clothing/shoes/color/black
 			outfit.back = /obj/item/storage/backpack
 			skills_ref_job = JOB_TITLE_OFFICER
@@ -52,7 +52,7 @@
 		if(3)
 			flavour_text += "Вы были врачом на одной из космических станций \"Нанотрейзен\", но вы оставили позади тиранию этой проклятой корпорации и всё, что она представляет. Из метафорического ада в буквальный, \
 			вы всё же скучаете по переработанному воздуху и тёплым полам того, что оставили позади... но вы всё равно предпочли бы быть здесь, чем там."
-			outfit.uniform = /obj/item/clothing/under/rank/medical
+			outfit.uniform = /obj/item/clothing/under/rank/medical/doctor
 			outfit.suit = /obj/item/clothing/suit/storage/labcoat
 			outfit.back = /obj/item/storage/backpack/medic
 			outfit.shoes = /obj/item/clothing/shoes/color/black

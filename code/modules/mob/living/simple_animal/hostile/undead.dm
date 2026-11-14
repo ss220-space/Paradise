@@ -199,7 +199,7 @@
 	loot = list(
 		/obj/item/decorations/bouquets/random,
 		/obj/item/clothing/shoes/centcom,
-		/obj/item/clothing/under/suit_jacket/charcoal,
+		/obj/item/clothing/under/suit/jacket/charcoal,
 		/obj/effect/decal/cleanable/blood/gibs,
 		/obj/effect/particle_effect/fluid/smoke/vomiting,
 		/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping,
@@ -224,7 +224,7 @@
 	melee_damage_lower = 25
 	melee_damage_upper = 40
 	loot = list(
-		/obj/item/clothing/under/rank/security,
+		/obj/item/clothing/under/rank/security/officer,
 		/obj/item/clothing/suit/armor/vest/street_judge,
 		/obj/item/clothing/gloves/combat,
 		/obj/item/clothing/shoes/jackboots,
@@ -249,7 +249,7 @@
 	melee_damage_upper = 30
 	loot = list(
 		/obj/item/clothing/suit/pirate_brown,
-		/obj/item/clothing/under/pirate,
+		/obj/item/clothing/under/costumes/pirate,
 		/obj/item/clothing/shoes/fluff/noble_boot,
 		/obj/item/clothing/head/pirate,
 		/obj/item/clothing/glasses/eyepatch,

@@ -103,18 +103,18 @@
 
 /datum/gear/racial/satan
 	index_name = "Satanic clothes"
-	path = /obj/item/clothing/under/satan
+	path = /obj/item/clothing/under/miscellaneous/satan
 	whitelisted_species = list(SPECIES_HUMAN)
 
 /datum/gear/racial/seccie
 	index_name = "seccie clothes"
-	path = /obj/item/clothing/under/tchaikowsky/sechighwaist
+	path = /obj/item/clothing/under/security/tchaikowsky/sechighwaist
 	whitelisted_species = list(SPECIES_HUMAN)
 	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_OFFICER, JOB_TITLE_PILOT)
 
 /datum/gear/racial/highwaistpants
 	index_name = "high waist pants"
-	path = /obj/item/clothing/under/tchaikowsky/highwaistpants
+	path =  /obj/item/clothing/under/pants/tchaikowsky/highwaistpants
 	whitelisted_species = list(SPECIES_HUMAN)
 
 /datum/gear/racial/lowjeans
@@ -124,37 +124,37 @@
 
 /datum/gear/racial/eveningdress
 	index_name = "evening dress"
-	path = /obj/item/clothing/under/tchaikowsky/evening_dress
+	path = /obj/item/clothing/under/dress/tchaikowsky/evening
 	whitelisted_species = list(SPECIES_HUMAN)
 
 /datum/gear/racial/eveningdress/New()
 	..()
 	var/list/eveningdresses = list(
-		/obj/item/clothing/under/tchaikowsky/evening_dress,
-		/obj/item/clothing/under/tchaikowsky/evening_dress/cyan
+		/obj/item/clothing/under/dress/tchaikowsky/evening,
+		/obj/item/clothing/under/dress/tchaikowsky/evening/cyan
 	)
 	gear_tweaks += new /datum/gear_tweak/path(eveningdresses, src, TRUE)
 
 /datum/gear/racial/formaldress
 	index_name = "formal dress"
-	path = /obj/item/clothing/under/tchaikowsky/dress
+	path = /obj/item/clothing/under/dress/tchaikowsky/formal
 	whitelisted_species = list(SPECIES_HUMAN)
 
 /datum/gear/racial/formaldress/New()
 	..()
-	var/list/formdresses = list(/obj/item/clothing/under/tchaikowsky/dress,
-							/obj/item/clothing/under/tchaikowsky/dress/black)
+	var/list/formdresses = list(/obj/item/clothing/under/dress/tchaikowsky/formal,
+							/obj/item/clothing/under/dress/tchaikowsky/black)
 	gear_tweaks += new /datum/gear_tweak/path(formdresses, src, TRUE)
 
 /datum/gear/racial/baseball
 	index_name = "baseball uniform"
-	path = /obj/item/clothing/under/tchaikowsky/baseball
+	path = /obj/item/clothing/under/miscellaneous/tchaikowsky/baseball
 	whitelisted_species = list(SPECIES_HUMAN)
 
 /datum/gear/racial/baseball/New()
 	..()
-	var/list/baseballuniform = list(/obj/item/clothing/under/tchaikowsky/baseball,
-								/obj/item/clothing/under/tchaikowsky/baseball/brown)
+	var/list/baseballuniform = list(/obj/item/clothing/under/miscellaneous/tchaikowsky/baseball,
+								/obj/item/clothing/under/miscellaneous/tchaikowsky/baseball/brown)
 	gear_tweaks += new /datum/gear_tweak/path(baseballuniform, src, TRUE)
 
 /datum/gear/racial/baseballcap

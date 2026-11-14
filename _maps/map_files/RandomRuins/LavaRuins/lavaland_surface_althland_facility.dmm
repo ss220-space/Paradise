@@ -13,7 +13,7 @@
 /area/lavaland/surface/outdoors)
 "aH" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/clothing/under/rank/miner,
+/obj/item/clothing/under/rank/cargo/miner,
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered)
@@ -292,7 +292,7 @@
 "mo" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
-/obj/item/clothing/under/rank/miner,
+/obj/item/clothing/under/rank/cargo/miner,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "nf" = (
@@ -613,7 +613,7 @@
 "yX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/clothing/under/rank/miner,
+/obj/item/clothing/under/rank/cargo/miner,
 /obj/structure/sign/poster/contraband/syndicate_recruitment{
 	pixel_y = 32
 	},
@@ -798,7 +798,7 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
-/obj/item/clothing/under/rank/miner,
+/obj/item/clothing/under/rank/cargo/miner,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "HS" = (
@@ -954,7 +954,7 @@
 "PA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/item/clothing/under/rank/miner,
+/obj/item/clothing/under/rank/cargo/miner,
 /obj/machinery/light_construct/small,
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/ruin/unpowered)
@@ -1020,7 +1020,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
-/obj/item/clothing/under/rank/miner,
+/obj/item/clothing/under/rank/cargo/miner,
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "SO" = (

@@ -2515,7 +2515,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/crashedipcship/aft)
 "Sb" = (
-/obj/item/clothing/under/misc/durathread,
+/obj/item/clothing/under/miscellaneous/durathread,
 /obj/effect/decal/cleanable/ash,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/airless,
