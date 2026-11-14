@@ -895,6 +895,7 @@
 	is_drink = TRUE
 	dispensable_reagents = list(
 		/datum/reagent/water, /datum/reagent/consumable/drink/cold/ice,
+		/datum/reagent/consumable/drink/milk,
 		/datum/reagent/consumable/drink/milk/soymilk, /datum/reagent/consumable/drink/coffee,
 		/datum/reagent/consumable/drink/tea, /datum/reagent/consumable/hot_coco,
 		/datum/reagent/consumable/drink/cold/space_cola, /datum/reagent/consumable/drink/cold/spacemountainwind,
@@ -972,3 +973,4 @@
 
 #undef UPDATE_TYPE_HACK
 #undef UPDATE_TYPE_COMPONENTS
+

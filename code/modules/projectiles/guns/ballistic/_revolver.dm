@@ -8,6 +8,7 @@
 	desc = "Классический револьвер с барабаном на 6 патронов."
 	gender = MALE
 	icon_state = "revolver"
+	item_state = "revolver"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder
 	origin_tech = "combat=3;materials=2"
 	fire_sound = 'sound/weapons/gunshots/1rev.ogg'

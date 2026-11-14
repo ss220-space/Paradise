@@ -51,6 +51,9 @@
 	playsound(target, 'sound/items/drink.ogg', rand(10, 50), TRUE)
 	return ITEM_INTERACT_SUCCESS
 
+/obj/item/reagent_containers/condiment/attack_self(mob/user)
+	interact_with_atom(user, user, null)
+
 /obj/item/reagent_containers/condiment/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	. = ..()
 
