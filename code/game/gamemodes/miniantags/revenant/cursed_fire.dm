@@ -9,12 +9,16 @@
 	var/image/overlay_image
 	var/essence = 0
 	var/mob/living/simple_animal/revenant/flame_inflicter
-	var/list/messages = list(
+	var/static/list/smessages = list(
 		"Жгучая боль пронзает ваше тело насквозь!",
 		"Огонь пожирает вашу сущность, оставляя лишь пустоту!",
 		"Вы чувствуете, как теряете частичку души",
 	)
 	COOLDOWN_DECLARE(message_cooldown)
+
+/datum/status_effect/cursed_flame/Destroy()
+	flame_inflicter = null
+	. = ..()
 
 /datum/status_effect/cursed_flame/on_creation(mob/living/new_owner, set_duration, mob/living/simple_animal/revenant/inflicter)
 	if(set_duration)
