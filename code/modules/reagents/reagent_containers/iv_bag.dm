@@ -65,10 +65,6 @@
 	mode = !mode
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/iv_bag/attack_self_secondary(mob/user)
-	if(has_variable_transfer_amount)
-		select_transfer_amount(user)
-
 /obj/item/reagent_containers/iv_bag/attack_hand()
 	..()
 	update_icon(UPDATE_OVERLAYS)

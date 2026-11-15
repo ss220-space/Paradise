@@ -99,6 +99,8 @@
 
 	/// Dynamic asset cache for gun modification
 	var/datum/asset/simple/gun_modification/gun_modification_asset
+	/// Fix gun modification win double icon generation with signal
+	var/gun_modification_ignore_overlay_signal = FALSE
 
 /*
  * Gun modules
@@ -223,6 +225,8 @@
 	return .
 
 /obj/item/gun/Destroy()
+	SStgui.close_uis(src)
+	UnregisterSignal(src, COMSIG_ATOM_UPDATE_OVERLAYS)
 	QDEL_NULL(gun_light)
 	for(var/attachment in attachments_by_slot)
 		if(!attachments_by_slot[attachment])

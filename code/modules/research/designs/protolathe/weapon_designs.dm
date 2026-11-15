@@ -555,6 +555,7 @@
 /datum/design/upgraded_chemical_flamethrower
 	id = "chem_flamethrower_extended"
 	req_tech = list(RESEARCH_TREE_COMBAT = 6, RESEARCH_TREE_ENGINEERING = 7, RESEARCH_TREE_PLASMA = 5)
+	build_type = PROTOLATHE
 	materials = list(MAT_TITANIUM = 7000, MAT_METAL = 13000, MAT_GOLD = 1000)
 	build_path = /obj/item/chemical_flamethrower/extended
 	category = list(PROTOLATHE_CATEGORY_WEAPON)
