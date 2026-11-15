@@ -75,6 +75,8 @@ type Data = {
   gunName: string;
   slots: Slot[];
   availableModules: Module[];
+  modulesSlot?: string | null;
+  modulesRequest?: number | null;
   stats: GunStats | null;
 };
 
@@ -90,25 +92,43 @@ export const GunModification = (_props: unknown) => {
     gunName,
     slots = [],
     availableModules = [],
+    modulesSlot,
+    modulesRequest,
     stats,
   } = data;
 
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
   const [detachSlot, setDetachSlot] = useState<string | null>(null);
   const [hoveredSlot, setHoveredSlot] = useState<string | null>(null);
+  const [modulesRequestCounter, setModulesRequestCounter] = useState(0);
+  const [pendingModulesRequest, setPendingModulesRequest] = useState<
+    number | null
+  >(null);
 
   const selected = slots.find((slot) => slot.slot === selectedSlot);
   const detaching = slots.find((slot) => slot.slot === detachSlot);
-  const modulesForSelected = selected
-    ? availableModules.filter((module) => module.slot === selected.slot)
-    : [];
+  const modulesForSelected =
+    selected && modulesSlot === selected.slot ? availableModules : [];
+  const modulesPending =
+    pendingModulesRequest !== null && modulesRequest !== pendingModulesRequest;
+
+  const closeModulePicker = () => {
+    setSelectedSlot(null);
+  };
 
   const handleSlotClick = (slot: Slot) => {
     if (slot.installed) {
       setDetachSlot(slot.slot);
-    } else {
-      setSelectedSlot(slot.slot);
+      return;
     }
+    const requestId = modulesRequestCounter + 1;
+    setModulesRequestCounter(requestId);
+    setPendingModulesRequest(requestId);
+    setSelectedSlot(slot.slot);
+    act('request_modules', {
+      slot: slot.slot,
+      request_id: requestId,
+    });
   };
 
   return (
@@ -382,13 +402,12 @@ export const GunModification = (_props: unknown) => {
             <Section
               title={`Установка модуля: ${selected.name}`}
               buttons={
-                <Button
-                  icon="times"
-                  onClick={() => setSelectedSlot(null)}
-                />
+                <Button icon="times" onClick={closeModulePicker} />
               }
             >
-              {modulesForSelected.length > 0 ? (
+              {modulesPending ? (
+                <NoticeBox info>Поиск модулей...</NoticeBox>
+              ) : modulesForSelected.length > 0 ? (
                 <Box maxHeight="50vh" overflowY="auto">
                   <Stack vertical>
                     {modulesForSelected.map((module) => (
@@ -403,7 +422,7 @@ export const GunModification = (_props: unknown) => {
                               slot: selected.slot,
                               module: module.ref,
                             });
-                            setSelectedSlot(null);
+                            closeModulePicker();
                           }}
                         >
                           <Stack align="center">
