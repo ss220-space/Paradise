@@ -154,8 +154,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			return_name = "Пластитановое стекло"
 		else
 			var/datum/reagent/our_reagent = GLOB.chemical_reagents_list[return_name]
-			if(our_reagent && initial(our_reagent.id) == return_name)
-				return_name = initial(our_reagent.name)
+			if(our_reagent)
+				return_name = our_reagent.name
 	return capitalize(return_name)
 
 /obj/machinery/computer/rdconsole/get_ru_names()

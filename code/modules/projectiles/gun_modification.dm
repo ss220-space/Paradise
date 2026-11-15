@@ -59,8 +59,22 @@ GLOBAL_LIST_INIT(gun_module_default_offsets, list(
 /obj/item/gun/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
+		RegisterSignal(src, COMSIG_ATOM_UPDATED_ICON, PROC_REF(on_gun_modification_overlays_updated))
 		ui = new(user, src, "GunModification", "Модификация оружия")
+		ui.set_autoupdate(FALSE)
 		ui.open()
+
+/obj/item/gun/ui_close(mob/user)
+	UnregisterSignal(src, COMSIG_ATOM_UPDATED_ICON)
+	return ..()
+
+/obj/item/gun/proc/on_gun_modification_overlays_updated(datum/source, updates)
+	SIGNAL_HANDLER
+	if(!(updates & UPDATE_OVERLAYS))
+		return
+	if(QDELETED(src) || gun_modification_ignore_overlay_signal)
+		return
+	SStgui.update_uis(src)
 
 /obj/item/gun/ui_assets(mob/user)
 	var/datum/asset/simple/gun_modification/asset = get_gun_modification_asset()
@@ -70,6 +84,10 @@ GLOBAL_LIST_INIT(gun_module_default_offsets, list(
 
 /obj/item/gun/ui_data(mob/user)
 	var/list/data = list()
+	if(QDELETED(src))
+		data["hasGun"] = FALSE
+		return data
+
 	data["hasGun"] = TRUE
 	data["gunIcon"] = null
 	data["imageWidth"] = GUN_MODIFICATION_ICON_SIZE_X
@@ -79,7 +97,6 @@ GLOBAL_LIST_INIT(gun_module_default_offsets, list(
 	data["gunName"] = DECLENT_RU_CAP(src, NOMINATIVE)
 	data["slots"] = get_slots_ui_data(src)
 	data["stats"] = get_gun_stats_ui_data(src)
-	data["availableModules"] = isliving(user) ? get_available_modules_ui_data(src, user) : list()
 
 	var/datum/asset/simple/gun_modification/asset = get_gun_modification_asset()
 	if(asset)
@@ -95,12 +112,25 @@ GLOBAL_LIST_INIT(gun_module_default_offsets, list(
 	if(.)
 		return
 
-	if(!isliving(ui.user))
+	if(QDELETED(src) || !isliving(ui.user))
 		return TRUE
 
 	var/mob/living/user = ui.user
 
 	switch(action)
+		if("request_modules")
+			var/slot = params["slot"]
+			if(!slot)
+				return TRUE
+
+			var/list/modules = get_available_modules_ui_data(src, user, slot)
+			ui.send_update(list(
+				"availableModules" = modules,
+				"modulesSlot" = slot,
+				"modulesRequest" = params["request_id"],
+			))
+			return FALSE
+
 		if("install_module")
 			var/slot = params["slot"]
 			if(!slot)
@@ -119,7 +149,9 @@ GLOBAL_LIST_INIT(gun_module_default_offsets, list(
 			if(attachments_by_slot[slot])
 				return TRUE
 
+			gun_modification_ignore_overlay_signal = TRUE
 			module.try_attach(src, user, instant = TRUE)
+			gun_modification_ignore_overlay_signal = FALSE
 			return TRUE
 
 		if("detach_module")
@@ -132,9 +164,10 @@ GLOBAL_LIST_INIT(gun_module_default_offsets, list(
 				user.balloon_alert(user, "модуль нельзя снять")
 				return TRUE
 
+			gun_modification_ignore_overlay_signal = TRUE
 			if(module.detach_without_check(src, user, put_in_hands = FALSE, instant = TRUE) && !QDELETED(module))
 				store_detached_module(module, user)
-
+			gun_modification_ignore_overlay_signal = FALSE
 			return TRUE
 
 	return TRUE
@@ -297,15 +330,18 @@ GLOBAL_LIST_INIT(gun_module_default_offsets, list(
 
 	return list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 0)
 
-/obj/item/gun/proc/get_available_modules_ui_data(obj/item/gun/gun, mob/living/user)
+/obj/item/gun/proc/get_available_modules_ui_data(obj/item/gun/gun, mob/living/user, slot)
 	var/list/modules = list()
 	var/list/seen = list()
+
+	if(!slot || gun.attachments_by_slot[slot])
+		return modules
 
 	for(var/obj/item/gun_module/module in user.get_all_contents())
 		if(QDELETED(module) || module.gun || module.loc == gun || (module in seen))
 			continue
 
-		if(!module.slot || !(gun.attachable_allowed & module.class))
+		if(module.slot != slot || !(gun.attachable_allowed & module.class))
 			continue
 
 		if(gun.attachments_by_slot[module.slot])
