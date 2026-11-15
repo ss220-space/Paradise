@@ -1,0 +1,4 @@
+author: "Dimempers"
+delete-after: True
+changes:
+  - add: "Добавлены ангельские и дьявольские крылья в донатерский лодаут за 2 тир (PR #10006)"

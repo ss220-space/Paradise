@@ -88,7 +88,7 @@ GLOBAL_LIST_INIT(nullrod_variants, init_nullrod_variants())
 /obj/item/nullrod/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 
-	if(!proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !sanctify_force)
+	if(!proximity_flag || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !sanctify_force)
 		return
 
 	if(isliving(target))
@@ -657,7 +657,7 @@ GLOBAL_LIST_INIT(nullrod_variants, init_nullrod_variants())
 
 /obj/item/nullrod/rosary/bread/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
-	if(!ishuman(user) || !(slot == ITEM_SLOT_HANDS))
+	if(!ishuman(user) || !(slot & ITEM_SLOT_HANDS))
 		STOP_PROCESSING(SSobj, src)
 		return
 

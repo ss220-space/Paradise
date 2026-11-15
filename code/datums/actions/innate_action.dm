@@ -68,7 +68,7 @@
 /// Removes this action as the active ability of the passed mob
 /datum/action/innate/proc/unset_ranged_ability(mob/living/on_who, text_to_show)
 	if(ranged_mousepointer)
-		on_who.client?.mouse_override_icon = initial(owner.client?.mouse_pointer_icon)
+		on_who.client?.mouse_override_icon = null
 		on_who.update_mouse_pointer()
 	if(text_to_show)
 		to_chat(on_who, text_to_show)

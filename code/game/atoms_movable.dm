@@ -488,11 +488,12 @@
 			else if(. <= GRAB_PASSIVE) // Grab got upgraded from a passive one.
 				pulling.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), CHOKEHOLD_TRAIT)
 		if(GRAB_NECK)
+			pulling.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), CHOKEHOLD_TRAIT) // Just in case traits somehow were't applied (like grippedby[... , grab_state_override = GRAB_NECK] proc)
 			if(. >= GRAB_KILL) // Grab got downgraded from kill grab.
 				REMOVE_TRAIT(pulling, TRAIT_FLOORED, CHOKEHOLD_TRAIT)
 		if(GRAB_KILL)
 			if(. <= GRAB_KILL) // Grab got ugraded from neck grab.
-				ADD_TRAIT(pulling, TRAIT_FLOORED, CHOKEHOLD_TRAIT)
+				pulling.add_traits(list(TRAIT_FLOORED, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), CHOKEHOLD_TRAIT) // And like above we re-adding all traits in case of grippedby(... , grab_state_override = GRAB_KILL)
 
 /// Use this to override topmost bump thing in [/turf/proc/Enter()].
 /// Should return an atom to bump.

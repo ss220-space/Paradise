@@ -75,7 +75,7 @@
 /obj/item/organ/internal/cyberimp/eyes/xray
 	name = "X-ray implant"
 	desc = "These cybernetic eye implants will give you X-ray vision. Blinking is futile."
-	implant_color = "#000000"
+	icon_state = "eyes-c-xray"
 	origin_tech = "materials=4;programming=4;biotech=7;magnets=4"
 	vision_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 	see_in_dark = 8
@@ -94,6 +94,60 @@
 
 /obj/item/organ/internal/cyberimp/eyes/thermals/empproof
 	emp_proof = TRUE
+
+/obj/item/organ/internal/cyberimp/eyes/scope
+	name = "Kaleido Optics eyes"
+	desc = "Эти кибернетические глазные импланты позволят вам приближать далёкие объекты. Многие пользователи находят это дезориентирующим и им трудно взаимодействовать с предметами вблизи, когда имплант активен."
+	icon_state = "eyes-c-kaleido"
+	eye_colour = "#6f00ff"
+	flash_protect = FLASH_PROTECTION_EXTRA_SENSITIVE
+	origin_tech = "materials=5;programming=4;biotech=4;magnets=4"
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600)
+	var/scope_range = 0.8 //Only used in initialize. Greatly nerfed zoom range, since you are not taking the time zoom delay the lwap has.
+	var/active = FALSE
+
+/obj/item/organ/internal/cyberimp/eyes/scope/get_ru_names()
+	return alist(
+		NOMINATIVE = "глазной имплант \"Калейдо Оптикс\"",
+		GENITIVE = "глазного импланта \"Калейдо Оптикс\"",
+		DATIVE = "глазному импланту \"Калейдо Оптикс\"",
+		ACCUSATIVE = "глазной имплант \"Калейдо Оптикс\"",
+		INSTRUMENTAL = "глазным имплантом \"Калейдо Оптикс\"",
+		PREPOSITIONAL = "глазном импланте \"Калейдо Оптикс\"",
+	)
+
+/obj/item/organ/internal/cyberimp/eyes/scope/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/scope, zoom_method = ZOOM_METHOD_ITEM_ACTION, range_modifier = scope_range, item_action_type = /datum/action/item_action/organ_action/toggle, flags = SCOPE_CLICK_MIDDLE)
+
+/obj/item/organ/internal/cyberimp/eyes/scope/insert(mob/living/carbon/human/M, special)
+	. = ..()
+	flash_protect = FLASH_PROTECTION_NONE //Resets it to none, so we can just flip to inital each time it is used.
+
+/obj/item/organ/internal/cyberimp/eyes/scope/ui_action_click(mob/user, actiontype)
+	active = !active
+	if(active)
+		flash_protect = initial(flash_protect)
+	else
+		flash_protect = FLASH_PROTECTION_NONE
+
+/obj/item/organ/internal/cyberimp/eyes/scope/hardened
+	name = "Hardened Kaleido Optics eyes"
+	desc = "Эти кибернетические глазные импланты позволят вам приближать далёкие объекты. Многие пользователи находят это дезориентирующим и им трудно взаимодействовать с предметами вблизи, когда имплант активен. Эта пара была усилена для персонала специальных операций и обладает улучшенной функцией приближения."
+	flash_protect = FLASH_PROTECTION_SENSITIVE
+	origin_tech = "materials=6;programming=5;biotech=6;magnets=6;syndicate=3"
+	scope_range = 1.25
+	emp_proof = TRUE
+
+/obj/item/organ/internal/cyberimp/eyes/scope/hardened/get_ru_names()
+	return alist(
+		NOMINATIVE = "укреплённый глазной имплант \"Калейдо Оптикс\"",
+		GENITIVE = "укреплённого глазного импланта \"Калейдо Оптикс\"",
+		DATIVE = "укреплённому глазному импланту \"Калейдо Оптикс\"",
+		ACCUSATIVE = "укреплённый глазной имплант \"Калейдо Оптикс\"",
+		INSTRUMENTAL = "укреплённым глазным имплантом \"Калейдо Оптикс\"",
+		PREPOSITIONAL = "укреплённом глазном импланте \"Калейдо Оптикс\"",
+	)
 
 // HUD implants
 /obj/item/organ/internal/cyberimp/eyes/hud
@@ -187,7 +241,7 @@
 // MARK: mini map implant
 /obj/item/organ/internal/cyberimp/eyes/map
 	name = "citizen map implant"
-	desc = "Имплант для постоянного отображения мини-карты в левом верхнем углу поля зрения пользователя с помощью технологии дополненной реальности."
+	desc = "Имплант для постоянного отображения мини-карты в правом верхнем углу поля зрения пользователя с помощью технологии дополненной реальности."
 	icon_state = "citizen_map_implant"
 	eye_colour = "#4255e6"
 	slot = INTERNAL_ORGAN_EYE_HUD_DEVICE
@@ -210,13 +264,18 @@
 	var/refresh_interval = 1 SECONDS
 	/// Markers auto refresh timer id
 	var/refresh_timer_id = null
+	/// Current cropped minimap
+	var/map_image = null
+	/// Marker icons and pixel positions over the minimap
+	var/list/markers = list()
+	/// Cached marker icons
+	var/static/list/marker_icon_cache = list()
 
 /obj/item/organ/internal/cyberimp/eyes/map/Destroy()
-	if(refresh_timer_id)
-		deltimer(refresh_timer_id)
-		refresh_timer_id = null
-	holomap_datum = null
-	current_turf = null
+	if(active && owner)
+		hide_mini_map(owner)
+	else
+		stop_mini_map(owner)
 	return ..()
 
 /obj/item/organ/internal/cyberimp/eyes/map/remove(mob/living/carbon/target, special)
@@ -228,54 +287,165 @@
 	var/obj/item/organ/internal/eye_implant = target.get_organ_slot(INTERNAL_ORGAN_EYE_HUD_DEVICE)
 	return istype(eye_implant, implant_type)
 
-/obj/item/organ/internal/cyberimp/eyes/map/ui_action_click(mob/user, datum/action/action, leftclick)
-	active = !active
+/obj/item/organ/internal/cyberimp/eyes/map/ui_state(mob/user)
+	return GLOB.not_incapacitated_state
+
+/obj/item/organ/internal/cyberimp/eyes/map/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		if(QDELETED(user.client))
+			return
+		var/datum/tgui_window/window = user.client.tgui_windows[SKIN_MINIMAP_PANEL]
+		if(!window)
+			window = new /datum/tgui_window(user.client, SKIN_MINIMAP_PANEL)
+		position_mini_map_window(user.client)
+		ui = new(user, src, "MapImplant", name)
+		ui.set_autoupdate(FALSE)
+		if(ui.open(window))
+			winset(user.client, SKIN_MINIMAP_PANEL_ELEM, "is-visible=true")
+
+/obj/item/organ/internal/cyberimp/eyes/map/ui_close(mob/user)
 	if(active)
-		show_mini_map(user)
-	else
+		stop_mini_map(user)
+	if(!QDELETED(user?.client))
+		winset(user.client, SKIN_MINIMAP_PANEL_ELEM, "is-visible=false")
+
+/obj/item/organ/internal/cyberimp/eyes/map/ui_data(mob/user)
+	var/list/data = list()
+	data["map"] = map_image
+	data["markers"] = markers
+	data["size"] = crop_size
+	data["z"] = current_z_level
+	return data
+
+/obj/item/organ/internal/cyberimp/eyes/map/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
+	if(.)
+		return
+	if(action == "close")
+		hide_mini_map(ui.user)
+		return TRUE
+
+/obj/item/organ/internal/cyberimp/eyes/map/proc/position_mini_map_window(client/target_client)
+	if(!target_client)
+		return
+	var/map_size = winget(target_client, SKIN_MAPWINDOW, "size")
+	var/list/size_parts = splittext(map_size, "x")
+	if(length(size_parts) < 2)
+		return
+	var/window_width = text2num(size_parts[1])
+	if(!window_width)
+		return
+	var/panel_x = max(8, window_width - MINIMAP_PANEL_WIDTH - 8)
+	winset(target_client, SKIN_MINIMAP_PANEL_ELEM, "pos=[panel_x],8;size=[MINIMAP_PANEL_WIDTH]x[MINIMAP_PANEL_HEIGHT]")
+
+/obj/item/organ/internal/cyberimp/eyes/map/ui_action_click(mob/user, datum/action/action, leftclick)
+	if(active)
 		hide_mini_map(user)
+	else if(!show_mini_map(user))
+		active = FALSE
 
 /obj/item/organ/internal/cyberimp/eyes/map/proc/show_mini_map(mob/user)
-	if(!user?.client || user.hud_used.mini_holomap.used_station_map)
+	if(!user?.client)
 		return FALSE
 
-	current_z_level = user.loc.z
+	stop_mini_map(user)
+	active = TRUE
+	current_z_level = user.z
 	holomap_datum = new()
 	setup_holomap(user)
 	if(!holomap_datum)
 		// Something is very wrong if we have to un-fuck ourselves here.
 		stack_trace("Mini holomap at [user.name]([COORD(user)]) couldn't setup holomap_datum.")
 		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] сбоит и выдает сообщение: \"ОШИБКА: NTOS не отвечает.\""))
-		return
-
-	user.hud_used.mini_holomap.icon = holomap_datum.map_icon
+		active = FALSE
+		return FALSE
 
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(check_position))
-
-	user.hud_used.mini_holomap.used_station_map = src
-	user.hud_used.mini_holomap.used_base_map = holomap_datum.base_map
-	user.hud_used.mini_holomap.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	user.client.screen |= user.hud_used.mini_holomap
-
 	refresh_timer_id = addtimer(CALLBACK(src, PROC_REF(refresh_overlays), user), refresh_interval, TIMER_LOOP | TIMER_STOPPABLE)
+	ui_interact(user)
 
 	if(holomap_datum.bogus)
 		to_chat(user, span_warning("Ошибка инициализации голокарты. Этот сектор пространства невозможно отобразить."))
 	else
-		to_chat(user, span_warning("На краю поля зрения появляется голографическая проекция станции."))
+		to_chat(user, span_warning("В правом верхнем углу появляется голографическая проекция станции."))
 
 	return TRUE
 
 /obj/item/organ/internal/cyberimp/eyes/map/proc/setup_holomap(mob/user)
+	if(!holomap_datum)
+		return
 	current_turf = get_turf(user)
-	crop_x = HOLOMAP_CENTER_X + current_turf.x - round(crop_size/2)
-	crop_y = HOLOMAP_CENTER_X + current_turf.y - round(crop_size/2)
+	if(!current_turf)
+		return
+	crop_x = HOLOMAP_CENTER_X + current_turf.x - round(crop_size / 2)
+	crop_y = HOLOMAP_CENTER_X + current_turf.y - round(crop_size / 2)
 	var/list/crop_params = list(CROP_X1 = crop_x, CROP_Y1 = crop_y, CROP_X2 = crop_x + crop_size, CROP_Y2 = crop_y + crop_size)
 	holomap_datum.initialize_holomap(current_turf, current_z_level, reinit_base_map = TRUE, show_legend = FALSE, crop = crop_params)
-	var/list/image/overlays = holomap_datum.create_overlays(handle_overlays(user))
-	user.hud_used.mini_holomap.cut_overlays()
-	for(var/image/overlay in overlays)
-		user.hud_used.mini_holomap.add_overlay(overlay)
+	update_map_image()
+	update_map_markers(user)
+
+/obj/item/organ/internal/cyberimp/eyes/map/proc/update_map_image()
+	map_image = null
+	if(holomap_datum?.map_icon)
+		map_image = icon2base64(holomap_datum.map_icon)
+
+/obj/item/organ/internal/cyberimp/eyes/map/proc/update_map_markers(mob/user)
+	markers = list()
+	if(!holomap_datum)
+		return
+	for(var/image/marker as anything in holomap_datum.create_overlays(handle_overlays(user)))
+		var/list/icon_data = get_marker_icon(marker)
+		if(!icon_data)
+			continue
+		markers += list(list(
+			"frames" = icon_data["frames"],
+			"x" = marker.pixel_x + marker.pixel_w,
+			"y" = marker.pixel_y + marker.pixel_z,
+			"w" = icon_data["width"],
+			"h" = icon_data["height"],
+			"duration" = icon_data["duration"],
+			"is_self" = marker.icon_state == "you",
+		))
+
+/obj/item/organ/internal/cyberimp/eyes/map/proc/get_marker_icon(image/marker)
+	if(!marker?.icon || !marker.icon_state)
+		return null
+	var/cache_key = "[marker.icon]:[marker.icon_state]:[marker.dir || SOUTH]"
+	if(!marker_icon_cache[cache_key])
+		var/frame_count = 1
+		var/duration = 0.1
+		var/list/metadata = icon_metadata(marker.icon)
+		if(islist(metadata) && islist(metadata["states"]))
+			for(var/list/state_data as anything in metadata["states"])
+				if(state_data["name"] != marker.icon_state)
+					continue
+				var/list/delays = state_data["delay"]
+				if(islist(delays) && length(delays))
+					frame_count = length(delays)
+					duration = 0
+					for(var/delay in delays)
+						duration += delay
+					duration = max(duration / 10, 0.1)
+				break
+
+		var/list/frame_icons = list()
+		var/frame_width = 0
+		var/frame_height = 0
+		for(var/frame_index in 1 to frame_count)
+			var/icon/frame_icon = icon(marker.icon, marker.icon_state, marker.dir || SOUTH, frame_index)
+			if(!frame_width)
+				frame_width = frame_icon.Width()
+				frame_height = frame_icon.Height()
+			frame_icons += icon2base64(frame_icon)
+
+		marker_icon_cache[cache_key] = list(
+			"frames" = frame_icons,
+			"width" = frame_width,
+			"height" = frame_height,
+			"duration" = duration,
+		)
+	return marker_icon_cache[cache_key]
 
 
 /obj/item/organ/internal/cyberimp/eyes/map/proc/handle_overlays(mob/user)
@@ -309,47 +479,46 @@
 /obj/item/organ/internal/cyberimp/eyes/map/proc/check_position(mob/moved_mob)
 	SIGNAL_HANDLER
 
-	if(!moved_mob)
+	if(!active || !moved_mob?.client)
 		return
 
-	if(!moved_mob.client)
-		return
-
-	current_z_level = moved_mob.loc.z
+	current_z_level = moved_mob.z
 	setup_holomap(moved_mob)
-	moved_mob.hud_used.mini_holomap.icon = holomap_datum.map_icon
+	SStgui.update_uis(src)
 
 /obj/item/organ/internal/cyberimp/eyes/map/proc/refresh_overlays(mob/user)
-	if(!user?.client || !user.hud_used?.mini_holomap || user.hud_used.mini_holomap.used_station_map != src)
+	if(!active || !user?.client || !holomap_datum)
 		return
-	if(!holomap_datum)
-		return
-	var/list/image/overlays = holomap_datum.create_overlays(handle_overlays(user))
-	user.hud_used.mini_holomap.cut_overlays()
-	for(var/image/overlay as anything in overlays)
-		user.hud_used.mini_holomap.add_overlay(overlay)
+	update_map_markers(user)
+	SStgui.update_uis(src)
 
 /obj/item/organ/internal/cyberimp/eyes/map/proc/hide_mini_map(mob/user)
-	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
+	stop_mini_map(user)
+	if(!user)
+		return
+	to_chat(user, span_interface("Мини-карта исчезает."))
+	var/datum/tgui/ui = SStgui.get_open_ui(user, src)
+	if(ui)
+		ui.close(TRUE)
+	if(!QDELETED(user.client))
+		winset(user.client, SKIN_MINIMAP_PANEL_ELEM, "is-visible=false")
 
+/obj/item/organ/internal/cyberimp/eyes/map/proc/stop_mini_map(mob/user)
 	if(refresh_timer_id)
 		deltimer(refresh_timer_id)
 		refresh_timer_id = null
-
-	to_chat(user, span_interface("Мини-карта исчезает."))
-	if(!user.client)
-		holomap_datum.reset_map()
-		return
-
-	user.client.screen -= user.hud_used.mini_holomap
-	user.hud_used.mini_holomap.used_station_map = null
-	user.hud_used.mini_holomap.used_base_map = null
-	holomap_datum.reset_map()
+	if(user && !QDELETED(user))
+		UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
+	active = FALSE
+	current_turf = null
+	map_image = null
+	markers = list()
+	QDEL_NULL(holomap_datum)
 
 
 /obj/item/organ/internal/cyberimp/eyes/map/security
 	name = "security map implant "
-	desc = "Имплант для постоянного отображения мини-карты в левом верхнем углу поля зрения пользователя с помощью технологии дополненной реальности. Показывает владельцев импланта защиты разума."
+	desc = "Имплант для постоянного отображения мини-карты в правом верхнем углу поля зрения пользователя с помощью технологии дополненной реальности. Показывает владельцев импланта защиты разума."
 	icon_state = "security_map_implant"
 	eye_colour = "#e41618"
 
@@ -373,7 +542,7 @@
 
 /obj/item/organ/internal/cyberimp/eyes/map/ert
 	name = "special reaction team map implant "
-	desc = "Имплант для постоянного отображения мини-карты в левом верхнем углу поля зрения пользователя с помощью технологии дополненной реальности. Показывает членов ОБР."
+	desc = "Имплант для постоянного отображения мини-карты в правом верхнем углу поля зрения пользователя с помощью технологии дополненной реальности. Показывает членов ОБР."
 	icon_state = "security_map_implant"
 	eye_colour = "#e41618"
 
@@ -399,7 +568,7 @@
 
 /obj/item/organ/internal/cyberimp/eyes/map/medical
 	name = "medical map implant "
-	desc = "Имплант для постоянного отображения мини-карты в левом верхнем углу поля зрения пользователя с помощью технологии дополненной реальности. Показывает медицинские датчики и критическе состояния."
+	desc = "Имплант для постоянного отображения мини-карты в правом верхнем углу поля зрения пользователя с помощью технологии дополненной реальности. Показывает медицинские датчики и критическе состояния."
 	icon_state = "medical_map_implant"
 	eye_colour = "#00e3e3"
 
@@ -430,7 +599,7 @@
 
 /obj/item/organ/internal/cyberimp/eyes/map/fire
 	name = "fire map implant "
-	desc = "Имплант для постоянного отображения мини-карты в левом верхнем углу поля зрения пользователя с помощью технологии дополненной реальности. Показывает отсеки с активной пожарной сигнализацией."
+	desc = "Имплант для постоянного отображения мини-карты в правом верхнем углу поля зрения пользователя с помощью технологии дополненной реальности. Показывает отсеки с активной пожарной сигнализацией."
 	icon_state = "fire_map_implant"
 	eye_colour = "#0abd33"
 
@@ -461,7 +630,7 @@
 
 /obj/item/organ/internal/cyberimp/eyes/map/nuke
 	name = "nuke ops map implant "
-	desc = "Имплант для постоянного отображения мини-карты в левом верхнем углу поля зрения пользователя с помощью технологии дополненной реальности. Показывает членов вашего отряда и остальных живых целей. Также показывает где находится диск."
+	desc = "Имплант для постоянного отображения мини-карты в правом верхнем углу поля зрения пользователя с помощью технологии дополненной реальности. Показывает членов вашего отряда и остальных живых целей. Также показывает где находится диск."
 	icon_state = "nuke_map_implant"
 	eye_colour = "#292929"
 
@@ -470,16 +639,18 @@
 	if(holomap_datum.bogus)
 		return extra_overlays
 
+	var/datum/antagonist/nuclear_operative/user_operative = user.mind?.has_antag_datum(/datum/antagonist/nuclear_operative)
 	var/list/teammates = list()
 	var/list/crew_members = list()
 	for(var/mob/living/carbon/human/check as anything in GLOB.human_list)
 		if(check == user)
 			continue
 		var/turf/check_turf = get_turf(check)
-		if(isAntag(check))
+		var/datum/antagonist/nuclear_operative/check_operative = check.mind?.has_antag_datum(/datum/antagonist/nuclear_operative)
+		if(check_operative && (!user_operative || check_operative.nuclear_team == user_operative.nuclear_team))
 			create_overlay_icon("nuker", check_turf, teammates)
 		else if(!check.is_dead())
-			create_overlay_icon("crew", check_turf, teammates)
+			create_overlay_icon("crew", check_turf, crew_members)
 
 	var/list/nuclear_disks = list()
 	for(var/obj/item/disk/nuclear/the_disk in GLOB.poi_list)

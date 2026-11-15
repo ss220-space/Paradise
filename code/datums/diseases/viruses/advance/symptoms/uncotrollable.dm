@@ -38,7 +38,7 @@ Uncontrollable Aggression
 						aggressor.say(pick("ААААААААААА!!!!", "ГРРР!!!", "СУКА!! БЛЯТЬ!!!", "ЁБАНЫЕ ГОВНЮКИ!!", "ВАААААААГХХ!!"))
 
 	if(A.stage >= 5 && prob(50))
-		if(aggressor.incapacitated() || HAS_TRAIT(aggressor, TRAIT_HANDS_BLOCKED))
+		if(aggressor.incapacitated || HAS_TRAIT(aggressor, TRAIT_HANDS_BLOCKED))
 			aggressor.visible_message(span_danger("[aggressor] дёрга[PLUR_ET_YUT(aggressor)]ся и корчится!"))
 			return
 		aggressor.visible_message(span_danger("[aggressor] яростно бь[PLUR_YOT_YUT(aggressor)]ся вокруг!"))
@@ -116,7 +116,7 @@ Uncontrollable Actions
 				to_chat(possesed, span_alert(pick("Всё выходит из-под контроля.", "Как будто что-то управляет вашим телом.", "Вы чувствуете непреодолимое желание что-то сделать.", "Вы не можете себя контролировать!")))
 
 	if(A.stage >= 5 && prob(30))
-		if(possesed.incapacitated())
+		if(possesed.incapacitated)
 			possesed.visible_message(span_danger("[possesed] дёргается!"))
 			return
 

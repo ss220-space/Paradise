@@ -1,0 +1,5 @@
+author: "Explosi00N"
+delete-after: True
+changes:
+  - spellcheck: "Исправлены очепятки. (PR #10011)"
+  - local: "Произошла локализация с русского языка на русский язык. (PR #10011)"

@@ -19,11 +19,11 @@
 /obj/item/mortar_shell/proc/detonate(turf/detonate_turf, explosion_detonate = FALSE)
 	var/old_loc = loc
 	forceMove(detonate_turf)
-	var/angle = get_angle(loc, old_loc)
+	var/angle = get_angle(old_loc, detonate_turf)
 	pixel_x = cos(angle) * ICON_SIZE_X * 6
 	pixel_z = sin(angle) * ICON_SIZE_Y * 6
 	var/rotation = delta_to_angle(pixel_x, pixel_z) //CUSTOM HOMEBREWED proc that is just arctan with extra steps
-	transform = matrix().Turn(rotation + 180)
+	transform = matrix().Turn(rotation)
 	layer = FLY_LAYER
 	SET_PLANE_EXPLICIT(src, ABOVE_GAME_PLANE, src)
 	animate(src, pixel_z = -1 * abs(sin(rotation)) * 4, pixel_x = SUPPLYPOD_X_OFFSET + (sin(rotation) * 20), time = falling_time, easing = LINEAR_EASING) //Make the pod fall! At an angle!
@@ -118,7 +118,7 @@
 	var/obj/item/warhead/mortar/warhead
 	var/obj/item/reagent_containers/cup/beaker/fuel
 	var/fuel_requirement = 60
-	var/fuel_type = "hydrogen"
+	var/fuel_type = /datum/reagent/hydrogen
 
 /obj/item/mortar_shell/custom/examine(mob/user)
 	. = ..()
@@ -300,6 +300,7 @@
 	new /obj/item/mortar_shell/frag(src)
 	new /obj/item/mortar_shell/incendiary(src)
 	new /obj/item/wrench(src)
+	new /obj/item/binoculars/range(src)
 
 /obj/structure/closet/crate/secure/mortar/mortar_shells
 	name = "mortar kit crate"
@@ -307,7 +308,7 @@
 	var/shell_type = /obj/item/mortar_shell
 
 /obj/structure/closet/crate/secure/mortar/mortar_shells/populate_contents()
-	for(var/i = 1; i <= count; i++)
+	for(var/i in 1 to count)
 		new shell_type(src)
 
 /obj/structure/closet/crate/secure/mortar/mortar_shells/he
@@ -338,15 +339,5 @@
 	for(var/i in 1 to 3)
 		new/obj/item/warhead/mortar/camera(src)
 
-	var/obj/item/paper/paper = new(src)
-	paper.name = "Инструкция по сборке снаряда для мортиры"
-	paper.info = "<b>Инструкция по сборке снаряда для мортиры</b></br>\
-	1) Для начала соберите боевую часть. Для этого нужно вставить минимум один(максимум 2) бикер, с нужными вам реагентами.</br>\
-	Помните: у снаряда есть ограничения по вместимости бикеров(50 с камерой и 100 без)</br>\
-	2) После того, как вставите нужные бикеры, закрутите крышку отверткой.</br> \
-	Внимание: Не рекомендуется пытаться раскрутить крышку после сборки. Это приведет к преждевременному смешению содержимого.</br> \
-	3) Затем необходимо вставить собраную боевую часть в корпус снаряда.</br> \
-	4) Затем вставьте в корпус бикер с топливом(минимум 60 юнитов). Наши снаряды используют водород в качестве оного</br> \
-	5) После этого можно завершить сборку снаряда, закрутив крышку отверткой \
-	"
+	new/obj/item/paper/mortar(src)
 

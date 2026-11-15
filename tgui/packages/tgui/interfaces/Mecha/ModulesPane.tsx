@@ -522,10 +522,12 @@ type Data = {
 };
 type Reagent = {
   name: string;
+  id: string;
   volume: number;
 };
 type KnownReagent = {
   name: string;
+  id: string;
   enabled: boolean;
 };
 const SnowflakeSyringe = (props) => {
@@ -573,7 +575,7 @@ const SnowflakeSyringe = (props) => {
                 act('equip_act', {
                   ref: ref,
                   gear_action: `toggle_reagent`,
-                  reagent: reagent.name,
+                  reagent: reagent.id,
                 })
               }
             />

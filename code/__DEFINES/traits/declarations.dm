@@ -160,6 +160,8 @@
 #define TRAIT_UI_BLOCKED "uiblocked"
 /// Inability to pull things. Turned into a trait from [MOBILITY_PULL] to be able to track sources.
 #define TRAIT_PULL_BLOCKED "pullblocked"
+/// This mob is currently looking through a scope, such as binoculars. Prevents other scopes from taking over the view.
+#define TRAIT_USER_SCOPED "user_scoped"
 /// Abstract condition that prevents movement if being pulled and might be resisted against. Handcuffs and straight jackets, basically.
 #define TRAIT_RESTRAINED "restrained"
 

@@ -166,7 +166,7 @@ GAME_VERB(/mob/living/simple_animal/pet/cat, sit, "Сесть", VERB_CATEGORY_IC
 				custom_emote(EMOTE_VISIBLE, pick("вылизыва%(ет,ют)% шерсть.", "подёргива%(ет,ют)% усами.", "отряхива%(ет,ют)% шерсть."))
 
 	//MICE!
-	if(eats_mice && isturf(loc) && !incapacitated())
+	if(eats_mice && isturf(loc) && !incapacitated)
 		for(var/mob/living/simple_animal/mouse/mouse in view(1, src))
 			if(!mouse.stat && Adjacent(mouse))
 				custom_emote(EMOTE_VISIBLE, "броса%(ет,ют)%ся на мышь!")
@@ -277,14 +277,14 @@ GAME_VERB(/mob/living/simple_animal/pet/cat, sit, "Сесть", VERB_CATEGORY_IC
 		if(D.icon_state != "donut2")
 			D.name = "frosted donut"
 			D.icon_state = "donut2"
-			D.reagents.add_reagent("sprinkles", 2)
+			D.reagents.add_reagent(/datum/reagent/consumable/sprinkles, 2)
 			D.filling_color = "#FF69B4"
 
 /mob/living/simple_animal/pet/cat/cak/attack_hand(mob/living/L)
 	..()
 	if(L.a_intent == INTENT_HARM && L.reagents && !stat)
-		L.reagents.add_reagent("nutriment", 0.4)
-		L.reagents.add_reagent("vitamin", 0.4)
+		L.reagents.add_reagent(/datum/reagent/consumable/nutriment, 0.4)
+		L.reagents.add_reagent(/datum/reagent/consumable/nutriment/vitamin, 0.4)
 
 /mob/living/simple_animal/pet/cat/cak/CheckParts(list/parts)
 	..()

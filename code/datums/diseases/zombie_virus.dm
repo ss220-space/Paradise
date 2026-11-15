@@ -176,6 +176,10 @@
 /datum/disease/virus/zombie/has_cure()
 	update_cure_stage()
 	var/required_reagent = (stage + 1) / 2 // stage 1 can be cured by cure 1, stage 3 with 2, stage 5 with 3, stage 7 with 4
+	if(affected_mob.mind.has_antag_datum(/datum/antagonist/changeling))
+		cure(need_immunity = FALSE)
+		if(QDELETED(src))
+			return FALSE
 	return cure_stage >= required_reagent
 
 /datum/disease/virus/zombie/cure(id, need_immunity)

@@ -238,6 +238,12 @@
 /obj/projectile/proc/prehit(atom/target)
 	return TRUE
 
+/// bullets of a gun with iff friends list fly through the listed mobs
+/obj/projectile/proc/iff_passes_through(atom/bumped_atom)
+	if(!isliving(bumped_atom) || bumped_atom == original || !isgun(firer_source_atom))
+		return FALSE
+	return SEND_SIGNAL(firer_source_atom, COMSIG_GUN_CHECK_FRIEND, bumped_atom) & GUN_TARGET_IS_FRIEND
+
 /obj/projectile/proc/on_hit(atom/target, blocked = 0, hit_zone)
 	var/turf/target_loca = get_turf(target)
 	var/hitx
@@ -398,6 +404,11 @@
 		if(bumped_atom == firer || (bumped_atom == firer.loc && ismecha(bumped_atom))) //cannot shoot yourself or your mech
 			loc = bumped_atom.loc
 			return FALSE
+
+	if(iff_passes_through(bumped_atom))
+		loc = get_turf(bumped_atom)
+		LAZYADD(permutated, bumped_atom)
+		return FALSE
 
 	var/turf/bumped_turf = get_turf(bumped_atom)
 	var/distance = get_dist(bumped_turf, starting) // Get the distance between the turf shot from and the mob we hit and use that for the calculations.

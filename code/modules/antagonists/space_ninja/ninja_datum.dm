@@ -188,6 +188,7 @@
 
 	var/obj/item/radio/headset/ninja/my_headset = new
 	human_ninja.equip_to_slot(my_headset, ITEM_SLOT_EAR_RIGHT, initial = TRUE)
+	my_headset.set_listening(TRUE, actual_setting = TRUE)
 
 	my_katana = new
 	human_ninja.equip_to_slot(my_katana, ITEM_SLOT_BELT, initial = TRUE)

@@ -1,0 +1,4 @@
+author: "SCPfollower"
+delete-after: True
+changes:
+  - bugfix: "Фикс превращения курительной трубки в окурок при падении. (PR #10014)"

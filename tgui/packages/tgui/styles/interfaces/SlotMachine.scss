@@ -1,0 +1,635 @@
+.SlotMachine__window {
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(255, 193, 74, 0.16),
+      transparent 48%
+    ),
+    linear-gradient(180deg, #220b17 0%, #12060d 55%, #080308 100%);
+}
+
+.SlotMachine {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+  height: 100%;
+  padding: var(--space-m);
+  overflow: hidden;
+  color: #f6e5b6;
+}
+
+.SlotMachine__marquee {
+  position: relative;
+  flex: none;
+  padding: 2px 0 5px;
+  overflow: hidden;
+  text-align: center;
+  background: linear-gradient(180deg, #7a1024 0%, #3a0611 62%, #25030a 100%);
+  border: 2px solid #b8860b;
+  border-radius: 12px;
+  box-shadow:
+    inset 0 0 18px rgba(0, 0, 0, 0.75),
+    0 0 16px rgba(255, 183, 54, 0.18);
+}
+
+.SlotMachine__bulbs {
+  display: flex;
+  justify-content: space-between;
+  padding: 1px 10px;
+}
+
+.SlotMachine__bulb {
+  width: 6px;
+  height: 6px;
+  background: #ffd45e;
+  border-radius: 50%;
+  box-shadow: 0 0 7px 2px rgba(255, 196, 63, 0.7);
+  animation: SlotMachine__bulb-blink 1.1s ease-in-out infinite alternate;
+}
+
+.SlotMachine__bulb:nth-child(4n + 2) {
+  background: #ff7a59;
+  box-shadow: 0 0 7px 2px rgba(255, 91, 61, 0.7);
+}
+
+.SlotMachine__title {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: 5px;
+  color: #ffd45e;
+  text-shadow:
+    0 2px 0 #7d3600,
+    0 0 10px rgba(255, 197, 64, 0.75);
+}
+
+.SlotMachine__subtitle {
+  margin-top: 1px;
+  font-size: 8px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  color: #dfa1a1;
+}
+
+.SlotMachine__cabinet {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  padding: 14px 20px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 24%),
+    linear-gradient(180deg, #43101f 0%, #210710 55%, #14040b 100%);
+  border: 2px solid #b8860b;
+  border-radius: 14px;
+  box-shadow:
+    inset 0 0 26px rgba(0, 0, 0, 0.8),
+    0 0 20px rgba(255, 178, 42, 0.12);
+}
+
+.SlotMachine__reels {
+  --reel-height: 152px;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  height: var(--reel-height);
+}
+
+.SlotMachine__reel {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  background: linear-gradient(180deg, #fffdf4 0%, #e9e1c8 48%, #fffdf4 100%);
+  border: 2px solid #6d4e1a;
+  border-radius: 7px;
+  box-shadow:
+    inset 0 8px 12px rgba(0, 0, 0, 0.28),
+    inset 0 -8px 12px rgba(0, 0, 0, 0.28),
+    0 0 0 1px rgba(255, 220, 120, 0.25);
+}
+
+.SlotMachine__reel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.38) 0%,
+    transparent 28%,
+    transparent 72%,
+    rgba(0, 0, 0, 0.38) 100%
+  );
+}
+
+.SlotMachine__reel--winning {
+  border-color: #ffd45e;
+  animation: SlotMachine__reel-win 0.8s ease-in-out infinite alternate;
+}
+
+.SlotMachine__reel--winning::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  box-shadow: inset 0 0 18px 6px rgba(255, 208, 76, 0.8);
+  animation: SlotMachine__reel-flash 0.55s ease-in-out infinite alternate;
+}
+
+.SlotMachine__reel--jackpot {
+  animation-duration: 0.45s;
+}
+
+.SlotMachine__strip {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  animation: SlotMachine__reel-spin 0.28s linear infinite;
+  will-change: transform;
+}
+
+.SlotMachine__reel--spinning .SlotMachine__strip {
+  filter: blur(1.2px);
+}
+
+.SlotMachine__reel-symbol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--reel-height);
+  font-size: 62px;
+  line-height: 1;
+  user-select: none;
+}
+
+.SlotMachine__reel-symbol--settle {
+  animation: SlotMachine__reel-settle 0.38s cubic-bezier(0.2, 1.4, 0.4, 1);
+}
+
+.SlotMachine__seven {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.12em;
+  font-weight: 900;
+  color: #d51f2b;
+  text-shadow: 0 3px 0 rgba(120, 0, 0, 0.18);
+}
+
+.SlotMachine__bar {
+  padding: 1px 6px 0;
+  font-family: 'Arial Black', Impact, sans-serif;
+  font-size: 0.55em;
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: #8b5e00;
+  border: 3px solid #8b5e00;
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+
+.SlotMachine__icon {
+  line-height: 1;
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.08);
+}
+
+.SlotMachine__icon--bell {
+  color: #d39a00;
+}
+
+.SlotMachine__icon--cherry {
+  color: #cf1f38;
+}
+
+.SlotMachine__icon--lemon {
+  color: #e6b400;
+}
+
+.SlotMachine__icon--gem {
+  color: #1aa6b7;
+}
+
+.SlotMachine__icon--star {
+  color: #e07a12;
+}
+
+.SlotMachine__payline {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  left: 8px;
+  z-index: 5;
+  height: 2px;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #ff3b3b 10%,
+    #ff3b3b 90%,
+    transparent 100%
+  );
+  box-shadow: 0 0 7px rgba(255, 59, 59, 0.9);
+}
+
+.SlotMachine__payline::before,
+.SlotMachine__payline::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  transform: translateY(-50%);
+}
+
+.SlotMachine__payline::before {
+  left: 0;
+  border-left: 10px solid #ff3b3b;
+}
+
+.SlotMachine__payline::after {
+  right: 0;
+  border-right: 10px solid #ff3b3b;
+}
+
+.SlotMachine__paytable {
+  flex: none;
+  padding: 3px 8px 4px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(184, 134, 11, 0.55);
+  border-radius: 9px;
+}
+
+.SlotMachine__paytable-title {
+  margin-bottom: 1px;
+  font-size: 8px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: #cbaa6c;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.SlotMachine__multiplier {
+  display: inline-block;
+  margin-left: 5px;
+  padding: 0 4px;
+  color: #2b1300;
+  background: #ffd45e;
+  border-radius: 4px;
+}
+
+.SlotMachine__paytable-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.SlotMachine__paytable-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 18px;
+  font-size: 10px;
+  border-top: 1px solid rgba(184, 134, 11, 0.16);
+}
+
+.SlotMachine__paytable-row:first-child {
+  border-top: 0;
+}
+
+.SlotMachine__paytable-row--jackpot {
+  color: #ffd45e;
+}
+
+.SlotMachine__paytable-symbols {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 13px;
+}
+
+.SlotMachine__paytable-symbol {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 16px;
+}
+
+.SlotMachine__paytable-symbol .SlotMachine__bar {
+  padding: 0 2px;
+  font-size: 7px;
+  border-width: 1px;
+}
+
+.SlotMachine__paytable-symbol .SlotMachine__icon {
+  font-size: 13px;
+}
+
+.SlotMachine__paytable-pair {
+  margin-left: 2px;
+  font-size: 9px;
+  font-weight: bold;
+  color: #cbaa6c;
+}
+
+.SlotMachine__paytable-payout {
+  font-weight: bold;
+  color: #ffd45e;
+  white-space: nowrap;
+}
+
+.SlotMachine__footer {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.SlotMachine__stats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #cdb78a;
+}
+
+.SlotMachine__stats b {
+  color: #ffd45e;
+}
+
+.SlotMachine__result {
+  display: flex;
+  min-height: 28px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.SlotMachine__result-idle {
+  font-size: 11px;
+  color: #b99f73;
+}
+
+.SlotMachine__result-text {
+  font-size: 15px;
+  line-height: 1.15;
+  text-shadow: 0 0 9px currentColor;
+  animation: SlotMachine__result-in 0.3s ease-out;
+}
+
+.SlotMachine__result--win .SlotMachine__result-text {
+  animation:
+    SlotMachine__result-in 0.3s ease-out,
+    SlotMachine__result-glow 0.8s ease-in-out 0.3s infinite alternate;
+}
+
+.SlotMachine__result--jackpot .SlotMachine__result-text {
+  font-size: 19px;
+  color: #ffe066 !important;
+  animation:
+    SlotMachine__result-in 0.3s ease-out,
+    SlotMachine__jackpot-text 0.55s ease-in-out 0.3s infinite alternate;
+}
+
+.SlotMachine .SlotMachine__spin {
+  position: relative;
+  min-height: 36px;
+  color: #2b1300;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+  background: linear-gradient(180deg, #ffe17a 0%, #e0a51c 55%, #a66200 100%);
+  border: 1px solid #ffe9a1;
+  border-radius: 9px;
+  box-shadow:
+    0 3px 0 #5b3100,
+    0 5px 14px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  transition:
+    transform var(--transition-time-fast),
+    filter var(--transition-time-fast);
+}
+
+.SlotMachine .SlotMachine__spin .Button__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.SlotMachine__spin-icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.SlotMachine .SlotMachine__spin:hover:not(.Button--disabled) {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.SlotMachine .SlotMachine__spin:active:not(.Button--disabled) {
+  box-shadow:
+    0 1px 0 #5b3100,
+    0 2px 8px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  transform: translateY(2px);
+}
+
+.SlotMachine .SlotMachine__spin.Button--disabled {
+  color: #483116;
+  filter: grayscale(0.7) brightness(0.72);
+}
+
+.SlotMachine__bet {
+  font-size: 9px;
+  color: #a99168;
+  text-align: center;
+}
+
+.SlotMachine__bet b {
+  color: #ffd45e;
+}
+
+.SlotMachine__coin-rain {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.SlotMachine__coin {
+  position: absolute;
+  top: -24px;
+  font-size: 16px;
+  color: #ffd45e;
+  text-shadow: 0 0 8px rgba(255, 196, 63, 0.9);
+  animation-name: SlotMachine__coin-fall;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+}
+
+.SlotMachine--jackpot {
+  animation: SlotMachine__jackpot-bg 0.8s ease-in-out infinite alternate;
+}
+
+.SlotMachine__no-account {
+  color: #f6e5b6;
+  background: #14060d;
+}
+
+@keyframes SlotMachine__bulb-blink {
+  from {
+    opacity: 0.35;
+    box-shadow: 0 0 2px 0 rgba(255, 196, 63, 0.2);
+  }
+
+  to {
+    opacity: 1;
+    box-shadow: 0 0 8px 2px rgba(255, 196, 63, 0.85);
+  }
+}
+
+@keyframes SlotMachine__reel-spin {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes SlotMachine__reel-settle {
+  0% {
+    opacity: 0.55;
+    transform: translateY(-14px) scaleY(0.9);
+  }
+
+  65% {
+    opacity: 1;
+    transform: translateY(2px) scaleY(1.03);
+  }
+
+  100% {
+    transform: translateY(0) scaleY(1);
+  }
+}
+
+@keyframes SlotMachine__reel-win {
+  from {
+    box-shadow:
+      inset 0 0 10px 2px rgba(255, 205, 76, 0.3),
+      0 0 6px rgba(255, 196, 63, 0.2);
+  }
+
+  to {
+    box-shadow:
+      inset 0 0 20px 6px rgba(255, 205, 76, 0.8),
+      0 0 18px 4px rgba(255, 196, 63, 0.55);
+  }
+}
+
+@keyframes SlotMachine__reel-flash {
+  from {
+    opacity: 0.35;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes SlotMachine__result-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes SlotMachine__result-glow {
+  from {
+    text-shadow: 0 0 5px currentColor;
+  }
+
+  to {
+    text-shadow:
+      0 0 14px currentColor,
+      0 0 24px currentColor;
+  }
+}
+
+@keyframes SlotMachine__jackpot-text {
+  from {
+    text-shadow:
+      0 0 10px #ffd45e,
+      0 0 20px #ff8a00;
+    transform: scale(1);
+  }
+
+  to {
+    text-shadow:
+      0 0 18px #ffd45e,
+      0 0 36px #ff8a00,
+      0 0 54px #ff3b00;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes SlotMachine__coin-fall {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px) rotate(0deg) scale(0.6);
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(540px) rotate(540deg) scale(1);
+  }
+}
+
+@keyframes SlotMachine__jackpot-bg {
+  from {
+    box-shadow: inset 0 0 0 rgba(255, 183, 54, 0);
+  }
+
+  to {
+    box-shadow: inset 0 0 80px rgba(255, 183, 54, 0.14);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .SlotMachine__bulb,
+  .SlotMachine__strip,
+  .SlotMachine__reel-symbol--settle,
+  .SlotMachine__reel--winning,
+  .SlotMachine__reel--winning::before,
+  .SlotMachine__result-text,
+  .SlotMachine__result--win .SlotMachine__result-text,
+  .SlotMachine__result--jackpot .SlotMachine__result-text,
+  .SlotMachine__coin,
+  .SlotMachine--jackpot {
+    animation: none !important;
+  }
+}

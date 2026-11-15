@@ -145,7 +145,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
 	selfcharge = TRUE
 	accuracy = GUN_ACCURACY_PISTOL_LASER
-	attachable_allowed = GUN_MODULE_CLASS_ENERGY_WEAPON
+	attachable_allowed = GUN_MODULE_CLASS_ENERGY_WEAPON | GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 0, ATTACHMENT_OFFSET_Y = 9),
 		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 7, ATTACHMENT_OFFSET_Y = -8),
@@ -156,7 +156,39 @@
 	install_sibyl()
 
 /obj/item/gun/energy/gun/nuclear/gate
+	name = "ntsl energy gun"
+	desc = "Энергетический карабин, который будто создан для пустоты: \
+			в открытом космосе и внутри врат ловит рассеянное излучение, \
+			сам набирает заряд и позволяет стрелять. Но стоит вернуться на \
+			станцию — что-то в её энергосети глушит контур: выстрел блокируется, \
+			индикатор гаснет, оружие становится бесполезным куском металла."
+	icon_state = "ntsl"
+	item_state = "ntsl"
+	charge_sections = 3
+	ammo_x_offset = 2
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
+	ammo_type = list(/obj/item/ammo_casing/energy/laser)
+	accuracy = GUN_ACCURACY_RIFLE_LASER
+	attachable_allowed = GUN_MODULE_CLASS_ENERGY_WEAPON | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	starting_attachment_types = list(/obj/item/gun_module/gategun)
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 5, ATTACHMENT_OFFSET_Y = 9),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 8, ATTACHMENT_OFFSET_Y = -5),
+	)
+
+/obj/item/gun/energy/gun/nuclear/gate/get_ru_names()
+	return alist(
+		NOMINATIVE = "энергетический карабин \"Сектор\"",
+		GENITIVE = "энергетического карабина \"Сектор\"",
+		DATIVE = "энергетическому карабину \"Сектор\"",
+		ACCUSATIVE = "энергетический карабин \"Сектор\"",
+		INSTRUMENTAL = "энергетическим карабином \"Сектор\"",
+		PREPOSITIONAL = "энергетическом карабине \"Сектор\""
+	)
+
+/obj/item/gun/energy/gun/nuclear/gate/update_icon_state()
+	. = ..()
+	item_state = "[initial(icon_state)]_[ratio]"
 
 
 // MARK: Laser Gatling gun

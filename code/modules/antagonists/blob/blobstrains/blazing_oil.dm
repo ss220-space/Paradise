@@ -1,4 +1,3 @@
-
 //sets you on fire, does burn damage, explodes into flame when burnt, weak to water
 /datum/blobstrain/reagent/blazing_oil
 	name = "Пылающее масло"
@@ -30,19 +29,3 @@
 	if(damage_flag == FIRE)
 		return FALSE
 	return ..()
-
-/datum/reagent/blob/blazing_oil
-	name = "Пылающее масло"
-	id = "blob_blazing_oil"
-	taste_description = "горящее масло"
-	color = "#B68D00"
-
-/datum/reagent/blob/blazing_oil/reaction_mob(mob/living/exposed_mob, methods=REAGENT_TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/overmind)
-	. = ..()
-	reac_volume = return_mob_expose_reac_volume(exposed_mob, methods, reac_volume, show_message, touch_protection, overmind)
-	exposed_mob.adjust_fire_stacks(round(reac_volume/10))
-	exposed_mob.IgniteMob()
-	if(exposed_mob)
-		exposed_mob.apply_damage(0.8*reac_volume, BURN, forced=TRUE)
-	if(iscarbon(exposed_mob))
-		exposed_mob.emote("scream")
