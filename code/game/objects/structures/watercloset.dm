@@ -427,7 +427,7 @@ GLOBAL_ALIST_INIT(shower_mode_descriptions, alist(
 	icon_state = "shower"
 	anchored = TRUE
 	dir = EAST
-	layer = OBJ_LAYER
+	layer = ABOVE_WINDOW_LAYER
 	use_power = NO_POWER_USE
 	/// Does the user want the shower on or off?
 	var/intended_on = FALSE
