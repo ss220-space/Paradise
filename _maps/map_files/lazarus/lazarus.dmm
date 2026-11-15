@@ -38067,6 +38067,14 @@
 	dir = 1
 	},
 /area/planetoid/jungle/colony)
+"jwB" = (
+/obj/structure/fence/post,
+/obj/structure/vine,
+/obj/structure/fence/corner{
+	dir = 8
+	},
+/turf/simulated/floor/planetoid/grass,
+/area/planetoid/jungle/colony)
 "jwG" = (
 /obj/machinery/door/airlock/external{
 	name = "Escape Pod Airlock"
@@ -72648,6 +72656,13 @@
 	},
 /turf/simulated/floor/planetoid/grass/sandedge,
 /area/planetoid/spaceport/escape_shuttle)
+"srd" = (
+/obj/structure/vine,
+/obj/structure/fence/corner{
+	dir = 8
+	},
+/turf/simulated/floor/planetoid/grass,
+/area/planetoid/jungle/colony)
 "sri" = (
 /obj/machinery/floodlight/colony,
 /obj/structure/lattice/catwalk,
@@ -110732,7 +110747,7 @@ lZH
 oSh
 oSh
 kVp
-qJx
+kVp
 qJx
 oSh
 oSh
@@ -111781,8 +111796,8 @@ kVp
 oSh
 oSh
 oSh
-tSG
-tSG
+oSh
+ujD
 ggS
 wDL
 ycs
@@ -112038,11 +112053,11 @@ qJx
 kVp
 oSh
 kVp
-kCJ
-tSG
-tSG
-tSG
-tSG
+srd
+ujD
+ujD
+ujD
+ujD
 tSG
 tSG
 tSG
@@ -112295,7 +112310,7 @@ kVp
 kpe
 kVp
 kpe
-shE
+jwB
 qRc
 aRt
 aGQ
@@ -113886,7 +113901,7 @@ qGz
 nxy
 itG
 nxy
-dPk
+nxy
 nxy
 oSh
 nxy
@@ -119201,7 +119216,7 @@ cWu
 vXN
 twQ
 twQ
-vXN
+xac
 xac
 rFJ
 vXN
@@ -122560,7 +122575,7 @@ nxy
 nxy
 kpe
 kVp
-qJx
+kVp
 oSh
 oSh
 oSj
@@ -122816,8 +122831,8 @@ rYg
 nxy
 nxy
 oSh
-qJx
-qJx
+kVp
+kVp
 kVp
 kpe
 oSj
@@ -123086,7 +123101,7 @@ nxy
 nxy
 kpe
 kVp
-qJx
+kVp
 kVp
 kpe
 oSh
@@ -123328,9 +123343,9 @@ kpe
 nxy
 nxy
 nxy
-nxy
-nxy
-nxy
+oSh
+oSh
+oSh
 oSh
 kpe
 qDA
@@ -124643,7 +124658,7 @@ nxy
 wuA
 kpe
 kVp
-qJx
+kVp
 kVp
 kpe
 kpe
@@ -125159,9 +125174,9 @@ oSh
 oSh
 kpe
 kpe
-oSh
-oSh
-oSh
+kpe
+kpe
+nxy
 cTt
 dvr
 osF
@@ -125416,7 +125431,7 @@ oSh
 oSh
 kpe
 kpe
-oSh
+nxy
 uvr
 pIU
 nqU
@@ -135482,7 +135497,7 @@ wcE
 tOn
 kpe
 kpe
-kpe
+wuA
 oSh
 nxy
 nxy
@@ -135995,7 +136010,7 @@ hUN
 wcE
 tOn
 nxy
-oSh
+nxy
 oSh
 oSh
 oSh
@@ -142207,7 +142222,7 @@ uFS
 fda
 dDk
 tFO
-iJe
+tFO
 cgu
 tFO
 tFO
@@ -152995,8 +153010,8 @@ dBz
 uGP
 tFO
 tFO
-iJe
-iJe
+tFO
+tFO
 cgu
 tFO
 tFO
@@ -154208,7 +154223,7 @@ vZd
 aoG
 vZd
 vZd
-vZd
+usB
 vZd
 vZd
 vZd
@@ -154503,8 +154518,8 @@ dDk
 dDk
 nYj
 dDk
-dDk
-dDk
+qkx
+qkx
 dDk
 dDk
 dDk
@@ -154762,7 +154777,7 @@ vZd
 vZd
 vZd
 aoG
-vZd
+aoG
 vZd
 vZd
 vZd
@@ -156829,11 +156844,11 @@ aoG
 vZd
 vZd
 ygr
-vZd
-vZd
-vZd
 aoG
-oUv
+aoG
+aoG
+aoG
+vZd
 vZd
 vZd
 vZd
@@ -157088,7 +157103,7 @@ vZd
 vZd
 vZd
 vZd
-vZd
+aoG
 aoG
 vZd
 cnf
@@ -159867,7 +159882,7 @@ vZd
 vZd
 cBL
 vZd
-aoG
+vZd
 vZd
 cBL
 aoG
@@ -160123,8 +160138,8 @@ lNz
 vZd
 svJ
 vZd
-twk
-aoG
+cBL
+vZd
 cBL
 vZd
 xVN
@@ -160381,7 +160396,7 @@ lNz
 vZd
 cBL
 dMu
-dXa
+dMu
 dMu
 vZd
 vZd
