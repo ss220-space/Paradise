@@ -10926,8 +10926,10 @@
 	},
 /area/planetoid/lazarus/service/kitchen)
 "cEF" = (
-/obj/structure/decor/platform/ancient_temple/corner,
-/turf/simulated/floor/planetoid/grass,
+/obj/structure/flora/junglebush/large,
+/turf/simulated/floor/planetoid/grass/sandedge{
+	dir = 1
+	},
 /area/planetoid/jungle/temple_outer)
 "cEP" = (
 /turf/simulated/floor/planetoid/desert/desert3,
@@ -17457,6 +17459,9 @@
 "ekT" = (
 /obj/structure/prop/hunter/ancient_temple/small_statue{
 	dir = 4
+	},
+/obj/effect/turf_decal/siding/thinplating{
+	dir = 1
 	},
 /turf/simulated/floor/ancient_temple,
 /area/planetoid/jungle/temple_outer)
@@ -44348,12 +44353,13 @@
 	},
 /area/planetoid/lazarus/service/library)
 "kWl" = (
-/obj/structure/stairs/perspective/full{
-	dir = 8;
-	color = "#b29082"
+/obj/structure/prop/hunter/ancient_temple/small_statue{
+	dir = 8
 	},
-/obj/structure/decor/platform/ancient_temple,
-/turf/simulated/floor/planetoid/grass,
+/obj/effect/turf_decal/siding/thinplating{
+	dir = 1
+	},
+/turf/simulated/floor/ancient_temple/damaged/damage_3,
 /area/planetoid/jungle/temple_outer)
 "kWm" = (
 /obj/structure/vine,
@@ -44406,10 +44412,10 @@
 	},
 /area/planetoid/lazarus/medical/east_hallway)
 "kWF" = (
-/obj/structure/flora/junglebush/large,
-/turf/simulated/floor/planetoid/grass/sandedge{
-	dir = 1
+/obj/structure/stairs/perspective/full{
+	color = "#b29082"
 	},
+/turf/simulated/floor/planetoid/grass,
 /area/planetoid/jungle/temple_outer)
 "kWJ" = (
 /obj/structure/vine/heavy,
@@ -59461,14 +59467,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/planetoid/lazarus/hallway/primary/aft/east)
-"oWp" = (
-/obj/structure/stairs/perspective/full{
-	dir = 4;
-	color = "#b29082"
-	},
-/obj/structure/decor/platform/ancient_temple,
-/turf/simulated/floor/planetoid/grass,
-/area/planetoid/jungle/temple_outer)
 "oWE" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -73759,12 +73757,6 @@
 "sEW" = (
 /turf/simulated/floor/engine/o2,
 /area/planetoid/lazarus/engineering/atmos)
-"sFa" = (
-/obj/structure/stairs/perspective/full{
-	color = "#b29082"
-	},
-/turf/simulated/floor/planetoid/grass,
-/area/planetoid/jungle/temple_outer)
 "sFg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 8
@@ -154873,7 +154865,7 @@ rHN
 aZa
 acZ
 aZa
-cEF
+aZa
 bSJ
 bSJ
 oFy
@@ -155130,8 +155122,8 @@ sdI
 unI
 unI
 unI
+unI
 kWl
-wvr
 eDP
 oJr
 fXA
@@ -155395,7 +155387,7 @@ uEc
 fZo
 mSG
 riV
-sFa
+kWF
 tmc
 vdn
 vdn
@@ -155652,7 +155644,7 @@ yiR
 uEc
 mSG
 aZa
-sFa
+kWF
 lcg
 lBz
 bub
@@ -155907,9 +155899,9 @@ wIc
 nCA
 uEc
 wwJ
-kWF
+cEF
 sOe
-sFa
+kWF
 glP
 tmc
 bub
@@ -156158,7 +156150,7 @@ grA
 cVT
 cVT
 cVT
-oWp
+cVT
 ekT
 kUk
 bZi
@@ -156415,7 +156407,7 @@ rHN
 mKA
 mKA
 aZa
-iyp
+aZa
 jno
 jno
 fSJ
