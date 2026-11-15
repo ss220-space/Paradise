@@ -65265,10 +65265,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central/south)
-"nOa" = (
-/obj/structure/window/full/reinforced,
-/turf/space,
-/area/space)
 "nOb" = (
 /obj/machinery/alarm/directional/west,
 /obj/machinery/light{
@@ -163859,7 +163855,7 @@ aaq
 aaq
 aaq
 aaq
-nOa
+aaq
 aaq
 aaq
 dZq
