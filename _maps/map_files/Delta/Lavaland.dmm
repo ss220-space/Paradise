@@ -3528,6 +3528,7 @@
 /area/lavaland/surface/outdoors/necropolis)
 "qb" = (
 /obj/structure/disposalpipe/segment,
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -6289,14 +6290,6 @@
 	icon_state = "green"
 	},
 /area/mine/laborcamp)
-"IN" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/extinguisher_cabinet/directional/south,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "brown"
-	},
-/area/mine/living_quarters)
 "IQ" = (
 /obj/structure/stone_tile/slab/cracked{
 	dir = 8
@@ -8336,12 +8329,6 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
-"Ww" = (
-/obj/structure/closet/crate{
-	icon_state = "crateopen"
-	},
-/turf/simulated/floor/plasteel,
-/area/mine/production)
 "Wz" = (
 /obj/machinery/light{
 	dir = 1;
@@ -18915,7 +18902,7 @@ xH
 xH
 gL
 mT
-IN
+mT
 qb
 Nd
 Zf
@@ -25601,7 +25588,7 @@ fl
 Oe
 Fx
 IE
-Ww
+Hl
 EK
 Zi
 kG
