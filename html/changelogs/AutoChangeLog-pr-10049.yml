@@ -1,0 +1,5 @@
+author: "FlitchTime"
+delete-after: True
+changes:
+  - bugfix: "Убирает летающий огнетушитель на аванпосте. (PR #10049)"
+  - bugfix: "Чинит псевдо открытый ящик на аванпосте. (PR #10049)"
