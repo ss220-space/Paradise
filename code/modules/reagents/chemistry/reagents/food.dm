@@ -446,6 +446,10 @@
 	overdose_threshold = 15
 	taste_mult = 2
 	taste_description = "соли"
+	chemfiresupp = TRUE
+	intensitymod = 0.1
+	burncolor = "#ffff00"
+	burncolormod = 2
 
 /datum/reagent/consumable/sodiumchloride/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE

@@ -87,7 +87,7 @@
 		toggle_biolum(1)
 
 /obj/item/organ/internal/lantern/proc/toggle_biolum(statoverride)
-	if(!statoverride && owner.incapacitated())
+	if(!statoverride && owner.incapacitated)
 		balloon_alert(owner, "невозможно сейч!ас")
 		return 0
 

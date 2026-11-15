@@ -129,7 +129,7 @@
 
 GAME_VERB_SRC(/obj/machinery/dna_scannernew, eject, oview(1), "Извлечь субъект", VERB_CATEGORY_HIDDEN)
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	eject_occupant(usr)
 	add_fingerprint(usr)
@@ -152,7 +152,7 @@ GAME_VERB_SRC(/obj/machinery/dna_scannernew, eject, oview(1), "Извлечь с
 		return
 	if(dropped.loc == user) //no you can't pull things out of your ass
 		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
 		return
 	if(dropped.anchored || get_dist(user, src) > 1 || get_dist(user, dropped) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
 		return
@@ -236,7 +236,7 @@ GAME_VERB_SRC(/obj/machinery/dna_scannernew, eject, oview(1), "Извлечь с
 		return TRUE
 
 /obj/machinery/dna_scannernew/relaymove(mob/user)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return FALSE //maybe they should be able to get out with cuffs, but whatever
 	go_out()
 

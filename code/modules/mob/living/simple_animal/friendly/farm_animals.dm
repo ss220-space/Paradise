@@ -1,6 +1,7 @@
 //goat
 /mob/living/simple_animal/hostile/retaliate/goat
 	name = "goat"
+	gender = FEMALE
 	desc = "Не отличаются приятным нравом."
 	icon_state = "goat"
 	icon_living = "goat"
@@ -36,12 +37,12 @@
 
 /mob/living/simple_animal/hostile/retaliate/goat/get_ru_names()
 	return alist(
-		NOMINATIVE = "козёл",
-		GENITIVE = "козла",
-		DATIVE = "козлу",
-		ACCUSATIVE = "козла",
-		INSTRUMENTAL = "козлом",
-		PREPOSITIONAL = "козле",
+		NOMINATIVE = "коза",
+		GENITIVE = "козы",
+		DATIVE = "козе",
+		ACCUSATIVE = "козу",
+		INSTRUMENTAL = "козой",
+		PREPOSITIONAL = "козе",
 	)
 
 /mob/living/simple_animal/hostile/retaliate/goat/Initialize(mapload)
@@ -753,19 +754,19 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 
 /mob/living/simple_animal/hostile/retaliate/goat/hump
 	name = "humpback goat"
-	desc = "Очень злой и горбатый козёл. Он, кажется, привык к тесному ящику."
+	desc = "Очень злая и горбатая коза. Она, кажется, привыкла к тесному ящику."
 	icon_state = "goat_hump"
 	icon_living = "goat_hump"
 	icon_resting = "goat_hump_rest"
 
 /mob/living/simple_animal/hostile/retaliate/goat/hump/get_ru_names()
 	return alist(
-		NOMINATIVE = "горбатый козёл",
-		GENITIVE = "горбатого козла",
-		DATIVE = "горбатому козлу",
-		ACCUSATIVE = "горбатого козла",
-		INSTRUMENTAL = "горбатым козлом",
-		PREPOSITIONAL = "горбатом козле",
+		NOMINATIVE = "горбатая коза",
+		GENITIVE = "горбатой козы",
+		DATIVE = "горбатой козе",
+		ACCUSATIVE = "горбатую козу",
+		INSTRUMENTAL = "горбатой козой",
+		PREPOSITIONAL = "горбатой козе",
 	)
 
 /mob/living/simple_animal/cock/cool

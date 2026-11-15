@@ -558,6 +558,13 @@
 
 	to_chat(H, span_warning("Синеватое кислотное вещество жжёт вашу кожу[volume < 5 ? ", но оно недостаточно концентрированное, чтобы нанести вам вред" : null]!"))
 
+/datum/reagent/acid/polyacid
+	name = "Политриновая кислота"
+	id = "pacid"
+	description = "Чрезвычайно коррозионная кислота, способная очень быстро растворять широкий спектр материалов."
+	color = "#8e18a9"
+	acidpwr = 30
+
 /datum/reagent/acetic_acid
 	name = "Уксусная кислота"
 	id = "acetic_acid"

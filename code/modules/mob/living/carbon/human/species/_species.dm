@@ -981,14 +981,14 @@
 		if(ITEM_SLOT_HAND_LEFT)
 			if(user.l_hand)
 				return FALSE
-			if(!bypass_incapacitated && user.incapacitated())
+			if(!bypass_incapacitated && user.incapacitated)
 				return FALSE
 			return TRUE
 
 		if(ITEM_SLOT_HAND_RIGHT)
 			if(user.r_hand)
 				return FALSE
-			if(!bypass_incapacitated && user.incapacitated())
+			if(!bypass_incapacitated && user.incapacitated)
 				return FALSE
 			return TRUE
 

@@ -833,9 +833,6 @@ GAME_VERB_DESC(/mob/dead/observer, pick_darkness, "Освещённость", "C
 
 	return FALSE
 
-/mob/dead/observer/incapacitated(ignore_flags)
-	return TRUE
-
 /**
  * Handles the pointing action for observer mobs, notifying nearby mobs and adding a follow link for invisible ghosts
  *

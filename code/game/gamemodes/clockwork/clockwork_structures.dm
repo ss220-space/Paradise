@@ -77,7 +77,7 @@
 			var/choice
 			if(!hidden)
 				choice = show_radial_menu(user, src, choosable_items, require_near = TRUE)
-				if(I.enchant_type != HIDE_SPELL || !choice || !Adjacent(user) || user.incapacitated())
+				if(I.enchant_type != HIDE_SPELL || !choice || !Adjacent(user) || user.incapacitated)
 					return ATTACK_CHAIN_BLOCKED_ALL
 			toggle_hide(choice)
 			to_chat(user, span_notice("You [hidden ? null : "un"]disguise [src]."))
@@ -264,7 +264,7 @@
 			var/choice
 			if(!hidden)
 				choice = show_radial_menu(user, src, choosable_items, require_near = TRUE)
-				if(I.enchant_type != HIDE_SPELL || !choice || !Adjacent(user) || user.incapacitated())
+				if(I.enchant_type != HIDE_SPELL || !choice || !Adjacent(user) || user.incapacitated)
 					return ATTACK_CHAIN_BLOCKED_ALL
 			toggle_hide(choice)//cuz we sure its unhidden
 			if(datum_flags & DF_ISPROCESSING)

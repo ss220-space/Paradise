@@ -25,6 +25,8 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	drink_icon = "glass_clear"
 	drink_name = "Стакан воды"
 	drink_desc = "Обычный стакан обычной воды."
+	chemfiresupp = TRUE
+	intensitymod = -3
 	var/water_temperature = COLD_WATER_TEMPERATURE	// As reagents don't have a temperature value, we'll just use 10 celsius.
 
 /// How many wet stacks you get per units of water when it's applied by touch.

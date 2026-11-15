@@ -1,0 +1,4 @@
+author: "pilygun"
+delete-after: True
+changes:
+  - image: "Фиксы спрайта гейт гана и крашера на слоте спины и пояса (PR #10028)"

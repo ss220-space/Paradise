@@ -68,7 +68,7 @@
 /obj/item/ninja_net_emitter/proc/ensnare(mob/living/target, mob/living/ninja)
 	if(isnull(target))
 		return
-	if(QDELETED(target) || !(target in oview(ninja)) || !isliving(target) || ninja.incapacitated())
+	if(QDELETED(target) || !(target in oview(ninja)) || !isliving(target) || ninja.incapacitated)
 		return
 	for(var/turf/between_turf in get_line(get_turf(ninja), get_turf(target)))
 		if(between_turf.density)//Don't want them shooting nets through walls. It's kind of cheesy.

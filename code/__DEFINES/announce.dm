@@ -14,6 +14,8 @@
 #define SECURITY_CODE_GAMMA "gamma"
 #define SECURITY_CODE_EPSILON "epsilon"
 #define SECURITY_CODE_DELTA "delta"
+#define SECURITY_CODE_DELTA_AZ5 "delta_az5"
+#define SECURITY_CODE_DELTA_ROCKET "delta_rocket"
 
 // We separate the title define from logging.
 #define ANNOUNCE_DEFAULT_RU "Объявление."
