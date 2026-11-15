@@ -71477,6 +71477,13 @@
 	network = list("Prison","SS13");
 	pixel_x = 22
 	},
+/obj/machinery/door_control{
+	id = "Prison Gate";
+	name = "Prison Lockdown";
+	pixel_x = -24;
+	pixel_y = -24;
+	req_access = list(2)
+	},
 /turf/simulated/floor/plasteel,
 /area/planetoid/lazarus/security/prison/perma)
 "scA" = (
@@ -92437,12 +92444,6 @@
 	icon_state = "bcircuit"
 	},
 /area/planetoid/lazarus/ai/satellite/interior)
-"xkh" = (
-/obj/structure/extinguisher_cabinet/directional/east,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/planetoid/lazarus/engineering/mechanic_workshop/hangar)
 "xkn" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/ywflowers,
@@ -143494,7 +143495,7 @@ eUk
 uFS
 dxI
 csD
-xkh
+bxz
 qnK
 csD
 uFS
