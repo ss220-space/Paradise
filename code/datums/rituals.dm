@@ -77,6 +77,9 @@
 	if(!istype(human))
 		return FALSE
 
+	if(human.stat == DEAD)
+		return FALSE
+
 	if(LAZYLEN(allowed_species) && !is_type_in_list(human.dna.species, allowed_species))
 		return FALSE
 
@@ -522,14 +525,6 @@
 		if(living.stat != DEAD)
 			invoker.balloon_alert(invoker, "существа должны быть мертвы!")
 			return FALSE
-
-	var/mob/living/carbon/human/human = locate() in used_things
-
-	if(!human.mind || !human.ckey)
-		return FALSE
-
-	if(!isashwalker(human))
-		fail_chance = 15
 
 	return TRUE
 
