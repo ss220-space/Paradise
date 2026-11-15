@@ -708,7 +708,7 @@
 	item_state = "goliath_cloak"
 	desc = "Прочный и практичный плащ, созданный из различных материалов, добытых из монстров. Он пользуется большим спросом у тех, кто ведёт жизнь отшельника или изгнанника."
 	allowed = ALLOWED_MINING_SUIT_ITEMS
-	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 40, BIO = 0, FIRE = 60, ACID = 60)
+	armor = list(MELEE = 40, BULLET = 10, LASER = 20, ENERGY = 10, BOMB = 30, BIO = 0, FIRE = 60, ACID = 60)
 	resistance_flags = FIRE_PROOF
 	hoodtype = /obj/item/clothing/head/hooded/goliath
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
@@ -732,7 +732,7 @@
 	icon_state = "golhood"
 	item_state = "golhood"
 	desc = "Защитный и скрывающий капюшон."
-	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 40, BIO = 0, FIRE = 60, ACID = 60)
+	armor = list(MELEE = 40, BULLET = 10, LASER = 20, ENERGY = 10, BOMB = 30, BIO = 0, FIRE = 60, ACID = 60)
 	resistance_flags = FIRE_PROOF
 	flags_cover = HEADCOVERSEYES
 
@@ -786,13 +786,13 @@
 	allowed = ALLOWED_MINING_SUIT_ITEMS
 	icon_state = "pathcloak"
 	item_state = "pathcloak"
-	armor = list(MELEE = 70, BULLET = 30, LASER = 50, ENERGY = 40, BOMB = 70, BIO = 60, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 60, BULLET = 10, LASER = 20, ENERGY = 10, BOMB = 30, BIO = 60, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	hide_tail_by_species = list(SPECIES_VOX , SPECIES_VULPKANIN , SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID, SPECIES_TAJARAN)
 	hoodtype = /obj/item/clothing/head/hooded/pathfinder
 	species_restricted = list("exclude", "lesser form")
@@ -818,30 +818,15 @@
 		PREPOSITIONAL = "мантии первопроходца",
 	)
 
-/obj/item/clothing/suit/hooded/pathfinder/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
-	. = ..()
-	// We are in the nullspace
-	if(!new_turf)
-		return
-	if(!is_mining_level(new_turf.z))
-		armor = getArmor(melee = 35, bullet = 15, laser = 25, energy = 20, bomb = 35, bio = 30, fire = 50, acid = 50)
-		return
-	armor = getArmor(melee = 70, bullet = 30, laser = 50, energy = 40, bomb = 70, bio = 60, fire = 100, acid = 100)
-
 /obj/item/clothing/head/hooded/pathfinder
 	name = "pathfinder kasa"
 	desc = "Головной убор, созданный из костей и связок, предназначенный для защиты носителя от опасной погоды."
 	icon_state = "pathhead"
 	item_state = "pathhead"
 	flags_cover = HEADCOVERSEYES
-	armor = list(MELEE = 70, BULLET = 30, LASER = 50, ENERGY = 40, BOMB = 70, BIO = 60, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 60, BULLET = 10, LASER = 20, ENERGY = 10, BOMB = 30, BIO = 60, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
@@ -864,17 +849,6 @@
 		INSTRUMENTAL = "касой первопроходца",
 		PREPOSITIONAL = "касе первопроходца",
 	)
-
-/obj/item/clothing/head/hooded/pathfinder/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
-	. = ..()
-	// We are in the nullspace
-	if(!new_turf)
-		return
-	if(!is_mining_level(new_turf.z))
-		armor = getArmor(melee = 35, bullet = 15, laser = 25, energy = 20, bomb = 35, bio = 30, fire = 50, acid = 50)
-		return
-	armor = getArmor(melee = 70, bullet = 30, laser = 50, energy = 40, bomb = 70, bio = 60, fire = 100, acid = 100)
-
 
 /obj/item/clothing/suit/armor/bone
 	name = "bone armor"
@@ -932,7 +906,7 @@
 	item_state = "cartilage_set"
 	blood_overlay_type = "armor"
 	allowed = ALLOWED_MINING_SUIT_ITEMS
-	armor = list(MELEE = 60, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 20, BIO = 0, FIRE = 40, ACID = 40)
+	armor = list(MELEE = 60, BULLET = 30, LASER = 30, ENERGY = 20, BOMB = 60, BIO = 0, FIRE = 40, ACID = 40)
 	resistance_flags = FIRE_PROOF
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
@@ -952,7 +926,7 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
-//
+
 /obj/item/clothing/suit/armor/cartilage/get_ru_names()
 	return alist(
 		NOMINATIVE = "броня из хрящевых пластин",

@@ -868,8 +868,8 @@
 	time = 4 SECONDS
 	reqs = list(
 		/obj/item/stack/sheet/cartilage_plate = 2,
-		/obj/item/stack/sheet/cloth = 3,
-		/obj/item/stack/sheet/sinew = 2,
+		/obj/item/stack/sheet/cloth = 2,
+		/obj/item/stack/sheet/sinew = 1,
 	)
 	category = CAT_PRIMAL
 	subcategory = CAT_ARMOR
@@ -880,7 +880,7 @@
 	time = 4 SECONDS
 	reqs = list(
 		/obj/item/stack/sheet/cartilage_plate = 2,
-		/obj/item/stack/sheet/cloth = 3,
+		/obj/item/stack/sheet/cloth = 2,
 		/obj/item/stack/sheet/sinew = 1,
 	)
 	category = CAT_PRIMAL
@@ -1943,9 +1943,9 @@
 	reqs = list(
 		/obj/item/clothing/suit/hooded/goliath = 1,
 		/obj/item/stack/sheet/animalhide/goliath_hide = 2,
-		/obj/item/stack/sheet/animalhide/weaver_chitin = 6,
-		/obj/item/stack/sheet/bone = 4,
-		/obj/item/stack/sheet/sinew = 4,
+		/obj/item/stack/sheet/animalhide/weaver_chitin = 3,
+		/obj/item/stack/sheet/bone = 2,
+		/obj/item/stack/sheet/sinew = 2,
 	)
 	category = CAT_PRIMAL
 	subcategory = CAT_ARMOR
