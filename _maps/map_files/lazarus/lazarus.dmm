@@ -66614,9 +66614,6 @@
 /obj/structure/flora/ausbushes/stalkybush,
 /turf/simulated/floor/planetoid/desert/beachcorner/south,
 /area/planetoid/lakes/beach)
-"qOK" = (
-/turf/space,
-/area/planetoid/jungle/south)
 "qOL" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
@@ -119075,9 +119072,9 @@ ksZ
 tFO
 tFO
 rNM
-qOK
-qOK
-qOK
+tFO
+tFO
+tFO
 sLz
 tFO
 tFO
