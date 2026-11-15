@@ -66624,6 +66624,11 @@
 /obj/structure/flora/ausbushes/stalkybush,
 /turf/simulated/floor/planetoid/desert/beachcorner/south,
 /area/planetoid/lakes/beach)
+"qOK" = (
+/obj/structure/vine,
+/obj/structure/mineral_door/sandstone,
+/turf/simulated/floor/planetoid/desert/desert,
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "qOL" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
@@ -150282,10 +150287,10 @@ qRA
 qRA
 xLR
 xLR
-lcr
-qRA
-qRA
-qRA
+xLR
+xLR
+xLR
+xLR
 qRA
 qRA
 qRA
@@ -150539,7 +150544,7 @@ qRA
 xLR
 xLR
 xLR
-qRA
+vYm
 tLD
 tLD
 jbf
@@ -150795,7 +150800,7 @@ qRA
 qRA
 xLR
 xLR
-qRA
+xLR
 tLD
 tLD
 bUE
@@ -155162,7 +155167,7 @@ vYm
 xLR
 xLR
 rKC
-xOb
+qOK
 cdl
 pwW
 kWY
@@ -155676,7 +155681,7 @@ xLR
 xLR
 xLR
 rKC
-xOb
+qOK
 aOn
 oRW
 sXW
