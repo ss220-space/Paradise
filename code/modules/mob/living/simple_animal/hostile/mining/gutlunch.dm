@@ -37,7 +37,6 @@
 	childtype = list(/mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch = 100)
 
 	wanted_objects = list(/obj/effect/decal/cleanable/blood/gibs, /obj/item/organ/internal)
-	var/obj/item/udder/gutlunch/udder = null
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/get_ru_names()
 	return alist(
@@ -50,23 +49,31 @@
 	)
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/Initialize(mapload)
-	var/datum/component/udder/milk_component = AddComponent(/datum/component/udder, /obj/item/udder/gutlunch, FALSE, CALLBACK(src, PROC_REF(regenerate_icons)))
-	udder = milk_component.udder
+	if(gender != MALE)
+		AddComponent(/datum/component/udder, /obj/item/udder/gutlunch, FALSE, CALLBACK(src, PROC_REF(regenerate_icons)))
 	. = ..()
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/examine(mob/user)
 	. = ..()
-	if(udder)
-		. += span_notice("В его [udder.declent_ru(PREPOSITIONAL)] содержится [udder.reagents.total_volume] единиц[DECL_A_Y_0(udder.reagents.total_volume)] молока.")
 
-/mob/living/simple_animal/hostile/asteroid/gutlunch/Destroy()
-	udder = null
-	return ..()
+	var/datum/component/udder/milk_component = GetComponent(/datum/component/udder)
+	if(!milk_component)
+		return
+
+	var/obj/item/udder/udder = milk_component.udder
+	. += span_notice("В его [udder.declent_ru(PREPOSITIONAL)] содержится [udder.reagents.total_volume] единиц[DECL_A_Y_0(udder.reagents.total_volume)] молока.")
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/regenerate_icons()
 	..()
+
+	var/datum/component/udder/milk_component = GetComponent(/datum/component/udder)
+	if(!milk_component)
+		return
+
+	var/obj/item/udder/udder = milk_component.udder
 	if(udder.reagents.total_volume == udder.reagents.maximum_volume)
 		add_overlay("gl_full")
+
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/ListTargetsLazy(check_z)//override to include wanted_objects as valid targets
 	. = ..()
@@ -98,12 +105,16 @@
 	return FALSE
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/AttackingTarget()
-	if(is_type_in_typecache(target,wanted_objects)) //we eats
-		udder.generateMilk()
+	if(is_type_in_typecache(target, wanted_objects))
+		var/datum/component/udder/milk_component = GetComponent(/datum/component/udder)
+		if(milk_component)
+			milk_component.udder.generateMilk()
+
 		regenerate_icons()
 		visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] с хлюпаньем поглощает [target.declent_ru(ACCUSATIVE)]."))
 		qdel(target)
 		return
+
 	return ..()
 
 /obj/item/udder/gutlunch
@@ -129,6 +140,7 @@
 //Male gutlunch. They're smaller and more colorful!
 /mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck
 	name = "gubbuck"
+	desc = "Самец кишкожора, питающийся сырым мясом. Часто встречается рядом с пеплоходцами."
 	gender = MALE
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck/get_ru_names()
@@ -163,13 +175,22 @@
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/guthen/Life()
 	..()
-	if(udder.reagents.total_volume == udder.reagents.maximum_volume) //Only breed when we're full.
+
+	var/datum/component/udder/milk_component = GetComponent(/datum/component/udder)
+	if(!milk_component)
+		return
+
+	var/obj/item/udder/udder = milk_component.udder
+	if(udder.reagents.total_volume == udder.reagents.maximum_volume)
 		make_babies()
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/guthen/make_babies()
 	. = ..()
 	if(.)
-		udder.reagents.clear_reagents()
+		var/datum/component/udder/milk_component = GetComponent(/datum/component/udder)
+		if(milk_component)
+			milk_component.udder.reagents.clear_reagents()
+
 		regenerate_icons()
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch
