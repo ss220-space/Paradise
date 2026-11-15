@@ -503,7 +503,7 @@
 	charges = 3
 	extra_invokers = 2
 	cooldown_after_cast = 180 SECONDS
-	cast_time = 4 SECONDS
+	cast_time = 5 SECONDS
 	shaman_only = TRUE
 	disaster_prob = 25
 	fail_chance = 35
