@@ -61,7 +61,7 @@
 
 /datum/status_effect/cursed_flame/on_remove()
 	owner.cut_overlay(overlay_image)
-	. = ..()
+	return ..()
 
 /datum/status_effect/cursed_flame/proc/update_overlay()
 	if(overlay_image in owner.overlays)
