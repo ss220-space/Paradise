@@ -1021,7 +1021,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		design_info = files.known_designs[cached_design_id]
 		if(!design_info || !design_info.id)
 			continue
-		if((design_info.build_type & (PROTOLATHE | IMPRINTER)) || ispath(design_info.build_path, /obj/item/gun) || ispath(design_info.build_path, /obj/item/ammo_casing)) // Оставь свою полную строку условия без изменений!
+		if((design_info.build_type & (PROTOLATHE | IMPRINTER)) || ispath(design_info.build_path, /obj/item/gun) || ispath(design_info.build_path, /obj/item/ammo_casing))
 			all_ids += design_info.id
 			var/display_name = design_info.build_object_name || design_info.name || design_info.id
 			named_designs[display_name] = design_info.id
