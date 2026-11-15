@@ -9,7 +9,7 @@
 	var/image/overlay_image
 	var/essence = 0
 	var/mob/living/simple_animal/revenant/flame_inflicter
-	var/static/list/smessages = list(
+	var/static/list/messages = list(
 		"Жгучая боль пронзает ваше тело насквозь!",
 		"Огонь пожирает вашу сущность, оставляя лишь пустоту!",
 		"Вы чувствуете, как теряете частичку души",
