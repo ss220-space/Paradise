@@ -5263,10 +5263,7 @@
 /area/planetoid/lazarus/science/toxins)
 "bpi" = (
 /obj/structure/decor/platform/ancient_temple/north,
-/obj/structure/stairs/perspective/full{
-	color = "#b29082";
-	dir = 9
-	},
+/obj/structure/decor/platform/ancient_temple/alt/east,
 /turf/simulated/floor/planetoid/grass,
 /area/planetoid/jungle/temple_outer)
 "bpk" = (
@@ -14891,10 +14888,6 @@
 	},
 /turf/simulated/floor/wood/fancy/oak,
 /area/planetoid/jungle/south)
-"dBh" = (
-/obj/structure/decor/platform/ancient_temple/corner,
-/turf/simulated/floor/ancient_temple/damaged/damage_6,
-/area/planetoid/jungle/temple_outer)
 "dBj" = (
 /obj/effect/hunter/ancient_temple/rubble/rubble_6,
 /obj/effect/hunter/ancient_temple/tile_edge/tile_edge_9,
@@ -23969,11 +23962,8 @@
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/hydroponics)
 "fSJ" = (
-/obj/structure/stairs/perspective/full{
-	color = "#b29082";
-	dir = 6
-	},
 /obj/structure/decor/platform/ancient_temple,
+/obj/structure/decor/platform/ancient_temple/alt/west,
 /turf/simulated/floor/planetoid/grass,
 /area/planetoid/jungle/temple_outer)
 "fTa" = (
@@ -32813,10 +32803,7 @@
 /area/planetoid/lazarus/science/hallway/main)
 "ibE" = (
 /obj/structure/decor/platform/ancient_temple/north,
-/obj/structure/stairs/perspective/full{
-	color = "#b29082";
-	dir = 5
-	},
+/obj/structure/decor/platform/ancient_temple/alt/west,
 /turf/simulated/floor/planetoid/grass,
 /area/planetoid/jungle/temple_outer)
 "ibP" = (
@@ -44419,12 +44406,10 @@
 	},
 /area/planetoid/lazarus/medical/east_hallway)
 "kWF" = (
-/obj/structure/decor/platform/ancient_temple/corner/alt/east,
-/obj/structure/stairs/perspective/full{
-	color = "#b29082";
-	dir = 5
+/obj/structure/flora/junglebush/large,
+/turf/simulated/floor/planetoid/grass/sandedge{
+	dir = 1
 	},
-/turf/simulated/floor/planetoid/grass,
 /area/planetoid/jungle/temple_outer)
 "kWJ" = (
 /obj/structure/vine/heavy,
@@ -58164,11 +58149,8 @@
 	},
 /area/planetoid/lazarus/security/prison/cell_block)
 "oFy" = (
-/obj/structure/stairs/perspective/full{
-	color = "#b29082";
-	dir = 10
-	},
 /obj/structure/decor/platform/ancient_temple,
+/obj/structure/decor/platform/ancient_temple/alt/east,
 /turf/simulated/floor/planetoid/grass,
 /area/planetoid/jungle/temple_outer)
 "oFz" = (
@@ -61379,13 +61361,6 @@
 	color = "orange"
 	},
 /area/planetoid/lazarus/command/office/hos)
-"pwj" = (
-/obj/structure/stairs/perspective/full{
-	color = "#b29082";
-	dir = 6
-	},
-/turf/simulated/floor/planetoid/grass,
-/area/planetoid/jungle/temple_outer)
 "pwx" = (
 /obj/structure/cable,
 /obj/structure/disposalpipe/segment,
@@ -71601,14 +71576,6 @@
 	icon_state = "whitebluecorner"
 	},
 /area/planetoid/lazarus/medical/medbay)
-"scg" = (
-/obj/structure/decor/platform/ancient_temple/corner/west,
-/obj/structure/stairs/perspective/full{
-	color = "#b29082";
-	dir = 9
-	},
-/turf/simulated/floor/planetoid/grass,
-/area/planetoid/jungle/temple_outer)
 "sch" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -73794,8 +73761,7 @@
 /area/planetoid/lazarus/engineering/atmos)
 "sFa" = (
 /obj/structure/stairs/perspective/full{
-	color = "#b29082";
-	dir = 10
+	color = "#b29082"
 	},
 /turf/simulated/floor/planetoid/grass,
 /area/planetoid/jungle/temple_outer)
@@ -85466,10 +85432,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/planetoid/lazarus/security/prison/perma)
-"vwU" = (
-/obj/structure/decor/platform/ancient_temple/corner/north,
-/turf/simulated/floor/ancient_temple/damaged/damage_7,
-/area/planetoid/jungle/temple_outer)
 "vwZ" = (
 /obj/machinery/door/window/eastleft{
 	dir = 8;
@@ -154913,11 +154875,11 @@ acZ
 aZa
 cEF
 bSJ
-scg
+bSJ
 oFy
 dVS
 bpi
-sFa
+bSJ
 mMk
 vos
 kCB
@@ -155425,7 +155387,7 @@ pdO
 vcq
 mLN
 mLN
-vwU
+mLN
 som
 wIc
 xUB
@@ -155433,7 +155395,7 @@ uEc
 fZo
 mSG
 riV
-uKp
+sFa
 tmc
 vdn
 vdn
@@ -155689,8 +155651,8 @@ ozm
 yiR
 uEc
 mSG
-glP
-uKp
+aZa
+sFa
 lcg
 lBz
 bub
@@ -155939,15 +155901,15 @@ bnF
 mhW
 sPY
 hoM
-dBh
+imw
 ecr
 wIc
 nCA
 uEc
 wwJ
-mSG
+kWF
 sOe
-uKp
+sFa
 glP
 tmc
 bub
@@ -156455,11 +156417,11 @@ mKA
 aZa
 iyp
 jno
-kWF
+jno
 fSJ
 pvM
 ibE
-pwj
+jno
 jno
 jQP
 woL
