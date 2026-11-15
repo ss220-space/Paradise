@@ -14,17 +14,21 @@
     footstep = FOOTSTEP_CARPET
     barefootstep = FOOTSTEP_CARPET_BAREFOOT
     clawfootstep = FOOTSTEP_CARPET_BAREFOOT
+    var/overlay_icon_state
 
 /turf/simulated/floor/indestructible/cat_floor/Initialize(mapload)
     . = ..()
-    var/icon/I = icon(icon, icon_state)
     if(prob(20))
-        I.Blend(icon(icon, "dec[rand(1,6)]"), ICON_OVERLAY)
-        icon = I
-        return
-    if(prob(25))
-        I.Blend(icon(icon, "claws[rand(1,3)]"), ICON_OVERLAY)
-        icon = I
+        overlay_icon_state = "dec[rand(1, 6)]"
+    else if(prob(25))
+        overlay_icon_state = "claws[rand(1, 3)]"
+    if(overlay_icon_state)
+        update_appearance(UPDATE_OVERLAYS)
+
+/turf/simulated/floor/indestructible/cat_floor/update_overlays()
+    . = ..()
+    if(overlay_icon_state)
+        . += mutable_appearance(icon, overlay_icon_state)
 
 /turf/simulated/floor/indestructible/cat_floor/pink
     icon_state = "carpet_p"
