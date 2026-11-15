@@ -14477,6 +14477,11 @@
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "ntr"
 	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "representative";
+	name = "Privacy Shutters"
+	},
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/command/office/ntrep)
 "dwr" = (
@@ -36333,6 +36338,11 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "representative";
+	name = "Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/command/office/ntrep)
