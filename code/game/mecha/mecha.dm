@@ -317,7 +317,7 @@
 		return
 	if(completely_disabled)
 		return
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 	if(phasing)
 		occupant_message(span_warning("Нельзя взаимодействовать с объектами, пока [declent_ru(NOMINATIVE)] находится в режиме фазового перехода!"))
@@ -397,10 +397,10 @@
 /obj/mecha/proc/mech_toxin_damage(mob/living/target)
 	playsound(src, 'sound/effects/spray2.ogg', 50, TRUE)
 	if(target.reagents)
-		if(target.reagents.get_reagent_amount("atropine") + force < force*2)
-			target.reagents.add_reagent("atropine", force/2)
-		if(target.reagents.get_reagent_amount("toxin") + force < force*2)
-			target.reagents.add_reagent("toxin", force/2.5)
+		if(target.reagents.get_reagent_amount(/datum/reagent/medicine/atropine) + force < force*2)
+			target.reagents.add_reagent(/datum/reagent/medicine/atropine, force/2)
+		if(target.reagents.get_reagent_amount(/datum/reagent/toxin) + force < force*2)
+			target.reagents.add_reagent(/datum/reagent/toxin, force/2.5)
 
 /obj/mecha/proc/range_action(atom/target)
 	return
@@ -1359,7 +1359,7 @@
 	if(frozen)
 		to_chat(user, span_warning("Do not enter Admin-Frozen mechs."))
 		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(user != M)
 		return
@@ -1880,7 +1880,7 @@
 /obj/mecha/proc/check_menu(mob/living/L)
 	if(L != occupant || !istype(L))
 		return FALSE
-	if(L.incapacitated())
+	if(L.incapacitated)
 		return FALSE
 	return TRUE
 

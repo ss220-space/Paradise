@@ -122,124 +122,158 @@
 		M.dust()
 
 /datum/reagent/napalm/sticky
-	name = "Sticky-Napalm"
+	name = "Липкий напалм"
 	id = "stickynapalm"
-	description = "A custom napalm mix, stickier and lasts longer but lower damage"
+	description = "Особая смесь напалма: более липкая и горит дольше, но наносит меньше урона"
 	color = "#f8e3b2"
 	burncolor = "#f8e3b2"
 	burn_sprite = "dynamic"
-	intensitymod = -1.5
-	durationmod = -5
-	radiusmod = -0.5
-	intensityfire = BURN_LEVEL_TIER_2
-	durationfire = BURN_TIME_TIER_5
-	rangefire = 5
+	intensitymod = 1.5
+	durationmod = 5
+	radiusmod = 0.5
+	properties = list(
+		PROPERTY_INTENSITY = BURN_LEVEL_TIER_2,
+		PROPERTY_DURATION = BURN_TIME_TIER_5,
+		PROPERTY_RADIUS = 5,
+	)
 
 /datum/reagent/napalm/high_damage
-	name = "High-Combustion Napalm Fuel"
+	name = "Высокогорючее напалмовое топливо"
 	id = "highdamagenapalm"
-	description = "A custom napalm mix, higher damage but not as sticky"
+	description = "Особая смесь напалма: наносит больше урона, но менее липкая"
 	color = "#c51c1c"
 	burncolor = "#c51c1c"
 	burn_sprite = "dynamic"
-	intensitymod = -4.5
+	intensitymod = 4.5
 	durationmod = -1
 	radiusmod = -0.5
-	intensityfire = BURN_LEVEL_TIER_8
-	durationfire = BURN_TIME_TIER_1
-	rangefire = 5
+	properties = list(
+		PROPERTY_INTENSITY = BURN_LEVEL_TIER_8,
+		PROPERTY_DURATION = BURN_TIME_TIER_1,
+		PROPERTY_RADIUS = 5,
+	)
 
 // This is the regular flamer fuel and pyro regular flamer fuel.
 /datum/reagent/napalm/ut
-	name = "UT-Napthal Fuel"
+	name = "Топливо UT-Нафтал"
 	id = "utnapthal"
-	description = "Known as Ultra Thick Napthal Fuel, a sticky combustible liquid chemical, typically used with flamethrowers."
+	description = "Известное как сверхгустое нафталовое топливо — липкая горючая жидкая химическая субстанция, обычно используемая в огнемётах."
 	burncolor = "#EE6515"
-	intensityfire = BURN_LEVEL_TIER_5
-	durationfire = BURN_TIME_TIER_2
-	rangefire = 5
+	properties = list(
+		PROPERTY_INTENSITY = BURN_LEVEL_TIER_5,
+		PROPERTY_DURATION = BURN_TIME_TIER_2,
+		PROPERTY_RADIUS = 5,
+	)
+
+// Weaker liquid fuel
+/datum/reagent/napalm/weak
+	name = "Нафталовое топливо"
+	id = "napthal"
+	description = "Известное как нафталовое топливо — горючая жидкая химическая субстанция."
+	burncolor = "#ee6515"
+	properties = list(
+		PROPERTY_INTENSITY = BURN_LEVEL_TIER_2,
+		PROPERTY_DURATION = BURN_TIME_TIER_2,
+		PROPERTY_RADIUS = 5,
+	)
 
 // This is gellie fuel. Green Flames.
 /datum/reagent/napalm/gel
-	name = "Napalm B-Gel"
+	name = "Напалм B-Гель"
 	id = "napalmgel"
-	description = "Unlike its liquid contemporaries, this gelled variant of napalm is easily extinguished, but shoots far and lingers on the ground in a viscous mess, while reacting with inorganic materials to ignite them."
+	description = "В отличие от своих жидких аналогов, этот гелевый вариант напалма легко тушится, но разбрызгивается далеко и остаётся на земле в виде вязкой массы, реагируя с неорганическими материалами и поджигая их."
 	color = COLOR_GREEN
 	burncolor = COLOR_GREEN
 	burn_sprite = "green"
-	intensityfire = BURN_LEVEL_TIER_2
-	durationfire = BURN_TIME_TIER_5
-	rangefire = 7
+	properties = list(
+		PROPERTY_INTENSITY = BURN_LEVEL_TIER_2,
+		PROPERTY_DURATION = BURN_TIME_TIER_5,
+		PROPERTY_RADIUS = 7,
+	)
 	fire_type = FIRE_VARIANT_TYPE_B //Armor Shredding Greenfire
 
 // This is the blue flamer fuel for the pyro.
 /datum/reagent/napalm/blue
-	name = "Napalm X"
+	name = "Напалм X"
 	id = "napalmx"
-	description = "A sticky combustible liquid chemical that burns extremely hot."
+	description = "Липкая горючая жидкая химическая субстанция, горящая чрезвычайно горячо."
 	color = "#00b8ff"
 	burncolor = "#00b8ff"
 	burn_sprite = "blue"
-	intensityfire = BURN_LEVEL_TIER_7
-	durationfire = BURN_TIME_TIER_4
-	rangefire = 5
+	properties = list(
+		PROPERTY_INTENSITY = BURN_LEVEL_TIER_7,
+		PROPERTY_DURATION = BURN_TIME_TIER_4,
+		PROPERTY_RADIUS = 6,
+	)
 
 /datum/reagent/napalm/hellfire
 	name = "Жидкое адское пламя"
 	id = "hellfire"
 	description = "Адское пламя, превращённое в вещество неизвестными силами."
 	burncolor = "#EE6515"
-	intensityfire = BURN_LEVEL_TIER_2
-	durationfire = BURN_TIME_TIER_1
-	rangefire = 3
+	properties = list(
+		PROPERTY_INTENSITY = BURN_LEVEL_TIER_2,
+		PROPERTY_DURATION = BURN_TIME_TIER_1,
+		PROPERTY_RADIUS = 3,
+	)
 
 // This is the green flamer fuel for the pyro.
 /datum/reagent/napalm/green
-	name = "Napalm B"
+	name = "Напалм B"
 	id = "napalmb"
-	description = "A special variant of napalm that's unable to cling well to anything, but disperses over a wide area while burning slowly. The composition reacts with inorganic materials to ignite them, causing severe damage."
+	description = "Особый вариант напалма, который плохо прилипает к чему-либо, но распространяется на широкой площади, горя медленно. Состав реагирует с неорганическими материалами, поджигая их и нанося серьёзный урон."
 	flameshape = FLAMESHAPE_TRIANGLE
 	color = COLOR_GREEN
 	burncolor = COLOR_GREEN
 	burn_sprite = "green"
-	intensityfire = BURN_LEVEL_TIER_2
-	durationfire = BURN_TIME_TIER_5
-	rangefire = 6
+	properties = list(
+		PROPERTY_INTENSITY = BURN_LEVEL_TIER_2,
+		PROPERTY_DURATION = BURN_TIME_TIER_5,
+		PROPERTY_RADIUS = 6,
+	)
 	fire_type = FIRE_VARIANT_TYPE_B //Armor Shredding Greenfire
 
 /datum/reagent/napalm/penetrating
-	name = "Napalm E"
+	name = "Напалм E"
 	id = "napalme"
-	description = "A sticky combustible liquid chemical that penetrates the best fire retardants."
+	description = "Липкая горючая жидкая химическая субстанция, проникающая сквозь лучшие огнезащитные составы."
 	color = COLOR_PURPLE
 	burncolor = COLOR_PURPLE
 	burn_sprite = "dynamic"
-	intensityfire = BURN_LEVEL_TIER_2
-	durationfire = BURN_TIME_TIER_5
-	rangefire = 6
-	fire_penetrating = TRUE
+	properties = list(
+		PROPERTY_INTENSITY = BURN_LEVEL_TIER_2,
+		PROPERTY_DURATION = BURN_TIME_TIER_5,
+		PROPERTY_RADIUS = 6,
+		PROPERTY_FIRE_PENETRATING = 1,
+	)
 
 /datum/reagent/napalm/deathsquad //version of fuel for dsquad flamers.
-	name = "Napalm EX"
+	name = "Напалм EX"
 	id = "napalmex"
-	description = "A sticky combustible liquid chemical made up of a combonation of rare and dangerous reagents both that penetrates the best fire retardants, and burns extremely hot."
+	description = "Липкая горючая жидкая химическая субстанция, состоящая из комбинации редких и опасных реагентов, которая проникает сквозь лучшие огнезащитные составы и горит чрезвычайно горячо."
 	color = "#641dd6"
 	burncolor = "#641dd6"
 	burn_sprite = "dynamic"
 	intensityfire = BURN_LEVEL_TIER_7
 	durationfire = BURN_TIME_TIER_4
 	rangefire = 6
-	fire_penetrating = TRUE
+	properties = list(
+		PROPERTY_INTENSITY = BURN_LEVEL_TIER_7,
+		PROPERTY_DURATION = BURN_TIME_TIER_4,
+		PROPERTY_RADIUS = 6,
+		PROPERTY_FIRE_PENETRATING = 1,
+	)
 
 /datum/reagent/napalm/upp
 	name = "R189"
 	id = "R189"
-	description = "A UPP chemical, it burns at an extremely high tempature and is designed to melt directly through fortified positions or bunkers."
+	description = "Химическое вещество СПП: горит при чрезвычайно высокой температуре и предназначено для прожигания непосредственно укреплённых позиций или бункеров."
 	color = "#ffe49c"
 	burncolor = "#ffe49c"
 	burn_sprite = "dynamic"
-	intensityfire = BURN_LEVEL_TIER_9
-	durationfire = BURN_TIME_TIER_3
-	rangefire = 6
-	fire_penetrating = TRUE
-
+	properties = list(
+		PROPERTY_INTENSITY = BURN_LEVEL_TIER_9,
+		PROPERTY_DURATION = BURN_TIME_TIER_3,
+		PROPERTY_RADIUS = 6,
+		PROPERTY_FIRE_PENETRATING = 1,
+	)

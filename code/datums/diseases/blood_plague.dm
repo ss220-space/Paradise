@@ -8,7 +8,6 @@
 	agent = ""
 	infectable_mobtypes = list(/mob/living/carbon/human)
 	severity = DISEASE_SEVERITY_BIOHAZARD
-	can_progress_in_dead = TRUE
 	carrier = TRUE
 	virus_heal_resistant = TRUE
 	can_immunity = FALSE
@@ -96,6 +95,8 @@
 
 /datum/disease/virus/blood_plague/has_cure()
 	if(affected_mob.can_block_magic(MAGIC_RESISTANCE_HOLY))
+		return TRUE
+	if(affected_mob.mind.has_antag_datum(/datum/antagonist/changeling))
 		return TRUE
 	return ..()
 

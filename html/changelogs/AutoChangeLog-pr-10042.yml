@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "Исправлена ситуация, в которой напалм мог проходить сквозь препятствия в некторых случаях. (PR #10042)"

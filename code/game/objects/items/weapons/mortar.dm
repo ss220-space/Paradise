@@ -39,6 +39,7 @@
 	var/obj/machinery/computer/security/mortar/internal_camera
 
 	var/skin
+	var/obj/item/binoculars/range/rangefinder
 
 /obj/structure/mortar/Initialize(mapload, skin)
 	. = ..()
@@ -61,6 +62,7 @@
 
 /obj/structure/mortar/Destroy()
 	QDEL_NULL(internal_camera)
+	rangefinder = null
 	return ..()
 
 /obj/structure/mortar/attack_alien(mob/living/carbon/alien/xeno)
@@ -69,8 +71,6 @@
 		return
 
 	if(firing)
-		playsound(src, "acid_hit", 25, TRUE)
-		playsound(xeno, "alien_help", 25, TRUE)
 		xeno.apply_damage(10, BURN)
 		xeno.visible_message(
 			span_danger("[xeno] tried to knock the steaming hot [src] over, but burned itself and pulled away!"),
@@ -113,7 +113,8 @@
 		"data_target_y" = targ_y,
 		"data_target_z" = targ_z,
 		"data_dial_x" = dial_x,
-		"data_dial_y" = dial_y
+		"data_dial_y" = dial_y,
+		"linked" = !!rangefinder,
 	)
 
 /obj/structure/mortar/ui_act(action, params)
@@ -136,6 +137,30 @@
 
 		if("operate_cam")
 			internal_camera.ui_interact(user)
+
+		if("unlink")
+			unlink_rangefinder()
+
+/obj/structure/mortar/proc/link_rangefinder(obj/item/binoculars/range/rangefinder)
+	if(!rangefinder)
+		return
+	src.rangefinder = rangefinder
+	rangefinder.connected = TRUE
+	RegisterSignal(rangefinder, COMSIG_RANGEFINDER_TARGET_LOCKED, PROC_REF(on_target_locked))
+	SStgui.update_uis(src)
+
+/obj/structure/mortar/proc/unlink_rangefinder()
+	var/obj/item/binoculars/range/rangefinder = src.rangefinder
+	if(!rangefinder)
+		return
+	src.rangefinder = null
+	rangefinder.connected = FALSE
+	UnregisterSignal(rangefinder, COMSIG_RANGEFINDER_TARGET_LOCKED)
+	SStgui.update_uis(src)
+
+/obj/structure/mortar/proc/on_target_locked(datum/source, turf/target, mob/user)
+	SIGNAL_HANDLER
+	INVOKE_ASYNC(src, PROC_REF(handle_target), user, target.x, target.y, target.z)
 
 /obj/structure/mortar/proc/handle_target(mob/user, temp_targ_x = 0, temp_targ_y = 0, temp_targ_z = 0)
 
@@ -206,6 +231,12 @@
 	SStgui.update_uis(src)
 
 /obj/structure/mortar/attackby(obj/item/item, mob/user)
+	if(istype(item, /obj/item/binoculars/range))
+		var/obj/item/binoculars/range/rangefinder = item
+		if(rangefinder.connected)
+			return ATTACK_CHAIN_PROCEED
+		link_rangefinder(rangefinder)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 	if(!ismortarcasing(item))
 		return ATTACK_CHAIN_PROCEED
 	var/obj/item/mortar_shell/mortar_shell = item
@@ -299,6 +330,7 @@
 	playsound(loc, 'sound/items/Deconstruct.ogg', 25, TRUE)
 	var/obj/item/mortar_kit/mortar = new /obj/item/mortar_kit(loc, skin)
 	mortar.name = src.name
+	mortar.rangefinder = rangefinder
 	qdel(src)
 
 /obj/structure/mortar/ex_act(severity, target)
@@ -417,6 +449,7 @@
 	w_class = WEIGHT_CLASS_HUGE //No dumping this in a backpack. Carry it, fatso
 	flags = CONDUCT
 	var/skin
+	var/obj/item/binoculars/range/rangefinder
 
 /obj/item/mortar_kit/Initialize(mapload, skin)
 	. = ..()
@@ -504,16 +537,62 @@
 	playsound(deploy_turf, 'sound/weapons/gun_mortar_unpack.ogg', 25, TRUE)
 	mortar.name = src.name
 	mortar.setDir(user.dir)
+	mortar.link_rangefinder(rangefinder)
 	qdel(src)
+
+/obj/effect/overlay/temp
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT //can't click to examine it
+	var/effect_duration = 10 //in deciseconds
+
+	var/start_on_spawn = TRUE
+
+/obj/effect/overlay/temp/Initialize(mapload)
+	. = ..()
+	flick(icon_state, src)
+	if(start_on_spawn)
+		QDEL_IN(src, effect_duration)
+
+/obj/effect/overlay/temp/laser_coordinate
+	name = "laser"
+	mouse_opacity = MOUSE_OPACITY_ICON
+	light_range = 2
+	icon = 'icons/obj/weapons/guns/projectiles.dmi'
+	icon_state = "laser_target_coordinate"
+	effect_duration = 1 MINUTES
+	var/obj/item/binoculars/range/source_binoc
+
+/obj/effect/overlay/temp/laser_coordinate/Destroy()
+	if(source_binoc)
+		source_binoc.coord = null
+		source_binoc = null
+	return ..()
+
+/obj/effect/overlay/temp/laser_target
+	name = "laser"
+	mouse_opacity = MOUSE_OPACITY_ICON
+	light_range = 2
+	icon = 'icons/obj/weapons/guns/projectiles.dmi'
+	icon_state = "laser_target2"
+	effect_duration = 1 MINUTES
+	var/obj/item/binoculars/range/source_binoc
+
+/obj/effect/overlay/temp/laser_target/Destroy()
+	if(source_binoc)
+		source_binoc.coord = null
+		source_binoc = null
+	return ..()
+
+/obj/effect/overlay/temp/laser_target/ex_act(severity) //immune to explosions
+	return
+
+/obj/effect/overlay/temp/laser_target/examine(mob/user)
+	. = ..()
+	if(ishuman(user))
+		. += span_danger("It's a laser to designate artillery targets, get away from it!")
 
 //used to show where dropship ordnance will impact.
 /obj/effect/overlay/temp/blinking_laser
 	name = "blinking laser"
 	light_range = 2
-	var/effect_duration = 1 SECONDS
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	icon_state = "impact_laser"
-
-/obj/effect/overlay/temp/blinking_laser/Initialize(mapload)
-	. = ..()
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), effect_duration )
+	icon = 'icons/obj/weapons/guns/projectiles.dmi'
+	icon_state = "laser_target3"

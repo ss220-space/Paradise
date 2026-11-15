@@ -115,7 +115,7 @@
 /obj/structure/ladder/proc/check_menu(mob/user, is_ghost)
 	if(is_ghost)
 		return TRUE
-	if(user.incapacitated() || (!user.Adjacent(src) && !is_ghost))
+	if(user.incapacitated || (!user.Adjacent(src) && !is_ghost))
 		return FALSE
 	return TRUE
 

@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "Вирус вампиризма больше не выжигает голод у трупов. (PR #10048)"

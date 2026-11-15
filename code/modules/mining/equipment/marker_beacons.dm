@@ -70,7 +70,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 
 /obj/item/stack/marker_beacon/click_alt(mob/living/user)
 	var/input_color = tgui_input_list(user, "Выберите цвет", "Цвет маячка", GLOB.marker_beacon_colors)
-	if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!Adjacent(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return CLICK_ACTION_BLOCKING
 	if(!input_color)
 		return CLICK_ACTION_BLOCKING
@@ -122,7 +122,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	. = ..()
 	if(.)
 		return
-	if(user.incapacitated())
+	if(user.incapacitated)
 		to_chat(user, span_warning("Сейчас это невозможно!"))
 		return
 	to_chat(user, span_notice("Вы начинаете подбирать [declent_ru(ACCUSATIVE)]..."))
@@ -157,7 +157,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 
 /obj/structure/marker_beacon/click_alt(mob/living/user)
 	var/input_color = tgui_input_list(user, "Выберите цвет", "Цвет маячка", GLOB.marker_beacon_colors)
-	if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!Adjacent(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return CLICK_ACTION_BLOCKING
 	if(!input_color)
 		return CLICK_ACTION_BLOCKING

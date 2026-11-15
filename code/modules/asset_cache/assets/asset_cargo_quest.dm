@@ -26,4 +26,4 @@
 	for(var/reagent_id in reagent_ids)
 		var/datum/reagent/reagent = GLOB.chemical_reagents_list[reagent_id]
 		if(reagent.drink_icon)
-			insert_icon(ckeyEx(reagent_id), uni_icon('icons/obj/drinks.dmi', reagent.drink_icon, transform = transform))
+			insert_icon(ckeyEx(reagent.id), uni_icon('icons/obj/drinks.dmi', reagent.drink_icon, transform = transform))
