@@ -38067,10 +38067,6 @@
 	dir = 1
 	},
 /area/planetoid/jungle/colony)
-"jwB" = (
-/obj/structure/lattice/catwalk,
-/turf/simulated/wall,
-/area/planetoid/lazarus/engineering/mechanic_workshop/hangar)
 "jwG" = (
 /obj/machinery/door/airlock/external{
 	name = "Escape Pod Airlock"
@@ -141434,7 +141430,7 @@ bxz
 ygb
 wsS
 wht
-jwB
+wht
 wht
 wht
 qyP
