@@ -406,34 +406,10 @@
 		return //Yup, no reactions here. No siree.
 
 	var/reaction_occured = FALSE
-	var/radius = 0
-	var/intensity = 0
-	var/duration = 0
-	var/supplemented = 0 //for determining fire shape. Intensifying chems add, moderating chems remove.
-	var/fire_penetrating = FALSE
-	var/intensityfire = 0
-	var/durationfire = 0
-	var/rangefire = 0 // Set to -1 if you want an infinite range
-	var/max_spec_volume = 20
-	var/list/supplements = list()
 	do
 		reaction_occured = FALSE
 		for(var/A in reagent_list) // Usually a small list
 			var/datum/reagent/R = A
-			if(R.chemfiresupp)
-				supplements += R
-				supplemented += R.intensitymod * R.volume
-				intensity += R.intensitymod * R.volume
-				duration += R.durationmod * R.volume
-				radius += R.radiusmod * R.volume
-				if(R.fire_penetrating && R.volume >= CHEM_FIRE_PENETRATION_THRESHOLD)
-					fire_penetrating = TRUE
-			if(R.chemfirescpec && R.volume > max_spec_volume)
-				max_spec_volume = R.volume
-				intensityfire = R.intensityfire
-				durationfire = R.durationfire
-				rangefire = R.rangefire // Set to -1 if you want an infinite range
-
 			for(var/reaction in GLOB.chemical_reactions_list[R.type]) // Was a big list but now it should be smaller since we filtered it with our reagent id
 				if(!reaction)
 					continue
@@ -525,21 +501,50 @@
 					reaction_occured = TRUE
 					break
 	while(reaction_occured)
-	if(trigger_volatiles && intensity > 0)
-		var/firecolor = mix_burn_colors(supplements)
-		clear_reagents()
-		combust(get_turf(my_atom), max(radius, rangefire), max(intensity, intensityfire), max(duration, durationfire), max(supplemented, intensityfire), firecolor, fire_penetrating)
+	if(trigger_volatiles)
+		var/list/combust_data = calc_combust_data()
+		if(combust_data)
+			clear_reagents()
+			combust(get_turf(my_atom), combust_data[COMBUST_DATA_RADIUS], combust_data[COMBUST_DATA_INTENSITY], combust_data[COMBUST_DATA_DURATION], combust_data[COMBUST_DATA_SUPPLEMENTED], combust_data[COMBUST_DATA_FIRECOLOR], combust_data[COMBUST_DATA_PENETRATING])
 		trigger_volatiles = FALSE
 	update_total()
 	return FALSE
 
-/datum/reagents/proc/combust(turf/sourceturf, radius, intensity, duration, supplemented, firecolor, fire_penetrating, flush_beaker = TRUE)
-	if(!sourceturf)
-		return
-	if(sourceturf.density || sourceturf.blocks_air)
-		return // Has recently exploded, so no explosion this time. Prevents instagib satchel charges.
+/datum/reagents/proc/calc_combust_data()
+	var/radius = 0
+	var/intensity = 0
+	var/duration = 0
+	var/supplemented = 0
+	var/fire_penetrating = FALSE
+	var/intensityfire = 0
+	var/durationfire = 0
+	var/rangefire = 0
+	var/max_spec_volume = 20
+	var/list/supplements = list()
 
-	var/flameshape = FLAMESHAPE_DEFAULT
+	for(var/datum/reagent/reagent as anything in reagent_list)
+		var/reagent_volume = reagent.volume
+		if(reagent.chemfiresupp)
+			supplements += reagent
+			supplemented += reagent.intensitymod * reagent_volume
+			intensity += reagent.intensitymod * reagent_volume
+			duration += reagent.durationmod * reagent_volume
+			radius += reagent.radiusmod * reagent_volume
+			if(reagent.fire_penetrating && reagent_volume >= CHEM_FIRE_PENETRATION_THRESHOLD)
+				fire_penetrating = TRUE
+		if(reagent.chemfirescpec && reagent_volume > max_spec_volume)
+			max_spec_volume = reagent_volume
+			intensityfire = reagent.intensityfire
+			durationfire = reagent.durationfire
+			rangefire = reagent.rangefire
+
+	radius = max(radius, rangefire)
+	intensity = max(intensity, intensityfire)
+	duration = max(duration, durationfire)
+	supplemented = max(supplemented, intensityfire)
+
+	if(intensity <= 0)
+		return null
 
 	// some upper and lower limits
 	if(radius <= min_fire_rad)
@@ -554,6 +559,23 @@
 		duration = min_fire_dur
 	else if(duration >= max_fire_dur)
 		duration = max_fire_dur
+
+	return list(
+		COMBUST_DATA_RADIUS = radius,
+		COMBUST_DATA_INTENSITY = intensity,
+		COMBUST_DATA_DURATION = duration,
+		COMBUST_DATA_SUPPLEMENTED = supplemented,
+		COMBUST_DATA_FIRECOLOR = mix_burn_colors(supplements),
+		COMBUST_DATA_PENETRATING = fire_penetrating,
+	)
+
+/datum/reagents/proc/combust(turf/sourceturf, radius, intensity, duration, supplemented, firecolor, fire_penetrating, flush_beaker = TRUE)
+	if(!sourceturf)
+		return
+	if(sourceturf.density || sourceturf.blocks_air)
+		return // Has recently exploded, so no explosion this time. Prevents instagib satchel charges.
+
+	var/flameshape = FLAMESHAPE_DEFAULT
 
 	// shape
 	if(supplemented > 0 && intensity > CHEM_FIRE_STAR_THRESHOLD)
@@ -575,7 +597,7 @@
 
 	reagent.fire_penetrating = fire_penetrating
 
-	new /obj/flamer_fire(sourceturf, reagent, radius, FALSE, flameshape)
+	new /obj/flamer_fire(sourceturf, reagent, radius, null, flameshape)
 
 /datum/reagents/proc/floor_reagent(reagent)
 	for(var/A in reagent_list)

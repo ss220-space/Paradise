@@ -18,7 +18,7 @@
 		return
 	var/part_reference = display_names[pick]
 	var/obj/item/part = locateUID(part_reference)
-	if(!istype(part) || user.incapacitated())
+	if(!istype(part) || user.incapacitated)
 		return
 	if(activating)
 		balloon_alert(user, "выключите костюм!")

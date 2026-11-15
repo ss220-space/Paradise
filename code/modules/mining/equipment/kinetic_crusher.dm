@@ -156,7 +156,7 @@
 /obj/item/twohanded/kinetic_crusher/proc/check_menu(mob/living/carbon/human/user)
 	if(!istype(user))
 		return FALSE
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return FALSE
 	return TRUE
 

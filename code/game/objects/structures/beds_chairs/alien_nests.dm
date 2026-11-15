@@ -25,7 +25,7 @@
 	return FALSE
 
 /obj/structure/bed/nest/user_buckle_mob(mob/living/target, mob/living/user, check_loc = TRUE)
-	if(!isliving(target) || target.buckled || !in_range(src, user) || target.loc != loc || user.incapacitated())
+	if(!isliving(target) || target.buckled || !in_range(src, user) || target.loc != loc || user.incapacitated)
 		return FALSE
 
 	if(target.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))

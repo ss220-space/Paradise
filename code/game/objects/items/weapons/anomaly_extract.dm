@@ -61,7 +61,7 @@
 	if(!caster.mind)
 		return
 
-	if(caster.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB))
+	if(INCAPACITATED_IGNORING(caster, INCAPABLE_RESTRAINTS|INCAPABLE_GRAB))
 		if(feedback)
 			to_chat(caster, span_warning("You can't use this ability right now!"))
 		return FALSE
@@ -183,7 +183,7 @@
 	if(!caster.mind)
 		return
 
-	if(caster.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB))
+	if(INCAPACITATED_IGNORING(caster, INCAPABLE_RESTRAINTS|INCAPABLE_GRAB))
 		if(feedback)
 			to_chat(caster, span_warning("You can't use this ability right now!"))
 		return FALSE

@@ -1,0 +1,4 @@
+author: "chomasuke"
+delete-after: True
+changes:
+  - refactor: "event incapacitated (PR #10040)"

@@ -25,6 +25,29 @@
 
 	new /obj/flamer_fire(epicenter, reagent, reagent.rangefire, null, flameshape, target, , , fire_type)
 
+GLOBAL_LIST_EMPTY(flamer_particles)
+/particles/flamer_fire
+	icon = 'icons/effects/particles/fire.dmi'
+	icon_state = "bonfire"
+	width = 100
+	height = 100
+	count = 200
+	spawning = 5
+	lifespan = 0.6 SECONDS
+	fade = 0.8 SECONDS
+	grow = -0.01
+	velocity = list(0, 0)
+	position = generator("box", list(-16, -16), list(16, 16), NORMAL_RAND)
+	drift = generator("vector", list(0, -0.2), list(0, 0.2))
+	gravity = list(0, 0.95)
+	scale = generator("vector", list(0.3, 0.3), list(1,1), NORMAL_RAND)
+	rotation = 30
+	spin = generator("num", -20, 20)
+
+/particles/flamer_fire/New(set_color)
+	..()
+	color = set_color
+
 /obj/flamer_fire
 	name = "fire"
 	desc = "Ouch!"
@@ -33,6 +56,7 @@
 	icon = 'icons/effects/fire.dmi'
 	icon_state = "dynamic_2"
 	layer = ABOVE_OBJ_LAYER
+	pass_flags = PASSFENCE|PASSGRILLE|PASSBLOB|PASSITEM|PASSFLAPS
 
 	light_range = 3
 	light_power = 3
@@ -83,12 +107,19 @@
 
 	set_light(l_color = reagent.burncolor)
 
+	if(reagent.fire_penetrating)
+		var/new_burncolor = color_matrix_multiply(color_matrix_rotate_x(5), color_hex2color_matrix(reagent.burncolor))
+		if(!GLOB.flamer_particles[new_burncolor])
+			GLOB.flamer_particles[new_burncolor] = new /particles/flamer_fire(new_burncolor)
+		particles = GLOB.flamer_particles[new_burncolor]
+
 	tied_reagent = new reagent.type() // Can't get deleted this way
 	tied_reagent.durationfire = reagent.durationfire
 	tied_reagent.intensityfire = reagent.intensityfire
 	tied_reagent.rangefire = reagent.rangefire
 	tied_reagent.burncolor = reagent.burncolor
 	tied_reagent.burn_sprite = reagent.burn_sprite
+	tied_reagent.fire_penetrating = reagent.fire_penetrating
 
 	if(obj_reagents)
 		tied_reagents = obj_reagents
@@ -176,7 +207,7 @@
 			burn_damage = burnlevel
 	var/fire_intensity_resistance = mob.run_armor_check(attack_flag = FIRE)
 
-	if(!tied_reagent.fire_penetrating)
+	if(tied_reagent && !tied_reagent.fire_penetrating)
 		burn_damage = max(burn_damage * (100 - fire_intensity_resistance) / 100, 0)
 
 	mob.adjust_fire_stacks(tied_reagent.durationfire)

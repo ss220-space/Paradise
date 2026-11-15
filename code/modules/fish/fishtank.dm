@@ -81,13 +81,13 @@
 	toggle_light(user)
 
 /obj/machinery/fishtank/proc/toggle_lid(mob/user)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	lid_switch = !lid_switch
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/fishtank/proc/toggle_light(mob/user)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	light_switch = !light_switch
 	if(light_switch)

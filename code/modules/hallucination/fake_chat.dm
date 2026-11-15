@@ -14,7 +14,7 @@
 	return ..()
 
 /datum/hallucination/chat/start()
-	if(hallucinator.incapacitated())
+	if(hallucinator.incapacitated)
 		return FALSE
 
 	var/mob/living/carbon/human/speaker

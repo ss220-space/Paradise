@@ -305,7 +305,7 @@
 		D.update_label()
 
 GAME_VERB_SRC(/obj/machinery/computer/id_upgrader/ussp, set_name, oview(1), "Ввести название", VERB_CATEGORY_HIDDEN)
-	if(!ishuman(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(!ishuman(usr) || usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/temp_name = reject_bad_name(tgui_input_text(usr, "Enter cardholder name:", "Cardholder name", usr.name), TRUE)
