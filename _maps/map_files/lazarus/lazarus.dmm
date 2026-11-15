@@ -1277,7 +1277,9 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "apV" = (
 /obj/structure/table,
@@ -1458,7 +1460,9 @@
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "asx" = (
 /obj/machinery/atmospherics/pipe/simple/visible/red{
@@ -1668,7 +1672,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "auQ" = (
 /obj/effect/decal/snow/sand/edge{
@@ -2065,7 +2071,9 @@
 	c_tag = "Cargo Outside";
 	dir = 1
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "azm" = (
 /obj/machinery/alarm/directional/east,
@@ -2550,6 +2558,18 @@
 	icon_state = "rampbottom"
 	},
 /area/planetoid/lazarus/security/hallway/reception)
+"aGk" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/obj/structure/cable,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
+/area/planetoid/jungle/colony_roads)
 "aGs" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
@@ -3286,7 +3306,9 @@
 /area/planetoid/jungle/colony)
 "aRx" = (
 /obj/structure/cable,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "aRE" = (
 /obj/effect/turf_decal/stripes/line{
@@ -3601,7 +3623,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "aWv" = (
 /obj/effect/decal/cleanable/dust,
@@ -3727,7 +3751,9 @@
 	dir = 8
 	},
 /obj/structure/cable,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "aXO" = (
 /obj/structure/cable,
@@ -5380,7 +5406,9 @@
 	name = "rough sand"
 	},
 /obj/structure/cable,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "bqO" = (
 /obj/machinery/door_control{
@@ -5973,7 +6001,9 @@
 	name = "rough sand"
 	},
 /obj/structure/cable,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "bxg" = (
 /obj/structure/table/reinforced,
@@ -6347,7 +6377,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "bBT" = (
 /turf/simulated/floor/planetoid/grass/dirtcorner2/east,
@@ -6930,7 +6962,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "bIJ" = (
 /obj/structure/rack,
@@ -8300,7 +8334,9 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "bYS" = (
 /obj/structure/lattice/catwalk,
@@ -12030,7 +12066,9 @@
 	name = "rough sand"
 	},
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "cUm" = (
 /obj/effect/turf_decal/siding/thinplating/dark{
@@ -12411,7 +12449,9 @@
 	name = "rough sand"
 	},
 /obj/structure/cable,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "cYd" = (
 /obj/effect/turf_decal/tile/yellow/anticorner/contrasted{
@@ -15717,7 +15757,9 @@
 	dir = 10
 	},
 /obj/structure/cable,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "dNs" = (
 /obj/structure/railing/corner{
@@ -15896,6 +15938,14 @@
 "dQr" = (
 /turf/simulated/wall/r_wall,
 /area/planetoid/lazarus/command/teleporter)
+"dQt" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
+/area/planetoid/jungle/colony_roads)
 "dQB" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplecorners"
@@ -16090,7 +16140,9 @@
 	dir = 4
 	},
 /obj/structure/cable,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "dTC" = (
 /obj/effect/turf_decal/delivery/hollow,
@@ -16374,7 +16426,9 @@
 	c_tag = "Courtroom Outside North";
 	dir = 1
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "dXa" = (
 /obj/structure/vine/heavy,
@@ -16400,7 +16454,9 @@
 /area/planetoid/spaceport/escape_shuttle)
 "dXd" = (
 /obj/structure/mineral_door/wood,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
 /area/planetoid/lazarus/service/library)
 "dXe" = (
 /obj/structure/disposalpipe/segment{
@@ -16607,7 +16663,9 @@
 	network = list("Medical","SS13");
 	dir = 10
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "eam" = (
 /obj/effect/turf_decal/stripes/white/line{
@@ -19106,7 +19164,9 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "eIi" = (
 /obj/structure/flora/rock/jungle,
@@ -22025,7 +22085,9 @@
 /area/planetoid/lazarus/abandoned_building/temple_inner)
 "frZ" = (
 /obj/structure/railing/corner,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "fse" = (
 /obj/structure/closet/wardrobe/red,
@@ -22085,7 +22147,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "fsQ" = (
 /obj/structure/table/glass,
@@ -22429,7 +22493,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "fyv" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -24955,7 +25021,9 @@
 	dir = 6
 	},
 /obj/structure/cable,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "ghr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -26510,7 +26578,9 @@
 /obj/structure/railing/corner{
 	dir = 8
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "gzO" = (
 /obj/effect/decal/cleanable/dirt,
@@ -27121,7 +27191,9 @@
 	c_tag = "Service Outside South";
 	dir = 5
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "gIW" = (
 /obj/structure/decor/container/upp/mk6/right,
@@ -27200,7 +27272,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "gJN" = (
 /obj/effect/turf_decal/tile/neutral/diagonal_edge,
@@ -27885,7 +27959,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "gRR" = (
 /obj/effect/turf_decal/stripes/line{
@@ -28254,7 +28330,9 @@
 	dir = 8
 	},
 /obj/structure/cable,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "gXn" = (
 /obj/structure/chair/comfy/brown{
@@ -28407,7 +28485,9 @@
 	name = "rough sand"
 	},
 /obj/structure/cable,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "ham" = (
 /obj/machinery/hologram/holopad,
@@ -29609,6 +29689,18 @@
 	icon_state = "neutralcorner"
 	},
 /area/planetoid/lazarus/hallway/primary/aft/east)
+"hpl" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/obj/structure/cable,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
+/area/planetoid/jungle/colony_roads)
 "hps" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -29805,7 +29897,9 @@
 /obj/structure/sign/med{
 	pixel_y = 32
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "hqY" = (
 /obj/structure/chair/stool{
@@ -30517,7 +30611,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "hzT" = (
 /obj/effect/turf_decal/siding/white{
@@ -31562,7 +31658,9 @@
 	dir = 8
 	},
 /obj/structure/cable,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "hMC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -32787,7 +32885,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "icK" = (
 /obj/machinery/light{
@@ -32854,7 +32954,9 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "idG" = (
 /turf/simulated/wall/r_wall,
@@ -33622,7 +33724,9 @@
 	dir = 8;
 	name = "rough sand"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "iom" = (
 /obj/structure/rack,
@@ -36464,7 +36568,9 @@
 	},
 /area/planetoid/lazarus/science/security)
 "jcx" = (
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/lazarus/security/podbay)
 "jcD" = (
 /obj/effect/turf_decal/stripes/line{
@@ -39233,7 +39339,9 @@
 /area/planetoid/jungle/south)
 "jLB" = (
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "jLE" = (
 /turf/simulated/wall/r_wall,
@@ -40393,7 +40501,9 @@
 	name = "rough sand"
 	},
 /obj/structure/cable,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "kdj" = (
 /obj/machinery/computer/crew,
@@ -40903,7 +41013,9 @@
 /obj/structure/chair/sofa/bench/right{
 	dir = 4
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/spaceport)
 "kiY" = (
 /obj/effect/turf_decal/siding/wood/corner{
@@ -42366,7 +42478,9 @@
 	dir = 1;
 	name = "rough sand"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "kxU" = (
 /obj/structure/table/reinforced,
@@ -46145,7 +46259,9 @@
 	dir = 4
 	},
 /obj/structure/cable,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "lvA" = (
 /obj/effect/decal/cleanable/ash,
@@ -46473,7 +46589,9 @@
 	dir = 4;
 	name = "rough sand"
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "lzF" = (
 /turf/simulated/floor/planetoid/grass/sandedge/west,
@@ -47633,7 +47751,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "lPK" = (
 /obj/effect/turf_decal{
@@ -48805,7 +48925,9 @@
 "mfC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "mfE" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -49837,6 +49959,17 @@
 	icon_state = "brown"
 	},
 /area/planetoid/lazarus/cargo/office)
+"muF" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
+/area/planetoid/jungle/colony_roads)
 "muI" = (
 /obj/structure/flora/rock/pile/largejungle,
 /turf/simulated/floor/planetoid/grass,
@@ -50270,7 +50403,9 @@
 	dir = 9
 	},
 /obj/structure/cable,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "mAy" = (
 /obj/machinery/door/window/westright{
@@ -50564,7 +50699,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "mDN" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -51643,7 +51780,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "mTO" = (
 /obj/structure/cable,
@@ -51807,7 +51946,9 @@
 	dir = 9
 	},
 /obj/structure/cable,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "mWw" = (
 /obj/structure/grille/broken,
@@ -55324,7 +55465,9 @@
 	dir = 4
 	},
 /obj/structure/cable,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "nTK" = (
 /obj/effect/landmark/start/hangover,
@@ -55871,7 +56014,9 @@
 /area/planetoid/caves/east_rnd_cave)
 "obv" = (
 /obj/structure/chair/sofa/bench/right,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "obA" = (
 /obj/effect/hunter/ancient_temple/tile_edge/tile_edge_12,
@@ -56322,7 +56467,9 @@
 	dir = 1
 	},
 /obj/structure/cable,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "oiQ" = (
 /obj/structure/closet/crate,
@@ -56812,7 +56959,9 @@
 	dir = 4
 	},
 /obj/effect/landmark/start/civilian,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/spaceport)
 "ooO" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -57381,7 +57530,9 @@
 	name = "rough sand"
 	},
 /obj/structure/cable,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "owZ" = (
 /obj/machinery/smartfridge,
@@ -58246,7 +58397,9 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "oIi" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -63294,7 +63447,9 @@
 	name = "rough sand"
 	},
 /obj/structure/cable,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "pZc" = (
 /obj/effect/turf_decal/siding/wood/corner,
@@ -63478,7 +63633,9 @@
 	dir = 10
 	},
 /obj/structure/cable,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "qbb" = (
 /obj/structure/flora/tree/jungle/small,
@@ -64315,7 +64472,9 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/cable,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "qlI" = (
 /turf/simulated/wall/r_wall,
@@ -64953,7 +65112,9 @@
 /obj/structure/chair/sofa/bench/left{
 	dir = 4
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/spaceport)
 "qtf" = (
 /obj/structure/girder,
@@ -65852,7 +66013,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "qDM" = (
 /obj/structure/flora/ausbushes/grassybush,
@@ -66433,7 +66596,9 @@
 	name = "rough sand"
 	},
 /obj/structure/cable,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "qKs" = (
 /obj/structure/disposalpipe/segment{
@@ -66625,10 +66790,10 @@
 /turf/simulated/floor/planetoid/desert/beachcorner/south,
 /area/planetoid/lakes/beach)
 "qOK" = (
-/obj/structure/vine,
-/obj/structure/mineral_door/sandstone,
-/turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/lazarus/abandoned_building/temple_inner)
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
+/area/planetoid/jungle/colony_roads)
 "qOL" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
@@ -68820,7 +68985,9 @@
 	name = "rough sand"
 	},
 /obj/structure/cable,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "rsA" = (
 /obj/effect/turf_decal/stripes/line{
@@ -70161,6 +70328,11 @@
 	icon_state = "dark"
 	},
 /area/planetoid/lazarus/engineering/mechanic_workshop)
+"rLp" = (
+/obj/structure/vine,
+/obj/structure/mineral_door/sandstone,
+/turf/simulated/floor/planetoid/desert/desert,
+/area/planetoid/lazarus/abandoned_building/temple_inner)
 "rLr" = (
 /obj/structure/closet/crate/hydroponics,
 /obj/item/reagent_containers/cup/bottle/nutrient/ez,
@@ -71783,7 +71955,9 @@
 	pixel_y = 26;
 	req_access = list(71)
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/lazarus/security/podbay)
 "sgW" = (
 /obj/structure/bed/wicker,
@@ -72030,7 +72204,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "sjP" = (
 /obj/structure/table,
@@ -72722,7 +72898,9 @@
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/structure/cable,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "srP" = (
 /obj/machinery/vending/department_clothesmate/security,
@@ -73071,6 +73249,12 @@
 	icon_state = "darkyellow"
 	},
 /area/planetoid/lazarus/engineering/hallway)
+"swj" = (
+/obj/structure/cable,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
+/area/planetoid/spaceport)
 "swx" = (
 /turf/simulated/floor/planetoid/desert/beachcorner2/north,
 /area/planetoid/lakes/east)
@@ -73538,7 +73722,9 @@
 /area/planetoid/caves/north_eng_cave)
 "sDN" = (
 /obj/structure/chair/sofa/bench/left,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "sDO" = (
 /obj/structure/disposalpipe/segment,
@@ -75149,7 +75335,9 @@
 	dir = 5
 	},
 /obj/structure/cable,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "sXs" = (
 /obj/machinery/door/airlock/maintenance{
@@ -75370,7 +75558,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "sZu" = (
 /obj/structure/disposalpipe/segment{
@@ -76242,7 +76432,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "tjP" = (
 /obj/effect/decal/cleanable/dirt,
@@ -76325,7 +76517,9 @@
 /area/planetoid/caves/underground_lake)
 "tkK" = (
 /obj/structure/chair/sofa/bench,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "tkM" = (
 /obj/structure/window/reinforced{
@@ -76609,7 +76803,9 @@
 	dir = 4
 	},
 /obj/structure/cable,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "tnk" = (
 /turf/simulated/floor/plasteel,
@@ -78722,7 +78918,9 @@
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/structure/cable,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "tQV" = (
 /obj/structure/chair/sofa/bench/left/medical_blue{
@@ -80397,7 +80595,9 @@
 /turf/simulated/floor/carpet,
 /area/planetoid/lazarus/security/detectives_office)
 "unr" = (
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/spaceport)
 "uns" = (
 /obj/structure/pit,
@@ -85016,7 +85216,9 @@
 	dir = 8
 	},
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "vsP" = (
 /obj/machinery/light{
@@ -87155,7 +87357,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "vUX" = (
 /obj/machinery/portable_atmospherics/canister,
@@ -88051,7 +88255,9 @@
 "whN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "whO" = (
 /turf/simulated/wall/r_wall,
@@ -89855,7 +90061,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "wGb" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -92021,7 +92229,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "xef" = (
 /obj/machinery/camera{
@@ -92459,6 +92669,18 @@
 	icon_state = "bcircuit"
 	},
 /area/planetoid/lazarus/ai/satellite/interior)
+"xkh" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
+/area/planetoid/jungle/colony_roads)
 "xkn" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/ywflowers,
@@ -92500,7 +92722,9 @@
 	dir = 4
 	},
 /obj/structure/cable,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "xkI" = (
 /obj/structure/chair/sofa/corp/corner{
@@ -94079,6 +94303,11 @@
 	icon_state = "whitepurple"
 	},
 /area/planetoid/lazarus/science/xenobiology)
+"xFU" = (
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
+/area/planetoid/jungle/colony)
 "xGd" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/railing{
@@ -94985,7 +95214,9 @@
 	dir = 6
 	},
 /obj/structure/cable,
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "xSY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -95116,7 +95347,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/planetoid/desert/desert,
+/turf/simulated/floor/planetoid/desert/desert{
+	slowdown = -0.2
+	},
 /area/planetoid/jungle/colony_roads)
 "xTS" = (
 /obj/structure/closet/crate,
@@ -111026,7 +111259,7 @@ kZq
 kZq
 kZq
 kZq
-dvr
+qOK
 wFX
 aWo
 wsZ
@@ -111081,7 +111314,7 @@ lcm
 aJh
 mEz
 nqU
-dvr
+qOK
 wsZ
 nxy
 oSh
@@ -111284,7 +111517,7 @@ uWy
 nxy
 tKT
 kMl
-dvr
+qOK
 mTJ
 wsZ
 oSh
@@ -111333,12 +111566,12 @@ cZu
 eTU
 tLA
 wLz
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
 wsZ
 auY
 nxy
@@ -111541,7 +111774,7 @@ rrB
 itG
 nxy
 sih
-dvr
+qOK
 mTJ
 wsZ
 rrB
@@ -111595,7 +111828,7 @@ qFX
 iwD
 iwD
 kMl
-dvr
+qOK
 wsZ
 nxy
 itG
@@ -111798,7 +112031,7 @@ mEz
 mEz
 mEz
 nqU
-dvr
+qOK
 mTJ
 stX
 mrZ
@@ -111852,7 +112085,7 @@ nxy
 kpe
 oSh
 wYF
-dvr
+qOK
 wsZ
 uvr
 nxy
@@ -112032,32 +112265,32 @@ rde
 mcf
 rCh
 rGk
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
 mTJ
-dvr
+qOK
 wsZ
 kpe
 kVp
@@ -112109,7 +112342,7 @@ kpe
 oSh
 oSh
 bKJ
-dvr
+qOK
 wsZ
 nxy
 nxy
@@ -112288,33 +112521,33 @@ lbW
 fuk
 aZH
 ylJ
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
 mTJ
-dvr
+qOK
 wsZ
 kpe
 kVp
@@ -112366,7 +112599,7 @@ cAu
 cZu
 cZu
 bKJ
-dvr
+qOK
 wsZ
 rrB
 auY
@@ -112545,13 +112778,13 @@ mcf
 bdA
 aZH
 ylJ
-dvr
-dvr
+qOK
+qOK
 ygD
 iwD
 dEf
 sUn
-dvr
+qOK
 rtC
 qoH
 iwD
@@ -112565,13 +112798,13 @@ iwD
 iwD
 iwD
 sUn
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
 mTJ
-dvr
+qOK
 wsZ
 kpe
 oSh
@@ -112623,7 +112856,7 @@ dbf
 hyN
 kmQ
 bKJ
-dvr
+qOK
 wsZ
 nxy
 nxy
@@ -112802,8 +113035,8 @@ dhR
 rga
 tBl
 ylJ
-dvr
-dvr
+qOK
+qOK
 wsZ
 nxy
 diU
@@ -112822,13 +113055,13 @@ nwH
 nwH
 nxy
 kGQ
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
 mTJ
-dvr
+qOK
 wsZ
 oSh
 oSh
@@ -112880,7 +113113,7 @@ xlj
 ndf
 kmQ
 bKJ
-dvr
+qOK
 wsZ
 hfT
 itG
@@ -113059,8 +113292,8 @@ emB
 rde
 mcf
 ylJ
-dvr
-dvr
+qOK
+qOK
 wsZ
 nxy
 diU
@@ -113079,13 +113312,13 @@ xlK
 nwH
 uWy
 dbT
-dvr
-dvr
+qOK
+qOK
 rHP
 kMl
-dvr
+qOK
 mTJ
-dvr
+qOK
 wsZ
 oSh
 oSh
@@ -113137,7 +113370,7 @@ wLR
 ndf
 kmQ
 vXJ
-dvr
+qOK
 wsZ
 nxy
 oSh
@@ -113316,8 +113549,8 @@ itB
 rde
 wBc
 ylJ
-dvr
-dvr
+qOK
+qOK
 wsZ
 auY
 diU
@@ -113340,9 +113573,9 @@ sUT
 sUT
 nwH
 bKJ
-dvr
+qOK
 mTJ
-dvr
+qOK
 wsZ
 nxy
 itG
@@ -113573,8 +113806,8 @@ hTC
 wWg
 aZH
 ylJ
-dvr
-dvr
+qOK
+qOK
 wsZ
 nxy
 diU
@@ -113597,9 +113830,9 @@ yfn
 uWz
 nwH
 bKJ
-dvr
+qOK
 mTJ
-dvr
+qOK
 wsZ
 nxy
 aRt
@@ -113830,8 +114063,8 @@ rde
 mgr
 bfB
 ylJ
-dvr
-dvr
+qOK
+qOK
 wsZ
 wPw
 diU
@@ -113854,9 +114087,9 @@ eFk
 iFt
 nwH
 bKJ
-dvr
+qOK
 mTJ
-dvr
+qOK
 wsZ
 nxy
 ucl
@@ -114087,8 +114320,8 @@ rde
 aZH
 obP
 ylJ
-dvr
-dvr
+qOK
+qOK
 wsZ
 rYg
 oZy
@@ -114111,9 +114344,9 @@ qFO
 hcZ
 nwH
 bKJ
-dvr
+qOK
 mTJ
-dvr
+qOK
 wsZ
 nxy
 hWQ
@@ -114344,8 +114577,8 @@ rde
 usE
 mcf
 ylJ
-dvr
-dvr
+qOK
+qOK
 oZy
 oZy
 oZy
@@ -114368,9 +114601,9 @@ tcc
 ygR
 nwH
 bKJ
-dvr
+qOK
 mTJ
-dvr
+qOK
 wsZ
 nxy
 nxy
@@ -114601,8 +114834,8 @@ jSi
 mcf
 aZH
 ylJ
-dvr
-dvr
+qOK
+qOK
 oZy
 wvX
 vdt
@@ -114625,9 +114858,9 @@ tcc
 dof
 nwH
 gji
-dvr
+qOK
 mTJ
-dvr
+qOK
 wsZ
 nxy
 nxy
@@ -114858,8 +115091,8 @@ rde
 qDM
 aZH
 ylJ
-dvr
-dvr
+qOK
+qOK
 tkP
 pbt
 eXG
@@ -114882,9 +115115,9 @@ dof
 dof
 byc
 bKJ
-dvr
+qOK
 mTJ
-dvr
+qOK
 wsZ
 auY
 nxy
@@ -115115,8 +115348,8 @@ rde
 aZH
 tBl
 ylJ
-dvr
-dvr
+qOK
+qOK
 tkP
 pbt
 klj
@@ -115139,9 +115372,9 @@ qju
 dof
 byc
 bKJ
-dvr
+qOK
 mTJ
-dvr
+qOK
 wsZ
 oVK
 itG
@@ -115372,8 +115605,8 @@ rde
 obP
 bdA
 ylJ
-dvr
-dvr
+qOK
+qOK
 tkP
 pbt
 kjt
@@ -115396,9 +115629,9 @@ kzm
 dof
 byc
 bKJ
-dvr
+qOK
 mTJ
-dvr
+qOK
 wsZ
 wOR
 edJ
@@ -115629,8 +115862,8 @@ rde
 aZH
 wBc
 ylJ
-dvr
-dvr
+qOK
+qOK
 oZy
 uud
 uVt
@@ -115653,9 +115886,9 @@ uCK
 xih
 nwH
 bKJ
-dvr
+qOK
 mTJ
-dvr
+qOK
 wsZ
 nxy
 nxy
@@ -115886,8 +116119,8 @@ rde
 aZH
 mcf
 ylJ
-dvr
-dvr
+qOK
+qOK
 oZy
 oZy
 oZy
@@ -115910,9 +116143,9 @@ uCK
 ygR
 nwH
 bKJ
-dvr
+qOK
 mTJ
-dvr
+qOK
 wsZ
 nxy
 dPk
@@ -116143,8 +116376,8 @@ rde
 grZ
 aZH
 ylJ
-dvr
-dvr
+qOK
+qOK
 wsZ
 vCt
 oZy
@@ -116167,9 +116400,9 @@ tmG
 lIU
 nwH
 bKJ
-dvr
+qOK
 mTJ
-dvr
+qOK
 wsZ
 nxy
 nxy
@@ -116400,8 +116633,8 @@ ahG
 fwq
 fwq
 rGk
-dvr
-dvr
+qOK
+qOK
 tje
 oZy
 oZy
@@ -116424,9 +116657,9 @@ sPR
 wUV
 nwH
 bKJ
-dvr
+qOK
 mTJ
-dvr
+qOK
 wsZ
 nxy
 yhQ
@@ -116654,11 +116887,11 @@ cti
 cti
 cti
 kxQ
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
 wsZ
 oZy
 rAv
@@ -116681,9 +116914,9 @@ wdV
 uWz
 nwH
 bKJ
-dvr
+qOK
 mTJ
-dvr
+qOK
 wsZ
 nxy
 bnu
@@ -116915,7 +117148,7 @@ qDK
 qDK
 qDK
 sXr
-dvr
+qOK
 wsZ
 oZy
 wWl
@@ -116938,9 +117171,9 @@ nWY
 sUT
 nwH
 wYF
-dvr
+qOK
 mTJ
-dvr
+qOK
 wsZ
 rYg
 hgt
@@ -117168,11 +117401,11 @@ kBe
 kBe
 ech
 kxQ
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
 nTB
-dvr
+qOK
 wsZ
 oZy
 oZy
@@ -117192,12 +117425,12 @@ edJ
 pIU
 gBL
 lPJ
-dvr
+qOK
 iTV
 nqU
-dvr
+qOK
 mTJ
-dvr
+qOK
 wsZ
 nxy
 nxy
@@ -117425,11 +117658,11 @@ cti
 cti
 bFa
 tjM
-dvr
-dvr
-dvr
-ava
-jyr
+qOK
+qOK
+qOK
+aGk
+hpl
 stX
 mrZ
 nxy
@@ -117447,14 +117680,14 @@ itG
 uWy
 prF
 ylf
-dvr
+qOK
 lPJ
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
 mTJ
-dvr
+qOK
 wsZ
 nxy
 hfT
@@ -117684,10 +117917,10 @@ rXS
 csb
 ryu
 uIC
-dvr
-dvr
-ava
-jyr
+qOK
+qOK
+aGk
+hpl
 stX
 uvr
 nxy
@@ -117708,10 +117941,10 @@ jLB
 xea
 rtC
 sUn
-dvr
-dvr
+qOK
+qOK
 mTJ
-dvr
+qOK
 stX
 mrZ
 nxy
@@ -117942,10 +118175,10 @@ mZm
 uCg
 tah
 uIC
-dvr
-dvr
-ava
-jyr
+qOK
+qOK
+aGk
+hpl
 stX
 mEz
 vbI
@@ -117960,16 +118193,16 @@ mEz
 mEz
 nqU
 hzP
-dvr
-dvr
+qOK
+qOK
 nTB
 aGF
 ylf
-dvr
-dvr
+qOK
+qOK
 mTJ
-dvr
-dvr
+qOK
+qOK
 stX
 mEz
 mEz
@@ -118200,10 +118433,10 @@ jJK
 aAU
 uJv
 uIC
-dvr
-dvr
-ava
-jyr
+qOK
+qOK
+aGk
+hpl
 aRx
 aRx
 aRx
@@ -118225,16 +118458,16 @@ aRx
 aRx
 aRx
 mTJ
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
 kHg
 rjS
 vsv
@@ -118458,8 +118691,8 @@ wPc
 xac
 nGQ
 uIC
-dvr
-dvr
+qOK
+qOK
 sjO
 whN
 mfC
@@ -118482,16 +118715,16 @@ mfC
 bYG
 mfC
 eIe
-feb
-feb
-feb
-feb
-feb
-feb
-feb
-feb
-feb
-feb
+dQt
+dQt
+dQt
+dQt
+dQt
+dQt
+dQt
+dQt
+dQt
+dQt
 eUy
 juG
 aIm
@@ -118716,38 +118949,38 @@ vXN
 twQ
 nGQ
 uIC
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
 hzP
-dvr
-dvr
-dvr
-dvr
-dvr
-gSa
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
+muF
+qOK
 aRx
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
 mDw
 poh
 nat
@@ -118994,10 +119227,10 @@ plz
 iwD
 tUd
 gSa
-dvr
+qOK
 aRx
-dvr
-dvr
+qOK
+qOK
 eKk
 iwD
 iwD
@@ -119251,9 +119484,9 @@ nai
 uvr
 ygL
 qFI
-dvr
+qOK
 aRx
-dvr
+qOK
 eKk
 riX
 nxy
@@ -119508,9 +119741,9 @@ nai
 nai
 nai
 oSj
-dvr
+qOK
 aRx
-dvr
+qOK
 wsZ
 auY
 mVK
@@ -119562,8 +119795,8 @@ jkg
 jkg
 oyC
 gJH
-cQH
-dvr
+xkh
+qOK
 gIP
 ioj
 ioj
@@ -119765,9 +119998,9 @@ aqU
 cMK
 nai
 oSj
-dvr
+qOK
 aRx
-dvr
+qOK
 wsZ
 nxy
 ukR
@@ -119818,11 +120051,11 @@ uYS
 kJx
 jkg
 bkZ
-dvr
-cQH
-dvr
-dvr
-dvr
+qOK
+xkh
+qOK
+qOK
+qOK
 eKk
 avC
 oSh
@@ -121307,9 +121540,9 @@ fHi
 eTD
 nai
 oSj
-dvr
+qOK
 aRx
-dvr
+qOK
 wsZ
 oVK
 oSh
@@ -121360,10 +121593,10 @@ xme
 oCf
 nzQ
 bkZ
-dvr
-cQH
-dvr
-dvr
+qOK
+xkh
+qOK
+qOK
 wsZ
 oSh
 oSh
@@ -121564,9 +121797,9 @@ nai
 nai
 nai
 oSj
-dvr
+qOK
 aRx
-dvr
+qOK
 wsZ
 nxy
 kpe
@@ -121617,10 +121850,10 @@ bQP
 ifb
 ifb
 bkZ
-dvr
-cQH
-dvr
-dvr
+qOK
+xkh
+qOK
+qOK
 wsZ
 kpe
 kVp
@@ -121821,9 +122054,9 @@ leC
 gej
 nai
 oSj
-dvr
+qOK
 aRx
-dvr
+qOK
 wsZ
 nxy
 xAa
@@ -121874,10 +122107,10 @@ dPg
 wqF
 ifb
 bkZ
-dvr
-cQH
-dvr
-dvr
+qOK
+xkh
+qOK
+qOK
 wsZ
 kpe
 kVp
@@ -122078,9 +122311,9 @@ nai
 nai
 nai
 oSj
-dvr
+qOK
 aRx
-dvr
+qOK
 wsZ
 nxy
 kpe
@@ -122131,10 +122364,10 @@ rwv
 sed
 bQP
 bkZ
-dvr
-cQH
-dvr
-dvr
+qOK
+xkh
+qOK
+qOK
 stX
 lvs
 oSh
@@ -122335,9 +122568,9 @@ kVp
 oSh
 oSh
 oSj
-dvr
+qOK
 aRx
-dvr
+qOK
 wsZ
 nxy
 kpe
@@ -122388,11 +122621,11 @@ jXe
 uon
 bQP
 gaV
-dvr
-cQH
-dvr
-dvr
-dvr
+qOK
+xkh
+qOK
+qOK
+qOK
 wsZ
 nxy
 oSh
@@ -122592,9 +122825,9 @@ kVp
 oSh
 oSh
 oSj
-dvr
+qOK
 aRx
-dvr
+qOK
 wsZ
 hfT
 kpe
@@ -122645,11 +122878,11 @@ wek
 tQP
 vNI
 qDk
-dvr
-cQH
-dvr
-dvr
-dvr
+qOK
+xkh
+qOK
+qOK
+qOK
 stX
 mrZ
 oSh
@@ -122849,9 +123082,9 @@ kVp
 kVp
 kpe
 oSj
-dvr
+qOK
 aRx
-dvr
+qOK
 wsZ
 nxy
 nxy
@@ -122902,12 +123135,12 @@ nnh
 yfQ
 bQP
 bKJ
-dvr
-cQH
-dvr
-dvr
-dvr
-dvr
+qOK
+xkh
+qOK
+qOK
+qOK
+qOK
 xLj
 eul
 qvV
@@ -123106,9 +123339,9 @@ wuA
 kpe
 rYg
 oSj
-dvr
+qOK
 aRx
-dvr
+qOK
 wsZ
 nxy
 nxy
@@ -123159,12 +123392,12 @@ eAL
 ifb
 ifb
 bKJ
-dvr
-cQH
-dvr
-dvr
-dvr
-dvr
+qOK
+xkh
+qOK
+qOK
+qOK
+qOK
 kAk
 xyy
 qvV
@@ -123363,9 +123596,9 @@ oSh
 kpe
 qDA
 oSj
-dvr
+qOK
 aRx
-dvr
+qOK
 wsZ
 wOR
 edJ
@@ -123419,10 +123652,10 @@ bKJ
 dvr
 cQH
 osF
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
 xLj
 eul
 eul
@@ -123620,9 +123853,9 @@ cSU
 nxy
 oVK
 oSj
-dvr
+qOK
 aRx
-dvr
+qOK
 wsZ
 nxy
 nxy
@@ -123649,10 +123882,10 @@ kpe
 kpe
 nxy
 eij
-dvr
-dvr
-dvr
-cQH
+qOK
+qOK
+qOK
+xkh
 qcW
 jkg
 jkg
@@ -123673,13 +123906,13 @@ oSh
 oSh
 rrB
 bKJ
-dvr
-cQH
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+xkh
+qOK
+qOK
+qOK
+qOK
+qOK
 kAk
 xyy
 nVf
@@ -123877,9 +124110,9 @@ cSU
 nxy
 hfT
 oSj
-dvr
+qOK
 aRx
-dvr
+qOK
 wsZ
 qDA
 nxy
@@ -123906,10 +124139,10 @@ oSh
 dPk
 nxy
 cTt
-dvr
-dvr
-dvr
-cQH
+qOK
+qOK
+qOK
+xkh
 wsZ
 nxy
 kpe
@@ -123930,14 +124163,14 @@ qJx
 oSh
 bhc
 bKJ
-dvr
-cQH
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+xkh
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
 kAk
 fzK
 fzK
@@ -124134,9 +124367,9 @@ cSU
 nxy
 pIU
 kiD
-dvr
+qOK
 aRx
-dvr
+qOK
 wsZ
 nxy
 auY
@@ -124163,10 +124396,10 @@ oSh
 oSh
 qDA
 cTt
-dvr
-dvr
-dvr
-cQH
+qOK
+qOK
+qOK
+xkh
 wsZ
 nxy
 kpe
@@ -124187,17 +124420,17 @@ kVp
 kpe
 nxy
 bKJ
-dvr
-cQH
-dvr
+qOK
+xkh
+qOK
 eKk
 kMl
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
 kAk
 lXB
 kXG
@@ -124390,10 +124623,10 @@ rSy
 cSU
 pIU
 nqU
-gSa
+muF
 aRx
 aRx
-dvr
+qOK
 wsZ
 nxy
 oVK
@@ -124420,10 +124653,10 @@ kVp
 oSh
 oSh
 cTt
-dvr
-dvr
+qOK
+qOK
 osF
-cQH
+xkh
 wsZ
 qDA
 oSh
@@ -124444,18 +124677,18 @@ kpe
 nxy
 pIU
 nqU
-dvr
-cQH
-dvr
+qOK
+xkh
+qOK
 wsZ
 ygL
 kMl
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
 gDO
 jcx
 sgF
@@ -124646,11 +124879,11 @@ aAI
 swK
 cSU
 bKJ
-dvr
-gSa
+qOK
+muF
 aRx
-dvr
-dvr
+qOK
+qOK
 wsZ
 nxy
 nxy
@@ -124677,10 +124910,10 @@ kpe
 kpe
 kpe
 cTt
-dvr
-dvr
-dvr
-cQH
+qOK
+qOK
+qOK
+xkh
 wsZ
 oSh
 oSh
@@ -124700,22 +124933,22 @@ oSh
 kpe
 oVK
 nqU
-dvr
-dvr
-cQH
-dvr
+qOK
+qOK
+xkh
+qOK
 wsZ
 auY
 ygL
 kMl
 dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
 rgX
-dvr
-dvr
+qOK
+qOK
 rtC
 rAM
 lmt
@@ -124903,10 +125136,10 @@ aAI
 kNr
 cSU
 gji
-dvr
-gSa
+qOK
+muF
 aRx
-dvr
+qOK
 vmk
 xXE
 vmk
@@ -124934,10 +125167,10 @@ xAa
 kpe
 kpe
 cTt
-dvr
-dvr
-dvr
-cQH
+qOK
+qOK
+qOK
+xkh
 wsZ
 oSh
 oSh
@@ -124956,22 +125189,22 @@ mEz
 mEz
 mEz
 nqU
-dvr
-dvr
-dvr
-cQH
-dvr
+qOK
+qOK
+qOK
+xkh
+qOK
 stX
 mrZ
 uvr
 ygL
 kMl
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
 uWc
-dvr
+qOK
 lmt
 lmt
 lmt
@@ -125160,10 +125393,10 @@ tZM
 nXR
 cSU
 bKJ
-dvr
-gSa
+qOK
+muF
 aRx
-dvr
+qOK
 vmk
 xqe
 ula
@@ -125194,7 +125427,7 @@ cTt
 dvr
 osF
 dvr
-cQH
+xkh
 wsZ
 oVK
 oSh
@@ -125205,20 +125438,20 @@ wOR
 edJ
 oGS
 nqU
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-cQH
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+xkh
+qOK
+qOK
 stX
 mrZ
 nxy
@@ -125417,10 +125650,10 @@ sbQ
 oOx
 cSU
 bKJ
-dvr
-cQH
+qOK
+xkh
 aRx
-dvr
+qOK
 rGW
 jLJ
 flI
@@ -125449,9 +125682,9 @@ uvr
 pIU
 nqU
 dvr
-dvr
-dvr
-cQH
+qOK
+qOK
+xkh
 stX
 mrZ
 nxy
@@ -125461,22 +125694,22 @@ bhc
 qDA
 pIU
 nqU
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-cQH
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+xkh
+qOK
+qOK
+qOK
 stX
 mEz
 mEz
@@ -125674,10 +125907,10 @@ wXn
 jZb
 cSU
 bKJ
-dvr
-cQH
-dvr
-dvr
+qOK
+xkh
+qOK
+qOK
 vqD
 flI
 flI
@@ -125706,10 +125939,10 @@ mEz
 nqU
 dvr
 dvr
-dvr
-dvr
-cQH
-dvr
+qOK
+qOK
+xkh
+qOK
 stX
 mEz
 mEz
@@ -125717,10 +125950,10 @@ mEz
 mEz
 mEz
 nqU
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
 rsX
 bAY
 wLS
@@ -125729,17 +125962,17 @@ btd
 btd
 btd
 btd
-dvr
-cQH
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+xkh
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
 stX
 mrZ
 jrp
@@ -125931,10 +126164,10 @@ uBO
 rJu
 cSU
 bKJ
-dvr
-cQH
-dvr
-dvr
+qOK
+xkh
+qOK
+qOK
 rGW
 kAA
 nom
@@ -125956,26 +126189,26 @@ kpe
 nxy
 pIU
 nqU
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+xkh
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
 dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-cQH
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
 dWY
 oLq
 oLq
@@ -125993,10 +126226,10 @@ qDK
 qDK
 qDK
 qDK
-jyr
-dvr
-dvr
-dvr
+hpl
+qOK
+qOK
+qOK
 dvr
 stX
 hGG
@@ -126188,10 +126421,10 @@ cSU
 cSU
 cSU
 gji
-dvr
-cQH
-dvr
-dvr
+qOK
+xkh
+qOK
+qOK
 bHR
 vmk
 vmk
@@ -126212,28 +126445,28 @@ nxy
 qDA
 pIU
 nqU
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+xkh
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
 dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-cQH
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
 nnQ
 nGU
 uPp
@@ -126244,18 +126477,18 @@ pjQ
 qkZ
 btd
 btd
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-ava
-jyr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+aGk
+hpl
+qOK
+qOK
+qOK
+qOK
 hzP
 rSU
 nwc
@@ -126445,10 +126678,10 @@ spI
 tln
 hFl
 nnm
-dvr
+qOK
 dTx
-dvr
-dvr
+qOK
+qOK
 kIz
 ceF
 jSx
@@ -126468,17 +126701,17 @@ waW
 mEz
 mEz
 nqU
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
 oiI
 qDK
 qDK
@@ -126502,17 +126735,17 @@ xsd
 qvF
 nSt
 btd
-dvr
-dvr
+qOK
+qOK
 eKk
 iwD
 iwD
 gEf
 sLR
 jyr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
 bIx
 cOc
 sTF
@@ -126701,11 +126934,11 @@ iuY
 ezy
 iuY
 bne
-ktp
-dvr
+xFU
+qOK
 dTx
-dvr
-dvr
+qOK
+qOK
 aRi
 pkt
 pkt
@@ -126719,34 +126952,34 @@ eLn
 lyx
 pkt
 aRi
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
 eKk
 iwD
 kMl
 dvr
 dvr
-dvr
-dvr
-cQH
+qOK
+qOK
+xkh
 eKk
 iwD
 iwD
 kMl
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
 mDw
 vUv
 xqu
@@ -126770,7 +127003,7 @@ sLR
 asv
 aWo
 frZ
-dvr
+qOK
 dkJ
 icK
 bGG
@@ -126976,24 +127209,24 @@ jcp
 siv
 law
 aRi
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
 eKk
 riX
 nxy
 ygL
 kMl
 dvr
-dvr
-dvr
-cQH
+qOK
+qOK
+xkh
 wsZ
 oVK
 nxy
@@ -127002,8 +127235,8 @@ iwD
 iwD
 iwD
 kMl
-dvr
-dvr
+qOK
+qOK
 hzP
 oLq
 nWB
@@ -127216,10 +127449,10 @@ aoz
 wXz
 hFl
 bBU
-dvr
+qOK
 dTx
-dvr
-dvr
+qOK
+qOK
 aRi
 pkt
 pKM
@@ -127233,14 +127466,14 @@ cyC
 pkt
 kIQ
 aRi
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
 eKk
 riX
 nxy
@@ -127248,9 +127481,9 @@ nxy
 oVK
 ygL
 kMl
-dvr
-dvr
-cQH
+qOK
+qOK
+xkh
 wsZ
 rrB
 kpe
@@ -127472,8 +127705,8 @@ huC
 huC
 hFl
 hFl
-dvr
-dvr
+qOK
+qOK
 dTx
 eal
 fhp
@@ -127505,9 +127738,9 @@ oSh
 auY
 rrB
 bKJ
-dvr
-dvr
-cQH
+qOK
+qOK
+xkh
 wsZ
 kpe
 kVp
@@ -127729,10 +127962,10 @@ bbb
 tQV
 oVi
 bne
-dvr
-dvr
+qOK
+qOK
 dTx
-dvr
+qOK
 jfH
 ptH
 coN
@@ -127762,9 +127995,9 @@ oSh
 oSh
 qDA
 bKJ
-dvr
-dvr
-cQH
+qOK
+qOK
+xkh
 wsZ
 kpe
 oSh
@@ -127986,10 +128219,10 @@ pDU
 nVS
 haK
 wRu
-dvr
-dvr
+qOK
+qOK
 dTx
-dvr
+qOK
 qIG
 giP
 kPk
@@ -128243,10 +128476,10 @@ uYZ
 xRb
 nJz
 bne
-dvr
-dvr
+qOK
+qOK
 dTx
-dvr
+qOK
 qIG
 gqZ
 jto
@@ -128309,10 +128542,10 @@ nxy
 nxy
 nxy
 bKJ
-dvr
+qOK
 gXg
 gzN
-dvr
+qOK
 jCV
 iuu
 owq
@@ -128500,10 +128733,10 @@ hFl
 hFl
 hFl
 cas
-dvr
-dvr
+qOK
+qOK
 dTx
-dvr
+qOK
 eRi
 gTm
 brv
@@ -128566,9 +128799,9 @@ nxy
 nxy
 uWy
 bKJ
-dvr
+qOK
 gXg
-dvr
+qOK
 mDw
 eZe
 rsi
@@ -128758,9 +128991,9 @@ mGk
 pgj
 hFl
 sDN
-dvr
+qOK
 dTx
-dvr
+qOK
 qIG
 lHz
 cFc
@@ -128823,9 +129056,9 @@ nxy
 nxy
 nxy
 bKJ
-dvr
+qOK
 gXg
-dvr
+qOK
 hzP
 sLX
 rcv
@@ -129015,9 +129248,9 @@ haK
 jPN
 hFl
 tkK
-dvr
+qOK
 dTx
-dvr
+qOK
 qIG
 juY
 bSe
@@ -129080,7 +129313,7 @@ bWO
 nxy
 nxy
 bKJ
-dvr
+qOK
 gXg
 eKk
 oQI
@@ -129272,9 +129505,9 @@ iUS
 raK
 hFl
 obv
-dvr
+qOK
 dTx
-dvr
+qOK
 jfH
 jiC
 gkQ
@@ -129304,9 +129537,9 @@ fiX
 ubY
 kpe
 bKJ
-dvr
-dvr
-cQH
+qOK
+qOK
+xkh
 qvN
 dJY
 fRY
@@ -129337,7 +129570,7 @@ rud
 nxy
 nxy
 bKJ
-dvr
+qOK
 gXg
 wsZ
 jrp
@@ -129529,9 +129762,9 @@ hFl
 hFl
 hFl
 kyl
-dvr
+qOK
 dTx
-dvr
+qOK
 nem
 nUY
 iNC
@@ -129561,9 +129794,9 @@ ylC
 kVp
 hKs
 bKJ
-dvr
-dvr
-cQH
+qOK
+qOK
+xkh
 feI
 fRY
 fRY
@@ -129594,7 +129827,7 @@ rud
 nxy
 dPk
 bKJ
-dvr
+qOK
 gXg
 wsZ
 gyt
@@ -129786,9 +130019,9 @@ nxy
 xAm
 xjV
 bKJ
-dvr
+qOK
 dTx
-dvr
+qOK
 nem
 bUJ
 gPo
@@ -129818,9 +130051,9 @@ fiX
 kVp
 dMt
 bKJ
-dvr
-dvr
-cQH
+qOK
+qOK
+xkh
 bIx
 jjB
 pfO
@@ -129851,7 +130084,7 @@ rud
 nxy
 nxy
 bKJ
-dvr
+qOK
 gXg
 wsZ
 gyt
@@ -130043,9 +130276,9 @@ gcY
 cVW
 fiT
 bKJ
-dvr
+qOK
 dTx
-dvr
+qOK
 nem
 bHt
 obG
@@ -130075,9 +130308,9 @@ cPI
 emg
 kpe
 bKJ
-dvr
-dvr
-cQH
+qOK
+qOK
+xkh
 aRx
 rDd
 cWE
@@ -130108,7 +130341,7 @@ bWO
 bWO
 bWO
 bKJ
-dvr
+qOK
 gXg
 wsZ
 gyt
@@ -130300,9 +130533,9 @@ itG
 gcY
 xjV
 bKJ
-dvr
+qOK
 dTx
-dvr
+qOK
 gFk
 nOz
 oMd
@@ -130332,10 +130565,10 @@ fiX
 kVp
 kpe
 bKJ
-dvr
-dvr
-cQH
-dvr
+qOK
+qOK
+xkh
+qOK
 bGc
 rgE
 kqq
@@ -130365,7 +130598,7 @@ etv
 pym
 rud
 bKJ
-dvr
+qOK
 gXg
 wsZ
 aXZ
@@ -130557,9 +130790,9 @@ aHI
 nxy
 nxy
 gPf
-dvr
+qOK
 dTx
-dvr
+qOK
 gFk
 aNz
 aQQ
@@ -130589,9 +130822,9 @@ fiX
 kVp
 vUr
 bKJ
-dvr
-dvr
-cQH
+qOK
+qOK
+xkh
 fxj
 fRY
 fRY
@@ -130622,7 +130855,7 @@ hQc
 laf
 rud
 bKJ
-dvr
+qOK
 gXg
 wsZ
 oSh
@@ -130814,9 +131047,9 @@ jhn
 aHI
 fiT
 bKJ
-dvr
+qOK
 dTx
-dvr
+qOK
 ojG
 qmm
 sDO
@@ -130846,9 +131079,9 @@ lZR
 kVp
 oSh
 bKJ
-dvr
-dvr
-cQH
+qOK
+qOK
+xkh
 wsZ
 nxy
 fRY
@@ -131071,9 +131304,9 @@ edJ
 gcY
 xjV
 bKJ
-dvr
+qOK
 dTx
-dvr
+qOK
 gFk
 jgC
 lAM
@@ -131103,9 +131336,9 @@ agI
 oSh
 oSh
 abK
-dvr
-dvr
-cQH
+qOK
+qOK
+xkh
 wsZ
 nxy
 nrM
@@ -131137,7 +131370,7 @@ bWO
 bWO
 bKJ
 aXH
-dvr
+qOK
 wsZ
 oSh
 oSh
@@ -131328,9 +131561,9 @@ nxy
 wwO
 xjV
 bKJ
-dvr
+qOK
 dTx
-dvr
+qOK
 gFk
 rSY
 xcw
@@ -131360,9 +131593,9 @@ oSh
 oSh
 nxy
 bKJ
-dvr
-dvr
-cQH
+qOK
+qOK
+xkh
 wsZ
 nxy
 uWy
@@ -131394,7 +131627,7 @@ pIU
 mEz
 nqU
 aXH
-dvr
+qOK
 wsZ
 kpe
 kVp
@@ -131585,9 +131818,9 @@ him
 him
 gIe
 nqU
-dvr
+qOK
 dTx
-dvr
+qOK
 nem
 vBu
 gcz
@@ -131617,17 +131850,17 @@ mEz
 mEz
 mEz
 nqU
-dvr
-dvr
-cQH
+qOK
+qOK
+xkh
 stX
 wLd
 nxy
 pIU
 kgj
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
 stX
 mrZ
 kpe
@@ -131648,10 +131881,10 @@ bHc
 abh
 rud
 bKJ
-dvr
+qOK
 gho
 mAt
-ktp
+qOK
 eYb
 kpe
 kVp
@@ -131842,9 +132075,9 @@ auy
 bTT
 him
 sDN
-dvr
+qOK
 dTx
-dvr
+qOK
 bmS
 nem
 nem
@@ -131865,27 +132098,27 @@ oSh
 oVK
 pIU
 nqU
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
 dNj
 sXr
 stX
 xwy
 nqU
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
 stX
 mEz
 mEz
@@ -131907,7 +132140,7 @@ rud
 bKJ
 gho
 mAt
-dvr
+qOK
 ycw
 ycw
 ycw
@@ -132099,9 +132332,9 @@ mXV
 ryL
 him
 obv
-dvr
+qOK
 dTx
-dvr
+qOK
 ida
 qHQ
 gJh
@@ -132121,32 +132354,32 @@ uGM
 uWy
 pIU
 nqU
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
 dTx
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
 stX
 mrZ
 exL
@@ -132163,7 +132396,7 @@ mRs
 bWO
 bKJ
 aXH
-dvr
+qOK
 ycw
 ycw
 kud
@@ -132358,7 +132591,7 @@ gIe
 gIe
 hqX
 dTx
-dvr
+qOK
 fZB
 cja
 gLg
@@ -132377,9 +132610,9 @@ fZB
 mEz
 nOE
 nqU
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
 fsJ
 whN
 whN
@@ -132420,7 +132653,7 @@ nxy
 lDf
 nqU
 aXH
-dvr
+qOK
 ngx
 vlV
 eTW
@@ -132588,7 +132821,7 @@ pMD
 pMD
 pMD
 owX
-feb
+dQt
 xUg
 ucG
 ucG
@@ -132613,9 +132846,9 @@ pTo
 vXU
 muO
 cPX
-feb
+dQt
 srH
-feb
+dQt
 iUW
 vXq
 vXq
@@ -132631,43 +132864,43 @@ bPy
 imB
 kpW
 sei
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
 gRO
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
 mDw
 vsF
 sZt
-dvr
-dvr
-cQH
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+xkh
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
 sjO
 mfC
 mfC
 auO
 stX
 sHR
-dvr
+qOK
 dTx
 bIx
 pOo
@@ -132677,7 +132910,7 @@ fGC
 bKJ
 aRx
 aXH
-dvr
+qOK
 ngx
 oze
 eTW
@@ -132845,16 +133078,16 @@ pli
 pli
 pli
 kxQ
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
 aRx
-dvr
+qOK
 wSy
 cgO
 cgO
@@ -132870,9 +133103,9 @@ xYC
 vuT
 vuT
 udJ
-dvr
-cQH
-dvr
+qOK
+xkh
+qOK
 sei
 uGi
 tXJ
@@ -132888,15 +133121,15 @@ lZT
 oWe
 uGi
 sei
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
 gRO
-dvr
-dvr
+qOK
+qOK
 gLY
 xuF
 xuF
@@ -132914,19 +133147,19 @@ ygD
 iwD
 iwD
 kMl
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
 eKk
 iwD
 kMl
-dvr
+qOK
 sjO
 auO
-dvr
-dvr
+qOK
+qOK
 dTx
-dvr
+qOK
 stX
 iFF
 fGw
@@ -132934,7 +133167,7 @@ smH
 utE
 tnj
 vUV
-dvr
+qOK
 ycw
 elI
 eTW
@@ -133102,16 +133335,16 @@ jrq
 pli
 pli
 kxQ
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
 aRx
-dvr
+qOK
 him
 agp
 vuT
@@ -133178,14 +133411,14 @@ riX
 auY
 ygL
 kMl
-dvr
+qOK
 sjO
 auO
-dvr
+qOK
 dTx
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
 sqi
 sXZ
 pDS
@@ -133359,16 +133592,16 @@ pli
 pli
 pli
 kxQ
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
 aRx
-dvr
+qOK
 kBd
 vuT
 vuT
@@ -133384,8 +133617,8 @@ vuT
 vuT
 vuT
 buz
-dvr
-cQH
+qOK
+xkh
 eal
 xit
 xit
@@ -133446,9 +133679,9 @@ icJ
 rjH
 wDg
 gno
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
 ycw
 etp
 iUD
@@ -133616,14 +133849,14 @@ lIH
 lIH
 lIH
 kxQ
-dvr
+qOK
 axT
 lzF
 lzF
 lzF
 uIC
-dvr
-dvr
+qOK
+qOK
 aRx
 eKk
 him
@@ -133641,9 +133874,9 @@ aHy
 kZI
 lrf
 him
-dvr
-cQH
-dvr
+qOK
+xkh
+qOK
 tOy
 wmX
 kHy
@@ -133695,16 +133928,16 @@ nxy
 nxy
 ygL
 kMl
-dvr
+qOK
 sjO
-jyr
+hpl
 cMM
-dvr
+qOK
 sqi
 sXZ
 itx
-dvr
-dvr
+qOK
+qOK
 eKk
 ngx
 kKO
@@ -133880,7 +134113,7 @@ kBn
 kBn
 uJv
 uIC
-dvr
+qOK
 aRx
 jVg
 gIe
@@ -133899,8 +134132,8 @@ cPC
 cBg
 gIe
 hqX
-cQH
-dvr
+xkh
+qOK
 uGG
 qvA
 skQ
@@ -133952,10 +134185,10 @@ nxy
 nxy
 nxy
 cTt
-dvr
-dvr
-ava
-jyr
+qOK
+qOK
+aGk
+hpl
 gzN
 apQ
 gCk
@@ -134137,7 +134370,7 @@ vXN
 vXN
 vPK
 ylJ
-dvr
+qOK
 aRx
 wsZ
 nxy
@@ -134155,9 +134388,9 @@ gPG
 dQE
 nVq
 gIe
-dvr
-cQH
-dvr
+qOK
+xkh
+qOK
 tOy
 dBB
 fWy
@@ -134210,11 +134443,11 @@ nxy
 rYg
 ygL
 kMl
-dvr
-dvr
-ava
-jyr
-dvr
+qOK
+qOK
+aGk
+hpl
+qOK
 aKn
 qug
 qug
@@ -134394,7 +134627,7 @@ xac
 xac
 vXN
 vby
-dvr
+qOK
 aRx
 wsZ
 auY
@@ -134412,9 +134645,9 @@ qto
 plA
 hnk
 gIe
-dvr
-cQH
-dvr
+qOK
+xkh
+qOK
 aII
 xit
 xit
@@ -134651,7 +134884,7 @@ xac
 jkc
 aoR
 ylJ
-dvr
+qOK
 aRx
 wsZ
 kpM
@@ -134669,10 +134902,10 @@ gIe
 gIe
 gIe
 bgZ
-dvr
-cQH
-dvr
-dvr
+qOK
+xkh
+qOK
+qOK
 xit
 vJM
 tHE
@@ -134726,9 +134959,9 @@ qhq
 qhq
 uvr
 cTt
-dvr
-dvr
-ava
+qOK
+qOK
+aGk
 xgP
 nxy
 qDA
@@ -134908,7 +135141,7 @@ xac
 pMm
 kBn
 ylJ
-dvr
+qOK
 aRx
 stX
 yfF
@@ -134926,10 +135159,10 @@ nxy
 rYg
 nxy
 cTt
-dvr
-cQH
-dvr
-dvr
+qOK
+xkh
+qOK
+qOK
 xit
 pGR
 riN
@@ -134983,8 +135216,8 @@ klJ
 qhq
 qhq
 cTt
-dvr
-dvr
+qOK
+qOK
 aRx
 amx
 nxy
@@ -135165,9 +135398,9 @@ xac
 oEQ
 kBn
 ylJ
-dvr
+qOK
 aRx
-dvr
+qOK
 stX
 mEz
 mEz
@@ -135183,10 +135416,10 @@ mEz
 mEz
 mEz
 ddV
-dvr
-cQH
-dvr
-dvr
+qOK
+xkh
+qOK
+qOK
 xit
 wXi
 cEn
@@ -135240,8 +135473,8 @@ eXE
 gXn
 qhq
 cTt
-dvr
-dvr
+qOK
+qOK
 aRx
 wNw
 tOn
@@ -135422,27 +135655,27 @@ vXN
 xac
 uwr
 ylJ
-dvr
+qOK
 aRx
 aRx
 aRx
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-cQH
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+xkh
+qOK
 xit
 xit
 xit
@@ -135497,8 +135730,8 @@ rXy
 tne
 qhq
 cTt
-dvr
-dvr
+qOK
+qOK
 aRx
 qBb
 tOn
@@ -135681,25 +135914,25 @@ kBn
 uJv
 lzF
 uIC
-dvr
+qOK
 aRx
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-cQH
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+xkh
+qOK
 eTq
 giY
 fWy
@@ -135754,8 +135987,8 @@ bfa
 uLo
 qhq
 qIp
-dvr
-dvr
+qOK
+qOK
 aRx
 fRa
 dDd
@@ -135954,9 +136187,9 @@ dvr
 dvr
 eKk
 kMl
-dvr
-cQH
-dvr
+qOK
+xkh
+qOK
 vFY
 rLt
 skQ
@@ -136011,8 +136244,8 @@ ekn
 wFC
 qhq
 cTt
-dvr
-dvr
+qOK
+qOK
 aRx
 gSa
 hFW
@@ -136211,9 +136444,9 @@ nMg
 heT
 iHB
 feW
-dvr
-cQH
-dvr
+qOK
+xkh
+qOK
 eTq
 crx
 bah
@@ -136268,8 +136501,8 @@ bzm
 saU
 qhq
 cTt
-dvr
-dvr
+qOK
+qOK
 aRx
 xij
 tOn
@@ -136468,9 +136701,9 @@ sun
 hKE
 heT
 nqU
-dvr
-cQH
-dvr
+qOK
+xkh
+qOK
 xit
 xit
 glp
@@ -136525,8 +136758,8 @@ wZx
 ebm
 qhq
 nyt
-dvr
-dvr
+qOK
+qOK
 aRx
 eUD
 nxy
@@ -136724,10 +136957,10 @@ dJH
 rEo
 ncz
 cXd
-dvr
-dvr
-cQH
-dvr
+qOK
+qOK
+xkh
+qOK
 fjL
 oSh
 kVp
@@ -136782,8 +137015,8 @@ fdR
 gBT
 qhq
 cTt
-dvr
-dvr
+qOK
+qOK
 aRx
 eUD
 nxy
@@ -136984,7 +137217,7 @@ xNk
 qDK
 qDK
 qlF
-dvr
+qOK
 stX
 lvs
 kpe
@@ -137039,8 +137272,8 @@ axG
 qhq
 kuB
 aBU
-dvr
-dvr
+qOK
+qOK
 aRx
 eUD
 nxy
@@ -137238,11 +137471,11 @@ mEm
 hoo
 omn
 cXd
-dvr
-dvr
-cQH
-dvr
-dvr
+qOK
+qOK
+xkh
+qOK
+qOK
 stX
 mrZ
 kpe
@@ -137253,7 +137486,7 @@ qDA
 uWy
 pIU
 nqU
-dvr
+qOK
 idN
 bTU
 okf
@@ -137295,9 +137528,9 @@ flV
 mHR
 hdW
 idN
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
 aRx
 eUD
 uvr
@@ -137496,11 +137729,11 @@ fqG
 rdS
 heT
 kMl
-dvr
-ava
-jyr
-dvr
-dvr
+qOK
+aGk
+hpl
+qOK
+qOK
 stX
 mEz
 mEz
@@ -137509,8 +137742,8 @@ mEz
 mEz
 mEz
 nqU
-dvr
-dvr
+qOK
+qOK
 fYB
 wQC
 euh
@@ -137552,9 +137785,9 @@ wvb
 sSb
 njp
 fYB
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
 aRx
 wrh
 cQb
@@ -137753,21 +137986,21 @@ heT
 cXd
 heT
 bKJ
-dvr
-dvr
-ava
-jyr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+aGk
+hpl
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
 giQ
 euh
 euh
@@ -137809,13 +138042,13 @@ euh
 pap
 euh
 giQ
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
 aRx
-gSa
-dvr
-dvr
+muF
+qOK
+qOK
 unr
 unr
 unr
@@ -138011,11 +138244,11 @@ nxy
 nxy
 tKT
 kMl
-dvr
-dvr
-ava
-feb
-feb
+qOK
+qOK
+aGk
+dQt
+dQt
 hMy
 qDK
 qDK
@@ -138066,23 +138299,23 @@ pmp
 psB
 aZb
 cMJ
-feb
+dQt
 feb
 tTQ
 feb
 mWp
 aRx
 aRx
-aEc
-aEc
-aEc
-aEc
-aEc
-aEc
-aEc
-aEc
-aEc
-aEc
+swj
+swj
+swj
+swj
+swj
+swj
+swj
+swj
+swj
+swj
 unr
 frK
 vfn
@@ -138269,19 +138502,19 @@ rYg
 nxy
 ygL
 kMl
-dvr
-dvr
-dvr
-dvr
-cQH
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+xkh
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
 fYB
 euh
 euh
@@ -138323,13 +138556,13 @@ xvR
 euh
 euh
 fYB
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
 unr
 unr
 unr
@@ -138339,8 +138572,8 @@ unr
 unr
 unr
 unr
-aEc
-aEc
+swj
+swj
 unr
 unr
 xDC
@@ -138529,16 +138762,16 @@ ygL
 iwD
 iwD
 kMl
-dvr
-cQH
-dvr
+qOK
+xkh
+qOK
 eKk
 iwD
 iwD
 iwD
 kMl
-dvr
-dvr
+qOK
+qOK
 giQ
 uCf
 euh
@@ -138580,7 +138813,7 @@ xvR
 euh
 lZp
 giQ
-dvr
+qOK
 eKk
 fkE
 fkE
@@ -138597,8 +138830,8 @@ deT
 akP
 unr
 unr
-aEc
-aEc
+swj
+swj
 unr
 frK
 vzM
@@ -138786,16 +139019,16 @@ nxy
 oSh
 dPk
 bKJ
-dvr
-cQH
-dvr
+qOK
+xkh
+qOK
 wsZ
 oSh
 oSh
 dPk
 ygL
 kMl
-dvr
+qOK
 idN
 xUN
 ebg
@@ -138855,8 +139088,8 @@ prM
 fUy
 akP
 unr
-aEc
-aEc
+swj
+swj
 unr
 frK
 vzM
@@ -139043,9 +139276,9 @@ oSh
 oSh
 oSh
 bKJ
-dvr
-cQH
-dvr
+qOK
+xkh
+qOK
 wsZ
 nxy
 oSh
@@ -139113,8 +139346,8 @@ dDk
 prM
 akP
 unr
-aEc
-aEc
+swj
+swj
 unr
 frK
 xqO
@@ -139300,9 +139533,9 @@ wuA
 oSh
 oSh
 bKJ
-dvr
-cQH
-dvr
+qOK
+xkh
+qOK
 wsZ
 oSh
 oSh
@@ -139371,8 +139604,8 @@ dDk
 prM
 akP
 unr
-aEc
-aEc
+swj
+swj
 unr
 unr
 frK
@@ -139383,7 +139616,7 @@ unr
 unr
 kiX
 qsO
-aEc
+swj
 unr
 kiX
 ooL
@@ -139557,9 +139790,9 @@ wOR
 edJ
 prF
 nqU
-dvr
-cQH
-dvr
+qOK
+xkh
+qOK
 wsZ
 oSh
 kVp
@@ -139629,8 +139862,8 @@ dDk
 prM
 akP
 unr
-aEc
-aEc
+swj
+swj
 unr
 unr
 unr
@@ -139640,7 +139873,7 @@ unr
 unr
 unr
 unr
-aEc
+swj
 unr
 unr
 unr
@@ -139813,10 +140046,10 @@ oSh
 pIU
 mEz
 nqU
-dvr
-dvr
-cQH
-dvr
+qOK
+qOK
+xkh
+qOK
 wsZ
 rrB
 kpe
@@ -139887,26 +140120,26 @@ dDk
 prM
 akP
 unr
+swj
 aEc
-aEc
-aEc
-aEc
-aEc
-aEc
-aEc
-aEc
-aEc
-aEc
-aEc
-aEc
-aEc
-aEc
-aEc
-aEc
-aEc
-aEc
-aEc
-aEc
+swj
+swj
+swj
+swj
+swj
+swj
+swj
+swj
+swj
+swj
+swj
+swj
+swj
+swj
+swj
+swj
+swj
+swj
 unr
 unr
 bjZ
@@ -140041,7 +140274,7 @@ uBw
 uBw
 uBw
 kxQ
-dvr
+qOK
 fpt
 fwq
 fwq
@@ -140068,12 +140301,12 @@ nxy
 oSh
 bhc
 bKJ
-dvr
+qOK
 gho
-feb
-feb
+dQt
+dQt
 mAt
-dvr
+qOK
 wsZ
 nxy
 kpe
@@ -140144,7 +140377,7 @@ dDk
 dKE
 oHs
 unr
-aEc
+swj
 uYF
 fUy
 fUy
@@ -140163,7 +140396,7 @@ fUy
 fUy
 fUy
 akP
-aEc
+swj
 unr
 unr
 cnt
@@ -140298,11 +140531,11 @@ gAH
 gAH
 gAH
 kde
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
 fpt
 fwq
 fwq
@@ -140325,12 +140558,12 @@ mEz
 mEz
 mEz
 nqU
-dvr
-cQH
-dvr
-dvr
-dvr
-dvr
+qOK
+xkh
+qOK
+qOK
+qOK
+qOK
 wsZ
 nxy
 kpe
@@ -140401,7 +140634,7 @@ xqO
 xqO
 lfo
 unr
-aEc
+swj
 dtC
 dDk
 dDk
@@ -140420,9 +140653,9 @@ jvT
 dDk
 njJ
 uTH
-aEc
-aEc
-aEc
+swj
+swj
+swj
 xHC
 nHf
 bXQ
@@ -140555,36 +140788,36 @@ urL
 upq
 upq
 rsx
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
 xSP
-feb
+dQt
 mAt
-dvr
+qOK
 jKH
 ahi
 soI
@@ -140657,8 +140890,8 @@ aEc
 aEc
 aEc
 aEc
-aEc
-aEc
+swj
+swj
 dtC
 nvM
 nvM
@@ -140812,8 +141045,8 @@ upq
 upq
 upq
 hah
-feb
-feb
+dQt
+dQt
 qDK
 qDK
 qDK
@@ -140833,15 +141066,15 @@ qDK
 qDK
 qDK
 oIa
-feb
-feb
-feb
+dQt
+dQt
+dQt
 asv
-feb
+dQt
 fyl
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
 cOZ
 cOZ
 cOZ
@@ -140915,7 +141148,7 @@ fUy
 fUy
 akP
 unr
-aEc
+swj
 dtC
 nvM
 eUk
@@ -141072,29 +141305,29 @@ cTU
 jLB
 jLB
 sZt
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
 lvu
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
 aze
 rWp
 wyV
@@ -141172,7 +141405,7 @@ dDk
 fda
 oHs
 unr
-aEc
+swj
 dtC
 nvM
 eUk
@@ -141326,15 +141559,15 @@ wyv
 wyv
 mxm
 vdn
-dvr
-dvr
+qOK
+qOK
 hzP
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
 axT
 lzF
 lzF
@@ -141347,12 +141580,12 @@ lzF
 lzF
 fre
 lvu
-dvr
-dvr
-dvr
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
+qOK
+qOK
+qOK
 lAW
 mFT
 mFT
@@ -141429,7 +141662,7 @@ dDk
 dDk
 oHs
 unr
-aEc
+swj
 dtC
 nvM
 eUk
@@ -141604,9 +141837,9 @@ vXN
 kBn
 oEt
 lvu
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
 tBh
 gEf
 gEf
@@ -141686,7 +141919,7 @@ udf
 dDk
 oHs
 unr
-aEc
+swj
 bCN
 nvM
 eUk
@@ -141861,9 +142094,9 @@ vXN
 vPK
 aYv
 lvu
-dvr
-dvr
-dvr
+qOK
+qOK
+qOK
 vwP
 oVK
 rrB
@@ -141943,7 +142176,7 @@ dDk
 tNl
 oHs
 unr
-aEc
+swj
 dtC
 nvM
 eUk
@@ -142118,7 +142351,7 @@ xac
 kBn
 ylJ
 lvu
-dvr
+qOK
 tBh
 gEf
 eFO
@@ -142200,7 +142433,7 @@ gtD
 dDk
 oHs
 unr
-aEc
+swj
 dtC
 nvM
 eUk
@@ -142457,7 +142690,7 @@ dDk
 dDk
 oHs
 unr
-aEc
+swj
 dtC
 nvM
 eUk
@@ -142714,7 +142947,7 @@ dDk
 dDk
 oHs
 unr
-aEc
+swj
 dtC
 nvM
 eUk
@@ -142971,7 +143204,7 @@ dDk
 jvT
 oHs
 unr
-aEc
+swj
 dtC
 nvM
 eUk
@@ -143228,7 +143461,7 @@ dDk
 dDk
 oHs
 unr
-aEc
+swj
 dtC
 nvM
 eUk
@@ -143485,7 +143718,7 @@ dDk
 dDk
 oHs
 unr
-aEc
+swj
 dtC
 nvM
 eUk
@@ -143742,7 +143975,7 @@ dDk
 fda
 oHs
 unr
-aEc
+swj
 dtC
 nvM
 eUk
@@ -143999,7 +144232,7 @@ dDk
 dDk
 oHs
 unr
-aEc
+swj
 dtC
 nvM
 eUk
@@ -144256,7 +144489,7 @@ dDk
 dDk
 oHs
 unr
-aEc
+swj
 dtC
 fhk
 fhk
@@ -144513,7 +144746,7 @@ dDk
 dDk
 oHs
 unr
-aEc
+swj
 dtC
 fhk
 kQa
@@ -144770,7 +145003,7 @@ dDk
 uED
 oHs
 unr
-aEc
+swj
 dtC
 fhk
 oRD
@@ -145027,7 +145260,7 @@ dDk
 nYj
 oHs
 unr
-aEc
+swj
 bCN
 fhk
 oRD
@@ -145284,7 +145517,7 @@ tNl
 dDk
 oHs
 unr
-aEc
+swj
 dtC
 fhk
 oRD
@@ -145541,7 +145774,7 @@ dDk
 dDk
 oHs
 unr
-aEc
+swj
 dtC
 fhk
 oRD
@@ -145798,7 +146031,7 @@ jvT
 dDk
 oHs
 unr
-aEc
+swj
 dtC
 fhk
 kQa
@@ -146055,7 +146288,7 @@ dDk
 dDk
 oHs
 unr
-aEc
+swj
 fur
 kOG
 flf
@@ -146312,8 +146545,8 @@ dDk
 dDk
 oHs
 unr
-aEc
-aEc
+swj
+swj
 vDq
 bYS
 sNz
@@ -146569,7 +146802,7 @@ dDk
 fda
 oHs
 unr
-aEc
+swj
 uYF
 cuF
 oRD
@@ -146816,7 +147049,7 @@ aeB
 dDk
 dDk
 oHs
-aEc
+swj
 fur
 xqO
 xqO
@@ -146826,7 +147059,7 @@ xqO
 xqO
 lfo
 unr
-aEc
+swj
 dtC
 fhk
 oRD
@@ -147073,17 +147306,17 @@ dDk
 dDk
 dDk
 oHs
-aEc
-aEc
-aEc
-aEc
-aEc
-aEc
-aEc
-aEc
-aEc
-aEc
-aEc
+swj
+swj
+swj
+swj
+swj
+swj
+swj
+swj
+swj
+swj
+swj
 fur
 fhk
 kQa
@@ -147340,8 +147573,8 @@ fUy
 fUy
 fUy
 akP
-aEc
-aEc
+swj
+swj
 fhk
 fhk
 fhk
@@ -147598,7 +147831,7 @@ dDk
 dDk
 prM
 akP
-aEc
+swj
 unr
 dtC
 dDk
@@ -147855,7 +148088,7 @@ jvT
 dDk
 dDk
 oHs
-aEc
+swj
 unr
 dtC
 dDk
@@ -155167,7 +155400,7 @@ vYm
 xLR
 xLR
 rKC
-qOK
+rLp
 cdl
 pwW
 kWY
@@ -155681,7 +155914,7 @@ xLR
 xLR
 xLR
 rKC
-qOK
+rLp
 aOn
 oRW
 sXW
