@@ -48,7 +48,7 @@
 	for(var/mob/living/carbon/human/target in view(light_range, src))
 		if(target.getStaminaLoss() >= 90)
 			continue
-		var/staminadamage = rand(stamina_damage_min, stamina_damage_min+2)
+		var/staminadamage = rand(stamina_damage_min, stamina_damage_min + 2)
 		target.adjustStaminaLoss(staminadamage)
 		var/essence = round(staminadamage/2)
 		revenant_owner.change_essence_amount(essence)
