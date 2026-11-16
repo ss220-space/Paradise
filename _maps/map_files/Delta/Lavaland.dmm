@@ -2212,7 +2212,7 @@
 /area/lavaland/surface/outdoors/necropolis)
 "jm" = (
 /obj/effect/mapping_helpers/no_lava,
-/obj/effect/mine/explosive/hidden,
+/obj/effect/mine/explosive/lavaland,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "jq" = (
@@ -2827,16 +2827,16 @@
 	pixel_y = -1
 	},
 /obj/structure/cable,
-/obj/item/t_scanner,
-/obj/item/t_scanner,
-/obj/item/t_scanner,
-/obj/item/t_scanner,
-/obj/item/t_scanner,
-/obj/item/t_scanner,
-/obj/item/t_scanner,
-/obj/item/t_scanner,
-/obj/item/t_scanner,
-/obj/item/t_scanner,
+/obj/item/t_scanner/extended_range,
+/obj/item/t_scanner/extended_range,
+/obj/item/t_scanner/extended_range,
+/obj/item/t_scanner/extended_range,
+/obj/item/t_scanner/extended_range,
+/obj/item/t_scanner/extended_range,
+/obj/item/t_scanner/extended_range,
+/obj/item/t_scanner/extended_range,
+/obj/item/t_scanner/extended_range,
+/obj/item/t_scanner/extended_range,
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "mj" = (
@@ -4641,7 +4641,7 @@
 "xy" = (
 /obj/item/stack/ore/glass/basalt,
 /obj/effect/mapping_helpers/no_lava,
-/obj/effect/mine/explosive/hidden,
+/obj/effect/mine/explosive/lavaland,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "xH" = (
@@ -29820,8 +29820,8 @@ ai
 ai
 ai
 ai
-ai
-ai
+Cs
+Cs
 jm
 Cs
 Cs
@@ -30076,10 +30076,10 @@ Cs
 Cs
 ai
 ai
-ai
-ai
-ai
-ai
+Cs
+Cs
+Cs
+Cs
 Cs
 jm
 Cs
@@ -30331,11 +30331,11 @@ aj
 Cs
 Cs
 Cs
-ai
-ai
-ai
 Cs
-ai
+Cs
+Cs
+Cs
+Cs
 Cs
 Cs
 Cs
@@ -30583,8 +30583,8 @@ fw
 fw
 fw
 fw
-fw
-fw
+Cs
+Cs
 Cs
 Cs
 Cs
@@ -31098,7 +31098,7 @@ fw
 fw
 fw
 ai
-fw
+Cs
 fw
 fw
 Cs
@@ -31356,7 +31356,7 @@ fw
 ai
 ai
 ai
-fw
+Cs
 fw
 ai
 ai
@@ -31869,9 +31869,9 @@ ai
 ai
 ai
 ai
+Cs
 fw
-fw
-fw
+Cs
 ai
 ai
 ai
@@ -32125,10 +32125,10 @@ ai
 ai
 ai
 ai
+Cs
+Cs
 fw
-fw
-fw
-fw
+Cs
 ai
 ai
 ai

@@ -104,6 +104,8 @@
 	recoil = GUN_RECOIL_MEDIUM
 	static_gun = TRUE
 	gun_firemode_list = list(GUN_FIREMODE_AUTOMATIC)
+	can_holster = FALSE
+	bypass_baricades = TRUE
 	var/locked_dir
 
 /obj/item/gun/projectile/automatic/stationary_gun/get_ru_names()
