@@ -71,7 +71,7 @@
 	for(var/i in 1 to current_wisps)
 		var/obj/effect/wisp/wisp = new /obj/effect/wisp(src)
 		wisp.light_range = 0
-		wisp.orbit(src, radius=30)
+		wisp.orbit(src, radius = 30)
 
 /obj/structure/revenant_lamp/proc/update_level()
 	var/remove_integrity = max_integrity - obj_integrity
