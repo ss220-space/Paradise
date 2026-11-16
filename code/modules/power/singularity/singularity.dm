@@ -1,9 +1,10 @@
 /obj/singularity
 	name = "gravitational singularity"
-	desc = "A gravitational singularity."
+	desc = "Обладает сильнейшим гравитационным полем, способным затягивать объекты и разрушать конструкции."
 	icon = 'icons/obj/engines_and_power/singularity.dmi'
 	icon_state = "singularity_s1"
 	base_icon_state = "singularity"
+	gender = FEMALE
 	anchored = TRUE
 	density = TRUE
 	move_resist = INFINITY
@@ -49,12 +50,22 @@
 	/// How long it's been since the singulo last acted, in seconds
 	var/time_since_act = 0
 	/// What the game tells ghosts when you make one
-	var/ghost_notification_message = "IT'S LOOSE"
+	var/ghost_notification_message = "ОХ, БЛЯТЬ, ОНА СБЕЖАЛА! ВЫЗЫВАЙТЕ ШАТТЛ!"
 
 	/// Visual warp distortion overlay attached as vis_contents once the singularity reaches stage two.
 	var/obj/effect/warp_effect/supermatter/warp
 	/// Looping ambient sound of the singularity.
 	var/datum/looping_sound/singularity/soundloop
+
+/obj/singularity/get_ru_names()
+	return alist(
+		NOMINATIVE = "сингулярность",
+		GENITIVE = "сингулярности",
+		DATIVE = "сингулярности",
+		ACCUSATIVE = "сингулярность",
+		INSTRUMENTAL = "сингулярностью",
+		PREPOSITIONAL = "сингулярности",
+	)
 
 /obj/singularity/Initialize(mapload, starting_energy)
 	. = ..()
@@ -108,9 +119,9 @@
 	. = COMPONENT_CANCEL_ATTACK_CHAIN
 	var/mob/living/carbon/jedi = user
 	jedi.visible_message(
-		span_danger("[jedi]'s head begins to collapse in on itself!"),
-		span_userdanger("Your head feels like it's collapsing in on itself! This was really not a good idea!"),
-		span_hear("You hear something crack and explode in gore.")
+		span_danger("Голова [jedi.declent_ru(GENITIVE)] начинает схлопываться внутрь себя!"),
+		span_userdanger("Твоя голова словно схлопывается внутрь себя! Это была действительно плохая идея!"),
+		span_hear("Вы слышите, как что-то хрустит и взрывается кровавым месивом.")
 		)
 	jedi.Stun(3 SECONDS)
 	new /obj/effect/gibspawner/generic(get_turf(jedi), jedi.dna)
@@ -369,11 +380,11 @@
 /// Handles a stage-six singularity devouring a god (Nar'Sie/Ratvar), or being destroyed by one if undersized.
 /obj/singularity/proc/consume_god(obj/god/god, display_name, log_name)
 	if(current_size == STAGE_SIX)
-		visible_message(span_userdanger("[display_name] is consumed by [src]!"))
+		visible_message(span_userdanger("[DECLENT_RU_CAP(src, INSTRUMENTAL)] поглоща[PLUR_ET_YUT(src)] [display_name]!"))
 		investigate_log("consumed [log_name]!", INVESTIGATE_ENGINE)
 		qdel(god)
 	else
-		visible_message(span_userdanger("[display_name] strikes down [src]!"))
+		visible_message(span_userdanger("[display_name] поглощает [declent_ru(ACCUSATIVE)]!"))
 		investigate_log("has been destroyed by [log_name]", INVESTIGATE_ENGINE)
 		qdel(src)
 
@@ -388,9 +399,9 @@
 	. = ..()
 	desc = initial(desc)
 	if(collapsing)
-		desc += " It seems to be collapsing in on itself."
+		desc += " Кажется, оно поглощает само себя."
 	else if(consumed_supermatter)
-		desc += " It glows fiercely with inner fire."
+		desc += " О Боги..."
 
 /// Permanently empowers the singularity after consuming a supermatter shard, unlocking stage six.
 /obj/singularity/proc/supermatter_upgrade()
@@ -403,8 +414,8 @@
 	collapsing = TRUE
 	update_appearance(UPDATE_NAME|UPDATE_DESC)
 	visible_message(
-		message = span_danger("As [src] consumes [boh], it begins to collapse in on itself!"),
-		blind_message = span_hear("You hear aggressive crackling!"),
+		message = span_danger("Когда [declent_ru(NOMINATIVE)] поглощает [boh.declent_ru(ACCUSATIVE)], она начинает схлопываться внутрь себя!"),
+		blind_message = span_hear("Вы слышите агрессивное потрескивание!"),
 		vision_distance = 15,
 	)
 	playsound(loc, 'sound/magic/clockwork/clockcult_gateway_disrupted.ogg', 200, vary = TRUE, extrarange = 3, falloff_exponent = 1, frequency = -1, pressure_affected = FALSE, ignore_walls = TRUE, falloff_distance = 7)
@@ -510,8 +521,8 @@
 /obj/singularity/proc/combust_mobs()
 	for(var/mob/living/carbon/burned_mob in urange(20, src, 1))
 		burned_mob.visible_message(
-			span_warning("[burned_mob]'s skin bursts into flame!"),
-			span_userdanger("You feel an inner fire as your skin bursts into flames!")
+			span_warning("Кожа [burned_mob.declent_ru(GENITIVE)] вспыхивает ярким пламенем!"),
+			span_userdanger("Ваша кожа вспыхивает ярким пламенем!")
 		)
 		burned_mob.adjust_fire_stacks(5)
 		burned_mob.IgniteMob()
@@ -535,8 +546,8 @@
 /obj/singularity/proc/apply_stun(mob/living/carbon/stunned_mob)
 	stunned_mob.apply_effect(6 SECONDS, STUN)
 	stunned_mob.visible_message(
-		span_danger("[stunned_mob] stares blankly at [src]!"),
-		span_userdanger("You look directly into [src] and feel weak.")
+		span_danger("[DECLENT_RU_CAP(stunned_mob, NOMINATIVE)] смотрит на [declent_ru(ACCUSATIVE)]!"),
+		span_userdanger("Вы смотрите прямо в [declent_ru(ACCUSATIVE)] и чувствуете слабость.")
 	)
 
 /obj/singularity/proc/emp_area()

@@ -25,3 +25,14 @@
 /obj/item/ammo_box/magazine/l6saw/incen
 	origin_tech = "combat=4"
 	ammo_type = /obj/item/ammo_casing/a762x51/incen
+
+/obj/item/ammo_box/magazine/pkm
+	gun_name = "станкового пулемета"
+	icon_state = "b762x54"
+	origin_tech = "combat=2"
+	ammo_type = /obj/item/ammo_casing/a762x54
+	caliber = CALIBER_7_DOT_62X54MM
+	max_ammo = 100
+
+/obj/item/ammo_box/magazine/pkm/update_icon_state()
+	icon_state = "b762x54-[round(ammo_count(), 20)]"

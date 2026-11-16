@@ -1,4 +1,0 @@
-author: "FlitchTime"
-delete-after: True
-changes:
-  - bugfix: "Зоны робо и коридора рнд больше не конфликтуют. (PR #10030)"
