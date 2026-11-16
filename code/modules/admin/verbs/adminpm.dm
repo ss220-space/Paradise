@@ -179,10 +179,10 @@ ADMIN_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM b
 	var/receive_window_link = "(<a href='byond://?src=[C.pm_tracker.UID()];newtitle=[key]'>WINDOW</a>)"
 	var/reply_msg = ""
 	if(key)
-		if(holder && holder.fakekey)
-			reply_msg = "(<a href='byond://?priv_msg=[getStealthKey()];type=[type];ticket_id=[ticket_id]'>REPLY</a>)"
+		if(src.holder && src.holder.fakekey)
+			reply_msg = "(<a href='byond://?priv_msg=[src.getStealthKey()];type=[type];ticket_id=[ticket_id]'>REPLY</a>)"
 		else
-			reply_msg = "(<a href='byond://?priv_msg=[ckey];type=[type];ticket_id=[ticket_id]'>REPLY</a>)"
+			reply_msg = "(<a href='byond://?priv_msg=[src.ckey];type=[type];ticket_id=[ticket_id]'>REPLY</a>)"
 
 	if(message_type == MESSAGE_TYPE_MENTORPM && check_rights(R_ADMIN|R_MENTOR, FALSE, C.mob))
 		receive_window_link = ticket_link
