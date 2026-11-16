@@ -487,11 +487,7 @@
   margin: 0 auto;
   border-radius: 50%;
   background:
-    radial-gradient(
-      circle at center,
-      rgba(20, 50, 56, 0.4) 0%,
-      #08141a 62%
-    ),
+    radial-gradient(circle at center, rgba(20, 50, 56, 0.4) 0%, #08141a 62%),
     repeating-radial-gradient(
       circle at center,
       rgba(122, 208, 196, 0.18) 0 1px,
@@ -1373,7 +1369,9 @@
   background: rgba(5, 16, 28, 0.75);
   border: 1px solid rgba(96, 170, 255, 0.35);
   color: #a8d4ff;
-  font: bold 13px/1 Consolas, monospace;
+  font:
+    bold 13px/1 Consolas,
+    monospace;
   cursor: pointer;
 }
 
@@ -1552,29 +1550,258 @@
   letter-spacing: 0.14em;
 }
 
-.OvermapHelmShell {
+.OvermapHelmBridge {
   display: grid;
-  grid-template-columns: 378px minmax(0, 1fr) 300px;
-  gap: 0.5em;
+  grid-template-rows: minmax(0, 1fr) 240px;
   height: 100%;
   min-height: 0;
+  background: #050c10;
 }
 
-.OvermapHelmShell__column {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5em;
+.OvermapHelmBridge__stage {
+  position: relative;
   min-height: 0;
-  overflow-y: auto;
-  padding-right: 2px;
+  overflow: hidden;
 }
 
-.OvermapHelmShell__center {
+.OvermapHelmBridge__radar {
+  position: absolute;
+  inset: 0 auto 0 50%;
+  transform: translateX(-50%);
+  width: min(calc(100vh - 346px), calc(100% - 480px));
+  display: flex;
+
+  .OvermapRadarSection {
+    width: 100%;
+    margin: 0;
+    border: 0;
+    background: transparent;
+
+    > .Section__title {
+      display: none;
+    }
+    > .Section__rest > .Section__content,
+    > .Section__content {
+      padding: 0;
+    }
+  }
+
+  .OvermapRadar {
+    margin: auto 0;
+  }
+}
+
+.OvermapHelmBridge__left {
+  position: absolute;
+  top: 20px;
+  bottom: 20px;
+  left: 16px;
+  width: 266px;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.OvermapHelmBridge__contacts {
+  position: absolute;
+  right: 16px;
+  top: 20px;
+  bottom: 20px;
+  width: 280px;
+  overflow-y: auto;
+
+  .Section {
+    background: rgba(5, 12, 16, 0.94);
+  }
+}
+
+.OvermapHelmBridge__console {
+  display: grid;
+  grid-template-columns: 210px 230px minmax(0, 1fr) 300px;
+  gap: 8px;
+  padding: 8px;
+  min-height: 0;
+  border-top: 1px solid #315561;
+  background: #081217;
+
+  .Section {
+    margin-bottom: 0;
+  }
+}
+
+.OvermapHelmBridge__deck,
+.OvermapHelmBridge__maneuver {
   min-width: 0;
   min-height: 0;
   overflow-y: auto;
+}
+
+.OvermapHelmBridge__maneuver {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+
+  .OvermapRadarBottom__buttons {
+    flex-direction: column;
+  }
+  .OvermapTouch--onScope {
+    min-height: 44px;
+  }
+}
+
+.OvermapHelmBridge__keys {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 6px;
+  color: #7aa3ad;
+  font-size: 9px;
+  letter-spacing: 0.04em;
+}
+
+.OvermapHelmBridge__tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 6px;
+
+  button {
+    flex: 1;
+    border: 1px solid #315561;
+    background: #081217;
+    padding: 5px;
+    color: #7aa3ad;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  button[aria-pressed='true'] {
+    border-color: #7ad0c4;
+    color: #b9f3e9;
+    background: #123033;
+  }
+}
+
+.OvermapHelmMotion {
+  width: 100%;
+}
+
+.OvermapHelmMotion__label {
+  display: block;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #24404a;
+  color: #7aa3ad;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.OvermapHelmMotion__speed {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 8px 0 12px;
+  font-family: Consolas, 'Courier New', monospace;
+
+  strong {
+    font-size: 52px;
+    line-height: 1;
+    color: #d3e8ec;
+  }
+  > span {
+    color: #7aa3ad;
+    font-size: 12px;
+  }
+  > div {
+    margin-left: auto;
+    text-align: right;
+  }
+  small {
+    display: block;
+    color: #7aa3ad;
+    font-size: 10px;
+  }
+  b {
+    color: #7ad0c4;
+    font-size: 18px;
+  }
+}
+
+.OvermapHelmMotion__readouts {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 12px;
+
+  > div {
+    padding-left: 6px;
+    border-left: 2px solid #315561;
+  }
+  small {
+    display: block;
+    color: #7aa3ad;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  b {
+    display: block;
+    margin-top: 4px;
+    color: #d3e8ec;
+    font:
+      14px Consolas,
+      'Courier New',
+      monospace;
+  }
+}
+
+.OvermapHelmLever {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 100px;
+  max-height: 300px;
+  width: 126px;
+
+  > strong {
+    margin-top: 10px;
+    color: #7ad0c4;
+    font:
+      24px Consolas,
+      'Courier New',
+      monospace;
+  }
+  > strong small {
+    font-size: 11px;
+    color: #7aa3ad;
+  }
+}
+
+.OvermapHelmLever__track {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  gap: 18px;
+  padding: 12px 0 0 14px;
+
+  input {
+    writing-mode: vertical-lr;
+    direction: rtl;
+    width: 24px;
+    height: 100%;
+    margin: 0;
+    cursor: ns-resize;
+  }
+}
+
+.OvermapHelmLever__scale {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #7aa3ad;
+  font:
+    11px Consolas,
+    'Courier New',
+    monospace;
 }
 
 .OvermapHelmBox {
@@ -1882,6 +2109,11 @@
       rgba(6, 20, 34, 0.92) 62%,
       #030b14 100%
     );
+}
+
+.OvermapRadar__scene {
+  position: absolute;
+  inset: 0;
 }
 
 .OvermapRadar__overlay {
@@ -2770,9 +3002,17 @@
     white-space: nowrap;
   }
 
-  &--ready { color: #8cdcab; }
-  &--selected { color: #fff2a5; filter: drop-shadow(0 0 3px #f3b84a); }
-  &:hover, &:focus-visible { outline: 1px solid #fff2a5; }
+  &--ready {
+    color: #8cdcab;
+  }
+  &--selected {
+    color: #fff2a5;
+    filter: drop-shadow(0 0 3px #f3b84a);
+  }
+  &:hover,
+  &:focus-visible {
+    outline: 1px solid #fff2a5;
+  }
 }
 
 .OvermapRadar__projectiles {

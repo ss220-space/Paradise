@@ -73,6 +73,9 @@
 	if(!vessel)
 		return TRUE
 	switch(action)
+		if("fire_radar")
+			fire_weapons(text2num(params["x"]), text2num(params["y"]), ui.user)
+			return TRUE
 		if("select_weapon", "weapon_auto")
 			weapon_action(action, params, ui.user)
 			return TRUE

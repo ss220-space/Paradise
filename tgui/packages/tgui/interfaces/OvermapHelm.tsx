@@ -10,19 +10,23 @@ import {
 import { type BooleanLike, classes } from 'tgui-core/react';
 import { useBackend, useLocalState } from '../backend';
 import {
-  OVERMAP_KIND_ORDER,
   OvermapFrame,
-  OvermapList,
   OvermapRail,
-  OvermapRow,
   OvermapStat,
   OvermapStats,
-  overmapKindIcon,
-  overmapKindLabel,
 } from './overmap/OvermapChrome';
+import { HelmContacts, HelmWeapons } from './overmap/HelmControls';
+import { HelmSpeedControl } from './overmap/HelmSpeedControl';
+import { HelmHeading } from './overmap/HelmHeading';
+import { useHelmFlightKeys } from './overmap/useHelmFlightKeys';
+import {
+  HelmAutopilot,
+  helmPointSelection,
+  type HelmSelection,
+  HelmTargetCard,
+} from './overmap/HelmNavigation';
 import type { RadarPose } from './overmap/OvermapRadar';
 import {
-  formatRadarDistance,
   type GalaxyMap,
   type HazardField,
   OvermapRadar,
@@ -210,15 +214,6 @@ const phaseTitle = (data: OvermapHelmData) => {
   }
 };
 
-const etaText = (seconds?: number) => {
-  if (!seconds) {
-    return '—';
-  }
-  const minutes = Math.floor(seconds / 60);
-  const rest = Math.round(seconds % 60);
-  return minutes ? `${minutes} мин ${rest} с` : `${rest} с`;
-};
-
 const SLIDER_THROTTLE = 120;
 
 const useSlider = (value: number, send: (next: number) => void) => {
@@ -266,49 +261,76 @@ const useSlider = (value: number, send: (next: number) => void) => {
 export const OvermapHelm = () => {
   const { act, data } = useBackend<OvermapHelmData>();
   const { linked, programmed_locked } = data;
-  const [radius, setRadius] = useLocalState('helmRadarZoom', 64);
+  useHelmFlightKeys(!!linked && !!data.piloting && !data.map_jammed);
+  const [radius, setRadius] = useLocalState('helmRadarZoom', 160);
 
   const [followHeading, setFollowHeading] = useLocalState(
     'helmRadarFollow',
     false,
   );
-  const [kindFilter, setKindFilter] = useLocalState<string>(
-    'helmKindFilter',
-    'all',
+  const [landingPicker, setLandingPicker] = useState(false);
+  const [selection, setSelection] = useState<HelmSelection | null>(null);
+  useEffect(
+    () => setSelection(null),
+    [data.sector_id, data.vessel_name, data.linked],
   );
   useEffect(() => {
     act('helm_tab', { tab: 'flight' });
   }, []);
+  useEffect(() => {
+    if (!data.can_land) setLandingPicker(false);
+  }, [data.can_land]);
 
   return (
     <OvermapFrame
       title="Штурвал"
       width={1320}
-      height={800}
+      height={900}
       linked={linked}
       onRelink={() => act('relink')}
       rail={
-        <OvermapRail
-          name={data.vessel_name || 'Штурвал'}
-          sector={data.sector_name}
-          xy={linked ? `клетка ${data.x}:${data.y}` : undefined}
-          lamps={[
-            {
-              label: data.broadcasting ? 'транспондер в эфире' : 'скрыт',
-              on: !!data.broadcasting,
-              warn: !data.broadcasting,
-            },
-            ...(data.distress ? [{ label: 'SOS', bad: true, on: true }] : []),
-            ...(data.autopilot
-              ? [
-                  {
-                    label: data.avoiding ? 'автопилот: обход' : 'автопилот',
-                    on: true,
-                  },
-                ]
-              : []),
-          ]}
-        />
+        <div className="OvermapHelmHeader">
+          <OvermapRail
+            name={data.vessel_name || 'Штурвал'}
+            sector={data.sector_name}
+            xy={linked ? `клетка ${data.x}:${data.y}` : undefined}
+            lamps={[
+              {
+                label: `Двигатели: ${(data.engines || []).filter((engine) => engine.on).length}/${(data.engines || []).length}`,
+                on:
+                  !!data.engines_on &&
+                  (data.engines || []).some((engine) => engine.on),
+                warn:
+                  !data.engines_on ||
+                  !(data.engines || []).some((engine) => engine.on),
+              },
+              {
+                label: data.angular_dampeners
+                  ? 'Вращение: гашение'
+                  : 'Вращение: свободно',
+                on: !!data.angular_dampeners,
+              },
+              {
+                label: data.dampeners ? 'Движение: гашение' : 'Движение: дрейф',
+                on: !!data.dampeners,
+              },
+              {
+                label: data.broadcasting ? 'транспондер в эфире' : 'скрыт',
+                on: !!data.broadcasting,
+                warn: !data.broadcasting,
+              },
+              ...(data.distress ? [{ label: 'SOS', bad: true, on: true }] : []),
+              {
+                label: data.autopilot
+                  ? data.avoiding
+                    ? 'Автопилот: обход'
+                    : 'Автопилот: в пути'
+                  : 'Автопилот: выкл',
+                on: !!data.autopilot,
+              },
+            ]}
+          />
+        </div>
       }
     >
       <div className="OvermapHelmLockHost">
@@ -319,26 +341,67 @@ export const OvermapHelm = () => {
               : 'OvermapHelmLockHost__body'
           }
         >
-          <div className="OvermapHelmShell">
-            <div className="OvermapHelmShell__column">
-              <ShipPanel />
-              <ThrustPanel />
-              <InertiaPanel />
-              <GaugesPanel />
+          <div className="OvermapHelmBridge">
+            <div className="OvermapHelmBridge__stage">
+              <div className="OvermapHelmBridge__radar">
+                <RadarPanel
+                  radius={radius}
+                  onZoom={setRadius}
+                  followHeading={followHeading}
+                  filter="all"
+                  landingPicker={landingPicker}
+                  onLandingPicker={setLandingPicker}
+                  onSelect={setSelection}
+                  selection={selection}
+                />
+              </div>
+              <div className="OvermapHelmBridge__left">
+                <Speedometer />
+                <div className="OvermapHelmBridge__maneuver OvermapHelmBridge__pilot">
+                  <Section title="Управление" className="OvermapHelmBox">
+                    <HelmPilotButton />
+                    <div className="OvermapHelmBridge__keys">
+                      <span>WASD · движение</span>
+                      <span>Q / E · поворот</span>
+                      <span>Пробел · тормоз</span>
+                    </div>
+                  </Section>
+                </div>
+                <HelmWeapons />
+              </div>
+              <div className="OvermapHelmBridge__right">
+                {selection && (
+                  <HelmTargetCard
+                    selection={selection}
+                    onCancel={() => setSelection(null)}
+                  />
+                )}
+                <div className="OvermapHelmBridge__contacts">
+                  <HelmContacts selection={selection} onSelect={setSelection} />
+                </div>
+              </div>
             </div>
-            <div className="OvermapHelmShell__center">
-              <RadarPanel
-                radius={radius}
-                onZoom={setRadius}
-                followHeading={followHeading}
-                onToggleFollow={() => setFollowHeading(!followHeading)}
-                filter={kindFilter}
-              />
-            </div>
-            <div className="OvermapHelmShell__column">
-              <ObjectPanel filter={kindFilter} onFilter={setKindFilter} />
-              <AutopilotPanel />
-              <WeaponsPanel />
+            <div className="OvermapHelmBridge__console">
+              <div className="OvermapHelmBridge__deck OvermapHelmBridge__deck--speed">
+                <section className="HelmDeck">
+                  <div className="HelmDeck__body">
+                    <SpeedLever />
+                  </div>
+                </section>
+              </div>
+              <div className="OvermapHelmBridge__deck OvermapHelmBridge__deck--heading">
+                <HelmHeading
+                  onLanding={() => setLandingPicker(true)}
+                  followHeading={followHeading}
+                  onToggleFollow={() => setFollowHeading(!followHeading)}
+                />
+              </div>
+              <div className="OvermapHelmBridge__deck OvermapHelmBridge__deck--autopilot">
+                <HelmAutopilot />
+              </div>
+              <div className="OvermapHelmBridge__deck OvermapHelmBridge__deck--systems">
+                <GaugesPanel />
+              </div>
             </div>
           </div>
         </div>
@@ -348,251 +411,82 @@ export const OvermapHelm = () => {
   );
 };
 
-const RadarBottomBar = (props: { onLanding: () => void }) => {
+const HelmPilotButton = () => {
   const { act, data } = useBackend<OvermapHelmData>();
-  const { piloting, pilot_name, can_steer, can_undock, max_speed, phase } =
-    data;
-  const [speed, setSpeed] = useSlider(max_speed, (next) =>
-    act('set_max_speed', { value: next }),
-  );
+  const { piloting, pilot_name, can_steer } = data;
   return (
-    <div className="OvermapRadarBottom">
-      <div className="OvermapRadarBottom__buttons">
-        {!data.is_pod && (
-          <button
-            type="button"
-            className={classes([
-              'OvermapTouch',
-              'OvermapTouch--onScope',
-              piloting && 'OvermapTouch--on',
-            ])}
-            disabled={!can_steer || (!!pilot_name && !piloting)}
-            onClick={() => act('take_helm')}
-          >
-            <Icon name={piloting ? 'hand' : 'gamepad'} />
-            <span>
-              {piloting
-                ? 'Отпустить штурвал'
-                : pilot_name
-                  ? `Управляет: ${pilot_name}`
-                  : 'Взять штурвал'}
-            </span>
-          </button>
-        )}
+    <div className="OvermapRadarBottom__buttons">
+      {!data.is_pod && (
         <button
           type="button"
-          className="OvermapTouch OvermapTouch--onScope"
-          disabled={
-            !!data.radar_locked ||
-            !!data.dock_aligning ||
-            (!!data.dock_preview && !!data.dock_in_range && !data.dock_ready) ||
-            (!data.dock_preview &&
-              !can_undock &&
-              !data.can_ship_undock &&
-              !data.can_land &&
-              !data.can_relay_jump &&
-              !data.can_stop)
-          }
-          title={
-            data.dock_preview && !data.dock_ready
-              ? 'Нажмите повторно, чтобы отменить заход'
-              : undefined
-          }
-          onClick={() => {
-            if (data.dock_preview) act('align_dock');
-            else if (data.can_ship_undock) act('dock_ship');
-            else if (can_undock) act('undock');
-            else if (data.can_relay_jump) act('relay_jump');
-            else if (data.can_land) props.onLanding();
-            else act('prepare_stop');
-          }}
+          className={classes([
+            'OvermapTouch',
+            'OvermapTouch--onScope',
+            piloting && 'OvermapTouch--on',
+          ])}
+          disabled={!can_steer || (!!pilot_name && !piloting)}
+          onClick={() => act('take_helm')}
         >
-          <Icon
-            name={
-              data.dock_preview
-                ? 'anchor'
-                : data.can_land
-                  ? 'shuttle-space'
-                  : 'arrow-up-from-bracket'
-            }
-          />
+          <Icon name={piloting ? 'hand' : 'gamepad'} />
           <span>
-            {data.radar_locked
-              ? 'Прыжок…'
-              : data.dock_preview
-                ? data.dock_aligning
-                  ? 'Автодоводка…'
-                  : data.dock_ready
-                    ? 'Состыковаться'
-                    : 'Стыковка'
-                : can_undock || data.can_ship_undock
-                  ? 'Отстыковка'
-                  : data.can_relay_jump
-                    ? 'Прыжок'
-                    : data.can_land
-                      ? 'Посадка'
-                      : data.is_pod
-                        ? 'Стыковка'
-                        : 'Остановиться'}
+            {piloting
+              ? 'Отпустить штурвал'
+              : pilot_name
+                ? `Управляет: ${pilot_name}`
+                : 'Взять штурвал'}
           </span>
         </button>
-      </div>
-      <label className="OvermapSpeedRow">
-        <Icon name="gauge-high" />
-        <span>макс. скорость</span>
-        <input
-          type="range"
-          min={1}
-          max={45}
-          step={1}
-          value={speed}
-          style={{
-            accentColor:
-              data.stealth_speed == null
-                ? undefined
-                : speed < data.stealth_speed
-                  ? '#7ce3bf'
-                  : '#f07878',
-          }}
-          onChange={(event) => setSpeed(Number(event.target.value))}
-        />
-        <em>{speed} м/с</em>
-      </label>
+      )}
     </div>
   );
 };
 
-const InertiaPanel = () => {
-  const { act, data } = useBackend<OvermapHelmData>();
-  const { dampeners, angular_dampeners } = data;
-  return (
-    <Section title="Инерция" className="OvermapHelmBox">
-      <div className="OvermapInertiaPanel">
-        <button
-          type="button"
-          className={classes([
-            'OvermapTouch',
-            'OvermapTouch--inline',
-            dampeners && 'OvermapTouch--on',
-          ])}
-          title="Двигатели сами гасят линейную скорость, когда штурвал отпущен"
-          onClick={() => act('toggle_dampeners')}
-        >
-          <Icon name="anchor-lock" />
-          <span>{dampeners ? 'Ход' : 'Гашение хода'}</span>
-        </button>
-        <button
-          type="button"
-          className={classes([
-            'OvermapTouch',
-            'OvermapTouch--inline',
-            angular_dampeners && 'OvermapTouch--on',
-          ])}
-          title="Двигатели сами гасят вращение, когда штурвал отпущен"
-          onClick={() => act('toggle_angular_dampeners')}
-        >
-          <Icon name="arrows-rotate" />
-          <span>{angular_dampeners ? 'Вращение' : 'Гашение вращения'}</span>
-        </button>
-      </div>
-    </Section>
-  );
-};
-
-const ShipPanel = () => {
+const Speedometer = () => {
   const { data } = useBackend<OvermapHelmData>();
-  const transmitting = data.transponder?.transmitting ?? data.broadcasting;
-  const distress = data.distress ?? data.transponder?.distress;
+  const angle = (value: number) =>
+    `${Math.round(((value % 360) + 360) % 360)
+      .toString()
+      .padStart(3, '0')}°`;
   return (
-    <Section title="Корабль" className="OvermapHelmBox">
-      <div className="OvermapShipName">{data.vessel_name || '—'}</div>
-      <OvermapStats>
-        <OvermapStat
-          label="транспондер"
-          value={transmitting ? 'в эфире' : 'скрыт'}
-          tone={distress ? 'bad' : transmitting ? 'good' : 'warn'}
-        />
-        <OvermapStat label="сектор" value={data.sector_name || '—'} />
-        <OvermapStat label="клетка" value={`${data.x}:${data.y}`} />
-        <OvermapStat label="скорость" value={`${data.speed}`} />
-      </OvermapStats>
-      <Box mt={0.5} className="OvermapHelmHint">
+    <div className="OvermapHelmMotion">
+      <div className="OvermapHelmMotion__label">Ход</div>
+      <div className="OvermapHelmMotion__speed">
+        <strong>{data.speed.toFixed(1)}</strong>
+        <span>м/с</span>
+        <div>
+          <small>задано</small>
+          <b>{data.braking ? '—' : data.max_speed}</b>
+        </div>
+      </div>
+      <div className="OvermapHelmMotion__readouts">
+        <div>
+          <small>Курс</small>
+          <b>{angle(data.facing)}</b>
+        </div>
+        <div>
+          <small>Вектор</small>
+          <b>{data.speed > 0 ? angle(data.heading) : '—'}</b>
+        </div>
+        <div>
+          <small>Ускорение</small>
+          <b>{data.accel} м/с²</b>
+        </div>
+      </div>
+      <div className="OvermapHelmHint">
         {phaseTitle(data)}
         {data.pilot_name ? ` · за штурвалом ${data.pilot_name}` : ''}
-      </Box>
-    </Section>
+      </div>
+    </div>
   );
 };
 
-const ThrustPanel = () => {
+const SpeedLever = () => {
   const { act, data } = useBackend<OvermapHelmData>();
-  const sides = data.thrust_sides || [0, 0, 0, 0];
-  const engines = data.engines || [];
-  const offline = engines.filter((engine) => !engine.on);
-  const [limit, setLimit] = useSlider(data.thrust_limit, (next) =>
-    act('set_thrust_limit', { value: next }),
+  const [speed, setSpeed] = useSlider(
+    data.braking ? 0 : data.max_speed,
+    (next) => act('set_max_speed', { value: next }),
   );
-  const labels: Record<string, string> = {
-    front: 'вперёд',
-    right: 'вправо',
-    back: 'назад',
-    left: 'влево',
-  };
-  const slot = (index: number, key: string) => (
-    <div className={`OvermapThrust__slot OvermapThrust__slot--${key}`}>
-      <span>{labels[key]}</span>
-      <em>{sides[index] || 0} м/с²</em>
-    </div>
-  );
-  return (
-    <Section title="Тяга" className="OvermapHelmBox">
-      <div className="OvermapThrust">
-        {slot(0, 'front')}
-        {slot(3, 'left')}
-        <div className="OvermapThrust__slot OvermapThrust__slot--center">
-          <input
-            type="range"
-            className="OvermapThrust__slider"
-            min={0}
-            max={100}
-            step={5}
-            value={limit}
-            onChange={(event) => setLimit(Number(event.target.value))}
-          />
-          <span className="OvermapThrust__percent">{limit}%</span>
-        </div>
-        {slot(1, 'right')}
-        {slot(2, 'back')}
-      </div>
-      <div className="OvermapThrust__foot">
-        <span>
-          двигатели {engines.filter((engine) => engine.on).length}/
-          {engines.length}
-        </span>
-        {!!offline.length && (
-          <button
-            type="button"
-            className="OvermapTouch OvermapTouch--inline"
-            onClick={() =>
-              offline.forEach((engine) => {
-                act('toggle_engine', { ref: engine.ref });
-              })
-            }
-          >
-            <Icon name="power-off" />
-            <span>Включить</span>
-          </button>
-        )}
-        <span>поворот {data.turn_accel || 0}°/с²</span>
-      </div>
-      {!!data.thrust_hint && (
-        <div className="OvermapThrust__warning">
-          <Icon name="triangle-exclamation" />
-          <span>{data.thrust_hint}</span>
-        </div>
-      )}
-    </Section>
-  );
+  return <HelmSpeedControl speed={speed} onChange={setSpeed} />;
 };
 
 const GaugesPanel = () => {
@@ -662,15 +556,15 @@ const RadarPanel = (props: {
   radius: number;
   onZoom: (radius: number) => void;
   followHeading: boolean;
-  onToggleFollow: () => void;
   filter: string;
+  landingPicker: boolean;
+  onLandingPicker: (open: boolean) => void;
+  onSelect: (selection: HelmSelection | null) => void;
+  selection: HelmSelection | null;
 }) => {
   const { act, data } = useBackend<OvermapHelmData>();
-  const { radius, onZoom, followHeading, onToggleFollow, filter } = props;
-  const [landingPicker, setLandingPicker] = useState(false);
-  useEffect(() => {
-    if (!data.can_land) setLandingPicker(false);
-  }, [data.can_land]);
+  const { radius, onZoom, followHeading, filter } = props;
+  const { landingPicker, onLandingPicker: setLandingPicker } = props;
   return (
     <Section
       className="OvermapHelmBox OvermapRadarSection"
@@ -686,361 +580,126 @@ const RadarPanel = (props: {
           <NoticeBox danger>Сигнал потерян: идёт прыжок.</NoticeBox>
         </div>
       ) : (
-        <>
-          <OvermapRadar
-            outlines={data.radar_outlines}
-            locked={!!data.radar_locked}
-            docked={!!data.radar_docked}
-            tick={data.radar_tick}
-            epoch={data.radar_epoch}
-            overlay={
-              landingPicker ? (
-                <div className="OvermapLandingPicker">
-                  <div className="OvermapLandingPicker__head">
-                    <div>
-                      <small>НАВИГАЦИЯ / ПОСАДКА</small>
-                      <h2>Посадочные зоны</h2>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => setLandingPicker(false)}
-                      title="Вернуться к радару"
-                    >
-                      <Icon name="xmark" />
-                    </button>
-                  </div>
-                  <p>Выберите площадку для построения захода.</p>
-                  <div className="OvermapLandingPicker__list">
-                    {(data.docks || [])
-                      .filter((dock) => dock.id !== '__overmap_custom')
-                      .map((dock, index) => (
-                        <button
-                          type="button"
-                          key={dock.id}
-                          disabled={!dock.can_dock}
-                          title={dock.reason}
-                          onClick={() => {
-                            act('prepare_landing', { id: dock.id });
-                            setLandingPicker(false);
-                          }}
-                        >
-                          <span className="OvermapLandingPicker__number">
-                            {String(index + 1).padStart(2, '0')}
-                          </span>
-                          <span>
-                            <strong>{dock.name}</strong>
-                            <small>{dock.reason || 'Подготовить заход'}</small>
-                          </span>
-                          <Icon name="arrow-right" />
-                        </button>
-                      ))}
-                    {!(data.docks || []).filter(
-                      (dock) => dock.id !== '__overmap_custom',
-                    ).length && (
-                      <div className="OvermapLandingPicker__empty">
-                        <Icon name="satellite-dish" />
-                        <p>Посадочные зоны не обнаружены</p>
-                        <small>
-                          Подлетите к объекту с посадочными маяками.
-                        </small>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ) : undefined
-            }
-            peels={data.radar_peels}
-            scatter={data.radar_scatter}
-            dockTargets={data.radar_docks}
-            dockPreview={data.dock_preview}
-            onSelectDock={(id) => {
-              const dock = data.radar_docks?.find((entry) => entry.id === id);
-              if (dock && data.weapons?.some((weapon) => weapon.selected)) {
-                act('radar_point', { x: dock.x, y: dock.y });
-              } else {
-                act('select_radar_dock', { id });
-              }
-            }}
-            onSelectPoint={(x, y) => act('radar_point', { x, y })}
-            onSelectObject={(id) => act('set_dest', { id, x: 1, y: 1 })}
-            shapes={data.radar_shapes || {}}
-            contacts={data.radar || []}
-            drifters={data.radar_drifters || []}
-            projectiles={data.radar_projectiles || []}
-            weapons={data.weapons || []}
-            weaponArcs={(data.weapons || []).filter(
-              (weapon) => weapon.selected,
-            )}
-            facing={data.facing || 0}
-            terrain={data.radar_terrain}
-            world={data.radar_world}
-            engines={data.radar_engines || []}
-            poses={data.radar_poses}
-            objects={data.objects}
-            self={data.self_pos}
-            sectorSize={data.sector_size}
-            cellSpan={data.cell_span}
-            sectorId={data.sector_id}
-            galaxy={data.galaxy}
-            radius={radius}
-            onZoom={onZoom}
-            onReach={(reach) => {
-              if (reach !== data.radar_reach) {
-                act('helm_radar_reach', { reach });
-              }
-            }}
-            followHeading={followHeading}
-            onToggleFollow={onToggleFollow}
-            dest={data.dest}
-            filter={filter}
-            hazardFields={data.hazard_fields || []}
-          />
-          <RadarBottomBar onLanding={() => setLandingPicker(true)} />
-        </>
-      )}
-    </Section>
-  );
-};
-
-const ObjectPanel = (props: {
-  filter: string;
-  onFilter: (filter: string) => void;
-}) => {
-  const { act, data } = useBackend<OvermapHelmData>();
-  const { filter, onFilter } = props;
-  const { objects = [], self_pos, dest } = data;
-  const visible = objects.filter((object) => !object.is_self);
-  const distance = (object: { x: number; y: number }) =>
-    self_pos
-      ? Math.round(
-          Math.max(
-            Math.abs(object.x - self_pos[0]),
-            Math.abs(object.y - self_pos[1]),
-          ),
-        )
-      : 0;
-  const kinds = OVERMAP_KIND_ORDER.filter(
-    (kind) => kind === 'unknown' || visible.some((o) => o.kind === kind),
-  );
-  const shown = visible
-    .filter((object) => filter === 'all' || object.kind === filter)
-    .sort((a, b) => distance(a) - distance(b));
-  const isDest = (object: { id?: string; x: number; y: number }) =>
-    data.navigation_target_id
-      ? data.navigation_target_id === object.id
-      : !!dest && dest[0] === object.x && dest[1] === object.y;
-  return (
-    <Section
-      className="OvermapHelmBox"
-      title={`Объекты · ${visible.length}`}
-      buttons={
-        <Button
-          icon="times"
-          compact
-          tooltip="Сбросить цель"
-          disabled={!dest}
-          onClick={() => act('clear_dest')}
-        />
-      }
-    >
-      <div className="OvermapKindFilter">
-        <button
-          type="button"
-          className={
-            filter === 'all'
-              ? 'OvermapKindFilter__item OvermapKindFilter__item--on'
-              : 'OvermapKindFilter__item'
+        <OvermapRadar
+          fillViewport
+          interpolationDelay={0}
+          clickTarget={
+            props.selection?.kind === 'object'
+              ? { id: props.selection.id }
+              : props.selection
+                ? { x: props.selection.x, y: props.selection.y }
+                : undefined
           }
-          onClick={() => onFilter('all')}
-        >
-          все
-        </button>
-        {kinds.map((kind) => (
-          <button
-            key={kind}
-            type="button"
-            className={
-              filter === kind
-                ? 'OvermapKindFilter__item OvermapKindFilter__item--on'
-                : 'OvermapKindFilter__item'
+          onFirePoint={(x, y) => act('fire_radar', { x, y })}
+          outlines={data.radar_outlines}
+          locked={!!data.radar_locked}
+          docked={!!data.radar_docked}
+          tick={data.radar_tick}
+          epoch={data.radar_epoch}
+          overlay={
+            landingPicker ? (
+              <div className="OvermapLandingPicker">
+                <div className="OvermapLandingPicker__head">
+                  <div>
+                    <small>НАВИГАЦИЯ / ПОСАДКА</small>
+                    <h2>Посадочные зоны</h2>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setLandingPicker(false)}
+                    title="Вернуться к радару"
+                  >
+                    <Icon name="xmark" />
+                  </button>
+                </div>
+                <p>Выберите площадку для построения захода.</p>
+                <div className="OvermapLandingPicker__list">
+                  {(data.docks || [])
+                    .filter((dock) => dock.id !== '__overmap_custom')
+                    .map((dock, index) => (
+                      <button
+                        type="button"
+                        key={dock.id}
+                        disabled={!dock.can_dock}
+                        title={dock.reason}
+                        onClick={() => {
+                          act('prepare_landing', {
+                            id: dock.id,
+                          });
+                          setLandingPicker(false);
+                        }}
+                      >
+                        <span className="OvermapLandingPicker__number">
+                          {String(index + 1).padStart(2, '0')}
+                        </span>
+                        <span>
+                          <strong>{dock.name}</strong>
+                          <small>{dock.reason || 'Подготовить заход'}</small>
+                        </span>
+                        <Icon name="arrow-right" />
+                      </button>
+                    ))}
+                  {!(data.docks || []).filter(
+                    (dock) => dock.id !== '__overmap_custom',
+                  ).length && (
+                    <div className="OvermapLandingPicker__empty">
+                      <Icon name="satellite-dish" />
+                      <p>Посадочные зоны не обнаружены</p>
+                      <small>Подлетите к объекту с посадочными маяками.</small>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ) : undefined
+          }
+          peels={data.radar_peels}
+          scatter={data.radar_scatter}
+          dockTargets={data.radar_docks}
+          dockPreview={data.dock_preview}
+          onSelectDock={(id) => {
+            const dock = data.radar_docks?.find((entry) => entry.id === id);
+            if (dock)
+              props.onSelect(
+                helmPointSelection(data, dock.x, dock.y, dock.name),
+              );
+          }}
+          onSelectPoint={(x, y) =>
+            props.onSelect(helmPointSelection(data, x, y))
+          }
+          onSelectObject={(id) => {
+            const object = data.objects?.find((entry) => entry.id === id);
+            if (object)
+              props.onSelect({ kind: 'object', id, name: object.name });
+          }}
+          shapes={data.radar_shapes || {}}
+          contacts={data.radar || []}
+          drifters={data.radar_drifters || []}
+          projectiles={data.radar_projectiles || []}
+          weapons={data.weapons || []}
+          weaponArcs={(data.weapons || []).filter((weapon) => weapon.selected)}
+          facing={data.facing || 0}
+          terrain={data.radar_terrain}
+          world={data.radar_world}
+          engines={data.radar_engines || []}
+          poses={data.radar_poses}
+          objects={data.objects}
+          self={data.self_pos}
+          sectorSize={data.sector_size}
+          cellSpan={data.cell_span}
+          sectorId={data.sector_id}
+          galaxy={data.galaxy}
+          radius={radius}
+          onZoom={onZoom}
+          onReach={(reach) => {
+            if (reach !== data.radar_reach) {
+              act('helm_radar_reach', { reach });
             }
-            title={overmapKindLabel(kind)}
-            onClick={() => onFilter(kind)}
-          >
-            <Icon name={overmapKindIcon(kind)} />
-          </button>
-        ))}
-      </div>
-      <div className="OvermapObjectList">
-        <OvermapList>
-          {shown.map((object) => (
-            <OvermapRow
-              key={`${object.kind}-${object.name}-${object.x}-${object.y}`}
-              tag={
-                <>
-                  <Icon name={overmapKindIcon(object.kind)} />{' '}
-                  {overmapKindLabel(object.kind)}
-                </>
-              }
-              title={
-                <Box color={object.color} inline>
-                  {object.name}
-                  {object.distress ? ' ⚠' : ''}
-                </Box>
-              }
-              meta={`${object.x}:${object.y} · ${distance(object)} кл.${
-                object.kind === 'relay' && object.leads_to
-                  ? ` → ${object.leads_to}`
-                  : ''
-              }`}
-              selected={isDest(object)}
-              bad={!!object.distress}
-              onClick={() =>
-                act('set_dest', {
-                  id: object.id,
-                  x: object.x,
-                  y: object.y,
-                  name: object.name,
-                })
-              }
-            />
-          ))}
-        </OvermapList>
-        {!shown.length && (
-          <Box className="OvermapHelmHint">Сенсоры не видят ничего рядом.</Box>
-        )}
-      </div>
-    </Section>
-  );
-};
-
-const WeaponsPanel = () => {
-  const { data, act } = useBackend<OvermapHelmData>();
-  const weapons = data.weapons || [];
-  return (
-    <section className="OvermapHelmBox OvermapWeapons">
-      <h3>
-        <Icon name="crosshairs" /> Орудия{' '}
-        <small>
-          {weapons.filter((weapon) => weapon.selected).length} выбрано
-        </small>
-      </h3>
-      {!weapons.length && <p>Корабельные орудия не обнаружены</p>}
-      {weapons.map((weapon) => (
-        <div key={weapon.id}>
-          <button
-            type="button"
-            className={weapon.selected ? 'is-active' : ''}
-            onClick={() => act('select_weapon', { id: weapon.id })}
-          >
-            <Icon name={weapon.selected ? 'square-check' : 'square'} />
-            <span>
-              {weapon.name}
-              <small>
-                {weapon.arc}° ·{' '}
-                {weapon.cooldown > 0
-                  ? `${weapon.cooldown.toFixed(1)} с`
-                  : 'готово'}
-              </small>
-            </span>
-          </button>
-          {!!weapon.turret && (
-            <button
-              type="button"
-              title="Автоматическая стрельба по целям турели"
-              className={weapon.auto ? 'is-active' : ''}
-              onClick={() => act('weapon_auto', { id: weapon.id })}
-            >
-              Авто
-            </button>
-          )}
-        </div>
-      ))}
-      {weapons.some((weapon) => weapon.selected) && <p>Орудие наготове.</p>}
-    </section>
-  );
-};
-
-const AutopilotPanel = () => {
-  const { act, data } = useBackend<OvermapHelmData>();
-  const {
-    autopilot,
-    autopilot_status,
-    avoiding,
-    eta,
-    max_speed,
-    dest,
-    dest_name,
-    can_steer,
-    avoid_obstacles,
-  } = data;
-  return (
-    <Section title="Автопилот" className="OvermapHelmBox">
-      <OvermapStats>
-        <OvermapStat
-          hero
-          label="статус"
-          value={autopilot ? (avoiding ? 'обход' : 'в пути') : 'выключен'}
-          tone={autopilot ? (avoiding ? 'warn' : 'good') : undefined}
+          }}
+          followHeading={followHeading}
+          dest={data.dest}
+          filter={filter}
+          hazardFields={data.hazard_fields || []}
         />
-        <OvermapStat label="ETA" value={autopilot ? etaText(eta) : '—'} />
-      </OvermapStats>
-
-      {!!autopilot_status && (
-        <Box mt={0.5} className="OvermapHelmHint">
-          {autopilot_status}
-        </Box>
-      )}
-      <Button
-        fluid
-        mt={0.5}
-        icon="route"
-        selected={!!autopilot}
-        disabled={!can_steer || !dest}
-        onClick={() => act('toggle_autopilot')}
-      >
-        {autopilot
-          ? 'Остановить автопилот'
-          : dest
-            ? `Лететь к ${dest_name || 'цели'}`
-            : 'Сначала выберите цель'}
-      </Button>
-      <Button
-        fluid
-        mt={0.3}
-        icon="arrows-left-right-to-line"
-        selected={!!data.matching_velocity}
-        disabled={!can_steer || !data.navigation_target}
-        onClick={() => act('match_velocity')}
-      >
-        Сближение{data.navigation_target ? `: ${data.navigation_target}` : ''}
-      </Button>
-      {!!data.programmed_cancellable && (
-        <Button
-          fluid
-          mt={0.3}
-          color="bad"
-          icon="stop"
-          onClick={() => act('cancel_programmed')}
-        >
-          Отменить программный рейс
-        </Button>
-      )}
-      <Button
-        fluid
-        mt={0.3}
-        icon="shield-halved"
-        selected={!!avoid_obstacles}
-        tooltip="Автопилот обходит станции, руины и сервисные площадки, а не таранит их"
-        onClick={() => act('toggle_avoidance')}
-      >
-        {avoid_obstacles ? 'Объекты: обходить' : 'Объекты: не объезжать'}
-      </Button>
-      {!!data.view_range && (
-        <Box mt={0.5} className="OvermapHelmHint">
-          дальность сенсоров {data.view_range}
-          {formatRadarDistance((data.view_range || 0) * 100)}
-        </Box>
       )}
     </Section>
   );

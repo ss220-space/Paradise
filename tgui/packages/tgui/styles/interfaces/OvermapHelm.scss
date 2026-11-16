@@ -1,0 +1,911 @@
+.OvermapHelmBridge,
+.OvermapHelmHeader {
+  --helm-void: #05090c;
+  --helm-plate: #0a1317;
+  --helm-well: #060d10;
+  --helm-line: #1b323b;
+  --helm-line-hi: #2c4d58;
+  --helm-ink: #d3e8ec;
+  --helm-dim: #7d9da6;
+  --helm-faint: #4a6770;
+  --helm-accent: #4fd6c4;
+  --helm-num: 'JetBrains Mono', Consolas, monospace;
+  font-family: 'Tektur', 'Segoe UI', sans-serif;
+  color: var(--helm-ink);
+}
+
+.OvermapHelmHeader {
+  .OvermapRail {
+    background: var(--helm-plate);
+    border-bottom-color: var(--helm-line-hi);
+    padding: 8px 16px;
+  }
+  .OvermapRail__name {
+    font-size: 14px;
+    letter-spacing: 0.06em;
+  }
+  .OvermapRail__meta {
+    font-family: var(--helm-num);
+    color: var(--helm-dim);
+  }
+}
+
+.OvermapHelmBridge {
+  background: var(--helm-void);
+
+  button {
+    font-family: inherit;
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: default;
+    opacity: 0.4;
+  }
+}
+
+.OvermapHelmBridge__radar {
+  inset: 0;
+  width: 100%;
+  transform: none;
+
+  .OvermapRadarSection > .Section__rest {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+  }
+  .OvermapRadarSection .Section__content {
+    flex: 1;
+    min-height: 0;
+  }
+  .OvermapRadar {
+    height: 100%;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+  }
+  .OvermapRadarSection .OvermapRadar {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+}
+
+.OvermapRadar--fill {
+  .OvermapRadar__scope {
+    height: 100%;
+    aspect-ratio: auto;
+  }
+  .OvermapRadar__scene {
+    inset: auto 0;
+    top: 50%;
+    width: 100%;
+    aspect-ratio: 1;
+    transform: translateY(-50%);
+  }
+  .OvermapRadar__controls {
+    right: 332px;
+    bottom: 12px;
+  }
+  .OvermapRadar__compass {
+    left: 16px;
+    bottom: 12px;
+  }
+}
+
+.OvermapHelmBridge__left > .OvermapHelmMotion,
+.OvermapHelmBridge__right .HelmContacts {
+  background: rgba(5, 9, 12, 0.88);
+  padding: 10px;
+}
+
+.OvermapHelmBridge__left {
+  pointer-events: none;
+}
+.OvermapHelmBridge__left > * {
+  pointer-events: auto;
+}
+
+.OvermapHelmBridge__radar,
+.OvermapHelmBridge__deck--autopilot {
+  font-family: var(--font-family, Verdana, Geneva, sans-serif);
+  color: var(--color-text);
+}
+
+.OvermapHelmBridge__console {
+  grid-template-columns: 210px 262px minmax(0, 1fr) 300px;
+  background: linear-gradient(#0c161a, #070d10);
+  border-top-color: var(--helm-line-hi);
+}
+
+.OvermapHelmBridge__contacts {
+  top: auto;
+  bottom: 24px;
+  width: 300px;
+  max-height: calc(100% - 48px);
+}
+
+.HelmCaption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  color: var(--helm-dim);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+
+  &::after {
+    content: '';
+    height: 1px;
+    flex: 1;
+    background: var(--helm-line);
+  }
+}
+
+.OvermapHelmMotion {
+  .OvermapHelmMotion__label {
+    color: var(--helm-dim);
+    border-color: var(--helm-line);
+  }
+  .OvermapHelmMotion__speed {
+    font-family: var(--helm-num);
+  }
+  .OvermapHelmMotion__speed strong {
+    font-size: 52px;
+    font-weight: 600;
+  }
+  .OvermapHelmMotion__speed b {
+    color: var(--helm-accent);
+  }
+  .OvermapHelmMotion__readouts b {
+    font-family: var(--helm-num);
+  }
+  .OvermapHelmHint {
+    color: var(--helm-dim);
+  }
+}
+
+.HelmContacts__list {
+  margin-top: 10px;
+}
+
+.HelmContacts__row {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 16px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 6px;
+  border: 0;
+  border-bottom: 1px solid rgba(27, 50, 59, 0.6);
+  border-left: 2px solid transparent;
+  background: transparent;
+  text-align: left;
+  color: var(--helm-ink);
+  font-size: 12px;
+
+  .Icon {
+    text-align: center;
+    color: var(--helm-dim);
+  }
+  span {
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  small {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: var(--helm-faint);
+    text-transform: uppercase;
+  }
+  em {
+    font: normal 11px var(--helm-num);
+    color: var(--helm-dim);
+  }
+  &:hover,
+  &:focus-visible {
+    background: rgba(79, 214, 196, 0.08);
+  }
+}
+
+.HelmContacts__row--selected {
+  border-left-color: var(--helm-accent);
+  background: rgba(79, 214, 196, 0.14);
+}
+
+.OvermapHelmLever.HelmSpeed {
+  width: 200px;
+  max-height: 270px;
+  gap: 10px;
+}
+
+.HelmSpeed__telegraph {
+  display: grid;
+  flex: 1;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 10px;
+  min-height: 0;
+}
+
+.HelmSpeed__lever {
+  position: relative;
+  border: 1px solid var(--helm-line-hi);
+  background: var(--helm-well);
+
+  input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    writing-mode: vertical-lr;
+    direction: rtl;
+    opacity: 0;
+    cursor: ns-resize;
+  }
+  &:focus-within {
+    outline: 1px solid var(--helm-accent);
+    outline-offset: 3px;
+  }
+}
+
+.HelmSpeed__fill {
+  position: absolute;
+  left: 3px;
+  right: 3px;
+  bottom: 0;
+  background: linear-gradient(
+    0deg,
+    rgba(79, 214, 196, 0.2),
+    rgba(79, 214, 196, 0.55)
+  );
+}
+
+.HelmSpeed--detectable {
+  .HelmSpeed__fill {
+    background: linear-gradient(
+      0deg,
+      rgba(202, 85, 79, 0.25),
+      rgba(227, 116, 106, 0.65)
+    );
+  }
+  .HelmSpeed__knob {
+    background: #e69a91;
+    box-shadow: 0 0 10px rgba(227, 116, 106, 0.4);
+  }
+  .HelmSpeed__selected output,
+  .HelmSpeed__signature {
+    color: #e69a91;
+  }
+}
+.HelmSpeed--empty .HelmSpeed__knob {
+  background: var(--helm-dim);
+  box-shadow: none;
+}
+.HelmSpeed__stealthMark {
+  position: absolute;
+  left: -4px;
+  right: -4px;
+  border-top: 1px dashed var(--helm-accent);
+  pointer-events: none;
+}
+.HelmSpeed__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+  font-family: var(--helm-num);
+}
+.HelmSpeed__maximum,
+.HelmSpeed__minimum {
+  color: var(--helm-faint);
+  font-size: 10px;
+}
+.HelmSpeed__selected small {
+  display: block;
+  color: var(--helm-dim);
+  font-size: 9px;
+  text-transform: uppercase;
+}
+.HelmSpeed__selected output {
+  display: block;
+  color: var(--helm-accent);
+  font-size: 28px;
+}
+.HelmSpeed__selected output small {
+  display: inline;
+  font-size: 10px;
+  text-transform: none;
+}
+.HelmSpeed__signature {
+  color: var(--helm-accent);
+  font-size: 9px;
+  line-height: 1.5;
+}
+.HelmSpeed__signature small {
+  display: block;
+  color: var(--helm-faint);
+  font-size: 8px;
+}
+.HelmSpeed--empty .HelmSpeed__signature {
+  color: var(--helm-dim);
+}
+.HelmDockingButton {
+  white-space: normal;
+}
+
+.HelmSpeed__now {
+  position: absolute;
+  left: -9px;
+  margin-bottom: -5px;
+  border: 5px solid transparent;
+  border-left-color: #f2b84b;
+}
+
+.HelmSpeed__knob {
+  position: absolute;
+  left: -5px;
+  right: -5px;
+  height: 14px;
+  background: var(--helm-ink);
+  border: 1px solid #000;
+  box-shadow: 0 0 10px rgba(211, 232, 236, 0.5);
+}
+
+.HelmSpeed__detents {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.HelmSpeed__detent {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  height: 14px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  color: var(--helm-dim);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+
+  b {
+    margin-left: auto;
+    font: 500 11px var(--helm-num);
+    color: var(--helm-faint);
+  }
+}
+.HelmSpeed__detent--on {
+  color: var(--helm-accent);
+  b {
+    color: inherit;
+  }
+}
+
+.HelmDeck,
+.OvermapHelmBridge__maneuver,
+.OvermapHelmBridge__deck--systems {
+  min-width: 0;
+  padding: 1px;
+  background: var(--helm-line);
+  clip-path: polygon(
+    12px 0,
+    100% 0,
+    100% calc(100% - 12px),
+    calc(100% - 12px) 100%,
+    0 100%,
+    0 12px
+  );
+}
+
+.HelmDeck {
+  height: 100%;
+}
+
+.OvermapHelmBridge__maneuver {
+  gap: 3px;
+
+  .OvermapTouch--onScope {
+    min-height: 40px;
+  }
+  .Section__title {
+    padding: 2px 0;
+  }
+}
+.HelmDeck__body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+  padding: 10px;
+  background: var(--helm-plate);
+  clip-path: inherit;
+}
+
+.OvermapHelmBridge__maneuver,
+.OvermapHelmBridge__deck--systems {
+  background: var(--helm-plate);
+  border: 1px solid var(--helm-line-hi);
+  padding: 8px;
+
+  .Section {
+    background: transparent;
+    border: 0;
+  }
+  .Section__title {
+    border: 0;
+    color: var(--helm-dim);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+  }
+  .Section__content {
+    padding: 4px 0;
+  }
+  .OvermapTouch {
+    box-shadow: none;
+    text-shadow: none;
+    background: #0f1c22;
+    border-color: var(--helm-line-hi);
+    color: var(--helm-ink);
+    font-size: 10px;
+  }
+  .OvermapTouch--on {
+    border-color: var(--helm-accent);
+    color: var(--helm-accent);
+    background: rgba(79, 214, 196, 0.14);
+  }
+}
+
+.HelmHeading {
+  display: grid;
+  flex: 1;
+  grid-template-columns: 100px minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
+  min-height: 0;
+}
+.HelmHeading__dial {
+  width: 100px;
+  height: 100px;
+}
+.HelmHeading__face {
+  fill: var(--helm-well);
+  stroke: var(--helm-line-hi);
+}
+.HelmHeading__tick {
+  stroke: var(--helm-line-hi);
+  stroke-width: 1;
+}
+.HelmHeading__north,
+.HelmHeading__value {
+  font-family: var(--helm-num);
+  font-size: 8px;
+  fill: var(--helm-faint);
+  text-anchor: middle;
+}
+.HelmHeading__value {
+  font-size: 11px;
+  fill: var(--helm-ink);
+}
+.HelmHeading__hold {
+  stroke: var(--helm-accent);
+  stroke-width: 2.5;
+}
+.HelmHeading__vector {
+  fill: #f2b84b;
+}
+.HelmHeading__nose {
+  fill: var(--helm-ink);
+}
+.HelmHeading__spine {
+  stroke: var(--helm-ink);
+  stroke-width: 1.2;
+}
+.HelmHeading__modes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.HelmButton {
+  padding: 7px 6px;
+  border: 1px solid var(--helm-line-hi);
+  background: #0f1c22;
+  color: var(--helm-ink);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.HelmButton--on {
+  border-color: var(--helm-accent);
+  background: rgba(79, 214, 196, 0.14);
+  color: var(--helm-accent);
+  box-shadow: inset 0 -2px 0 var(--helm-accent);
+}
+.HelmToggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 0;
+  background: transparent;
+  color: var(--helm-ink);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  padding: 2px 0;
+  text-align: left;
+}
+.HelmToggle i {
+  position: relative;
+  flex: none;
+  width: 30px;
+  height: 14px;
+  border: 1px solid var(--helm-line-hi);
+  background: var(--helm-well);
+  &::after {
+    content: '';
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 12px;
+    height: 10px;
+    background: var(--helm-faint);
+  }
+}
+.HelmToggle--on i {
+  border-color: #63e0a6;
+  &::after {
+    left: 15px;
+    background: #63e0a6;
+  }
+}
+.HelmKeys {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--helm-faint);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+}
+.HelmKeys b {
+  margin-left: auto;
+  color: var(--helm-accent);
+  font-family: var(--helm-num);
+}
+.HelmKeys kbd {
+  border: 1px solid var(--helm-line-hi);
+  padding: 1px 3px;
+  color: var(--helm-dim);
+  font: 8px var(--helm-num);
+}
+
+.OvermapHelmBridge__console {
+  grid-template-columns: 196px 262px minmax(0, 1fr) 260px;
+}
+
+.OvermapHelmBridge__pilot {
+  width: 240px;
+}
+.OvermapHelmBridge__deck--speed .OvermapHelmLever.HelmSpeed {
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  min-height: 0;
+}
+.OvermapHelmBridge__deck--speed .HelmSpeed__lever {
+  margin: 2px 0;
+}
+
+.OvermapHelmBridge__right {
+  position: absolute;
+  top: 20px;
+  right: 16px;
+  bottom: 24px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  pointer-events: none;
+}
+.OvermapHelmBridge__right > * {
+  pointer-events: auto;
+}
+.OvermapHelmBridge__right .OvermapHelmBridge__contacts {
+  position: static;
+  width: 100%;
+  min-height: 0;
+  max-height: none;
+  margin-top: auto;
+  flex-shrink: 1;
+}
+
+.HelmTarget {
+  flex-shrink: 0;
+  padding: 10px;
+  border: 1px solid var(--helm-line-hi);
+  background: rgba(10, 19, 23, 0.97);
+}
+.HelmTarget__title {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: 12px 0 4px;
+  color: var(--helm-accent);
+}
+.HelmTarget__title h3 {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: 600;
+}
+.HelmTarget__kind {
+  color: var(--helm-dim);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.HelmTarget__readouts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 14px 0;
+}
+.HelmTarget__readouts small,
+.HelmNavigation__readouts small {
+  display: block;
+  color: var(--helm-faint);
+  text-transform: uppercase;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+}
+.HelmTarget__readouts b,
+.HelmNavigation__readouts b {
+  display: block;
+  margin-top: 4px;
+  font: 11px var(--helm-num);
+  color: var(--helm-ink);
+}
+.HelmTarget__warning {
+  color: #f2b84b;
+  font-size: 10px;
+}
+.HelmTarget__actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+  margin-top: 12px;
+}
+.HelmTarget__actions .HelmButton {
+  padding: 7px 2px;
+  font-size: 9px;
+}
+
+.OvermapHelmBridge__deck--autopilot {
+  font-family: inherit;
+  color: var(--helm-ink);
+}
+.HelmNavigation {
+  background: var(--helm-accent);
+}
+.HelmNavigation__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.HelmNavigation__header .HelmCaption {
+  flex: 1;
+  color: var(--helm-accent);
+}
+.HelmNavigation__status {
+  color: var(--helm-dim);
+  font: 9px var(--helm-num);
+  letter-spacing: 0.1em;
+}
+.HelmNavigation__status::before {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-right: 5px;
+  background: var(--helm-faint);
+}
+.HelmNavigation__status--on {
+  color: var(--helm-accent);
+  &::before {
+    background: var(--helm-accent);
+  }
+}
+.HelmNavigation__buffer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--helm-line-hi);
+  padding: 8px 10px;
+  background: var(--helm-well);
+  min-width: 0;
+}
+.HelmNavigation__buffer--set {
+  border-color: var(--helm-accent);
+  background: rgba(79, 214, 196, 0.08);
+}
+.HelmNavigation__buffer > .Icon {
+  font-size: 20px;
+  color: var(--helm-accent);
+}
+.HelmNavigation__buffer > div {
+  min-width: 0;
+  flex: 1;
+}
+.HelmNavigation__buffer small {
+  font-size: 8px;
+  letter-spacing: 0.16em;
+  color: var(--helm-faint);
+}
+.HelmNavigation__buffer h3 {
+  padding: 0;
+  margin: 3px 0;
+  font-size: 14px;
+  color: var(--helm-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.HelmNavigation__buffer p {
+  margin: 0;
+  color: var(--helm-dim);
+  font: 10px var(--helm-num);
+}
+.HelmNavigation__clear {
+  display: flex;
+  flex: none;
+  white-space: nowrap;
+  align-items: center;
+  gap: 4px;
+  border: 0;
+  padding: 4px;
+  background: transparent;
+  color: var(--helm-dim);
+  &:hover {
+    color: #ff5d4a;
+  }
+}
+.HelmNavigation__clear span {
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+.HelmNavigation__readouts {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.HelmNavigation__readouts > span {
+  margin-left: auto;
+  text-align: right;
+  color: var(--helm-dim);
+  font-size: 10px;
+}
+.HelmNavigation__actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+.HelmNavigation .HelmToggle {
+  margin-top: auto;
+}
+
+.OvermapHelmBridge__left {
+  bottom: 20px;
+  gap: 12px;
+}
+.OvermapHelmBridge__left > .OvermapHelmMotion,
+.OvermapHelmBridge__pilot {
+  flex-shrink: 0;
+}
+.HelmWeapons {
+  width: 320px;
+  max-width: calc(100vw - 32px);
+  min-height: 0;
+  margin-top: auto;
+  padding: 12px;
+  overflow-y: auto;
+  background: rgba(5, 9, 12, 0.88);
+}
+.HelmWeapons__list {
+  margin-top: 10px;
+}
+.HelmWeapons__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  border-bottom: 1px solid rgba(27, 50, 59, 0.6);
+}
+.HelmWeapons__select {
+  grid-template-columns: 16px minmax(0, 1fr);
+  padding: 8px;
+  border-bottom: 0;
+}
+.HelmWeapons__select[aria-pressed='true'] .Icon {
+  color: var(--helm-accent);
+}
+.HelmWeapons__auto {
+  padding: 6px 8px;
+  border: 1px solid var(--helm-line-hi);
+  background: var(--helm-well);
+  color: var(--helm-dim);
+  font: 10px var(--helm-num);
+}
+.HelmWeapons__auto--on {
+  border-color: var(--helm-accent);
+  background: rgba(79, 214, 196, 0.14);
+  color: var(--helm-accent);
+}
+
+.OvermapHelmHeader .OvermapRail__lamps {
+  max-width: 75%;
+  gap: 6px;
+}
+.HelmHeading__orientation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--helm-dim);
+
+  span {
+    font: 8px var(--helm-num);
+    letter-spacing: 0.12em;
+    padding-bottom: 4px;
+  }
+  &:hover,
+  &:focus-visible {
+    outline: none;
+    border-color: var(--helm-accent);
+    background: rgba(79, 214, 196, 0.07);
+  }
+  &[aria-pressed='true'] {
+    color: var(--helm-accent);
+  }
+}
+.HelmContacts,
+.HelmWeapons {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+.HelmContacts {
+  max-height: 230px;
+}
+.HelmWeapons {
+  flex: 1 1 auto;
+  max-height: 240px;
+}
+.HelmContacts > .HelmCaption,
+.HelmWeapons > .HelmCaption {
+  flex-shrink: 0;
+}
+.HelmContacts__list,
+.HelmWeapons__list {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--helm-line-hi) var(--helm-well);
+  &:focus-visible {
+    outline: 1px solid var(--helm-accent);
+    outline-offset: -1px;
+  }
+}

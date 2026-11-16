@@ -63,5 +63,14 @@
 	vessel.halted = FALSE
 	vessel.selected_dock_id = null
 	vessel.set_free_flight_view(TRUE)
-	log_admin("[key_name(user)] spawned shuttle [template.name] directly in hyperspace at [sector.id].")
 	return vessel
+
+/datum/overmap_admin_panel/proc/report_spawn(mob/user, obj/overmap/token, description)
+	if(QDELETED(token))
+		return
+	var/datum/overmap_sector/sector = token.sector
+	var/turf/spot = token.get_overmap_turf()
+	var/location = sector && spot ? "[sector.name] ([sector.id]) [sector.coord_x(spot)]:[sector.coord_y(spot)]" : "unknown sector"
+	var/message = "[description] at [location] ([token.type], UID [token.UID()])"
+	log_admin("[key_name(user)] spawned [message].")
+	message_admins("[key_name_admin(user)] spawned [html_encode(message)]. [ADMIN_JMP(token)]")

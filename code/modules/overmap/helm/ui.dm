@@ -17,6 +17,10 @@
 	overmap_watch_radar(src, user, vessel)
 	var/list/data = list()
 	data["linked"] = !!vessel
+	data["dest"] = null
+	data["dest_name"] = null
+	data["dest_range"] = null
+	data["dest_relay"] = null
 	if(!vessel)
 		return data
 
@@ -258,7 +262,7 @@
 				return TRUE
 			beacon.handle_action(params["op"], params, user)
 			. = TRUE
-		if("set_dest", "radar_point")
+		if("set_dest", "radar_point", "buffer_dest")
 			if(!vessel.flight || !vessel.sector)
 				return TRUE
 			var/dest_x = text2num(params["x"])
@@ -288,7 +292,7 @@
 					dest_x = clamp(dest_x, 1, vessel.sector.size)
 					dest_y = clamp(dest_y, 1, vessel.sector.size)
 				add_waypoint(strip_html(params["name"], MAX_NAME_LEN), dest_x, dest_y)
-				vessel.set_autopilot(vessel.flight?.autopilot, dest_x, dest_y)
+				vessel.set_autopilot(action == "buffer_dest" ? FALSE : vessel.flight?.autopilot, dest_x, dest_y)
 			. = TRUE
 		if("clear_dest")
 			waypoints.Cut()
@@ -313,8 +317,15 @@
 			. = TRUE
 		if("set_max_speed")
 			if(vessel.flight)
+				var/wanted = text2num(params["value"])
+				if(!isnum(wanted))
+					return TRUE
+				if(wanted <= 0)
+					vessel.set_held_brake(TRUE)
+					return TRUE
 				var/limit = vessel.flight.navigation_speed_limited() ? OVERMAP_PROGRAMMED_CRUISE : OVERMAP_CRUISE_MAX
-				vessel.flight.cruise_speed = OVERMAP_FROM_DISPLAY(clamp(text2num(params["value"]), OVERMAP_CRUISE_MIN, limit))
+				vessel.flight.cruise_speed = OVERMAP_FROM_DISPLAY(clamp(wanted, OVERMAP_CRUISE_MIN, limit))
+				vessel.flight.held_brake = FALSE
 			. = TRUE
 		if("remove_waypoint")
 			var/waypoint_name = params["name"]

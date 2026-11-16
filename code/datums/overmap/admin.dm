@@ -722,7 +722,7 @@
 				gate.destination_x = text2num(params["dest_x"])
 				gate.destination_y = text2num(params["dest_y"])
 			selected = token
-			log_admin("[key_name(user)] spawned overmap [spawn_path] at [sector.id] [coord_x]:[coord_y].")
+			report_spawn(user, token, "overmap [kind] \"[token.get_overmap_display_name()]\"")
 		if("ruin", "shuttle")
 			if(truthy(params["virtual"]))
 				var/datum/map_template/virtual_template = resolve_template(params["template_id"], params["template_kind"])
@@ -734,13 +734,14 @@
 				sector.add_object(structure, spot)
 				apply_spawn_look(structure, params)
 				selected = structure
-				log_admin("[key_name(user)] spawned virtual overmap [kind] [structure.name] at [sector.id] [coord_x]:[coord_y].")
+				report_spawn(user, structure, "virtual overmap [kind] \"[structure.get_overmap_display_name()]\" (template: [virtual_template?.name || "empty"])")
 				return
 			if(kind == "shuttle")
 				var/datum/map_template/shuttle_template = resolve_template(params["template_id"], params["template_kind"])
 				selected = spawn_shuttle_in_hyperspace(shuttle_template, sector, spot, user)
 				if(selected)
 					apply_spawn_look(selected, params)
+					report_spawn(user, selected, "shuttle \"[selected.get_overmap_display_name()]\" (template: [shuttle_template.name])")
 				return
 			var/large = truthy(params["large"])
 			var/region_size = large ? SSovermap.large_region_size() : OVERMAP_RUIN_REGION_SIZE
@@ -771,7 +772,7 @@
 			var/obj/overmap/entity/feature/ruin/ruin_token = site.tokens[1]
 			selected = ruin_token
 			apply_spawn_look(ruin_token, params)
-			log_admin("[key_name(user)] spawned overmap [kind] ([template?.name || "empty"]) at [sector.id] [coord_x]:[coord_y].")
+			report_spawn(user, ruin_token, "overmap [kind] \"[ruin_token.get_overmap_display_name()]\" (template: [template?.name || "empty"])")
 		else
 			to_chat(user, span_warning("Неизвестный тип спавна."), confidential = TRUE)
 

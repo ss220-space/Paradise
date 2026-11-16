@@ -81,6 +81,7 @@ export type RadarProjectile = {
 };
 
 export type RadarObject = {
+  destroyed?: boolean | number;
   facing?: number;
   extent?: number[];
   id?: string;
@@ -408,6 +409,16 @@ const GeometryLayer = (props: {
                 </>
               ) : (
                 <circle className={`OvermapRadar__hull ${tone}`} r={2.5} />
+              )}
+              {!!contact.destroyed && (
+                <path
+                  className="OvermapRadar__destroyedMark"
+                  d="M-4 -4L4 4M-4 4L4 -4"
+                  stroke="#aaaaaa"
+                  strokeWidth={2}
+                  vectorEffect="non-scaling-stroke"
+                  fill="none"
+                />
               )}
             </g>
           );
@@ -755,6 +766,16 @@ const ObjectLayer = (props: {
                     cy={cy}
                     r={span}
                     style={unknown ? undefined : { fill: color, stroke: color }}
+                  />
+                )}
+                {!!object.destroyed && (
+                  <path
+                    className="OvermapRadar__destroyedMark"
+                    d={`M${cx - span} ${cy - span}L${cx + span} ${cy + span}M${cx - span} ${cy + span}L${cx + span} ${cy - span}`}
+                    stroke={color}
+                    strokeWidth={2}
+                    vectorEffect="non-scaling-stroke"
+                    fill="none"
                   />
                 )}
                 {!!object.distress && (
@@ -1186,7 +1207,7 @@ const MarkerOverlay = (props: {
             style={{ color: object.color || undefined }}
           />
           <span className="OvermapRadar__markerLabel">
-            {object.name}
+            {object.destroyed ? <s>{object.name}</s> : object.name}
             <em>{overmapKindLabel(object.kind)}</em>
           </span>
         </div>,
@@ -1210,7 +1231,7 @@ const MarkerOverlay = (props: {
         >
           <Icon name="shuttle-space" className="OvermapRadar__markerIcon" />
           <span className="OvermapRadar__markerLabel">
-            {contact.name}
+            {contact.destroyed ? <s>{contact.name}</s> : contact.name}
             <em>{formatRadarDistance(contact.distance || 0)}</em>
           </span>
         </div>,
@@ -1221,6 +1242,10 @@ const MarkerOverlay = (props: {
 };
 
 type OvermapRadarProps = {
+  fillViewport?: boolean;
+  interpolationDelay?: number;
+  clickTarget?: { id?: string; x?: number; y?: number };
+  onFirePoint?: (x: number, y: number) => void;
   outlines?: Record<string, string>;
   showSelf?: boolean;
   shapes: Record<string, RadarShape>;
@@ -1263,6 +1288,7 @@ type OvermapRadarProps = {
   hazardFields?: HazardField[];
   overlay?: ReactNode;
   onSelectObject?: (id: string) => void;
+  selectOnDoubleClick?: boolean;
   onSelectPoint?: (x: number, y: number) => void;
   scatter?: RadarScatterChunk[];
   peels?: RadarPeel[];
@@ -1357,19 +1383,31 @@ export const OvermapRadar = (props: OvermapRadarProps) => {
       )
     )
       return;
-    const bounds = event.currentTarget.getBoundingClientRect();
+    const bounds = (
+      scope.current || event.currentTarget
+    ).getBoundingClientRect();
     const side = Math.min(bounds.width, bounds.height);
     const screen = [
       ((event.clientX - bounds.left - bounds.width / 2) * 2) / side,
       ((event.clientY - bounds.top - bounds.height / 2) * 2) / side,
     ];
-    if (Math.hypot(...screen) > 1) return;
+    if (!props.fillViewport && Math.hypot(...screen) > 1) return;
     const point = radarClickWorld(screen, radius, rotation, world, chartOffset);
-    if (firing) event.stopPropagation();
-    props.onSelectPoint(point[0], point[1]);
+    if (firing && props.onFirePoint) {
+      props.onFirePoint(point[0], point[1]);
+    } else {
+      if (firing) event.stopPropagation();
+      props.onSelectPoint(point[0], point[1]);
+    }
   };
   return (
-    <div className="OvermapRadar" onWheel={wheel}>
+    <div
+      className={classes([
+        'OvermapRadar',
+        props.fillViewport && 'OvermapRadar--fill',
+      ])}
+      onWheel={wheel}
+    >
       {!!onZoom && !props.locked && (
         <div className="OvermapRadar__bands">
           <button
@@ -1405,20 +1443,27 @@ export const OvermapRadar = (props: OvermapRadarProps) => {
       )}
       <div
         className="OvermapRadar__scope"
-        ref={scope}
         onClickCapture={(event) => {
-          if (props.weaponArcs?.length) selectPoint(event, true);
+          if (!props.selectOnDoubleClick && props.weaponArcs?.length)
+            selectPoint(event, true);
         }}
-        onClick={(event) => selectPoint(event, false)}
+        onClick={(event) => {
+          if (!props.selectOnDoubleClick) selectPoint(event, false);
+        }}
+        onDoubleClick={(event) => {
+          if (props.selectOnDoubleClick) selectPoint(event, false);
+        }}
       >
-        {!galaxyBand && (
-          <RadarScene
-            data={props}
-            radius={radius}
-            scope={scope}
-            displayed={displayed}
-          />
-        )}
+        <div className="OvermapRadar__scene" ref={scope}>
+          {!galaxyBand && (
+            <RadarScene
+              data={props}
+              radius={radius}
+              scope={scope}
+              displayed={displayed}
+            />
+          )}
+        </div>
         {galaxyBand && (
           <MemoizedGalaxy
             key={galaxyReset}
@@ -1481,6 +1526,13 @@ export const OvermapRadar = (props: OvermapRadarProps) => {
             />
           )}
         </div>
+        {props.fillViewport && !galaxyBand && props.onToggleFollow && (
+          <RadarCompass
+            facing={followHeading ? 0 : props.facing}
+            followHeading={followHeading}
+            onToggle={props.onToggleFollow}
+          />
+        )}
         {props.overlay}
       </div>
     </div>
@@ -1522,20 +1574,24 @@ const RadarScene = ({
     () => mergeRadarPoses(rawObjects || EMPTY_OBJECTS, props.poses),
     [rawObjects, props.poses],
   );
-  const frame = useRadarInterpolation({
-    tick: props.tick,
-    epoch: props.epoch,
-    sectorId,
-    cellSpan,
-    contacts: rawContacts,
-    drifters: rawDrifters,
-    facing: rawFacing,
-    world: rawWorld,
-    self: rawSelf,
-    objects: posedObjects,
-    dockTargets: props.dockTargets,
-    projectiles: props.projectiles,
-  });
+  const frame = useRadarInterpolation(
+    {
+      tick: props.tick,
+      epoch: props.epoch,
+      sectorId,
+      cellSpan,
+      contacts: rawContacts,
+      drifters: rawDrifters,
+      facing: rawFacing,
+      world: rawWorld,
+      self: rawSelf,
+      objects: posedObjects,
+      dockTargets: props.dockTargets,
+      projectiles: props.projectiles,
+    },
+    true,
+    props.interpolationDelay,
+  );
   displayed.current = frame;
   const {
     contacts,
@@ -1555,6 +1611,25 @@ const RadarScene = ({
 
   const north = followHeading ? ((-facing % 360) + 360) % 360 : 0;
   const labelSize = radius / 20;
+  const clickedObject = props.clickTarget?.id
+    ? objects.find((object) => object.id === props.clickTarget!.id)
+    : undefined;
+  const clickedX = clickedObject
+    ? clickedObject.x + Math.max(clickedObject.size || 1, 1) / 2 - 0.5
+    : props.clickTarget?.x;
+  const clickedY = clickedObject
+    ? clickedObject.y + Math.max(clickedObject.size || 1, 1) / 2 - 0.5
+    : props.clickTarget?.y;
+  const clickMarker =
+    clickedX != null && clickedY != null && self
+      ? worldFrameFraction(
+          (clickedX - self[0]) * cellSpan - chartOffset[0],
+          (clickedY - self[1]) * cellSpan - chartOffset[1],
+          radius,
+          followHeading,
+          facing,
+        )
+      : null;
 
   return (
     <>
@@ -1605,7 +1680,16 @@ const RadarScene = ({
                 title="Выбрать облако для сканирования"
                 className="OvermapRadar__pick"
                 style={{ left: `${50 + px * 50}%`, top: `${50 + py * 50}%` }}
-                onClick={() => props.onSelectObject?.(field.id!)}
+                onClick={() => {
+                  if (!props.selectOnDoubleClick)
+                    props.onSelectObject?.(field.id!);
+                }}
+                onDoubleClick={(event) => {
+                  if (props.selectOnDoubleClick) {
+                    event.stopPropagation();
+                    props.onSelectObject?.(field.id!);
+                  }
+                }}
               />
             );
           })}
@@ -1632,7 +1716,15 @@ const RadarScene = ({
               ])}
               disabled={dock.available === false || dock.available === 0}
               style={{ left: `${50 + px * 50}%`, top: `${50 + py * 50}%` }}
-              onClick={() => props.onSelectDock?.(dock.id)}
+              onClick={() => {
+                if (!props.selectOnDoubleClick) props.onSelectDock?.(dock.id);
+              }}
+              onDoubleClick={(event) => {
+                if (props.selectOnDoubleClick) {
+                  event.stopPropagation();
+                  props.onSelectDock?.(dock.id);
+                }
+              }}
             >
               <Icon name="anchor" />
             </button>
@@ -1696,7 +1788,16 @@ const RadarScene = ({
                 title={object.name}
                 className="OvermapRadar__pick"
                 style={{ left: `${50 + px * 50}%`, top: `${50 + py * 50}%` }}
-                onClick={() => props.onSelectObject?.(object.id!)}
+                onClick={() => {
+                  if (!props.selectOnDoubleClick)
+                    props.onSelectObject?.(object.id!);
+                }}
+                onDoubleClick={(event) => {
+                  if (props.selectOnDoubleClick) {
+                    event.stopPropagation();
+                    props.onSelectObject?.(object.id!);
+                  }
+                }}
               />
             );
           })}
@@ -1805,6 +1906,19 @@ const RadarScene = ({
           offset={chartOffset}
           dest={dest}
         />
+        {clickMarker && (
+          <circle
+            className="OvermapRadar__clickMarker"
+            cx={clickMarker[0] * radius}
+            cy={clickMarker[1] * radius}
+            r={radius / 150}
+            fill="#a9afb8"
+            stroke="#e0e3e8"
+            strokeWidth={1}
+            vectorEffect="non-scaling-stroke"
+            pointerEvents="none"
+          />
+        )}
         <text
           className="OvermapRadar__north"
           x={Math.sin((north * Math.PI) / 180) * radius * 0.86}
@@ -1845,7 +1959,7 @@ const RadarScene = ({
         offset={chartOffset}
         onSelect={props.locked ? undefined : props.onSelectWeapon}
       />
-      {!!onToggleFollow && (
+      {!!onToggleFollow && !props.fillViewport && (
         <RadarCompass
           facing={followHeading ? 0 : facing}
           followHeading={followHeading}

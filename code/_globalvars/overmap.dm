@@ -22,24 +22,6 @@ GLOBAL_LIST_INIT(overmap_ai_profiles, list(
 	"flagship" = new /datum/overmap_ai_profile/support/flagship,
 ))
 
-GLOBAL_LIST_INIT(ship_engine_types, list(
-	/obj/machinery/ship_engine/small,
-	/obj/machinery/ship_engine/large,
-	/obj/machinery/ship_engine/huge,
-	/obj/machinery/ship_engine/ion,
-	/obj/machinery/ship_engine/ion/large,
-	/obj/machinery/ship_engine/plasma,
-	/obj/machinery/ship_engine/plasma/large,
-	/obj/machinery/ship_engine/thruster,
-	/obj/machinery/ship_engine/thruster/rcs,
-	/obj/machinery/ship_engine/frontier_large,
-	/obj/machinery/ship_engine/nfsd_large,
-	/obj/machinery/ship_engine/rogue,
-	/obj/machinery/ship_engine/rogue_large,
-	/obj/machinery/ship_engine/ussp,
-	/obj/machinery/ship_engine/ussp_large,
-))
-
 GLOBAL_LIST_EMPTY(engine_consoles)
 
 GLOBAL_LIST_INIT(overmap_shuttle_profiles, build_overmap_shuttle_profiles())
@@ -146,37 +128,6 @@ GLOBAL_LIST_INIT(overmap_transponder_colors, list(
 ))
 
 GLOBAL_LIST_EMPTY(overmap_virtual_structures)
-
-GLOBAL_LIST_INIT(ship_weapon_catalog, list(
-	/obj/machinery/porta_turret/syndicate/ship/gun_50cal,
-	/obj/machinery/porta_turret/syndicate/ship/adder,
-	/obj/machinery/ship_gun/ak820,
-	/obj/machinery/ship_gun/ak820/stealth,
-	/obj/machinery/ship_gun/apollo,
-	/obj/machinery/ship_gun/bofors,
-	/obj/machinery/ship_gun/cerberus,
-	/obj/machinery/ship_gun/charon,
-	/obj/machinery/ship_gun/charon/stealth,
-	/obj/machinery/ship_gun/cyrexa,
-	/obj/machinery/ship_gun/dymere,
-	/obj/machinery/ship_gun/fang,
-	/obj/machinery/ship_gun/fang/stealth,
-	/obj/machinery/ship_gun/hades,
-	/obj/machinery/ship_gun/harbringer,
-	/obj/machinery/porta_turret/syndicate/ship/hlgg9,
-	/obj/machinery/porta_turret/syndicate/ship/l85,
-	/obj/machinery/ship_gun/leviathan,
-	/obj/machinery/ship_gun/paladin,
-	/obj/machinery/ship_gun/prometheus,
-	/obj/machinery/ship_gun/rac_30_draupnir,
-	/obj/machinery/ship_gun/sandbox,
-	/obj/machinery/ship_gun/scylla,
-	/obj/machinery/ship_gun/serpent,
-	/obj/machinery/ship_gun/t241,
-	/obj/machinery/ship_gun/tartarus,
-	/obj/machinery/ship_gun/thanatos,
-	/obj/machinery/ship_gun/vanquisher
-))
 
 GLOBAL_LIST_EMPTY(overmap_weapons)
 

@@ -139,7 +139,7 @@
 
 	var/steady = held_brake || (autopilot && !matching_velocity)
 	var/damp_linear = !matching_velocity && (dampeners || steady)
-	var/damp_angular = angular_dampeners || dampeners || steady
+	var/damp_angular = angular_dampeners || steady
 	if(!damp_linear && !damp_angular)
 		return
 	var/drag = 1 / (1 + OVERMAP_DRIFT_DAMPING * elapsed)

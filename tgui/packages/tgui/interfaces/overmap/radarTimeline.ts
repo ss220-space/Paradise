@@ -11,10 +11,13 @@ export class RadarTimeline {
   private playhead: number;
   private renderedAt: number;
   private rate = 1;
-  private readonly delay = 100;
   private readonly prediction = 300;
 
-  constructor(frame: RadarFrame, arrival: number) {
+  constructor(
+    frame: RadarFrame,
+    arrival: number,
+    private readonly delay = 100,
+  ) {
     const time = frame.tick ?? arrival;
     this.frames = [{ frame, time, arrival }];
     this.timing = [{ time, arrival }];
@@ -71,7 +74,7 @@ export class RadarTimeline {
       Math.min(1.3, 1 + (target - this.playhead) / 500),
     );
     this.playhead = Math.min(
-      last.time + this.prediction,
+      this.delay === 0 ? target : last.time + this.prediction,
       this.playhead + elapsed * this.rate * correction,
     );
     this.renderedAt = arrival;

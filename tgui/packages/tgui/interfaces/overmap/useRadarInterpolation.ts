@@ -2,7 +2,11 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import type { RadarFrame } from './radarInterpolation';
 import { RadarTimeline } from './radarTimeline';
 
-export const useRadarInterpolation = (input: RadarFrame, enabled = true) => {
+export const useRadarInterpolation = (
+  input: RadarFrame,
+  enabled = true,
+  delay = 100,
+) => {
   const sample = useMemo(
     () => input,
     [
@@ -23,24 +27,31 @@ export const useRadarInterpolation = (input: RadarFrame, enabled = true) => {
   const [shown, setShown] = useState(sample);
   const timeline = useRef<RadarTimeline | null>(null);
   const animation = useRef(0);
-  if (!timeline.current) {
-    timeline.current = new RadarTimeline(sample, performance.now());
+  const timingDelay = useRef(delay);
+  if (!timeline.current || timingDelay.current !== delay) {
+    timeline.current = new RadarTimeline(sample, performance.now(), delay);
+    timingDelay.current = delay;
   }
   useEffect(() => {
     timeline.current!.push(sample, performance.now());
-    if (animation.current) cancelAnimationFrame(animation.current);
-    if (!enabled) return;
+    if (!enabled) {
+      cancelAnimationFrame(animation.current);
+      animation.current = 0;
+      return;
+    }
     const tick = (time: number) => {
       setShown(timeline.current!.at(time));
       animation.current = timeline.current!.pending(time)
         ? requestAnimationFrame(tick)
         : 0;
     };
-    animation.current = requestAnimationFrame(tick);
+    if (!animation.current) animation.current = requestAnimationFrame(tick);
+  }, [sample, enabled, delay]);
+  useEffect(() => {
     return () => {
       if (animation.current) cancelAnimationFrame(animation.current);
       animation.current = 0;
     };
-  }, [sample, enabled]);
+  }, []);
   return enabled ? shown : sample;
 };

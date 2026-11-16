@@ -13,6 +13,18 @@
 	var/obj/machinery/computer/camera_advanced/shuttle_docker/overmap/dock_picker
 	var/helm_tab = "flight"
 
+/datum/asset/simple/namespaced/helm_fonts
+	assets = list(
+		"Tektur-cyrillic.woff2" = file("interface/fonts/Tektur-cyrillic.woff2"),
+		"Tektur-latin.woff2" = file("interface/fonts/Tektur-latin.woff2"),
+		"JetBrainsMono-cyrillic.woff2" = file("interface/fonts/JetBrainsMono-cyrillic.woff2"),
+		"JetBrainsMono-latin.woff2" = file("interface/fonts/JetBrainsMono-latin.woff2"),
+	)
+	parents = list("helm_fonts.css" = file("interface/fonts/helm_fonts.css"))
+
+/obj/machinery/computer/helm/ui_assets(mob/user)
+	return ..() + list(get_asset_datum(/datum/asset/simple/namespaced/helm_fonts))
+
 
 /obj/machinery/computer/helm/get_ru_names()
 	return alist(
@@ -63,7 +75,7 @@
 	return waypoint_name
 
 /obj/machinery/computer/helm/click_alt(mob/user)
-	if(!can_pilot(user) || user.incapacitated() || (stat & (NOPOWER|BROKEN)))
+	if(!can_pilot(user) || (isliving(user) && user.incapacitated()) || (stat & (NOPOWER|BROKEN)))
 		return NONE
 	link_vessel()
 	toggle_helm(user)
@@ -76,7 +88,7 @@
 	if(nav.pilot == user)
 		nav.release_pilot()
 		return TRUE
-	if(!can_pilot(user) || user.incapacitated() || (stat & (NOPOWER|BROKEN)) || !allowed(user))
+	if(!can_pilot(user) || (isliving(user) && user.incapacitated()) || (stat & (NOPOWER|BROKEN)) || !allowed(user))
 		return FALSE
 	if(nav.pilot)
 		to_chat(user, span_warning("За штурвалом уже [nav.pilot.name]."))

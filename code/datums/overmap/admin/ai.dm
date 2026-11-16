@@ -149,7 +149,7 @@
 	controller.fleet_friends[fleet_key] = friends
 	controller.fleet_relations[fleet_key] = relations
 	ai_feedback = "Создано соединение [group]: [count] кораблей."
-	log_admin("[key_name(user)] spawned virtual AI fleet [group]: [count] ships, [faction], sector [sector.id].")
+	report_spawn(user, last_ship, "virtual AI fleet \"[group]\": [count] ships, faction [faction], requested center [x]:[y]")
 
 /datum/overmap_ai_controller/proc/spawn_position(datum/overmap_sector/sector, wanted_x, wanted_y, radius)
 	var/turf/best
