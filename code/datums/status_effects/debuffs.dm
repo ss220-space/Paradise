@@ -1008,10 +1008,8 @@
 	var/dose = strength
 	duration = STATUS_EFFECT_PERMANENT
 	strength = dose
-
-	// Stacks are derived directly from remaining strength (1 stack = 30 seconds).
 	hallucination_stacks = clamp(strength / (30 SECONDS), 0, 10)
-
+	COOLDOWN_START(src, hallucination_cooldown, rand(lower_tick_interval, upper_tick_interval))
 	return TRUE
 
 /datum/status_effect/transient/hallucination/proc/delete_self()
@@ -1091,10 +1089,10 @@
 				upper_cd *= 0.5
 
 	var/datum/hallucination/picked_hallucination = get_random_hallucination(max_hallucination_tier, strict_tier)
-	if(!owner.cause_hallucination(picked_hallucination, "[id] status effect"))
-		lower_cd *= 0.25
-		upper_cd *= 0.25
-	COOLDOWN_START(src, hallucination_cooldown, rand(lower_cd, upper_cd))
+	if(owner.cause_hallucination(picked_hallucination, "[id] status effect"))
+		COOLDOWN_START(src, hallucination_cooldown, rand(lower_cd, upper_cd))
+	else
+		COOLDOWN_START(src, hallucination_cooldown, randfloat(lower_cd * 0.75, upper_cd * 0.75))
 
 // MARK: Eye blurry
 /datum/status_effect/transient/eye_blurry
