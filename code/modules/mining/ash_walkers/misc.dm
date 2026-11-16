@@ -9,6 +9,7 @@
 	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
 	item_state = "acid_bladder"
 	w_class = WEIGHT_CLASS_TINY
+	resistance_flags = UNACIDABLE | ACID_PROOF
 
 /obj/item/acid_bladder/get_ru_names()
 	return alist(
