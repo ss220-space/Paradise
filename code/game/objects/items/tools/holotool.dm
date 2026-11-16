@@ -130,9 +130,9 @@
 
 /obj/item/holotool/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-    if(obj_flags & EMAGGED)
-        return FALSE
-    obj_flags |= EMAGGED
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
 	balloon_alert_to_viewers("искрит и жужжит!", "протоколы безопасности взломаны")
 	do_sparks(5, FALSE, src)
 	if(user)

@@ -771,11 +771,11 @@
 
 /obj/item/clothing/accessory/holobadge/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-    if(obj_flags & EMAGGED)
+	if(obj_flags & EMAGGED)
 		if(user)
 			to_chat(user, span_warning("[src] is already cracked."))
-        return FALSE
-    obj_flags |= EMAGGED
+		return FALSE
+	obj_flags |= EMAGGED
 	if(user)
 		to_chat(user, span_warning("You swipe the card and crack the holobadge security checks."))
 	return TRUE

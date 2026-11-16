@@ -32,16 +32,16 @@
 
 /obj/item/door_remote/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-    if(obj_flags & EMAGGED)
-        return FALSE
-    obj_flags |= EMAGGED
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
 	add_attack_logs(user, src, "emagged")
 	if(user)
 		to_chat(user, span_warning("You short out the safeties on [src]"))
 	return TRUE
 
 /obj/item/door_remote/attack_self(mob/user)
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		switch(mode)
 			if(WAND_OPEN)
 				mode = WAND_BOLT
@@ -89,7 +89,7 @@
 		return
 	if(target.check_access(src.ID))
 		target.add_hiddenprint(user)
-		if(emagged)
+		if(obj_flags & EMAGGED)
 			switch(mode)
 				if(WAND_OPEN)
 					if(target.density)
@@ -126,7 +126,7 @@
 						target.electrified_until = -1
 						to_chat(user, span_notice("You electrify [target]."))
 						add_attack_logs(user, target, "electrified")
-		if(emagged == FALSE)
+		if(!(obj_flags & EMAGGED))
 			switch(mode)
 				if(WAND_OPEN)
 					if(target.density)
@@ -216,9 +216,12 @@
 	desc = "A device used for illegally interfacing with doors."
 	icon_state = "hacktool"
 	item_state = "hacktool"
-	emagged = TRUE
 	var/hack_speed = 1 SECONDS
 	var/busy = FALSE
+
+/obj/item/door_remote/omni/access_tuner/Initialize(mapload)
+	. = ..()
+	obj_flags |= EMAGGED
 
 /obj/item/door_remote/omni/access_tuner/update_icon_state()
 	icon_state = "hacktool[busy ? "-g" : ""]"

@@ -356,9 +356,9 @@
 
 /obj/machinery/computer/rdservercontrol/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-    if(obj_flags & EMAGGED)
-        return FALSE
-    obj_flags |= EMAGGED
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
 	add_attack_logs(user, src, "emagged")
 	playsound(src, 'sound/effects/sparks4.ogg', 75, TRUE)
 	req_access = list()

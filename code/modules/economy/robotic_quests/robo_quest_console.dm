@@ -121,9 +121,9 @@
 
 /obj/machinery/computer/roboquest/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-    if(obj_flags & EMAGGED)
-        return FALSE
-    obj_flags |= EMAGGED
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
 	atom_say("System override detected. Instant mech teleportation is available.")
 	playsound(src, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	return TRUE

@@ -280,9 +280,9 @@
 
 /obj/machinery/satellite/meteor_shield/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-    if(obj_flags & EMAGGED)
-        return FALSE
-    obj_flags |= EMAGGED
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
 	add_attack_logs(user, src, "emagged")
 	if(active)
 		change_meteor_chance(2)

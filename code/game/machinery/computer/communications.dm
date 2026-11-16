@@ -485,7 +485,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 	data["is_ai"]         = isAI(user) || isrobot(user)
 	data["noauthbutton"]  = !ishuman(user)
 	data["menu_state"]    = data["is_ai"] ? ai_menu_state : menu_state
-	data["emagged"]       = obj_flags & EMAGGED
+	data["emagged"]       = (obj_flags & EMAGGED)
 	data["authenticated"] = is_authenticated(user, FALSE)
 	data["authhead"] = data["authenticated"] >= COMM_AUTHENTICATION_HEAD && (data["authenticated"] == COMM_AUTHENTICATION_AGHOST || !isobserver(user))
 	data["authcapt"] = data["authenticated"] >= COMM_AUTHENTICATION_CAPT && (data["authenticated"] == COMM_AUTHENTICATION_AGHOST || !isobserver(user))

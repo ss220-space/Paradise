@@ -105,6 +105,7 @@
 	. = ..()
 	if(.)
 		light_color = LIGHT_COLOR_INTENSE_RED //if you see a red one. RUN!!
+	return TRUE
 
 /mob/living/simple_animal/bot/secbot/griefsky/secbot_crossed(mob/living/carbon/arrived)
 	if(!iscarbon(arrived) || arrived != target || in_range(src, arrived))

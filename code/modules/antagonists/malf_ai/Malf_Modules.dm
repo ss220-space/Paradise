@@ -399,7 +399,7 @@
 	for(var/obj/machinery/firealarm/alarm in SSmachines.get_by_type(/obj/machinery/firealarm))
 		if(!is_station_level(alarm.z))
 			continue
-		alarm.emagged = TRUE
+		alarm.obj_flags |= TRUE
 	to_chat(owner, span_notice("All thermal sensors on the station have been disabled. Fire alerts will no longer be recognized."))
 	owner.playsound_local(owner, 'sound/machines/terminal_off.ogg', 50, FALSE, use_reverb = FALSE)
 
@@ -424,7 +424,7 @@
 	for(var/obj/machinery/alarm/AA in SSmachines.get_by_type(/obj/machinery/alarm))
 		if(!is_station_level(AA.z))
 			continue
-		AA.emagged = TRUE
+		AA.obj_flags |= TRUE
 	to_chat(owner, span_notice("All air alarm safeties on the station have been overriden. Air alarms may now use the Flood environmental mode."))
 	owner.playsound_local(owner, 'sound/machines/terminal_off.ogg', 50, FALSE, use_reverb = FALSE)
 

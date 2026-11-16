@@ -541,11 +541,11 @@
 
 /obj/item/robot_parts/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-    if(obj_flags & EMAGGED)
+	if(obj_flags & EMAGGED)
 		if(user)
 			to_chat(user, span_warning("[src] is already sabotaged!"))
-        return FALSE
-    obj_flags |= EMAGGED
+		return FALSE
+	obj_flags |= EMAGGED
 	add_attack_logs(user, src, "emagged")
 	if(user)
 		to_chat(user, span_warning("You slide the emag into the dataport on [src] and short out the safeties."))

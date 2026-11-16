@@ -495,9 +495,9 @@
 
 /obj/machinery/computer/supplycomp/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-    if(obj_flags & EMAGGED)
-        return FALSE
-    obj_flags |= EMAGGED
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
 	add_attack_logs(user, src, "emagged")
 	if(user)
 		user.balloon_alert(user, "открыты дополнительные заказы")

@@ -46,8 +46,8 @@ GLOBAL_LIST_INIT(slotmachine_reel_symbols, list(
 /datum/slotmachine_prize/New(list/allowed_uplink_items)
 	..()
 
-/datum/slotmachine_prize/proc/get_credits(emagged)
-	if(emagged)
+/datum/slotmachine_prize/proc/get_credits(obj_flags)
+	if(obj_flags & EMAGGED)
 		return credits * EMAGGED_SLOT_MACHINE_PRIZE_MOD
 	return credits
 
@@ -311,7 +311,7 @@ GLOBAL_LIST_INIT(slotmachine_reel_symbols, list(
 		do_sparks(1, TRUE, src)
 		atom_say("Ошибка!")
 		return
-	var/prize_credits = prizedatum.get_credits(obj_flags & EMAGGED)
+	var/prize_credits = prizedatum.get_credits(obj_flags)
 	if(prizedatum.custom_result)
 		result = prizedatum.custom_result
 	else

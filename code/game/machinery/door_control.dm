@@ -154,7 +154,7 @@
 	new /obj/item/mounted/frame/door_control(get_turf(user))
 	qdel(src)
 
-/obj/machinery/door_control/emag_act(mob/user,obj/item/card/emag/emag_card)
+/obj/machinery/door_control/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
 	if(obj_flags & EMAGGED)
 		return FALSE

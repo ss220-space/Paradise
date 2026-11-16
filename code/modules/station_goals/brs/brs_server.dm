@@ -227,8 +227,8 @@
 
 /obj/machinery/brs_server/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-    if(obj_flags & EMAGGED)
-        return FALSE
+	if(obj_flags & EMAGGED)
+		return FALSE
 	obj_flags |= EMAGGED
 	points_per_probe = points_per_probe_emagged
 	probe_success_chance = probe_success_chance_emagged

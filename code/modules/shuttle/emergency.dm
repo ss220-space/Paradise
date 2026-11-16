@@ -76,9 +76,9 @@
 
 /obj/machinery/computer/emergency_shuttle/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-    if((obj_flags & EMAGGED) || (SSshuttle.emergency.mode != SHUTTLE_DOCKED))
-        return FALSE
-    obj_flags |= EMAGGED
+	if((obj_flags & EMAGGED) || (SSshuttle.emergency.mode != SHUTTLE_DOCKED))
+		return FALSE
+	obj_flags |= EMAGGED
 	var/time = SSshuttle.emergency.timeLeft()
 	add_attack_logs(user, src, "emagged")
 	message_admins("[key_name_admin(user)] has emagged the emergency shuttle: [time] seconds before launch.")

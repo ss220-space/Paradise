@@ -83,9 +83,9 @@
 
 /obj/item/megaphone/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-    if(obj_flags & EMAGGED)
-        return FALSE
-    obj_flags |= EMAGGED
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
 	insults = rand(1, 3)//to prevent dickflooding
 	if(user)
 		to_chat(user, span_warning("You overload \the [src]'s voice synthesizer."))

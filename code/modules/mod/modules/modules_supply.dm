@@ -534,6 +534,7 @@
 	. = ..()
 	safe = !safe
 	balloon_alert(user, "протоколы безопасности [safe ? "восстановлены" : "сняты"]!")
+	return TRUE
 
 /obj/item/mod/module/sphere_transform/get_ru_names()
 	return alist(

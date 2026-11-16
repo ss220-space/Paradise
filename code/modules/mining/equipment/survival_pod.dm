@@ -29,12 +29,12 @@
 
 /obj/item/survivalcapsule/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-    if(obj_flags & EMAGGED)
+	if(obj_flags & EMAGGED)
 		if(user)
 			to_chat(user, span_warning("Защитные механизмы уже отключены!"))
-        return FALSE
+		return FALSE
 
-    obj_flags |= EMAGGED
+	obj_flags |= EMAGGED
 	if(user)
 		to_chat(user, span_warning("Вы отключаете защитные механизмы, позволяя размещение в секторе станции."))
 	return TRUE

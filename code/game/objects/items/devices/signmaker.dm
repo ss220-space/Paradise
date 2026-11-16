@@ -45,9 +45,9 @@
 
 /obj/item/signmaker/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-    if(obj_flags & EMAGGED)
-        return FALSE
-    obj_flags |= EMAGGED
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
 	holosign_type = /obj/structure/holosoap/holosoap_emagged
 	add_attack_logs(user, src, "emagged")
 	clear_holosign()

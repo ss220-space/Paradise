@@ -1171,8 +1171,8 @@
 
 /obj/mecha/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-    if(obj_flags & EMAGGED)
-        return FALSE
+	if(obj_flags & EMAGGED)
+		return FALSE
 
 	if(!emaggable)
 		if(user)

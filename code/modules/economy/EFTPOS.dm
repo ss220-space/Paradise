@@ -118,9 +118,9 @@
 
 /obj/item/eftpos/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-    if(obj_flags & EMAGGED)
-        return FALSE
-    obj_flags |= EMAGGED
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
 	visible_message(span_warning("[user] swipes a card through [src] and sparks fly out of it!"))
 	do_sparks(1, TRUE, src)
 	get_sfx(SFX_SPARKS)

@@ -443,9 +443,9 @@
 //emaging provides slightly more points but at much greater risk
 /obj/machinery/power/bluespace_tap/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-    if(obj_flags & EMAGGED)
-        return FALSE
-    obj_flags |= EMAGGED
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
 	add_attack_logs(user, src, "emagged")
 	do_sparks(5, FALSE, src)
 	if(user)

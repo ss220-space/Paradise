@@ -131,9 +131,9 @@
 
 /obj/machinery/power/bfl_emitter/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-    if(obj_flags & EMAGGED)
-        return FALSE
-    obj_flags |= EMAGGED
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
 	add_attack_logs(user, src, "emagged")
 	if(user)
 		to_chat(user, span_notice("Излучатель успешно саботирован"))

@@ -134,7 +134,7 @@
 	add_fingerprint(user)
 	user.visible_message("[user] repairs [src]!",span_notice("You repair [src]."))
 
-/mob/living/simple_animal/spiderbot/emag_act(mob/living/user, obj/item/card/emag/emag_card)
+/mob/living/simple_animal/spiderbot/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
 	if(emagged)
 		to_chat(user, span_warning("[src] doesn't seem to respond."))

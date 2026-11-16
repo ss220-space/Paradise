@@ -111,10 +111,10 @@
 
 /obj/machinery/computer/telescience/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-    if(obj_flags & EMAGGED)
+	if(obj_flags & EMAGGED)
 		if(user)
 			to_chat(user, span_warning("Машина никак не реагирует на проведение картой..."))
-        return FALSE
+		return FALSE
 	obj_flags |= EMAGGED
 	if(user)
 		to_chat(user, span_notice("Вы шифруете ключ аутентификации телепортации с неизвестным сигналом. Теперь у вас есть возможность перемещаться в ещё больше мест!"))

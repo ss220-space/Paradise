@@ -404,9 +404,9 @@
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-    if(obj_flags & EMAGGED)
-        return FALSE
-    obj_flags |= EMAGGED
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
 	user.visible_message(span_warning("Sparks fly out of the [src]!</span>"), span_notice("You short out the safeties on[src]."))
 	playsound(loc, SFX_SPARKS, 50, TRUE)
 	return TRUE

@@ -807,9 +807,12 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
 	greyscale_config_belt = null
-	emagged = TRUE
 	ignore_flags = TRUE
 	var/base_icon = "alien_mender_brute"
+
+/obj/item/reagent_containers/applicator/abductor/Initialize(mapload)
+	. = ..()
+	obj_flags |= EMAGGED
 
 /obj/item/reagent_containers/applicator/abductor/get_ru_names()
 	return alist(
@@ -872,7 +875,9 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	item_state = "mender2"
 	base_icon = "mender2"
 
-	emagged = FALSE
+/obj/item/reagent_containers/applicator/abductor/industrial/Initialize(mapload)
+	. = ..()
+	obj_flags &= ~EMAGGED
 
 /obj/item/reagent_containers/applicator/abductor/industrial/get_ru_names()
 	return alist(

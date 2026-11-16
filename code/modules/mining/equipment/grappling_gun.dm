@@ -98,9 +98,9 @@
 
 /obj/item/grapple_gun/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-    if(obj_flags & EMAGGED)
-        return FALSE
-    obj_flags |= EMAGGED
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
 	if(user)
 		user.balloon_alert(user, "настройки давления сброшены!")
 	return TRUE

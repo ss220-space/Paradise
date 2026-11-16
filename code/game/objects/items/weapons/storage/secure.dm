@@ -80,7 +80,7 @@
 
 	if(istype(I, /obj/item/melee/energy/blade) && !(obj_flags & EMAGGED))
 		add_fingerprint(user)
-		emag_act(user, I)
+		esword_hack(user, I)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(locked)
@@ -90,25 +90,26 @@
 
 	return ..()
 
+/obj/item/storage/secure/proc/esword_hack(mob/user, /obj/item/melee/energy/blade)
+	do_sparks(5, FALSE, loc)
+	playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE)
+	playsound(loc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	if(user)
+		to_chat(user, "You slice through the lock on [src].")
+
 /obj/item/storage/secure/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-    if(obj_flags & EMAGGED)
-        return FALSE
-    obj_flags |= EMAGGED
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
 	add_attack_logs(user, src, "emagged")
 	locked = FALSE
 	playsound(loc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	flick_overlay_view(mutable_appearance(icon, icon_sparking), 1 SECONDS)
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 1 SECONDS)
-
-	if(istype(weapon, /obj/item/melee/energy/blade))
-		do_sparks(5, FALSE, loc)
-		playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE)
-		playsound(loc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		if(user)
-			to_chat(user, "You slice through the lock on [src].")
-	else if(user)
+	if(user)
 		to_chat(user, "You short out the lock on [src].")
+	return TRUE
 
 /obj/item/storage/secure/click_alt(mob/living/user)
 	if(!try_to_open(user))

@@ -109,8 +109,8 @@
 
 /obj/item/rcs/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-    if(obj_flags & EMAGGED)
-        return FALSE
+	if(obj_flags & EMAGGED)
+		return FALSE
 	obj_flags |= EMAGGED
 	add_attack_logs(user, src, "emagged")
 	do_sparks(3, TRUE, src)

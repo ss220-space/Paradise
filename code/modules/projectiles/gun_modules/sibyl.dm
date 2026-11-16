@@ -340,8 +340,8 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 /obj/item/gun_module/gategun/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
 	if(obj_flags & EMAGGED)
-        return FALSE
-    obj_flags |= EMAGGED
+		return FALSE
+	obj_flags |= EMAGGED
 	to_chat(user, span_warning("Вы замечаете как индикатор системы безопасности мигает и гаснет."))
 	return TRUE
 

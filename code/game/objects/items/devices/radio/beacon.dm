@@ -26,9 +26,9 @@
 
 /obj/item/beacon/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-    if(obj_flags & EMAGGED)
-        return FALSE
-    obj_flags |= EMAGGED
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
 	syndicate = TRUE
 	if(user)
 		to_chat(user, span_notice("The This beacon now only be locked on to by emagged teleporters!"))

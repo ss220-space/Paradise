@@ -66,6 +66,7 @@
 	obj_flags |= EMAGGED
 	if(user)
 		to_chat(user, span_warning("You disable \the [src]'s temperature safeguards."))//Inform the mob of what emagging does.
+	return TRUE
 
 /obj/machinery/poolcontroller/multitool_act(mob/user, obj/item/I)
 	. = TRUE

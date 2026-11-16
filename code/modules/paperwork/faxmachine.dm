@@ -131,11 +131,11 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-    if(obj_flags & EMAGGED)
+	if(obj_flags & EMAGGED)
 		if(user)
 			balloon_alert(user, "уже взломано!")
-        return FALSE
-    obj_flags |= EMAGGED
+		return FALSE
+	obj_flags |= EMAGGED
 	add_attack_logs(user, src, "emagged")
 	req_access = list()
 	playsound(loc, 'sound/machines/fax_emag.ogg', 50, FALSE)

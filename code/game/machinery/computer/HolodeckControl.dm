@@ -162,7 +162,7 @@
 /obj/machinery/computer/HolodeckControl/attackby(obj/item/I, mob/user, params)
 	return ATTACK_CHAIN_BLOCKED
 
-/obj/machinery/computer/HolodeckControl/emag_act(mob/user)
+/obj/machinery/computer/HolodeckControl/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
 	if(obj_flags & EMAGGED)
 		return FALSE

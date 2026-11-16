@@ -81,9 +81,9 @@
 
 /obj/item/wormhole_jaunter/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-    if(obj_flags & EMAGGED)
-        return FALSE
-    obj_flags |= EMAGGED
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
 	add_attack_logs(user, src, "emagged")
 	var/turf/our_turf = get_turf(src)
 	do_sparks(5, FALSE, our_turf)

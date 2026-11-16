@@ -111,9 +111,9 @@
 
 /obj/item/ecig/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-    if(obj_flags & EMAGGED)
-        return FALSE
-    obj_flags |= EMAGGED
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
 	add_attack_logs(user, src, "emagged")
 
 	if(user)
@@ -199,7 +199,7 @@
 	if(cycle_count >= AWARD_THRESHOLD)
 		user.client?.give_award(/datum/award/achievement/misc/deep_draw, user)
 
-	if(emagged && cycle_count >= SAFE_THRESHOLD)
+	if((obj_flags & EMAGGED) && cycle_count >= SAFE_THRESHOLD)
 		applying = FALSE
 		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] становится обжигающе горячей!"))
 		addtimer(CALLBACK(src, PROC_REF(perform_sparks)), 15)

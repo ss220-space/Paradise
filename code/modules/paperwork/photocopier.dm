@@ -782,11 +782,11 @@
 
 /obj/machinery/photocopier/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-    if(obj_flags & EMAGGED)
+	if(obj_flags & EMAGGED)
 		if(user)
 			balloon_alert(user, "уже взломано!")
-        return FALSE
-    obj_flags |= EMAGGED
+		return FALSE
+	obj_flags |= EMAGGED
 	if(user)
 		balloon_alert(user, "взломано")
 	return TRUE

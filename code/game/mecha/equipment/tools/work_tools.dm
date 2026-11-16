@@ -760,9 +760,9 @@
 
 /obj/item/mecha_parts/mecha_equipment/eng_toolset/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-    if(obj_flags & EMAGGED)
-        return FALSE
-    obj_flags |= EMAGGED
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
 	var/obj/item/emag_thing = new emag_item
 	items_list.Add(emag_thing)
 	ADD_TRAIT(emag_thing, TRAIT_NODROP, type)

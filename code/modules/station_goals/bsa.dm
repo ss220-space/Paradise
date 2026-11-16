@@ -704,9 +704,9 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 
 /obj/machinery/computer/bsa_control/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-    if(obj_flags & EMAGGED)
-        return FALSE
-    obj_flags |= EMAGGED
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
 	if(user)
 		to_chat(user, span_warning("Вы взламываете [declent_ru(ACCUSATIVE)], протоколы безопасности отключены!"))
 	return TRUE

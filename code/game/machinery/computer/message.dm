@@ -79,6 +79,7 @@
 		message = rebootmsg
 	else if(user)
 		to_chat(user, span_notice("A no server error appears on the screen."))
+	return TRUE
 
 /obj/machinery/computer/message_monitor/update_icon_state()
 	if((obj_flags & EMAGGED) || hacking)
