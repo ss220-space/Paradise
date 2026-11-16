@@ -533,6 +533,12 @@
 	icon_state = "bar"
 	},
 /area/mine/living_quarters)
+"bW" = (
+/obj/item/stack/ore/glass/basalt,
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/spawner/random_spawners/mine,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "bX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -1865,6 +1871,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"hs" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/barricade/sandbags,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "hA" = (
 /obj/structure/stone_tile/cracked{
 	dir = 4
@@ -2198,6 +2210,11 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
+"jm" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mine/explosive/hidden,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "jq" = (
 /obj/structure/stone_tile/cracked{
 	dir = 8
@@ -2562,6 +2579,11 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"ll" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/closet/crate/secure/mortar/mortar_shells/he,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "lm" = (
 /obj/structure/railing{
 	dir = 9
@@ -2689,6 +2711,11 @@
 	icon_state = "brown"
 	},
 /area/mine/production)
+"lF" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/mortar/fixed,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "lH" = (
 /obj/machinery/vending/wallmed{
 	pixel_x = 26
@@ -2800,6 +2827,16 @@
 	pixel_y = -1
 	},
 /obj/structure/cable,
+/obj/item/t_scanner,
+/obj/item/t_scanner,
+/obj/item/t_scanner,
+/obj/item/t_scanner,
+/obj/item/t_scanner,
+/obj/item/t_scanner,
+/obj/item/t_scanner,
+/obj/item/t_scanner,
+/obj/item/t_scanner,
+/obj/item/t_scanner,
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "mj" = (
@@ -3802,6 +3839,12 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
+"sb" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/spawner/random_spawners/mine,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "sc" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
@@ -4150,6 +4193,11 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/safe_cave)
+"up" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/barricade/sandbags,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "ur" = (
 /obj/structure/closet/secure_closet/personal/mining,
 /obj/structure/sign/poster/random{
@@ -4590,6 +4638,12 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
+"xy" = (
+/obj/item/stack/ore/glass/basalt,
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mine/explosive/hidden,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "xH" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -4619,6 +4673,16 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
+"xQ" = (
+/obj/item/stack/ore/glass/basalt,
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/obj/item/ammo_box/magazine/pkm,
+/obj/item/ammo_box/magazine/pkm,
+/obj/item/ammo_box/magazine/pkm,
+/obj/item/ammo_box/magazine/pkm,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "xR" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -4789,6 +4853,11 @@
 	icon_state = "brown"
 	},
 /area/mine/eva)
+"yJ" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/closet/crate/secure/mortar/mortar_shells/frag,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "yK" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -5300,6 +5369,11 @@
 	},
 /turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
+"Cs" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/spawner/random_spawners/mine,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Ct" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
@@ -6163,6 +6237,17 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
+"HO" = (
+/obj/item/stack/ore/iron,
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/spawner/random_spawners/mine,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"HU" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/closet/crate/secure/mortar/mortar_shells/flare,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "HW" = (
 /obj/structure/stone_tile/block/burnt{
 	dir = 1
@@ -6332,6 +6417,14 @@
 /obj/machinery/vending/cola,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp)
+"Jj" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/item/ammo_box/magazine/pkm,
+/obj/item/ammo_box/magazine/pkm,
+/obj/item/ammo_box/magazine/pkm,
+/obj/item/ammo_box/magazine/pkm,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Jk" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -6408,6 +6501,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"JH" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/stationary_machinegun/fixed{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "JJ" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -6592,6 +6693,12 @@
 /obj/item/storage/toolbox/brass,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
+"KS" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/barricade/sandbags,
+/obj/item/binoculars/range,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "KV" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -7065,6 +7172,13 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
+"Ou" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/stationary_machinegun/fixed{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Ov" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -7926,6 +8040,11 @@
 /obj/structure/lattice/catwalk/mapping,
 /turf/simulated/floor/lava/lava_land_surface,
 /area/mine/living_quarters)
+"Um" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/closet/crate/secure/mortar/mortar_shells/incendiary,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Un" = (
 /obj/structure/stone_tile/cracked{
 	dir = 1
@@ -8672,6 +8791,12 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"YE" = (
+/obj/item/stack/ore/iron,
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/barricade/sandbags,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "YF" = (
@@ -27386,9 +27511,9 @@ fw
 fw
 fw
 fw
-fw
-fw
-fw
+HU
+ll
+Um
 fw
 ZH
 ZH
@@ -27642,8 +27767,8 @@ aj
 fw
 fw
 fw
-fw
-fw
+up
+HU
 fw
 fw
 fw
@@ -27895,15 +28020,15 @@ aj
 aj
 aj
 aj
+up
 fw
 fw
 fw
+up
+yJ
+lF
 fw
-fw
-fw
-fw
-fw
-fw
+up
 fw
 ZH
 Sj
@@ -28150,17 +28275,17 @@ aj
 aj
 aj
 aj
-fw
-fw
-fw
-fw
-fw
+Cs
+jm
+up
+up
+up
 iM
-fw
-fw
-fw
-fw
-fw
+up
+KS
+up
+up
+up
 fw
 ZH
 yG
@@ -28407,12 +28532,12 @@ aj
 aj
 aj
 aj
-fw
-fw
-fw
-fw
-fw
-fw
+Cs
+jm
+jm
+jm
+up
+up
 fw
 fw
 fw
@@ -28663,14 +28788,14 @@ aj
 aj
 aj
 aj
-fw
-fw
-fw
-fw
-fw
-fw
-fw
-UH
+Cs
+jm
+Cs
+Cs
+jm
+jm
+up
+hs
 UH
 UH
 UH
@@ -28917,21 +29042,21 @@ fw
 aj
 aj
 aj
-fw
-fw
-fw
-fw
-fw
-fw
-fw
-fw
-fw
-fw
+Cs
+Cs
+Cs
+Cs
+Cs
+jm
+Cs
+Cs
+jm
+jm
+hs
+hs
 UH
-UH
-UH
-UH
-rk
+JH
+xQ
 fw
 fw
 fw
@@ -28940,10 +29065,10 @@ fw
 fw
 fw
 fw
+Ou
+Jj
 fw
-fw
-fw
-fw
+up
 fw
 fw
 aj
@@ -29174,33 +29299,33 @@ fw
 aj
 aj
 aj
-fw
-fw
-fw
+Cs
+Cs
+Cs
 ai
 ai
 ai
+Cs
+jm
+Cs
+jm
+jm
+up
+YE
+up
+up
+up
+up
 fw
 fw
 fw
-fw
-fw
-fw
-Au
-fw
-fw
-fw
-fw
-fw
-fw
-fw
-fw
-fw
-fw
-Au
-fw
-fw
-fw
+up
+up
+up
+YE
+up
+up
+up
 aj
 fw
 aj
@@ -29431,13 +29556,21 @@ fw
 fw
 aj
 aj
-fw
-fw
+Cs
+Cs
 ai
 ai
 ai
 ai
 ai
+Cs
+jm
+Cs
+Cs
+jm
+jm
+jm
+jm
 fw
 fw
 fw
@@ -29445,19 +29578,11 @@ fw
 fw
 fw
 fw
-fw
-fw
-fw
-fw
-fw
-fw
-fw
-fw
-fw
-fw
-fw
-fw
-fw
+jm
+jm
+jm
+jm
+jm
 aj
 aj
 aj
@@ -29689,7 +29814,7 @@ aj
 aj
 aj
 aj
-fw
+Cs
 ai
 ai
 ai
@@ -29697,24 +29822,24 @@ ai
 ai
 ai
 ai
+jm
+Cs
+Cs
+Cs
+Cs
+Cs
+fw
+up
 fw
 fw
 fw
+up
 fw
-fw
-fw
-fw
-fw
-fw
-fw
-fw
-fw
-fw
-fw
-fw
-fw
-iM
-fw
+Cs
+Cs
+Cs
+bW
+Cs
 aj
 aj
 aj
@@ -29946,32 +30071,32 @@ fw
 aj
 aj
 aj
-fw
-fw
-fw
+Cs
+Cs
+Cs
 ai
 ai
 ai
 ai
 ai
 ai
+Cs
+jm
+Cs
+jm
 fw
 fw
+up
+up
+up
+up
+up
 fw
 fw
-fw
-fw
-fw
-fw
-fw
-fw
-fw
-fw
-fw
-fw
-fw
-fw
-fw
+jm
+Cs
+jm
+jm
 aj
 aj
 aj
@@ -30203,33 +30328,33 @@ fw
 fw
 aj
 aj
-fw
-fw
-fw
+Cs
+Cs
+Cs
 ai
 ai
 ai
-fw
+Cs
 ai
+Cs
+Cs
+Cs
+Cs
+Cs
 fw
+jm
+jm
+xy
+jm
+jm
+jm
+jm
 fw
-fw
-fw
-fw
-fw
-fw
-fw
-iM
-fw
-fw
-fw
-ai
-ai
-ai
-fw
-fw
-fw
-fw
+Cs
+Cs
+Cs
+Cs
+Cs
 aj
 aj
 aj
@@ -30460,33 +30585,33 @@ fw
 fw
 fw
 fw
+Cs
+Cs
+Cs
+Cs
+Cs
+Cs
+Cs
+Cs
+Cs
+Cs
+Cs
+Cs
 fw
 fw
+Cs
+sb
+Cs
+Cs
+Cs
+Cs
+Cs
 fw
-fw
-fw
-fw
-fw
-fw
-fw
-fw
-fw
-fw
-ai
-ai
-fw
-UH
-fw
-fw
-fw
-ai
-ai
-ai
-ai
-ai
-fw
-fw
-fw
+Cs
+Cs
+Cs
+Cs
+Cs
 aj
 aj
 aj
@@ -30726,24 +30851,24 @@ fw
 fw
 fw
 fw
+Cs
+Cs
+Cs
 fw
+Cs
+Cs
+Cs
+Cs
+Cs
+Cs
+Cs
+Cs
 fw
-fw
-ai
-ai
-ai
-fw
-fw
-fw
-fw
-ai
-ai
-ai
-ai
-ai
-ai
-fw
-fw
+Cs
+Cs
+Cs
+Cs
+Cs
 aj
 aj
 aj
@@ -30976,6 +31101,12 @@ ai
 fw
 fw
 fw
+Cs
+Cs
+Cs
+Cs
+Cs
+Cs
 fw
 fw
 fw
@@ -30985,22 +31116,16 @@ fw
 fw
 fw
 fw
-ai
-ai
-ai
-ai
-ai
 fw
 fw
 fw
-ai
-ai
-ai
-ai
-ai
-ai
 fw
 fw
+Cs
+Cs
+Cs
+Cs
+Cs
 aj
 aj
 aj
@@ -31236,29 +31361,29 @@ fw
 ai
 ai
 ai
+Cs
+Cs
+Cs
+fw
+Cs
+Cs
+Cs
+ai
+ai
+ai
+ai
+Cs
+Cs
+Cs
+Cs
 fw
 fw
 fw
-fw
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-fw
-fw
-fw
-fw
-ai
-ai
-ai
-ai
-ai
-fw
-fw
-fw
+Cs
+Cs
+Cs
+Cs
+Cs
 aj
 aj
 aj
@@ -31497,25 +31622,25 @@ ai
 ai
 ai
 fw
+Cs
+Cs
 ai
 ai
 ai
 ai
 ai
 ai
-ai
-ai
+Cs
+Cs
+Cs
+Cs
+Cs
 fw
 fw
-fw
-ai
-ai
-ai
-ai
-ai
-ai
-fw
-fw
+Cs
+Cs
+Cs
+Cs
 aj
 aj
 aj
@@ -31762,17 +31887,17 @@ ai
 ai
 ai
 ai
+Cs
+Cs
+Cs
+Cs
+Cs
+Cs
 fw
 fw
-fw
-fw
-ai
-ai
-ai
-ai
-ai
-fw
-fw
+Cs
+Cs
+Cs
 aj
 aj
 aj
@@ -32019,17 +32144,17 @@ ai
 ai
 ai
 ai
+Cs
+Cs
+HO
+Cs
+Cs
+Cs
+Cs
 fw
-fw
-Au
-fw
-ai
-ai
-ai
-ai
-fw
-fw
-fw
+Cs
+Cs
+Cs
 aj
 aj
 aj
@@ -32281,8 +32406,8 @@ fw
 fw
 fw
 fw
-ai
-ai
+fw
+fw
 fw
 fw
 fw

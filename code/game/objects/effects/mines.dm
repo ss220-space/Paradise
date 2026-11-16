@@ -59,6 +59,10 @@
 	add_attack_logs(victim, src, "Stepped on")
 	explosion(loc, devastation_range = range_devastation, heavy_impact_range = range_heavy, light_impact_range = range_light, flash_range = range_flash)
 
+/obj/effect/mine/explosive/hidden
+	level = 1
+	invisibility = INVISIBILITY_ANOMALY
+
 /obj/effect/mine/stun
 	name = "stun mine"
 	var/stun_time = 16 SECONDS

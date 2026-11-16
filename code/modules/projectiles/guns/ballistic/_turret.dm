@@ -19,6 +19,9 @@
 	var/offset_x = 12
 	var/allow_move = TRUE
 
+/obj/structure/stationary_machinegun/fixed
+	allow_move = FALSE
+
 /obj/structure/stationary_machinegun/get_ru_names()
 	return alist(
 		NOMINATIVE = "станковый пулемет",

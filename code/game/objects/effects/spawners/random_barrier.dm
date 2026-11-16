@@ -94,3 +94,10 @@
 		/obj/item/stack/sheet/metal = 8,
 		/turf/simulated/floor/plating = 5,
 	)
+
+/obj/effect/spawner/random_spawners/mine
+	name = "hidden mine maybe"
+	result = list(
+		/obj/effect/mine/explosive/hidden = 2,
+		/datum/nothing = 8,
+	)
