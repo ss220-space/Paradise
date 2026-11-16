@@ -5,6 +5,7 @@
 	desc = "Тренога со стационарным пулеметом. Вы можете встать за него для стрельбы."
 	icon = 'icons/obj/weapons/stationary.dmi'
 	icon_state = "pkm"
+	layer = ABOVE_OBJ_LAYER
 	can_buckle = TRUE
 	buckle_lying = 0 // you stay in a stationary machinegun, not lay
 	max_integrity = 250
@@ -14,7 +15,7 @@
 	interaction_flags_mouse_drop = NEED_HANDS | ALLOW_RESTING
 	buckle_bonus_spread = 0
 	var/obj/item/stationary_machinegun/item = /obj/item/stationary_machinegun
-	var/obj/item/gun/projectile/automatic/internal_gun = /obj/item/gun/projectile/automatic/l6_saw
+	var/obj/item/gun/projectile/automatic/stationary_gun/internal_gun = /obj/item/gun/projectile/automatic/stationary_gun
 	var/offset_x = 12
 	var/allow_move = TRUE
 
@@ -28,6 +29,10 @@
 		PREPOSITIONAL = "станковом пулемете",
 	)
 
+/obj/structure/stationary_machinegun/ComponentInitialize()
+	AddElement(/datum/element/simple_rotation, post_rotation_proccall = PROC_REF(handle_rotation))
+	return ..()
+
 /obj/structure/stationary_machinegun/Initialize(mapload)
 	. = ..()
 	item = new item(src)
@@ -38,23 +43,11 @@
 	QDEL_NULL(item)
 	return ..()
 
-/obj/structure/stationary_machinegun/click_alt(mob/living/user)
-	rotate(user)
-	return CLICK_ACTION_SUCCESS
+/obj/structure/stationary_machinegun/setDir(newdir)
+	internal_gun.locked_dir = newdir
+	return ..()
 
-/obj/structure/stationary_machinegun/proc/rotate(mob/living/user)
-	if(user)
-		if(isobserver(user))
-			if(!CONFIG_GET(flag/ghost_interaction))
-				return FALSE
-		else if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
-			return FALSE
-
-	setDir(turn(dir, 90))
-	handle_rotation()
-	return TRUE
-
-/obj/structure/stationary_machinegun/proc/handle_rotation(direction)
+/obj/structure/stationary_machinegun/proc/handle_rotation(mob/user, degrees)
 	handle_layer()
 	if(has_buckled_mobs())
 		for(var/mob/living/buckled_mob as anything in buckled_mobs)
@@ -79,23 +72,25 @@
 
 /obj/structure/stationary_machinegun/post_buckle_mob(mob/living/target)
 	. = ..()
-	internal_gun.forceMove(drop_location())
-	if(!target.put_in_hands(internal_gun, ignore_anim = TRUE))
-		internal_gun.forceMove(src)
-		unbuckle_mob(target)
-		return
+	internal_gun.set_gun_user(target)
 
 	handle_layer()
 	handle_offsets()
-	ADD_TRAIT(internal_gun, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
 /obj/structure/stationary_machinegun/post_unbuckle_mob(mob/living/target)
 	. = ..()
 	handle_layer()
 	target.remove_offsets(TURRET_SOURCE)
-	REMOVE_TRAIT(internal_gun, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
-	target.drop_item_ground(internal_gun)
-	internal_gun.forceMove(src)
+	internal_gun.set_gun_user(null)
+
+/obj/structure/stationary_machinegun/attackby(obj/item/I, mob/user, list/modifiers)
+	if(internal_gun && istype(I, internal_gun.mag_type))
+		return internal_gun.attackby(I, user, modifiers)
+	return ..()
+
+/obj/structure/stationary_machinegun/CtrlClick(mob/user)
+	internal_gun.CtrlClick(user)
+	return ..()
 
 /obj/structure/stationary_machinegun/proc/handle_offsets()
 	for(var/mob/living/buckled_mob in buckled_mobs)
@@ -163,6 +158,5 @@
 	machinegun.setDir(user.dir)
 	user.drop_item_ground(src)
 	src.forceMove(machinegun)
-
 
 #undef TURRET_SOURCE
