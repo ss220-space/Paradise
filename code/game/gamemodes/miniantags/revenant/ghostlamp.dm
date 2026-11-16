@@ -115,4 +115,4 @@
 	if(ishuman(target) && prob(10))
 		var/mob/living/carbon/human/human = target
 		human.apply_status_effect(/datum/status_effect/cursed_flame, 5 SECONDS, null)
-	. = ..()
+	return ..()
