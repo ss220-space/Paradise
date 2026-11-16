@@ -311,6 +311,13 @@ GAME_VERB_SRC(/obj/machinery/gibber, eject, oview(1), "Опустошить мя
 		operating = FALSE
 		update_icon(UPDATE_OVERLAYS)
 
+/obj/machinery/gibber/pre_emagged
+	desc = "The name isn't descriptive enough? Safety lamp doesn't light!"
+
+/obj/machinery/gibber/pre_emagged/Initialize(mapload)
+	. = ..()
+	obj_flags |= EMAGGED
+
 /* AUTOGIBBER */
 
 //gibs anything that stands on it's input

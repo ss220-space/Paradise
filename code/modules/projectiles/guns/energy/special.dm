@@ -51,6 +51,19 @@
 	. = ..()
 	. += span_notice("Mode: [ammo_type[select]]\nCharge: [cell.percent()]%")
 
+/obj/item/gun/energy/floragun/old
+	ammo_type = list(/obj/item/ammo_casing/energy/flora/beta,/obj/item/ammo_casing/energy/flora/gamma);
+	can_charge = 1
+	cell_type = /obj/item/stock_parts/cell/degraded
+	current_skin = "oldflora"
+	desc = "Старый ботанический инструмент, испускающий контролируемое излучение, вызывающее мутации в клетках растений, не имеет самозарядки. Чтобы перезарядить это оружие, используйте устройство для подзарядки оружия.";
+	name = "old floral somatoray"
+	selfcharge = 0
+
+/obj/item/gun/energy/floragun/old/Initialize(mapload)
+	. = ..()
+	obj_flags |= EMAGGED
+
 // MARK: Meteor Gun
 /obj/item/gun/energy/meteorgun
 	name = "meteor gun"

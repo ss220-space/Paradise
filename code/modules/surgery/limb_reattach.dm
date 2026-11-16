@@ -152,8 +152,8 @@
 /datum/surgery/attach_robotic_limb/self_attach_ipc
 	name = "Самоприсоединение конечности (КПБ)"
 	desc = "Позволяет КПБ самостоятельно установить себе роботизированную конечность."
-	self_operable = TRUE 
-	lying_required = FALSE 
+	self_operable = TRUE
+	lying_required = FALSE
 	steps = list(/datum/surgery_step/limb/attach/robo/ipc_self)
 
 /datum/surgery/attach_robotic_limb/self_attach_ipc/can_start(mob/user, mob/living/carbon/target)
@@ -358,8 +358,8 @@
 			var/obj/item/organ/external/new_limb = new new_limb_type(target, ORGAN_MANIPULATION_DEFAULT)
 			new_limb.robotize(company = limb.model_info)
 
-			if(limb.sabotaged)
-				new_limb.sabotaged = TRUE
+			if(limb.obj_flags & EMAGGED)
+				new_limb.obj_flags = EMAGGED
 
 	target.update_body()
 	target.updatehealth()

@@ -296,6 +296,8 @@
 	return TRUE
 
 /obj/machinery/door/window/after_cmag_act()
+	if(QDELETED(src))
+		return
 	operating = FALSE
 
 /obj/machinery/door/window/attackby(obj/item/I, mob/living/user, params)

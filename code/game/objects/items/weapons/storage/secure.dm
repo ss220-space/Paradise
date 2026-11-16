@@ -90,7 +90,7 @@
 
 	return ..()
 
-/obj/item/storage/secure/proc/esword_hack(mob/user, /obj/item/melee/energy/blade)
+/obj/item/storage/secure/proc/esword_hack(mob/user, obj/item/melee/energy/blade)
 	do_sparks(5, FALSE, loc)
 	playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE)
 	playsound(loc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)

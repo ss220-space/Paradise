@@ -277,6 +277,10 @@
 	updateUsrDialog()
 	return TRUE
 
+/obj/machinery/computer/arcade/battle/emagged/Initialize(mapload)
+	. = ..()
+	obj_flags |= EMAGGED
+
 // *** THE ORION TRAIL ** //
 
 #define ORION_TRAIL_WINTURN 9

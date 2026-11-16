@@ -909,3 +909,53 @@
 /obj/machinery/door/airlock/multi_tile/glass
 	opacity = FALSE
 	glass = TRUE
+
+/*
+	Moonpost prefabs
+*/
+/obj/machinery/door/airlock/moonoutpost_emagged
+	density = 0
+	icon_state = "open"
+	id_tag = "awaydorm4"
+	locked = 1
+	name = "Dorm 1"
+	opacity = 0
+
+/obj/machinery/door/airlock/moonoutpost_emagged/Initialize(mapload)
+	. = ..()
+	obj_flags |= EMAGGED
+
+/obj/machinery/door/airlock/research/moonoutpost_emagged
+	density = 0
+	icon_state = "open"
+	locked = 1
+	name = "Xenobiology Lab"
+	opacity = 0
+	req_access = list(271)
+
+/obj/machinery/door/airlock/research/moonoutpost_emagged/Initialize(mapload)
+	. = ..()
+	obj_flags |= EMAGGED
+
+/obj/machinery/door/airlock/command/moonoutpost_emagged
+	density = 0
+	icon_state = "open"
+	locked = 1
+	name = "Research Director's Office"
+	opacity = 0
+	req_access = list(271)
+
+/obj/machinery/door/airlock/command/moonoutpost_emagged/Initialize(mapload)
+	. = ..()
+	obj_flags |= EMAGGED
+
+/obj/machinery/door/airlock/public/glass/moonoutpost_emagged
+	density = 0
+	icon_state = "open"
+	locked = 1
+	name = "Dormitories"
+
+/obj/machinery/door/airlock/public/glass/moonoutpost_emagged/Initialize(mapload)
+	. = ..()
+	obj_flags |= EMAGGED
+

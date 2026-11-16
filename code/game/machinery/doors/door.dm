@@ -351,7 +351,7 @@
 	addtimer(CALLBACK(src, PROC_REF(after_cmag_act)), 0.6 SECONDS)
 	return TRUE
 
-/obj/machinery/door/airlock/proc/after_cmag_act()
+/obj/machinery/door/proc/after_cmag_act()
 	if(QDELETED(src))
 		return
 	ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)

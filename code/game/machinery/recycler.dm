@@ -180,6 +180,9 @@
 	target.Paralyse(10 SECONDS)
 
 	if(obj_flags & EMAGGED)
+		if(gib)
+			target.gib()
+			return
 		target.adjustBruteLoss(crush_damage)
 
 /obj/machinery/recycler/click_alt(mob/user)
