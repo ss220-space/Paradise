@@ -994,21 +994,23 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			return TRUE
 
 	return FALSE
+/obj/machinery/computer/rdconsole/proc/is_usb_printable_design(datum/design/design_data)
+	if(!design_data || !design_data.id)
+		return FALSE
+	return (design_data.build_type & (PROTOLATHE | IMPRINTER)) || ispath(design_data.build_path, /obj/item/gun) || ispath(design_data.build_path, /obj/item/ammo_casing)
 
 /obj/machinery/computer/rdconsole/proc/usb_find_design(design_id)
 	if(!files || !design_id)
 		return null
 
 	var/search_query = lowertext(trim("[design_id]"))
-
 	var/datum/design/design_data
 	for(var/searched_design_id in files.known_designs)
 		design_data = files.known_designs[searched_design_id]
-		if(!design_data)
+		if(!is_usb_printable_design(design_data))
 			continue
 		if(lowertext(design_data.id) == search_query || lowertext(design_data.build_object_name) == search_query)
-			if((design_data.build_type & (PROTOLATHE | IMPRINTER)) || ispath(design_data.build_path, /obj/item/gun) || ispath(design_data.build_path, /obj/item/ammo_casing))
-				return design_data
+			return design_data
 
 	return null
 
@@ -1021,39 +1023,35 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/datum/design/design_info
 	for(var/cached_design_id in files.known_designs)
 		design_info = files.known_designs[cached_design_id]
-		if(!design_info || !design_info.id)
+		if(!is_usb_printable_design(design_info))
 			continue
-		if((design_info.build_type & (PROTOLATHE | IMPRINTER)) || ispath(design_info.build_path, /obj/item/gun) || ispath(design_info.build_path, /obj/item/ammo_casing))
-			all_ids += design_info.id
-			var/display_name = design_info.build_object_name || design_info.name || design_info.id
-			named_designs[display_name] = design_info.id
+		all_ids += design_info.id
+		named_designs += (design_info.build_object_name || design_info.name || design_info.id)
+
 	return list("ids" = all_ids, "named" = named_designs)
 
 /obj/machinery/computer/rdconsole/proc/usb_recycle_item(obj/item/recycled_item)
-	if(!linked_destroy || linked_destroy.busy)
-		return null
+	if(QDELETED(linked_destroy) || linked_destroy.busy)
+		return FALSE
 
 	var/obj/item/item_to_recycle = recycled_item
-	if(istype(item_to_recycle))
+	if(isitem(item_to_recycle))
 		item_to_recycle.forceMove(linked_destroy)
 		linked_destroy.loaded_item = item_to_recycle
 	else
 		item_to_recycle = linked_destroy.loaded_item
 
-	if(!item_to_recycle || QDELETED(item_to_recycle))
-		return null
+	if(QDELETED(item_to_recycle))
+		return FALSE
 
 	var/list/temp_tech = linked_destroy.ConvertReqString2List(item_to_recycle.origin_tech)
 	if(!length(temp_tech))
-		return null
+		return FALSE
 
 	linked_destroy.busy = TRUE
 	flick("[linked_destroy.base_icon_state]_insert", linked_destroy)
-
 	var/tech_upgraded = finish_destroyer(temp_tech, user = null)
-
 	addtimer(CALLBACK(linked_destroy, TYPE_PROC_REF(/obj/machinery/r_n_d/destructive_analyzer, reset_processing)), 1 SECONDS)
-
 	return tech_upgraded
 
 /obj/machinery/computer/rdconsole/ui_data(mob/user)
