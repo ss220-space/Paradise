@@ -221,6 +221,7 @@ Works together with spawning an observer, noted above.
 	if(isliving(former_mob))
 		recordable_time = former_mob.timeofdeath
 
+	ghost.timeofdeath = recordable_time
 	ghost.persistent_client?.time_of_death = recordable_time
 	remove_from_respawnable_list()
 
