@@ -4681,13 +4681,7 @@
 /area/planetoid/lazarus/service/chapel/morgue)
 "bin" = (
 /obj/structure/cable,
-/obj/effect/landmark/navigate_destination/det,
-/obj/machinery/door/airlock/wood{
-	name = "Detective";
-	req_access = list(4)
-	},
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/plasteel/stairs/wood,
 /area/planetoid/lazarus/security/detectives_office)
 "bis" = (
 /obj/structure/vine,
@@ -11494,6 +11488,10 @@
 /obj/machinery/photocopier/faxmachine/longrange{
 	department = "Research Director's Office"
 	},
+/obj/machinery/keycard_auth{
+	pixel_x = -28;
+	pixel_y = 2
+	},
 /turf/simulated/floor/carpet/purple,
 /area/planetoid/lazarus/command/office/rd)
 "cMq" = (
@@ -17523,12 +17521,15 @@
 /turf/simulated/floor/engine,
 /area/planetoid/lazarus/engineering/engine/reactor)
 "elI" = (
-/obj/machinery/light_switch/directional/north,
-/obj/machinery/camera{
-	c_tag = "Detective's Office";
-	network = list("SS13","Security")
+/obj/structure/closet/secure_closet/cabinet/detective,
+/obj/item/storage/briefcase,
+/obj/machinery/door_control{
+	id = "brig_detprivacy";
+	name = "Detective Privacy Shutters Control";
+	pixel_x = -6;
+	pixel_y = 22
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/wood,
 /area/planetoid/lazarus/security/detectives_office)
 "elP" = (
 /obj/effect/turf_decal/stripes/line{
@@ -18005,16 +18006,10 @@
 	},
 /area/planetoid/lazarus/security/processing)
 "etp" = (
-/obj/machinery/door_control{
-	id = "brig_detprivacy";
-	name = "Detective Privacy Shutters Control";
-	pixel_x = -6;
-	pixel_y = 22
-	},
-/obj/structure/closet/secure_closet/cabinet/detective,
-/obj/item/storage/briefcase,
-/turf/simulated/floor/wood,
-/area/planetoid/lazarus/security/detectives_office)
+/obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
+/turf/simulated/floor/plasteel,
+/area/planetoid/lazarus/engineering/storage/secure)
 "ets" = (
 /turf/simulated/floor/indestructible/cargo_floor,
 /area/planetoid/spaceport/escape_shuttle)
@@ -19580,7 +19575,7 @@
 /area/planetoid/lazarus/cargo/office)
 "eOd" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/the_singularitygen,
+/obj/machinery/the_singularitygen/tesla,
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/engineering/storage/secure)
 "eOp" = (
@@ -36189,9 +36184,12 @@
 /area/planetoid/lazarus/engineering/atmos)
 "iVS" = (
 /obj/structure/cable,
-/obj/effect/turf_decal/siding/wood{
-	dir = 8
+/obj/machinery/door/airlock/wood{
+	name = "Detective";
+	req_access = list(4)
 	},
+/obj/effect/landmark/navigate_destination/det,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/wood,
 /area/planetoid/lazarus/security/detectives_office)
 "iWg" = (
@@ -39548,13 +39546,7 @@
 /turf/simulated/floor/planetoid/desert/desert,
 /area/planetoid/caves/west_eng_cave)
 "jOb" = (
-/obj/machinery/r_n_d/experimentor,
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
+/obj/effect/landmark/start/hangover,
 /turf/simulated/floor/engine,
 /area/planetoid/lazarus/science/explab)
 "jOc" = (
@@ -40867,14 +40859,13 @@
 	},
 /area/planetoid/lazarus/science/hallway/main)
 "kgx" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
+/obj/machinery/camera{
+	c_tag = "Detective's Office";
+	network = list("SS13","Security")
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/turf/simulated/floor/engine,
-/area/planetoid/lazarus/science/explab)
+/obj/machinery/light_switch/directional/north,
+/turf/simulated/floor/carpet,
+/area/planetoid/lazarus/security/detectives_office)
 "kgJ" = (
 /obj/structure/plasticflaps/opaque,
 /obj/machinery/door/firedoor,
@@ -45349,6 +45340,15 @@
 /obj/structure/vine,
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/service/bar/atrium)
+"ljh" = (
+/obj/machinery/door/morgue{
+	name = "Confession Booth";
+	req_access = list(22)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/planetoid/lazarus/service/chapel)
 "lji" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -53304,10 +53304,10 @@
 /area/planetoid/lazarus/maintenance/research/robotics)
 "nnP" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/floodlight,
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/simulated/floor/plating,
 /area/planetoid/lazarus/engineering/storage/secure)
 "nnQ" = (
@@ -68346,8 +68346,8 @@
 /area/planetoid/lazarus/security/medical)
 "riq" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/effect/decal/cleanable/cobweb,
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
 /turf/simulated/floor/plasteel,
 /area/planetoid/lazarus/engineering/storage/secure)
 "riv" = (
@@ -70776,9 +70776,15 @@
 	},
 /area/planetoid/lazarus/ai/satellite/chamber)
 "rQb" = (
-/obj/effect/landmark/start/hangover,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/machinery/r_n_d/experimentor,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
 	},
 /turf/simulated/floor/engine,
 /area/planetoid/lazarus/science/explab)
@@ -82068,7 +82074,7 @@
 /area/planetoid/jungle/orbital_strike)
 "uDY" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
 /turf/simulated/floor/plasteel,
 /area/planetoid/lazarus/engineering/storage/secure)
 "uEc" = (
@@ -94160,6 +94166,12 @@
 "xDk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
 	},
 /turf/simulated/floor/engine,
 /area/planetoid/lazarus/science/explab)
@@ -109696,8 +109708,8 @@ qRA
 qRA
 qRA
 xEJ
-fBj
-fBj
+etp
+etp
 uNA
 wHE
 tuJ
@@ -109954,7 +109966,7 @@ qRA
 qRA
 xEJ
 nnP
-fBj
+etp
 uNA
 lZX
 hjQ
@@ -113604,7 +113616,7 @@ nwH
 byc
 byc
 nwH
-mbb
+ljh
 nwH
 mbb
 nwH
@@ -133210,8 +133222,8 @@ tnj
 vUV
 qOK
 ycw
-elI
-eTW
+ycw
+kgx
 otE
 xaw
 ycw
@@ -133724,8 +133736,8 @@ qOK
 qOK
 qOK
 ycw
-etp
-iUD
+ycw
+elI
 ciq
 wCf
 mGn
@@ -138734,7 +138746,7 @@ phA
 foZ
 sbk
 xDk
-kgx
+sbk
 tnN
 xRB
 bBH
