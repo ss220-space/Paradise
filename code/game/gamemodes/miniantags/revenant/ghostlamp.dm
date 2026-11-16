@@ -50,7 +50,7 @@
 			continue
 		var/staminadamage = rand(stamina_damage_min, stamina_damage_min + 2)
 		target.adjustStaminaLoss(staminadamage)
-		var/essence = round(staminadamage/2)
+		var/essence = round(staminadamage / 2)
 		revenant_owner.change_essence_amount(essence)
 		revenant_owner.change_essence_amount(count_bodies())
 	for(var/mob/living/simple_animal/hostile/wisp/wisp in range(light_range, src))
