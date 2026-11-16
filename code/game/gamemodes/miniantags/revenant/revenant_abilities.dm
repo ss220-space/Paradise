@@ -595,7 +595,7 @@
 	for(var/mob/living/carbon/human/target in range(3, src))
 		target.adjustStaminaLoss(25)
 		target.apply_status_effect(/datum/status_effect/cursed_flame, 5 SECONDS, spawner)
-	. = ..()
+	return ..()
 
 /datum/action/cooldown/spell/aoe/revenant/soul_lamp
 	name = "маяк душ"
