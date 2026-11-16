@@ -28,7 +28,7 @@
 /obj/item/card/emag/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity_flag)
 		return
-	target.emag_act(user)
+	target.emag_act(user, src)
 
 /obj/item/card/emag/halloween
 	name = "hack-o'-lantern"

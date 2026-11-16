@@ -163,7 +163,8 @@
 
 	// You can emag the arm-mounted implant by activating it while holding emag in it's hand.
 	var/arm_slot = (parent_organ_zone == BODY_ZONE_R_ARM ? ITEM_SLOT_HAND_RIGHT : ITEM_SLOT_HAND_LEFT)
-	if(istype(owner.get_item_by_slot(arm_slot), /obj/item/card/emag) && emag_act(owner))
+	var/obj/item/inhand_item = owner.get_item_by_slot(arm_slot)
+	if(istype(inhand_item, /obj/item/card/emag) && emag_act(owner, inhand_item))
 		return
 
 	if(!active_item || (active_item in src))

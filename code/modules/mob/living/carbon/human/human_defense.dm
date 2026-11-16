@@ -516,7 +516,7 @@ emp_act
 	if(check_martial_art_defense(src, user, item, span_warning("[src] блокиру[PLUR_ET_YUT(src)] [item.declent_ru(ACCUSATIVE)]!")))
 		return ATTACK_CHAIN_BLOCKED
 
-	if(istype(item, /obj/item/card/emag) && emag_act(user, affecting))
+	if(istype(item, /obj/item/card/emag) && emag_act(user, item))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	send_item_attack_message(item, user, affecting.limb_zone)

@@ -337,7 +337,7 @@
 /obj/item/robot_module/medical/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
 	for(var/obj/item/twohanded/shockpaddles/borg/defib in modules)
-		defib?.emag_act()
+		defib?.emag_act(user)
 	return TRUE
 
 // Enable safeties on the borg's defib.
