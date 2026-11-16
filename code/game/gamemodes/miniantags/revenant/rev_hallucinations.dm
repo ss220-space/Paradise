@@ -59,7 +59,7 @@
 	mobtarget = original
 	add_image_to_client(image, mobtarget.client)
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), 3 SECONDS)
-	. = ..()
+	return ..()
 
 /obj/projectile/cursed_fireball/Destroy()
 	. = ..()
