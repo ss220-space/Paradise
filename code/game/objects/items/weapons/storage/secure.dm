@@ -31,7 +31,7 @@
 
 /obj/item/storage/secure/update_overlays()
 	. = ..()
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		. += icon_locking
 	else if(!locked)
 		. += icon_opened
@@ -78,7 +78,7 @@
 			return ATTACK_CHAIN_PROCEED
 		return ..()
 
-	if(istype(I, /obj/item/melee/energy/blade) && !emagged)
+	if(istype(I, /obj/item/melee/energy/blade) && !(obj_flags & EMAGGED))
 		add_fingerprint(user)
 		emag_act(user, I)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -90,12 +90,12 @@
 
 	return ..()
 
-/obj/item/storage/secure/emag_act(mob/user, obj/weapon)
-	if(emagged)
-		return
-
+/obj/item/storage/secure/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+    if(obj_flags & EMAGGED)
+        return FALSE
+    obj_flags |= EMAGGED
 	add_attack_logs(user, src, "emagged")
-	emagged = TRUE
 	locked = FALSE
 	playsound(loc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	flick_overlay_view(mutable_appearance(icon, icon_sparking), 1 SECONDS)
@@ -144,7 +144,7 @@
 /obj/item/storage/secure/ui_data(mob/user)
 	var/list/data = list()
 
-	data["emagged"] = emagged
+	data["emagged"] = obj_flags & EMAGGED
 	data["locked"] = locked
 	data["l_set"] = l_set
 	data["l_setshort"] = l_setshort

@@ -212,16 +212,18 @@
 	if(lasercolor)//To make up for the fact that lasertag bots don't hunt
 		shootAt(user)
 
-/mob/living/simple_animal/bot/ed209/emag_act(mob/user)
-	..()
-	if(emagged == 2)
-		if(user)
-			to_chat(user, span_warning("Вы замыкаете микросхемы системы целеуказания [declent_ru(GENITIVE)]."))
-			oldtarget_name = user.name
-		audible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] странно жужжит!"))
-		declare_arrests = FALSE
-		icon_state = "[lasercolor]ed209[on]"
-		set_weapon()
+/mob/living/simple_animal/bot/ed209/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(emagged != 2)
+		return .
+	audible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] странно жужжит!"))
+	declare_arrests = FALSE
+	icon_state = "[lasercolor]ed209[on]"
+	set_weapon()
+	if(user)
+		to_chat(user, span_warning("Вы замыкаете микросхемы системы целеуказания [declent_ru(GENITIVE)]."))
+		oldtarget_name = user.name
+	return TRUE
 
 /mob/living/simple_animal/bot/ed209/bullet_act(obj/projectile/Proj)
 	if(istype(Proj ,/obj/projectile/beam)||istype(Proj,/obj/projectile/bullet))

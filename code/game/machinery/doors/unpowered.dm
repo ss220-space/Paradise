@@ -9,5 +9,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-/obj/machinery/door/unpowered/emag_act()
-	return
+/obj/machinery/door/unpowered/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	return FALSE

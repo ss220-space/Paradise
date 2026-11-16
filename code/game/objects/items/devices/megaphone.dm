@@ -49,7 +49,7 @@
 	user.handle_speech_problems(message_pieces)
 	message = multilingual_to_message(message_pieces)
 	if(loc == user && !user.incapacitated)
-		if(emagged)
+		if(obj_flags & EMAGGED)
 			if(insults)
 				saymsg(user, pick(insultmsg))
 				insults--
@@ -81,9 +81,12 @@
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, user, M, message_tts, user.tts_seed, FALSE, effect)
 		//log_debug("megaphone.saymsg(): [message]")
 
-/obj/item/megaphone/emag_act(mob/user)
-	if(!emagged)
-		if(user)
-			to_chat(user, span_warning("You overload \the [src]'s voice synthesizer."))
-		emagged = 1
-		insults = rand(1, 3)//to prevent dickflooding
+/obj/item/megaphone/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+    if(obj_flags & EMAGGED)
+        return FALSE
+    obj_flags |= EMAGGED
+	insults = rand(1, 3)//to prevent dickflooding
+	if(user)
+		to_chat(user, span_warning("You overload \the [src]'s voice synthesizer."))
+	return TRUE

@@ -1148,22 +1148,23 @@ to destroy them and players will be able to make replacements.
 	)
 
 // syndie pads can be created by emagging normal quantumpads
-/obj/item/circuitboard/quantumpad/emag_act(mob/user)
-	if(!emagged)
-		if(user)
-			user.visible_message(span_warning("Sparks fly out of the [src]!"), span_notice("You emag the [src], rewriting it's protocols for redspace usage."))
-			playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
-		emagged = TRUE
-		name = "circuit board (Syndicate Quantum Pad)"
-		build_path = /obj/machinery/syndiepad
-		board_type = "machine"
-		req_components = list(
-			/obj/item/stack/telecrystal = 5,
-			/obj/item/stock_parts/capacitor = 1,
-			/obj/item/stock_parts/manipulator = 1,
-			/obj/item/stack/cable_coil = 1,
-		)
-	return
+/obj/item/circuitboard/quantumpad/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	user.visible_message(span_warning("Sparks fly out of the [src]!"), span_notice("You emag the [src], rewriting it's protocols for redspace usage."))
+	playsound(loc, SFX_SPARKS, 50, TRUE)
+	obj_flags |= EMAGGED
+	name = "circuit board (Syndicate Quantum Pad)"
+	build_path = /obj/machinery/syndiepad
+	board_type = "machine"
+	req_components = list(
+		/obj/item/stack/telecrystal = 5,
+		/obj/item/stock_parts/capacitor = 1,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stack/cable_coil = 1,
+	)
+	return TRUE
 // syndie pads by Furukai
 
 /obj/item/circuitboard/quantumpad/syndiepad
@@ -1176,7 +1177,10 @@ to destroy them and players will be able to make replacements.
 		/obj/item/stock_parts/manipulator = 1,
 		/obj/item/stack/cable_coil = 1,
 	)
-	emagged = TRUE
+
+/obj/item/circuitboard/quantumpad/syndiepad/Initialize(mapload)
+	. = ..()
+	obj_flags |= EMAGGED
 
 /obj/item/circuitboard/roboquest_pad
 

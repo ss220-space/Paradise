@@ -185,15 +185,16 @@ GLOBAL_LIST_INIT(slotmachine_reel_symbols, list(
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/computer/slot_machine/emag_act(mob/user)
+/obj/machinery/computer/slot_machine/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-	if(emagged)
-		return
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
 	do_sparks(3, TRUE, src)
 	to_chat(user, span_warning("Smells like something burnt"))
 	circuit = /obj/item/circuitboard/broken
 	frame.circuit = new circuit(frame)
-	emagged = TRUE
+	return TRUE
 
 /obj/machinery/computer/slot_machine/update_icon_state()
 	icon_state = "slots-[working ? "on" : "off"]"
@@ -268,7 +269,7 @@ GLOBAL_LIST_INIT(slotmachine_reel_symbols, list(
 	return TRUE
 
 /obj/machinery/computer/slot_machine/proc/get_prize_coefficient()
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		return EMAGGED_SLOT_MACHINE_PRIZE_MOD
 	return 1
 
@@ -310,7 +311,7 @@ GLOBAL_LIST_INIT(slotmachine_reel_symbols, list(
 		do_sparks(1, TRUE, src)
 		atom_say("Ошибка!")
 		return
-	var/prize_credits = prizedatum.get_credits(emagged)
+	var/prize_credits = prizedatum.get_credits(obj_flags & EMAGGED)
 	if(prizedatum.custom_result)
 		result = prizedatum.custom_result
 	else
@@ -327,7 +328,7 @@ GLOBAL_LIST_INIT(slotmachine_reel_symbols, list(
 	if(prize_credits > 0)
 		win_money(prize_credits, prizedatum.sound)
 	prizedatum.apply_effect(src, user, prize_credits)
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		prizedatum.apply_emagged_effect(src, user)
 
 /obj/machinery/computer/slot_machine/proc/detect_result()

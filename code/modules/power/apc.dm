@@ -493,7 +493,7 @@
 			update_state |= UPSTATE_OPENED1
 		if(opened == APC_COVER_OFF)
 			update_state |= UPSTATE_OPENED2
-	else if(emagged || malfai || being_hijacked)
+	else if((obj_flags & EMAGGED) || malfai || being_hijacked)
 		update_state |= UPSTATE_BLUESCREEN
 	else if(panel_open)
 		update_state |= UPSTATE_WIREEXP
@@ -854,8 +854,8 @@
 							span_italics("You hear a crack."))
 						return
 						//SSticker.mode:apcs-- //XSI said no and I agreed. -rastaf0
-					else if(emagged) // We emag board, not APC's frame
-						emagged = FALSE
+					else if(obj_flags & EMAGGED) // We emag board, not APC's frame
+						obj_flags &= ~EMAGGED
 						user.visible_message(
 							"[user.name] has discarded the shorted power control board from [name]!",
 							span_notice("You discarded the shorted board."))
@@ -925,7 +925,7 @@
 				to_chat(user, span_warning("There is nothing to secure!"))
 				return
 			update_icon()
-	else if(emagged)
+	else if(obj_flags & EMAGGED)
 		to_chat(user, span_warning("The interface is broken!"))
 	else
 		panel_open = !panel_open
@@ -949,7 +949,7 @@
 		wires.Interact(user)
 
 /obj/machinery/power/apc/proc/togglelock(mob/living/user)
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		to_chat(user, span_warning("The interface is broken!"))
 		return FALSE
 	if(opened)
@@ -1011,25 +1011,30 @@
 				span_notice("You cut the APC frame from the wall."))
 		qdel(src)
 
-/obj/machinery/power/apc/emag_act(mob/user)
-	if(!(emagged || malfhack))		// trying to unlock with an emag card
-		if(opened)
-			if(user)
-				to_chat(user, "You must close the cover to swipe an ID card.")
-		else if(panel_open)
-			if(user)
-				to_chat(user, "You must close the panel first.")
-		else if(stat & (BROKEN|MAINT))
-			if(user)
-				to_chat(user, "Nothing happens.")
-		else
-			add_attack_logs(user, src, "emagged")
-			flick("apc-spark", src)
-			emagged = 1
-			locked = FALSE
-			if(user)
-				to_chat(user, "You emag the APC interface.")
-			update_icon()
+/obj/machinery/power/apc/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if((obj_flags & EMAGGED) || malfhack) // trying to unlock with an emag card
+		return FALSE
+
+	if(opened)
+		if(user)
+			to_chat(user, "You must close the cover to swipe an ID card.")
+	else if(panel_open)
+		if(user)
+			to_chat(user, "You must close the panel first.")
+	else if(stat & (BROKEN|MAINT))
+		if(user)
+			to_chat(user, "Nothing happens.")
+	else
+		add_attack_logs(user, src, "emagged")
+		flick("apc-spark", src)
+		obj_flags |= EMAGGED
+		locked = FALSE
+		update_icon()
+		if(user)
+			to_chat(user, "You emag the APC interface.")
+		return TRUE
+	return FALSE
 
 // attack with hand - remove cell (if cover open) or interact with the APC
 /obj/machinery/power/apc/attack_hand(mob/user)
@@ -1245,7 +1250,7 @@
 	switch(action)
 		if("lock")
 			if(usr.has_unlimited_silicon_privilege)
-				if(emagged || stat & BROKEN)
+				if((obj_flags & EMAGGED) || stat & BROKEN)
 					to_chat(usr, span_warning("The APC does not respond to the command!"))
 					return FALSE
 				else

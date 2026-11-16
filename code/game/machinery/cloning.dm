@@ -500,10 +500,12 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		connected.pods -= src
 		connected = null
 
-/obj/machinery/clonepod/emag_act(mob/user)
+/obj/machinery/clonepod/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
 	if(isnull(occupant))
-		return
+		return FALSE
 	go_out()
+	return TRUE
 
 /obj/machinery/clonepod/cmag_act(mob/user)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))

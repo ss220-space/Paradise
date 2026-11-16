@@ -61,12 +61,15 @@
 			balloon_alert(user, "оно слишком разумно!")
 			return
 
-/obj/item/lazarus_injector/emag_act(mob/user)
-	if(!malfunctioning)
-		add_attack_logs(user, src, "emagged")
-		malfunctioning = TRUE
-		if(user)
-			balloon_alert(user, "протоколы защиты сняты!")
+/obj/item/lazarus_injector/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(malfunctioning)
+		return FALSE
+	add_attack_logs(user, src, "emagged")
+	malfunctioning = TRUE
+	if(user)
+		balloon_alert(user, "протоколы защиты сняты!")
+	return TRUE
 
 /obj/item/lazarus_injector/emp_act()
 	. = ..()

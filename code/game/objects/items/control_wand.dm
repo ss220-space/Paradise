@@ -30,12 +30,15 @@
 	QDEL_NULL(ID)
 	return ..()
 
-/obj/item/door_remote/emag_act(mob/user)
-	if(!emagged)
-		add_attack_logs(user, src, "emagged")
-		emagged = TRUE
-		if(user)
-			to_chat(user, span_warning("You short out the safeties on [src]"))
+/obj/item/door_remote/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+    if(obj_flags & EMAGGED)
+        return FALSE
+    obj_flags |= EMAGGED
+	add_attack_logs(user, src, "emagged")
+	if(user)
+		to_chat(user, span_warning("You short out the safeties on [src]"))
+	return TRUE
 
 /obj/item/door_remote/attack_self(mob/user)
 	if(emagged)

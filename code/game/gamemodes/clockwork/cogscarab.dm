@@ -193,8 +193,9 @@
 /mob/living/silicon/robot/cogscarab/pick_module()
 	return
 
-/mob/living/silicon/robot/cogscarab/emag_act()
-	return
+/mob/living/silicon/robot/cogscarab/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	return FALSE
 
 /mob/living/silicon/robot/cogscarab/ratvar_act(weak)
 	if(!isclocker(src))

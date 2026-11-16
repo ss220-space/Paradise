@@ -618,7 +618,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 /obj/machinery/door/airlock/examine(mob/user)
 	. = ..()
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		. += span_warning("Its access panel is smoking slightly.")
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		. += span_warning("The access panel is coated in yellow ooze...")
@@ -869,7 +869,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return TRUE
 	if(ispulsedemon(user))
 		return TRUE
-	if(emagged || HAS_TRAIT(src, TRAIT_CMAGGED))
+	if((obj_flags & EMAGGED) || HAS_TRAIT(src, TRAIT_CMAGGED))
 		to_chat(user, span_warning("Unable to interface: Internal error."))
 		return FALSE
 	if(!canAIControl())
@@ -1177,7 +1177,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	if(!panel_open||!locked||emagged)
+	if(!panel_open || !locked || (obj_flags & EMAGGED))
 		to_chat(user, span_notice("You can't reach bolt reducer."))
 		return
 	if(isAllPowerLoss())
@@ -1272,7 +1272,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(operating)
 		return
 
-	if(I.tool_behaviour == TOOL_CROWBAR && I.tool_use_check(user, 0) && panel_open && (emagged || (density && welded && !operating && !arePowerSystemsOn() && !locked)))
+	if(I.tool_behaviour == TOOL_CROWBAR && I.tool_use_check(user, 0) && panel_open && ((obj_flags & EMAGGED) || (density && welded && !operating && !arePowerSystemsOn() && !locked)))
 		user.visible_message(
 			"[user] removes the electronics from the airlock assembly.", \
 			span_notice("You start to remove electronics from the airlock assembly...")
@@ -1333,7 +1333,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 /obj/machinery/door/airlock/open(forced = 0)
 	set waitfor = FALSE
 
-	if(operating || welded || locked || emagged)
+	if(operating || welded || locked || (obj_flags & EMAGGED))
 		return FALSE
 	if(!forced && (!arePowerSystemsOn() || wires.is_cut(WIRE_OPEN_DOOR)))
 		return FALSE
@@ -1369,7 +1369,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 /obj/machinery/door/airlock/close(forced = 0, override = FALSE)
 	set waitfor = FALSE
 
-	if((operating && !override) || welded || locked || emagged)
+	if((operating && !override) || welded || locked || (obj_flags & EMAGGED))
 		return FALSE
 	if(density)
 		return TRUE
@@ -1453,37 +1453,43 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	//Airlock is passable if it is open (!density), bot has access, and is not bolted shut or powered off)
 	return !density || (check_access_list(pass_info.access) && !locked && arePowerSystemsOn() && !pass_info.no_id)
 
-/obj/machinery/door/airlock/emag_act(mob/user)
+/obj/machinery/door/airlock/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
 	if(!hackable)
 		if(user)
 			to_chat(user, span_notice("The electronic systems in this door are far too advanced for your primitive hacking peripherals."))
+		return FALSE
+	if(operating || !density || !arePowerSystemsOn() || (obj_flags & EMAGGED))
+		return FALSE
+	add_attack_logs(user, src, "emagged ([locked ? "bolted" : "not bolted"])")
+	operating = DOOR_MALF
+	update_icon(AIRLOCK_EMAG, TRUE)
+	addtimer(CALLBACK(src, PROC_REF(after_emag_act)), 0.6 SECONDS)
+	return TRUE
+
+/obj/machinery/door/airlock/after_emag_act()
+	if(QDELETED(src))
 		return
-	if(!operating && density && arePowerSystemsOn() && !emagged)
-		add_attack_logs(user, src, "emagged ([locked ? "bolted" : "not bolted"])")
-		operating = DOOR_MALF
-		update_icon(AIRLOCK_EMAG, TRUE)
-		sleep(6)
-		if(QDELETED(src))
-			return
-		operating = NONE
-		if(!open())
-			update_icon(AIRLOCK_CLOSED, TRUE)
-		emagged = TRUE
-		return TRUE
+	operating = NONE
+	obj_flags |= EMAGGED
+	if(!open())
+		update_icon(AIRLOCK_CLOSED, TRUE)
 
 /obj/machinery/door/airlock/cmag_act(mob/user)
 	set waitfor = FALSE
-	if(operating || HAS_TRAIT(src, TRAIT_CMAGGED) || !density || !arePowerSystemsOn() || emagged)
+	if(operating || HAS_TRAIT(src, TRAIT_CMAGGED) || !density || !arePowerSystemsOn() || (obj_flags & EMAGGED))
 		return
 	operating = DOOR_MALF
 	update_icon(AIRLOCK_EMAG, TRUE)
-	sleep(6)
+	addtimer(CALLBACK(src, PROC_REF(after_cmag_act)), 0.6 SECONDS)
+	return TRUE
+
+/obj/machinery/door/airlock/after_cmag_act()
 	if(QDELETED(src))
 		return
 	operating = NONE
 	update_icon(AIRLOCK_CLOSED, TRUE)
 	ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
-	return TRUE
 
 /obj/machinery/door/airlock/emp_act(severity)
 	. = ..()
@@ -1538,7 +1544,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	update_icon()
 
 /obj/machinery/door/airlock/proc/prison_open()
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		return
 	if(arePowerSystemsOn())
 		unlock()
@@ -1604,7 +1610,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			airlock_electronics.id = id_tag
 		else
 			airlock_electronics.forceMove(loc)
-		if(emagged)
+		if(obj_flags & EMAGGED)
 			airlock_electronics.icon_state = "door_electronics_smoked"
 		airlock_electronics = null
 
@@ -1612,7 +1618,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			if(!access_electronics)
 				build_access_electronics()
 			access_electronics.forceMove(loc)
-			if(emagged)
+			if(obj_flags & EMAGGED)
 				access_electronics.emag_act()
 			access_electronics = null
 

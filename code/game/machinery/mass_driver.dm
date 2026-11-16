@@ -51,7 +51,7 @@
 			use_power(500)
 			spawn()
 				var/coef = 1
-				if(emagged)
+				if(obj_flags & EMAGGED)
 					coef = 5
 				O.throw_at(target, drive_range * power * coef, power * coef)
 	flick("mass_driver1", src)
@@ -63,13 +63,14 @@
 	drive()
 	..(severity)
 
-/obj/machinery/mass_driver/emag_act(mob/user)
-	if(!emagged)
-		emagged = 1
-		if(user)
-			to_chat(user, "You hack the Mass Driver, radically increasing the force at which it'll throw things. Better not stand in its way.")
-		return 1
-	return -1
+/obj/machinery/mass_driver/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
+	if(user)
+		to_chat(user, "You hack the Mass Driver, radically increasing the force at which it'll throw things. Better not stand in its way.")
+	return TRUE
 
 ////////////////MASS BUMPER///////////////////
 

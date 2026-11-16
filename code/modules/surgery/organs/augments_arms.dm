@@ -73,8 +73,9 @@
 	SIGNAL_HANDLER
 	INVOKE_ASYNC(src, PROC_REF(ui_action_click))
 
-/obj/item/organ/internal/cyberimp/arm/emag_act()
-	return 0
+/obj/item/organ/internal/cyberimp/arm/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	return FALSE
 
 /obj/item/organ/internal/cyberimp/arm/emp_act(severity)
 	. = ..()
@@ -238,7 +239,8 @@
 /obj/item/organ/internal/cyberimp/arm/toolset/l
 	parent_organ_zone = BODY_ZONE_L_ARM
 
-/obj/item/organ/internal/cyberimp/arm/toolset/emag_act(mob/user)
+/obj/item/organ/internal/cyberimp/arm/toolset/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
 	if(!(locate(/obj/item/kitchen/knife/combat/cyborg) in items_list))
 		if(user)
 			to_chat(user, span_notice("You unlock [src]'s integrated knife!"))

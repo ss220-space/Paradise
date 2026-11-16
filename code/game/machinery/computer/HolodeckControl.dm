@@ -41,7 +41,7 @@
 
 	dat += "Please ensure that only holographic weapons are used in the holodeck if a combat simulation has been loaded.<br>"
 
-	if(emagged)
+	if(obj_flags & EMAGGED)
 /*			dat += "<a href='byond://?src=[UID()];burntest=1'>(<span style='color: red;' color=red>Begin Atmospheric Burn Simulation</span>)</a><br>"
 		dat += "Ensure the holodeck is empty before testing.<br>"
 		dat += "<br>"*/
@@ -139,15 +139,16 @@
 			loadProgram(target)
 */
 	else if(href_list["wildlifecarp"])
-		if(!emagged)	return
+		if(!(obj_flags & EMAGGED))
+			return
 		target = locate(/area/holodeck/source_wildlife)
 		if(target)
 			loadProgram(target)
 
 	else if(href_list["AIoverride"])
 		if(!issilicon(usr))	return
-		emagged = !emagged
-		if(emagged)
+		obj_flags ^= EMAGGED
+		if(obj_flags & EMAGGED)
 			message_admins("[key_name_admin(usr)] overrode the holodeck's safeties")
 			add_game_logs("overrode the holodeck's safeties", usr)
 		else
@@ -162,14 +163,17 @@
 	return ATTACK_CHAIN_BLOCKED
 
 /obj/machinery/computer/HolodeckControl/emag_act(mob/user)
-	if(!emagged)
-		add_attack_logs(user, src, "emagged")
-		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, TRUE)
-		emagged = 1
-		if(user)
-			to_chat(user, span_notice("You vastly increase projector power and override the safety and security protocols."))
-			to_chat(user, "Warning.  Automatic shutoff and derezing protocols have been corrupted.  Please call Nanotrasen maintenance and do not use the simulator.")
-		src.updateUsrDialog()
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
+	add_attack_logs(user, src, "emagged")
+	playsound(get_turf(src), SFX_SPARKS, 75, TRUE)
+	if(user)
+		to_chat(user, span_notice("You vastly increase projector power and override the safety and security protocols."))
+		to_chat(user, "Warning.  Automatic shutoff and derezing protocols have been corrupted.  Please call Nanotrasen maintenance and do not use the simulator.")
+	updateUsrDialog()
+	return TRUE
 
 /obj/machinery/computer/HolodeckControl/Initialize(mapload)
 	. = ..()
@@ -279,7 +283,7 @@
 
 	holographic_items = A.copy_contents_to(linkedholodeck, TRUE)
 
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		for(var/obj/item/holo/H in linkedholodeck)
 			H.damtype = BRUTE
 

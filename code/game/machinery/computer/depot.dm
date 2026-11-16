@@ -32,9 +32,11 @@
 		return TRUE
 	return ..()
 
-/obj/machinery/computer/syndicate_depot/emag_act(mob/user)
+/obj/machinery/computer/syndicate_depot/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
 	if(user)
 		to_chat(user, span_notice("The electronic systems in this console are far too advanced for your primitive hacking peripherals."))
+	return FALSE
 
 /obj/machinery/computer/syndicate_depot/allowed(mob/user)
 	if(user.can_advanced_admin_interact())

@@ -32,7 +32,7 @@
 	if(!device_turf || !is_teleport_allowed(device_turf.z))
 		return "Ошибка! Телепортация невозможна."
 
-	if(istype(get_area(device_turf), /area/ruin/space/bubblegum_arena) || !is_mining_level(device_turf.z) && !(emagged && is_station_level(device_turf.z)))
+	if(istype(get_area(device_turf), /area/ruin/space/bubblegum_arena) || !is_mining_level(device_turf.z) && !((obj_flags & EMAGGED) && is_station_level(device_turf.z)))
 		return "Ошибка! Требуется натуральная гравитация для размещения якоря."
 
 	return TRUE
@@ -61,9 +61,9 @@
 
 	var/chosen_beacon = pick(destinations)
 
-	var/tunnel_lifespan = emagged ? 5 SECONDS : 10 SECONDS
+	var/tunnel_lifespan = (obj_flags & EMAGGED) ? 5 SECONDS : 10 SECONDS
 	var/obj/effect/portal/jaunt_tunnel/tunnel = new(get_turf(src), get_turf(chosen_beacon), src, tunnel_lifespan, user)
-	tunnel.emagged = emagged
+	tunnel.obj_flags |= (obj_flags & EMAGGED)
 	if(teleport)
 		tunnel.teleport(user)
 	else if(adjacent)
@@ -79,15 +79,18 @@
 		to_chat(user, span_notice("Ваш [declent_ru(NOMINATIVE)] активируется, спасая вас от пропасти!"))
 		SSblackbox.record_feedback("tally", "jaunter", 1, "Chasm") // chasm automatic activation
 
-/obj/item/wormhole_jaunter/emag_act(mob/user)
-	if(!emagged)
-		add_attack_logs(user, src, "emagged")
-		emagged = TRUE
-		if(user)
-			balloon_alert(user, "протоколы защиты сняты!")
-		var/turf/our_turf = get_turf(src)
-		do_sparks(5, FALSE, our_turf)
-		playsound(our_turf, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+/obj/item/wormhole_jaunter/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+    if(obj_flags & EMAGGED)
+        return FALSE
+    obj_flags |= EMAGGED
+	add_attack_logs(user, src, "emagged")
+	var/turf/our_turf = get_turf(src)
+	do_sparks(5, FALSE, our_turf)
+	playsound(our_turf, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	if(user)
+		balloon_alert(user, "протоколы защиты сняты!")
+	return TRUE
 
 /obj/effect/portal/jaunt_tunnel
 	name = "jaunt tunnel"
@@ -111,7 +114,7 @@
 	. = list()	// we need no mask here
 
 /obj/effect/portal/jaunt_tunnel/can_teleport(atom/movable/movable, silent = FALSE)
-	if(!emagged && ismegafauna(movable))
+	if(!(obj_flags & EMAGGED) && ismegafauna(movable))
 		return FALSE
 	return ..()
 
@@ -125,7 +128,7 @@
 		return
 
 	var/mob/living/carbon/living_target = movable
-	if(emagged && ishuman(living_target)) //we need to check this first, because after weaken all held items will be dropped
+	if((obj_flags & EMAGGED) && ishuman(living_target)) //we need to check this first, because after weaken all held items will be dropped
 		handle_clothing_destruction(living_target)
 	living_target.Weaken(12 SECONDS)
 

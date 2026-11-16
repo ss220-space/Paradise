@@ -448,20 +448,21 @@ emp_act
 		item.acid_act(acidpwr, acid_volume)
 	return 1
 
-/mob/living/carbon/human/emag_act(mob/user, obj/item/organ/external/affecting)
-	if(!istype(affecting))
-		return
-	if(!affecting.is_robotic())
+/mob/living/carbon/human/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(!user || !emag_card)
+		return FALSE
+	var/obj/item/organ/external/selected_limb = user.zone_selected
+	if(!selected_limb || !istype(selected_limb))
+		return FALSE
+	if(!selected_limb.is_robotic())
 		balloon_alert(user, "конечность не синтетическая!")
-		return
-	if(affecting.sabotaged)
-		balloon_alert(user, "уже взломано!")
-	else
-		add_attack_logs(user, src, "emagged [p_their()] [affecting.name]")
-		to_chat(user, span_warning("Вы аккуратно подносите карту к сканеру на [affecting.declent_ru(INSTRUMENTAL)] [src] и отключаете защитные протоколы."))
-		balloon_alert(user, "конечность взломана!")
-		affecting.sabotaged = 1
-	return 1
+		return FALSE
+	add_attack_logs(user, src, "emagged [p_their()] [selected_limb.name]")
+	to_chat(user, span_warning("Вы аккуратно подносите карту к сканеру на [selected_limb.declent_ru(INSTRUMENTAL)] [src] и отключаете защитные протоколы."))
+	balloon_alert(user, "конечность взломана!")
+	selected_limb.obj_flags |= EMAGGED
+	return TRUE
 
 /mob/living/carbon/human/grippedby(mob/living/grabber, grab_state_override)
 	. = ..()

@@ -280,14 +280,17 @@
 	sheet_left = 0
 	..()
 
-/obj/machinery/power/port_gen/pacman/emag_act(mob/user)
+/obj/machinery/power/port_gen/pacman/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
 	if(active && prob(25))
 		explode() //if they're foolish enough to emag while it's running
+		return TRUE
 
-	if(!emagged)
-		add_attack_logs(user, src, "emagged")
-		emagged = 1
-		return 1
+	if(obj_flags & EMAGGED)
+		return FALSE
+	add_attack_logs(user, src, "emagged")
+	obj_flags |= EMAGGED
+	return TRUE
 
 /obj/machinery/power/port_gen/pacman/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)

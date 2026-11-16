@@ -255,11 +255,11 @@
 		return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 	return ..()
 
-/obj/structure/closet/crate/secure/loot/emag_act(mob/user)
+/obj/structure/closet/crate/secure/loot/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
 
 	if(!locked)
-		return
+		return FALSE
 
 	add_attack_logs(user, src, "emag-bombed")
 	boom(user) // No feedback since it just explodes, thats its own feedback

@@ -59,7 +59,7 @@
 		return NONE
 	if(target == user || !hooked)
 		return NONE
-	if(!lavaland_equipment_pressure_check(get_turf(user)) && !(emagged))
+	if(!lavaland_equipment_pressure_check(get_turf(user)) && !(obj_flags & EMAGGED))
 		user.balloon_alert(user, "неподходящее давление!")
 		return ITEM_INTERACT_BLOCKING
 	if(get_dist(user, target) > MAXIMUM_RANGE)
@@ -98,10 +98,11 @@
 
 /obj/item/grapple_gun/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-	if(emagged)
-		return FALSE
-	user.balloon_alert(user, "настройки давления сброшены!")
-	emagged = TRUE
+    if(obj_flags & EMAGGED)
+        return FALSE
+    obj_flags |= EMAGGED
+	if(user)
+		user.balloon_alert(user, "настройки давления сброшены!")
 	return TRUE
 
 /obj/item/grapple_gun/proc/on_grapple_hit(datum/source, atom/movable/firer, atom/target, Angle)

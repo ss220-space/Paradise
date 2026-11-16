@@ -49,7 +49,7 @@
 				<li><a href='byond://?src=[UID()];switchscreen=5'>Upload New Title to Archive</a></li>
 				<li><a href='byond://?src=[UID()];switchscreen=6'>Print a Bible Copy</a></li>
 				<li><a href='byond://?src=[UID()];switchscreen=7'>Print a Manual</a></li>"}
-			if(src.emagged)
+			if(obj_flags & EMAGGED)
 				dat += "<li><a href='byond://?src=[UID()];switchscreen=8'>Access the Forbidden Lore Vault</a></li>"
 			dat += "</ol>"
 
@@ -175,7 +175,7 @@
 				/obj/item/book/manual/random
 			)
 
-			if(!emagged)
+			if(!(obj_flags & EMAGGED))
 				forbidden |= /obj/item/book/manual/nuclear
 
 			var/manualcount = 1
@@ -202,12 +202,15 @@
 	B.add_stylesheet("dark_inputs", "html/dark_inputs.css")
 	B.open()
 
-/obj/machinery/computer/library/checkout/emag_act(mob/user)
-	if(density && !emagged)
-		emagged = 1
-		if(user)
-			to_chat(user, span_notice("Вы обходите ограничения печати компьютера."))
-			balloon_alert(user, "взломано")
+/obj/machinery/computer/library/checkout/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+    if(obj_flags & EMAGGED)
+        return FALSE
+    obj_flags |= EMAGGED
+	if(user)
+		to_chat(user, span_notice("Вы обходите ограничения печати компьютера."))
+		balloon_alert(user, "взломано")
+	return TRUE
 
 /obj/machinery/computer/library/checkout/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -354,7 +357,7 @@
 			if("8")
 				screenstate = 8
 	if(href_list["arccheckout"])
-		if(src.emagged)
+		if(obj_flags & EMAGGED)
 			src.arcanecheckout = 1
 		src.screenstate = 0
 	if(href_list["increasetime"])
@@ -428,7 +431,7 @@
 		if(!newbook)
 			alert("No book found")
 			return
-		if((newbook.forbidden == 2 && !emagged) || newbook.forbidden == 1)
+		if((newbook.forbidden == 2 && !(obj_flags & EMAGGED)) || newbook.forbidden == 1)
 			alert("This book is forbidden and cannot be printed.")
 			return
 
@@ -451,7 +454,7 @@
 		if(!newbook)
 			alert("No book found")
 			return
-		if((newbook.forbidden == 2 && !emagged) || newbook.forbidden == 1)
+		if((newbook.forbidden == 2 && !(obj_flags & EMAGGED)) || newbook.forbidden == 1)
 			alert("This book is forbidden and cannot be printed.")
 			return
 

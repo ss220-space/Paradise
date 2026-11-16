@@ -426,10 +426,11 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 	req_access = list()
 	is_public = TRUE
 
-/obj/machinery/computer/syndie_supplycomp/emag_act(mob/user)
+/obj/machinery/computer/syndie_supplycomp/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
 	if(user)
 		to_chat(user, span_notice("The electronic systems in this console are far too advanced for your primitive hacking peripherals."))
-	return
+	return FALSE
 
 /obj/machinery/computer/syndie_supplycomp/attack_hand(mob/user as mob)
 	if(..())

@@ -233,11 +233,14 @@
 	else
 		update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/power/brs_stationary_scanner/emag_act(mob/user)
-	if(!emagged)
-		if(user)
-			to_chat(user, span_warning("@?%!№@Протоколы безопасности сканера перезаписаны@?%!№@"))
-		emagged = TRUE
+/obj/machinery/power/brs_stationary_scanner/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+    if(obj_flags & EMAGGED)
+        return FALSE
+	obj_flags |= EMAGGED
+	if(user)
+		to_chat(user, span_warning("@?%!№@Протоколы безопасности сканера перезаписаны@?%!№@"))
+	return TRUE
 
 /obj/machinery/power/brs_stationary_scanner/emp_act(severity)
 	. = ..()

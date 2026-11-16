@@ -56,7 +56,7 @@
 
 /obj/machinery/door/window/examine(mob/user)
 	. = ..()
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		. += span_warning("Its access panel is smoking slightly.")
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		. += span_warning("The access panel is coated in yellow ooze...")
@@ -174,7 +174,7 @@
 		return FALSE
 	if(!forced && !hasPower())
 		return FALSE
-	if(forced < 2 && emagged)
+	if(forced < 2 && (obj_flags & EMAGGED))
 		return FALSE
 	if(!operating) //in case of emag
 		operating = DOOR_OPENING
@@ -198,7 +198,7 @@
 		return FALSE
 	if(!forced && !hasPower())
 		return FALSE
-	if(forced < 2 && emagged)
+	if(forced < 2 && (obj_flags & EMAGGED))
 		return FALSE
 	operating = DOOR_CLOSING
 	INVOKE_ASYNC(src, PROC_REF(do_animate), "closing")
@@ -233,7 +233,7 @@
 			electronics.one_access = check_one_access
 		else
 			electronics.forceMove(loc)
-		if(emagged)
+		if(obj_flags & EMAGGED)
 			electronics.emag_act()
 		electronics = null
 
@@ -267,28 +267,36 @@
 		return
 	return try_to_activate_door(user)
 
-/obj/machinery/door/window/emag_act(mob/user)
-	if(!operating && density && !emagged)
-		add_attack_logs(user, src, "emagged")
-		emagged = TRUE
-		operating = TRUE
-		flick("[base_state]spark", src)
-		playsound(src, SFX_SPARKS, 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		sleep(6)
-		operating = FALSE
-		open(2)
-		return 1
+/obj/machinery/door/window/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(operating || !density && (obj_flags & EMAGGED))
+		return FALSE
+	add_attack_logs(user, src, "emagged")
+	operating = TRUE
+	flick("[base_state]spark", src)
+	playsound(src, SFX_SPARKS, 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	addtimer(CALLBACK(src, PROC_REF(after_emag_act)), 0.6 SECONDS)
+	return TRUE
+
+/obj/machinery/door/window/after_emag_act()
+	if(QDELETED(src))
+		return
+	operating = FALSE
+	obj_flags |= EMAGGED
+	open(2)
 
 /obj/machinery/door/window/cmag_act(mob/user)
-	if(operating || !density || HAS_TRAIT(src, TRAIT_CMAGGED) || emagged)
+	if(operating || !density || HAS_TRAIT(src, TRAIT_CMAGGED) || (obj_flags & EMAGGED))
 		return
 	ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
 	operating = TRUE
 	flick("[base_state]spark", src)
 	playsound(src, SFX_SPARKS, 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-	sleep(6)
-	operating = FALSE
+	addtimer(CALLBACK(src, PROC_REF(after_cmag_act)), 0.6 SECONDS)
 	return TRUE
+
+/obj/machinery/door/window/after_cmag_act()
+	operating = FALSE
 
 /obj/machinery/door/window/attackby(obj/item/I, mob/living/user, params)
 	//If it's in the process of opening/closing, ignore the click
@@ -352,7 +360,7 @@
 					electronics.one_access = check_one_access
 				else
 					electronics.forceMove(loc)
-				if(emagged)
+				if(obj_flags & EMAGGED)
 					electronics.emag_act()
 				electronics = null
 

@@ -751,7 +751,7 @@
 	var/obj/item/card/id/id = I.GetID()
 	if(id)
 		add_fingerprint(user)
-		if(!(ACCESS_SEC_DOORS in id.access) && !emagged)
+		if(!(ACCESS_SEC_DOORS in id.access) && !(obj_flags & EMAGGED))
 			to_chat(user, span_warning("The [name] rejects your insufficient access rights."))
 			return ATTACK_CHAIN_PROCEED
 		to_chat(user, span_notice("You imprint your ID details onto the badge."))
@@ -769,16 +769,16 @@
 	. = ..()
 	desc = "[stored_name ? "This glowing blue badge marks [stored_name] as THE LAW." : "[initial(desc)]"]"
 
-/obj/item/clothing/accessory/holobadge/emag_act(mob/user)
-	if(emagged)
+/obj/item/clothing/accessory/holobadge/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+    if(obj_flags & EMAGGED)
 		if(user)
 			to_chat(user, span_warning("[src] is already cracked."))
-		return
-
-	emagged = TRUE
+        return FALSE
+    obj_flags |= EMAGGED
 	if(user)
 		to_chat(user, span_warning("You swipe the card and crack the holobadge security checks."))
-	return ..()
+	return TRUE
 
 ///////////
 //SCARVES//

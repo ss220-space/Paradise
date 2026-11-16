@@ -822,12 +822,16 @@
 		PREPOSITIONAL = "модуле встроенного сидения",
 	)
 
-/obj/item/borg/upgrade/mounted_seat/emag_act(mob/user)
-	if(!emagged)
-		emagged = TRUE
+/obj/item/borg/upgrade/mounted_seat/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+    if(obj_flags & EMAGGED)
+		if(user)
+			balloon_alert(user, "нет эффекта!")
+        return FALSE
+    obj_flags |= EMAGGED
+	if(user)
 		balloon_alert(user, "регуляторы мощности взломаны!")
-	else
-		balloon_alert(user, "нет эффекта!")
+	return TRUE
 
 /obj/item/borg/upgrade/mounted_seat/action(mob/living/silicon/robot/robot)
 	if(!..())
@@ -835,7 +839,7 @@
 
 	robot.AddElement(/datum/element/ridable, /datum/component/riding/creature/cyborg)
 	toggle_action.Grant(robot, src)
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		launch_action.Grant(robot, src)
 	return TRUE
 
@@ -877,7 +881,10 @@
 
 /obj/item/borg/upgrade/mounted_seat/pre_emaged
 	name = "VERY STRANGE robotic mounted seat module"
-	emagged = TRUE
+
+/obj/item/borg/upgrade/mounted_seat/pre_emaged/Initialize(mapload)
+	. = ..()
+	obj_flags |= EMAGGED
 
 /obj/item/borg/upgrade/ai
 	name = "B.O.R.I.S. module"

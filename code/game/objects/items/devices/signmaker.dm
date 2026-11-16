@@ -43,12 +43,17 @@
 		return
 	icon_state = "signmaker_clown_[sign ? "on" : "off"]"
 
-/obj/item/signmaker/emag_act(mob/user)
+/obj/item/signmaker/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+    if(obj_flags & EMAGGED)
+        return FALSE
+    obj_flags |= EMAGGED
+	holosign_type = /obj/structure/holosoap/holosoap_emagged
 	add_attack_logs(user, src, "emagged")
 	clear_holosign()
 	if(user)
 		to_chat(user, "You broke the pointer, oh no")
-	holosign_type = /obj/structure/holosoap/holosoap_emagged
+	return TRUE
 
 /obj/item/signmaker/attack_self(mob/user)
 	clear_holosign()

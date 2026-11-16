@@ -18,7 +18,7 @@
 	#define COMPONENT_CANCEL_BLOB_ACT (1<<0)
 ///from base of atom/acid_act(): (acidpwr, acid_volume)
 #define COMSIG_ATOM_ACID_ACT "atom_acid_act"
-///from base of atom/emag_act(): (/mob/user)
+///from base of atom/emag_act(): (/mob/user, obj/item/card/emag/emag_card). emag_card var can be null
 #define COMSIG_ATOM_EMAG_ACT "atom_emag_act"
 ///from base of atom/narsie_act(): ()
 #define COMSIG_ATOM_NARSIE_ACT "atom_narsie_act"

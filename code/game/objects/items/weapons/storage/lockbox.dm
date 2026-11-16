@@ -82,16 +82,19 @@
 		to_chat(usr, span_notice("[src] is locked!"))
 	return FALSE
 
-/obj/item/storage/lockbox/emag_act(mob/user)
-	if(!broken)
-		add_attack_logs(user, src, "emagged")
-		broken = TRUE
-		locked = FALSE
-		desc = "It appears to be broken."
-		update_icon()
-		if(user)
-			to_chat(user, span_notice("You unlock \the [src]."))
-		origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
+/obj/item/storage/lockbox/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(broken)
+		return FALSE
+	add_attack_logs(user, src, "emagged")
+	broken = TRUE
+	locked = FALSE
+	desc = "It appears to be broken."
+	update_icon()
+	origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
+	if(user)
+		to_chat(user, span_notice("You unlock \the [src]."))
+	return TRUE
 
 /obj/item/storage/lockbox/hear_talk(mob/living/M, list/message_pieces)
 	if(locked)

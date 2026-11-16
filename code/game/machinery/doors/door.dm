@@ -101,7 +101,7 @@
 /obj/machinery/door/Bumped(atom/movable/moving_atom, skip_effects = FALSE)
 	. = ..()
 
-	if(skip_effects || operating || emagged || (!can_open_with_hands && density))
+	if(skip_effects || operating || (obj_flags & EMAGGED) || (!can_open_with_hands && density))
 		return .
 	if(ismob(moving_atom))
 		var/mob/B = moving_atom
@@ -173,7 +173,7 @@
 		return
 	add_fingerprint(user)
 
-	if(!density || emagged)
+	if(!density || (obj_flags & EMAGGED))
 		return
 
 	if(allowed(user))
@@ -240,7 +240,7 @@
 
 /obj/machinery/door/proc/try_to_activate_door(mob/user)
 	add_fingerprint(user)
-	if(operating || emagged || !can_open_with_hands)
+	if(operating || (obj_flags & EMAGGED) || !can_open_with_hands)
 		return
 	if(requiresID() && (allowed(user) || user.can_advanced_admin_interact()))
 		if(density)
@@ -339,26 +339,22 @@
 		if(BURN)
 			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
 
-/obj/machinery/door/emag_act(mob/user)
-	if(!hackable)
-		if(user)
-			to_chat(user, span_notice("The electronic systems in this door are far too advanced for your primitive hacking peripherals."))
-		return
-	if(density)
-		add_attack_logs(user, src, "emagged ([locked ? "bolted" : "not bolted"])")
-		flick("door_spark", src)
-		sleep(6)
-		open()
-		emagged = TRUE
-		return TRUE
+// MARK: Определить емаг_акт у дочерних!!
+/// Called 0.6 seconds after emag_act(). Defined at the base door level so subtypes can override it without declaring separate helper procs.
+/obj/machinery/door/proc/after_emag_act()
+	return
 
 /obj/machinery/door/cmag_act(mob/user)
 	if(!density)
 		return
 	flick("door_spark", src)
-	sleep(6) //The cmag doesn't automatically open doors. It inverts access, not provides it!
-	ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
+	addtimer(CALLBACK(src, PROC_REF(after_cmag_act)), 0.6 SECONDS)
 	return TRUE
+
+/obj/machinery/door/airlock/proc/after_cmag_act()
+	if(QDELETED(src))
+		return
+	ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
 
 //Proc for inverting access on cmagged doors."canopen" should always return the OPPOSITE of the normal result.
 /obj/machinery/door/proc/cmag_switch(canopen, mob/living/user)

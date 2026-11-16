@@ -27,14 +27,17 @@
 		PREPOSITIONAL = "капсуле блюспейс-убежища",
 	)
 
-/obj/item/survivalcapsule/emag_act(mob/user)
-	if(!emagged)
+/obj/item/survivalcapsule/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+    if(obj_flags & EMAGGED)
 		if(user)
-			to_chat(user, span_warning("Вы отключаете защитные механизмы, позволяя размещение в секторе станции."))
-		emagged = TRUE
-		return
+			to_chat(user, span_warning("Защитные механизмы уже отключены!"))
+        return FALSE
+
+    obj_flags |= EMAGGED
 	if(user)
-		to_chat(user, span_warning("Защитные механизмы уже отключены!"))
+		to_chat(user, span_warning("Вы отключаете защитные механизмы, позволяя размещение в секторе станции."))
+	return TRUE
 
 /obj/item/survivalcapsule/proc/get_template()
 	if(template)
@@ -59,7 +62,7 @@
 	if(used)
 		return FALSE
 	var/turf/UT = get_turf(user)
-	if((is_station_level(UT.z)) && !emagged)
+	if((is_station_level(UT.z)) && !(obj_flags & EMAGGED))
 		to_chat(user, span_notice("Ошибка. Попытка развертывания в секторе станции. Развертывание отменено."))
 		playsound(user, 'sound/machines/buzz-sigh.ogg', 15, TRUE)
 		return
@@ -73,7 +76,7 @@
 	if(QDELETED(src))
 		return
 	var/turf/deploy_location = get_turf(src)
-	if((is_station_level(deploy_location.z)) && !emagged)
+	if((is_station_level(deploy_location.z)) && !(obj_flags & EMAGGED))
 		to_chat(triggerer, span_notice("Ошибка. Попытка расширения в секторе станции. Расширение отменено."))
 		playsound(triggerer, 'sound/machines/buzz-sigh.ogg', 15, TRUE)
 		return

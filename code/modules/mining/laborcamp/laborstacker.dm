@@ -72,7 +72,7 @@
 	var/list/data = list()
 	var/can_go_home = FALSE
 
-	data["emagged"] = emagged
+	data["emagged"] = obj_flags & EMAGGED
 	data["id_inserted"] = inserted_id != null
 	if(inserted_id)
 		data["id_name"] = inserted_id.registered_name
@@ -123,7 +123,7 @@
 					if(3)
 						to_chat(usr, span_notice("Не удалось получить разрешение на стыковку."))
 					else
-						if(!emagged)
+						if(!(obj_flags & EMAGGED))
 							var/message = "[inserted_id.registered_name] вернулся на станцию. Минералы и ID-карта заключенного готовы к выдаче."
 							radio_announce(message, "Labor Camp Controller", SEC_FREQ, src)
 						to_chat(usr, span_notice("Сообщение получено, шаттл будет отправлен в ближайшее время."))
@@ -132,15 +132,18 @@
 	return TRUE
 
 /obj/machinery/mineral/labor_claim_console/proc/check_auth()
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		return TRUE //Shuttle is emagged, let any ol' person through
 	return (istype(inserted_id) && inserted_id.mining_points >= inserted_id.goal) //Otherwise, only let them out if the prisoner's reached his quota.
 
-/obj/machinery/mineral/labor_claim_console/emag_act(mob/user)
-	if(!(emagged))
-		emagged = TRUE
-		if(user)
-			to_chat(user, span_warning("PZZTTPFFFT"))
+/obj/machinery/mineral/labor_claim_console/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+    if(obj_flags & EMAGGED)
+        return FALSE
+    obj_flags |= EMAGGED
+	if(user)
+		to_chat(user, span_warning("PZZTTPFFFT"))
+	return TRUE
 
 /**********************Prisoner Collection Unit**************************/
 /obj/machinery/mineral/stacking_machine/laborstacker

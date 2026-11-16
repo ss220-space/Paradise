@@ -185,10 +185,6 @@
 		gameover = 0
 		turtle = 0
 
-		if(emagged)
-			Reset()
-			emagged = 0
-
 	add_fingerprint(usr)
 	updateUsrDialog()
 	return
@@ -200,20 +196,20 @@
 			temp = "[enemy_name] пал! Возрадуйтесь!"
 			playsound(loc, 'sound/arcade/win.ogg', 50, TRUE)
 
-			if(emagged)
+			if(obj_flags & EMAGGED)
 				SSblackbox.record_feedback("tally", "arcade_status", 1, "win_emagged")
 				new /obj/effect/spawner/newbomb/timer/syndicate(get_turf(src))
 				new /obj/item/clothing/head/collectable/petehat(get_turf(src))
 				message_admins("[key_name_admin(usr)] has outbombed Cuban Pete and been awarded a bomb.")
 				add_game_logs("has outbombed Cuban Pete and been awarded a bomb.", usr)
 				Reset()
-				emagged = 0
+				obj_flags &= ~EMAGGED
 			else
 				SSblackbox.record_feedback("tally", "arcade_status", 1, "win_normal")
 				var/score = player_hp + player_mp + 5
 				prizevend(score)
 
-	else if(emagged && (turtle >= 4))
+	else if((obj_flags & EMAGGED) && (turtle >= 4))
 		var/boomamt = rand(5,10)
 		temp = "[enemy_name] бросает бомбу, <br>которая наносит вам [boomamt] единиц[DECL_U_Y_0(boomamt)] урона взрывом!"
 		playsound(loc, 'sound/arcade/boom.ogg', 50, TRUE)
@@ -231,7 +227,7 @@
 			sleep(10)
 			temp = "Вы были опустошены! ИГРА ОКОНЧЕНА"
 			playsound(loc, 'sound/arcade/lose.ogg', 50, TRUE)
-			if(emagged)
+			if(obj_flags & EMAGGED)
 				SSblackbox.record_feedback("tally", "arcade_status", 1, "loss_mana_emagged")
 				usr.gib()
 			else
@@ -253,7 +249,7 @@
 		gameover = 1
 		temp = "Вы были сокрушены! ИГРА ОКОНЧЕНА"
 		playsound(loc, 'sound/arcade/lose.ogg', 50, TRUE)
-		if(emagged)
+		if(obj_flags & EMAGGED)
 			SSblackbox.record_feedback("tally", "arcade_status", 1, "loss_hp_emagged")
 			usr.gib()
 		else
@@ -262,21 +258,24 @@
 	blocked = 0
 	return
 
-/obj/machinery/computer/arcade/battle/emag_act(mob/user)
-	if(!emagged)
-		add_attack_logs(user, src, "emagged")
-		temp = "Если вы умрёте в игре, вы умрёте по-настоящему!"
-		player_hp = 30
-		player_mp = 10
-		enemy_hp = 45
-		enemy_mp = 20
-		gameover = 0
-		blocked = 0
-		emagged = 1
-		enemy_name = "Cuban Pete"
-		name = "Outbomb Cuban Pete"
-
-		updateUsrDialog()
+/obj/machinery/computer/arcade/battle/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		Reset()
+		return FALSE
+	obj_flags |= EMAGGED
+	add_attack_logs(user, src, "emagged")
+	temp = "Если вы умрёте в игре, вы умрёте по-настоящему!"
+	player_hp = 30
+	player_mp = 10
+	enemy_hp = 45
+	enemy_mp = 20
+	gameover = 0
+	blocked = 0
+	enemy_name = "Cuban Pete"
+	name = "Outbomb Cuban Pete"
+	updateUsrDialog()
+	return TRUE
 
 // *** THE ORION TRAIL ** //
 
@@ -431,22 +430,22 @@
 		else
 			if(food <= 0)
 				dat += "<br>У вас закончилась еда, и вы умерли с голоду."
-				if(emagged)
+				if(obj_flags & EMAGGED)
 					user.set_nutrition(0) //yeah you pretty hongry
 					to_chat(user, span_userdanger(span_fontsize3("Ваше тело мгновенно сжимается, как у человека, который не ел месяцами. Когда вы падаете на пол, вас охватывают мучительные судороги.")))
 			if(fuel <= 0)
 				dat += "<br>У вас закончилось Топливо, и вы медленно приближаетесь к звезде."
-				if(emagged)
+				if(obj_flags & EMAGGED)
 					var/mob/living/M = user
 					M.adjust_fire_stacks(5)
 					M.IgniteMob() //flew into a star, so you're on fire
 					to_chat(user, span_userdanger(span_fontsize3("Вы чувствуете, как от игрового автомата исходит огромная волна жара. Ваша кожа загорается.")))
 		dat += "<br><p align='right'><a href='byond://?src=[UID()];menu=1'>OK...</a></p>"
 
-		if(emagged)
+		if(obj_flags & EMAGGED)
 			to_chat(user, span_userdanger(span_fontsize3("Ты никогда не доберешься до Ориона...")))
 			user.death()
-			emagged = 0 //removes the emagged status after you lose
+			obj_flags &= ~EMAGGED //removes the emagged status after you lose
 			playing = 0 //also a new game
 			name = "The Orion Trail"
 			ru_names = alist(
@@ -513,7 +512,7 @@
 						event = ORION_TRAIL_LING_ATTACK
 				event()
 			turns += 1
-		if(emagged)
+		if(obj_flags & EMAGGED)
 			var/mob/living/carbon/M = usr //for some vars
 			switch(event)
 				if(ORION_TRAIL_RAIDERS)
@@ -625,14 +624,14 @@
 		if(prob(75))
 			event = ORION_TRAIL_BLACKHOLE
 			event()
-			if(emagged) //has to be here because otherwise it doesn't work
+			if(obj_flags & EMAGGED) //has to be here because otherwise it doesn't work
 				playsound(loc, 'sound/effects/supermatter.ogg', 100, TRUE)
 				atom_say("Перед [declent_ru(INSTRUMENTAL)] [src] внезапно появляется миниатюрная черная дыра, пожирающая [usr] заживо!")
 				if(isliving(usr))
 					var/mob/living/L = usr
 					L.Stun(20 SECONDS) //you can't run :^)
 				var/S = new /obj/singularity/academy(usr.loc)
-				emagged = 0 //immediately removes emagged status so people can't kill themselves by sprinting up and interacting
+				obj_flags &= ~EMAGGED //immediately removes emagged status so people can't kill themselves by sprinting up and interacting
 				sleep(50)
 				atom_say("Черная дыра исчезает так же внезапно, как и появилась.")
 				qdel(S)
@@ -654,15 +653,15 @@
 
 		if(length(settlers) == 0 || alive == 0)
 			atom_say("Последний член команды [sheriff], застрелился, ИГРА ОКОНЧЕНА!")
-			if(emagged)
+			if(obj_flags & EMAGGED)
 				usr.death(FALSE)
-				emagged = FALSE
+				obj_flags &= ~EMAGGED
 			gameover = TRUE
 			event = null
 			if(killed_crew >= 4)
 				report_player(usr)
 
-		else if(emagged)
+		else if(obj_flags & EMAGGED)
 			if(usr.name == sheriff)
 				atom_say("Экипаж корабля решил убить [usr.name]!")
 				usr.death(FALSE)
@@ -715,7 +714,7 @@
 			if(prob(success*5))
 				var/lost_crew = remove_crewmember()
 				last_spaceport_action = "Вам не удалось совершить налёт на космопорт! Вы потеряли [FU*-1] единиц[DECL_U_Y_0(FU*-1)] Топлива, [FO*-1] единиц[DECL_U_Y_0(FO*-1)] Пищи, и [lost_crew], унося свои ноги оттуда! ([FU]FI,[FO]FO,-Crew)"
-				if(emagged)
+				if(obj_flags & EMAGGED)
 					atom_say("ВИИИУ-ВИИИУ, служба безопасности космопорта в пути!")
 					for(var/i, i<=3, i++)
 						var/mob/living/simple_animal/hostile/syndicate/ranged/orion/O = new/mob/living/simple_animal/hostile/syndicate/ranged/orion(get_turf(src))
@@ -1020,32 +1019,34 @@
 	playing = 0
 	turns = 1
 	atom_say("Поздравляю, вы добрались до Ориона!")
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		new /obj/item/orion_ship(get_turf(src))
 		message_admins("[key_name_admin(usr)] made it to Orion on an emagged machine and got an explosive toy ship.")
 		add_game_logs("made it to Orion on an emagged machine and got an explosive toy ship.", usr)
 	else
 		var/score = alive + round(food/2) + round(fuel/5) + engine + hull + electronics - lings_aboard
 		prizevend(score)
-	emagged = 0
+	obj_flags &= ~EMAGGED
 
-/obj/machinery/computer/arcade/orion_trail/emag_act(mob/user)
-	if(!emagged)
-		add_attack_logs(user, src, "emagged")
-		if(user)
-			to_chat(user, span_notice("Вы переопределяете меню чит-кода и переходите к разделу Чит-код #[rand(1, 50)]: Реализм Мод."))
-		name = "The Orion Trail: Realism Edition"
-		ru_names = alist(
-			NOMINATIVE = "игровой автомат The Orion Trail: Realism Edition",
-			GENITIVE = "игрового автомата The Orion Trail: Realism Edition",
-			DATIVE = "игровому автомату The Orion Trail: Realism Edition",
-			ACCUSATIVE = "игровой автомат The Orion Trail: Realism Edition",
-			INSTRUMENTAL = "игровым автоматом The Orion Trail: Realism Edition",
-			PREPOSITIONAL = "игровом автомате The Orion Trail: Realism Edition",
-		)
-		desc = "Узнайте, как наши предки добрались до Ориона, и постарайтесь не сдохнуть в процессе!"
-		newgame()
-		emagged = 1
+/obj/machinery/computer/arcade/orion_trail/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
+	name = "The Orion Trail: Realism Edition"
+	ru_names = alist(
+		NOMINATIVE = "игровой автомат The Orion Trail: Realism Edition",
+		GENITIVE = "игрового автомата The Orion Trail: Realism Edition",
+		DATIVE = "игровому автомату The Orion Trail: Realism Edition",
+		ACCUSATIVE = "игровой автомат The Orion Trail: Realism Edition",
+		INSTRUMENTAL = "игровым автоматом The Orion Trail: Realism Edition",
+		PREPOSITIONAL = "игровом автомате The Orion Trail: Realism Edition",
+	)
+	desc = "Узнайте, как наши предки добрались до Ориона, и постарайтесь не сдохнуть в процессе!"
+	newgame()
+	if(user)
+		to_chat(user, span_notice("Вы переопределяете меню чит-кода и переходите к разделу Чит-код #[rand(1, 50)]: Реализм Мод."))
+	return TRUE
 
 /mob/living/simple_animal/hostile/syndicate/ranged/orion
 	name = "spaceport security"

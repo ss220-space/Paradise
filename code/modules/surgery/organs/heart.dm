@@ -223,7 +223,7 @@
 
 	if(!is_dead() && !attempted_restart && !beating)
 		to_chat(owner, span_danger("Ваше [declent_ru(NOMINATIVE)] обнаруживает сердечный приступ и пытается вернуться к нормальному ритму!"))
-		if(prob(20) && emagged)
+		if(prob(20) && (obj_flags & EMAGGED))
 			attempted_restart = TRUE
 			Restart()
 			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, span_warning("Ваше [declent_ru(NOMINATIVE)] возвращается к нормальному ритму.")), 30)
@@ -235,7 +235,7 @@
 			addtimer(CALLBACK(src, PROC_REF(recharge)), 300)
 		else
 			attempted_restart = TRUE
-			if(emagged)
+			if(obj_flags & EMAGGED)
 				addtimer(CALLBACK(src, PROC_REF(recharge)), 200)
 			else
 				addtimer(CALLBACK(src, PROC_REF(recharge)), 300)
@@ -243,7 +243,7 @@
 
 	if(!is_dead() && !attempted_restart && owner.HasDisease(/datum/disease/critical/heart_failure))
 		to_chat(owner, span_danger("Ваше [declent_ru(NOMINATIVE)] обнаруживает сердечный приступ и пытается вернуться к нормальному ритму!"))
-		if(prob(40) && emagged)
+		if(prob(40) && (obj_flags & EMAGGED))
 			attempted_restart = TRUE
 			for(var/datum/disease/critical/heart_failure/HF in owner.diseases)
 				HF.cure()
@@ -257,14 +257,14 @@
 			addtimer(CALLBACK(src, PROC_REF(recharge)), 200)
 		else
 			attempted_restart = TRUE
-			if(emagged)
+			if(obj_flags & EMAGGED)
 				addtimer(CALLBACK(src, PROC_REF(recharge)), 200)
 			else
 				addtimer(CALLBACK(src, PROC_REF(recharge)), 300)
 			addtimer(CALLBACK(src, PROC_REF(message_to_owner), owner, span_danger("Ваше [declent_ru(NOMINATIVE)] не смогло вернуться к нормальному ритму!")), 30)
 
 	if(!is_dead())
-		var/boost = emagged ? 2 : 1
+		var/boost = (obj_flags & EMAGGED) ? 2 : 1
 		owner.AdjustDrowsy(-8 SECONDS * boost)
 		owner.AdjustParalysis(-2 SECONDS * boost)
 		owner.AdjustStunned(-2 SECONDS * boost)
@@ -278,17 +278,18 @@
 /obj/item/organ/internal/heart/cybernetic/upgraded/proc/recharge()
 	attempted_restart = FALSE
 
-/obj/item/organ/internal/heart/cybernetic/upgraded/emag_act(mob/user)
-	if(!emagged)
+/obj/item/organ/internal/heart/cybernetic/upgraded/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	obj_flags ^= EMAGGED
+	if(obj_flags & EMAGGED)
 		add_attack_logs(user, src, "emagged")
 		if(user)
 			balloon_alert(user, "протоколы безопасности взломаны")
-		emagged = TRUE
 	else
 		add_attack_logs(user, src, "un-emagged")
 		if(user)
 			balloon_alert(user, "протоколы безопасности восстановлены")
-		emagged = FALSE
+	return TRUE
 
 /obj/item/organ/internal/heart/cybernetic/upgraded/emp_act(severity)
 	. = ..()
@@ -309,7 +310,7 @@
 	var/numHigh = round(intensity / 5)
 	var/numMid = round(intensity / 10)
 	var/numLow = round(intensity / 20)
-	if(emagged && !is_dead())
+	if((obj_flags & EMAGGED) && !is_dead())
 		if(prob(numHigh))
 			to_chat(owner, span_warning("У вас сердечный спазм!"))
 			owner.adjustBruteLoss(numHigh)
@@ -326,7 +327,7 @@
 		if(prob(numLow))
 			to_chat(owner, span_danger("Ваше [declent_ru(NOMINATIVE)] выключается!"))
 			necrotize()
-	else if(!emagged && !is_dead())
+	else if(!(obj_flags & EMAGGED) && !is_dead())
 		if(prob(numMid))
 			to_chat(owner, span_warning("У вас сердечный спазм!"))
 			owner.adjustBruteLoss(numMid)

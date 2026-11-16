@@ -109,17 +109,16 @@
 		PREPOSITIONAL = "электронной сигарете"
 	)
 
-/obj/item/ecig/emag_act(mob/user)
-	if(emagged)
-		return
-
+/obj/item/ecig/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+    if(obj_flags & EMAGGED)
+        return FALSE
+    obj_flags |= EMAGGED
 	add_attack_logs(user, src, "emagged")
-	emagged = TRUE
 
-	if(!user)
-		return
-
-	balloon_alert(user, "протоколы безопасности взломаны")
+	if(user)
+		balloon_alert(user, "протоколы безопасности взломаны")
+	return TRUE
 
 /obj/item/ecig/examine(mob/user)
 	. = ..()

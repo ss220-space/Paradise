@@ -45,7 +45,7 @@
 	. = ..()
 	. += "<span class='notice'>The power light is [(stat & NOPOWER) ? "<b>off</b>" : "<b>on</b>"]."
 	. += "The operation light is [emergency_mode ? "<b>off</b>. [src] has detected a forbidden object with its sensors, and has shut down temporarily." : "<b>on</b>. [src] is active."]"
-	. += "The safety sensor light is [emagged ? "<b>off</b>!" : "<b>on</b>."]</span>"
+	. += "The safety sensor light is [(obj_flags & EMAGGED) ? "<b>off</b>!" : "<b>on</b>."]</span>"
 
 /obj/machinery/recycler/power_change(forced = FALSE)
 	if(!..())
@@ -71,16 +71,19 @@
 	if(default_unfasten_wrench(user, I))
 		return TRUE
 
-/obj/machinery/recycler/emag_act(mob/user)
-	if(!emagged)
-		emagged = 1
-		if(emergency_mode)
-			emergency_mode = FALSE
-			update_icon(UPDATE_ICON_STATE)
-		playsound(src, SFX_SPARKS, 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		if(user)
-			to_chat(user, span_notice("You use the cryptographic sequencer on the [name]."))
-		add_attack_logs(user, src, "emagged")
+/obj/machinery/recycler/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
+	if(emergency_mode)
+		emergency_mode = FALSE
+		update_icon(UPDATE_ICON_STATE)
+	playsound(src, SFX_SPARKS, 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	if(user)
+		to_chat(user, span_notice("You use the cryptographic sequencer on the [name]."))
+	add_attack_logs(user, src, "emagged")
+	return TRUE
 
 /obj/machinery/recycler/update_icon_state()
 	var/is_powered = !(stat & (BROKEN|NOPOWER))
@@ -107,7 +110,7 @@
 		if(QDELETED(AM))
 			continue
 		else if(isliving(AM))
-			if(emagged)
+			if(obj_flags & EMAGGED)
 				crush_living(AM)
 			else
 				emergency_stop(AM)
@@ -176,10 +179,7 @@
 	// Instantly lie down, also go unconscious from the pain, before you die.
 	target.Paralyse(10 SECONDS)
 
-	// For admin fun, var edit emagged to 2.
-	if(gib || emagged == 2)
-		target.gib()
-	else if(emagged == 1)
+	if(obj_flags & EMAGGED)
 		target.adjustBruteLoss(crush_damage)
 
 /obj/machinery/recycler/click_alt(mob/user)
@@ -200,8 +200,11 @@
 
 /obj/machinery/recycler/deathtrap
 	name = "dangerous old crusher"
-	emagged = 1
 	crush_damage = 120
+
+/obj/machinery/recycler/deathtrap/Initialize(mapload)
+	. = ..()
+	obj_flags |= EMAGGED
 
 /obj/item/paper/recycler
 	name = "paper - 'garbage duty instructions'"

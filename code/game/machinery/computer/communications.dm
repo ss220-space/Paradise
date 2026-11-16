@@ -303,7 +303,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 
 		// OMG SYNDICATE ...LETTERHEAD
 		if("MessageSyndicate")
-			if((is_authenticated(ui.user) >= COMM_AUTHENTICATION_CAPT) && (src.emagged))
+			if((is_authenticated(ui.user) >= COMM_AUTHENTICATION_CAPT) && (obj_flags & EMAGGED))
 				if(centcomm_message_cooldown > world.time)
 					to_chat(ui.user, "Обработка массивов. Пожалуйста, подождите.")
 					return
@@ -321,7 +321,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 
 		if("RestoreBackup")
 			to_chat(ui.user, "Данные маршрутизации восстановлены из резервной копии!")
-			src.emagged = 0
+			obj_flags &= ~EMAGGED
 			setMenuState(ui.user, COMM_SCREEN_MAIN)
 
 		// ADMIN CENTCOMM ONLY STUFF
@@ -447,13 +447,16 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 		new_sound = SSstation.announcer.get_rand_report_sound(),
 	)
 
-/obj/machinery/computer/communications/emag_act(user as mob)
-	if(!emagged)
-		add_attack_logs(user, src, "emagged")
-		src.emagged = 1
-		if(user)
-			to_chat(user, span_notice("Вы шифруете схемы маршрутизации связи!"))
-		SStgui.update_uis(src)
+/obj/machinery/computer/communications/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
+	add_attack_logs(user, src, "emagged")
+	if(user)
+		to_chat(user, span_notice("Вы шифруете схемы маршрутизации связи!"))
+	SStgui.update_uis(src)
+	return TRUE
 
 /obj/machinery/computer/communications/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
@@ -482,7 +485,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 	data["is_ai"]         = isAI(user) || isrobot(user)
 	data["noauthbutton"]  = !ishuman(user)
 	data["menu_state"]    = data["is_ai"] ? ai_menu_state : menu_state
-	data["emagged"]       = emagged
+	data["emagged"]       = obj_flags & EMAGGED
 	data["authenticated"] = is_authenticated(user, FALSE)
 	data["authhead"] = data["authenticated"] >= COMM_AUTHENTICATION_HEAD && (data["authenticated"] == COMM_AUTHENTICATION_AGHOST || !isobserver(user))
 	data["authcapt"] = data["authenticated"] >= COMM_AUTHENTICATION_CAPT && (data["authenticated"] == COMM_AUTHENTICATION_AGHOST || !isobserver(user))

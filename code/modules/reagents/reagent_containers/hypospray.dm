@@ -62,7 +62,7 @@
 	add_attack_logs(user, target, "Injected with [src] containing ([english_list(injected)])", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 
 /obj/item/reagent_containers/hypospray/on_reagent_change()
-	if(safety_hypo && !emagged)
+	if(safety_hypo && !(obj_flags & EMAGGED))
 		var/found_forbidden_reagent = FALSE
 		for(var/datum/reagent/R in reagents.reagent_list)
 			if(!GLOB.safe_chem_list.Find(R.type))
@@ -74,13 +74,19 @@
 			else
 				visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] определяет и удаляет недопустимое вещество."))
 
-/obj/item/reagent_containers/hypospray/emag_act(mob/user)
-	if(safety_hypo && !emagged)
-		add_attack_logs(user, src, "emagged")
-		emagged = TRUE
-		ignore_flags = TRUE
-		if(user)
-			balloon_alert(user, "протоколы безопасности взломаны")
+/obj/item/reagent_containers/hypospray/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	return hypospray_emag(user, emag_card)
+
+/obj/item/reagent_containers/hypospray/proc/hypospray_emag(mob/user, obj/item/card/emag/emag_card)
+    if((obj_flags & EMAGGED) || !safety_hypo)
+        return FALSE
+    obj_flags |= EMAGGED
+	add_attack_logs(user, src, "emagged")
+	ignore_flags = TRUE
+	if(user)
+		balloon_alert(user, "протоколы безопасности взломаны")
+	return TRUE
 
 /obj/item/reagent_containers/hypospray/safety
 	name = "medical hypospray"
@@ -159,8 +165,9 @@
 /obj/item/reagent_containers/hypospray/safety/upgraded/update_icon_state()
 	icon_state = paint_color ? "upg_hypo_white" : "upg_hypo"
 
-/obj/item/reagent_containers/hypospray/safety/upgraded/emag_act(mob/user)
-	return
+// Send signal and return FALSE
+/obj/item/reagent_containers/hypospray/safety/upgraded/hypospray_emag(mob/user, obj/item/card/emag/emag_card)
+	return FALSE
 
 /obj/item/reagent_containers/hypospray/safety/ert
 	name = "medical hypospray (Omnizine)"

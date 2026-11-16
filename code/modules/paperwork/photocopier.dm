@@ -265,7 +265,7 @@
 
 	var/icon/temp_img
 
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		if(ishuman(copymob))
 			copymob.apply_damage(30, BURN, BODY_ZONE_PRECISE_GROIN)
 			if(copymob.has_pain())
@@ -667,7 +667,7 @@
 			continue
 		if(cached_syndicate && !(form_type.syndicate))
 			continue
-		if(!cached_syndicate && !emagged && (form_type.syndicate))
+		if(!cached_syndicate && !(obj_flags & EMAGGED) && (form_type.syndicate))
 			continue
 		var/list/form = list()
 		form["path"] = form_type
@@ -780,13 +780,16 @@
 	else
 		return TRUE
 
-/obj/machinery/photocopier/emag_act(mob/user)
-	if(!emagged)
-		emagged = TRUE
+/obj/machinery/photocopier/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+    if(obj_flags & EMAGGED)
 		if(user)
-			balloon_alert(user, "взломано")
-	else if(user)
-		balloon_alert(user, "уже взломано!")
+			balloon_alert(user, "уже взломано!")
+        return FALSE
+    obj_flags |= EMAGGED
+	if(user)
+		balloon_alert(user, "взломано")
+	return TRUE
 
 /**
  * Removes a certain amount of toner that is affected by the efficiency of stock parts

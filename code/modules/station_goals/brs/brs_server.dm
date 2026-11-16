@@ -154,7 +154,7 @@
 	if(stat & (NOPOWER))
 		icon_state = prefix
 		return
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		icon_state = "[prefix]-on-emagged"
 		return
 
@@ -172,7 +172,7 @@
 	if(stat & (NOPOWER))
 		set_light_on(FALSE)
 		return
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		set_light(l_range = 1, l_power = 1, l_color = COLOR_RED_LIGHT, l_on = TRUE)
 		return
 	set_light(l_range = 1, l_power = 1, l_color = COLOR_BLUE_LIGHT, l_on = TRUE)
@@ -225,10 +225,11 @@
 
 	RefreshParts()
 
-/obj/machinery/brs_server/emag_act(mob/user)
-	if(emagged)
-		return
-	emagged = TRUE
+/obj/machinery/brs_server/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+    if(obj_flags & EMAGGED)
+        return FALSE
+	obj_flags |= EMAGGED
 	points_per_probe = points_per_probe_emagged
 	probe_success_chance = probe_success_chance_emagged
 	playsound(loc, 'sound/effects/sparks4.ogg', 60, TRUE)
@@ -236,6 +237,7 @@
 	create_light()
 	if(user)
 		to_chat(user, span_warning("@?%!№@Протоколы безопасности сканнера перезаписаны@?%!№@"))
+	return TRUE
 
 /obj/machinery/brs_server/emp_act(severity)
 	if(!(stat & (BROKEN|NOPOWER)))
@@ -246,7 +248,7 @@
 	if(stat & (BROKEN|NOPOWER))
 		return
 	var/prefix = initial(icon_state)
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		flick("[prefix]-act-emagged", src)
 	else
 		flick("[prefix]-act", src)
@@ -278,7 +280,7 @@
 	var/list/uidata = list()
 
 	uidata["pointsPerProbe"] = points_per_probe
-	uidata["emagged"] = emagged
+	uidata["emagged"] = (obj_flags & EMAGGED)
 
 	var/cooldown_ends_in = (probe_cooldown_end_time > world.time) ? (probe_cooldown_end_time - world.time) : 0
 	uidata["cooldown"] = cooldown_ends_in / (1 SECONDS)
