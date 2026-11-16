@@ -117,7 +117,7 @@
 	else if(pilot_turn)
 		change_spin(pilot_turn * OVERMAP_TURN_RATE_MAX, elapsed)
 	else
-		change_spin((held_brake || pilot_braking || dampeners || angular_dampeners) ? 0 : angular_velocity, elapsed)
+		change_spin((held_brake || pilot_braking || angular_dampeners) ? 0 : angular_velocity, elapsed)
 	apply_drag(elapsed)
 	if(needs_physics())
 		if(held_brake || (dampeners && !manual_drive && !autopilot && (vessel.shuttle || vessel.overmap_pod)))
