@@ -8,7 +8,7 @@
 
 	button_icon_state = "time"
 
-	summon_type = list(/obj/effect/timestop/wizard)
+	summon_type = list(/obj/effect/timestop/magic)
 	summon_radius = 0
 
 /datum/action/cooldown/spell/conjure/timestop/Grant(mob/grant_to)

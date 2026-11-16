@@ -45,7 +45,8 @@
 		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
 	)
-	base_free_skill_point = ADVANCED_SKILL_POINTS_COUNT
+	base_free_skill_point = DEFAULT_FREE_POINTS_FOR_UNSKILL_JOBS
+	discount_skill_category = list(/datum/skill/combat, /datum/skill/general, /datum/skill/service)
 
 /datum/job/captain/get_access()
 	return get_all_accesses()
@@ -66,7 +67,7 @@
 	shoes = /obj/item/clothing/shoes/color/brown
 	head = /obj/item/clothing/head/caphat
 	l_ear = /obj/item/radio/headset/heads/captain/alt
-	glasses = /obj/item/clothing/glasses/hud/blueshield/cap
+	glasses = /obj/item/clothing/glasses/hud/multimode/captain
 	id = /obj/item/card/id/gold
 	l_pocket = /obj/item/lighter/zippo/cap
 	pda = /obj/item/pda/captain
@@ -186,6 +187,7 @@
 		/datum/skill/combat/fists = SKILL_LEVEL_ADVANCED,
 		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
 	)
+	discount_skill_category = list(/datum/skill/combat, /datum/skill/general/mod_use, /datum/skill/general/carrying, /datum/skill/medical/heal)
 
 /datum/outfit/job/blueshield
 	name = JOB_TITLE_RU_BLUESHIELD
@@ -195,7 +197,7 @@
 	gloves = /obj/item/clothing/gloves/combat/swat
 	shoes = /obj/item/clothing/shoes/jackboots
 	l_ear = /obj/item/radio/headset/heads/blueshield/alt
-	glasses = /obj/item/clothing/glasses/hud/blueshield
+	glasses = /obj/item/clothing/glasses/hud/multimode
 	id = /obj/item/card/id/nanotrasen
 	pda = /obj/item/pda/heads/blueshield
 	backpack_contents = list(

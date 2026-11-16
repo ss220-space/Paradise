@@ -108,6 +108,13 @@
 	build_path = /obj/item/storage/toolbox
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_TOOLS)
 
+/datum/design/binoculars
+	id = "binoculars"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 100)
+	build_path = /obj/item/binoculars
+	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_TOOLS)
+
 /datum/design/surgery
 	id = "sur_kit"
 	build_type = AUTOLATHE
@@ -1014,3 +1021,10 @@
 	materials = list(MAT_METAL = 3000)
 	build_path = /obj/item/ammo_box/magazine/ik60mag/empty
 	category = list(AUTOLATHE_CATEGORY_IMPORTED)
+
+/datum/design/energy_accumulator
+	id = "weapon_energy_cell"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 40000) //20 metal
+	build_path = /obj/item/weapon_cell/energy_gun
+	category = list(PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)

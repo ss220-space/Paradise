@@ -25,6 +25,10 @@
 	var/suffix = null
 	/// Can the ruin be found by the locator
 	var/can_found = FALSE
+	/// Extra ring of turfs around this ruin that the cave generator keeps in mind while it blends terrain
+	var/terrain_padding = 0
+	/// If TRUE the cave generator treats this ruin's footprint as solid rock, otherwise as open floor
+	var/enclosed_for_terrain = FALSE
 
 /datum/map_template/ruin/New()
 	if(!name && id)

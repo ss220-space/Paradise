@@ -32,7 +32,7 @@ GAME_VERB(/mob/living, pray, VERB_PRAY, VERB_CATEGORY_IC)
 	add_game_logs("Prayed to the gods: [message]", src)
 	GLOB.requests.pray(client, message, job == JOB_TITLE_CHAPLAIN)
 
-	message = "<b><span style='color: [font_color];'>[prayer_type][deity ? " (to [deity])" : ""][mind?.isholy ? " (blessings: [mind.num_blessed])" : ""]:</span> [key_name(src, 1)] ([ADMIN_QUE(src,"?")]) ([ADMIN_PP(src,"PP")]) ([ADMIN_VV(src,"VV")]) ([ADMIN_TP(src,"TP")]) ([ADMIN_SM(src,"SM")]) ([admin_jump_link(src)]) ([ADMIN_SC(src,"SC")]) (<a href='byond://?_src_=holder;Bless=[UID()]'>BLESS</a>) (<a href='byond://?_src_=holder;Smite=[UID()]'>SMITE</a>):</b> [message]"
+	message = "<b><span style='color: [font_color];'>[prayer_type][deity ? " (to [deity])" : ""][HAS_TRAIT(src, TRAIT_HOLY) ? " (blessings: [mind.num_blessed])" : ""]:</span> [key_name(src, 1)] ([ADMIN_QUE(src,"?")]) ([ADMIN_PP(src,"PP")]) ([ADMIN_VV(src,"VV")]) ([ADMIN_TP(src,"TP")]) ([ADMIN_SM(src,"SM")]) ([admin_jump_link(src)]) ([ADMIN_SC(src,"SC")]) (<a href='byond://?_src_=holder;Bless=[UID()]'>BLESS</a>) (<a href='byond://?_src_=holder;Smite=[UID()]'>SMITE</a>):</b> [message]"
 	for(var/client/X in GLOB.admins)
 		if(check_rights(R_EVENT, FALSE, X.mob))
 			to_chat(X, "[span_notice("[icon2html(cross, X.mob)] [message]")]")

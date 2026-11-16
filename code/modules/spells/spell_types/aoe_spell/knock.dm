@@ -2,9 +2,9 @@
 	name = "Knock"
 	desc = "This spell opens nearby doors and does not require wizard garb."
 
-	school = "transmutation"
+	school = SCHOOL_TRANSMUTATION
 	cooldown_time = 2 SECONDS //20 deciseconds reduction per rank
-	spell_requirements = null
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	invocation = "AULIE OXIN FIERA"
 	invocation_type = INVOCATION_WHISPER
 

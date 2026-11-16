@@ -196,6 +196,14 @@ Works together with spawning an observer, noted above.
 		C.images += target.hud_list[SPECIALROLE_HUD]
 	return 1
 
+/// Offers mob a choice to ghostize.
+/mob/proc/offer_ghostize()
+	if(QDELETED(src))
+		return
+	var/choice = tgui_alert(src, "Хотите ли вы выйти в режим наблюдателя? Вы сможете вернуться в тело в любой момент.", "Выход в призраки", list("Да", "Нет"))
+	if(choice == "Да")
+		ghostize()
+
 /mob/proc/ghostize(flags = GHOST_CAN_REENTER)
 	if(!key)
 		return
@@ -205,13 +213,15 @@ Works together with spawning an observer, noted above.
 
 	var/mob/dead/observer/ghost = new(src, flags)	//Transfer safety to observer spawning proc.
 	if(client)
-		client.mouse_pointer_icon = initial(client.mouse_pointer_icon) //Возвращает курсор в изначальное положение (после меха, нинзи, спелла и т.п)
+		client.mouse_override_icon = initial(client.mouse_pointer_icon)
+		update_mouse_pointer()
 
 	var/recordable_time = world.time
 	var/mob/living/former_mob = ghost.mind?.current
 	if(isliving(former_mob))
 		recordable_time = former_mob.timeofdeath
 
+	ghost.timeofdeath = recordable_time
 	ghost.persistent_client?.time_of_death = recordable_time
 	remove_from_respawnable_list()
 
@@ -534,7 +544,7 @@ GAME_VERB_DESC(/mob/dead/observer, toggle_sight_view, "Видимость сте
 			else //Circular
 				rot_seg = 36 //360/10 bby, smooth enough aproximation of a circle
 
-		to_chat(src, span_notice("Вы следуете за [target]"))
+		to_chat(src, span_notice("Вы следуете за [target.declent_ru(INSTRUMENTAL)]"))
 		orbit(target, orbitsize, FALSE, 20, rot_seg)
 
 /mob/dead/observer/orbit(atom/A, radius, clockwise, rotation_speed, rotation_segments, pre_rotation, lockinorbit, forceMove)
@@ -823,9 +833,6 @@ GAME_VERB_DESC(/mob/dead/observer, pick_darkness, "Освещённость", "C
 		return TRUE
 
 	return FALSE
-
-/mob/dead/observer/incapacitated(ignore_flags)
-	return TRUE
 
 /**
  * Handles the pointing action for observer mobs, notifying nearby mobs and adding a follow link for invisible ghosts

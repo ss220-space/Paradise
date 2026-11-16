@@ -9,8 +9,7 @@
 	throw_speed = 1
 	origin_tech = "engineering=4;materials=2"
 	var/max_amount = 90
-	var/active = 0
-	var/obj/structure/cable/last = null
+	var/active = FALSE
 	var/obj/item/stack/cable_coil/loaded = null
 
 /obj/item/twohanded/rcl/attackby(obj/item/I, mob/user, params)
@@ -66,7 +65,6 @@
 
 /obj/item/twohanded/rcl/Destroy()
 	QDEL_NULL(loaded)
-	last = null
 	active = 0
 	return ..()
 
@@ -89,7 +87,7 @@
 			icon_state = "rcl-0"
 			item_state = "rcl-0"
 
-/obj/item/twohanded/rcl/proc/is_empty(mob/user, loud = 1)
+/obj/item/twohanded/rcl/proc/is_empty(mob/user, loud = TRUE)
 	update_icon(UPDATE_ICON_STATE)
 	if(!loaded || !loaded.amount)
 		if(loud)
@@ -99,8 +97,8 @@
 			loaded = null
 		user.mode()
 		active = wielded
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /obj/item/twohanded/rcl/equipped(mob/user, slot, initial)
 	. = ..()
@@ -108,45 +106,22 @@
 
 /obj/item/twohanded/rcl/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
-	active = 0
-	last = null
+	active = FALSE
 	UnregisterSignal(user, COMSIG_MOB_CLIENT_MOVED)
 
 /obj/item/twohanded/rcl/attack_self(mob/user)
 	..()
 	active = wielded
-	if(!active)
-		last = null
-	else if(!last)
-		for(var/obj/structure/cable/C in get_turf(user))
-			if(C.d1 == 0 || C.d2 == 0)
-				last = C
-				break
 
 /obj/item/twohanded/rcl/on_mob_move(mob/user, dir)
 	if(active)
 		trigger(user)
 
 /obj/item/twohanded/rcl/proc/trigger(mob/user)
-	if(is_empty(user, 0))
+	if(is_empty(user, FALSE))
 		to_chat(user, span_warning("\The [src] is empty!"))
 		return
-	if(last)
-		if(get_dist(last, user) == 1) //hacky, but it works
-			var/turf/T = get_turf(user)
-			if(!T || !T.can_lay_cable())
-				last = null
-				return
-			if(get_dir(last, user) == last.d2)
-				//Did we just walk backwards? Well, that's the one direction we CAN'T complete a stub.
-				last = null
-				return
-			loaded.cable_join(last, user)
-			if(is_empty(user))
-				return //If we've run out, display message and exit
-		else
-			last = null
-	last = loaded.place_turf(get_turf(loc), user, turn(user.dir, 180))
+	loaded.place_turf(get_turf(loc), user)
 	is_empty(user) //If we've run out, display message
 
 /obj/item/twohanded/rcl/pre_loaded/Initialize(mapload)

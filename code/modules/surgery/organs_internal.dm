@@ -518,7 +518,7 @@
 				span_notice("[user] восстанавлива[PLUR_ET_YUT(user)] [organ.declent_ru(ACCUSATIVE)] [target], используя [tool_name]."),
 				span_notice("Вы восстаналиваете [organ.declent_ru(ACCUSATIVE)] [target], используя [tool_name]."),
 			)
-			organ.damage = 0
+			organ.heal_internal_damage(organ.damage, robo_repair = TRUE)
 			organ.surgeryize()
 
 	return SURGERY_STEP_CONTINUE
@@ -813,8 +813,8 @@
 			ethanol += alcohol.alcohol_perc * 300
 		ethanol /= length(R.reagent_list)
 
-		mito_tot = R.get_reagent_amount("mitocholide")
-		spaceacillin = R.get_reagent_amount("spaceacillin")
+		mito_tot = R.get_reagent_amount(/datum/reagent/medicine/mitocholide)
+		spaceacillin = R.get_reagent_amount(/datum/reagent/medicine/spaceacillin)
 
 	for(var/obj/item/organ/internal/organ as anything in get_organ_list(target_zone, target, affected))
 		if(organ.germ_level < INFECTION_LEVEL_ONE / 2 && !(organ.is_dead()))  // not dead, don't need to inject mito either

@@ -145,7 +145,7 @@
 	if(!(user.a_intent == INTENT_HARM) || !proximity || isturf(A))
 		return FALSE
 
-	var/damage = rand(user.dna.species.punchdamagelow + user.physiology.punch_damage_low, user.dna.species.punchdamagehigh + user.physiology.punch_damage_high)
+	var/damage = rand((user.dna.species.punchdamagelow + user.physiology.punch_damage_low) * user.physiology.punch_damage_low_mod, (user.dna.species.punchdamagehigh + user.physiology.punch_damage_high) * user.physiology.punch_damage_high_mod)
 
 	CALCULATE_SKILL_MOD(user, FISTS_DAMAGE_MOD, skill_mod)
 	damage *= skill_mod

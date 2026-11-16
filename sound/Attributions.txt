@@ -21,3 +21,4 @@ https://freesound.org/people/kyles/sounds/453256/
 
 /datum/looping_sound/centrifuge sounds spliced from washing_machine.wav -- https://freesound.org/people/magnus589/sounds/372183/ -- under CC Attribution 4.0 International
 
+voice/zombie_leap.ogg is taken from https://freesound.org/people/scorpion67890/sounds/396797/ and compressed to .ogg under Creative Commons 0 liscence.

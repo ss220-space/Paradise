@@ -61,6 +61,7 @@
 		add_to_dead_mob_list()
 	else
 		add_to_alive_mob_list()
+	update_incapacitated()
 	set_focus(src)
 	prepare_huds()
 	become_hearing_sensitive()
@@ -494,7 +495,7 @@ GAME_VERB_CONTEXT(/mob, examinate, "Осмотреть", VERB_NO_DESCRIPTION, VE
 
 /mob/living/blind_examine_check(atom/examined_thing)
 	//need to be next to something and awake
-	if(!Adjacent(examined_thing) || incapacitated())
+	if(!Adjacent(examined_thing) || incapacitated)
 		to_chat(src, span_warning("Здесь что-то есть, но вы не можете это разглядеть!"))
 		return FALSE
 
@@ -1198,6 +1199,9 @@ GAME_VERB(/mob/dead/observer, respawn, "Стать животным", VERB_CATEG
 	if(examine_cursor_icon && client.keys_held["Shift"]) //mouse shit is hardcoded, make this non hard-coded once we make mouse modifiers bindable
 		client.mouse_pointer_icon = examine_cursor_icon
 
+	if(scope_pointer_icon)
+		client.mouse_pointer_icon = scope_pointer_icon
+
 	if(client.mouse_override_icon)
 		client.mouse_pointer_icon = client.mouse_override_icon
 
@@ -1449,6 +1453,86 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	return restrict_magic_flags == NONE
 
 /**
+ * Checks to see if the mob can block magic
+ *
+ * args:
+ * * casted_magic_flags (optional) A bitfield with the types of magic resistance being checked (see flags at: /datum/component/anti_magic)
+ * * charge_cost (optional) The cost of charge to block a spell that will be subtracted from the protection used
+**/
+/mob/proc/can_block_magic(casted_magic_flags = MAGIC_RESISTANCE, charge_cost = 1, list/antimagic_sources = null)
+	if(casted_magic_flags == NONE) // magic with the NONE flag is immune to blocking
+		return FALSE
+
+	// A list of all things which are providing anti-magic to us
+	if(!antimagic_sources)
+		antimagic_sources = list()
+	var/is_magic_blocked = FALSE
+
+	if(SEND_SIGNAL(src, COMSIG_MOB_RECEIVE_MAGIC, casted_magic_flags, charge_cost, antimagic_sources) & COMPONENT_BLOCK_MAGIC)
+		is_magic_blocked = TRUE
+	if(HAS_TRAIT(src, TRAIT_ANTIMAGIC))
+		is_magic_blocked = TRUE
+	if((casted_magic_flags & MAGIC_RESISTANCE_HOLY) && HAS_MIND_TRAIT(src, TRAIT_HOLY))
+		is_magic_blocked = TRUE
+
+	if(is_magic_blocked && charge_cost > 0 && !HAS_TRAIT(src, TRAIT_RECENTLY_BLOCKED_MAGIC))
+		on_block_magic_effects(casted_magic_flags, antimagic_sources)
+
+	return is_magic_blocked
+
+/// Blocks magic and returns one source of anti-magic that blocked it.
+/// Returns the mob itself when the protection comes from an anti-magic trait.
+/// Returns FALSE if the magic was not blocked.
+/mob/proc/can_block_magic_and_get_source(casted_magic_flags = MAGIC_RESISTANCE, charge_cost = 1)
+	var/list/antimagic_sources = list()
+	if(!can_block_magic(casted_magic_flags, charge_cost, antimagic_sources))
+		return FALSE
+	return length(antimagic_sources) ? pick(antimagic_sources) : src
+
+/// Called whenever a magic effect with a charge cost is blocked and we haven't recently blocked magic.
+/mob/proc/on_block_magic_effects(magic_flags, list/antimagic_sources)
+	return
+
+/mob/living/on_block_magic_effects(magic_flags, list/antimagic_sources)
+	ADD_TRAIT(src, TRAIT_RECENTLY_BLOCKED_MAGIC, MAGIC_TRAIT)
+	addtimer(TRAIT_CALLBACK_REMOVE(src, TRAIT_RECENTLY_BLOCKED_MAGIC, MAGIC_TRAIT), 6 SECONDS)
+
+	var/mutable_appearance/antimagic_effect
+	var/antimagic_color
+	var/atom/antimagic_source = length(antimagic_sources) ? pick(antimagic_sources) : src
+
+	if(magic_flags & MAGIC_RESISTANCE)
+		visible_message(
+			span_warning("[src] pulses red as [ismob(antimagic_source) ? p_they() : antimagic_source] absorbs magic energy!"),
+			span_userdanger("An intense magical aura pulses around [ismob(antimagic_source) ? "you" : antimagic_source] as it dissipates into the air!"),
+		)
+		antimagic_effect = mutable_appearance('icons/effects/effects.dmi', "shield-red", MOB_SHIELD_LAYER)
+		antimagic_color = LIGHT_COLOR_BLOOD_MAGIC
+		playsound(src, 'sound/effects/magic_block.ogg', 50, TRUE)
+
+	else if(magic_flags & MAGIC_RESISTANCE_HOLY)
+		visible_message(
+			span_warning("[src] starts to glow as [ismob(antimagic_source) ? p_they() : antimagic_source] emits a halo of light!"),
+			span_userdanger("A feeling of warmth washes over [ismob(antimagic_source) ? "you" : antimagic_source] as rays of light surround your body and protect you!"),
+		)
+		antimagic_effect = mutable_appearance('icons/effects/genetics.dmi', "servitude", -MUTATIONS_LAYER)
+		antimagic_color = LIGHT_COLOR_HOLY_MAGIC
+		playsound(src, 'sound/effects/magic_block_holy.ogg', 50, TRUE)
+
+	else if(magic_flags & MAGIC_RESISTANCE_MIND)
+		visible_message(
+			span_warning("[src] forehead shines as [ismob(antimagic_source) ? p_they() : antimagic_source] repulses magic from their mind!"),
+			span_userdanger("A feeling of cold splashes on [ismob(antimagic_source) ? "you" : antimagic_source] as your forehead reflects magic usering your mind!"),
+		)
+		antimagic_effect = mutable_appearance('icons/effects/genetics.dmi', "telekinesishead_s", MOB_SHIELD_LAYER)
+		antimagic_color = LIGHT_COLOR_DARK_BLUE
+		playsound(src, 'sound/effects/magic_block_mind.ogg', 50, TRUE)
+
+	mob_light(range = 2, power = 2, color = antimagic_color, duration = 5 SECONDS)
+	add_overlay(antimagic_effect)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, cut_overlay), antimagic_effect), 5 SECONDS)
+
+/**
  * Checks if there is enough light where the mob is located
  *
  * Args:
@@ -1483,3 +1567,19 @@ GAME_VERB(/mob, reset_ui_positions_for_mob, "Reset UI Positions", VERB_CATEGORY_
 /mob/key_down(key, client/client, full_key)
 	..()
 	SEND_SIGNAL(src, COMSIG_MOB_KEYDOWN, key, client, full_key)
+
+/// Called whenever anything that modifes incapacitated is ran, updates it and sends a signal if it changes
+/// Returns TRUE if anything changed, FALSE otherwise
+/mob/proc/update_incapacitated()
+	SIGNAL_HANDLER
+	var/old_incap = incapacitated
+	incapacitated = build_incapacitated()
+	if(old_incap == incapacitated)
+		return FALSE
+
+	SEND_SIGNAL(src, COMSIG_MOB_INCAPACITATE_CHANGED, old_incap, incapacitated)
+	return TRUE
+
+/// Returns an updated incapacitated bitflag. If a flag is set it means we're incapacitated in that case
+/mob/proc/build_incapacitated()
+	return NONE

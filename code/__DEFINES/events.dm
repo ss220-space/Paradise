@@ -57,7 +57,7 @@
 #define EVENT_SPACEVINE "Космолоза"
 #define EVENT_SPIDER_INFESTATION "Нашествие пауков"
 #define EVENT_STANDARD_NEWS "Обычные новости"
-#define EVENT_SWARMERS "Спавн свармеров"
+#define EVENT_SWARMERS "Свармеры"
 #define EVENT_TELECOMMS_MALFUNCTION "Телекоммуникационный сбой"
 #define EVENT_TERROR_SPIDER "Пауки Ужаса"
 #define EVENT_TRADERS "Торговцы"
@@ -66,6 +66,7 @@
 #define EVENT_WALL_FUNGUS "Стенной грибок"
 #define EVENT_WORMHOLES "Червоточины"
 #define EVENT_XENOMORPH_INFESTATION "Заражение ксеноморфами"
+#define EVENT_ZOMBIE "Капсула с зомби"
 
 // Events from bluespace rift scanner(BRS) station goal
 #define EVENT_BRS_TELEPORT_LIVINGS "Телепортация живых"

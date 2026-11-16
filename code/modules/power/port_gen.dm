@@ -22,6 +22,9 @@
 	. = ..()
 	soundloop = new(src, active)
 
+/obj/machinery/power/port_gen/should_have_node()
+	return anchored
+
 /obj/machinery/power/port_gen/Destroy()
 	QDEL_NULL(soundloop)
 	return ..()
@@ -73,13 +76,14 @@
 			. += span_notice("The generator is off.")
 
 /obj/machinery/power/port_gen/emp_act(severity)
+	. = ..()
 	var/duration = 6000 //ten minutes
 	switch(severity)
-		if(1)
+		if(EMP_HEAVY)
 			stat &= BROKEN
 			if(prob(75))
 				explode()
-		if(2)
+		if(EMP_LIGHT)
 			if(prob(25))
 				stat &= BROKEN
 			if(prob(10))

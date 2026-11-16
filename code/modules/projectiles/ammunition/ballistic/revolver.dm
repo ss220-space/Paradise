@@ -32,12 +32,6 @@
 /obj/item/ammo_casing/c38/invisible/fake
 	projectile_type = /obj/projectile/bullet/weakbullet2/invisible/fake
 
-// MARK: .36
-/obj/item/ammo_casing/c38/c36
-	ammo_marking = ".36"
-	caliber = CALIBER_DOT_36
-	projectile_type = /obj/projectile/bullet/midbullet2
-
 // MARK: 7.62x38mm
 /obj/item/ammo_casing/n762
 	ammo_marking = "7.62x38 мм"
@@ -67,3 +61,43 @@
 	ammo_marking = ".257 \"Фосфор\""
 	icon_state = "rev-phosphor-casing"
 	projectile_type = /obj/projectile/bullet/weakbullet3/c257/phosphorus
+
+/obj/item/ammo_casing/pea
+	name = "pea bullet casing"
+	desc = "Причудливая гороховая пуля."
+	projectile_type = /obj/projectile/bullet/midbullet3/pea
+	icon_state = "pea"
+	/// Damage we achieve at 100 potency
+	var/max_damage = 25
+	/// Damage set by the plant
+	var/damage = 25 //max potency, is set
+
+/obj/item/ammo_casing/pea/get_ru_names()
+	return alist(
+		NOMINATIVE = "гильза гороховой пули",
+		GENITIVE = "гильзы гороховой пули",
+		DATIVE = "гильзе гороховой пули",
+		ACCUSATIVE = "гильзу гороховой пули",
+		INSTRUMENTAL = "гильзой гороховой пули",
+		PREPOSITIONAL = "гильзе гороховой пули",
+	)
+
+/obj/item/ammo_casing/pea/Initialize(mapload)
+	. = ..()
+	create_reagents(60)
+
+/obj/item/ammo_casing/pea/ready_proj(atom/target, mob/living/user, quiet, zone_override, atom/fired_from)
+	. = ..()
+	if(isnull(BB))
+		return
+	BB.damage = damage
+
+/obj/item/ammo_casing/pea/attack_self(mob/user)
+	. = ..()
+	if(isnull(BB))
+		return
+	var/obj/item/reagent_containers/food/snacks/grown/peas/peas = new(user.drop_location())
+	user.put_in_hands(peas)
+	to_chat(user, span_notice("Вы отделяете [peas.declent_ru(ACCUSATIVE)] от [declent_ru(GENITIVE)]."))
+	BB = null
+	update_appearance()

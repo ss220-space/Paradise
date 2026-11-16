@@ -27,6 +27,7 @@
 	return cell
 
 /obj/item/gun/throw/crossbow/emp_act(severity)
+	. = ..()
 	if(cell && severity)
 		cell.emp_act(severity)
 
@@ -93,7 +94,7 @@
 		draw(user)
 
 /obj/item/gun/throw/crossbow/proc/draw(mob/living/user)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 	if(!to_launch)
 		balloon_alert(user, "отсутствует болт!")
@@ -143,10 +144,10 @@
 
 GAME_VERB_SRC(/obj/item/gun/throw/crossbow, set_tension, usr, "Регулировка натяжения", VERB_CATEGORY_HIDDEN)
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	var/choice = tgui_input_list(usr, "Select tension to draw to:", "[src]", possible_tensions, XBOW_TENSION_FULL)
-	if(!choice || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(!choice || usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	switch(choice)

@@ -22,7 +22,7 @@
 			return .
 		to_chat(user, span_notice("Вы сканируете \"[target_headset.name]\" и копируете доступные в нём каналы в память вашего собственного наушника."))
 		LAZYINITLIST(scanned_channels)
-		scanned_channels |= target_headset.channels
+		scanned_channels |= target_headset.get_base_channels()
 		if(target_headset.syndiekey)
 			to_chat(user, span_notice("\"[target_headset.name]\" способен прослушивать все частоты станции! Джекпот!"))
 			make_syndie()

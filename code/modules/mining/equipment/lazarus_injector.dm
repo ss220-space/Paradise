@@ -10,7 +10,7 @@
 	throw_speed = 3
 	throw_range = 5
 	var/loaded = TRUE
-	var/malfunctioning = 0
+	var/malfunctioning = FALSE
 	var/revive_type = SENTIENCE_ORGANIC //So you can't revive boss monsters or robots with it
 
 /obj/item/lazarus_injector/get_ru_names()
@@ -64,13 +64,14 @@
 /obj/item/lazarus_injector/emag_act(mob/user)
 	if(!malfunctioning)
 		add_attack_logs(user, src, "emagged")
-		malfunctioning = 1
+		malfunctioning = TRUE
 		if(user)
 			balloon_alert(user, "протоколы защиты сняты!")
 
 /obj/item/lazarus_injector/emp_act()
+	. = ..()
 	if(!malfunctioning)
-		malfunctioning = 1
+		malfunctioning = TRUE
 
 /obj/item/lazarus_injector/examine(mob/user)
 	. = ..()

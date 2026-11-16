@@ -77,6 +77,7 @@
 		loaded_projectiles -= to_launch
 
 /obj/item/gun/throw/can_shoot(mob/user)
+	. = ..()
 	return to_launch
 
 /obj/item/gun/throw/process_fire(zone_override, secondary_fire = FALSE)

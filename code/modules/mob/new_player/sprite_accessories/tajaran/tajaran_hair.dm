@@ -1,4 +1,5 @@
 /datum/sprite_accessory/hair/tajara
+	abstract_type = /datum/sprite_accessory/hair/tajara
 	icon = 'icons/mob/sprite_accessories/tajaran/tajaran_hair.dmi'
 	species_allowed = list(SPECIES_TAJARAN)
 	glasses_over = TRUE

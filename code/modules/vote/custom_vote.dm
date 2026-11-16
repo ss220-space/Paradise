@@ -2,8 +2,8 @@
 #define MAX_CUSTOM_VOTE_OPTIONS 10
 
 /datum/vote/custom_vote
-	name = "Custom"
-	default_message = "Click here to start a custom vote."
+	name = "Своё"
+	default_message = "Нажмите здесь, чтобы создать своё голосование."
 
 // Custom votes ares always accessible.
 /datum/vote/custom_vote/is_accessible_vote()
@@ -24,32 +24,32 @@
 
 	// Custom votes can only be created if they're forced to be made.
 	// (Either an admin makes it, or otherwise.)
-	return "Only admins can create custom votes."
+	return "Только администраторы могут создавать такие голосования."
 
 /datum/vote/custom_vote/create_vote(mob/vote_creator)
 	var/custom_count_method = tgui_input_list(
 		user = vote_creator,
-		message = "Single or multiple choice?",
-		title = "Choice Method",
-		items = list("Single", "Multiple"),
-		default = "Single",
+		message = "Один вариант или несколько?",
+		title = "Способ подсчёта",
+		items = list("Один", "Несколько"),
+		default = "Один",
 	)
 	switch(custom_count_method)
-		if("Single")
+		if("Один")
 			count_method = VOTE_COUNT_METHOD_SINGLE
-		if("Multiple")
+		if("Несколько")
 			count_method = VOTE_COUNT_METHOD_MULTI
 		if(null)
 			return FALSE
 		else
 			stack_trace("Got '[custom_count_method]' in create_vote() for custom voting.")
-			to_chat(vote_creator, span_boldwarning("Unknown choice method. Contact a coder."))
+			to_chat(vote_creator, span_boldwarning("Неизвестный способ подсчёта. Сообщите кодеру."))
 			return FALSE
 
 	var/custom_win_method = tgui_input_list(
 		user = vote_creator,
-		message = "How should the vote winner be determined?",
-		title = "Winner Method",
+		message = "Как определить победителя?",
+		title = "Способ определения победителя",
 		items = list(VOTE_WINNER_METHOD_SIMPLE, VOTE_WINNER_METHOD_WEIGHTED_RANDOM, VOTE_WINNER_METHOD_NONE),
 		default = VOTE_WINNER_METHOD_SIMPLE,
 	)
@@ -64,46 +64,46 @@
 			return FALSE
 		else
 			stack_trace("Got '[custom_win_method]' in create_vote() for custom voting.")
-			to_chat(vote_creator, span_boldwarning("Unknown winner method. Contact a coder."))
+			to_chat(vote_creator, span_boldwarning("Неизвестный способ определения победителя. Сообщите кодеру."))
 			return FALSE
 
 	var/display_stats = tgui_alert(
 		vote_creator,
-		"Should voting statistics be public?",
-		"Show voting stats?",
-		list("Yes", "No"),
+		"Показывать статистику голосования?",
+		"Статистика голосования",
+		list("Да", "Нет"),
 	)
 
 	if(isnull(display_stats))
 		return FALSE
-	display_statistics = display_stats == "Yes"
+	display_statistics = display_stats == "Да"
 
 	if(!display_statistics)
 		var/set_print_result = tgui_alert(
 			vote_creator,
-			"Should the vote tally be public after the vote is concluded?",
-			"Print vote tally after vote?",
-			list("Yes", "No"),
+			"Показать итоги после окончания голосования?",
+			"Итоги после голосования",
+			list("Да", "Нет"),
 		)
 
 		if(isnull(set_print_result))
 			return FALSE
 
-		print_results = set_print_result == "Yes"
+		print_results = set_print_result == "Да"
 
-	override_question = tgui_input_text(vote_creator, "What is the vote for?", "Custom Vote")
+	override_question = tgui_input_text(vote_creator, "За что голосование?", "Своё голосование")
 	if(!override_question)
 		return FALSE
 
 	default_choices = list()
 	for(var/i in 1 to MAX_CUSTOM_VOTE_OPTIONS)
-		var/option = tgui_input_text(vote_creator, "Please enter an option, or hit cancel to finish. [MAX_CUSTOM_VOTE_OPTIONS] max.", "Options", max_length = MAX_NAME_LEN)
+		var/option = tgui_input_text(vote_creator, "Введите вариант или нажмите отмена, чтобы завершить. Максимум [MAX_CUSTOM_VOTE_OPTIONS].", "Варианты", max_length = MAX_NAME_LEN)
 		if(!vote_creator?.client)
 			return FALSE
 		if(!option)
 			break
 
-		default_choices += capitalize(option)
+		default_choices += option
 
 	if(!length(default_choices))
 		return FALSE

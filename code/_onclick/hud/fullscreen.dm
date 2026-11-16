@@ -246,9 +246,9 @@
 	var/mob/owner
 	/// Client view size of the scoping mob.
 	var/list/view_list
-	/// Pixel x we send to the scope component.
+	/// Pixel x relative to the hovered tile we send to the scope component.
 	var/given_x
-	/// Pixel y we send to the scope component.
+	/// Pixel y relative to the hovered tile we send to the scope component.
 	var/given_y
 	/// The turf we send to the scope component.
 	var/turf/given_turf
@@ -260,6 +260,7 @@
 	src.owner = owner
 	view_list = getviewsize(owner.client.view)
 	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
+	RegisterSignal(owner, COMSIG_VIEWDATA_UPDATE, PROC_REF(on_viewdata_update))
 	calculate_params()
 
 /// Update when the mob we're assigned to has moved
@@ -272,6 +273,12 @@
 	var/y_offset = source.loc.y - oldloc.y
 	given_turf = locate(given_turf.x + x_offset, given_turf.y + y_offset, given_turf.z)
 
+/// Update when our screen size changes
+/atom/movable/screen/fullscreen/cursor_catcher/proc/on_viewdata_update(datum/source, view)
+	SIGNAL_HANDLER
+
+	view_list = getviewsize(view)
+
 /atom/movable/screen/fullscreen/cursor_catcher/MouseEntered(location, control, params)
 	. = ..()
 	MouseMove(location, control, params)
@@ -283,19 +290,23 @@
 		return
 	mouse_params = params
 
+/atom/movable/screen/fullscreen/cursor_catcher/proc/calculate_params()
+	var/list/modifiers = params2list(mouse_params)
+	var/icon_x = text2num(LAZYACCESS(modifiers, VIS_X))
+	if(isnull(icon_x))
+		icon_x = text2num(LAZYACCESS(modifiers, ICON_X))
+	var/icon_y = text2num(LAZYACCESS(modifiers, VIS_Y))
+	if(isnull(icon_y))
+		icon_y = text2num(LAZYACCESS(modifiers, ICON_Y))
+	var/our_x = round(icon_x / ICON_SIZE_X)
+	var/our_y = round(icon_y / ICON_SIZE_Y)
+	given_turf = locate(owner.x + our_x - round(view_list[1]/2), owner.y + our_y - round(view_list[2]/2), owner.z)
+	given_x = round(icon_x - ICON_SIZE_X * our_x, 1)
+	given_y = round(icon_y - ICON_SIZE_Y * our_y, 1)
+
 /atom/movable/screen/fullscreen/fullyblack
 	icon_state = "fullyblack"
 	layer = BLIND_LAYER
-
-/atom/movable/screen/fullscreen/cursor_catcher/proc/calculate_params()
-	var/list/modifiers = params2list(mouse_params)
-	var/icon_x = text2num(modifiers[ICON_X])
-	var/icon_y = text2num(modifiers[ICON_Y])
-	var/our_x = round(icon_x / ICON_SIZE_X)
-	var/our_y = round(icon_y /ICON_SIZE_Y)
-	given_turf = locate(owner.x + our_x - round(view_list[1] / 2), owner.y + our_y - round(view_list[2] / 2), owner.z)
-	given_x = round(icon_x - ICON_SIZE_X * our_x, 1)
-	given_y = round(icon_y - ICON_SIZE_Y * our_y, 1)
 
 #undef FULLSCREEN_LAYER
 #undef BLIND_LAYER

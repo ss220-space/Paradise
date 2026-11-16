@@ -628,7 +628,7 @@
 		user.balloon_alert(user, "неподходящая раса!")
 		return SURGERY_BEGINSTEP_SKIP
 
-	if(!target.dna.species.has_organ["brain"])
+	if(!target.dna.species.has_organ[INTERNAL_ORGAN_BRAIN])
 		user.balloon_alert(user, "неподходящая раса!")
 		return SURGERY_BEGINSTEP_SKIP
 
@@ -730,7 +730,7 @@
 		return SURGERY_STEP_INCOMPLETE
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	affected.robotize(company = chosen_appearance, convert_all = FALSE)
-	if(istype(affected, /obj/item/organ/external/head))
+	if(ishead(affected))
 		var/obj/item/organ/external/head/head = affected
 		head.h_style = "Bald" // nearly all the appearance changes for heads are non-monitors; we want to get rid of a floating screen
 		target.update_hair()

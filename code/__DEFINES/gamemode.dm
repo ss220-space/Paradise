@@ -89,3 +89,5 @@
 #define SPECIAL_ROLE_BINGLE_LORD "Bingle Lord"
 #define SPECIAL_ROLE_BINGLE "Bingle"
 #define SPECIAL_ROLE_SERVANT "Servant"
+#define SPECIAL_ROLE_SWARMER "Swarmer"
+#define SPECIAL_ROLE_ZOMBIE "Zombie"

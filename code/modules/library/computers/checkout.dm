@@ -1,3 +1,4 @@
+#define BIBLE_COOLDOWN 1 MINUTES
 /*
  * Library Computer
  */
@@ -13,7 +14,7 @@
 	var/checkoutperiod = 5 // In minutes
 	var/obj/machinery/libraryscanner/scanner // Book scanner that will be used when uploading books to the Archive
 
-	var/bibledelay = 0 // LOL NO SPAM (1 minute delay) -- Doohl
+	COOLDOWN_DECLARE(bibledelay)
 	var/booklist
 
 /obj/machinery/computer/library/checkout/get_ru_names()
@@ -46,7 +47,7 @@
 				<li><a href='byond://?src=[UID()];switchscreen=3'>Check out a Book</a></li>
 				<li><a href='byond://?src=[UID()];switchscreen=4'>Connect to External Archive</a></li>
 				<li><a href='byond://?src=[UID()];switchscreen=5'>Upload New Title to Archive</a></li>
-				<li><a href='byond://?src=[UID()];switchscreen=6'>Print a Bible</a></li>
+				<li><a href='byond://?src=[UID()];switchscreen=6'>Print a Bible Copy</a></li>
 				<li><a href='byond://?src=[UID()];switchscreen=7'>Print a Manual</a></li>"}
 			if(src.emagged)
 				dat += "<li><a href='byond://?src=[UID()];switchscreen=8'>Access the Forbidden Lore Vault</a></li>"
@@ -336,19 +337,15 @@
 			if("5")
 				screenstate = 5
 			if("6")
-				if(!bibledelay)
+				if(!COOLDOWN_FINISHED(src, bibledelay))
 
-					var/obj/item/storage/bible/B = new /obj/item/storage/bible(src.loc)
+					var/obj/item/storage/bible/B = new /obj/item/storage/bible/copy(src.loc)
 					if(SSticker && ( SSticker.Bible_icon_state && SSticker.Bible_item_state))
 						B.icon_state = SSticker.Bible_icon_state
 						B.item_state = SSticker.Bible_item_state
 						B.name = SSticker.Bible_name
 						B.deity_name = SSticker.Bible_deity_name
-
-					bibledelay = 1
-					spawn(60)
-						bibledelay = 0
-
+					COOLDOWN_START(src, bibledelay, BIBLE_COOLDOWN)
 				else
 					visible_message("<b>[src]</b>'s monitor flashes, \"Bible printer currently unavailable, please wait a moment.\"")
 
@@ -488,3 +485,5 @@
 		B.icon_state = "book[rand(1,16)]"
 		B.has_drm = TRUE
 	visible_message("[src]'s printer hums as it produces a completely bound book. How did it do that?")
+
+#undef BIBLE_COOLDOWN

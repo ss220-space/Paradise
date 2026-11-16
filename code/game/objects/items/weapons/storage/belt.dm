@@ -43,12 +43,12 @@
 /obj/item/storage/belt/Initialize(mapload)
 	. = ..()
 	if(dynamic_storage_size)
-		AddComponent(/datum/component/differentiate_storage_size, WEIGHT_CLASS_BULKY)
+		AddComponent(/datum/component/differentiate_storage_size, storage_with_item_size)
 
 /obj/item/storage/belt/proc/check_menu(mob/living/user)
 	if(!istype(user))
 		return FALSE
-	if(user.incapacitated() || !user.Adjacent(src))
+	if(user.incapacitated || !user.Adjacent(src))
 		return FALSE
 	return TRUE
 
@@ -485,7 +485,7 @@
 
 
 /obj/item/storage/belt/security/webbing/CtrlClick(mob/user)
-	if(!IsReachableBy(user) || user.incapacitated())
+	if(!IsReachableBy(user) || user.incapacitated)
 		return ..()
 	for(var/obj/item/ammo_box/magazine/magazine in contents)
 		user.put_in_active_hand(magazine)
@@ -544,6 +544,7 @@
 	can_hold = list(/obj/item/ammo_box/magazine)
 	custom_price = PAYCHECK_MAX
 	fast_reload_delay = 2 SECONDS
+	dynamic_storage_size = FALSE
 
 /obj/item/storage/belt/security/webbing/pouch/get_ru_names()
 	return alist(
@@ -676,6 +677,10 @@
 /obj/item/storage/belt/grenade/frag/populate_contents()
 	for(var/I in 1 to 4)
 		new /obj/item/grenade/frag(src)
+
+/obj/item/storage/belt/grenade/frag/contact/populate_contents()
+	for(var/I in 1 to 4)
+		new /obj/item/grenade/frag/contact(src)
 
 /obj/item/storage/belt/grenade/demolitionist/populate_contents()
 	for(var/I in 1 to 5)
@@ -1010,7 +1015,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.incapacitated())
+	if(H.incapacitated)
 		return
 
 	if(length(contents))
@@ -1402,7 +1407,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.incapacitated())
+	if(H.incapacitated)
 		return
 
 	if(length(contents))
@@ -1424,3 +1429,30 @@
 	playsound(src, unsheath_sound, 20)
 
 #undef ALLOWED_TOOL_BELT_ITEMS
+
+/obj/item/storage/belt/plague_talisman
+	name = "Runic Belt"
+	desc = "Пояс, предназначенный для безопасного хранения чумных талисманов. Лучше надеяться, что он не начнёт протекать..."
+	icon_state = "soulstonebelt"
+	item_state = "soulstonebelt"
+	storage_slots = 5
+	use_item_overlays = TRUE
+	can_hold = list(
+		/obj/item/plague_talisman,
+	)
+
+/obj/item/storage/belt/plague_talisman/get_ru_names()
+	return alist(
+		NOMINATIVE = "рунический пояс",
+		GENITIVE = "рунического пояса",
+		DATIVE = "руническому поясу",
+		ACCUSATIVE = "рунический пояс",
+		INSTRUMENTAL = "руническим поясом",
+		PREPOSITIONAL = "руническом поясе",
+	)
+
+/obj/item/storage/belt/plague_talisman/populate_contents()
+	for(var/count in 1 to storage_slots)
+		new /obj/item/plague_talisman(src)
+	update_icon()
+

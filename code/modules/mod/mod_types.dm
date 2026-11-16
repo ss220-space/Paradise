@@ -39,6 +39,7 @@
 		default_pins -= old_module
 
 /obj/item/mod/control/pre_equipped/standard
+	name = "MOD control unit standard"
 	theme = /datum/mod_theme/civilian
 	applied_modules = list(
 		/obj/item/mod/module/storage,
@@ -47,6 +48,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/engineering
+	name = "MOD control unit engineering"
 	theme = /datum/mod_theme/engineering
 	applied_modules = list(
 		/obj/item/mod/module/storage,
@@ -63,6 +65,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/atmospheric
+	name = "MOD control unit atmospheric"
 	theme = /datum/mod_theme/atmospheric
 	applied_modules = list(
 		/obj/item/mod/module/storage,
@@ -80,6 +83,7 @@
 
 
 /obj/item/mod/control/pre_equipped/advanced
+	name = "MOD control unit advanced"
 	theme = /datum/mod_theme/advanced
 	applied_cell = /obj/item/stock_parts/cell/super
 	applied_modules = list(
@@ -99,6 +103,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/loader
+	name = "MOD control unit loader"
 	theme = /datum/mod_theme/loader
 	applied_modules = list(
 		/obj/item/mod/module/storage/large_capacity,
@@ -113,6 +118,7 @@
 
 
 /obj/item/mod/control/pre_equipped/mining
+	name = "MOD control unit mining"
 	theme = /datum/mod_theme/mining
 	applied_core = /obj/item/mod/core/plasma
 	applied_modules = list(
@@ -129,6 +135,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/mining/vendor //visit robotics.
+	name = "MOD control unit mining vendor"
 	applied_modules = list(
 		/obj/item/mod/module/storage,
 	)
@@ -138,9 +145,11 @@
 
 
 /obj/item/mod/control/pre_equipped/mining/asteroid //The asteroid skin, as that one looks more space worthy / older. Good for space ruins.
+	name = "MOD control unit mining asteroid"
 	applied_skin = "asteroid"
 
 /obj/item/mod/control/pre_equipped/medical
+	name = "MOD control unit medical"
 	theme = /datum/mod_theme/medical
 	applied_modules = list(
 		/obj/item/mod/module/storage,
@@ -151,6 +160,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/rescue
+	name = "MOD control unit rescue"
 	theme = /datum/mod_theme/rescue
 	applied_cell = /obj/item/stock_parts/cell/super
 	applied_modules = list(
@@ -170,6 +180,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/research
+	name = "MOD control unit research"
 	theme = /datum/mod_theme/research
 	applied_cell = /obj/item/stock_parts/cell/super
 	applied_modules = list(
@@ -183,6 +194,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/security
+	name = "MOD control unit security"
 	theme = /datum/mod_theme/security
 	applied_modules = list(
 		/obj/item/mod/module/storage,
@@ -198,6 +210,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/brig_pilot
+	name = "MOD control unit brig pilot"
 	theme = /datum/mod_theme/brig_pilot
 	applied_modules = list(
 		/obj/item/mod/module/storage,
@@ -213,6 +226,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/safeguard_mk_one
+	name = "MOD control unit safeguard mk one"
 	theme = /datum/mod_theme/safeguard_mk_one
 	applied_modules = list(
 		/obj/item/mod/module/storage,
@@ -230,6 +244,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/safeguard_mk_two
+	name = "MOD control unit safeguard mk two"
 	theme = /datum/mod_theme/safeguard_mk_two
 	applied_cell = /obj/item/stock_parts/cell/super
 	applied_modules = list(
@@ -248,6 +263,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/brigmed
+	name = "MOD control unit brigmed"
 	theme = /datum/mod_theme/security_medical
 	applied_cell = /obj/item/stock_parts/cell/super
 	applied_modules = list(
@@ -266,6 +282,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/magnate
+	name = "MOD control unit magnate"
 	theme = /datum/mod_theme/magnate
 	applied_cell = /obj/item/stock_parts/cell/hyper
 	applied_modules = list(
@@ -282,6 +299,7 @@
 	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|ACID_PROOF // Theft targets should be hard to destroy
 
 /obj/item/mod/control/pre_equipped/praetorian
+	name = "MOD control unit praetorian"
 	theme = /datum/mod_theme/praetorian
 	applied_cell = /obj/item/stock_parts/cell/super
 	applied_modules = list(
@@ -296,6 +314,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/cosmohonk
+	name = "MOD control unit cosmohonk"
 	theme = /datum/mod_theme/cosmohonk
 	applied_modules = list(
 		/obj/item/mod/module/storage,
@@ -309,6 +328,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/traitor
+	name = "MOD control unit traitor"
 	theme = /datum/mod_theme/syndicate
 	applied_cell = /obj/item/stock_parts/cell/super
 	applied_modules = list(
@@ -331,6 +351,7 @@
 	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(bag)
 
 /obj/item/mod/control/pre_equipped/traitor_elite
+	name = "MOD control unit traitor elite"
 	theme = /datum/mod_theme/elite
 	applied_cell = /obj/item/stock_parts/cell/hyper
 	applied_modules = list(
@@ -353,6 +374,7 @@
 	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(bag)
 
 /obj/item/mod/control/pre_equipped/nuclear
+	name = "MOD control unit nuclear"
 	theme = /datum/mod_theme/syndicate
 	applied_cell = /obj/item/stock_parts/cell/hyper
 	req_access = list(ACCESS_SYNDICATE)
@@ -373,6 +395,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/elite
+	name = "MOD control unit elite"
 	theme = /datum/mod_theme/elite
 	applied_cell = /obj/item/stock_parts/cell/bluespace
 	req_access = list(ACCESS_SYNDICATE)
@@ -394,6 +417,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/prototype
+	name = "MOD control unit prototype"
 	theme = /datum/mod_theme/prototype
 	req_access = list()
 	applied_modules = list(
@@ -409,6 +433,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/responsory
+	name = "MOD control unit responsory"
 	theme = /datum/mod_theme/responsory
 	applied_cell = /obj/item/stock_parts/cell/hyper
 	req_access = list(ACCESS_CENT_GENERAL)
@@ -441,34 +466,42 @@
 	return ..()
 
 /obj/item/mod/control/pre_equipped/responsory/commander
+	name = "MOD control unit responsory commander"
 	insignia_type = /obj/item/mod/module/insignia/commander
 	additional_module = /obj/item/mod/module/power_kick
 
 /obj/item/mod/control/pre_equipped/responsory/security
+	name = "MOD control unit responsory security"
 	insignia_type = /obj/item/mod/module/insignia/security
 	additional_module = /obj/item/mod/module/anomaly_locked/firewall/prebuilt //Defence and flaming hot offence. Good for reflective blob, xenos, antagonists with guns
 
 /obj/item/mod/control/pre_equipped/responsory/engineer
+	name = "MOD control unit responsory engineer"
 	insignia_type = /obj/item/mod/module/insignia/engineer
 	additional_module = /obj/item/mod/module/anomaly_locked/kinesis/prebuilt //This can only end well.
 
 /obj/item/mod/control/pre_equipped/responsory/medic
+	name = "MOD control unit responsory medic"
 	insignia_type = /obj/item/mod/module/insignia/medic
 	additional_module =  list(/obj/item/mod/module/defibrillator, /obj/item/mod/module/medbeam)
 
 /obj/item/mod/control/pre_equipped/responsory/janitor
+	name = "MOD control unit responsory janitor"
 	insignia_type = /obj/item/mod/module/insignia/janitor
 	additional_module = list(/obj/item/mod/module/clamp, /obj/item/mod/module/boot_heating)
 
 /obj/item/mod/control/pre_equipped/responsory/clown
+	name = "MOD control unit responsory clown"
 	insignia_type = /obj/item/mod/module/insignia/clown
 	additional_module = /obj/item/mod/module/bikehorn
 
 /obj/item/mod/control/pre_equipped/responsory/chaplain
+	name = "MOD control unit responsory chaplain"
 	insignia_type = /obj/item/mod/module/insignia/chaplain
 	additional_module = /obj/item/mod/module/power_kick
 
 /obj/item/mod/control/pre_equipped/responsory/inquisitory //Used in gamma ERT.
+	name = "MOD control unit responsory inquisitory"
 	applied_skin = "inquisitory"
 	theme = /datum/mod_theme/gamma_responsory
 	applied_modules = list(
@@ -491,22 +524,27 @@
 	)
 
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/commander
+	name = "MOD control unit responsory inquisitory commander"
 	insignia_type = /obj/item/mod/module/insignia/commander
 	additional_module = /obj/item/mod/module/power_kick
 
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/security
+	name = "MOD control unit responsory inquisitory security"
 	insignia_type = /obj/item/mod/module/insignia/security
 	additional_module = /obj/item/mod/module/anomaly_locked/firewall/prebuilt
 
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/medic
+	name = "MOD control unit responsory inquisitory medic"
 	insignia_type = /obj/item/mod/module/insignia/medic
 	additional_module =  list(/obj/item/mod/module/defibrillator, /obj/item/mod/module/medbeam)
 
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/chaplain
+	name = "MOD control unit responsory inquisitory chaplain"
 	insignia_type = /obj/item/mod/module/insignia/chaplain
 	additional_module = /obj/item/mod/module/power_kick
 
 /obj/item/mod/control/pre_equipped/apocryphal
+	name = "MOD control unit apocryphal"
 	theme = /datum/mod_theme/apocryphal
 	applied_cell = /obj/item/stock_parts/cell/bluespace
 	req_access = list(ACCESS_CENT_SPECOPS)
@@ -532,6 +570,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/apocryphal/officer
+	name = "MOD control unit apocryphal officer"
 	applied_modules = list(
 		/obj/item/mod/module/storage/bluespace,
 		/obj/item/mod/module/welding,
@@ -551,6 +590,7 @@
 
 
 /obj/item/mod/control/pre_equipped/corporate
+	name = "MOD control unit corporate"
 	theme = /datum/mod_theme/corporate
 	applied_core = /obj/item/mod/core/infinite
 	req_access = list(ACCESS_CENT_SPECOPS)
@@ -574,6 +614,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/debug
+	name = "MOD control unit debug"
 	theme = /datum/mod_theme/debug
 	applied_core = /obj/item/mod/core/infinite
 	applied_modules = list(
@@ -597,6 +638,7 @@
 	activation_step_time = 0.1 SECONDS // coders are cooler than admins
 
 /obj/item/mod/control/pre_equipped/administrative
+	name = "MOD control unit administrative"
 	theme = /datum/mod_theme/administrative
 	applied_core = /obj/item/mod/core/infinite
 	applied_modules = list(
@@ -617,6 +659,7 @@
 	)
 
 /obj/item/mod/control/pre_equipped/safeguard_mk_two/gamma
+	name = "MOD control unit safeguard mk two gamma"
 	applied_cell = /obj/item/stock_parts/cell/hyper
 	applied_modules = list(
 		/obj/item/mod/module/storage/large_capacity,
@@ -633,22 +676,28 @@
 
 //these exist for the prefs menu
 /obj/item/mod/control/pre_equipped/empty
+	name = "MOD control unit empty"
 
 /obj/item/mod/control/pre_equipped/empty/syndicate
+	name = "MOD control unit empty syndicate"
 	theme = /datum/mod_theme/syndicate
 
 /obj/item/mod/control/pre_equipped/empty/syndicate/honkerative
+	name = "MOD control unit empty syndicate honkerative"
 	applied_skin = "honkerative"
 
 /obj/item/mod/control/pre_equipped/empty/elite
+	name = "MOD control unit empty elite"
 	theme = /datum/mod_theme/elite
 
 /obj/item/mod/control/pre_equipped/empty/contractor
+	name = "MOD control unit empty contractor"
 	theme = /datum/mod_theme/contractor
 
 INITIALIZE_IMMEDIATE(/obj/item/mod/control/pre_equipped/empty)
 
 /obj/item/mod/control/pre_equipped/contractor
+	name = "MOD control unit contractor"
 	theme = /datum/mod_theme/contractor
 	applied_cell = /obj/item/stock_parts/cell/hyper
 	applied_modules = list(
@@ -666,6 +715,7 @@ INITIALIZE_IMMEDIATE(/obj/item/mod/control/pre_equipped/empty)
 	)
 
 /obj/item/mod/control/pre_equipped/contractor/upgraded //for future midround contractor
+	name = "MOD control unit contractor upgraded"
 	applied_cell = /obj/item/stock_parts/cell/bluespace
 	applied_modules = list(
 		/obj/item/mod/module/baton_holster,

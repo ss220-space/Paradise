@@ -43,7 +43,7 @@
 	growing_icon = 'icons/obj/hydroponics/growing_vegetables.dmi'
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/replicapod)
-	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.1)
+	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment/plantmatter = 0.1)
 
 /obj/item/reagent_containers/food/snacks/grown/cabbage
 	seed = /obj/item/seeds/cabbage
@@ -69,7 +69,7 @@
 	maturation = 3
 	yield = 4
 	growthstages = 3
-	reagents_add = list("sugar" = 0.25)
+	reagents_add = list(/datum/reagent/consumable/sugar = 0.25)
 	mutatelist = list(/obj/item/seeds/bamboo)
 
 /obj/item/reagent_containers/food/snacks/grown/sugarcane
@@ -80,12 +80,12 @@
 	filling_color = "#FFD700"
 	bitesize_mod = 2
 	tastes = list("sugarcane" = 1)
-	distill_reagent = "rum"
+	distill_reagent = /datum/reagent/consumable/ethanol/rum
 
 // Gatfruit
 /obj/item/seeds/gatfruit
 	name = "pack of gatfruit seeds"
-	desc = "These seeds grow into .36 revolvers."
+	desc = "These seeds grow into gun."
 	icon_state = "seed-gatfruit"
 	species = "gatfruit"
 	plantname = "Gatfruit Tree"
@@ -100,7 +100,7 @@
 	growthstages = 2
 	rarity = 60 // Obtainable only with xenobio+superluck.
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
-	reagents_add = list("sulfur" = 0.1, "carbon" = 0.1, "nitrogen" = 0.07, "potassium" = 0.05)
+	reagents_add = list(/datum/reagent/sulfur = 0.1, /datum/reagent/carbon = 0.1, /datum/reagent/nitrogen = 0.07, /datum/reagent/potassium = 0.05)
 
 /obj/item/reagent_containers/food/snacks/grown/shell/gatfruit
 	seed = /obj/item/seeds/gatfruit
@@ -108,10 +108,27 @@
 	desc = "It smells like burning."
 	icon_state = "gatfruit"
 	origin_tech = "combat=6"
-	trash = /obj/item/gun/projectile/revolver/c36
+	trash = /obj/item/gun/projectile/revolver/peashooter
 	tastes = list("2nd amendment" = 1, "freedom" = 1)
 	bitesize_mod = 2
 	wine_power = 0.9 //It burns going down, too.
+
+/obj/item/seeds/gatfruit/meme
+	product = /obj/item/reagent_containers/food/snacks/grown/shell/gatfruit/meme
+
+/obj/item/reagent_containers/food/snacks/grown/shell/gatfruit/meme
+	trash = /obj/item/gun/projectile/revolver/peashooter/meme
+
+/obj/item/reagent_containers/food/snacks/grown/shell/gatfruit/generate_trash(atom/location)
+	//if you set this to anything but the revolver i will find you... and... downvote your pr...
+	var/obj/item/gun/projectile/revolver/peashooter/gun = new trash(location || drop_location())
+	var/potency_percentage = CLAMP01(seed.potency / 100)
+	var/amount_to_trans = reagents.total_volume / gun.magazine.max_ammo
+	for(var/obj/item/ammo_casing/pea/casing as anything in gun.magazine.stored_ammo)
+		casing.damage = floor(max(5, LERP(5, casing.max_damage, potency_percentage)))
+		if(reagents.total_volume)
+			reagents.trans_to(casing, amount_to_trans)
+	return gun
 
 //Cherry Bombs
 /obj/item/seeds/cherry/bomb
@@ -122,7 +139,7 @@
 	plantname = "Cherry Bomb Tree"
 	product = /obj/item/reagent_containers/food/snacks/grown/cherry_bomb
 	mutatelist = list()
-	reagents_add = list("plantmatter" = 0.1, "sugar" = 0.1, "blackpowder" = 0.7)
+	reagents_add = list(/datum/reagent/consumable/nutriment/plantmatter = 0.1, /datum/reagent/consumable/sugar = 0.1, /datum/reagent/blackpowder = 0.7)
 	rarity = 60 //See above
 
 /obj/item/reagent_containers/food/snacks/grown/cherry_bomb

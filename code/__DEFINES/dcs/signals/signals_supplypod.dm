@@ -9,3 +9,5 @@
 	#define COMPONENT_CLIMB (1<<0)
 ///from [/obj/structure/closet/supplypod/proc/preOpen]:
 #define COMSIG_SUPPLYPOD_LANDED "supplypodgoboom"
+/// From [/obj/structure/closet/supplypod/proc/open_pod]
+#define COMSIG_SUPPLYPOD_OPENED "supplypodopened"

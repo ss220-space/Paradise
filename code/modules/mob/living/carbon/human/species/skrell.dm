@@ -1,6 +1,7 @@
 /datum/species/skrell
 	name = SPECIES_SKRELL
 	name_plural = "Skrell"
+	ru_genitive = "скрелла"
 	icobase = 'icons/mob/human_races/r_skrell.dmi'
 	deform = 'icons/mob/human_races/r_def_skrell.dmi'
 	language = LANGUAGE_SKRELL
@@ -102,7 +103,7 @@
 			M.updatehealth()
 
 /datum/species/skrell/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	if(R.id == "water")
+	if(R.type == /datum/reagent/water)
 		var/update = NONE
 		if(H.getFireLoss() < 25 && H.getBruteLoss() < 25)
 			update |= H.heal_overall_damage(1, 1, updating_health = FALSE)

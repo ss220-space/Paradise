@@ -53,7 +53,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	/// Probability of mutation if the necessary reagents are in the body
 	var/mutation_chance = 1
 	/// Necessary reagents
-	var/list/mutation_reagents = list("mutagen")
+	var/list/mutation_reagents = list(/datum/reagent/mutagen)
 	/// List of diseases in which it can mutate
 	var/list/possible_mutations
 
@@ -75,6 +75,8 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	var/carrier = FALSE
 	/// Infectable mob types, that can only be carriers
 	var/list/carrier_mobtypes = list()
+
+	var/show_in_records = TRUE
 
 /datum/disease/New()
 	if(!cure_text)
@@ -138,8 +140,8 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
  */
 /datum/disease/proc/has_cure()
 	. = cures.len
-	for(var/C_id in cures)
-		if(!affected_mob.reagents?.has_reagent(C_id))
+	for(var/cure_type in cures)
+		if(!affected_mob.reagents?.has_reagent(cure_type))
 			.--
 	if(. <= 0 || (needs_all_cures && . < length(cures)))
 		return 0
@@ -160,6 +162,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
  */
 /datum/disease/proc/CanContract(mob/living/M, act_type, need_protection_check, zone)
 	. = FALSE
+
 	if(!M.CanContractDisease(src))
 		return FALSE
 

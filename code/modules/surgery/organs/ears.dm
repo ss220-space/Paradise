@@ -86,12 +86,10 @@
 	)
 
 /obj/item/organ/internal/ears/cybernetic/emp_act(severity)
-	if(emp_proof)
-		return
-	if(emp_shielded(severity))
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
 		return
 
-	..()
 	internal_receive_damage(30)
 
 	if(!iscarbon(owner))

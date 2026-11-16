@@ -1,6 +1,7 @@
 /datum/species/vulpkanin
 	name = SPECIES_VULPKANIN
 	name_plural = "Vulpkanin"
+	ru_genitive = "вульпканина"
 	icobase = 'icons/mob/human_races/r_vulpkanin.dmi'
 	deform = 'icons/mob/human_races/r_vulpkanin.dmi'
 	language = LANGUAGE_VULPKANIN

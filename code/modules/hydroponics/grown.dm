@@ -166,7 +166,7 @@
 
 // Glow gene procs
 /obj/item/reagent_containers/food/snacks/grown/generate_trash(atom/location)
-	if(trash && ispath(trash, /obj/item/grown))
+	if(trash && (ispath(trash, /obj/item/grown) || ispath(trash, /obj/item/reagent_containers/food/snacks/grown)))
 		. = new trash(location, seed)
 		trash = null
 		return
@@ -229,3 +229,8 @@
 		return
 	if(user.plant_analyzer)
 		send_plant_details(user)
+
+/obj/item/reagent_containers/food/snacks/grown/proc/get_plant_seed()
+	if(seed)
+		return seed
+	return null

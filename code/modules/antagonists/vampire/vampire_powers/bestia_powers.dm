@@ -1162,7 +1162,7 @@
 
 /datum/action/cooldown/spell/anabiosis/can_cast_spell(feedback)
 	var/mob/living/carbon/human/user = owner
-	if(user.incapacitated())
+	if(user.incapacitated)
 		if(feedback)
 			user.balloon_alert(user, "нельзя использовать сейчас!")
 		return FALSE
@@ -1415,10 +1415,10 @@
 	for(var/datum/reagent/reagent in human_vampire.reagents.reagent_list)
 		if(istype(reagent, /datum/reagent/medicine/spaceacillin) || istype(reagent, /datum/reagent/medicine/mutadone))
 			continue
-		human_vampire.reagents.remove_reagent(reagent.id, amount_reagents_cleansed)
+		human_vampire.reagents.remove_reagent(reagent.type, amount_reagents_cleansed)
 
-	human_vampire.reagents.add_reagent("spaceacillin", 1)	// FOR
-	human_vampire.reagents.add_reagent("mutadone", 1)		// FREE!
+	human_vampire.reagents.add_reagent(/datum/reagent/medicine/spaceacillin, 1)	// FOR
+	human_vampire.reagents.add_reagent(/datum/reagent/medicine/mutadone, 1)		// FREE!
 
 	// cures heart attack, heart failure and shock
 	human_vampire.set_heartattack(FALSE)
@@ -1603,7 +1603,7 @@
 		to_chat(user, span_notice("В этом гробу лежит один из наших сородичей, было бы разумно защитить его."))
 		return FALSE
 
-	if(user.mind?.isholy)
+	if(HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(user, span_warning("Вы знаете, что в этом гробу находится один из нечестивых вампиров, было бы разумно уничтожить его!"))
 		return FALSE
 
@@ -1890,12 +1890,15 @@
 			who = human_vampire
 		who.heal_ordered_damage(t_kidneys, list(BRUTE, BURN, TOX, OXY, CLONE))	// 10 life-leech on MAX
 
+	for(var/datum/disease/virus/virus in human_vampire.diseases)
+		virus.Contract(target, BLOOD|BITES, need_protection_check = TRUE)
+
 	var/t_livers = vampire.get_trophies(INTERNAL_ORGAN_LIVER)
 	if(t_livers && human_vampire && l_target.mind && l_target.ckey)
 		var/blood_amt = round(t_livers / 2)
 		vampire.adjust_blood(l_target, blood_amt)	// +5 vampire blood max
 		l_target.AdjustBlood(-blood_amt)	// -5 blood MAX
-		human_vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, human_vampire.nutrition + 5))
+		human_vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, human_vampire.nutrition + 15))
 
 /**
  * Mr. Vampire in the hound form.
@@ -2058,11 +2061,13 @@
 		heal_ordered_damage(t_kidneys, list(BRUTE, BURN, TOX, OXY, CLONE))	// 10 life-leech on MAX
 
 	var/t_livers = vampire.get_trophies(INTERNAL_ORGAN_LIVER)
+	for(var/datum/disease/virus/virus in human_vampire.diseases)
+		virus.Contract(target, BLOOD|BITES, need_protection_check = TRUE)
 	if(t_livers && human_vampire && l_target.mind && l_target.ckey)
 		var/blood_amt = round(t_livers / 2)
 		vampire.adjust_blood(l_target, blood_amt)	// +5 vampire blood max
 		l_target.AdjustBlood(-blood_amt)	// -5 blood MAX
-		human_vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, human_vampire.nutrition + 5))
+		human_vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, human_vampire.nutrition + 15))
 
 /mob/living/simple_animal/hostile/vampire/bats_summoned/attackby(obj/item/I, mob/living/user, params)
 	. = ..()

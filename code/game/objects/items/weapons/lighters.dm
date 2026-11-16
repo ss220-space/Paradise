@@ -528,6 +528,24 @@
 		PREPOSITIONAL = "золотой зажигалке Зиппо",
 	)
 
+/obj/item/lighter/zippo/grenade
+	name = "grenade lighter"
+	desc = "Зажигалка в виде гранаты."
+	icon_state = "grenade_lighter"
+	item_state = "zippo_grenade"
+	icon_on = "grenade_lighter_on"
+	icon_off = "grenade_lighter"
+
+/obj/item/lighter/zippo/grenade/get_ru_names()
+	return alist(
+		NOMINATIVE = "граната-зажигалка",
+		GENITIVE = "гранаты-зажигалки",
+		DATIVE = "гранате-зажигалке",
+		ACCUSATIVE = "гранату-зажигалку",
+		INSTRUMENTAL = "гранатой-зажигалкой",
+		PREPOSITIONAL = "гранате-зажигалке",
+	)
+
 ///////////
 //MATCHES//
 ///////////

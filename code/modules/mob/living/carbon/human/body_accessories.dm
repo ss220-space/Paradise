@@ -41,9 +41,6 @@ GLOBAL_LIST_EMPTY(body_accessory_by_species)
 
 	var/blend_mode = null
 
-	var/pixel_x_offset = 0
-	var/pixel_y_offset = 0
-
 	var/list/allowed_species = list()
 	/// If true, adds an underlay (in addition to the regular overlay!) to the character sprite, with the state "[icon_state]_BEHIND".
 	var/has_behind = FALSE
@@ -62,10 +59,6 @@ GLOBAL_LIST_EMPTY(body_accessory_by_species)
 		return animated_icon_state
 
 	else	return icon_state
-
-//Bodies
-/datum/body_accessory/body
-	blend_mode = ICON_MULTIPLY
 
 //Tails
 /datum/body_accessory/tail

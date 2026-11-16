@@ -299,6 +299,7 @@
 	update_icon() // Required to refresh the small map icon.
 
 /obj/machinery/station_map/emp_act(severity)
+	. = ..()
 	if(severity == EMP_LIGHT && !prob(50))
 		return
 

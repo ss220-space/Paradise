@@ -260,7 +260,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(
 			EVENT_LEVEL_MODERATE, EVENT_REVENANT, /datum/event/revenant, 150),
 		new /datum/event_meta(
-			EVENT_LEVEL_MODERATE, EVENT_SWARMERS, /datum/event/spawn_swarmer, 0, is_one_shot = TRUE),
+			EVENT_LEVEL_MODERATE, EVENT_SWARMERS, /datum/event/swarmers, 40, is_one_shot = TRUE),
 		new /datum/event_meta(
 			EVENT_LEVEL_MODERATE, EVENT_MORPH, /datum/event/spawn_morph, 40, list(ASSIGNMENT_SECURITY = 10), is_one_shot = TRUE),
 		new /datum/event_meta(
@@ -311,6 +311,8 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 			EVENT_LEVEL_MAJOR, EVENT_SHADOW_DEMON, /datum/event/spawn_slaughter/shadow,	20, is_one_shot = TRUE),
 		new /datum/event_meta(
 			EVENT_LEVEL_MAJOR, EVENT_SPACE_DRAGON, /datum/event/space_dragon, 20, list(ASSIGNMENT_SECURITY = 4), TRUE),
+		new /datum/event_meta(
+			EVENT_LEVEL_MAJOR, EVENT_ZOMBIE, /datum/event/zombie, 20, is_one_shot = TRUE),
 	)
 
 #undef ASSIGNMENT_ANY

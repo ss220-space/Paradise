@@ -26,7 +26,7 @@
 		if(list_reagents)
 			for(var/rid in list_reagents)
 				var/amount = list_reagents[rid]
-				if(rid == "nutriment" || rid == "vitamin" || rid == "protein" || rid == "plantmatter")
+				if(rid == /datum/reagent/consumable/nutriment || rid == /datum/reagent/consumable/nutriment/vitamin || rid == /datum/reagent/consumable/nutriment/protein || rid == /datum/reagent/consumable/nutriment/plantmatter)
 					reagents.add_reagent(rid, amount, tastes.Copy())
 				else
 					reagents.add_reagent(rid, amount)
@@ -62,9 +62,8 @@
 		opened = TRUE
 		to_chat(user, span_notice("You open the [src]."))
 		update_icon(UPDATE_ICON_STATE)
-		return ..()
 	else
-		return
+		return ..()
 
 /obj/item/reagent_containers/food/snacks/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!iscarbon(target) || (user.a_intent == INTENT_HARM && force))
@@ -163,33 +162,37 @@
 			something.loc = get_turf(src)
 	return ..()
 
-/obj/item/reagent_containers/food/snacks/attack_animal(mob/M)
-	if(isanimal(M))
-		M.changeNext_move(CLICK_CD_MELEE)
-		if(isdog(M))
-			var/mob/living/simple_animal/pet/dog/D = M
-			if(world.time < (D.last_eaten + 300))
-				to_chat(D, span_notice("You are too full to try eating [src] right now."))
-			else if(bitecount >= 4)
-				D.visible_message("[D] [pick("burps from enjoyment", "yaps for more", "woofs twice", "looks at the area where [src] was")].",span_notice("You swallow up the last part of [src]."))
-				playsound(loc,'sound/items/eatfood.ogg', rand(10,50), TRUE)
-				D.adjustHealth(-10)
-				D.last_eaten = world.time
-				D.taste(reagents)
-				qdel(src)
-			else
-				D.visible_message("[D] takes a bite of [src].",span_notice("You take a bite of [src]."))
-				playsound(loc,'sound/items/eatfood.ogg', rand(10,50), TRUE)
-				bitecount++
-				D.last_eaten = world.time
-				D.taste(reagents)
-		else if(ismouse(M))
-			var/mob/living/simple_animal/mouse/N = M
-			to_chat(N, span_notice("You nibble away at [src]."))
-			if(prob(50))
-				N.visible_message("[N] nibbles away at [src].", "")
-			N.adjustHealth(-2)
-			N.taste(reagents)
+/obj/item/reagent_containers/food/snacks/attack_animal(mob/target_mob)
+	if(isdog(target_mob))
+		var/mob/living/simple_animal/pet/dog/dog = target_mob
+		dog.changeNext_move(CLICK_CD_MELEE)
+		if(world.time < (dog.last_eaten + 300))
+			to_chat(dog, span_notice("You are too full to try eating [src] right now."))
+			return
+		if(bitecount >= 4)
+			dog.visible_message("[dog] [pick("burps from enjoyment", "yaps for more", "woofs twice", "looks at the area where [src] was")].",span_notice("You swallow up the last part of [src]."))
+			playsound(loc,'sound/items/eatfood.ogg', rand(10,50), TRUE)
+			dog.adjustHealth(-10)
+			dog.last_eaten = world.time
+			dog.taste(reagents)
+			qdel(src)
+			return
+		dog.visible_message("[dog] takes a bite of [src].",span_notice("You take a bite of [src]."))
+		playsound(loc,'sound/items/eatfood.ogg', rand(10,50), TRUE)
+		bitecount++
+		dog.last_eaten = world.time
+		dog.taste(reagents)
+		return
+
+	if(!ismouse(target_mob))
+		return ..()
+
+	var/mob/living/simple_animal/mouse/mouse = target_mob
+	to_chat(mouse, span_notice("You nibble away at [src]."))
+	if(prob(50))
+		mouse.visible_message("[mouse] nibbles away at [src].", "")
+	mouse.adjustHealth(-2)
+	mouse.taste(reagents)
 
 /obj/item/reagent_containers/food/snacks/sliceable/examine(mob/user)
 	. = ..()
@@ -285,8 +288,8 @@
 //	icon_state = "xburger"												//Refers to an icon in food/food.dmi
 //	New()																//Don't mess with this.
 //		..()															//Same here.
-//		reagents.add_reagent("xenomicrobes", 10)						//This is what is in the food item. you may copy/paste
-//		reagents.add_reagent("nutriment", 2)							//	this line of code for all the contents.
+//		reagents.add_reagent(/datum/reagent/xenomicrobes, 10)						//This is what is in the food item. you may copy/paste
+//		reagents.add_reagent(/datum/reagent/consumable/nutriment, 2)							//	this line of code for all the contents.
 //		bitesize = 3													//This is the amount each bite consumes.
 
 /obj/item/reagent_containers/food/snacks/badrecipe
@@ -294,7 +297,7 @@
 	desc = "Someone should be demoted from chef for this."
 	icon_state = "badrecipe"
 	filling_color = "#211F02"
-	list_reagents = list("????" = 30)
+	list_reagents = list(/datum/reagent/questionmark = 30)
 
 /obj/item/reagent_containers/food/snacks/badrecipe/Initialize(mapload)
 	. = ..()
@@ -308,13 +311,13 @@
 	name = "box of cereal"
 	desc = "A box of cereal."
 	icon_state = "cereal_box"
-	list_reagents = list("nutriment" = 3)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3)
 
 /obj/item/reagent_containers/food/snacks/deepfryholder
 	name = "Deep Fried Foods Holder Obj"
 	desc = "If you can see this description the code for the deep fryer fucked up."
 	icon_state = "deepfried_holder_icon"
-	list_reagents = list("nutriment" = 3)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3)
 	foodtype = FRIED | JUNKFOOD | GROSS
 
 #undef MAX_WEIGHT_CLASS

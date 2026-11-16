@@ -46,8 +46,8 @@
 					UpdateDamageIcon()
 				if(QDELETED(bodypart) || bodypart.loc != src || bodypart.brute_dam != brute_was)
 					. |= STATUS_UPDATE_HEALTH
-					if(updating_health)
-						updatehealth("apply damage")
+				if(updating_health)
+					updatehealth("apply damage")
 			else
 				. |= adjustBruteLoss(damage, updating_health, def_zone, blocked, forced, used_weapon, sharp, silent)
 		if(BURN)
@@ -58,8 +58,8 @@
 					UpdateDamageIcon()
 				if(QDELETED(bodypart) || bodypart.loc != src || bodypart.burn_dam != burn_was)
 					. |= STATUS_UPDATE_HEALTH
-					if(updating_health)
-						updatehealth("apply damage")
+				if(updating_health)
+					updatehealth("apply damage")
 			else
 				. |= adjustFireLoss(damage, updating_health, def_zone, blocked, forced, used_weapon, sharp, silent)
 		if(TOX)
@@ -721,6 +721,8 @@
 		if(old_stamloss != 0)
 			updatehealth("adjustStaminaLoss")
 		return STATUS_UPDATE_NONE
+	if(!forced && amount < 0 && HAS_TRAIT(src, TRAIT_BLOCK_STAMINA_REGEN))
+		return STATUS_UPDATE_NONE
 	if(!forced && amount > 0)
 		amount *= ((100 - clamp(blocked + get_blocking_resistance(amount, STAMINA, used_weapon = used_weapon), 0, 100)) / 100)
 		amount *= get_incoming_damage_modifier(amount, STAMINA, used_weapon = used_weapon)
@@ -748,13 +750,12 @@
  * Returns STATUS_UPDATE_HEALTH if any changes were made, STATUS_UPDATE_NONE otherwise
  */
 /mob/living/proc/setStaminaLoss(amount, updating_health = TRUE)
+	var/old_stamloss = getStaminaLoss()
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
-		var/old_stamloss = getStaminaLoss()
 		staminaloss = 0
 		if(old_stamloss != 0)
 			updatehealth("setStaminaLoss")
 		return STATUS_UPDATE_NONE
-	var/old_stamloss = getStaminaLoss()
 	staminaloss = clamp(round(amount, DAMAGE_PRECISION), 0, MAX_STAMINA_LOSS)
 	if(old_stamloss == getStaminaLoss())
 		updating_health = FALSE

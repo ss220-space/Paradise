@@ -5,7 +5,7 @@
 	desc = "Ретровирус, изменяющий ДНК, который постоянно нарушает структуру и уникальные ферменты носителя."
 	stage_prob = 2
 	max_stages = 4
-	spread_flags = CONTACT
+	spread_flags = BLOOD|CONTACT
 	cure_text = "Отдых или инъекция мутадона"
 	cure_prob = 6
 	severity = DISEASE_SEVERITY_HARMFUL
@@ -16,7 +16,7 @@
 	agent = "Вирус класса [pick("A", "B", "C", "D", "E", "F")][pick("A", "B", "C", "D", "E", "F")]-[rand(50,300)]"
 	//else cure is rest
 	if(prob(40))
-		cures = list("mutadone")
+		cures = list(/datum/reagent/medicine/mutadone)
 
 /datum/disease/virus/dna_retrovirus/stage_act()
 	if(!..())

@@ -303,7 +303,7 @@
 /datum/outfit/deathmatch_loadout/ert/inquisitor/pre_equip(mob/living/carbon/human/our_human, visualsOnly = FALSE)
 	. = ..()
 	if(our_human.mind)
-		our_human.mind.isholy = TRUE
+		ADD_TRAIT(our_human.mind, TRAIT_HOLY, INNATE_TRAIT)
 
 /datum/outfit/deathmatch_loadout/ert/medic
 	name = "Deathmatch: ERT member (Medic)"

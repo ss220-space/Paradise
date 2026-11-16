@@ -266,7 +266,7 @@
 
 /// Called when an activated module without a device is used
 /obj/item/mod/module/proc/on_select_use(atom/target)
-	if(!(allow_flags & MODULE_ALLOW_INCAPACITATED) && (mod.wearer.incapacitated() || HAS_TRAIT(mod.wearer, TRAIT_HANDS_BLOCKED)))
+	if(!(allow_flags & MODULE_ALLOW_INCAPACITATED) && (mod.wearer.incapacitated || HAS_TRAIT(mod.wearer, TRAIT_HANDS_BLOCKED)))
 		return FALSE
 	mod.wearer.face_atom(target)
 	if(!used())
@@ -277,7 +277,7 @@
 /obj/item/mod/module/proc/on_special_click(mob/source, atom/target)
 	SIGNAL_HANDLER
 
-	on_select_use(target)
+	INVOKE_ASYNC(src, PROC_REF(on_select_use), target)
 	return COMSIG_MOB_CANCEL_CLICKON
 
 /// Called on the MODsuit's process

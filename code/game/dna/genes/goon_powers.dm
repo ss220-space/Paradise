@@ -73,9 +73,18 @@
 	else
 		mutant.alpha_set(0.80, ALPHA_SOURCE_CHAMELEON)
 
+/datum/dna/gene/basic/chameleon/activate(mob/living/mutant, flags)
+	. = ..()
+	RegisterSignal(mutant, COMSIG_MOVABLE_MOVED, PROC_REF(chameleon_moved))
+
 /datum/dna/gene/basic/chameleon/deactivate(mob/living/mutant, flags)
 	. = ..()
 	mutant.alpha_set(1, ALPHA_SOURCE_CHAMELEON)
+
+/datum/dna/gene/basic/chameleon/proc/chameleon_moved(mob/living/source)
+	SIGNAL_HANDLER
+
+	source.alpha_set(0.80, ALPHA_SOURCE_CHAMELEON)
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -246,7 +255,7 @@
 			reset_spell_cooldown()
 			return FALSE
 
-		if(istype(limb,/obj/item/organ/external/head))
+		if(ishead(limb))
 			// Bullshit, but prevents being unable to clone someone.
 			to_chat(owner, span_warning("Вы пытаетесь засунуть голову в свой рот, но у вас ничего не получается!"))
 			reset_spell_cooldown()
@@ -309,7 +318,7 @@
 	. = ..()
 	var/failure = FALSE
 	var/mob/living/user = cast_on
-	if(ismob(user.loc) || user.incapacitated(IGNORE_RESTRAINTS) || user.buckled)
+	if(ismob(user.loc) || INCAPACITATED_IGNORING(user, INCAPABLE_RESTRAINTS) || user.buckled)
 		to_chat(user, span_warning("Вы не можете прыгнуть прямо сейчас!"))
 		return
 	var/turf/turf_to_check = get_turf(user)

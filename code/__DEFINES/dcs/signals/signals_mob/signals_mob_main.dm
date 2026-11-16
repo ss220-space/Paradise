@@ -247,3 +247,6 @@
 /// From /atom/movable/screen/zone_sel/proc/set_selected_zone.
 /// Fires when the user has changed their selected body target.
 #define COMSIG_MOB_SELECTED_ZONE_SET "mob_set_selected_zone"
+
+/// from /mob/update_incapacitated(): (old_incap, new_incap)
+#define COMSIG_MOB_INCAPACITATE_CHANGED "mob_incapacitated"

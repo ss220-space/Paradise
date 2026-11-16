@@ -24,6 +24,9 @@
 /datum/chemical_reaction/proc/on_reaction(datum/reagents/holder, created_volume)
 	return
 
+/datum/chemical_reaction/proc/last_can_react_check(datum/reagents/holder)
+	return TRUE
+
 /datum/chemical_reaction/proc/make_vaporation(list/reagents, datum/reagents/holder, amount, radius)
 	if(!holder || !holder.my_atom)
 		return

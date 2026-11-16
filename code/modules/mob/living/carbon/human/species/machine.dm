@@ -1,6 +1,7 @@
 /datum/species/machine
 	name = SPECIES_MACHINEPERSON
 	name_plural = "Machines"
+	ru_genitive = "машины"
 
 	blurb = "Positronic intelligence really took off in the 26th century, and it is not uncommon to see independant, free-willed \
 	robots on many human stations, particularly in fringe systems where standards are slightly lax and public opinion less relevant \
@@ -168,7 +169,7 @@
 		return
 	if(!robohead.is_monitor) //If they've got a prosthetic head and it isn't a monitor, they've no screen to adjust. Instead, let them change the colour of their optics!
 		var/optic_colour = tgui_input_color(H, "Выберите цвет оптики", H.m_colours["head"])
-		if(H.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB))
+		if(INCAPACITATED_IGNORING(H, INCAPABLE_RESTRAINTS|INCAPABLE_GRAB))
 			to_chat(H, span_warning("Ваша попытка сменить отображаемый цвет была прервана."))
 			return
 		if(!isnull(optic_colour))
@@ -176,10 +177,10 @@
 
 	else if(robohead.is_monitor) //Means that the character's head is a monitor (has a screen). Time to customize.
 		var/list/hair = list()
-		for(var/i in GLOB.hair_styles_public_list)
-			var/datum/sprite_accessory/hair/tmp_hair = GLOB.hair_styles_public_list[i]
+		for(var/key, value in SSaccessories.hairstyles_list)
+			var/datum/sprite_accessory/hair/tmp_hair = value
 			if((head_organ.dna.species.name in tmp_hair.species_allowed) && (robohead.company in tmp_hair.models_allowed)) //Populate the list of available monitor styles only with styles that the monitor-head is allowed to use.
-				hair += i
+				hair += key
 
 		var/file = file2text("config/custom_sprites.txt")		//Pulls up the custom_sprites list
 		var/lines = splittext(file, "\n")
@@ -198,7 +199,7 @@
 			return
 		var/new_color = tgui_input_color(usr, "Выберите цвет", "Цвет монитора", head_organ.hair_colour)
 
-		if(H.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB))
+		if(INCAPACITATED_IGNORING(H, INCAPABLE_RESTRAINTS|INCAPABLE_GRAB))
 			to_chat(H, span_warning("Ваша попытка сменить изображения на дисплее была прервана."))
 			return
 

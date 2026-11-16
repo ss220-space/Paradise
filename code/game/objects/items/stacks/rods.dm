@@ -28,7 +28,11 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	matter_amount = 0.5
 	attack_verb = list("ударил", "огрел")
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
+	logistics_count_amount = TRUE
 	usesound = 'sound/items/deconstruct.ogg'
+
+/obj/item/stack/rods/two
+	amount = 2
 
 /obj/item/stack/rods/ten
 	amount = 10

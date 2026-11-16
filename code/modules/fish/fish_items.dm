@@ -73,7 +73,7 @@
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "shrimp_raw"
 	filling_color = "#FF1C1C"
-	list_reagents = list("protein" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 1)
 	bitesize = 1
 
 /obj/item/reagent_containers/food/snacks/shrimp/Initialize(mapload)
@@ -86,7 +86,7 @@
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "feederfish"
 	filling_color = "#FF1C1C"
-	list_reagents = list("protein" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 1)
 	bitesize = 1
 
 /obj/item/fish

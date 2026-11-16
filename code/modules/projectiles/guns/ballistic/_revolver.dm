@@ -8,6 +8,7 @@
 	desc = "Классический револьвер с барабаном на 6 патронов."
 	gender = MALE
 	icon_state = "revolver"
+	item_state = "revolver"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder
 	origin_tech = "combat=3;materials=2"
 	fire_sound = 'sound/weapons/gunshots/1rev.ogg'
@@ -108,7 +109,7 @@
 
 GAME_PROC_SRC(/obj/item/gun/projectile/revolver, spin, usr, "Провернуть барабан", VERB_CATEGORY_HIDDEN)
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder))
@@ -124,7 +125,7 @@ GAME_PROC_SRC(/obj/item/gun/projectile/revolver, spin, usr, "Провернут�
 		verbs -= /obj/item/gun/projectile/revolver/proc/spin
 
 /obj/item/gun/projectile/revolver/can_shoot(mob/user)
-	return get_ammo(FALSE, FALSE)
+	return get_ammo(FALSE, FALSE) && ..()
 
 /obj/item/gun/projectile/revolver/get_ammo(countchambered = FALSE, countempties = TRUE)
 	. = ..()
@@ -169,6 +170,19 @@ GAME_PROC_SRC(/obj/item/gun/projectile/revolver, spin, usr, "Провернут�
 		span_cultlarge("[user] поднима[PLUR_ET_YUT(user)] дуло вверх и стреля[PLUR_ET_YUT(user)], используя [declent_ru(ACCUSATIVE)]!"),
 		ignored_mobs = user
 	)
-
-	playsound(user, fire_sound, 120, FALSE)
 	update_icon()
+
+	if(prob(10))
+		falling_pipe(user)
+
+/obj/item/gun/projectile/revolver/proc/falling_pipe(mob/user)
+	var/turf/gun_turf = get_turf(user)
+	if(isspaceturf(gun_turf))
+		return
+
+	var/list/floor_turfs = list()
+	for(var/turf/simulated/floor/floor_turf in RANGE_TURFS(3, gun_turf))
+		floor_turfs += floor_turf
+
+	if(length(floor_turfs))
+		new /obj/effect/falling_pipe(pick(floor_turfs), user)

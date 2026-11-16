@@ -1,12 +1,26 @@
 /mob/living/silicon/decoy
 	name = "AI"
-	icon = 'icons/mob/ai.dmi'//
-	icon_state = "ai"
+	icon = 'icons/mob/ai.dmi'
+	icon_state = "ai-core"
 	anchored = TRUE // -- TLE
 	a_intent = INTENT_HARM // This is apparently the only thing that stops other mobs walking through them as if they were thin air.
 	silicon_subsystems = list(
 		VERB_META(/mob/living/silicon, subsystem_law_manager),
 	)
+	var/display_icon_override = "ai"
+
+/mob/living/silicon/decoy/Initialize(mapload)
+	. = ..()
+	update_icon(UPDATE_OVERLAYS)
+
+/mob/living/silicon/decoy/update_overlays()
+	. = ..()
+	var/screen_state = display_icon_override
+	var/mutable_appearance/screen_overlay = mutable_appearance(icon, screen_state)
+	screen_overlay.layer = FLOAT_LAYER + 0.1
+	screen_overlay.appearance_flags = RESET_COLOR | KEEP_APART
+	. += screen_overlay
+	. += emissive_appearance(icon, screen_state, src)
 
 /mob/living/silicon/decoy/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/aicard))
@@ -22,11 +36,7 @@
 	bubble_icon = "syndibot"
 	name = "R.O.D.G.E.R"
 	desc = "Red Operations, Depot General Emission Regulator"
-	icon_state = "ai-magma"
-
-/mob/living/silicon/decoy/syndicate/Initialize(mapload)
-	. = ..()
-	icon_state = "ai-magma"
+	display_icon_override = "ai-magma"
 
 /mob/living/silicon/decoy/syndicate/depot
 	universal_speak = TRUE

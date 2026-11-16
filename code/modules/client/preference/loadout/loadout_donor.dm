@@ -142,6 +142,12 @@
 	path = /obj/item/lighter/zippo/gonzofist
 	donator_tier = 3
 
+/datum/gear/donor/zippogrenade
+	index_name = "grenade zippo lighter"
+	display_name = "Зажигалка в виде гранаты"
+	path = /obj/item/lighter/zippo/grenade
+	donator_tier = 1
+
 /datum/gear/donor/strip
 	subtype_path = /datum/gear/donor/strip
 	subtype_cost_overlap = FALSE
@@ -643,3 +649,18 @@
 	cost = 2
 	index_name = "meta-banhammer"
 	path = /obj/item/banhammer/meta_hammer
+
+/datum/gear/donor/oldhumanhead
+	donator_tier = 1
+	index_name = "old human head"
+	path = /obj/item/clothing/head/oldhuman_head
+
+/datum/gear/donor/angel_wings
+	index_name = "angel wings"
+	display_name = "Ангельские крылья"
+	path = /obj/item/clothing/neck/angel_wings
+
+/datum/gear/donor/devil_wings
+	index_name = "devil wings"
+	display_name = "Дьявольские крылья"
+	path = /obj/item/clothing/neck/devil_wings

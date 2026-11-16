@@ -75,7 +75,7 @@
 /mob/living/carbon/proc/has_mutated_organs()
 	return FALSE
 
-/mob/living/carbon/proc/vomit(
+/mob/living/carbon/vomit(
 	lost_nutrition = VOMIT_NUTRITION_LOSS,
 	mode = NONE,
 	stun = VOMIT_STUN_TIME,
@@ -365,20 +365,20 @@
 
 		var/msg
 		if(!length(part_statuses))
-			msg = span_notice("Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru(NOMINATIVE)] в порядке.")
+			msg = span_notice("Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru_base(NOMINATIVE)] в порядке.")
 		else
 			var/status_text = russian_list(part_statuses, "")
-			msg = span_warning("Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru(NOMINATIVE)] [status_text].")
+			msg = span_warning("Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru_base(NOMINATIVE)] [status_text].")
 
 		status_list += msg
 
 		for(var/obj/item/embedded as anything in bodypart.embedded_objects)
-			status_list += "\t <a href='byond://?src=[UID()];embedded_object=[embedded.UID()];embedded_limb=[bodypart.UID()]' class='warning'>В ваш[GEND_EM_EI_EM_IH(bodypart)] [bodypart.declent_ru(GENITIVE)] застрял[GEND_A_O_I(embedded)] [icon2html(embedded, src)] [embedded.declent_ru(NOMINATIVE)]!</a>"
+			status_list += "\t <a href='byond://?src=[UID()];embedded_object=[embedded.UID()];embedded_limb=[bodypart.UID()]' class='warning'>В ваш[GEND_EM_EI_EM_IH(bodypart)] [bodypart.declent_ru_base(GENITIVE)] застрял[GEND_A_O_I(embedded)] [icon2html(embedded, src)] [embedded.declent_ru(NOMINATIVE)]!</a>"
 
 		if(bodypart.tourniquet && bodypart == bodypart.tourniquet.applied_bodypart)
-			status_list += "\t <a href='byond://?src=[UID()];tourniquet_object=[bodypart.tourniquet.UID()];limb=[bodypart.UID()]' class='warning'>Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru(NOMINATIVE)] пережат[GEND_A_O_Y(bodypart)] [icon2html(bodypart.tourniquet, src)] [bodypart.tourniquet.declent_ru(INSTRUMENTAL)]!</a>"
+			status_list += "\t <a href='byond://?src=[UID()];tourniquet_object=[bodypart.tourniquet.UID()];limb=[bodypart.UID()]' class='warning'>Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru_base(NOMINATIVE)] пережат[GEND_A_O_Y(bodypart)] [icon2html(bodypart.tourniquet, src)] [bodypart.tourniquet.declent_ru(INSTRUMENTAL)]!</a>"
 		if(bodypart.has_fracture() && bodypart.fracture == FRACTURE_TYPE_OPEN)
-			status_list += "\t <a href='byond://?src=[UID()];open_fracture_limb=[bodypart.UID()]' class='warning'>Из [GEND_YOURS(bodypart)] [bodypart.declent_ru(GENITIVE)] торчит кость!</a>"
+			status_list += "\t <a href='byond://?src=[UID()];open_fracture_limb=[bodypart.UID()]' class='warning'>Из [GEND_YOURS(bodypart)] [bodypart.declent_ru_base(GENITIVE)] торчит кость!</a>"
 
 	if(LAZYLEN(missing))
 		for(var/limb_part in missing)
@@ -500,7 +500,8 @@
 			var/atom/movable/AM = hit_atom
 			var/atom/throw_target = get_edge_target_turf(AM, dir)
 			if(!AM.anchored || ismecha(AM))
-				AM.throw_at(throw_target, 5, 12, src)
+				if(!HAS_TRAIT(src, TRAIT_ATTACK_ON_THROW_IMPACT))
+					AM.throw_at(throw_target, 5, 12, src)
 				hit_something = TRUE
 
 		if(isobj(hit_atom))
@@ -510,10 +511,16 @@
 
 		if(isliving(hit_atom))
 			var/mob/living/L = hit_atom
-			L.adjustBruteLoss(60)
-			L.Weaken(4 SECONDS)
-			L.Confused(10 SECONDS)
 			shake_camera(L, 4, 3)
+			if(HAS_TRAIT(src, TRAIT_ATTACK_ON_THROW_IMPACT))
+				var/obj/item/attack_item = get_active_hand()
+				if(attack_item)
+					attack_item.attack(L, src)
+				L.Knockdown(1 SECONDS)
+			else
+				L.adjustBruteLoss(60)
+				L.Knockdown(12 SECONDS)
+				L.Confused(10 SECONDS)
 			hit_something = TRUE
 
 		if(isturf(hit_atom))
@@ -567,7 +574,7 @@
 		throw_icon.icon_state = "act_throw_off"
 	if(client?.mouse_override_icon == THROW_MODE_ICON)
 		client.mouse_override_icon = null
-		client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
+		update_mouse_pointer()
 
 /mob/living/carbon/proc/throw_mode_on()
 	SIGNAL_HANDLER //This signal is here so we can turn throw mode back on via carp when an object is caught
@@ -578,7 +585,7 @@
 		throw_icon.icon_state = "act_throw_on"
 	if(!client.mouse_override_icon)
 		client.mouse_override_icon = THROW_MODE_ICON
-		client.mouse_pointer_icon = THROW_MODE_ICON
+		update_mouse_pointer()
 	// we nullify click cd when someone tries to throw a grabbed mob
 	// improves combat robustness a lot
 	if(pulling && grab_state > GRAB_PASSIVE)
@@ -803,7 +810,7 @@
 		for(var/datum/reagent/consumable/C in reagents.reagent_list) //we add the nutrition value of what we're currently digesting
 			fullness += C.nutriment_factor * C.volume / (C.metabolization_rate * metabolism_efficiency * digestion_ratio)
 	if(user == src)
-		if(time_to_eat > 0 && !do_after(user, time_to_eat, max_interact_count = 1))
+		if(time_to_eat > 0 && !do_after(user, time_to_eat, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_SPACE_DRIFT|DA_IGNORE_SLOWDOWNS), max_interact_count = 1))
 			return FALSE
 		if(istype(toEat, /obj/item/reagent_containers/cup/glass))
 			if(!selfDrink(toEat))
@@ -847,15 +854,15 @@
 	return TRUE
 
 /mob/living/carbon/proc/forceFed(obj/item/reagent_containers/food/toEat, mob/user, fullness)
-	if(ispill(toEat) || fullness <= (600 * (1 + overeatduration / 1000)))
-		if(!toEat.instant_application)
-			visible_message(span_warning("[user] пыта[PLUR_ET_YUT(user)]ся заставить [src] [toEat.apply_method]ть [toEat.declent_ru(ACCUSATIVE)]!"))
-	else
+	if(!ispill(toEat) && fullness <= (600 * (1 + overeatduration / 1000)))
 		visible_message(span_warning("[user] не мо[PLUR_JET_GUT(user)]ся заставить [src] [toEat.apply_method]ть [toEat.declent_ru(ACCUSATIVE)]!"))
 		return FALSE
+
 	if(!toEat.instant_application)
+		visible_message(span_warning("[user] пыта[PLUR_ET_YUT(user)]ся заставить [src] [toEat.apply_method]ть [toEat.declent_ru(ACCUSATIVE)]!"))
 		if(!do_after(user, 3 SECONDS, src, NONE))
 			return FALSE
+
 	visible_message(span_warning("[user] заставля[PLUR_ET_YUT(user)] [src] [toEat.apply_method]ть [toEat.declent_ru(ACCUSATIVE)]!"))
 	return TRUE
 

@@ -130,7 +130,10 @@
 #define SMOOTH_GROUP_SURVIVAL_TITANIUM_WALLS S_TURF(59) ///turf/simulated/wall/mineral/titanium/survival
 #define SMOOTH_GROUP_FLOOR_CLIFF S_TURF(60) ///turf/simulated/cliff
 
-#define MAX_S_TURF 62 //Always match this value with the one above it.
+#define SMOOTH_GROUP_REINFORCED_ROCK_WALLS S_TURF(63) ///turf/simulated/wall/indestructible/reinforced_rock
+#define SMOOTH_GROUP_SANDSTONE_WALL_N S_TURF(64) ///turf/simulated/wall/indestructible/sandstone_wall_n
+
+#define MAX_S_TURF 64 //Always match this value with the one above it.
 
 #define S_OBJ(num) ("-" + #num + ",")
 /* /obj included */

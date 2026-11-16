@@ -6,7 +6,7 @@
 /// Under slot identifier
 #define ATTACHMENT_SLOT_UNDER "under"
 /// Sibyl slot identifier
-#define ATTACHMENT_SLOT_SIBYL "sibyl"
+#define ATTACHMENT_SLOT_LOCKING_PIN "locking_pin"
 /// Stock slot identifier
 #define ATTACHMENT_SLOT_STOCK "stock"
 
@@ -40,11 +40,15 @@
 // Stock slot types flags
 #define GUN_MODULE_CLASS_SMG_STOCK (1 << 13)
 
+// Stock slot types flags
+#define GUN_MODULE_CLASS_LOCKING_PIN (1 << 14)
+
 GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 	ATTACHMENT_SLOT_MUZZLE = "ствол",
 	ATTACHMENT_SLOT_RAIL = "верхняя планка",
 	ATTACHMENT_SLOT_UNDER = "цевьё",
-	ATTACHMENT_SLOT_SIBYL = "курок"
+	ATTACHMENT_SLOT_STOCK = "приклад",
+	ATTACHMENT_SLOT_LOCKING_PIN = "курок"
 ))
 
 #define GUN_MODE_SINGLE_ONLY 1
@@ -79,8 +83,6 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 #define CALIBER_DOT_357 ".357 Magnum"
 /// Used in small caliber revolvers
 #define CALIBER_DOT_38 ".38"
-/// Used in Gatfruit revolver
-#define CALIBER_DOT_36 ".36"
 /// Used in improvised revolver
 #define CALIBER_DOT_257 ".257"
 /// Used in Nagant revolver
@@ -134,6 +136,9 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 /// Used in laser weapons
 #define CALIBER_LASER "\"лазер\""
 
+/// The caliber used by the (gatfruit) peashooter
+#define CALIBER_PEA "pea"
+
 // Foam force weapons
 /// Used in foam guns
 #define CALIBER_FOAM_FORCE "\"пенопластовый\""
@@ -172,6 +177,8 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 #define GUN_ACCURACY_PISTOL new /datum/gun_accuracy/pistol()
 /// Enforcer accuracy
 #define GUN_ACCURACY_PISTOL_ENFORCER new /datum/gun_accuracy/pistol/enforcer()
+/// Laser pistol accuracy
+#define GUN_ACCURACY_PISTOL_LASER new /datum/gun_accuracy/pistol/laser()
 /// Uplink pistol accuracy (better than normal pistols)
 #define GUN_ACCURACY_PISTOL_UPLINK new /datum/gun_accuracy/pistol/uplink()
 /// Scarecrow accuracy
@@ -206,3 +213,17 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 //autofire component fire callback callback return flags
 #define AUTOFIRE_CONTINUE (1<<0)
 #define AUTOFIRE_SUCCESS (1<<1)
+
+
+// Scope component flags
+/// Do we have the scope cancel on move?
+#define SCOPE_MOVEMENT_CANCELS (1<<0)
+/// Can we use scope from mechs, lockers, etc?
+#define SCOPE_TURF_ONLY (1<<1)
+/// Do we let the user scope and click on the middle of their screen?
+#define SCOPE_CLICK_MIDDLE (1<<2)
+/// Should the user hold the item in active hand to use it?
+#define SCOPE_NEED_ACTIVE_HAND (1<<3)
+
+#define SEVERITY_ITEM 0
+#define SEVERITY_GUN 1

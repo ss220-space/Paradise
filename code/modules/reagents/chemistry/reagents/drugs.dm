@@ -4,6 +4,11 @@
 	description = "Химический элемент."
 	color = "#808080" // rgb: 128, 128, 128
 	taste_description = "металла"
+	chemfiresupp = TRUE
+	intensitymod = 0.15
+	burncolor = "#ff356f"
+	burncolormod = 5
+	properties = list(PROPERTY_OXIDIZING = 1)
 
 /datum/reagent/lithium/on_mob_life(mob/living/M)
 	if(isturf(M.loc) && !isspaceturf(M.loc))
@@ -249,7 +254,7 @@
 		M.emote(pick("twitch", "twitch_s", "grumble", "laugh"))
 	if(prob(8))
 		to_chat(M, span_notice("Вы чувствуете себя отлично!"))
-		M.reagents.add_reagent("methamphetamine", rand(1,2))
+		M.reagents.add_reagent(/datum/reagent/methamphetamine, rand(1,2))
 		M.emote(pick("laugh", "giggle"))
 	if(prob(6))
 		to_chat(M, span_notice("Вы чувствуете тепло!"))
@@ -294,7 +299,7 @@
 			M.Weaken(6 SECONDS)
 			M.AdjustConfused(50 SECONDS)
 			M.emote("scream")
-			M.reagents.add_reagent("jagged_crystals", 5)
+			M.reagents.add_reagent(/datum/reagent/jagged_crystals, 5)
 		else if(effect <= 7)
 			M.emote("scream")
 			M.visible_message(span_warning("[M] нервно скреб[PLUR_YOT_YUT(M)] свою кожу!"))
@@ -604,7 +609,7 @@
 		M.SetWeakened(0, FALSE)
 		M.SetKnockdown(0, FALSE)
 	if(volume >= 70 && prob(25))
-		if(M.reagents.get_reagent_amount("thc") <= 20)
+		if(M.reagents.get_reagent_amount(/datum/reagent/thc) <= 20)
 			M.Drowsy(20 SECONDS)
 	if(prob(25))
 		update_flags |= M.adjustBruteLoss(-2, FALSE, affect_robotic = FALSE)
@@ -1090,7 +1095,7 @@
 		if(holder)
 			for(var/i = 0, i < round(volume/10,1),i++)
 				new /obj/item/crack_crystal(get_turf(holder.my_atom))
-			holder.del_reagent(id)
+			holder.del_reagent(type)
 
 /datum/reagent/cocaine
 	name = "Кокаин"
@@ -1138,7 +1143,7 @@
 		if(holder)
 			for(var/i = 0, i < round(volume/10,1),i++)
 				new /obj/item/coca_packet(get_turf(holder.my_atom))
-			holder.del_reagent(id)
+			holder.del_reagent(type)
 
 /datum/reagent/matedecoca
 	name = "Мате де Кока"
@@ -1175,3 +1180,41 @@
 		M.emote("tremble")
 	return list(0, update_flags)
 
+/datum/reagent/pervitin
+	name = "Первитин"
+	id = "pervitin"
+	description = "Первитин — мощный стимулятор, синтезируемый из метамфетамина. Вызывает эйфорию и прилив сил, но чрезвычайно быстро формирует зависимость и разрушает мозг."
+	reagent_state = LIQUID
+	color = "#8c7ba0"
+	overdose_threshold = 20
+	addiction_chance = 30
+	addiction_threshold = 5
+	metabolization_rate = 1.5 * REAGENTS_METABOLISM
+	heart_rate_increase = 1
+	taste_description = "бодрости"
+	chemdesc = "Ускоряет работу руками. Вызывает зависимость, при передозировке разрушает мозг и сердце."
+
+/datum/reagent/pervitin/on_mob_add(mob/living/user)
+	. = ..()
+	user.next_move_modifier /= 1.5
+
+/datum/reagent/pervitin/overdose_start(mob/living/M)
+	M.next_move_modifier *=0.75
+
+/datum/reagent/pervitin/overdose_end(mob/living/M)
+	M.next_move_modifier /= 0.75
+
+/datum/reagent/pervitin/overdose_process(mob/living/M, severity)
+	var/list/overdose_info = ..()
+	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
+	update_flags |= M.adjustBrainLoss(2, FALSE)
+	update_flags |= M.adjustHeartLoss(1, FALSE)
+	if(prob(40))
+		M.emote("bshake")
+	return list(overdose_info[REAGENT_OVERDOSE_EFFECT], update_flags)
+
+/datum/reagent/pervitin/on_mob_delete(mob/living/user)
+	if(overdosed)
+		user.next_move_modifier /= 0.75
+	user.next_move_modifier *= 1.5
+	return ..()

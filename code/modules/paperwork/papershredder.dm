@@ -78,7 +78,7 @@
 
 GAME_VERB_SRC(/obj/machinery/papershredder, empty_contents, range(1), "Опустошить корзину", VERB_CATEGORY_HIDDEN)
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(!paperamount)

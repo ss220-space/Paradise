@@ -35,8 +35,7 @@
 			to_chat(user, span_warning("Но вы же мертвы!"))
 		return FALSE
 
-	if(((vampire.nullified >= VAMPIRE_COMPLETE_NULLIFICATION) || \
-	(vampire.nullification == OLD_NULLIFICATION && vampire.nullified)) && !fullpower) // above 100 nullification vampire powers are useless
+	if((vampire.nullified >= VAMPIRE_COMPLETE_NULLIFICATION) && !fullpower) // above 100 nullification vampire powers are useless
 		if(show_message)
 			to_chat(user, span_warning("Что-то блокирует ваши силы!"))
 		return FALSE
@@ -62,7 +61,7 @@
 	vampire?.bloodusable -= calculate_blood_cost(vampire)
 
 /datum/spell_handler/vampire/proc/calculate_blood_cost(datum/antagonist/vampire/vampire)
-	var/blood_cost_modifier = 1 + ((vampire.nullification == OLD_NULLIFICATION)? 0 : vampire.nullified / 100)
+	var/blood_cost_modifier = 1 + (vampire.nullified / 100)
 	var/blood_cost = round(required_blood * blood_cost_modifier)
 	return clamp(blood_cost, 0, vampire.bloodusable)
 
@@ -75,21 +74,9 @@
 	to_chat(user, span_boldnotice("У Вас осталось [vampire.bloodusable] единиц крови."))
 	SSblackbox.record_feedback("tally", "vampire_powers_used", 1, "[spell]") // Only log abilities which require blood
 
-/datum/spell_handler/vampire/proc/affects(mob/target, mob/user)
-
-	//Other vampires aren't affected
-	if(isvampire(target))
+/datum/spell_handler/vampire/proc/affects(mob/living/target, mob/user)
+	if(target.affects_vampire(user))
 		return FALSE
-
-	//Vampires who have reached their full potential can affect nearly everything
-	var/datum/antagonist/vampire/vampire = user.mind?.has_antag_datum(/datum/antagonist/vampire)
-	if(vampire?.get_ability(/datum/vampire_passive/full))
-		return TRUE
-
-	//Holy characters are resistant to vampire powers
-	if(target.mind?.isholy)
-		return FALSE
-
 	return TRUE
 
 /datum/spell_handler/vampire/goon/revert_cast(mob/living/carbon/user, datum/action/cooldown/spell/spell)

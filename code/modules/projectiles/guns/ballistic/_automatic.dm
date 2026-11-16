@@ -26,7 +26,7 @@
 			. += "[initial(icon_state)]burst"
 
 /obj/item/gun/projectile/automatic/can_shoot(mob/user)
-	return get_ammo()
+	return get_ammo() && ..()
 
 /obj/item/gun/projectile/automatic/CtrlClick(mob/user)
 	if(user.is_in_hands(src) && chambered)

@@ -356,7 +356,7 @@
 		return
 	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 		if(L.name == "syndi_depot_shield")
-			var/obj/machinery/shieldwall/syndicate/S = new /obj/machinery/shieldwall/syndicate(L.loc)
+			var/obj/machinery/shieldwall/syndicate/S = new /obj/machinery/shieldwall/syndicate(get_turf(L))
 			shield_list += S.UID()
 	for(var/obj/structure/closet/secure_closet/syndicate/depot/armory/L in src)
 		if(L.opened)

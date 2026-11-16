@@ -17,6 +17,7 @@
 	var/customisable = FALSE
 	var/god_punishment = 0 //used for diffrent abuse with bible (healing self is one of them)
 	var/last_used = 0
+	var/has_antimagic = TRUE
 
 	/// Associative list of accociative lists of bible variants, used for the radial menu
 	var/static/list/bible_variants = list(
@@ -45,6 +46,32 @@
 		INSTRUMENTAL = "Библией",
 		PREPOSITIONAL = "Библии",
 	)
+
+/obj/item/storage/bible/copy
+	has_antimagic = FALSE
+
+/obj/item/storage/bible/ComponentInitialize()
+	. = ..()
+	if(!has_antimagic)
+		return
+	AddComponent(/datum/component/anti_magic, MAGIC_RESISTANCE_HOLY, inventory_flags = ITEM_SLOT_HANDS)
+
+/obj/item/storage/bible/proc/bless_bible()
+	if(has_antimagic)
+		return
+	AddComponent(/datum/component/anti_magic, \
+		antimagic_flags = MAGIC_RESISTANCE_HOLY, \
+		inventory_flags = ITEM_SLOT_HANDS, \
+		charges = 2, \
+		expiration = CALLBACK(src, PROC_REF(expire_antimagic)) \
+	)
+	has_antimagic = TRUE
+
+/// When the plant our gene is hosted in is drained of all of its anti-magic charges.
+/obj/item/storage/bible/proc/expire_antimagic(mob/user)
+	to_chat(user, span_warning("[src] rapidly turns into ash!"))
+	new /obj/effect/decal/cleanable/ash(drop_location())
+	qdel(src)
 
 /obj/item/storage/bible/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] смотр[PLUR_IT_YAT(user)] в [declent_ru(ACCUSATIVE)] и пыта[PLUR_ET_YUT(user)]ся превзойти собственное понимание Вселенной!"))
@@ -112,7 +139,7 @@
 
 	god_forgive()
 
-	if(!user.mind || !user.mind.isholy)
+	if(!user.mind || !HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает шипеть в ваших руках."))
 		add_attack_logs(user, target, "Hit themselves with [src]")
 		user.take_organ_damage(0, 10)
@@ -191,34 +218,39 @@
 
 	if(isfloorturf(target))
 		to_chat(user, span_notice("Вы ударяете пол [declent_ru(INSTRUMENTAL)]."))
-		if(user.mind?.isholy)
+		if(user.mind && HAS_MIND_TRAIT(user, TRAIT_HOLY))
 			for(var/obj/O in target)
 				O.cult_reveal()
 	if(is_airlock(target))
 		to_chat(user, span_notice("Вы ударяете шлюз [declent_ru(INSTRUMENTAL)]."))
-		if(user.mind?.isholy)
+		if(user.mind && HAS_MIND_TRAIT(user, TRAIT_HOLY))
 			var/obj/airlock = target
 			airlock.cult_reveal()
 
-	if(user.mind?.isholy && target.reagents)
+	var/obj/item/storage/bible/bible = astype(target, /obj/item/storage/bible/copy)
+
+	if(bible && HAS_MIND_TRAIT(user, TRAIT_HOLY))
+		bible.bless_bible()
+
+	if(user.mind && HAS_MIND_TRAIT(user, TRAIT_HOLY) && target.reagents)
 		add_holy_water(user, target)
 
 /obj/item/storage/bible/proc/add_holy_water(mob/user, atom/target)
-	if(target.reagents.has_reagent("water")) //blesses all the water in the holder
+	if(target.reagents.has_reagent(/datum/reagent/water)) //blesses all the water in the holder
 		to_chat(user, span_notice("Вы освящаете [target.declent_ru(GENITIVE)]."))
-		var/water2holy = target.reagents.get_reagent_amount("water")
-		target.reagents.del_reagent("water")
-		target.reagents.add_reagent("holywater", water2holy)
+		var/water2holy = target.reagents.get_reagent_amount(/datum/reagent/water)
+		target.reagents.del_reagent(/datum/reagent/water)
+		target.reagents.add_reagent(/datum/reagent/holywater, water2holy)
 
-	if(target.reagents.has_reagent("unholywater")) //yeah yeah, copy pasted code - sue me
+	if(target.reagents.has_reagent(/datum/reagent/fuel/unholywater)) //yeah yeah, copy pasted code - sue me
 		to_chat(user, span_notice("Вы очищаете [target.declent_ru(GENITIVE)]."))
-		var/unholy2clean = target.reagents.get_reagent_amount("unholywater")
-		target.reagents.del_reagent("unholywater")
-		target.reagents.add_reagent("holywater", unholy2clean)
+		var/unholy2clean = target.reagents.get_reagent_amount(/datum/reagent/fuel/unholywater)
+		target.reagents.del_reagent(/datum/reagent/fuel/unholywater)
+		target.reagents.add_reagent(/datum/reagent/holywater, unholy2clean)
 
 /obj/item/storage/bible/attack_self(mob/user)
 	. = ..()
-	if(!customisable || !user.mind?.isholy)
+	if(!customisable || !(HAS_MIND_TRAIT(user, TRAIT_HOLY)))
 		return
 
 	var/list/skins = list()
@@ -244,9 +276,9 @@
 		SSticker.Bible_item_state = item_state
 
 /obj/item/storage/bible/proc/radial_check(mob/user)
-	if(!user?.mind.isholy || !ishuman(user))
+	if(!HAS_MIND_TRAIT(user, TRAIT_HOLY) || !ishuman(user))
 		return FALSE
 	var/mob/living/carbon/human/H = user
-	if(!src || !H.is_type_in_hands(src) || H.incapacitated())
+	if(!src || !H.is_type_in_hands(src) || H.incapacitated)
 		return FALSE
 	return TRUE

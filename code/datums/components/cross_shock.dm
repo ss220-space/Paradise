@@ -54,7 +54,7 @@
 		return FALSE
 	if(isliving(parent))
 		var/mob/living/mob_parent = parent
-		if(mob_parent.stat == DEAD || mob_parent.incapacitated())
+		if(mob_parent.stat == DEAD || mob_parent.incapacitated)
 			return FALSE
 	if(requires_cable)
 		if(our_turf.underfloor_accessibility != UNDERFLOOR_INTERACTABLE || HAS_TRAIT(our_turf, TRAIT_TURF_COVERED))

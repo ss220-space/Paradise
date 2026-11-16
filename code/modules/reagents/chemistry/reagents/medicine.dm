@@ -10,7 +10,7 @@
 
 	handle_addiction(M, total_depletion_rate)
 	sate_addiction(M)
-	holder.remove_reagent(id, total_depletion_rate) //medicine reagents stay longer if you have a better metabolism
+	holder.remove_reagent(type, total_depletion_rate) //medicine reagents stay longer if you have a better metabolism
 	return STATUS_UPDATE_NONE
 
 /datum/reagent/medicine/hydrocodone
@@ -124,10 +124,6 @@
 /datum/reagent/medicine/cryoxadone/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(data && data["diseases"])
 		for(var/datum/disease/virus/V in data["diseases"])
-
-			if(V.spread_flags < BLOOD)
-				continue
-
 			if(method == REAGENT_TOUCH)
 				V.Contract(M, need_protection_check = TRUE, act_type = CONTACT)
 			else
@@ -135,9 +131,9 @@
 
 	if(method == REAGENT_INGEST && iscarbon(M))
 		var/mob/living/carbon/C = M
-		if(C.get_blood_id() == id && !HAS_TRAIT(C, TRAIT_NO_BLOOD_RESTORE))
+		if(C.get_blood_type() == type && !HAS_TRAIT(C, TRAIT_NO_BLOOD_RESTORE))
 			C.setBlood(min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL))
-			C.reagents.del_reagent(id)
+			C.reagents.del_reagent(type)
 
 	if(iscarbon(M))
 		data["method"] = method
@@ -456,7 +452,7 @@
 	if(prob(50))
 		for(var/datum/reagent/R in M.reagents.reagent_list)
 			if(R != src)
-				M.reagents.remove_reagent(R.id,1)
+				M.reagents.remove_reagent(R.type, 1)
 	return ..() | update_flags
 
 /datum/reagent/medicine/coaltree_extract
@@ -476,7 +472,7 @@
 	if(prob(50))
 		for(var/datum/reagent/R in M.reagents.reagent_list)
 			if(R != src)
-				M.reagents.remove_reagent(R.id,1)
+				M.reagents.remove_reagent(R.type, 1)
 	return ..() | update_flags
 
 /datum/reagent/medicine/omnizine
@@ -553,7 +549,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
-			M.reagents.remove_reagent(R.id,5)
+			M.reagents.remove_reagent(R.type, 5)
 	if(M.health > 20)
 		update_flags |= M.adjustToxLoss(2.5, FALSE)
 	if(prob(6))
@@ -736,8 +732,8 @@
 
 /datum/reagent/medicine/diphenhydramine/on_mob_life(mob/living/M)
 	M.AdjustJitter(-40 SECONDS)
-	M.reagents.remove_reagent("histamine",3)
-	M.reagents.remove_reagent("itching_powder",3)
+	M.reagents.remove_reagent(/datum/reagent/histamine,3)
+	M.reagents.remove_reagent(/datum/reagent/itching_powder,3)
 	if(prob(7))
 		M.emote("yawn")
 	if(prob(3))
@@ -837,7 +833,7 @@
 		update_flags |= M.adjustFireLoss(-1.5, FALSE, affect_robotic = FALSE)
 	else if(M.health > -60)
 		update_flags |= M.adjustToxLoss(1, FALSE)
-	M.reagents.remove_reagent("sarin", 20)
+	M.reagents.remove_reagent(/datum/reagent/sarin, 20)
 	return ..() | update_flags
 
 /datum/reagent/medicine/epinephrine
@@ -866,7 +862,7 @@
 		M.SetSleeping(0)
 	if(prob(5))
 		update_flags |= M.adjustBrainLoss(-1, FALSE)
-	holder.remove_reagent("histamine", 15)
+	holder.remove_reagent(/datum/reagent/histamine, 15)
 	M.AdjustLoseBreath(-2 SECONDS, bound_lower = 6 SECONDS)
 	if(M.getOxyLoss() > 35)
 		update_flags |= M.adjustOxyLoss(-5, FALSE)
@@ -1137,7 +1133,7 @@
 	chemuse = 50
 
 /datum/reagent/medicine/insulin/on_mob_life(mob/living/M)
-	M.reagents.remove_reagent("sugar", 5)
+	M.reagents.remove_reagent(/datum/reagent/consumable/sugar, 5)
 	return ..()
 
 /datum/reagent/heparin
@@ -1150,7 +1146,7 @@
 	taste_description = "горечи"
 
 /datum/reagent/heparin/on_mob_life(mob/living/M)
-	M.reagents.remove_reagent("cholesterol", 2)
+	M.reagents.remove_reagent(/datum/reagent/cholesterol, 2)
 	return ..()
 
 /datum/reagent/heparin/overdose_process(mob/living/carbon/M, severity)
@@ -1207,14 +1203,14 @@
 	color = "#FFDCFF"
 	taste_description = "стабильности и успокоения"
 	harmless = FALSE
-	var/list/drug_list = list("crank","methamphetamine","space_drugs","psilocybin","ephedrine","epinephrine","stimulants","bath_salts","lsd","thc")
+	var/list/drug_list = list(/datum/reagent/crank,/datum/reagent/methamphetamine,/datum/reagent/space_drugs,/datum/reagent/psilocybin,/datum/reagent/medicine/ephedrine,/datum/reagent/medicine/epinephrine,/datum/reagent/medicine/stimulants,/datum/reagent/bath_salts,/datum/reagent/lsd,/datum/reagent/thc)
 
 /datum/reagent/medicine/haloperidol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	for(var/I in M.reagents.reagent_list)
 		var/datum/reagent/R = I
-		if(drug_list.Find(R.id))
-			M.reagents.remove_reagent(R.id, 5)
+		if(drug_list.Find(R.type))
+			M.reagents.remove_reagent(R.type, 5)
 	M.AdjustDruggy(-10 SECONDS)
 	M.AdjustHallucinate(-5 SECONDS)
 	M.AdjustJitter(-10 SECONDS)
@@ -1333,11 +1329,11 @@
 		M.AdjustConfused(-10 SECONDS)
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
-			if(R.id == "ultralube" || R.id == "lube")
+			if(R.type == /datum/reagent/lube/ultra || R.type == /datum/reagent/lube)
 				//Flushes lube and ultra-lube even faster than other chems
-				M.reagents.remove_reagent(R.id, 5)
+				M.reagents.remove_reagent(R.type, 5)
 			else
-				M.reagents.remove_reagent(R.id,1)
+				M.reagents.remove_reagent(R.type, 1)
 	return ..() | update_flags
 
 /datum/reagent/medicine/degreaser/reaction_turf(turf/simulated/T, volume)
@@ -1492,14 +1488,14 @@
 	can_synth = FALSE
 	harmless = FALSE
 	taste_description = "предстоящих страданий"
-	var/list/stimulant_list = list("methamphetamine", "crank", "bath_salts", "stimulative_agent", "stimulants", "adrenaline")
+	var/list/stimulant_list = list(/datum/reagent/methamphetamine, /datum/reagent/crank, /datum/reagent/bath_salts, /datum/reagent/medicine/stimulative_agent, /datum/reagent/medicine/stimulants, /datum/reagent/medicine/adrenaline)
 
 /datum/reagent/medicine/nanocalcium/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	var/has_stimulant = FALSE
 	for(var/I in M.reagents.reagent_list)
 		var/datum/reagent/R = I
-		if(stimulant_list.Find(R.id))
+		if(stimulant_list.Find(R.type))
 			has_stimulant = TRUE
 	switch(current_cycle)
 		if(1 to 9)
@@ -1509,8 +1505,8 @@
 				update_flags |= M.adjustFireLoss(1, FALSE)
 			if(has_stimulant)
 				for(var/datum/reagent/R in M.reagents.reagent_list)
-					if(stimulant_list.Find(R.id))
-						M.reagents.remove_reagent(R.id, 1) //We will be generous (for nukies really) and purge out the chemicals during this phase, so they don't fucking die during the next phase. Of course, if they try to use adrenals in the next phase, well...
+					if(stimulant_list.Find(R.type))
+						M.reagents.remove_reagent(R.type, 1) //We will be generous (for nukies really) and purge out the chemicals during this phase, so they don't fucking die during the next phase. Of course, if they try to use adrenals in the next phase, well...
 		if(10 to 21)
 			//If they have stimulants or stimulant drugs then just apply toxin damage instead.
 			if(has_stimulant)
@@ -1544,6 +1540,8 @@
 						H.AdjustBlood(30)
 					for(var/datum/disease/critical/heart_failure/HF in H.diseases)
 						HF.cure() //Won't fix a stopped heart, but it will sure fix a critical one. Shock is not fixed as healing will fix it
+					for(var/datum/disease/virus/zombie/zomb in H.diseases)
+						zomb.cure() // experimental B). Won't save you from the dead organs.
 				if(M.health < 40)
 					update_flags |= M.adjustOxyLoss(-6, FALSE)
 					update_flags |= M.adjustToxLoss(-2, FALSE)
@@ -1725,8 +1723,8 @@
 
 /datum/reagent/medicine/ashiezine/on_mob_life(mob/living/M)
 	if(isashwalker(M))
-		M.reagents.add_reagent("epinephrine", 0.2)
-		M.reagents.add_reagent("heparin", 0,4)
+		M.reagents.add_reagent(/datum/reagent/medicine/epinephrine, 0.2)
+		M.reagents.add_reagent(/datum/reagent/heparin, 0,4)
 	return ..()
 
 /datum/reagent/medicine/sanguinius
@@ -1796,3 +1794,47 @@
 	user.adjustBruteLoss(6)
 	user.set_bloody_screen(6 SECONDS)
 
+// First level, prevents scratches from infecting you and cures stage 1 zombie infections.
+/datum/reagent/zombie_cure
+	name = "Противовирусная сыворотка Альфа"
+	id = "zombiecure1"
+	description = "Первый шаг к лечению некротизирующей чумы. Предотвращает простое заражение от царапин."
+	reagent_state = LIQUID
+	metabolization_rate = 0.1
+	color = "#003602"
+	var/cure_level = 1
+
+// Weakens a zombie's claws when in their system. Cures stage 1-3 infections.
+/datum/reagent/zombie_cure/second
+	name = "Противовирусная сыворотка Бета"
+	id = "zombiecure2"
+	description = "Лечит слабо развившееся заражение. Ослабляет зомби, находясь в их организме."
+	color = "#006238"
+	cure_level = 2
+
+// Significantly weakens a zombie's healing ability. Cures 1-5 infections and significantly slows the advance of the stage 6 infection
+/datum/reagent/zombie_cure/third
+	name = "Противовирусная сыворотка Гамма"
+	id = "zombiecure3"
+	description = "Не даёт зомби оживать, но не мешает им исцеляться. Лечит умеренно развившееся заражение."
+	color = "#029779"
+	cure_level = 3
+
+// Final cure, completely cures being a zombie. Revives all rotten limbs.
+/datum/reagent/zombie_cure/fourth
+	name = "Противовирусная сыворотка Омега"
+	id = "zombiecure4"
+	description = "Лечит все случаи некротизирующей чумы. Не даёт зомби оживать."
+	color = "#001d4d"
+	cure_level = 4
+
+/datum/reagent/zombie_cure/fourth/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	var/mob/living/carbon/human/human = M
+	if(istype(human) && prob(20))
+		for(var/obj/item/organ/limb as anything in human.bodyparts)
+			if(limb.status & ORGAN_DEAD && !limb.is_robotic())
+				limb.status &= ~ORGAN_DEAD
+				human.update_body()
+				break
+	return ..() | update_flags

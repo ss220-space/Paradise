@@ -585,6 +585,10 @@ GLOBAL_LIST_EMPTY(multiverse)
 		to_chat(user, span_warning("There is no soul connected to this body..."))
 		return .
 
+	if(HAS_TRAIT(target, TRAIT_NECROMANT_CURSED))
+		to_chat(user, span_warning("Этот труп уже находится под влиянием другого артефакта!"))
+		return .
+
 	check_spooky()//clean out/refresh the list
 
 	if(length(spooky_scaries) >= 3 && !unlimited)
@@ -601,9 +605,10 @@ GLOBAL_LIST_EMPTY(multiverse)
 		target.grab_ghost() // yoinks the ghost if its not in the body
 		target.revive()
 		equip_skeleton(target)
+	var/greet_text = span_userdanger("Вы были воскрешены <b>[user.real_name]</b>!\nТеперь [DECLENT_RU_CAP(user, NOMINATIVE)] ваш хозяин — помогайте [GEND_ON_IN_HIM(user)], даже если это будет стоить вам вашей новой жизни!")
+	if(!target.mind.has_antag_datum(/datum/antagonist/mindslave/necromancy))
+		target.mind.add_antag_datum(new /datum/antagonist/mindslave/necromancy(user.mind, greet_text))
 	spooky_scaries |= target
-	to_chat(target, "[span_userdanger("You have been revived by ")]<b>[user.real_name]!</b>")
-	to_chat(target, span_userdanger("[user.p_theyre(TRUE)] your master now, assist them even if it costs you your new life!"))
 	desc = "A shard capable of resurrecting humans as skeleton thralls[unlimited ? "." : ", [length(spooky_scaries)]/3 active thralls."]"
 
 /obj/item/necromantic_stone/proc/check_spooky()
@@ -850,6 +855,114 @@ GLOBAL_LIST_EMPTY(multiverse)
 		target.IgniteMob()
 		GiveHint(target, 1)
 	return ..()
+
+//////////////////////// Plague Talisman //////////////////////////////
+
+/obj/item/plague_talisman
+	name = "Plague Talisman"
+	desc = "Мерзкая руна, способная поднимать мёртвых как несущих чуму существ разрушения. Края имеют острые крючки."
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "plague_talisman"
+	origin_tech = "bluespace=4;materials=4"
+	w_class = WEIGHT_CLASS_TINY
+	var/chosen_plague
+
+/obj/item/plague_talisman/get_ru_names()
+	return alist(
+		NOMINATIVE = "чумной талисман",
+		GENITIVE = "чумного талисмана",
+		DATIVE = "чумному талисману",
+		ACCUSATIVE = "чумной талисман",
+		INSTRUMENTAL = "чумным талисманом",
+		PREPOSITIONAL = "чумном талисмане",
+	)
+
+
+// Checks if they're a valid target before trying to raise.
+/obj/item/plague_talisman/attack(mob/living/carbon/human/target, mob/living/carbon/user, list/modifiers, def_zone, skip_attack_anim)
+	if(!istype(target) || !istype(user))
+		return ..()
+
+	if(target.stat != DEAD)
+		to_chat(user, span_warning("Этот артефакт может влиять только на мёртвых!"))
+		return ATTACK_CHAIN_BLOCKED
+
+	if(ismachineperson(target))
+		to_chat(user, span_warning("Этот труп невосприимчив к данной форме чумной магии."))
+		return ATTACK_CHAIN_BLOCKED
+
+	if((!target.mind || !target.client) && !target.grab_ghost())
+		to_chat(user, span_warning("С этим телом не связана душа..."))
+		return ATTACK_CHAIN_BLOCKED
+
+	if(target.mind.has_antag_datum(/datum/antagonist/mindslave/necromancy))
+		to_chat(user, span_warning("Этот труп уже находится под влиянием артефакта! Дайте время."))
+		return ATTACK_CHAIN_BLOCKED
+
+	raise_victim(target, user)
+	return ATTACK_CHAIN_PROCEED_SUCCESS
+
+// Raises the victim into a special zombies and binds them to wiz.
+/obj/item/plague_talisman/proc/raise_victim(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer)
+
+	var/datum/disease/chosen_plague = pick_disease() // What disease to give them.
+
+	victim.grab_ghost() // To attempt to hold their ghost still while we do our thing.
+	victim.visible_message(span_danger("[DECLENT_RU_CAP(necromancer, NOMINATIVE)] помещает мерзкую руну на безжизненный лоб [victim.declent_ru(GENITIVE)]. Руна прилипает к плоти, и тело [victim.declent_ru(GENITIVE)] гниёт и разлагается с неестественной скоростью, прежде чем восстать в виде чудовищного неживого создания!"))
+
+	var/static/list/plague_traits = list(TRAIT_NON_INFECTIOUS_ZOMBIE, TRAIT_PLAGUE_ZOMBIE, TRAIT_ATTACK_ON_THROW_IMPACT)
+	for(var/trait in plague_traits)
+		ADD_TRAIT(victim, trait, ZOMBIE_TRAIT)
+
+	var/datum/disease/virus/zombie/wizard/plague_virus = new (chosen_plague, TRUE)
+	plague_virus.Contract(victim)
+	for(var/datum/disease/V in victim.diseases)
+		if(istype(V, /datum/disease/virus/zombie))
+			V.stage = 8 // Immediate zombie!
+		else
+			V.cure() // Let's remove any other annoying viruses
+
+	// Wiz and minions shouldnt be able to contract their own diseases.
+	ADD_TRAIT(necromancer, TRAIT_VIRUSIMMUNE, MAGIC_TRAIT)
+	ADD_TRAIT(victim, TRAIT_VIRUSIMMUNE, MAGIC_TRAIT)
+	necromancer.add_language(LANGUAGE_ZOMBIE, TRUE) // Make sure necromancer can speak to the bois.
+
+	playsound(victim, 'sound/magic/mutate.ogg', 50)
+	addtimer(CALLBACK(src, PROC_REF(finish_convert), victim, necromancer, chosen_plague), 5 SECONDS)
+
+/obj/item/plague_talisman/proc/finish_convert(mob/living/carbon/human/victim, mob/living/carbon/human/necromancer, datum/disease/chosen_plague)
+	var/greet_text = span_userdanger("Вы были подняты в нежить <b>[necromancer.real_name]</b>!<br> \
+		Теперь [DECLENT_RU_CAP(necromancer, NOMINATIVE)] ваш хозяин — помогайте [GEND_ON_IN_HIM(necromancer)], даже если это будет стоить вам вашей новой жизни!<br> \
+		Вам дарована следующая чума: <br> \
+		[chosen_plague.name]!")
+
+	victim.mind.add_antag_datum(new /datum/antagonist/mindslave/necromancy(necromancer.mind, greet_text, chosen_plague))
+
+	// Cant very well have your new minions dead for so long. Make em stronk!
+	victim.maxHealth = 200
+	victim.health = 200
+	victim.rejuvenate()
+	qdel(src) // talismans are single use
+
+//choose what disease this zombie will get
+/obj/item/plague_talisman/proc/pick_disease()
+	var/picked_disease
+	var/static/list/possible_diseases = list(
+		/datum/disease/virus/beesease/wizard_variant,
+		/datum/disease/virus/fluspanish/wizard_variant,
+		/datum/disease/virus/kingstons_advanced/wizard_variant,
+		/datum/disease/virus/dna_retrovirus/wizard_variant,
+		/datum/disease/virus/tuberculosis/wizard_variant,
+		/datum/disease/virus/anxiety/wizard_variant,
+		/datum/disease/virus/wizarditis/wizard_variant,
+		/datum/disease/berserker,
+		/datum/disease/appendicitis,
+		/datum/disease/virus/grut_gut,
+		/datum/disease/virus/wand_rot,
+		/datum/disease/virus/mystic_malaise,
+	)
+	picked_disease = pick(possible_diseases)
+	return picked_disease
 
 /obj/item/organ/internal/heart/cursed/wizard
 	pump_delay = 60

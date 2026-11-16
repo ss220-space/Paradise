@@ -27,8 +27,6 @@
 
 	var/pulse = PULSE_NORM	//current pulse level
 
-	var/wetlevel = 0 //how wet the mob is
-
 	/// Last mind to control this mob, for blood-based cloning
 	var/datum/mind/last_mind = null
 

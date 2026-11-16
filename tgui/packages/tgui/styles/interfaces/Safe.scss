@@ -1,59 +1,59 @@
 .Safe {
-  &--engraving {
-    position: absolute;
-    width: 95%;
-    height: 96%;
-    left: 2.5%;
-    top: 2%;
-    border: var(--border-thickness-larger) outset var(--color-primary);
-    padding: var(--space-m);
-    text-align: center;
+	&--engraving {
+		position: absolute;
+		width: 95%;
+		height: 96%;
+		left: 2.5%;
+		top: 2%;
+		border: var(--border-thickness-larger) outset var(--color-primary);
+		padding: var(--space-m);
+		text-align: center;
 
-    &--arrow {
-      color: hsl(from var(--color-primary) h s calc(l - 7.5));
-    }
+		&--arrow {
+			color: hsl(from var(--color-primary) h s calc(l - 7.5));
+		}
 
-    &--hinge {
-      content: ' ';
-      background-color: hsl(from var(--color-primary) h s calc(l - 25));
-      width: 25px;
-      height: 40px;
-      position: absolute;
-      right: -15px;
-      margin-top: -20px;
-    }
-  }
+		&--hinge {
+			content: ' ';
+			background-color: hsl(from var(--color-primary) h s calc(l - 25));
+			width: 25px;
+			height: 40px;
+			position: absolute;
+			right: -15px;
+			margin-top: -20px;
+		}
+	}
 
-  &--dialer {
-    margin-bottom: var(--space-m);
+	&--dialer {
+		margin-bottom: var(--space-m);
 
-    &--number {
-      display: inline;
-      font-size: 1.5rem;
-      font-weight: bold;
-      padding: 0 var(--space-m);
-      background-color: hsl(from var(--color-base) h s calc(l - 7.5));
-      color: var(--color-text-translucent);
-    }
+		&--number {
+			display: inline;
+			font-size: 1.5rem;
+			font-weight: bold;
+			padding: 0 var(--space-m);
+			background-color: hsl(from var(--color-base) h s calc(l - 7.5));
+			color: var(--color-text-translucent);
+		}
 
-    .Button {
-      width: 80px;
-    }
-  }
+		.Button {
+			width: 80px;
+		}
+	}
 
-  &--contents {
-    border: calc(var(--border-thickness-larger) * 2) solid hsl(from var(--color-base) h s calc(l - 5));
-    background-color: hsl(from var(--color-base) h s calc(l - 12.5));
-    height: calc(85% + 7.5px);
-    text-align: left;
-    padding: var(--space-m);
-    box-shadow: inset 0px 0 0 5rem hsl(from var(--color-base) h s calc(l - 10));
-  }
+	&--contents {
+		border: calc(var(--border-thickness-larger) * 2) solid
+			hsl(from var(--color-base) h s calc(l - 5));
+		background-color: hsl(from var(--color-base) h s calc(l - 12.5));
+		height: calc(85% + 7.5px);
+		text-align: left;
+		padding: var(--space-m);
+		box-shadow: inset 0px 0 0 5rem
+			hsl(from var(--color-base) h s calc(l - 10));
+	}
 
-  &--help {
-    position: absolute;
-    bottom: 30px;
-    left: 25px;
-    width: 50%;
-  }
+	&--help {
+		position: absolute;
+		width: 50%;
+	}
 }

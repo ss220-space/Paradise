@@ -47,6 +47,7 @@ Note: Must be placed west/left of and R&D console to function.
 	init_parts()
 	create_reagents()
 	RefreshParts()
+	ADD_TRAIT(src, TRAIT_LOGISTICS_COMPATIBLE, INNATE_TRAIT)
 	if(is_taipan(z))
 		icon_state = "syndie_protolathe"
 		base_icon_state = "syndie_protolathe"
@@ -76,6 +77,12 @@ Note: Must be placed west/left of and R&D console to function.
 		linked_console.linked_lathe = null
 	return ..()
 
+/obj/machinery/r_n_d/protolathe/logistics
+
+/obj/machinery/r_n_d/protolathe/logistics/Initialize(mapload)
+	. = ..()
+	install_logistics_interface(LOGISTICS_MODE_RECEIVE)
+
 /obj/machinery/r_n_d/protolathe/RefreshParts()
 	var/T = 0
 	for(var/obj/item/reagent_containers/cup/G in component_parts)
@@ -91,7 +98,7 @@ Note: Must be placed west/left of and R&D console to function.
 /obj/machinery/r_n_d/protolathe/check_mat(datum/design/being_built, M)	// now returns how many times the item can be built with the material
 	var/A = materials.amount(M)
 	if(!A)
-		A = reagents.get_reagent_amount(M)
+		A = reagents.get_reagent_amount_by_id(M)
 		A = A / max(1, (being_built.reagents_list[M] * efficiency_coeff))
 	else
 		A = A / max(1, (being_built.materials[M] * efficiency_coeff))

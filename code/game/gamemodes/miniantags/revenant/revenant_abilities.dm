@@ -141,7 +141,7 @@
 
 /datum/action/cooldown/spell/pointed/revenant_transmit/cast(atom/cast_on)
 	. = ..()
-	INVOKE_ASYNC(src, PROC_REF(cast_async), target)
+	INVOKE_ASYNC(src, PROC_REF(cast_async), cast_on)
 
 /datum/action/cooldown/spell/pointed/revenant_transmit/proc/cast_async(mob/living/target)
 	var/msg = tgui_input_text(usr, "Что вы хотите передать [target]?", null, "")
@@ -541,7 +541,7 @@
 	to_chat(src, span_warning("Вы чувствуете [pick("потерю ориентации", "резкую боль в голове", "как мозг заполняет ледяная статика")]."))
 	new /obj/effect/temp_visual/revenant(loc)
 	if(cause_emp)
-		emp_act(1)
+		emp_act(EMP_HEAVY)
 
 /mob/living/simple_animal/bot/rev_malfunction(cause_emp = TRUE)
 	if(!emagged)
@@ -555,7 +555,7 @@
 	new /obj/effect/temp_visual/revenant(loc)
 	spark_system.start()
 	if(cause_emp)
-		emp_act(1)
+		emp_act(EMP_HEAVY)
 
 /obj/rev_malfunction(cause_emp = TRUE)
 	if(prob(20))
@@ -563,7 +563,7 @@
 			new /obj/effect/temp_visual/revenant(loc)
 		emag_act(null)
 	else if(cause_emp)
-		emp_act(1)
+		emp_act(EMP_HEAVY)
 
 /obj/machinery/clonepod/rev_malfunction(cause_emp = TRUE)
 	..(cause_emp = FALSE)

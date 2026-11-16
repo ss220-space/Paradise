@@ -104,4 +104,3 @@
 
 	if(human_target.bleed_rate && ismachineperson(human_target))
 		human_target.bleed_rate = 0
-

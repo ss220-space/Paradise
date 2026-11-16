@@ -120,7 +120,7 @@
 
 /atom/movable/screen/drop/Click()
 	if(usr.stat == CONSCIOUS)
-		usr.drop_item_ground(usr.get_active_hand(), ignore_pixel_shift = TRUE)
+		usr.drop_from_active_hand()
 
 /atom/movable/screen/act_intent
 	name = "intent"
@@ -129,7 +129,7 @@
 	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/act_intent/Click(location, control, params)
-	if(ishuman(usr) || isdevil(usr))
+	if(is_advanced_user(usr))
 		var/list/modifiers = params2list(params)
 		var/_x = text2num(LAZYACCESS(modifiers, ICON_X))
 		var/_y = text2num(LAZYACCESS(modifiers, ICON_Y))
@@ -143,6 +143,23 @@
 			usr.a_intent_change(INTENT_DISARM)
 	else
 		usr.a_intent_change("right")
+
+/// Proc used to check if we swap intents based on click location
+/atom/movable/screen/act_intent/proc/is_advanced_user(mob/user)
+	if(ishuman(usr) || isdevil(usr)) // someone should probably draw separate intents for devils
+		return TRUE
+	return FALSE
+
+/// Separate act_intent for swarmers
+/atom/movable/screen/act_intent/swarmer
+	icon = 'icons/mob/screen_swarmer.dmi'
+	screen_loc = ui_zonesel
+
+/// Swarmers have the same kind of intents humans do
+/atom/movable/screen/act_intent/swarmer/is_advanced_user(mob/user)
+	if(isswarmer(user))
+		return TRUE
+	return FALSE
 
 /atom/movable/screen/act_intent/alien
 	icon = 'icons/mob/screen_alien.dmi'
@@ -224,7 +241,7 @@
 	if(world.time <= usr.next_move)
 		return TRUE
 
-	if(usr.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB))
+	if(INCAPACITATED_IGNORING(usr, INCAPABLE_RESTRAINTS|INCAPABLE_GRAB))
 		return TRUE
 
 	if(ismecha(usr.loc)) // stops inventory actions in a mech
@@ -244,7 +261,7 @@
 	if(!istype(storage))
 		return
 
-	if(!user || !storage || !istype(dropped) || user.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ismecha(user.loc))
+	if(!user || !storage || !istype(dropped) || INCAPACITATED_IGNORING(user, INCAPABLE_RESTRAINTS|INCAPABLE_GRAB) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ismecha(user.loc))
 		return
 
 	if(is_ventcrawling(user))
@@ -500,13 +517,26 @@
 	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/area_creator/Click()
-	if(usr.incapacitated() || (isobserver(usr) && !usr.can_admin_interact()))
+	if(usr.incapacitated || (isobserver(usr) && !usr.can_admin_interact()))
 		return TRUE
 	var/area/our_area = get_area(usr)
 	if(!our_area.outdoors)
 		to_chat(usr, span_warning("Здесь уже есть обозначенная зона."))
 		return TRUE
 	create_area(usr)
+
+/atom/movable/screen/navigate
+	name = "navigate menu"
+	icon = 'icons/mob/screen_midnight.dmi'
+	icon_state = "navigate"
+	screen_loc = ui_navigate_menu
+	mouse_over_pointer = MOUSE_HAND_POINTER
+
+/atom/movable/screen/navigate/Click()
+	if(!isliving(usr))
+		return TRUE
+	var/mob/living/navigator = usr
+	navigator.navigate()
 
 /atom/movable/screen/inventory
 	/// The identifier for the slot. It has nothing to do with ID cards.
@@ -552,7 +582,7 @@
 	if(world.time <= usr.next_move)
 		return TRUE
 
-	if(usr.incapacitated())
+	if(usr.incapacitated)
 		return TRUE
 
 	if(ismecha(usr.loc)) // stops inventory actions in a mech
@@ -572,7 +602,7 @@
 	return TRUE
 
 /atom/movable/screen/inventory/mouse_drop_receive(obj/item/dropped, mob/user, params)
-	if(!user || !istype(dropped) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ismecha(user.loc) || is_ventcrawling(user))
+	if(!user || !istype(dropped) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ismecha(user.loc) || is_ventcrawling(user))
 		return
 
 	if(isalien(user) && !dropped.allowed_for_alien())	// We need to do this here
@@ -593,17 +623,8 @@
 	if(dropped.loc != user && dropped.anchored)
 		return
 
-	if(dropped.loc == user)
-		if(dropped.equip_delay_self > 0 && !user.is_general_slot(user.get_slot_by_item(dropped)))
-			user.visible_message(
-				span_notice("[user] начина[PLUR_ET_UT(user)] снимать [dropped.declent_ru(ACCUSATIVE)]..."),
-				span_notice("Вы начинаете снимать [dropped.declent_ru(ACCUSATIVE)]..."),
-			)
-			if(!do_after(user, dropped.equip_delay_self, user, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_USER_LOC_CHANGE), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("Снятие [dropped.declent_ru(GENITIVE)] было прервано!")))
-				return
-
-		if(!user.drop_item_ground(dropped))
-			return
+	if(!dropped.can_pickup(user))
+		return
 
 	if((slot_id == ITEM_SLOT_HAND_LEFT && !user.put_in_l_hand(dropped, ignore_anim = FALSE)) || \
 		(slot_id == ITEM_SLOT_HAND_RIGHT && !user.put_in_r_hand(dropped, ignore_anim = FALSE)))
@@ -713,7 +734,7 @@
 	if(world.time <= user.next_move)
 		return TRUE
 
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return TRUE
 
 	if(ismecha(user.loc)) // stops inventory actions in a mech
@@ -739,7 +760,7 @@
 	if(world.time <= usr.next_move)
 		return TRUE
 
-	if(usr.incapacitated())
+	if(usr.incapacitated)
 		return TRUE
 
 	if(ismob(usr))

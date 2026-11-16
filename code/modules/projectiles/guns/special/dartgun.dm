@@ -102,6 +102,9 @@
 	return ..()
 
 /obj/item/gun/dartgun/can_shoot(mob/user)
+	. = ..()
+	if(!.)
+		return FALSE
 	if(!cartridge)
 		return FALSE
 	return cartridge.darts
@@ -238,6 +241,9 @@
 	return 0
 
 /obj/item/gun/dartgun/Topic(href, href_list)
+	if(href_list["gun_modification"])
+		return ..()
+
 	src.add_fingerprint(usr)
 	if(href_list["stop_mix"])
 		var/index = text2num(href_list["stop_mix"])
@@ -276,10 +282,10 @@
 	desc = "A small gas-powered dartgun, fitted for nonhuman hands."
 
 /obj/item/gun/dartgun/vox/medical
-	starting_chems = list("silver_sulfadiazine","styptic_powder","charcoal")
+	starting_chems = list(/datum/reagent/medicine/silver_sulfadiazine,/datum/reagent/medicine/styptic_powder,/datum/reagent/medicine/charcoal)
 
 /obj/item/gun/dartgun/vox/raider
-	starting_chems = list("space_drugs","ether","haloperidol")
+	starting_chems = list(/datum/reagent/space_drugs,/datum/reagent/medicine/ether,/datum/reagent/medicine/haloperidol)
 
 /obj/effect/syringe_gun_dummy //moved this shitty thing here
 	name = ""

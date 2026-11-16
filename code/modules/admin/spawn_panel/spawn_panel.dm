@@ -177,7 +177,7 @@
 		admin_client.mouse_up_icon = 'icons/effects/mouse_pointers/supplypod_pickturf.dmi'
 		admin_client.mouse_down_icon = 'icons/effects/mouse_pointers/supplypod_pickturf_down.dmi'
 		admin_client.mouse_override_icon = admin_client.mouse_up_icon
-		admin_client.mouse_pointer_icon = admin_client.mouse_override_icon
+		admin_client.mob?.update_mouse_pointer()
 		admin_client.click_intercept = src
 
 		winset(admin_client, SKIN_MAPWINDOW_MAP, "right-click=true")

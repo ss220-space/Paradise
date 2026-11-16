@@ -276,6 +276,8 @@
 		return ..()
 
 /datum/emote/living/carbon/human/scream/get_sound(mob/living/carbon/human/user)
+	if(HAS_TRAIT(user, TRAIT_I_WANT_BRAINS))
+		return 'sound/voice/zombie_scream.ogg'
 	if(user.dna?.species)
 		if(user.gender == FEMALE)
 			. = safepick(user.dna.species.female_scream_sound)

@@ -824,13 +824,13 @@
 	stone.opt_in = TRUE
 	return TRUE
 
-/atom/movable/screen/alert/notify_mapvote
-	name = "Голосование за карту"
-	desc = "Проголосуйте за следующую карту для игры!"
-	icon_state = "map_vote"
+/atom/movable/screen/alert/notify_vote
+	name = "Голосование"
+	desc = "Идёт голосование! Нажмите, чтобы открыть окно голосования."
+	icon_state = "vote"
 	clickable_glow = TRUE
 
-/atom/movable/screen/alert/notify_mapvote/Click(location, control, params)
+/atom/movable/screen/alert/notify_vote/Click(location, control, params)
 	. = ..()
 	if(!.)
 		return FALSE

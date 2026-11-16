@@ -82,8 +82,7 @@
 
 /datum/game_mode/de_kerberos_2/proc/start_missle()
 	send_to_playing_players(span_boldwarning("Крылатая ракета с ядерной боевой частью запущена на станцию [station_name()]"))
-	SSsecurity_level.set_level(SECURITY_CODE_DELTA)
-	new /obj/effect/pod_landingzone(pick(GLOB.airdrops_points), new /obj/structure/closet/supplypod/deadmatch_missile/endgame())
+	launch_endgame_missile()
 
 /datum/game_mode/de_kerberos_2/proc/spawn_corpses()
 	new /obj/effect/mob_spawn/human/corpse/warden(pick(GLOB.armory_body_spawns))

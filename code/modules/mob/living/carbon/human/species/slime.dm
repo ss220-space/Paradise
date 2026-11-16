@@ -15,6 +15,7 @@ GLOBAL_LIST_EMPTY(slime_actions)
 /datum/species/slime
 	name = SPECIES_SLIMEPERSON
 	name_plural = "Slime People"
+	ru_genitive = "слаймолюда"
 	language = LANGUAGE_SLIME
 	icobase = 'icons/mob/human_races/r_slime.dmi'
 	deform = 'icons/mob/human_races/r_slime.dmi'
@@ -46,7 +47,7 @@ GLOBAL_LIST_EMPTY(slime_actions)
 
 	flesh_color = "#5fe8b1"
 	blood_color = BLOOD_COLOR_SLIMEPERSON
-	exotic_blood = "slimejelly"
+	exotic_blood = /datum/reagent/slimejelly
 
 	butt_sprite = "slime"
 

@@ -15,10 +15,8 @@
 	slot = parent_organ_zone + "_device"
 
 /obj/item/organ/internal/cyberimp/leg/emp_act(severity)
-	if(emp_shielded(severity))
-		return
 	. = ..()
-	if(emp_proof)
+	if(. & EMP_PROTECT_SELF)
 		return
 
 	var/obj/item/organ/external/E = owner.get_organ(parent_organ_zone)
@@ -160,4 +158,3 @@
 /datum/action/bhop/proc/after_jump(mob/owner)
 	REMOVE_TRAIT(owner, TRAIT_MOVE_FLYING, IMPLANT_JUMP_BOOTS_TRAIT)
 	last_jump = null
-

@@ -31,9 +31,7 @@
 /area/station/service/mime)
 "g" = (
 /obj/machinery/hologram/holopad,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -53,9 +51,7 @@
 /area/station/service/clown)
 "i" = (
 /obj/machinery/power/apc/directional/east,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/item/flag/mime,
 /turf/simulated/floor/plasteel{
 	icon_state = "tranquillite"
@@ -63,9 +59,7 @@
 /area/station/service/mime)
 "j" = (
 /obj/machinery/power/apc/directional/west,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/item/flag/clown,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -95,9 +89,7 @@
 	},
 /area/station/service/mime)
 "m" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/airlock/bananium{
@@ -143,9 +135,7 @@
 /turf/simulated/wall,
 /area/station/service/clown)
 "t" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -153,9 +143,7 @@
 	},
 /area/station/service/clown)
 "u" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -231,9 +219,7 @@
 /turf/simulated/floor/plating,
 /area/station/service/mime)
 "D" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/airlock/tranquillite{
@@ -288,9 +274,7 @@
 /area/template_noop)
 "H" = (
 /obj/machinery/hologram/holopad,
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10

@@ -76,6 +76,7 @@
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
+	ADD_TRAIT(src, TRAIT_LOGISTICS_COMPATIBLE, INNATE_TRAIT)
 	if(is_taipan(z))
 		req_access = list(ACCESS_SYNDICATE)
 
@@ -100,6 +101,12 @@
 		PROTOLATHE_CATEGORY_MEDICAL,
 		MECH_FAB_CATEGORY_MISC,
 	)
+
+/obj/machinery/mecha_part_fabricator/logistics
+
+/obj/machinery/mecha_part_fabricator/logistics/Initialize(mapload)
+	. = ..()
+	install_logistics_interface(LOGISTICS_MODE_RECEIVE)
 
 /obj/machinery/mecha_part_fabricator/Destroy()
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
@@ -412,6 +419,7 @@
 		data["buildStart"] = null
 		data["buildEnd"] = null
 
+	data["logistics_enabled"] = logistics_board_installed()
 	return data
 
 /obj/machinery/mecha_part_fabricator/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -419,6 +427,8 @@
 		return
 
 	. = TRUE
+	if(try_logistics_ui_act(action, usr))
+		return
 	switch(action)
 		if("category")
 			var/new_cat = params["cat"]

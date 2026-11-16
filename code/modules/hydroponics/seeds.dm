@@ -83,6 +83,12 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 				genes -= plant_gene
 				genes += new plant_gene
 
+		if(yield != -1)
+			yield = min(yield, get_max_yield())
+			var/datum/plant_gene/core/yield/yield_gene = get_gene(/datum/plant_gene/core/yield)
+			if(yield_gene)
+				yield_gene.value = yield
+
 		for(var/reag_id in reagents_add)
 			genes += new /datum/plant_gene/reagent(reag_id, reagents_add[reag_id])
 
@@ -144,6 +150,11 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 	else
 		return ..()
 
+/obj/item/seeds/proc/get_max_yield()
+	if(get_gene(/datum/plant_gene/trait/anti_magic))
+		return 1
+	return 10
+
 // Harvest procs
 /obj/item/seeds/proc/getYield()
 	var/return_yield = yield
@@ -154,6 +165,9 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 			return_yield = min(return_yield, 1)//1 if above zero, 0 otherwise
 		else
 			return_yield *= (parent.yieldmod)
+
+	if(get_gene(/datum/plant_gene/trait/anti_magic))
+		return_yield = min(return_yield, 1)
 
 	return return_yield
 
@@ -184,9 +198,9 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 		var/amount = 1 + round(potency * reagents_add[rid], 1)
 
 		var/list/data = null
-		if(rid == "blood") // Hack to make blood in plants always O- but always Human
+		if(rid == /datum/reagent/blood) // Hack to make blood in plants always O- but always Human
 			data = list("blood_type" = "O-", "blood_species" = "Human")
-		if(rid == "nutriment" || rid == "vitamin" || rid == "protein" || rid == "plantmatter")
+		if(rid == /datum/reagent/consumable/nutriment || rid == /datum/reagent/consumable/nutriment/vitamin || rid == /datum/reagent/consumable/nutriment/protein || rid == /datum/reagent/consumable/nutriment/plantmatter)
 			// apple tastes of apple.
 			if(istype(T, /obj/item/reagent_containers/food/snacks/grown))
 				var/obj/item/reagent_containers/food/snacks/grown/grown_edible = T
@@ -197,7 +211,7 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 /// Setters procs ///
 /obj/item/seeds/proc/adjust_yield(adjustamt)
 	if(yield != -1) // Unharvestable shouldn't suddenly turn harvestable
-		yield = clamp(yield + adjustamt, 0, 10)
+		yield = clamp(yield + adjustamt, 0, get_max_yield())
 
 		if(yield <= 0 && get_gene(/datum/plant_gene/trait/plant_type/fungal_metabolism))
 			yield = 1 // Mushrooms always have a minimum yield of 1.
@@ -247,7 +261,7 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 
 /obj/item/seeds/proc/set_yield(adjustamt)
 	if(yield != -1) // Unharvestable shouldn't suddenly turn harvestable
-		yield = clamp(adjustamt, 0, 10)
+		yield = clamp(adjustamt, 0, get_max_yield())
 
 		if(yield <= 0 && get_gene(/datum/plant_gene/trait/plant_type/fungal_metabolism))
 			yield = 1 // Mushrooms always have a minimum yield of 1.
@@ -412,7 +426,7 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 	var/amount_random_reagents = rand(lower, upper)
 	for(var/i in 1 to amount_random_reagents)
 		var/random_amount = rand(4, 15) * 0.01 // this must be multiplied by 0.01, otherwise, it will not properly associate
-		var/datum/plant_gene/reagent/R = new(get_random_reagent_id(), random_amount)
+		var/datum/plant_gene/reagent/R = new(get_random_reagent_type(), random_amount)
 		if(R.can_add(src))
 			genes += R
 		else

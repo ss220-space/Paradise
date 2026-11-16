@@ -203,6 +203,7 @@
 #define PLATING_LAYER 1.7
 #define LATTICE_LAYER 1.701
 #define DISPOSAL_PIPE_LAYER 1.71
+#define LOGISTICS_PIPE_LAYER 1.711
 #define GAS_PIPE_HIDDEN_LAYER 1.72
 #define WIRE_LAYER 1.73
 #define WIRE_TERMINAL_LAYER 1.75
@@ -249,6 +250,7 @@
 #define PROJECTILE_HIT_THRESHOLD_LAYER 2.75 //projectiles won't hit objects at or below this layer if possible
 #define TABLE_LAYER 2.8
 #define BELOW_OBJ_LAYER 2.9
+#define HIGH_PIPE_LAYER 2.91
 #define CLEANABLE_OBJECT_LAYER 2.94
 #define LOW_ITEM_LAYER 2.95
 //#define OBJ_LAYER 3 //For easy recordkeeping; this is a byond define
@@ -269,6 +271,7 @@
 #define VEHICLE_LAYER 3.91
 #define MOB_BELOW_PIGGYBACK_LAYER 3.94
 //#define MOB_LAYER 4 //For easy recordkeeping; this is a byond define
+#define MOB_SHIELD_LAYER 4.01
 #define MOB_ABOVE_PIGGYBACK_LAYER 4.06
 #define HITSCAN_PROJECTILE_LAYER 4.09
 #define ABOVE_MOB_LAYER 4.1

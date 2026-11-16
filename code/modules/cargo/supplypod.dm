@@ -215,7 +215,7 @@
 	name = "cruise missile"
 	desc = "Огромная ракета, вероятно, запущенная из какой-то далёкой ракетной шахты в дальнем космосе."
 	style = /datum/pod_style/missile/syndicate
-	explosionSize = list(0,1,2,2)
+	explosionSize = list(0, 1, 2, 2)
 	effectShrapnel = TRUE
 	specialised = TRUE
 	delays = list(POD_TRANSIT = 2.6 SECONDS, POD_FALLING = 0.4 SECONDS)
@@ -234,17 +234,21 @@
 /obj/structure/closet/supplypod/deadmatch_missile/endgame
 	explosionSize = list(80, 100, 120, 0)
 	ignore_explosion_cap = TRUE
-	delays = list(POD_TRANSIT = 30 SECONDS, POD_FALLING = 10 SECONDS)
+	delays = list(POD_TRANSIT = 1.5 MINUTES, POD_FALLING = 5 SECONDS)
+
+/obj/structure/closet/supplypod/deadmatch_missile/endgame/Initialize(mapload, customStyle)
+	SSsecurity_level.set_level(SEC_LEVEL_DELTA_ROCKET)
+	return ..()
 
 /obj/structure/closet/supplypod/deadmatch_missile/endgame/preOpen()
 	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(nuke_effect), z)
-	. = ..()
+	return ..()
+
+/proc/launch_endgame_missile()
+	new /obj/effect/pod_landingzone(pick(GLOB.airdrops_points), new /obj/structure/closet/supplypod/deadmatch_missile/endgame())
 
 /proc/nuke_effect(z)
 	for(var/mob/living as anything in GLOB.mob_list)
-		if(living.stat == DEAD)
-			continue
-
 		var/turf/turf = get_turf(living)
 
 		if(!turf || (turf.z != z) || isnewplayer(living) || istype(living.loc, /obj/structure/closet/secure_closet/freezer))
@@ -263,7 +267,17 @@
 		qdel(core)
 		CHECK_TICK
 
-	SSticker.mode.end_game()
+	GLOB.enter_allowed = 0
+	SSticker.mode.station_was_nuked = TRUE
+	to_chat(world, span_bold("Станция уничтожена взрывом ядерной ракеты!"))
+
+/obj/structure/closet/supplypod/swarmer
+	style = /datum/pod_style/swarmer
+	bluespace = TRUE
+	explosionSize = list(0, 0, 0, 0)
+	delays = list(POD_TRANSIT = 0 SECONDS, POD_FALLING = 10 SECONDS, POD_OPENING = 3 SECONDS, POD_LEAVING = 0 SECONDS)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	specialised = TRUE
 
 /obj/structure/closet/supplypod/Initialize(mapload, customStyle = FALSE)
 	. = ..()
@@ -427,9 +441,9 @@
 	var/list/B = explosionSize //Mostly because B is more readable than explosionSize :p
 	resistance_flags = initial(resistance_flags)
 	set_density(TRUE) //Density is originally false so the pod doesn't block anything while it's still falling through the air
-	AddComponent(/datum/component/pellet_cloud, projectile_type=shrapnel_type, magnitude=shrapnel_magnitude)
 	if(effectShrapnel)
-		SEND_SIGNAL(src, COMSIG_SUPPLYPOD_LANDED)
+		AddComponent(/datum/component/pellet_cloud, projectile_type = shrapnel_type, magnitude = shrapnel_magnitude)
+	SEND_SIGNAL(src, COMSIG_SUPPLYPOD_LANDED)
 	for(var/mob/living/target_living in turf_underneath)
 		if(iscarbon(target_living)) //If effectLimb is true (which means we pop limbs off when we hit people):
 			if(effectLimb && !effectOrgans && ishuman(target_living))
@@ -497,6 +511,7 @@
 	if(opened) //This is to ensure we don't open something that has already been opened
 		return
 	holder.set_opened()
+	SEND_SIGNAL(holder, COMSIG_SUPPLYPOD_OPENED)
 	var/turf/turf_underneath = get_turf(holder) //Get the turf of whoever's contents we're talking about
 	if(ismob(holder)) //Allows mobs to assume the role of the holder, meaning we look at the mob's contents rather than the supplypod's contents. Typically by this point the supplypod's contents have already been moved over to the mob's contents
 		var/mob/holder_as_mob = holder

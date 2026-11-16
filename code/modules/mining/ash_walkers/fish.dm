@@ -367,7 +367,7 @@ GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
 /obj/item/lavaland_fish/deep_water/sulfuric_tramp/check_special_harvest()
 	var/location = get_turf(src)
 	var/datum/reagents/reagents_list = new (500)
-	reagents_list.add_reagent("sacid", 2450)
+	reagents_list.add_reagent(/datum/reagent/acid, 2450)
 
 	var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
 	smoke.set_up(range = 2, carry = reagents_list, location = location)

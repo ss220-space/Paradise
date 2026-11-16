@@ -247,6 +247,7 @@ GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближ�
 		"1020" = 100, // CHANNEL_HEARTBEAT
 		"1019" = 100, // CHANNEL_BUZZ
 		"1018" = 100, // CHANNEL_AMBIENCE
+		"1017" = 100, // CHANNEL_WEATHER
 		"1014" = 50, // CHANNEL_TTS_LOCAL
 		"1013" = 20, // CHANNEL_TTS_RADIO
 		"1012" = 50, // CHANNEL_RADIO_NOISE
@@ -445,7 +446,7 @@ GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближ�
 			dat += "<b>Причёска:</b> "
 			dat += "<a href='byond://?_src_=prefs;preference=h_style;task=input'>[h_style]</a>"
 			dat += "<a href='byond://?_src_=prefs;preference=hair;task=input'>Цвет</a> [color_square(h_colour)]"
-			var/datum/sprite_accessory/temp_hair_style = GLOB.hair_styles_public_list[h_style]
+			var/datum/sprite_accessory/temp_hair_style = SSaccessories.hairstyles_list[h_style]
 			if(temp_hair_style?.secondary_theme && !temp_hair_style.no_sec_colour)
 				dat += " <a href='byond://?_src_=prefs;preference=secondary_hair;task=input'>Цвет №2</a> [color_square(h_sec_colour)]"
 				// Hair gradient
@@ -461,7 +462,7 @@ GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближ�
 			dat += "<b>Волосы на лице:</b> "
 			dat += "<a href='byond://?_src_=prefs;preference=f_style;task=input'>[f_style ? "[f_style]" : "Shaved"]</a>"
 			dat += "<a href='byond://?_src_=prefs;preference=facial;task=input'>Цвет</a> [color_square(f_colour)]"
-			var/datum/sprite_accessory/temp_facial_hair_style = GLOB.facial_hair_styles_list[f_style]
+			var/datum/sprite_accessory/temp_facial_hair_style = SSaccessories.facial_hairstyles_list[f_style]
 			if(temp_facial_hair_style?.secondary_theme && !temp_facial_hair_style.no_sec_colour)
 				dat += " <a href='byond://?_src_=prefs;preference=secondary_facial;task=input'>Цвет №2</a> [color_square(f_sec_colour)]"
 			dat += "<br>"
@@ -569,12 +570,12 @@ GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближ�
 			dat += "<h2>Одежда</h2>"
 			if(S.clothing_flags & HAS_UNDERWEAR)
 				dat += "<b>Нижнее бельё:</b> <a href='byond://?_src_=prefs;preference=underwear;task=input'>[underwear]</a>"
-				var/datum/sprite_accessory/underwear/uwear = GLOB.underwear_list[underwear]
+				var/datum/sprite_accessory/underwear/uwear = SSaccessories.underwear_list[underwear]
 				if(uwear?.allow_change_color)
 					dat += "<a href='byond://?_src_=prefs;preference=underwear_color;task=input'>Цвет</a> [color_square(underwear_color)]"
 			if(S.clothing_flags & HAS_UNDERSHIRT)
 				dat += "<br><b>Нижняя рубашка:</b> <a href='byond://?_src_=prefs;preference=undershirt;task=input'>[undershirt]</a>"
-				var/datum/sprite_accessory/undershirt/ushirt = GLOB.undershirt_list[undershirt]
+				var/datum/sprite_accessory/undershirt/ushirt = SSaccessories.undershirt_list[undershirt]
 				if(ushirt?.allow_change_color)
 					dat += "<a href='byond://?_src_=prefs;preference=undershirt_color;task=input'>Цвет</a> [color_square(undershirt_color)]"
 			if(S.clothing_flags & HAS_SOCKS)
@@ -1716,15 +1717,15 @@ GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближ�
 							m_colours["tail"] = "#000000"
 
 						// Don't wear another species' underwear!
-						var/datum/sprite_accessory/SA = GLOB.underwear_list[underwear]
+						var/datum/sprite_accessory/SA = SSaccessories.underwear_list[underwear]
 						if(!SA || !(species in SA.species_allowed))
 							underwear = random_underwear(gender, species)
 
-						SA = GLOB.undershirt_list[undershirt]
+						SA = SSaccessories.undershirt_list[undershirt]
 						if(!SA || !(species in SA.species_allowed))
 							undershirt = random_undershirt(gender, species)
 
-						SA = GLOB.socks_list[socks]
+						SA = SSaccessories.socks_list[socks]
 						if(!SA || !(species in SA.species_allowed))
 							socks = random_socks(gender, species)
 
@@ -1798,7 +1799,7 @@ GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближ�
 
 				if("secondary_hair")
 					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACHINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
-						var/datum/sprite_accessory/hair_style = GLOB.hair_styles_public_list[h_style]
+						var/datum/sprite_accessory/hair_style = SSaccessories.hairstyles_list[h_style]
 						if(hair_style.secondary_theme && !hair_style.no_sec_colour)
 							var/new_hair = tgui_input_color(user, "Выберите дополнительный цвет причёски.", "Причёска", h_sec_colour)
 							if(!isnull(new_hair))
@@ -1806,8 +1807,8 @@ GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближ�
 
 				if("h_style")
 					var/list/valid_hairstyles = list()
-					for(var/hairstyle in GLOB.hair_styles_public_list)
-						var/datum/sprite_accessory/SA = GLOB.hair_styles_public_list[hairstyle]
+					for(var/hairstyle, hairstyle_object in SSaccessories.hairstyles_list)
+						var/datum/sprite_accessory/SA = hairstyle_object
 
 						if(hairstyle == "Bald") //Just in case.
 							valid_hairstyles += hairstyle
@@ -1835,7 +1836,7 @@ GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближ�
 						h_style = new_h_style
 
 				if("h_grad_style")
-					var/result = tgui_input_list(user, "Выберите стиль градиента причёски", "Градиент причёски", GLOB.hair_gradients_list)
+					var/result = tgui_input_list(user, "Выберите стиль градиента причёски", "Градиент причёски", SSaccessories.hair_gradients_list)
 					if(result)
 						h_grad_style = result
 
@@ -1868,8 +1869,8 @@ GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближ�
 				if("ha_style")
 					if(S.bodyflags & HAS_HEAD_ACCESSORY) //Species with head accessories.
 						var/list/valid_head_accessory_styles = list()
-						for(var/head_accessory_style in GLOB.head_accessory_styles_list)
-							var/datum/sprite_accessory/H = GLOB.head_accessory_styles_list[head_accessory_style]
+						for(var/head_accessory_style, head_accessory_style_object in SSaccessories.head_accessory_list)
+							var/datum/sprite_accessory/H = head_accessory_style_object
 							if(!(species in H.species_allowed))
 								continue
 
@@ -1885,9 +1886,9 @@ GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближ�
 						return
 					if(S.bodyflags & HAS_ALT_HEADS) //Species with alt heads.
 						var/list/valid_alt_heads = list()
-						valid_alt_heads["None"] = GLOB.alt_heads_list["None"] //The only null entry should be the "None" option
-						for(var/alternate_head in GLOB.alt_heads_list)
-							var/datum/sprite_accessory/alt_heads/head = GLOB.alt_heads_list[alternate_head]
+						valid_alt_heads["None"] = SSaccessories.alt_heads_list["None"] //The only null entry should be the "None" option
+						for(var/alternate_head, alternate_head_object in SSaccessories.alt_heads_list)
+							var/datum/sprite_accessory/alt_heads/head = alternate_head_object
 							if(!(species in head.species_allowed))
 								continue
 
@@ -1898,16 +1899,16 @@ GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближ�
 							alt_head = new_alt_head
 						if(m_styles["head"])
 							var/head_marking = m_styles["head"]
-							var/datum/sprite_accessory/body_markings/head/head_marking_style = GLOB.marking_styles_list[head_marking]
+							var/datum/sprite_accessory/body_markings/head/head_marking_style = SSaccessories.body_markings_list[head_marking]
 							if(!head_marking_style.heads_allowed || (!("All" in head_marking_style.heads_allowed) && !(alt_head in head_marking_style.heads_allowed)))
 								m_styles["head"] = "None"
 
 				if("m_style_head")
 					if(S.bodyflags & HAS_HEAD_MARKINGS) //Species with head markings.
 						var/list/valid_markings = list()
-						valid_markings["None"] = GLOB.marking_styles_list["None"]
-						for(var/markingstyle in GLOB.marking_styles_list)
-							var/datum/sprite_accessory/body_markings/head/M = GLOB.marking_styles_list[markingstyle]
+						valid_markings["None"] = SSaccessories.body_markings_list["None"]
+						for(var/markingstyle, markingstyle_object in SSaccessories.body_markings_list)
+							var/datum/sprite_accessory/body_markings/head/M = markingstyle_object
 							if(!(species in M.species_allowed))
 								continue
 							if(M.marking_location != "head")
@@ -1947,10 +1948,10 @@ GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближ�
 				if("m_style_body")
 					if(S.bodyflags & HAS_BODY_MARKINGS) //Species with body markings/tattoos.
 						var/list/valid_markings = list()
-						valid_markings["None"] = GLOB.marking_styles_list["None"]
-						for(var/markingstyle in GLOB.marking_styles_list)
-							var/datum/sprite_accessory/M = GLOB.marking_styles_list[markingstyle]
-							if(gender == M.unsuitable_gender)
+						valid_markings["None"] = SSaccessories.body_markings_list["None"]
+						for(var/markingstyle, markingstyle_object in SSaccessories.body_markings_list)
+							var/datum/sprite_accessory/M = markingstyle_object
+							if(M.gender && gender != M.gender)
 								continue
 							if(!(species in M.species_allowed))
 								continue
@@ -1975,9 +1976,9 @@ GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближ�
 				if("m_style_tail")
 					if(S.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
 						var/list/valid_markings = list()
-						valid_markings["None"] = GLOB.marking_styles_list["None"]
-						for(var/markingstyle in GLOB.marking_styles_list)
-							var/datum/sprite_accessory/body_markings/tail/M = GLOB.marking_styles_list[markingstyle]
+						valid_markings["None"] = SSaccessories.body_markings_list["None"]
+						for(var/markingstyle, markingstyle_object in SSaccessories.body_markings_list)
+							var/datum/sprite_accessory/body_markings/tail/M = markingstyle_object
 							if(M.marking_location != "tail")
 								continue
 							if(!(species in M.species_allowed))
@@ -2003,13 +2004,13 @@ GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближ�
 
 				if("body_accessory")
 					var/list/possible_body_accessories = list()
-					for(var/B in GLOB.body_accessory_by_name)
-						var/datum/body_accessory/accessory = GLOB.body_accessory_by_name[B]
+					for(var/key, value in GLOB.body_accessory_by_name)
+						var/datum/body_accessory/accessory = value
 						if(!istype(accessory))
 							possible_body_accessories += "None" //the only null entry should be the "None" option
 							continue
 						if(species in accessory.allowed_species)
-							possible_body_accessories += B
+							possible_body_accessories += key
 					if(S.optional_body_accessory)
 						possible_body_accessories.Add("None") //the only null entry should be the "None" option
 					else
@@ -2028,7 +2029,7 @@ GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближ�
 
 				if("secondary_facial")
 					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACHINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
-						var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[f_style]
+						var/datum/sprite_accessory/facial_hair_style = SSaccessories.facial_hairstyles_list[f_style]
 						if(facial_hair_style.secondary_theme && !facial_hair_style.no_sec_colour)
 							var/new_facial = tgui_input_color(user, "Выберите дополнительный цвет лицевой растительности.", "Лицевая растительность", f_sec_colour)
 							if(!isnull(new_facial))
@@ -2036,15 +2037,15 @@ GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближ�
 
 				if("f_style")
 					var/list/valid_facial_hairstyles = list()
-					for(var/facialhairstyle in GLOB.facial_hair_styles_list)
-						var/datum/sprite_accessory/SA = GLOB.facial_hair_styles_list[facialhairstyle]
+					for(var/facialhairstyle, facialhairstyle_object in SSaccessories.facial_hairstyles_list)
+						var/datum/sprite_accessory/SA = facialhairstyle_object
 
 						if(facialhairstyle == "Shaved") //Just in case.
 							valid_facial_hairstyles += facialhairstyle
 							continue
 						if(SA.wizard_only)
 							continue
-						if(gender == SA.unsuitable_gender)
+						if(SA.gender && gender != SA.gender)
 							continue
 						if(S.bodyflags & ALL_RPARTS) //Species that can use prosthetic heads.
 							var/head_model
@@ -2069,13 +2070,14 @@ GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближ�
 
 				if("underwear")
 					var/list/valid_underwear = list()
-					for(var/underwear in GLOB.underwear_list)
-						var/datum/sprite_accessory/SA = GLOB.underwear_list[underwear]
-						if(gender == SA.unsuitable_gender)
+					for(var/underwear, underwear_object in SSaccessories.underwear_list)
+						var/datum/sprite_accessory/SA = underwear_object
+
+						if(SA.gender && gender != SA.gender)
 							continue
 						if(!(species in SA.species_allowed))
 							continue
-						valid_underwear[underwear] = GLOB.underwear_list[underwear]
+						valid_underwear[underwear] = SA
 					sortTim(valid_underwear, GLOBAL_PROC_REF(cmp_text_asc))
 					var/new_underwear = tgui_input_list(user, "Выберите тип нижнего белья", "Нижнее бельё", valid_underwear)
 					ShowChoices(user)
@@ -2089,13 +2091,13 @@ GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближ�
 
 				if("undershirt")
 					var/list/valid_undershirts = list()
-					for(var/undershirt in GLOB.undershirt_list)
-						var/datum/sprite_accessory/SA = GLOB.undershirt_list[undershirt]
-						if(gender == MALE && SA.unsuitable_gender)
+					for(var/undershirt, undershirt_object in SSaccessories.undershirt_list)
+						var/datum/sprite_accessory/SA = undershirt_object
+						if(SA.gender && gender != SA.gender)
 							continue
 						if(!(species in SA.species_allowed))
 							continue
-						valid_undershirts[undershirt] = GLOB.undershirt_list[undershirt]
+						valid_undershirts[undershirt] = SA
 					sortTim(valid_undershirts, GLOBAL_PROC_REF(cmp_text_asc))
 					var/new_undershirt = tgui_input_list(user, "Выберите тип нательной рубашки", "Нательная рубашка", valid_undershirts)
 					ShowChoices(user)
@@ -2109,13 +2111,13 @@ GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближ�
 
 				if("socks")
 					var/list/valid_sockstyles = list()
-					for(var/sockstyle in GLOB.socks_list)
-						var/datum/sprite_accessory/SA = GLOB.socks_list[sockstyle]
-						if(gender == SA.unsuitable_gender)
+					for(var/sockstyle, sockstyle_object in SSaccessories.socks_list)
+						var/datum/sprite_accessory/SA = sockstyle_object
+						if(SA.gender && gender != SA.gender)
 							continue
 						if(!(species in SA.species_allowed))
 							continue
-						valid_sockstyles[sockstyle] = GLOB.socks_list[sockstyle]
+						valid_sockstyles[sockstyle] = SA
 					sortTim(valid_sockstyles, GLOBAL_PROC_REF(cmp_text_asc))
 					var/new_socks = tgui_input_list(user, "Выберите тип носков", "Носки", valid_sockstyles)
 					ShowChoices(user)
@@ -2425,7 +2427,7 @@ GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближ�
 					var/list/options = list()
 					for(var/key, value in GLOB.zoom_modes)
 						options[value] = key
-					var/result = tgui_input_list(user, "ВЫберите тип маштабирования", "Маштабирование", options, GLOB.zoom_modes[zoom_mode])
+					var/result = tgui_input_list(user, "Выберите тип маштабирования", "Маштабирование", options, GLOB.zoom_modes[zoom_mode])
 					if(!result)
 						return
 					zoom_mode = options[result] || zoom_mode
@@ -2435,7 +2437,7 @@ GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближ�
 					var/list/options = list()
 					for(var/key in 0 to 9 step 0.5)
 						options += key
-					var/result = tgui_input_list(user, "ВЫберите коэффицент маштабирования", "Коэффицент маштабирования", options, zoom)
+					var/result = tgui_input_list(user, "Выберите коэффицент маштабирования", "Коэффицент маштабирования", options, zoom)
 					if(isnull(result))
 						return
 

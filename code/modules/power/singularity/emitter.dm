@@ -70,6 +70,9 @@
 	sparks.attach(src)
 	sparks.set_up(5, TRUE, src)
 
+/obj/machinery/power/port_gen/should_have_node()
+	return anchored
+
 /obj/machinery/power/emitter/Destroy()
 	if(SSticker.IsRoundInProgress())
 		var/turf/current_turf = get_turf(src)
@@ -126,7 +129,7 @@
 	active_power_usage = power_usage
 
 /obj/machinery/power/emitter/click_alt(mob/user)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, span_warning("You can't do that right now!"))
 		return CLICK_ACTION_BLOCKING
 
@@ -192,6 +195,7 @@
 	update_appearance()
 
 /obj/machinery/power/emitter/emp_act(severity) // Emitters are hardened but still might have issues
+	. = ..()
 	return TRUE
 
 /obj/machinery/power/emitter/attack_animal(mob/living/simple_animal/user)

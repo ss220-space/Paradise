@@ -8,9 +8,9 @@
 #define BLOOD_ANTIGEN_B (1 << 1)
 
 GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
-			"blood",
-			"slimejelly",
-			"cryoxadone",
+			/datum/reagent/blood,
+			/datum/reagent/slimejelly,
+			/datum/reagent/medicine/cryoxadone,
 		))
 
 /datum/reagent/water
@@ -25,6 +25,8 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	drink_icon = "glass_clear"
 	drink_name = "Стакан воды"
 	drink_desc = "Обычный стакан обычной воды."
+	chemfiresupp = TRUE
+	intensitymod = -3
 	var/water_temperature = COLD_WATER_TEMPERATURE	// As reagents don't have a temperature value, we'll just use 10 celsius.
 
 /// How many wet stacks you get per units of water when it's applied by touch.
@@ -177,20 +179,16 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 /datum/reagent/blood/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(data && data["diseases"])
 		for(var/datum/disease/virus/V in data["diseases"])
-
-			if(V.spread_flags < BLOOD)
-				continue
-
 			if(method == REAGENT_TOUCH)
-				V.Contract(M, need_protection_check = TRUE, act_type = CONTACT)
+				V.Contract(M, act_type = BLOOD, need_protection_check = TRUE, act_type = CONTACT)
 			else
-				V.Contract(M, need_protection_check = FALSE)
+				V.Contract(M, act_type = BLOOD, need_protection_check = FALSE)
 
 	if(method == REAGENT_INGEST && iscarbon(M))
 		var/mob/living/carbon/C = M
-		if(C.get_blood_id() == "blood")
+		if(C.get_blood_type() == /datum/reagent/blood)
 			if(!data || !(data["blood_type"] in get_safe_blood(C.dna.blood_type)) || !(data["blood_species"] == C.dna.species.blood_species))
-				C.reagents.add_reagent("toxin", volume * 0.5)
+				C.reagents.add_reagent(/datum/reagent/toxin, volume * 0.5)
 			else
 				C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
 
@@ -240,10 +238,6 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 /datum/reagent/blood/synthetic/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(data && data["diseases"])
 		for(var/datum/disease/virus/V in data["diseases"])
-
-			if(V.spread_flags < BLOOD)
-				continue
-
 			if(method == REAGENT_TOUCH)
 				V.Contract(M, need_protection_check = TRUE, act_type = CONTACT)
 			else
@@ -260,9 +254,9 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 
 	if(method == REAGENT_INGEST && iscarbon(M))
 		var/mob/living/carbon/C = M
-		if(C.get_blood_id() == "blood")
+		if(C.get_blood_type() == /datum/reagent/blood)
 			if(!data || !(C.dna.species.blood_species == "Vox"))
-				C.reagents.add_reagent("toxin", volume * 0.5)
+				C.reagents.add_reagent(/datum/reagent/toxin, volume * 0.5)
 				if(C.stat != DEAD)
 					C.adjustOxyLoss(4)
 			else
@@ -279,9 +273,9 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 
 	if(method == REAGENT_INGEST && iscarbon(M))
 		var/mob/living/carbon/C = M
-		if(C.get_blood_id() == "blood")
+		if(C.get_blood_type() == /datum/reagent/blood)
 			if(!data || C.dna.species.blood_species == "Vox")
-				C.reagents.add_reagent("toxin", volume * 0.5)
+				C.reagents.add_reagent(/datum/reagent/toxin, volume * 0.5)
 				if(C.stat != DEAD)
 					C.adjustOxyLoss(4)
 			else
@@ -373,7 +367,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 		M.AdjustConfused(6 SECONDS)
 		if(isvampirethrall(M))
 			M.mind.remove_antag_datum(/datum/antagonist/mindslave/thrall)
-			holder.remove_reagent(id, volume)
+			holder.remove_reagent(type, volume)
 			M.visible_message(span_biggerdanger("[M] отшатыва[PLUR_ET_YUT(M)]ся, [GEND_HIS_HER(M)] кожа окрашивается в яркий цвет, [GEND_HE_SHE(M)] вновь обрета[PLUR_ET_YUT(M)] чувство контроля над собой!"))
 			M.SetJitter(0)
 			M.SetStuttering(0)
@@ -382,7 +376,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 
 		if(iscultist(M))
 			SSticker.mode.remove_cultist(M.mind)
-			holder.remove_reagent(id, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
+			holder.remove_reagent(type, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
 			M.SetJitter(0)
 			M.SetStuttering(0)
 			M.SetConfused(0)
@@ -397,7 +391,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 
 		if(isclocker(M))
 			SSticker.mode.remove_clocker(M.mind)
-			holder.remove_reagent(id, volume)
+			holder.remove_reagent(type, volume)
 			M.SetJitter(0)
 			M.SetStuttering(0)
 			M.SetConfused(0)
@@ -418,17 +412,16 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 				M.emote("scream")
 			vamp.base_nullification()
 			vamp.bloodusable = max(vamp.bloodusable - 3,0)
-			var/vomit_stun = (vamp.nullification == OLD_NULLIFICATION)? 8 SECONDS : FALSE
+			var/vomit_stun = 8 SECONDS
 			if(vamp.bloodusable)
 				V.vomit(0, VOMIT_BLOOD, vomit_stun)
-				if(!vomit_stun)
-					V.adjustBruteLoss(3)
+				V.adjustBruteLoss(3)
 			else
-				holder.remove_reagent(id, volume)
+				holder.remove_reagent(type, volume)
 				V.vomit(0, stun = vomit_stun)
 				return
 		else
-			if(!vamp.bloodtotal && vamp.nullification == NEW_NULLIFICATION)
+			if(!vamp.bloodtotal)
 				return ..() | update_flags
 			switch(current_cycle)
 				if(1 to 4)

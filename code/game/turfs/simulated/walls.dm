@@ -24,7 +24,7 @@
 	explosion_block = 1
 	explosion_vertical_block = 1
 
-	flags_ricochet = RICOCHET_BALLISTIC
+	flags_ricochet = RICOCHET_BALLISTIC | RICOCHET_SPECIAL
 
 	heat_capacity = 312500 //a little over 5 cm thick , 312500 for 1 m by 2.5 m by 0.25 m plasteel wall
 
@@ -207,6 +207,8 @@
 
 	if(mode == RPD_DISPOSALS_MODE && !our_rpd.ranged)
 		return
+	if(mode == RPD_LOGISTICS_MODE && !our_rpd.ranged)
+		return
 
 	return ..()
 
@@ -313,10 +315,10 @@
 
 	melting = TRUE
 
-	while(reagents.get_reagent_amount("thermite") > 0)
+	while(reagents.get_reagent_amount(/datum/reagent/thermite) > 0)
 		if(QDELETED(src))
 			return
-		reagents.remove_reagent("thermite", THERMITE_PER_SECOND)
+		reagents.remove_reagent(/datum/reagent/thermite, THERMITE_PER_SECOND)
 		if(damage_cap - damage <= DAMAGE_PER_SECOND)
 			var/turf/simulated/floor/plating/our_floor = burn_down()
 			our_floor.burn_tile()
@@ -415,7 +417,7 @@
 
 /turf/simulated/wall/welder_act(mob/user, obj/item/I)
 	. = TRUE
-	if(reagents?.get_reagent_amount("thermite") && I.use_tool(src, user, volume = I.tool_volume))
+	if(reagents?.get_reagent_amount(/datum/reagent/thermite) && I.use_tool(src, user, volume = I.tool_volume))
 		thermitemelt(user)
 		return
 	if(rotting)

@@ -57,24 +57,21 @@
 	for(var/skill_name, skill_datum in GLOB.skills)
 		var/datum/skill/skill = skill_datum
 		set_skill_level(skill.type, SKILL_LEVEL_BASIC)
+		skills_without_manual_bonuses[skill.type] = SKILL_LEVEL_BASIC
 
 /datum/mind/proc/refresh_skills(ref_job = current.job)
 	skills = list()
+	skills_without_manual_bonuses = list()
 
 	if(!ishuman(current))
 		give_basic_skills()
 		return
 
-	var/list/antag_skills = GLOB.antag_skills
 	var/datum/job/current_job
 	if(ref_job)
 		current_job = SSjobs.GetJob(ref_job)
 	var/is_antag = HAS_TRAIT(src, TRAIT_HAS_ANTAG_SKILLS)
 	var/basic_skill = is_antag || !current_job? SKILL_LEVEL_BASIC : SKILL_LEVEL_NONE
-	var/list/cached_manual_bonuses = active_skill_bonuses
-	var/list/cached_neurotrainer_bonuses = active_neurotrainer_bonuses
-	var/list/cached_manual_skill_bonuses = manual_skill_bonuses
-	var/list/cached_selected_skills_levels = selected_skills_levels
 	var/list/cached_mode_bonuses = null
 	var/list/cached_mode_additive_bonuses = null
 	if(SSticker?.mode)
@@ -82,39 +79,66 @@
 		cached_mode_additive_bonuses = SSticker.mode.get_mode_additive_skill_bonuses_for(src)
 	for(var/skill_name, skill_datum in GLOB.skills)
 		var/datum/skill/skill = skill_datum
-		var/datum/skill/skill_type = skill.type
-		var/antag_skill_level = basic_skill
-		if(is_antag)
-			antag_skill_level = antag_skills[skill_type] || basic_skill
-		var/job_skill = basic_skill
-		if(current_job)
-			job_skill = current_job.get_skill_level(skill_type, role_alt_title)
-			if(!(skill_type in job_alt_skills))
-				LAZYSET(job_alt_skills, skill_type, job_skill)
-		if(job_alt_skills && (skill_type in job_alt_skills))
-			job_skill = job_alt_skills[skill_type]
-		var/level = max(job_skill, antag_skill_level)
-		if(cached_mode_bonuses && (skill_type in cached_mode_bonuses))
-			level = max(level, cached_mode_bonuses[skill_type])
-		var/antag_bonus_level = get_antag_skill_bonus(skill_type)
-		if(antag_bonus_level)
-			level = max(level, antag_bonus_level)
-		var/form_skill_level = get_form_skill_level(skill_type)
-		if(form_skill_level)
-			level = max(level, form_skill_level)
-		if(cached_mode_additive_bonuses && (skill_type in cached_mode_additive_bonuses))
-			level = min(level + cached_mode_additive_bonuses[skill_type], SKILL_LEVEL_LEGEND)
-		if(skill_type in cached_selected_skills_levels)
-			level = clamp(level + cached_selected_skills_levels[skill_type], level, SKILL_LEVEL_LEGEND)
-		if(skill_type in cached_manual_bonuses)
-			level = max(min(level + cached_manual_bonuses[skill_type], SKILL_LEVEL_PROFESSIONAL), level)
-		if(skill_type in cached_manual_skill_bonuses)
-			level = max(min(level + cached_manual_skill_bonuses[skill_type], SKILL_LEVEL_PROFESSIONAL), level)
-		if(skill_type in cached_neurotrainer_bonuses)
-			level = min(level + cached_neurotrainer_bonuses[skill_type], SKILL_LEVEL_LEGEND)
-		if(level == SKILL_LEVEL_UNAVAILABLE)
-			skill.remove_from_mob(current)
-		set_skill_level(skill_type, level)
+		var/level = calculate_skill_level(
+			skill.type,
+			basic_skill,
+			is_antag,
+			current_job,
+			cached_mode_bonuses,
+			cached_mode_additive_bonuses
+		)
+		set_skill_level(skill.type, level)
+		skills_without_manual_bonuses[skill.type] = calculate_skill_level(
+			skill.type,
+			basic_skill,
+			is_antag,
+			current_job,
+			cached_mode_bonuses,
+			cached_mode_additive_bonuses,
+			include_manual_bonuses = FALSE
+		)
+
+	// for unarmed combat technique
+	var/mob/living/carbon/human/human_current = current
+	human_current.refresh_uct()
+
+/datum/mind/proc/calculate_skill_level(skill_type, basic_skill, is_antag, datum/job/current_job, list/mode_bonuses, list/mode_additive_bonuses, include_manual_bonuses = TRUE)
+	var/antag_skill_level = basic_skill
+	if(is_antag)
+		antag_skill_level = GLOB.antag_skills[skill_type] || basic_skill
+	var/job_skill = basic_skill
+	if(current_job)
+		job_skill = current_job.get_skill_level(skill_type, role_alt_title)
+		if(!(skill_type in job_alt_skills))
+			LAZYSET(job_alt_skills, skill_type, job_skill)
+	if(job_alt_skills && (skill_type in job_alt_skills))
+		job_skill = job_alt_skills[skill_type]
+	var/level = max(job_skill, antag_skill_level)
+	if(mode_bonuses && (skill_type in mode_bonuses))
+		level = max(level, mode_bonuses[skill_type])
+	var/antag_bonus_level = get_antag_skill_bonus(skill_type)
+	if(antag_bonus_level)
+		level = max(level, antag_bonus_level)
+	var/form_skill_level = get_form_skill_level(skill_type)
+	if(form_skill_level)
+		level = max(level, form_skill_level)
+	if(mode_additive_bonuses && (skill_type in mode_additive_bonuses))
+		level = min(level + mode_additive_bonuses[skill_type], SKILL_LEVEL_LEGEND)
+	if(skill_type in selected_skills_levels)
+		level = clamp(level + selected_skills_levels[skill_type], level, SKILL_LEVEL_LEGEND)
+	if(include_manual_bonuses)
+		if(skill_type in active_skill_bonuses)
+			level = max(min(level + active_skill_bonuses[skill_type], SKILL_LEVEL_PROFESSIONAL), level)
+		if(skill_type in manual_skill_bonuses)
+			level = max(min(level + manual_skill_bonuses[skill_type], SKILL_LEVEL_PROFESSIONAL), level)
+	if(skill_type in active_neurotrainer_bonuses)
+		level = min(level + active_neurotrainer_bonuses[skill_type], SKILL_LEVEL_LEGEND)
+	return min(level, SKILL_LEVEL_LEGEND)
+
+/datum/mind/proc/get_skill_level_without_manual_bonuses(skill_type)
+	if(!(skill_type in skills_without_manual_bonuses))
+		return get_skill_level(skill_type)
+	return skills_without_manual_bonuses[skill_type]
 
 /datum/mind/proc/get_antag_skill_bonus(datum/skill/skill_type)
 	var/bonus_level = 0
@@ -169,8 +193,17 @@
 		current_job = SSjobs.GetJob(ref_job)
 	var/is_antag = HAS_TRAIT(src, TRAIT_HAS_ANTAG_SKILLS)
 	refresh_skills(ref_job)
-	var/job_free_skill_points = current_job?.base_free_skill_point || BASIC_SKILL_POINTS_COUNT
-	free_skill_points = job_free_skill_points + (is_antag? BASIC_ANTAG_SKILL_POINTS_BONUS : 0)
+	var/job_free_skill_points = current_job?.base_free_skill_point || DEFAULT_FREE_POINTS
+	free_skill_points = job_free_skill_points + (is_antag ? BASIC_ANTAG_SKILL_POINTS_BONUS : 0)
+	actual_free_skill_points = ACTUAL_FREE_SKILL_POINTS_NOT_SET
+	if(!current_job)
+		return
+	discount_skill_category = current_job.discount_skill_category
+	if(!is_antag)
+		return
+	discount_skill_category = list()
+	discount_skill_category += current_job.discount_skill_category
+	discount_skill_category |= GLOB.discount_categories_antag
 
 /**
  * Returns the typepath of the highest-level skill on this mind.

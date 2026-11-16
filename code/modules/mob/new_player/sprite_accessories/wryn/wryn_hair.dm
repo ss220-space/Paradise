@@ -1,4 +1,5 @@
 /datum/sprite_accessory/hair/wryn
+	abstract_type = /datum/sprite_accessory/hair/wryn
 	icon = 'icons/mob/sprite_accessories/wryn/wryn_head_accessories.dmi'
 	species_allowed = list(SPECIES_WRYN)
 	glasses_over = 1

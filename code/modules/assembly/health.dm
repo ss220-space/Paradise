@@ -88,7 +88,7 @@
 
 	var/mob/living/user = usr
 
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !in_range(loc, user))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !in_range(loc, user))
 		close_window(user, "hscan")
 		onclose(user, "hscan")
 		return

@@ -4,6 +4,7 @@
 /datum/species/kidan
 	name = SPECIES_KIDAN
 	name_plural = "Kidan"
+	ru_genitive = "кидана"
 	icobase = 'icons/mob/human_races/r_kidan.dmi'
 	deform = 'icons/mob/human_races/r_def_kidan.dmi'
 	language = LANGUAGE_KIDAN

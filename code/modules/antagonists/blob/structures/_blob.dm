@@ -239,9 +239,8 @@
 
 /obj/structure/blob/emp_act(severity)
 	. = ..()
-	// tgstation emp protection
-	//if(. & EMP_PROTECT_SELF)
-		//return
+	if(. & EMP_PROTECT_SELF)
+		return
 	if(severity > 0)
 		if(overmind)
 			overmind.blobstrain.emp_reaction(src, severity)

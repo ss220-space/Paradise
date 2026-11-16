@@ -210,6 +210,9 @@
 
 /obj/structure/table/can_touch(mob/living/user, flip = FALSE)
 	. = ..()
+	if(flip && user.mob_size <= MOB_SIZE_TINY)
+		to_chat(user, span_notice("Вы слишком маленький, чтобы перевернуть [declent_ru(ACCUSATIVE)]."))
+		return FALSE
 	if(. && !flip && flipped)
 		to_chat(user, span_notice("Вы не можете забраться на перевернутый стол."))
 		return FALSE
@@ -217,7 +220,7 @@
 /obj/structure/table/mouse_drop_receive(obj/dropping, mob/user, params)
 	if(!isitem(dropping) || user.get_active_hand() != dropping)
 		return ..()
-	if(isrobot(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(isrobot(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(istype(dropping, /obj/item/storage/bag/tray)) // we don't put the tray on the table
 		return
@@ -450,10 +453,11 @@ GAME_VERB_SRC(/obj/structure/table, do_flip, oview(1), "Flip/Unflip table", VERB
 
 /obj/structure/table/glass
 	name = "glass table"
-	desc = "Looks fragile. You should totally flip it. It is begging for it."
+	desc = "Выглядит хрупко. Наверное, не стоит на него натыкаться."
 	icon = 'icons/obj/smooth_structures/glass_table.dmi'
 	icon_state = "glass_table-0"
 	buildstack = /obj/item/stack/sheet/glass
+	can_be_flipped = FALSE
 	canSmoothWith = null
 	max_integrity = 70
 	resistance_flags = ACID_PROOF
@@ -462,6 +466,16 @@ GAME_VERB_SRC(/obj/structure/table, do_flip, oview(1), "Flip/Unflip table", VERB
 	smoothing_groups = SMOOTH_GROUP_GLASS_TABLES
 	canSmoothWith = SMOOTH_GROUP_GLASS_TABLES
 	base_icon_state = "glass_table"
+
+/obj/structure/table/glass/get_ru_names()
+	return alist(
+		NOMINATIVE = "стеклянный стол",
+		GENITIVE = "стеклянного стола",
+		DATIVE = "стеклянному столу",
+		ACCUSATIVE = "стеклянный стол",
+		INSTRUMENTAL = "стеклянным столом",
+		PREPOSITIONAL = "стеклянном столе",
+	)
 
 /obj/structure/table/glass/Initialize(mapload)
 	. = ..()

@@ -548,7 +548,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 
 	addtimer(CALLBACK(src, PROC_REF(calculate_stasis_delay), user), 0)	// We need this timer to register missing head
 
-	if(!h_user.get_organ_slot("brain"))
+	if(!h_user.get_organ_slot(INTERNAL_ORGAN_BRAIN))
 		to_chat(user, span_changeling("Мозги не обязательный орган для нас, мы способны к его регенерации!"))
 	else
 		to_chat(user, span_changeling("Хотя наш сосуд мёртв, для нас это ещё не конец. Мы можем регенерировать!"))
@@ -572,7 +572,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	var/mob/living/carbon/human/h_user = user
 	var/missing_limbs = 5
 	for(var/obj/item/organ/external/limb as anything in h_user.bodyparts)
-		if(istype(limb, /obj/item/organ/external/head) || \
+		if(ishead(limb) || \
 			istype(limb, /obj/item/organ/external/arm) || \
 			istype(limb, /obj/item/organ/external/leg))
 

@@ -28,6 +28,10 @@
 		. += span_notice("[get_access_desc(A)].")
 	. += span_notice("Issuing reason: [reason].")
 
+/obj/item/card/id/guest_cover
+	icon_state = "guest"
+	item_state = "guestpass-id"
+
 ////////////////////////////////////////////
 // MARK: Guest pass terminal
 ////////////////////////////////////////////

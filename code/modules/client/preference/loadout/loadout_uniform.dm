@@ -425,3 +425,11 @@
 /datum/gear/uniform/chainsmoker
 	index_name = "chainsmoker uniform"
 	path = /obj/item/clothing/under/chainsmoker
+
+/datum/gear/uniform/male_club_uniform
+	index_name = "male club uniform"
+	path = /obj/item/clothing/under/maleclub
+
+/datum/gear/uniform/girl_club_uniform
+	index_name = "girl club uniform"
+	path = /obj/item/clothing/under/girlclub

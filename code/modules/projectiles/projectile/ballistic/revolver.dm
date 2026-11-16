@@ -53,11 +53,6 @@
 	stamina = 0
 	log_override = TRUE
 
-// MARK: .36
-/obj/projectile/bullet/midbullet2
-	damage = 25
-	ricochet_chance = 10
-
 // MARK: .257 Improvised
 /obj/projectile/bullet/weakbullet3/c257
 
@@ -70,3 +65,38 @@
 			target_living.flash_eyes(intensity = 2, visual = TRUE)
 		else
 			target_living.flash_eyes(affect_silicon = TRUE)
+
+/obj/projectile/bullet/midbullet3/pea
+	name = "pea bullet"
+	icon_state = "pea"
+	damage = 25
+	ricochets_max = 3
+	ricochet_chance = 100
+
+/obj/projectile/bullet/midbullet3/pea/get_ru_names()
+	return alist(
+		NOMINATIVE = "гороховая пуля",
+		GENITIVE = "гороховой пули",
+		DATIVE = "гороховой пуле",
+		ACCUSATIVE = "гороховую пулю",
+		INSTRUMENTAL = "гороховой пулей",
+		PREPOSITIONAL = "гороховой пуле",
+	)
+
+/obj/projectile/bullet/midbullet3/pea/Initialize(mapload)
+	. = ..()
+	create_reagents(100) //same as the fruit itself, wont ever hit that much though i believe
+	reagents.flags |= REAGENT_NOREACT
+
+/obj/projectile/bullet/midbullet3/pea/on_hit(mob/living/carbon/target, blocked = 0, pierce_hit)
+	if(istype(target) && blocked != 100)
+		if(HAS_TRAIT(target, TRAIT_I_WANT_BRAINS))
+			target.adjustBruteLoss(15)
+		if(target.can_inject(target_zone = def_zone)) // Pass the hit zone to see if it can inject by whether it hit the head or the body.
+			..()
+			reagents.trans_to(target, reagents.total_volume)
+			return TRUE
+	. = ..()
+	if(reagents.flags & REAGENT_NOREACT) //first impact on a noncarbon
+		reagents.flags &= ~(REAGENT_NOREACT)
+		reagents.handle_reactions()

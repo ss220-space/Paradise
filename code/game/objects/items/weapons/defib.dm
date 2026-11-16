@@ -113,7 +113,7 @@
 	toggle_paddles(user)
 
 /obj/item/defibrillator/CtrlClick(mob/user)
-	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+	if(!ishuman(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	toggle_paddles(user)
@@ -186,7 +186,7 @@
 		action.UpdateButtonIcon()
 
 /obj/item/defibrillator/proc/dispence_paddles(mob/living/carbon/human/user)
-	if(!paddles || !paddles_on_defib || !ishuman(user) || user.incapacitated())
+	if(!paddles || !paddles_on_defib || !ishuman(user) || user.incapacitated)
 		return
 
 	//Detach the paddles into the user's hands
@@ -325,6 +325,7 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/defibrillator/compact/advanced/emp_act(severity)
+	. = ..()
 	if(world.time > next_emp_message)
 		atom_say("Предупреждение: зафиксирован мощный электро-магнитный импульс. Защитная система предотвратила возможное повреждение оборудования.")
 		playsound(src, 'sound/machines/defib_saftyon.ogg', 50)
@@ -349,6 +350,7 @@
 	var/obj/item/defibrillator/defib
 	/// Whether or not the paddles are on cooldown. Used for tracking icon states.
 	var/on_cooldown = FALSE
+	var/req_defib = TRUE
 
 /obj/item/twohanded/shockpaddles/get_ru_names()
 	return alist(
@@ -397,7 +399,7 @@
 
 /obj/item/twohanded/shockpaddles/Initialize(mapload, obj/item/defibrillator/mainunit)
 	. = ..()
-	if(QDELETED(mainunit))
+	if(req_defib && QDELETED(mainunit))
 		return INITIALIZE_HINT_QDEL
 	add_defib_component(mainunit)
 
@@ -493,6 +495,7 @@
 /obj/item/twohanded/shockpaddles/borg
 	desc = "Пара встроенных электродов с тонкими металлическими пластинами. Используются для подачи мощных ударов электрическим током."
 	var/safety = TRUE
+	req_defib = FALSE
 
 /obj/item/twohanded/shockpaddles/borg/dropped(mob/user, slot, silent = FALSE)
 	SHOULD_CALL_PARENT(FALSE)

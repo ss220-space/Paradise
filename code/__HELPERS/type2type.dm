@@ -568,6 +568,8 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH, NORTHEAST, EAST, SOUTHEAST, SO
 			return "Белый шум"
 		if(CHANNEL_AMBIENCE)
 			return "Эмбиент"
+		if(CHANNEL_WEATHER)
+			return "Погода"
 		if(CHANNEL_TTS_LOCAL)
 			return "TTS рядом"
 		if(CHANNEL_TTS_RADIO)

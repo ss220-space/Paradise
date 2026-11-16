@@ -157,7 +157,7 @@
 		/obj/item/storage/box/zipties = 1,
 		/obj/item/storage/box/teargas = 1,
 		/obj/item/flashlight/seclite = 1,
-		/obj/item/gun/energy/laser/sibyl = 1,
+		/obj/item/gun/energy/laser/hitscan/carbine/sibyl = 1,
 	)
 
 /datum/outfit/job/centcom/response_team/security/red
@@ -484,7 +484,7 @@
 /datum/outfit/job/centcom/response_team/paranormal/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(H.mind)
-		H.mind.isholy = TRUE
+		ADD_TRAIT(H.mind, TRAIT_HOLY, INNATE_TRAIT)
 
 /datum/outfit/job/centcom/response_team/paranormal/amber
 	name = "Инквизитор ОБР \"Эмбер\""

@@ -41,6 +41,8 @@
 	var/full_w_class = WEIGHT_CLASS_NORMAL
 	/// for icons when inserted in protolathe
 	var/protolathe_name
+	/// If TRUE, logistics counts stack.amount (sheets, ore). If FALSE, one stack object is one unit/
+	var/logistics_count_amount = FALSE
 
 /obj/item/stack/Initialize(mapload, new_amount, merge = TRUE)
 	if(new_amount != null)
@@ -236,7 +238,7 @@
 		INVOKE_ASYNC(src, PROC_REF(merge), arrived)
 
 /obj/item/stack/click_alt(mob/user)
-	if(!istype(user) || user.incapacitated())
+	if(!istype(user) || user.incapacitated)
 		to_chat(user, span_warning("You can't do that right now!"))
 		return NONE
 

@@ -45,6 +45,7 @@
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(charge)), charge_speed, TIMER_LOOP | TIMER_DELETE_ME)
 	enchants = GLOB.gun_and_heart_spells
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/item/gun/energy/clockwork/update_overlays()
 	if(!enchant_type)
@@ -71,9 +72,6 @@
 	newshot()
 
 /obj/item/gun/energy/clockwork/update_icon_state()
-	return
-
-/obj/item/gun/energy/clockwork/emp_act(severity)
 	return
 
 /obj/item/gun/energy/clockwork/process_fire(zone_override, secondary_fire = FALSE)
@@ -114,8 +112,6 @@
 	icon_state = "brasssniper"
 	item_state = "brasssniper"
 	ammo_type = list(/obj/item/ammo_casing/energy/rat/snipe)
-	zoomable = TRUE
-	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
 	cell_type = /obj/item/stock_parts/cell/clock/sniper
 	charge_rate = 1
 	recoil = new /datum/gun_recoil/mega()
@@ -138,6 +134,10 @@
 		INSTRUMENTAL = "латунной снайперской винтовкой",
 		PREPOSITIONAL = "латунной снайперской винтовке",
 	)
+
+/obj/item/gun/energy/clockwork/sniper/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/scope, range_modifier = 2)
 
 /obj/item/gun/energy/gun/minigun/clockwork
 	name = "brass minigun"

@@ -9,6 +9,7 @@
 /datum/species/moth
 	name = SPECIES_MOTH
 	name_plural = "Nianae"
+	ru_genitive = "луам"
 	language = LANGUAGE_MOTH
 	icobase = 'icons/mob/human_races/r_moth.dmi'
 	deform = 'icons/mob/human_races/r_moth.dmi'
@@ -123,9 +124,9 @@
 	H.remove_status_effect(STATUS_EFFECT_BURNT_WINGS)
 
 /datum/species/moth/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	if(R.id == "pestkiller")
+	if(R.type == /datum/reagent/pestkiller)
 		H.adjustToxLoss(3)
-		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
+		H.reagents.remove_reagent(R.type, REAGENTS_METABOLISM)
 		return TRUE
 
 	return ..()
@@ -193,7 +194,7 @@
 		return
 	H.visible_message(span_notice("[H] замирает, начиная плести кокон..."), span_notice("Вы концентрируетесь на создании кокона... (Это займёт [COCOON_WEAVE_DELAY / 10] секунд, вы должны оставаться неподвижным.)"))
 	if(do_after(H, COCOON_WEAVE_DELAY, H, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
-		if(H.incapacitated())
+		if(H.incapacitated)
 			to_chat(H, span_warning("Вы не можете создать кокон в текущем состоянии."))
 			return
 		H.visible_message(span_notice("[H] заканчивает плести кокон!"), span_notice("Вы заканчиваете плести свой кокон."))

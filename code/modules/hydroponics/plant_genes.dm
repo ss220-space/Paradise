@@ -89,7 +89,8 @@
 	value = 3
 
 /datum/plant_gene/core/yield/apply_stat(obj/item/seeds/S)
-	S.yield = value
+	S.yield = min(value, S.get_max_yield())
+	value = S.yield
 
 /datum/plant_gene/core/yield/get_genemod_variable(obj/machinery/plantgenes/modder)
 	if(!modder) // Let the parent handle it
@@ -137,7 +138,7 @@
 // Reagent genes store reagent ID and reagent ratio. Amount of reagent in the plant = 1 + (potency * rate)
 /datum/plant_gene/reagent
 	name = "Nutriment"
-	var/reagent_id = "nutriment"
+	var/reagent_id = /datum/reagent/consumable/nutriment
 	var/rate = 0.04
 
 /datum/plant_gene/reagent/get_name()
@@ -148,7 +149,7 @@
 	name = UNKNOWN_STATUS_RUS
 
 	var/datum/reagent/R = GLOB.chemical_reagents_list[reag_id]
-	if(R && R.id == reagent_id)
+	if(R && R.type == reagent_id)
 		name = R.name
 
 /datum/plant_gene/reagent/New(reag_id = null, reag_rate = 0)
@@ -246,7 +247,7 @@
 
 	var/knockdown_len = our_plant.seed.potency * rate * 0.8 SECONDS
 
-	if(!istype(our_plant, /obj/item/grown/bananapeel) && (!our_plant.reagents || !our_plant.reagents.has_reagent("lube")))
+	if(!istype(our_plant, /obj/item/grown/bananapeel) && (!our_plant.reagents || !our_plant.reagents.has_reagent(/datum/reagent/lube)))
 		knockdown_len /= 3
 
 	knockdown_len = min(knockdown_len, SLIPPERY_TIME_LUBE)// No fun allowed
@@ -466,7 +467,7 @@
 			pocell.name = "[G] battery"
 			pocell.desc = "A rechargable plant based power cell. This one has a power rating of [pocell.maxcharge], and you should not swallow it."
 
-			if(G.reagents.has_reagent("plasma", 2))
+			if(G.reagents.has_reagent(/datum/reagent/plasma, 2))
 				pocell.rigged = 1
 
 			qdel(G)
@@ -565,3 +566,31 @@
 
 	target.audible_message(span_notice("[our_plant] lets out burst of laughter."))
 	playsound(our_plant, pick(sounds), 100, FALSE, SHORT_RANGE_SOUND_EXTRARANGE)
+
+/// Holymelon's anti-magic trait. Charges based on potency.
+/datum/plant_gene/trait/anti_magic
+	name = "Anti-Magic Vacuoles"
+	/// The amount of anti-magic blocking uses we have.
+	var/shield_uses = 1
+
+/datum/plant_gene/trait/anti_magic/on_new(obj/item/reagent_containers/food/snacks/grown/G)
+	var/obj/item/seeds/our_seed = G.get_plant_seed()
+	shield_uses = round(our_seed.potency / 20)
+	//deliver us from evil o melon god
+	G.AddComponent(/datum/component/anti_magic, \
+		antimagic_flags = MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY, \
+		inventory_flags = ITEM_SLOT_HANDS, \
+		charges = shield_uses, \
+		block_magic = CALLBACK(src, PROC_REF(drain_antimagic)), \
+		expiration = CALLBACK(src, PROC_REF(expire)), \
+	)
+
+/// When the plant our gene is hosted in is drained of an anti-magic charge.
+/datum/plant_gene/trait/anti_magic/proc/drain_antimagic(mob/user, obj/item/our_plant)
+	to_chat(user, span_warning("[our_plant] hums slightly, and seems to decay a bit."))
+
+/// When the plant our gene is hosted in is drained of all of its anti-magic charges.
+/datum/plant_gene/trait/anti_magic/proc/expire(mob/user, obj/item/our_plant)
+	to_chat(user, span_warning("[our_plant] rapidly turns into ash!"))
+	new /obj/effect/decal/cleanable/ash(our_plant.drop_location())
+	qdel(our_plant)

@@ -1,6 +1,7 @@
 /datum/species/monkey
 	name = SPECIES_MONKEY
 	name_plural = "Monkeys"
+	ru_genitive = "обезьяны"
 	blurb = "Ook."
 
 	icobase = 'icons/mob/human_races/monkeys/r_monkey.dmi'
@@ -44,6 +45,17 @@
 
 	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/monkey
 
+	has_organ = list(
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/monkey,
+		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/monkey,
+		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/monkey,
+		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/monkey,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/monkey,
+		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/monkey,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears/monkey,
+	)
+
 	has_limbs = list(
 		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest),
 		BODY_ZONE_PRECISE_GROIN = list("path" = /obj/item/organ/external/groin),
@@ -85,6 +97,7 @@
 /datum/species/monkey/tajaran
 	name = SPECIES_FARWA
 	name_plural = "Farwa"
+	ru_genitive = "фарвы"
 
 	icobase = 'icons/mob/human_races/monkeys/r_farwa.dmi'
 	deform = 'icons/mob/human_races/monkeys/r_farwa.dmi'
@@ -98,14 +111,14 @@
 	skinned_type = /obj/item/stack/sheet/animalhide/farwa
 
 	has_organ = list(
-		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/tajaran,
-		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/tajaran,
-		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/tajaran,
-		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/tajaran,
-		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/tajaran,
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/monkey/tajaran,
+		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/monkey/tajaran,
+		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/monkey/tajaran,
+		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/monkey/tajaran,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/monkey/tajaran,
 		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
-		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/tajaran/farwa, //Tajara monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
-		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/monkey/tajaran, //Tajara monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears/monkey/tajaran,
 	)
 
 	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/farwa
@@ -131,6 +144,7 @@
 /datum/species/monkey/vulpkanin
 	name = SPECIES_WOLPIN
 	name_plural = "Wolpin"
+	ru_genitive = "вульпина"
 
 	icobase = 'icons/mob/human_races/monkeys/r_wolpin.dmi'
 	deform = 'icons/mob/human_races/monkeys/r_wolpin.dmi'
@@ -144,14 +158,14 @@
 	skinned_type = /obj/item/stack/sheet/animalhide/wolpin
 
 	has_organ = list(
-		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/vulpkanin,
-		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/vulpkanin,
-		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/vulpkanin,
-		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/vulpkanin,
-		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/vulpkanin,
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/monkey/vulpkanin,
+		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/monkey/vulpkanin,
+		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/monkey/vulpkanin,
+		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/monkey/vulpkanin,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/monkey/vulpkanin,
 		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
-		INTERNAL_ORGAN_EYES =  /obj/item/organ/internal/eyes/vulpkanin/wolpin, // Vulpkanin monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
-		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+		INTERNAL_ORGAN_EYES =  /obj/item/organ/internal/eyes/monkey/vulpkanin, // Vulpkanin monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears/monkey/vulpkanin,
 	)
 
 	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/wolpin
@@ -177,6 +191,7 @@
 /datum/species/monkey/skrell
 	name = SPECIES_NEARA
 	name_plural = "Neara"
+	ru_genitive = "неары"
 
 	icobase = 'icons/mob/human_races/monkeys/r_neara.dmi'
 	deform = 'icons/mob/human_races/monkeys/r_neara.dmi'
@@ -196,14 +211,15 @@
 	)
 
 	has_organ = list(
-		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/skrell,
-		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/skrell,
-		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/skrell,
-		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/skrell,
-		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/skrell,
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/monkey/skrell,
+		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/monkey/skrell,
+		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/monkey/skrell,
+		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/monkey/skrell,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/monkey/skrell,
 		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
-		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/skrell,
-		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/monkey/skrell,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears/monkey/skrell,
+		INTERNAL_ORGAN_HEADPOCKET = /obj/item/organ/internal/headpocket/monkey/skrell,
 	)
 
 	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/neara
@@ -228,6 +244,7 @@
 /datum/species/monkey/unathi
 	name = SPECIES_STOK
 	name_plural = "Stok"
+	ru_genitive = "стока"
 
 	icobase = 'icons/mob/human_races/monkeys/r_stok.dmi'
 	deform = 'icons/mob/human_races/monkeys/r_stok.dmi'
@@ -241,14 +258,14 @@
 	skinned_type = /obj/item/stack/sheet/animalhide/stok
 
 	has_organ = list(
-		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/unathi,
-		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/unathi,
-		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/unathi,
-		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/unathi,
-		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/unathi,
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/monkey/unathi,
+		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/monkey/unathi,
+		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/monkey/unathi,
+		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/monkey/unathi,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/monkey/unathi,
 		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
-		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/unathi,
-		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/monkey/unathi,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears/monkey/unathi,
 	)
 
 	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/stok

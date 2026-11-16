@@ -76,11 +76,9 @@
 	)
 
 /obj/item/organ/internal/lungs/emp_act(severity)
-	if(!is_robotic() || emp_proof)
+	. = ..()
+	if(. & EMP_PROTECT_SELF || !is_robotic())
 		return
-	if(emp_shielded(severity))
-		return
-
 	if(owner)
 		var/losstime = 40 SECONDS
 		if(HAS_TRAIT(owner, TRAIT_ADVANCED_CYBERIMPLANTS))
@@ -440,6 +438,9 @@
 	if(prob(20))
 		breather.emote("burp")
 
+	if(prob(5))
+		breather.AdjustDizzy(1.5 SECONDS)
+
 	// Random chance to inflict side effects increases with pressure.
 	if((prob(nitrium_pp) && (nitrium_pp > 15)))
 		// Nitrium side-effect.
@@ -529,7 +530,7 @@
 
 /obj/item/organ/internal/lungs/prepare_eat()
 	var/obj/S = ..()
-	S.reagents.add_reagent("salbutamol", 5)
+	S.reagents.add_reagent(/datum/reagent/medicine/salbutamol, 5)
 	return S
 
 /obj/item/organ/internal/lungs/cybernetic

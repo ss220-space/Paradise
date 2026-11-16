@@ -42,10 +42,13 @@
 				qdel(src)
 
 /obj/machinery/shield/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
 	switch(severity)
-		if(1)
+		if(EMP_HEAVY)
 			qdel(src)
-		if(2)
+		if(EMP_LIGHT)
 			if(prob(50))
 				qdel(src)
 
@@ -59,8 +62,9 @@
 	max_integrity = 100
 	icon_state = "shield-cult"
 
-/obj/machinery/shield/cult/emp_act(severity)
-	return
+/obj/machinery/shield/cult/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/machinery/shield/cult/narsie
 	name = "sanguine barrier"
@@ -197,12 +201,13 @@
 	return
 
 /obj/machinery/shieldgen/emp_act(severity)
+	. = ..()
 	switch(severity)
-		if(1)
+		if(EMP_HEAVY)
 			health = health * 0.5 //cut health in half
 			malfunction = TRUE
 			locked = pick(TRUE, FALSE)
-		if(2)
+		if(EMP_LIGHT)
 			if(prob(50))
 				health *= 0.3 //chop off a third of the health
 				malfunction = TRUE

@@ -42,7 +42,7 @@
 	. = ..()
 	UnregisterSignal(source, COMSIG_LIVING_UNARMED_ATTACK)
 
-/datum/element/reagent_attack/proc/mob_attack(datum/source, mob/target, proximity_flag)
+/datum/element/reagent_attack/proc/mob_attack(datum/source, mob/target, proximity_flag, list/modifiers)
 	SIGNAL_HANDLER
 
 	var/mob/mob = source
@@ -112,7 +112,7 @@
 	if(!bee.beegent)
 		return ..()
 
-	reagent_id = bee.beegent.id // Set parameters and send them into parent without initial()
+	reagent_id = bee.beegent.type // Set parameters and send them into parent without initial()
 	reagent_amount = rand(1, 5)
 
 	if(!..())
@@ -122,7 +122,7 @@
 	return TRUE
 
 /datum/element/reagent_attack/widow
-	reagent_id = "terror_black_toxin"
+	reagent_id = /datum/reagent/terror_black_toxin
 	reagent_limit = 100
 	reagent_amount = 20
 	allowed_zones = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD)

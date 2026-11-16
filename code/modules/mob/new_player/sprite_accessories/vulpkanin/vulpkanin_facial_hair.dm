@@ -1,7 +1,8 @@
 /datum/sprite_accessory/facial_hair/vulpkanin
+	abstract_type = /datum/sprite_accessory/facial_hair/vulpkanin
 	icon = 'icons/mob/sprite_accessories/vulpkanin/vulpkanin_facial_hair.dmi'
 	species_allowed = list(SPECIES_VULPKANIN)
-	unsuitable_gender = null
+	gender = null
 
 /datum/sprite_accessory/facial_hair/vulpkanin/vulp_earfluff
 	name = "Vulpkanin Earfluff"

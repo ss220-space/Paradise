@@ -18,6 +18,7 @@
 	full_w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
 	singular_name = "credit"
+	logistics_count_amount = TRUE
 	max_amount = CASHMAX
 	merge_type = /obj/item/stack/spacecash
 
@@ -38,7 +39,7 @@
 			icon_state = "cashrbow"
 
 /obj/item/stack/spacecash/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	var/mob/thrower = throwingdatum?.thrower
+	var/mob/thrower = throwingdatum?.get_thrower()
 	if(istype(thrower.mind?.martial_art, /datum/martial_art/mr_chang))
 		thrower.say(pick(
 			"Бесплатные деньги!!", "Настоящий денежный дождь!!",\

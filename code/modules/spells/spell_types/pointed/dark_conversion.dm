@@ -20,6 +20,8 @@
 	if(!ishuman(cast_on))
 		return FALSE
 	var/mob/living/carbon/human/target = cast_on
+	if(target.can_block_magic(antimagic_flags))
+		return FALSE
 	return target.mind && !isshadowperson(target)
 
 /datum/action/cooldown/spell/pointed/dark_conversion/cast(atom/cast_on)

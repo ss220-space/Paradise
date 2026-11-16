@@ -432,8 +432,35 @@
 /atom/proc/HasProximity(atom/movable/proximity_check_mob as mob|obj)
 	return
 
-/atom/proc/emp_act(severity)
-	SEND_SIGNAL(src, COMSIG_ATOM_EMP_ACT, severity)
+/**
+ * React to an EMP of the given severity
+ *
+ * Default behaviour is to send the [COMSIG_ATOM_PRE_EMP_ACT] and [COMSIG_ATOM_EMP_ACT] signal
+ *
+ * If the pre-signal does not return protection, and there are attached wires then we call
+ * [emp_pulse][/datum/wires/proc/emp_pulse] on the wires
+ *
+ * We then return the protection value
+ */
+/atom/proc/emp_act(severity, pre_calculated_protection = null)
+	SHOULD_CALL_PARENT(TRUE)
+	var/protection = isnull(pre_calculated_protection) ? SEND_SIGNAL(src, COMSIG_ATOM_PRE_EMP_ACT, severity) : pre_calculated_protection
+	if("wires" in src.vars)
+		var/wires = src.vars["wires"]
+		if(!(protection & EMP_PROTECT_WIRES) && istype(wires, /datum/wires))
+			var/datum/wires/wire_datum = wires
+			wire_datum.emp_pulse()
+
+	if(flags & HOLOGRAM) // holograms should ignore EMP_PROTECT flags (since the protection itself is also a hologram)
+		if(prob(75 / severity))
+			// avoid spamming messages for anything inside the holodeck directly
+			if(!istype(get_area(src), /area/holodeck))
+				visible_message(span_warning("[src] fades away!"))
+			animate(alpha = 0, time = 1 SECONDS)
+			QDEL_IN(src, 1 SECONDS)
+
+	SEND_SIGNAL(src, COMSIG_ATOM_EMP_ACT, severity, protection)
+	return protection // Pass the protection value collected here upwards
 
 //amount of water acting : temperature of water in kelvin : object that called it (for shennagins)
 /atom/proc/water_act(volume, temperature, source, method = REAGENT_TOUCH)
@@ -927,13 +954,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 //returns the mob's dna info as a list, to be inserted in an object's blood_DNA list
 /mob/living/proc/get_blood_dna_list()
-	if(get_blood_id() != "blood")
+	if(get_blood_type() != /datum/reagent/blood)
 		return
 	return list("ANIMAL DNA" = "Y-")
 
 /mob/living/carbon/get_blood_dna_list()
-	var/static/list/acceptable_blood = list("blood", "cryoxadone", "slimejelly")
-	var/check_blood = get_blood_id()
+	var/static/list/acceptable_blood = list(/datum/reagent/blood, /datum/reagent/medicine/cryoxadone, /datum/reagent/slimejelly)
+	var/check_blood = get_blood_type()
 	if(!check_blood || !(check_blood in acceptable_blood))
 		return
 	var/list/blood_dna = list()
@@ -1061,11 +1088,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 			GLOB.blood_splatter_icons["[blood_color]"] = params
 		add_filter("blood_splatter", 1, params)
 
-/atom/proc/add_vomit_floor(toxvomit = FALSE, green = FALSE)
+/atom/proc/add_vomit_floor(toxvomit = FALSE, green = FALSE, type_override)
 	playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
 	if(!isspaceturf(src))
 		var/type = green ? /obj/effect/decal/cleanable/vomit/green : /obj/effect/decal/cleanable/vomit
-		var/vomit_reagent = green ? "green_vomit" : "vomit"
+		var/vomit_reagent = green ? /datum/reagent/greenvomit : /datum/reagent/vomit
+		if(type_override)
+			type = type_override
 		for(var/obj/effect/decal/cleanable/vomit/V in get_turf(src))
 			if(V.type == type)
 				V.reagents.add_reagent(vomit_reagent, 5)
@@ -1283,7 +1312,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	// Sanity check that the user can, indeed, rename the thing.
 	// This, sadly, means you can't rename things with a telekinetic pen, but that's
 	// too much of a hassle to make work nicely.
-	if((implement && implement.loc != user) || !in_range(src, user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if((implement && implement.loc != user) || !in_range(src, user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return null
 
 	add_fingerprint(user)
@@ -1318,7 +1347,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	else if(!in_range(src, user))
 		balloon_alert(user, "слишком далеко!")
 		return null
-	else if(user.incapacitated())
+	else if(user.incapacitated)
 		balloon_alert(user, "невозможно в данный момент!")
 		return null
 
@@ -1419,6 +1448,46 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(mover.throwing && (pass_flags_self & LETPASSTHROW))
 		return TRUE
 	return !density
+
+/*
+ * Checks whether an atom can pass through the calling atom into its target turf.
+ * Returns the blocking direction.
+ * If the atom's movement is not blocked, returns 0.
+ * If the object is completely solid, returns ALL
+ */
+/atom/proc/BlockedPassDirs(atom/movable/mover, target_dir)
+	if(!mover)
+		return NONE
+
+	if(CanAllowThrough(mover, target_dir))
+		return NONE
+
+	if(flags & ON_BORDER)
+		var/reverse_dir = REVERSE_DIR(dir)
+		if(!(target_dir & reverse_dir))
+			return NONE
+
+		// This is to properly handle diagonal movement (a cade to your NE facing west when you are trying to move NE should block for north instead of east)
+		if(target_dir in GLOB.diagonals)
+			return target_dir - (target_dir & reverse_dir)
+		return target_dir & reverse_dir
+	else
+		return ALL
+
+/*
+ * Checks whether an atom can leave its current turf through the calling atom.
+ * Returns the blocking direction.
+ * If the atom's movement is not blocked, returns 0 (no directions)
+ * If the object is completely solid, returns all directions
+ */
+/atom/proc/BlockedExitDirs(atom/movable/mover, target_dir)
+	if(!mover)
+		return NONE
+
+	if(flags & ON_BORDER && !CanAllowThrough(mover, target_dir))
+		return target_dir & dir
+
+	return NONE
 
 /**
  * Returns `TRUE` if this atom has gravity for the passed in turf

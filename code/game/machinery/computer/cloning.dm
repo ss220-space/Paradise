@@ -162,12 +162,13 @@
 		emagged = TRUE
 		add_attack_logs(user, src, "emagged")
 		set_scan_temp(emagged ? "Уничтожитель готов." : "Сканер готов.", "good")
-		emp_act(1)
+		emp_act(EMP_HEAVY)
 		SStgui.update_uis(src)
 	else
 		ui_interact(user)
 
 /obj/machinery/computer/cloning/emp_act(severity)
+	. = ..()
 	for(var/obj/machinery/clonepod/P in pods)
 		if(P.occupant)
 			var/mob/living/carbon/human/H = P.occupant
@@ -420,7 +421,7 @@
 			else
 				scan_mode = FALSE
 		if("eject")
-			if(usr.incapacitated() || !scanner || loading)
+			if(usr.incapacitated || !scanner || loading)
 				return
 			scanner.eject_occupant(usr)
 			scanner.add_fingerprint(usr)

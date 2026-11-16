@@ -56,9 +56,10 @@
 	return ..()
 
 /obj/item/clothing/suit/space/chronos/emp_act(severity)
+	. = ..()
 	var/mob/living/carbon/human/user = src.loc
 	switch(severity)
-		if(1)
+		if(EMP_HEAVY)
 			if(user && ishuman(user) && (user.wear_suit == src))
 				to_chat(user, span_userdanger("Elecrtromagnetic pulse detected, shutting down systems to preserve integrity..."))
 			deactivate()

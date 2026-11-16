@@ -1,4 +1,0 @@
-author: "FlitchTime"
-delete-after: True
-changes:
-  - bugfix: "Исправлен спавн в трубах старого театра, которые не позволяли выйти из них. (PR #9812)"

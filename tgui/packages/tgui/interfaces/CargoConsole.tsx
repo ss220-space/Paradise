@@ -1,10 +1,12 @@
 import { declension_ru } from 'common/l10n';
 import { sortBy } from 'es-toolkit';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import {
   Box,
   Button,
+  DmIcon,
   Dropdown,
+  Icon,
   Input,
   LabeledList,
   Modal,
@@ -13,12 +15,33 @@ import {
   Table,
 } from 'tgui-core/components';
 import { flow } from 'tgui-core/fp';
-import { createSearch } from 'tgui-core/string';
+import { capitalize, createSearch } from 'tgui-core/string';
 import { useBackend, useSharedState } from '../backend';
 import { Window } from '../layouts';
 
+export type CargoPackContent = {
+  name: string;
+  name_en?: string | null;
+  icon?: string | null;
+  icon_state?: string | null;
+};
+
+type CargoSupplyPack = SupplyPack & {
+  contents: CargoPackContent[];
+  cost: number;
+  creditsCost: number;
+  ref: string;
+  has_sale: boolean;
+  is_enough_techs: boolean;
+};
+
+type CargoCatalogueData = {
+  categories: Category[];
+  supply_packs: CargoSupplyPack[];
+};
+
 export const CargoConsole = (_props: unknown) => {
-  const [contentsModal, setContentsModal] = useState<string[]>([]);
+  const [contentsModal, setContentsModal] = useState<CargoPackContent[]>([]);
   const [contentsModalTitle, setContentsModalTitle] = useState<string>('');
 
   return (
@@ -43,20 +66,44 @@ export const CargoConsole = (_props: unknown) => {
   );
 };
 
-export type ContentsModalProps = {
-  contentsModal: string[];
-  setContentsModal: React.Dispatch<React.SetStateAction<string[]>>;
+export type ContentsModalProps<T = string> = {
+  contentsModal: T[];
+  setContentsModal: React.Dispatch<React.SetStateAction<T[]>>;
   contentsModalTitle: string;
   setContentsModalTitle: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const ContentsModal = (properties: ContentsModalProps) => {
+const ContentsModal = (properties: ContentsModalProps<CargoPackContent>) => {
   const {
     contentsModal,
     setContentsModal,
     contentsModalTitle,
     setContentsModalTitle,
   } = properties;
+
+  const groupedContents = useMemo(() => {
+    const grouped = new Map<
+      string,
+      { content: CargoPackContent; count: number }
+    >();
+
+    for (const content of contentsModal) {
+      const key = `${content.icon}|${content.icon_state}|${content.name}`;
+      const existing = grouped.get(key);
+      if (existing) {
+        existing.count += 1;
+      } else {
+        grouped.set(key, { content, count: 1 });
+      }
+    }
+
+    return sortBy(
+      [...grouped.values()],
+      [(entry) => entry.content.name.toLowerCase()],
+    );
+  }, [contentsModal]);
+
+  const totalItems = contentsModal.length;
 
   if (contentsModal.length && contentsModalTitle !== '') {
     return (
@@ -66,25 +113,72 @@ const ContentsModal = (properties: ContentsModalProps) => {
         maxHeight={`${window.innerHeight * 0.75}px`}
         mx="auto"
       >
-        <Box width="100%" bold>
-          <h1>Содержимое {contentsModalTitle}:</h1>
-        </Box>
-        <Box>
-          {contentsModal.map((i) => (
-            // This needs keying. I hate it.
-            <Box key={i}>- {i}</Box>
-          ))}
-        </Box>
-        <Box m={2}>
-          <Button
-            onClick={() => {
-              setContentsModal([]);
-              setContentsModalTitle('');
-            }}
-          >
-            Close
-          </Button>
-        </Box>
+        <Section
+          title={`Содержимое: ${contentsModalTitle}`}
+          buttons={
+            <Button
+              icon="times"
+              onClick={() => {
+                setContentsModal([]);
+                setContentsModalTitle('');
+              }}
+            >
+              Закрыть
+            </Button>
+          }
+        >
+          <Box maxHeight="20rem" overflowY="auto" overflowX="hidden">
+            <Table>
+              {groupedContents.map(({ content, count }, index) => {
+                const dividerStyle =
+                  index < groupedContents.length - 1
+                    ? {
+                        borderBottom: 'var(--divider-border)',
+                      }
+                    : undefined;
+                return (
+                  <Table.Row
+                    key={`${content.icon}|${content.icon_state}|${content.name}`}
+                  >
+                    <Table.Cell
+                      collapsing
+                      width="42px"
+                      verticalAlign="middle"
+                      style={dividerStyle}
+                    >
+                      {content.icon && content.icon_state ? (
+                        <DmIcon
+                          icon={content.icon}
+                          icon_state={content.icon_state}
+                          fallback={<Icon name="box" color="gray" />}
+                          width="32px"
+                          height="32px"
+                        />
+                      ) : (
+                        <Icon name="box" color="gray" />
+                      )}
+                    </Table.Cell>
+                    <Table.Cell verticalAlign="middle" style={dividerStyle}>
+                      {capitalize(content.name)}
+                    </Table.Cell>
+                    <Table.Cell
+                      collapsing
+                      textAlign="right"
+                      verticalAlign="middle"
+                      style={dividerStyle}
+                    >
+                      {count > 1 && (
+                        <Box color="good" bold>
+                          {`× ${count} шт.`}
+                        </Box>
+                      )}
+                    </Table.Cell>
+                  </Table.Row>
+                );
+              })}
+            </Table>
+          </Box>
+        </Section>
       </Modal>
     );
   } else {
@@ -144,13 +238,13 @@ const StatusPane = (_properties) => {
   );
 };
 
-export type CataloguePaneProps = {
-  setContentsModal: React.Dispatch<React.SetStateAction<string[]>>;
+export type CataloguePaneProps<T = string> = {
+  setContentsModal: React.Dispatch<React.SetStateAction<T[]>>;
   setContentsModalTitle: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const CataloguePane = (properties: CataloguePaneProps) => {
-  const { act, data } = useBackend<CataloguePaneData>();
+const CataloguePane = (properties: CataloguePaneProps<CargoPackContent>) => {
+  const { act, data } = useBackend<CargoCatalogueData>();
   const { categories, supply_packs } = data;
 
   const [category, setCategory] = useSharedState(
@@ -162,9 +256,14 @@ const CataloguePane = (properties: CataloguePaneProps) => {
 
   const { setContentsModal, setContentsModalTitle } = properties;
 
-  const packSearch = createSearch<SupplyPack>(
-    searchText,
-    (crate) => crate.name,
+  const packSearch = createSearch<CargoSupplyPack>(searchText, (crate) =>
+    [
+      crate.name,
+      ...crate.contents.flatMap((content) => [
+        content.name,
+        content.name_en ?? '',
+      ]),
+    ].join('|'),
   );
 
   const targetCategory = !searchText
@@ -173,7 +272,7 @@ const CataloguePane = (properties: CataloguePaneProps) => {
 
   const cratesToShow = flow([
     (supply_packs) =>
-      supply_packs.filter((pack: SupplyPack) => {
+      supply_packs.filter((pack: CargoSupplyPack) => {
         if (searchText) {
           return true;
         }
@@ -182,7 +281,9 @@ const CataloguePane = (properties: CataloguePaneProps) => {
     (supply_packs) =>
       searchText ? supply_packs.filter(packSearch) : supply_packs,
     (supply_packs) =>
-      sortBy<SupplyPack>(supply_packs, [(pack) => pack.name.toLowerCase()]),
+      sortBy<CargoSupplyPack>(supply_packs, [
+        (pack) => pack.name.toLowerCase(),
+      ]),
   ])(supply_packs);
 
   let titleText = 'Перечень грузов для заказа';
@@ -213,66 +314,96 @@ const CataloguePane = (properties: CataloguePaneProps) => {
         />
         <Box maxHeight={25} overflowY="auto" overflowX="hidden">
           <Table m="0.5rem">
-            {cratesToShow.map((c) => (
-              <Table.Row key={c.name}>
-                <Table.Cell bold>
-                  <Box
-                    color={
-                      !c.is_enough_techs
-                        ? 'red'
-                        : c.has_sale
-                          ? 'good'
-                          : 'default'
-                    }
+            {cratesToShow.map((c, index) => {
+              const firstContent = c.contents[0];
+              const dividerStyle =
+                index < cratesToShow.length - 1
+                  ? { borderBottom: 'var(--divider-border)' }
+                  : undefined;
+              return (
+                <Table.Row key={c.name}>
+                  <Table.Cell
+                    collapsing
+                    width="42px"
+                    verticalAlign="middle"
+                    style={dividerStyle}
                   >
-                    {c.name} (
-                    {c.cost
-                      ? `${c.cost} очк${declension_ru(c.cost, 'о', 'а', 'ов')}`
-                      : ''}
-                    {c.creditsCost && c.cost ? ' ' : ''}
-                    {c.creditsCost
-                      ? c.creditsCost +
-                        ' Кредит' +
-                        declension_ru(c.creditsCost, '', 'а', 'ов')
-                      : ''}
-                    )
-                  </Box>
-                </Table.Cell>
-                <Table.Cell textAlign="right" pr={1}>
-                  <Button
-                    icon="shopping-cart"
-                    onClick={() =>
-                      act('order', {
-                        crate: c.ref,
-                        multiple: 0,
-                      })
-                    }
+                    {firstContent?.icon && firstContent.icon_state ? (
+                      <DmIcon
+                        icon={firstContent.icon}
+                        icon_state={firstContent.icon_state}
+                        fallback={<Icon name="box" color="gray" />}
+                        width="32px"
+                        height="32px"
+                      />
+                    ) : (
+                      <Icon name="box" color="gray" />
+                    )}
+                  </Table.Cell>
+                  <Table.Cell bold verticalAlign="middle" style={dividerStyle}>
+                    <Box
+                      color={
+                        !c.is_enough_techs
+                          ? 'red'
+                          : c.has_sale
+                            ? 'good'
+                            : 'default'
+                      }
+                    >
+                      {c.name} (
+                      {c.cost
+                        ? `${c.cost} очк${declension_ru(c.cost, 'о', 'а', 'ов')}`
+                        : ''}
+                      {c.creditsCost && c.cost ? ' ' : ''}
+                      {c.creditsCost
+                        ? c.creditsCost +
+                          ' Кредит' +
+                          declension_ru(c.creditsCost, '', 'а', 'ов')
+                        : ''}
+                      )
+                    </Box>
+                  </Table.Cell>
+                  <Table.Cell
+                    textAlign="right"
+                    pr={1}
+                    verticalAlign="middle"
+                    style={dividerStyle}
                   >
-                    Заказать 1
-                  </Button>
-                  <Button
-                    icon="cart-plus"
-                    onClick={() =>
-                      act('order', {
-                        crate: c.ref,
-                        multiple: 1,
-                      })
-                    }
-                  >
-                    Заказать несколько
-                  </Button>
-                  <Button
-                    icon="search"
-                    onClick={() => {
-                      setContentsModal(c.contents);
-                      setContentsModalTitle(c.name);
-                    }}
-                  >
-                    Содержимое
-                  </Button>
-                </Table.Cell>
-              </Table.Row>
-            ))}
+                    <Button
+                      icon="shopping-cart"
+                      onClick={() =>
+                        act('order', {
+                          crate: c.ref,
+                          multiple: 0,
+                        })
+                      }
+                    >
+                      Заказать 1
+                    </Button>
+                    <Button
+                      icon="cart-plus"
+                      onClick={() =>
+                        act('order', {
+                          crate: c.ref,
+                          multiple: 1,
+                        })
+                      }
+                    >
+                      Заказать несколько
+                    </Button>
+                    <Button
+                      icon="search"
+                      onClick={() => {
+                        setContentsModal(c.contents);
+                        setContentsModalTitle(c.name);
+                      }}
+                    >
+                      Содержимое
+                    </Button>
+                  </Table.Cell>
+                </Table.Row>
+              );
+            })}
           </Table>
         </Box>
       </Section>

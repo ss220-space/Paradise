@@ -190,6 +190,7 @@
 	return ..()
 
 /obj/item/mod/core/standard/emp_act(severity)
+	. = ..()
 	cell?.emp_act(severity)
 
 /obj/item/mod/core/standard/proc/install_cell(new_cell)

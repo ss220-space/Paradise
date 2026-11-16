@@ -77,15 +77,13 @@
 	return 0
 
 /obj/item/organ/internal/cyberimp/arm/emp_act(severity)
-	if(emp_proof)
-		return
-	if(emp_shielded(severity))
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
 		return
 	if(prob(15/severity) && owner)
 		to_chat(owner, span_warning("[declent_ru(NOMINATIVE)] поражён ЭМИ импульсом!"))
 		// give the owner an idea about why his implant is glitching
 		Retract()
-	..()
 
 /**
  * Called when the mob uses the "drop item" hotkey
@@ -195,9 +193,8 @@
 		Extend(selected)
 
 /obj/item/organ/internal/cyberimp/arm/gun/emp_act(severity)
-	if(emp_proof)
-		return
-	if(emp_shielded(severity))
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
 		return
 	if(prob(30/severity) && owner && !crit_fail)
 		Retract()
@@ -208,8 +205,6 @@
 		owner.IgniteMob()
 		owner.adjustFireLoss(25)
 		crit_fail = 1
-	else // The gun will still discharge anyway.
-		..()
 
 /obj/item/organ/internal/cyberimp/arm/gun/laser
 	name = "arm-mounted laser implant"
@@ -338,7 +333,7 @@
 	contents = newlist(/obj/item/gun/energy/pulse/pistol/m1911, /obj/item/door_remote/omni, /obj/item/melee/energy/blade/hardlight, /obj/item/reagent_containers/hypospray/combat/nanites, /obj/item/gun/medbeam, /obj/item/borg/stun, /obj/item/implanter/mindshield, /obj/item/flash/armimplant)
 	icon = 'icons/obj/weapons/energy.dmi'
 	icon_state = "m1911"
-	emp_proof = 1
+	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/arm/toolset/mantisblade
 	sound_on = 'sound/weapons/wristblades_on.ogg'
@@ -370,11 +365,10 @@
 	parent_organ_zone = BODY_ZONE_L_ARM
 
 /obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/emp_act(severity)
-	if(emp_shielded(severity))
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
 		return
-	..()
-
-	if(crit_fail || emp_proof)
+	if(crit_fail)
 		return
 	crit_fail = TRUE
 	Retract()
@@ -461,7 +455,7 @@
 		/obj/item/FixOVein,
 		)
 	origin_tech = "materials=8;biotech=4;magnets=5;programming=4"
-	emp_proof = 1
+	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/arm/surgery/adv/ert/get_ru_names()
 	return alist(
@@ -539,9 +533,8 @@
 /obj/item/organ/internal/cyberimp/arm/power_cord/emp_act(severity)
 	// To allow repair via nanopaste/screwdriver
 	// also so IPCs don't also catch on fire and fall even more apart upon EMP
-	if(emp_proof)
-		return
-	if(emp_shielded(severity))
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
 		return
 	damage = 1
 	crit_fail = TRUE
@@ -643,7 +636,8 @@
 	var/disabled = FALSE
 
 /obj/item/organ/internal/cyberimp/arm/v1_arm/emp_act(severity)
-	if(emp_proof && !disabled)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
 		return
 	disabled = TRUE
 	addtimer(VARSET_CALLBACK(src, disabled, FALSE), 10 SECONDS)
@@ -683,6 +677,7 @@
 /obj/item/shield/v1_arm/emp_act(severity)
 	if(disabled)
 		return
+	. = ..()
 	to_chat(loc, span_warning("Your arm seises up!"))
 	disabled = TRUE
 	force = force_when_disabled

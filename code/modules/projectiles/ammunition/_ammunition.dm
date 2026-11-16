@@ -60,6 +60,10 @@
 	var/no_update_names = FALSE
 	/// `desc` won't be dynamically updated if set to `TRUE`
 	var/no_update_desc = FALSE
+	///Is our bullet have homing capabilities?
+	var/smart_bullet = FALSE
+	/// How many tiles away should we check for smart auto-locking
+	var/auto_lock_range = 1
 
 /obj/item/ammo_casing/Initialize(mapload)
 	. = ..()

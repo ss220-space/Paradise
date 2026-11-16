@@ -108,6 +108,7 @@
 	return ..()
 
 /obj/structure/sign/barsign/emp_act(severity)
+	. = ..()
 	set_sign(new /datum/barsign/hiddensigns/empbarsign)
 	broken = TRUE
 

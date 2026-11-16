@@ -142,6 +142,7 @@
 	. = ..()
 	AddElement(/datum/element/climbable)
 	AddElement(/datum/element/elevation, pixel_shift = 16)
+	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
 /obj/structure/clockwork/wall_gear/displaced
 	anchored = FALSE
@@ -152,9 +153,6 @@
 /obj/structure/clockwork/wall_gear/Initialize(mapload)
 	. = ..()
 	new /obj/effect/temp_visual/ratvar/gear(get_turf(src))
-
-/obj/structure/clockwork/wall_gear/emp_act(severity)
-	return
 
 /obj/structure/clockwork/wall_gear/narsie_act()
 	if(prob(25))

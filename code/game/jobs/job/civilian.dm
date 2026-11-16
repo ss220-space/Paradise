@@ -1,3 +1,4 @@
+GLOBAL_DATUM(colored_assistant, /datum/colored_assistant)
 /datum/job/civilian
 	title = JOB_TITLE_CIVILIAN
 	flag = JOB_FLAG_CIVILIAN
@@ -24,7 +25,7 @@
 		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
 		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
 	)
-	base_free_skill_point = ADVANCED_SKILL_POINTS_COUNT
+	base_free_skill_point = DEFAULT_FREE_POINTS_FOR_UNSKILL_JOBS
 
 /datum/outfit/job/assistant
 	name = JOB_TITLE_RU_CIVILIAN
@@ -34,10 +35,14 @@
 
 /datum/outfit/job/assistant/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
-	if(!HAS_TRAIT(SSstation, STATION_TRAIT_CLASSIC_ASSISTANTS))
-		return
+	var/static/jumpsuit_number = 0
+	jumpsuit_number += 1
+	if(isnull(GLOB.colored_assistant))
+		var/configured_type = get_configured_colored_assistant_type()
+		GLOB.colored_assistant = new configured_type
 
-	uniform = /obj/item/clothing/under/color/grey
+	var/index = (jumpsuit_number % length(GLOB.colored_assistant.jumpsuits)) + 1
+	uniform = GLOB.colored_assistant.jumpsuits[index]
 	mask = /obj/item/clothing/mask/gas
 	gloves = /obj/item/clothing/gloves/color/yellow/fake
 

@@ -1,6 +1,7 @@
 /datum/species/unathi
 	name = SPECIES_UNATHI
 	name_plural = "Unathi"
+	ru_genitive = "унатха"
 	icobase = 'icons/mob/human_races/r_lizard.dmi'
 	deform = 'icons/mob/human_races/r_def_lizard.dmi'
 	language = LANGUAGE_UNATHI
@@ -141,8 +142,8 @@
 
 /datum/species/unathi/handle_life(mob/living/carbon/human/H)
 	..()
-	if(H.reagents.get_reagent_amount("zessulblood") < 5)	//unique unathi chemical, heals over time and increases shock reduction for 20
-		H.reagents.add_reagent("zessulblood", 1)
+	if(H.reagents.get_reagent_amount(/datum/reagent/medicine/zessulblood) < 5)	//unique unathi chemical, heals over time and increases shock reduction for 20
+		H.reagents.add_reagent(/datum/reagent/medicine/zessulblood, 1)
 	switch(H.bodytemperature)
 		if(200 to 260)
 			H.EyeBlurry(6 SECONDS)

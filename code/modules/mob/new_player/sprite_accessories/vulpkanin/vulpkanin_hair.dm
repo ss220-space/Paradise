@@ -1,4 +1,5 @@
 /datum/sprite_accessory/hair/vulpkanin
+	abstract_type = /datum/sprite_accessory/hair/vulpkanin
 	icon = 'icons/mob/sprite_accessories/vulpkanin/vulpkanin_hair.dmi'
 	species_allowed = list(SPECIES_VULPKANIN)
 
@@ -84,7 +85,7 @@
 /datum/sprite_accessory/hair/vulpkanin/vulp_hair_raine
 	name = "Raine"
 	icon_state = "raine"
-	unsuitable_gender = MALE
+	gender = FEMALE
 
 /datum/sprite_accessory/hair/vulpkanin/vulp_hair_mess
 	name = "Mess"

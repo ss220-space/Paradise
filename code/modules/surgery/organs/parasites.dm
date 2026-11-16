@@ -5,6 +5,7 @@
 	name = "spider eggs"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "eggs"
+	destroy_on_removal = TRUE
 	var/stage = 1
 
 /obj/item/organ/internal/body_egg/spider_eggs/on_life()
@@ -14,16 +15,16 @@
 	switch(stage)
 		if(2)
 			if(prob(3))
-				owner.reagents.add_reagent("histamine", 2)
+				owner.reagents.add_reagent(/datum/reagent/histamine, 2)
 		if(3)
 			if(prob(5))
-				owner.reagents.add_reagent("histamine", 3)
+				owner.reagents.add_reagent(/datum/reagent/histamine, 3)
 		if(4)
 			if(prob(12))
-				owner.reagents.add_reagent("histamine", 5)
+				owner.reagents.add_reagent(/datum/reagent/histamine, 5)
 		if(5)
 			to_chat(owner, span_danger("Вы чувствуете, как будто что-то рвется из вашей кожи..."))
-			owner.reagents.add_reagent("histamine", 10)
+			owner.reagents.add_reagent(/datum/reagent/histamine, 10)
 			if(prob(30))
 				owner.emote("scream")
 				var/spiders = rand(3,5)
@@ -34,9 +35,7 @@
 
 /obj/item/organ/internal/body_egg/spider_eggs/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	..()
-	M.reagents.del_reagent("spidereggs") //purge all remaining spider eggs reagent if caught, in time.
-	if(!QDELETED(src))
-		qdel(src) // prevent people re-implanting them into others
+	M.reagents.del_reagent(/datum/reagent/spider_eggs) //purge all remaining spider eggs reagent if caught, in time.
 	return null
 
 // Terror Spiders - white spider infection
@@ -45,6 +44,7 @@
 	name = "terror eggs"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "eggs"
+	destroy_on_removal = TRUE
 
 	var/cycle_num = 0 // # of on_life() cycles completed, never reset
 	var/egg_progress = 0 // # of on_life() cycles completed, unlike cycle_num this is reset on each hatch event
@@ -106,10 +106,10 @@
 	var/extra_progress = 0
 	if(owner.nutrition > NUTRITION_LEVEL_FULL)
 		extra_progress += 1
-	var/antibiotics = owner.reagents.get_reagent_amount("spaceacillin")
+	var/antibiotics = owner.reagents.get_reagent_amount(/datum/reagent/medicine/spaceacillin)
 	if(antibiotics > 15)
 		extra_progress -= 0.5
-	var/boosters = owner.reagents.get_reagent_amount("salglu_solution")
+	var/boosters = owner.reagents.get_reagent_amount(/datum/reagent/medicine/salglu_solution)
 	if(boosters > 1)
 		extra_progress += 1
 	return extra_progress
@@ -142,6 +142,4 @@
 /obj/item/organ/internal/body_egg/terror_eggs/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	..()
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_IFECTION_REMOVED, src)
-	if(!QDELETED(src))
-		qdel(src) // prevent people re-implanting them into others
 	return null

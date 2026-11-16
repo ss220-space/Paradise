@@ -279,11 +279,16 @@
 		// Tokens don't randomise pitch on their own, so roll the vary frequency here if we don't already have an age-based one.
 		if(isnull(frequency) && vary)
 			frequency = get_rand_frequency()
-		playsoundtoken(source = user, soundin = sound_path, volume = sound_volume, range = sound_token_range, frequency = frequency)
+		playsoundtoken(source = user, soundin = sound_path, volume = sound_volume, range = sound_token_range, frequency = alter_emote_pitch(user, frequency))
 		return
 
 	// Vary needs to be TRUE or frequency changes get ignored deep within playsound_local, so force it when we have an age-based pitch.
-	playsound(user.loc, sound_path, sound_volume, vary || !isnull(frequency), frequency = frequency)
+	playsound(user.loc, sound_path, sound_volume, vary || !isnull(frequency), frequency = alter_emote_pitch(user, frequency))
+
+/datum/emote/proc/alter_emote_pitch(mob/user, multiplicative = 1)
+	if(HAS_TRAIT(user, TRAIT_I_WANT_BRAINS))
+		return 0.7
+	return multiplicative
 
 /**
  * Send an emote to runechat for all (listening) users in the vicinity.

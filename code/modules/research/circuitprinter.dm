@@ -51,6 +51,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	init_parts()
 	create_reagents()
 	RefreshParts()
+	ADD_TRAIT(src, TRAIT_LOGISTICS_COMPATIBLE, INNATE_TRAIT)
 	if(is_taipan(z))
 		icon_state = "syndie_circuit_imprinter"
 		base_icon_state = "syndie_circuit_imprinter"
@@ -59,6 +60,12 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	if(linked_console)
 		linked_console.linked_imprinter = null
 	return ..()
+
+/obj/machinery/r_n_d/circuit_imprinter/logistics
+
+/obj/machinery/r_n_d/circuit_imprinter/logistics/Initialize(mapload)
+	. = ..()
+	install_logistics_interface(LOGISTICS_MODE_RECEIVE)
 
 /obj/machinery/r_n_d/circuit_imprinter/proc/init_parts()
 	component_parts = list()
@@ -97,7 +104,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	var/A = materials.amount(M)
 	if(!A)
-		A = reagents.get_reagent_amount(M)
+		A = reagents.get_reagent_amount_by_id(M)
 
 	return round(A / max(1, (all_materials[M] * efficiency_coeff)))
 
@@ -217,7 +224,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	if(panel_open)
 		return FALSE
 
-	if(user.incapacitated() || (user.get_active_hand() != circuit))
+	if(user.incapacitated || (user.get_active_hand() != circuit))
 		return FALSE
 
 	return TRUE

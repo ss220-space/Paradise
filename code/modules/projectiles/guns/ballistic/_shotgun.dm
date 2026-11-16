@@ -71,7 +71,7 @@
 /obj/item/gun/projectile/shotgun/can_shoot(mob/user)
 	if(!chambered)
 		return FALSE
-	return (chambered.BB ? TRUE : FALSE)
+	return ..() && (chambered.BB ? TRUE : FALSE)
 
 /obj/item/gun/projectile/shotgun/unload_act(mob/user)
 	if(!COOLDOWN_FINISHED(src, last_pump))

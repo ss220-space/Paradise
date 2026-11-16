@@ -58,8 +58,6 @@
 	var/cargo_capacity = 1
 	/// for wide cargo module
 	var/cargo_expanded = FALSE
-	/// emp protection
-	var/emp_protection = FALSE
 	/// mech equipment types
 	var/allowed_equipment = MECH_EQUIPMENT_WORKING
 
@@ -319,7 +317,7 @@
 		return
 	if(completely_disabled)
 		return
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 	if(phasing)
 		occupant_message(span_warning("Нельзя взаимодействовать с объектами, пока [declent_ru(NOMINATIVE)] находится в режиме фазового перехода!"))
@@ -399,10 +397,10 @@
 /obj/mecha/proc/mech_toxin_damage(mob/living/target)
 	playsound(src, 'sound/effects/spray2.ogg', 50, TRUE)
 	if(target.reagents)
-		if(target.reagents.get_reagent_amount("atropine") + force < force*2)
-			target.reagents.add_reagent("atropine", force/2)
-		if(target.reagents.get_reagent_amount("toxin") + force < force*2)
-			target.reagents.add_reagent("toxin", force/2.5)
+		if(target.reagents.get_reagent_amount(/datum/reagent/medicine/atropine) + force < force*2)
+			target.reagents.add_reagent(/datum/reagent/medicine/atropine, force/2)
+		if(target.reagents.get_reagent_amount(/datum/reagent/toxin) + force < force*2)
+			target.reagents.add_reagent(/datum/reagent/toxin, force/2.5)
 
 /obj/mecha/proc/range_action(atom/target)
 	return
@@ -885,8 +883,9 @@
 
 //TODO
 /obj/mecha/emp_act(severity)
-	if(emp_protection)
-		return FALSE
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
 	if(get_charge())
 		use_power((cell.charge/3)/(severity*2))
 		take_damage(30 / severity, BURN, ENERGY, 1)
@@ -1360,7 +1359,7 @@
 	if(frozen)
 		to_chat(user, span_warning("Do not enter Admin-Frozen mechs."))
 		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(user != M)
 		return
@@ -1524,7 +1523,7 @@
 
 	if(occupant?.client)
 		occupant.client.mouse_override_icon = null
-		occupant.client.mouse_pointer_icon = initial(occupant.client.mouse_pointer_icon)
+		occupant.update_mouse_pointer()
 
 	if(ishuman(occupant))
 		mob_container = occupant
@@ -1881,7 +1880,7 @@
 /obj/mecha/proc/check_menu(mob/living/L)
 	if(L != occupant || !istype(L))
 		return FALSE
-	if(L.incapacitated())
+	if(L.incapacitated)
 		return FALSE
 	return TRUE
 

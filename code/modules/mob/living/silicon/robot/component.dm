@@ -140,6 +140,14 @@
 	external_type = /obj/item/robot_parts/robot_component/actuator
 	max_damage = 50
 
+/datum/robot_component/actuator/go_online()
+	. = ..()
+	owner.update_incapacitated()
+
+/datum/robot_component/actuator/go_offline()
+	. = ..()
+	owner.update_incapacitated()
+
 /datum/robot_component/cell
 	name = "power cell"
 	max_damage = 50
@@ -271,7 +279,7 @@
 
 /obj/item/robotanalyzer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
-	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50) || !user.check_brain_for_complex_interactions())
 		user.visible_message(
 			span_warning("[user] has analyzed the floor's vitals!"),
 			span_notice("You try to analyze the floor's vitals!"),

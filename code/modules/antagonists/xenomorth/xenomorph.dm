@@ -17,7 +17,7 @@
 		stack_trace("This antag datum cannot be attached to a mob of this type.")
 	var/mob/living/carbon/alien/alien = owner.current
 	role_text = alien.role_text
-	. = ..()
+	return ..()
 
 /datum/antagonist/xenomorph/farewell()
 	return

@@ -27,7 +27,7 @@
 // partname is the name of a body part
 // amount is a num from 1 to 100
 /mob/living/carbon/proc/pain(partname, amount)
-	if(!client?.prefs || reagents.has_reagent("sal_acid"))
+	if(!client?.prefs || reagents.has_reagent(/datum/reagent/medicine/sal_acid))
 		return
 
 	if(!has_pain())
@@ -99,7 +99,7 @@
 		if(!damaged_organ)
 			continue
 
-		pain(damaged_organ.declent_ru(PREPOSITIONAL), maxdam)
+		pain(damaged_organ.declent_ru_base(PREPOSITIONAL), maxdam)
 
 	// Damage to internal organs hurts a lot.
 	for(var/obj/item/organ/internal/organ as anything in internal_organs)

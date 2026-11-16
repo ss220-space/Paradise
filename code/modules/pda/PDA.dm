@@ -172,7 +172,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	if(loc != user)
 		return FALSE
 
-	if(user.incapacitated() || !isAI(user) && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || !isAI(user) && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return FALSE
 
 	return TRUE
@@ -528,6 +528,7 @@ GAME_VERB_SRC(/obj/item/pda, verb_remove_pen, usr, "Извлечь ручку", 
 
 // Pass along the pulse to atoms in contents, largely added so pAIs are vulnerable to EMP
 /obj/item/pda/emp_act(severity)
+	. = ..()
 	for(var/atom/A in src)
 		A.emp_act(severity)
 

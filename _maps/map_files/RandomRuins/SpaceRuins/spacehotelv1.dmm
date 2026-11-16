@@ -9,9 +9,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
 "ai" = (
@@ -35,19 +33,7 @@
 /area/ruin/space/spacehotelv1/bar)
 "ao" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/space,
-/area/space)
-"ay" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/space,
 /area/space)
 "az" = (
@@ -108,9 +94,7 @@
 /area/ruin/space/spacehotelv1/forehallway)
 "aP" = (
 /obj/machinery/door/airlock/external,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/foremaints)
@@ -124,21 +108,14 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/entryhallway)
 "aS" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "aT" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/light_switch/directional/south,
 /obj/machinery/door_control{
 	desiredstate = 1;
@@ -164,9 +141,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/forehallway)
 "ba" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/sepia{
 	slowdown = 0
 	},
@@ -177,9 +152,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
 "be" = (
@@ -190,9 +163,7 @@
 	id_tag = "gstroom1";
 	name = "Appartment 1"
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/guestroom1)
 "bj" = (
@@ -236,9 +207,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/table/reinforced,
 /obj/machinery/reagentgrinder,
 /obj/item/reagent_containers/condiment/enzyme,
@@ -250,9 +219,7 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/space/spacehotelv1/tcomms)
 "bO" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -286,9 +253,7 @@
 "bX" = (
 /obj/machinery/door/airlock,
 /obj/machinery/door/firedoor,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -376,9 +341,7 @@
 	},
 /area/ruin/space/spacehotelv1/kitchen)
 "cC" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/wall,
 /area/ruin/space/spacehotelv1/guestroom4)
 "cD" = (
@@ -391,9 +354,7 @@
 	},
 /area/ruin/space/spacehotelv1/bar)
 "cK" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
@@ -407,9 +368,7 @@
 "cO" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/power/apc/directional/west,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/space,
 /area/ruin/space/spacehotelv1/tcomms)
 "cT" = (
@@ -437,13 +396,6 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/space)
-"dd" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/space,
 /area/space)
 "di" = (
 /obj/machinery/light{
@@ -480,9 +432,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/evamaints)
 "dw" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/reception)
 "dF" = (
@@ -495,9 +445,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "dQ" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/machinery/power/terminal,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -507,9 +455,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/cargostorage)
 "dW" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/aftportmaints)
 "ea" = (
@@ -535,20 +481,12 @@
 /obj/machinery/teleport/perma,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/entryhallway)
-"eo" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/spacehotelv1/aftportmaints)
 "et" = (
 /obj/structure/closet/firecloset/full,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "ev" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
@@ -573,9 +511,7 @@
 	},
 /area/ruin/space/spacehotelv1/entryhallway)
 "eE" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
 	},
@@ -583,13 +519,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/foremaints)
 "eF" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/generator/directional/east,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "eK" = (
@@ -599,27 +530,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
-"eL" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/space,
-/area/space)
 "eM" = (
 /obj/machinery/door/airlock/maintenance_hatch,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
-"eT" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/space,
-/area/space)
 "eX" = (
 /obj/structure/toilet/directional/north,
 /obj/machinery/light/small{
@@ -630,25 +545,12 @@
 	},
 /area/ruin/space/spacehotelv1/entryhallway)
 "eZ" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/machinery/computer/monitor{
 	name = "Grid Power Monitoring Computer"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
-"fa" = (
-/obj/machinery/power/solar{
-	name = "Aft Starboard Solar Panel"
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/space)
 "fg" = (
 /obj/machinery/door/window/westright{
 	dir = 1
@@ -656,9 +558,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/reception)
 "fj" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -669,12 +569,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/restoraunt)
-"fu" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/spacehotelv1/aftportmaints)
 "fz" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -682,9 +576,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "fC" = (
@@ -693,25 +585,19 @@
 /area/ruin/space/spacehotelv1/guestroom2)
 "fF" = (
 /obj/machinery/power/tracker,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
 /area/space)
 "fI" = (
 /obj/machinery/power/apc/directional/north,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/foremaints)
 "fM" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/sign/electricshock{
 	pixel_y = -32
 	},
@@ -723,16 +609,6 @@
 	icon_state = "white"
 	},
 /area/ruin/space/spacehotelv1/guestroom6)
-"fR" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/space,
-/area/space)
 "fT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -766,9 +642,7 @@
 	},
 /area/ruin/space/spacehotelv1/kitchen)
 "ge" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/foremaints)
@@ -791,9 +665,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
@@ -822,9 +694,7 @@
 	dir = 1
 	},
 /obj/machinery/firealarm/directional/east,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/restoraunt2)
@@ -832,9 +702,7 @@
 /obj/machinery/power/smes{
 	input_level = 200000
 	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "gT" = (
@@ -850,9 +718,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/forehallway)
@@ -901,9 +767,7 @@
 /area/ruin/space/spacehotelv1/guestroom3)
 "hq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
@@ -914,12 +778,7 @@
 	},
 /area/ruin/space/spacehotelv1/bar)
 "ht" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -956,18 +815,11 @@
 /area/ruin/space/spacehotelv1/aftmaints)
 "hL" = (
 /obj/machinery/power/apc/directional/west,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
 "hN" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
@@ -1017,9 +869,7 @@
 "ie" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/door/airlock/maintenance,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/aftmaints)
@@ -1043,9 +893,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/spacehotelv1/tcomms)
 "iv" = (
@@ -1094,9 +942,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/evamaints)
 "iN" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "iP" = (
@@ -1125,12 +971,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/restoraunt2)
 "ja" = (
@@ -1153,17 +994,13 @@
 	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/guestroom6)
 "je" = (
 /obj/machinery/door/airlock/maintenance,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/barber)
 "jh" = (
@@ -1173,9 +1010,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1187,9 +1022,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/foremaints)
 "jl" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/evamaints)
 "jo" = (
@@ -1258,9 +1091,7 @@
 	dir = 4
 	},
 /obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1271,9 +1102,7 @@
 	},
 /area/ruin/space/spacehotelv1/entryhallway)
 "jW" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/alarm/directional/east,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -1301,18 +1130,14 @@
 	initialize_directions = 11
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
 "ka" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/firedoor,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/bar)
 "kf" = (
@@ -1348,9 +1173,7 @@
 	},
 /area/ruin/space/spacehotelv1/bar)
 "kq" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -1373,9 +1196,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "kv" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/sign/vacuum{
 	pixel_y = 32
 	},
@@ -1387,19 +1208,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/ruin/space/spacehotelv1/restoraunt)
-"kA" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/space,
-/area/space)
 "kC" = (
 /obj/item/beach_ball,
 /turf/simulated/floor/beach/sand{
@@ -1407,12 +1215,7 @@
 	},
 /area/ruin/space/spacehotelv1/bar)
 "kH" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
 	},
@@ -1434,9 +1237,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/aftmaints)
 "kT" = (
@@ -1461,12 +1262,7 @@
 	dir = 8;
 	initialize_directions = 11
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
 "lk" = (
@@ -1594,26 +1390,20 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "mu" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "mv" = (
 /obj/machinery/door/airlock/maintenance_hatch,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/evamaints)
 "mx" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "mE" = (
@@ -1622,15 +1412,6 @@
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/ruin/space/spacehotelv1/reception)
-"mJ" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/spacehotelv1/aftportmaints)
 "mK" = (
 /obj/machinery/door/airlock/freezer,
 /turf/simulated/floor/plasteel{
@@ -1644,9 +1425,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/ruin/space/spacehotelv1/guestroom2)
 "nf" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/foremaints)
 "ng" = (
@@ -1672,9 +1451,7 @@
 	id_tag = "gstroom3";
 	name = "Appartment 3"
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/guestroom3)
 "no" = (
@@ -1689,9 +1466,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/ruin/space/spacehotelv1/guestroom2)
 "nt" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -1746,9 +1521,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/guestroom2)
 "nO" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/machinery/power/solar_control/autostart,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
@@ -1759,15 +1532,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/bar)
-"nT" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/spacehotelv1/engi1)
 "nV" = (
 /obj/structure/chair/office{
 	dir = 1
@@ -1812,9 +1576,7 @@
 /area/ruin/space/spacehotelv1/guestroom3)
 "om" = (
 /obj/machinery/power/apc/directional/north,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/guestroom3)
 "on" = (
@@ -1833,9 +1595,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/restoraunt2)
 "os" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "ot" = (
@@ -1884,9 +1644,7 @@
 "oJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/restoraunt1)
@@ -1911,9 +1669,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/ruin/space/spacehotelv1/reception)
 "oZ" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/computer/atmos_alert,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
@@ -1927,16 +1683,6 @@
 /obj/structure/closet/cabinet,
 /turf/simulated/floor/carpet/arcade,
 /area/ruin/space/spacehotelv1/guestroom3)
-"pg" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/space,
-/area/space)
 "ph" = (
 /obj/machinery/light/small,
 /obj/item/reagent_containers/condiment/flour,
@@ -1957,9 +1703,7 @@
 /area/ruin/space/spacehotelv1/centralhallway)
 "po" = (
 /obj/structure/chair/comfy,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel/white/side,
 /area/ruin/space/spacehotelv1/forehallway)
 "pw" = (
@@ -2070,13 +1814,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
-"qo" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/ruin/space/spacehotelv1/forestarboardmaints)
 "qq" = (
 /obj/machinery/bottler,
 /obj/structure/table,
@@ -2101,16 +1838,12 @@
 /area/ruin/space/spacehotelv1/restoraunt)
 "qv" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forehallway)
 "qC" = (
 /obj/machinery/door/airlock/maintenance,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "qH" = (
@@ -2125,9 +1858,7 @@
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "qI" = (
 /obj/machinery/atmospherics/meter,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
@@ -2135,9 +1866,7 @@
 /area/ruin/space/spacehotelv1/engi1)
 "qM" = (
 /obj/machinery/power/apc/directional/north,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 10
 	},
@@ -2153,18 +1882,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/sign/poster/random{
 	pixel_y = -32
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
 "qY" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/directional/south,
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	desc = "Труба ведёт газ на фильтрацию";
@@ -2199,20 +1924,6 @@
 /obj/item/pen,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/guestroom3)
-"rn" = (
-/obj/machinery/power/solar{
-	name = "Aft Starboard Solar Panel"
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/space)
 "rp" = (
 /turf/simulated/wall,
 /area/ruin/space/spacehotelv1/foremaints)
@@ -2223,16 +1934,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/chair/sofa/right,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/forehallway)
 "rt" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/forehallway)
 "rv" = (
@@ -2258,9 +1965,7 @@
 /turf/simulated/wall,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "rG" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/vending/cola,
 /turf/simulated/floor/sepia{
 	slowdown = 0
@@ -2301,9 +2006,7 @@
 	dir = 1
 	},
 /obj/machinery/power/apc/directional/south,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/restoraunt2)
 "sg" = (
@@ -2352,17 +2055,6 @@
 	icon_state = "white"
 	},
 /area/ruin/space/spacehotelv1/guestroom5)
-"sA" = (
-/obj/machinery/power/solar{
-	name = "Aft Starboard Solar Panel"
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/space)
 "sB" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/wood,
@@ -2391,9 +2083,7 @@
 /obj/machinery/computer/monitor{
 	name = "Grid Power Monitoring Computer"
 	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "sN" = (
@@ -2401,9 +2091,7 @@
 	id_tag = "ext_sol1_door";
 	locked = 1
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/foremaints)
 "sO" = (
@@ -2436,12 +2124,7 @@
 "sU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
 "sX" = (
@@ -2464,9 +2147,7 @@
 	},
 /area/ruin/space/spacehotelv1/cargostorage)
 "tb" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/machinery/power/terminal,
 /obj/machinery/light/small{
 	dir = 8
@@ -2485,22 +2166,10 @@
 /obj/machinery/atmospherics/binary/pump{
 	name = "air into station gas pump"
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
-"tm" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/space,
-/area/space)
 "tu" = (
 /obj/structure/chair/wood,
 /turf/simulated/floor/wood,
@@ -2577,9 +2246,7 @@
 /area/ruin/space/spacehotelv1/entryhallway)
 "tV" = (
 /obj/machinery/atmospherics/pipe/simple/visible/universal,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/door/airlock/engineering,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
@@ -2593,9 +2260,7 @@
 /area/ruin/space/spacehotelv1/entryhallway)
 "tY" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/guestroom3)
 "tZ" = (
@@ -2605,9 +2270,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/light,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
@@ -2632,9 +2295,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/ruin/space/spacehotelv1/guestroom3)
 "un" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -2671,9 +2332,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/guestroom1)
 "uz" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/evamaints)
@@ -2698,9 +2357,7 @@
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/guestroom1)
 "uP" = (
@@ -2709,9 +2366,7 @@
 /area/ruin/space/spacehotelv1/foremaints)
 "uR" = (
 /obj/machinery/power/apc/directional/south,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/structure/table/reinforced/brass,
 /obj/item/paper_bin,
 /obj/item/pen,
@@ -2741,9 +2396,7 @@
 /obj/item/clothing/under/lawyer/blue,
 /obj/item/clothing/under/kilt,
 /obj/item/clothing/head/beret,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/structure/closet/cabinet,
 /turf/simulated/floor/plasteel{
 	icon_state = "carpet"
@@ -2763,9 +2416,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/sign/electricshock{
 	pixel_y = -32
 	},
@@ -2780,9 +2431,7 @@
 /area/ruin/space/spacehotelv1/foremaints)
 "vt" = (
 /obj/machinery/power/apc/directional/west,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -32
 	},
@@ -2801,12 +2450,6 @@
 	icon_state = "white"
 	},
 /area/ruin/space/spacehotelv1/guestroom6)
-"vC" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/simulated/wall,
-/area/ruin/space/spacehotelv1/guestroom4)
 "vF" = (
 /turf/simulated/wall,
 /area/ruin/space/spacehotelv1/entryhallway)
@@ -2893,9 +2536,7 @@
 /area/ruin/space/spacehotelv1/entryhallway)
 "wy" = (
 /obj/machinery/power/apc/directional/south,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/structure/table/wood/fancy/black,
 /obj/item/paper_bin,
 /obj/item/pen,
@@ -2916,15 +2557,11 @@
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/guestroom2)
 "wP" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/carpet/arcade,
 /area/ruin/space/spacehotelv1/reception)
 "wS" = (
@@ -2950,9 +2587,7 @@
 	dir = 8
 	},
 /obj/machinery/chem_dispenser/soda,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
 	id_tag = "Hotel Kitchen Hall Windows";
@@ -2966,22 +2601,12 @@
 /obj/machinery/power/smes{
 	input_level = 200000
 	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "xr" = (
 /obj/machinery/atmospherics/pipe/simple/visible/universal,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "xt" = (
@@ -3017,12 +2642,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
 	dir = 4
 	},
@@ -3033,9 +2653,7 @@
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/guestroom3)
 "xG" = (
@@ -3077,9 +2695,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/foremaints)
@@ -3095,9 +2711,7 @@
 	id_tag = "gstroom6";
 	name = "Appartment 6"
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/guestroom6)
 "yd" = (
@@ -3127,9 +2741,7 @@
 "yr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/engineering,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "ys" = (
@@ -3152,13 +2764,6 @@
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/foremaints)
-"yI" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/space,
-/area/space)
 "yK" = (
 /obj/machinery/jukebox/disco,
 /turf/simulated/floor/plating,
@@ -3172,9 +2777,7 @@
 "yQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/forehallway)
 "yT" = (
@@ -3245,9 +2848,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/table/reinforced,
 /obj/machinery/processor{
 	pixel_y = 9
@@ -3256,18 +2857,6 @@
 	icon_state = "white"
 	},
 /area/ruin/space/spacehotelv1/kitchen)
-"zs" = (
-/obj/machinery/power/solar{
-	name = "Aft Starboard Solar Panel"
-	},
-/obj/structure/cable,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/space)
 "zu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -3276,9 +2865,7 @@
 	id_tag = "gstroom2";
 	name = "Appartment 2"
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/guestroom2)
 "zw" = (
@@ -3328,9 +2915,7 @@
 	},
 /area/ruin/space/spacehotelv1/cargostorage)
 "zY" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/restoraunt1)
 "zZ" = (
@@ -3352,9 +2937,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -3403,9 +2986,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
 	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/spacehotelv1/tcomms)
@@ -3425,9 +3006,7 @@
 /turf/simulated/floor/plasteel/white/side,
 /area/ruin/space/spacehotelv1/forehallway)
 "AM" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
 "AP" = (
@@ -3447,9 +3026,7 @@
 /area/ruin/space/spacehotelv1/aftmaints)
 "AQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel/white/side,
 /area/ruin/space/spacehotelv1/forehallway)
 "AR" = (
@@ -3500,41 +3077,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/aftmaints)
-"Bk" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/spacehotelv1/foremaints)
 "Bq" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/sepia{
 	slowdown = 0
 	},
 /area/ruin/space/spacehotelv1/bar)
 "Bs" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/reception)
-"Bt" = (
-/obj/machinery/power/solar{
-	name = "Aft Starboard Solar Panel"
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/space)
 "Bu" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
@@ -3581,20 +3134,6 @@
 /obj/structure/chair/comfy,
 /turf/simulated/floor/plasteel/white/side,
 /area/ruin/space/spacehotelv1/forehallway)
-"BZ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/space/spacehotelv1/entryhallway)
 "Cb" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4;
@@ -3604,20 +3143,13 @@
 	dir = 4;
 	initialize_directions = 11
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
 "Cf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/centralhallway)
 "Cg" = (
@@ -3634,9 +3166,7 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
 "Cu" = (
@@ -3655,9 +3185,7 @@
 "Cz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/forehallway)
 "CL" = (
@@ -3665,9 +3193,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/forehallway)
 "CO" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/directional/north,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/restoraunt1)
@@ -3705,9 +3231,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/forehallway)
 "Dk" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -3734,9 +3258,7 @@
 /area/ruin/space/spacehotelv1/tcomms)
 "Dt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/forehallway)
 "Du" = (
@@ -3754,17 +3276,13 @@
 /area/ruin/space/spacehotelv1/evamaints)
 "Dz" = (
 /obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "DE" = (
 /obj/machinery/door/airlock/survival_pod,
 /obj/machinery/door/firedoor,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/reception)
 "DL" = (
@@ -3776,23 +3294,13 @@
 	dir = 8;
 	initialize_directions = 11
 	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/forehallway)
 "DN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/restoraunt2)
@@ -3802,9 +3310,7 @@
 	dir = 1;
 	initialize_directions = 11
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/forehallway)
 "DQ" = (
@@ -3826,9 +3332,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/forehallway)
 "DZ" = (
@@ -3868,17 +3372,13 @@
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 9
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "Er" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/sepia{
 	slowdown = 0
 	},
@@ -3900,9 +3400,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/forehallway)
 "Ev" = (
@@ -3911,9 +3409,7 @@
 	initialize_directions = 11
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/forehallway)
 "Ew" = (
@@ -3930,12 +3426,7 @@
 "Ez" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/forehallway)
 "EC" = (
@@ -3954,9 +3445,7 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/forehallway)
 "EI" = (
@@ -3987,15 +3476,7 @@
 	dir = 1;
 	initialize_directions = 11
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/forehallway)
 "EQ" = (
@@ -4006,20 +3487,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/entryhallway)
-"ET" = (
-/obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
-/obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plasteel/grimy,
-/area/ruin/space/spacehotelv1/forehallway)
 "EX" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
@@ -4035,9 +3502,7 @@
 /area/ruin/space/spacehotelv1/kitchen)
 "Fc" = (
 /obj/structure/table/wood,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/item/flashlight/lamp/green,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/reception)
@@ -4048,9 +3513,7 @@
 "Fk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/restoraunt2)
@@ -4067,24 +3530,14 @@
 	dir = 10;
 	initialize_directions = 10
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/wood,
-/area/ruin/space/spacehotelv1/forehallway)
-"Fq" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/forehallway)
 "Fu" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/machinery/power/apc/directional/north,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/evamaints)
 "Fv" = (
@@ -4096,13 +3549,6 @@
 	},
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/restoraunt1)
-"Fx" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/ruin/space/spacehotelv1/foremaints)
 "Fy" = (
 /obj/structure/grille,
 /obj/structure/lattice,
@@ -4112,32 +3558,9 @@
 /turf/simulated/wall,
 /area/ruin/space/spacehotelv1/cargostorage)
 "FJ" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/guestroom3)
-"FO" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/wood,
-/area/ruin/space/spacehotelv1/forehallway)
-"FP" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/spacehotelv1/tcomms)
 "FT" = (
 /obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel/grimy,
@@ -4150,9 +3573,7 @@
 /area/ruin/space/spacehotelv1/kitchen)
 "FX" = (
 /obj/machinery/power/apc/directional/south,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/vehicle/ridden/janicart{
 	dir = 4
 	},
@@ -4171,9 +3592,7 @@
 	},
 /area/ruin/space/spacehotelv1/entryhallway)
 "Gf" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel/white/side,
 /area/ruin/space/spacehotelv1/forehallway)
 "Gg" = (
@@ -4206,9 +3625,7 @@
 	},
 /area/ruin/space/spacehotelv1/entryhallway)
 "Gm" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/forehallway)
 "Gq" = (
@@ -4277,38 +3694,12 @@
 /obj/machinery/recharge_station,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/forehallway)
-"He" = (
-/obj/machinery/power/solar{
-	name = "Aft Starboard Solar Panel"
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/space)
 "Hg" = (
 /obj/machinery/vending/chinese,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/centralhallway)
 "Hj" = (
 /obj/machinery/door/airlock/public/glass,
-/turf/simulated/floor/wood,
-/area/ruin/space/spacehotelv1/centralhallway)
-"Hk" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
 "Hn" = (
@@ -4333,9 +3724,7 @@
 "HG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/forehallway)
 "HK" = (
@@ -4354,9 +3743,7 @@
 /area/ruin/space/spacehotelv1/restoraunt)
 "HP" = (
 /obj/machinery/power/apc/directional/north,
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/obj/structure/cable,
 /obj/structure/filingcabinet,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/reception)
@@ -4406,9 +3793,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/camera{
 	c_tag = "Hotel's Central Hallway";
 	dir = 1;
@@ -4424,9 +3809,7 @@
 "Iz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
@@ -4458,9 +3841,7 @@
 	dir = 1;
 	initialize_directions = 11
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
@@ -4495,17 +3876,6 @@
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/ruin/space/spacehotelv1/reception)
-"IQ" = (
-/obj/machinery/power/solar{
-	name = "Aft Starboard Solar Panel"
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/space)
 "IR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -4513,25 +3883,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/aftmaints)
 "IV" = (
 /turf/simulated/wall,
 /area/ruin/space/spacehotelv1/reception)
-"IW" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/space,
-/area/space)
 "IY" = (
 /obj/structure/chair/wood,
 /turf/simulated/floor/plasteel/grimy,
@@ -4546,13 +3904,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/guestroom5)
-"Jg" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/ruin/space/spacehotelv1/forestarboardmaints)
 "Jh" = (
 /obj/machinery/door/airlock/multi_tile/glass,
 /obj/machinery/door/firedoor,
@@ -4597,9 +3948,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/restoraunt)
@@ -4624,9 +3973,7 @@
 /area/ruin/space/spacehotelv1/tcomms)
 "JT" = (
 /obj/machinery/door/airlock/maintenance,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/guestroom5)
 "JU" = (
@@ -4641,18 +3988,6 @@
 	icon_state = "white"
 	},
 /area/ruin/space/spacehotelv1/bar)
-"JW" = (
-/obj/machinery/power/solar{
-	name = "Aft Starboard Solar Panel"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/space)
 "Ka" = (
 /obj/structure/chair/sofa/right,
 /turf/simulated/floor/carpet/arcade,
@@ -4682,9 +4017,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /mob/living/simple_animal/pet/cat/kitten,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/forehallway)
@@ -4707,9 +4040,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/guestroom2)
 "Kz" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/door/airlock/highsecurity{
 	id_tag = "hoteltcomms";
 	locked = 1
@@ -4740,9 +4071,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/space/spacehotelv1/guestroom4)
 "KH" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -4759,12 +4088,7 @@
 	initialize_directions = 11
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/restoraunt)
 "KQ" = (
@@ -4774,9 +4098,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/chair/sofa/left,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/forehallway)
@@ -4818,16 +4140,12 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
 "Lr" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
@@ -4852,14 +4170,9 @@
 "Lw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/light{
 	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
@@ -4909,9 +4222,7 @@
 "LL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/restoraunt)
 "LP" = (
@@ -4973,9 +4284,7 @@
 /area/ruin/space/spacehotelv1/guestroom5)
 "Mg" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /turf/space,
 /area/ruin/space/spacehotelv1/tcomms)
 "Mj" = (
@@ -5036,28 +4345,18 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/foremaints)
 "ML" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "MM" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/ruin/space/spacehotelv1/bar)
-"MO" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/spacehotelv1/foremaints)
 "MR" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock{
@@ -5067,28 +4366,12 @@
 	icon_state = "white"
 	},
 /area/ruin/space/spacehotelv1/entryhallway)
-"MS" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/space,
-/area/space)
-"MW" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/space,
-/area/ruin/space/spacehotelv1/tcomms)
 "MZ" = (
 /turf/simulated/wall,
 /area/ruin/space/spacehotelv1/forehallway)
 "Nb" = (
 /obj/machinery/door/airlock/maintenance,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5100,22 +4383,12 @@
 /area/ruin/space/spacehotelv1/guestroom6)
 "Nh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4;
 	initialize_directions = 11
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/ruin/space/spacehotelv1/centralhallway)
-"Nj" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
 "Nk" = (
 /obj/structure/chair/comfy{
@@ -5177,9 +4450,7 @@
 	dir = 4;
 	initialize_directions = 11
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
 "NI" = (
@@ -5208,9 +4479,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/table/glass,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/forehallway)
@@ -5232,9 +4501,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/dresser,
 /obj/item/cane,
 /obj/item/storage/briefcase,
@@ -5254,9 +4521,7 @@
 /area/ruin/space/spacehotelv1/guestroom4)
 "NW" = (
 /obj/machinery/power/apc/directional/north,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/structure/table/abductor,
 /obj/item/pen,
 /obj/item/paper_bin,
@@ -5305,9 +4570,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/guestroom4)
 "OD" = (
@@ -5328,29 +4591,16 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/centralhallway)
 "OG" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/carpet,
 /area/ruin/space/spacehotelv1/guestroom4)
 "OH" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/foremaints)
-"OJ" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/spacehotelv1/aftportmaints)
 "OL" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "ext_shuttle_door"
@@ -5359,12 +4609,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/spacehotelv1/entryhallway)
-"ON" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/carpet,
-/area/ruin/space/spacehotelv1/guestroom4)
 "OP" = (
 /turf/simulated/floor/carpet,
 /area/ruin/space/spacehotelv1/guestroom4)
@@ -5373,9 +4617,7 @@
 	dir = 1;
 	name = "air into station gas pump"
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
@@ -5393,24 +4635,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/reception)
-"OX" = (
-/obj/machinery/power/tracker,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/space)
 "OZ" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1;
 	initialize_directions = 11
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5446,9 +4677,7 @@
 /area/ruin/space/spacehotelv1/forehallway)
 "Pn" = (
 /obj/machinery/door/airlock/maintenance,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
@@ -5467,9 +4696,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/centralhallway)
 "Ps" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/restoraunt)
 "Pt" = (
@@ -5484,9 +4711,7 @@
 "Pu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/door_control{
 	id = "storage1";
 	name = "Storage Doors";
@@ -5500,9 +4725,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/alarm/directional/south,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
@@ -5511,9 +4734,7 @@
 	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/guestroom4)
@@ -5541,12 +4762,6 @@
 	dir = 8
 	},
 /obj/item/reagent_containers/cup/glass/mug,
-/turf/simulated/floor/carpet,
-/area/ruin/space/spacehotelv1/guestroom4)
-"PP" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/carpet,
 /area/ruin/space/spacehotelv1/guestroom4)
 "PQ" = (
@@ -5602,9 +4817,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/camera{
 	c_tag = "Hotel's Aft Restoraunt Room";
 	dir = 1;
@@ -5616,27 +4829,8 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space)
-"Qt" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/space/spacehotelv1/entryhallway)
 "Qz" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5673,19 +4867,12 @@
 	},
 /area/ruin/space/spacehotelv1/kitchen)
 "QP" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/directional/west,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/aftportmaints)
 "QT" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/vending/snack,
 /turf/simulated/floor/sepia{
 	slowdown = 0
@@ -5731,9 +4918,7 @@
 /area/ruin/space/spacehotelv1/centralhallway)
 "Rp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/centralhallway)
@@ -5770,19 +4955,6 @@
 	icon_state = "white"
 	},
 /area/ruin/space/spacehotelv1/kitchen)
-"RB" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/ruin/space/spacehotelv1/foremaints)
-"RG" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/spacehotelv1/aftportmaints)
 "RH" = (
 /obj/machinery/cooker/deepfryer,
 /turf/simulated/floor/plasteel{
@@ -5810,9 +4982,7 @@
 /area/ruin/space/spacehotelv1/guestroom6)
 "RO" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/restoraunt1)
 "RP" = (
@@ -5836,9 +5006,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/firedoor,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/restoraunt)
 "Sf" = (
@@ -5851,9 +5019,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/spacehotelv1/tcomms)
 "Sg" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "Sj" = (
@@ -5872,9 +5038,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/sign/poster/random{
 	pixel_y = 32
 	},
@@ -5892,17 +5056,13 @@
 "Sw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/restoraunt1)
 "Sy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/centralhallway)
@@ -5934,27 +5094,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/restoraunt1)
-"SM" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/space,
-/area/space)
 "SP" = (
 /obj/machinery/vending/cola,
 /turf/simulated/floor/wood,
@@ -5962,41 +5104,19 @@
 "SS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/restoraunt2)
-"Tc" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/ruin/space/spacehotelv1/evamaints)
 "Te" = (
 /turf/simulated/wall,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "Tj" = (
 /obj/machinery/power/apc/directional/south,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
 /obj/structure/cable,
 /turf/simulated/floor/carpet,
 /area/ruin/space/spacehotelv1/guestroom4)
-"Tq" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/sepia{
-	slowdown = 0
-	},
-/area/ruin/space/spacehotelv1/bar)
 "Tu" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/chair/sofa/right{
 	dir = 8
 	},
@@ -6025,16 +5145,6 @@
 	icon_state = "barber"
 	},
 /area/ruin/space/spacehotelv1/barber)
-"Tz" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/space,
-/area/space)
 "TA" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
@@ -6044,9 +5154,7 @@
 /turf/simulated/wall,
 /area/ruin/space/spacehotelv1/centralhallway)
 "TJ" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /obj/machinery/door_control{
 	desiredstate = 1;
 	id = "ext_sol1_door";
@@ -6093,18 +5201,6 @@
 	slowdown = 0
 	},
 /area/ruin/space/spacehotelv1/bar)
-"TZ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/wood,
-/area/ruin/space/spacehotelv1/centralhallway)
 "Ud" = (
 /obj/machinery/door/window/westright,
 /obj/item/reagent_containers/food/snacks/grown/wheat,
@@ -6136,9 +5232,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/ruin/space/spacehotelv1/reception)
 "Ui" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/structure/sign/poster/random{
 	pixel_x = -32
 	},
@@ -6153,9 +5247,7 @@
 /area/ruin/space/spacehotelv1/guestroom4)
 "Uo" = (
 /obj/machinery/power/apc/generator/directional/east,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -6179,18 +5271,14 @@
 	},
 /area/ruin/space/spacehotelv1/barber)
 "Uw" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/alarm/directional/north,
 /turf/simulated/floor/sepia{
 	slowdown = 0
 	},
 /area/ruin/space/spacehotelv1/bar)
 "Uy" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /obj/structure/chair/sofa/left{
 	dir = 4
 	},
@@ -6206,18 +5294,14 @@
 	},
 /area/ruin/space/spacehotelv1/entryhallway)
 "UD" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
 /area/ruin/space/spacehotelv1/barber)
 "UE" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
@@ -6225,9 +5309,7 @@
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "UF" = (
 /obj/machinery/door/airlock,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/janitor)
 "UL" = (
@@ -6236,23 +5318,11 @@
 /area/ruin/space/spacehotelv1/engi2)
 "UM" = (
 /obj/machinery/power/apc/directional/south,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "bcarpet05"
 	},
 /area/ruin/space/spacehotelv1/guestroom5)
-"UO" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/space,
-/area/space)
 "UY" = (
 /obj/structure/table/wood/fancy,
 /obj/machinery/light,
@@ -6266,9 +5336,7 @@
 /area/ruin/space/spacehotelv1/guestroom5)
 "Va" = (
 /obj/machinery/door/airlock/maintenance,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/aftportmaints)
 "Vl" = (
@@ -6284,12 +5352,7 @@
 	dir = 1;
 	initialize_directions = 11
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
 "Vo" = (
@@ -6300,9 +5363,7 @@
 /area/ruin/space/spacehotelv1/centralhallway)
 "Vw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4;
 	initialize_directions = 11
@@ -6367,9 +5428,7 @@
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "Wc" = (
 /obj/machinery/power/apc/directional/south,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -6400,9 +5459,7 @@
 "Wo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/camera{
 	c_tag = "Hotel's Central Hallway";
 	dir = 8;
@@ -6434,9 +5491,7 @@
 	initialize_directions = 11
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/restoraunt)
 "Wu" = (
@@ -6462,12 +5517,6 @@
 /obj/machinery/door/airlock/maintenance,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/guestroom2)
-"WJ" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/spacehotelv1/forestarboardmaints)
 "WP" = (
 /obj/structure/janitorialcart,
 /turf/simulated/floor/plating,
@@ -6481,17 +5530,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
-"Xa" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/wood,
-/area/ruin/space/spacehotelv1/restoraunt)
 "Xc" = (
 /obj/structure/computerframe,
 /turf/simulated/floor/light/airless,
@@ -6612,9 +5650,7 @@
 	id_tag = "gstroom4";
 	name = "Appartment 4"
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/guestroom4)
 "Ya" = (
@@ -6627,9 +5663,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /obj/machinery/light_switch/directional/south,
 /obj/machinery/door_control{
 	desiredstate = 1;
@@ -6685,9 +5719,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/forehallway)
 "Yv" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
+/obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
@@ -6793,9 +5825,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
 "YW" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
+/obj/structure/cable,
 /turf/simulated/wall,
 /area/ruin/space/spacehotelv1/forehallway)
 "Zm" = (
@@ -6855,15 +5885,6 @@
 	slowdown = 0
 	},
 /area/ruin/space/spacehotelv1/bar)
-"ZC" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/spacehotelv1/foremaints)
 "ZE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -6872,9 +5893,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/public/glass,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
 "ZF" = (
@@ -6899,18 +5918,9 @@
 	icon_state = "white"
 	},
 /area/ruin/space/spacehotelv1/bar)
-"ZO" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/ruin/space/spacehotelv1/foremaints)
 "ZP" = (
 /obj/machinery/power/apc/directional/north,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/restoraunt)
 "ZS" = (
@@ -6919,9 +5929,7 @@
 /area/ruin/space/spacehotelv1/guestroom1)
 "ZV" = (
 /obj/machinery/door/airlock/maintenance,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/foremaints)
 
@@ -7140,7 +6148,7 @@ ij
 ij
 ij
 gM
-OX
+fF
 gM
 ij
 ij
@@ -7215,7 +6223,7 @@ ij
 ij
 ij
 Qp
-eL
+ao
 Qp
 ij
 ij
@@ -7290,7 +6298,7 @@ Qp
 ij
 ij
 Qp
-eL
+ao
 Qp
 ij
 ij
@@ -7365,8 +6373,8 @@ Qp
 Qp
 Qp
 ao
-IW
-MS
+ao
+ao
 Qp
 Qp
 Qp
@@ -7407,7 +6415,7 @@ ij
 bK
 Ic
 AC
-MW
+Mg
 Mg
 Sf
 hE
@@ -7433,20 +6441,20 @@ Pe
 ij
 ij
 ij
-IQ
-rn
-rn
-rn
-rn
-rn
-UO
+db
+db
+db
+db
+db
+db
+ao
 Qp
-Tz
-zs
-zs
-zs
-zs
-zs
+ao
+db
+db
+db
+db
+db
 db
 LE
 "}
@@ -7514,9 +6522,9 @@ Qp
 gM
 gM
 gM
-eL
+ao
 gM
-eL
+ao
 gM
 gM
 gM
@@ -7556,7 +6564,7 @@ ij
 ij
 ij
 ir
-eT
+ao
 gM
 gM
 gM
@@ -7583,21 +6591,21 @@ ij
 ij
 ij
 ij
-rn
-rn
-rn
-rn
-rn
-rn
-UO
+db
+db
+db
+db
+db
+db
+ao
 Qp
-Tz
-zs
-zs
-zs
-zs
-zs
-zs
+ao
+db
+db
+db
+db
+db
+db
 LE
 "}
 (10,1,1) = {"
@@ -7630,7 +6638,7 @@ ij
 ij
 ij
 ij
-FP
+ir
 ij
 ij
 ij
@@ -7664,9 +6672,9 @@ Qp
 gM
 gM
 gM
-eL
+ao
 gM
-eL
+ao
 gM
 gM
 gM
@@ -7705,7 +6713,7 @@ ij
 ij
 ij
 ij
-FP
+ir
 ij
 ij
 ij
@@ -7733,21 +6741,21 @@ Qp
 ij
 ij
 ij
-IQ
-rn
-rn
-rn
-rn
-rn
-UO
+db
+db
+db
+db
+db
+db
+ao
 Qp
-Tz
-zs
-zs
-zs
-zs
-zs
-zs
+ao
+db
+db
+db
+db
+db
+db
 LE
 "}
 (12,1,1) = {"
@@ -7814,9 +6822,9 @@ Qp
 Qp
 Qp
 gM
-eL
+ao
 gM
-eL
+ao
 gM
 Qp
 Qp
@@ -7855,7 +6863,7 @@ id
 YW
 qv
 qv
-vC
+cC
 Uk
 Uk
 Uk
@@ -7889,9 +6897,9 @@ ij
 ij
 ij
 gM
-eL
+ao
 Qp
-eL
+ao
 gM
 ij
 ij
@@ -7959,14 +6967,14 @@ Dq
 HR
 CY
 ao
-dd
-dd
-dd
-dd
-dd
-pg
+ao
+ao
+ao
+ao
+ao
+ao
 gM
-eL
+ao
 gM
 Qp
 Qp
@@ -8033,20 +7041,20 @@ se
 Dq
 Xo
 ub
-eL
+ao
 ij
 ij
 ij
 ij
 ij
-eL
+ao
 Qp
-Tz
-zs
-zs
-zs
-zs
-zs
+ao
+db
+db
+db
+db
+db
 db
 LE
 "}
@@ -8093,7 +7101,7 @@ SL
 Sw
 oJ
 RS
-Xa
+LL
 Wt
 LL
 KM
@@ -8114,9 +7122,9 @@ aH
 aH
 Qp
 Qp
-eL
+ao
 gM
-eL
+ao
 gM
 gM
 gM
@@ -8157,8 +7165,8 @@ AZ
 oU
 Uk
 KG
-ON
-PP
+OG
+OG
 Tj
 Uk
 XE
@@ -8189,14 +7197,14 @@ mt
 aH
 ij
 ij
-eL
+ao
 Qp
-Tz
-zs
-zs
-zs
-zs
-zs
+ao
+db
+db
+db
+db
+db
 db
 LE
 "}
@@ -8264,9 +7272,9 @@ gR
 UL
 ij
 ij
-eL
+ao
 gM
-eL
+ao
 gM
 gM
 gM
@@ -8339,14 +7347,14 @@ eZ
 aH
 Qp
 Qp
-eL
+ao
 Qp
-Tz
-zs
-zs
-zs
-zs
-zs
+ao
+db
+db
+db
+db
+db
 db
 LE
 "}
@@ -8384,12 +7392,12 @@ Ek
 Es
 Ek
 Uk
-OJ
+dW
 Va
-RG
-mJ
+dW
+dW
 Va
-TZ
+ag
 ui
 wd
 Ol
@@ -8414,9 +7422,9 @@ zz
 UL
 ij
 ij
-yI
-dd
-eT
+ao
+ao
+ao
 Qp
 Qp
 Qp
@@ -8459,7 +7467,7 @@ XD
 Ld
 DZ
 Uk
-fu
+dW
 jF
 jF
 je
@@ -8534,7 +7542,7 @@ Uk
 NV
 Ek
 Uk
-fu
+dW
 jF
 Ty
 UD
@@ -8666,7 +7674,7 @@ Qp
 ij
 ij
 ao
-dd
+ao
 sN
 bO
 aP
@@ -8684,7 +7692,7 @@ qR
 sy
 Iy
 qR
-fu
+dW
 jF
 sl
 Uo
@@ -8740,7 +7748,7 @@ ij
 Qp
 ij
 ij
-eL
+ao
 rp
 rp
 rp
@@ -8759,7 +7767,7 @@ IB
 LA
 Pb
 qR
-fu
+dW
 jF
 jF
 jF
@@ -8815,12 +7823,12 @@ ij
 Qp
 ij
 ij
-eL
+ao
 rp
 kh
 eE
-MO
-Fx
+nf
+ge
 BT
 lT
 RQ
@@ -8835,7 +7843,7 @@ vU
 Iy
 qR
 dW
-RG
+dW
 QP
 hD
 jF
@@ -8890,10 +7898,10 @@ ij
 Qp
 ij
 ij
-eL
+ao
 rp
 EX
-RB
+ge
 rp
 rp
 BT
@@ -8911,7 +7919,7 @@ rv
 qR
 qR
 qR
-fu
+dW
 jF
 jF
 ea
@@ -8965,10 +7973,10 @@ ij
 Qp
 ij
 ij
-eL
+ao
 rp
 yH
-RB
+ge
 rp
 nd
 pU
@@ -8986,7 +7994,7 @@ LR
 PU
 Uy
 JT
-eo
+dW
 jF
 OF
 Rn
@@ -9040,7 +8048,7 @@ ij
 Qp
 ij
 ij
-eL
+ao
 rp
 rp
 nf
@@ -9115,7 +8123,7 @@ Qp
 Qp
 Qp
 Qp
-eL
+ao
 Qp
 rp
 KH
@@ -9190,7 +8198,7 @@ ij
 ij
 ij
 ij
-eL
+ao
 Qp
 ai
 nf
@@ -9265,7 +8273,7 @@ ij
 ij
 ij
 ij
-eL
+ao
 Qp
 ai
 nf
@@ -9289,7 +8297,7 @@ qR
 YD
 fj
 UF
-Hk
+ag
 ui
 TC
 lU
@@ -9340,10 +8348,10 @@ ij
 ij
 ij
 ij
-eL
+ao
 Qp
 ai
-RB
+ge
 rp
 On
 On
@@ -9415,7 +8423,7 @@ ij
 ij
 ij
 ij
-eL
+ao
 Qp
 ai
 fM
@@ -9490,12 +8498,12 @@ ij
 ij
 ij
 ij
-eL
+ao
 Qp
 rp
-ZC
+KH
 Pn
-nT
+iN
 qI
 Lr
 iN
@@ -9536,7 +8544,7 @@ XM
 aL
 Ot
 oQ
-Tq
+ba
 vZ
 GU
 Ew
@@ -9565,7 +8573,7 @@ ij
 ij
 ij
 ij
-eL
+ao
 rp
 rp
 vl
@@ -9585,29 +8593,29 @@ Nh
 Cf
 Rp
 Vw
-Nj
-Nj
+sU
+sU
 hq
-Nj
+sU
 Cb
 Wo
-Nj
-Nj
+sU
+sU
 Pu
 NC
 Lw
 jW
-Nj
+sU
 lg
-Nj
+sU
 Iz
-Nj
-Nj
+sU
+sU
 Cb
 sU
 NC
 bb
-Nj
+sU
 jZ
 Iz
 ka
@@ -9640,7 +8648,7 @@ ij
 ij
 ij
 ij
-eL
+ao
 rp
 ji
 vl
@@ -9673,7 +8681,7 @@ oF
 FC
 FC
 Cg
-BZ
+jh
 jU
 TC
 TC
@@ -9715,7 +8723,7 @@ ij
 ij
 ij
 ij
-eL
+ao
 rp
 cr
 uP
@@ -9790,7 +8798,7 @@ ij
 ij
 Wm
 ij
-eL
+ao
 rp
 rp
 xN
@@ -9823,7 +8831,7 @@ oC
 FC
 FC
 AB
-BZ
+jh
 WB
 vF
 vF
@@ -9865,7 +8873,7 @@ ij
 ij
 Wm
 Qp
-eL
+ao
 Qp
 rp
 uP
@@ -9877,7 +8885,7 @@ xz
 nn
 yQ
 Cz
-ET
+Ez
 Cz
 yQ
 yb
@@ -9940,7 +8948,7 @@ ij
 ij
 Qp
 ij
-eL
+ao
 Qp
 rp
 vl
@@ -9973,7 +8981,7 @@ iC
 ri
 sh
 Cg
-BZ
+jh
 jU
 ys
 zi
@@ -10015,7 +9023,7 @@ ij
 ij
 Wm
 ij
-eL
+ao
 Qp
 rp
 NI
@@ -10048,7 +9056,7 @@ zW
 FC
 FC
 iE
-Qt
+jh
 nt
 EQ
 vF
@@ -10090,7 +9098,7 @@ ij
 ij
 Wm
 ij
-eL
+ao
 Qp
 rp
 uP
@@ -10123,7 +9131,7 @@ gA
 FC
 wj
 Cg
-BZ
+jh
 jU
 tX
 zi
@@ -10165,7 +9173,7 @@ ij
 ij
 Qp
 ij
-eL
+ao
 Qp
 rp
 VW
@@ -10198,7 +9206,7 @@ iC
 FC
 cL
 Cg
-BZ
+jh
 jU
 sB
 zi
@@ -10240,7 +9248,7 @@ ij
 ij
 Wm
 Qp
-eL
+ao
 Qp
 rp
 vl
@@ -10273,7 +9281,7 @@ FC
 FC
 hO
 Cg
-BZ
+jh
 jU
 hm
 zi
@@ -10315,7 +9323,7 @@ ij
 ij
 Qp
 ij
-eL
+ao
 rp
 rp
 vl
@@ -10338,7 +9346,7 @@ ec
 ML
 Te
 LG
-qo
+hN
 os
 eM
 hN
@@ -10348,7 +9356,7 @@ zl
 Te
 Te
 wx
-BZ
+jh
 Ge
 vF
 vF
@@ -10390,7 +9398,7 @@ ij
 ij
 ij
 ij
-eL
+ao
 rp
 kk
 vl
@@ -10402,7 +9410,7 @@ rp
 rp
 MZ
 Dd
-Fq
+rt
 FT
 cD
 cD
@@ -10417,10 +9425,10 @@ mv
 zZ
 zZ
 os
-WJ
+os
 Dk
-Jg
-WJ
+hN
+os
 qC
 un
 jh
@@ -10457,15 +9465,15 @@ ij
 ij
 ij
 ij
-fa
+db
 ij
-fa
+db
 ij
-fa
+db
 ij
 ij
 ij
-eL
+ao
 rp
 dq
 uP
@@ -10477,7 +9485,7 @@ ge
 ZV
 Gf
 AZ
-Fq
+rt
 AZ
 CL
 cD
@@ -10532,15 +9540,15 @@ ij
 ij
 ij
 ij
-Bt
+db
 ij
-Bt
+db
 ij
-Bt
+db
 ij
 ij
 ij
-eL
+ao
 rp
 TA
 vl
@@ -10552,14 +9560,14 @@ xZ
 rp
 po
 Gm
-FO
+rt
 Gm
 rt
 qC
-WJ
-Jg
-Jg
-WJ
+os
+hN
+hN
+os
 mx
 zZ
 tf
@@ -10607,23 +9615,23 @@ ij
 ij
 ij
 ij
-Bt
+db
 Qp
-Bt
+db
 Qp
-Bt
+db
 ij
 ij
 ij
-eL
+ao
 rp
 rp
 gN
 rp
 fI
-ZO
+ge
 OH
-Bk
+nf
 rp
 BW
 AZ
@@ -10638,7 +9646,7 @@ Te
 rA
 zZ
 Fu
-Tc
+uz
 As
 zZ
 ij
@@ -10682,16 +9690,16 @@ gM
 Qp
 Qp
 gM
-Bt
+db
 Qp
-Bt
+db
 Qp
-Bt
+db
 ao
-dd
-dd
-IW
-MS
+ao
+ao
+ao
+ao
 rp
 ai
 rp
@@ -10754,21 +9762,21 @@ LE
 LE
 JU
 uj
-dd
-dd
-dd
-kA
-dd
-kA
-dd
-kA
-ay
+ao
+ao
+ao
+ao
+ao
+ao
+ao
+ao
+ao
 Qp
 gM
 Qp
-tm
-dd
-MS
+ao
+ao
+ao
 rp
 ai
 ai
@@ -10832,18 +9840,18 @@ gM
 Qp
 Qp
 gM
-He
+db
 Qp
-He
+db
 Qp
-He
-yI
-dd
-dd
-dd
-ay
+db
+ao
+ao
+ao
+ao
+ao
 Qp
-eL
+ao
 gM
 gM
 gM
@@ -10907,18 +9915,18 @@ ij
 ij
 ij
 ij
-He
+db
 Qp
-He
+db
 Qp
-He
+db
 ij
 ij
 ij
 ij
-eL
+ao
 gM
-eL
+ao
 ij
 ij
 ij
@@ -10982,18 +9990,18 @@ ij
 ij
 ij
 ij
-He
+db
 ij
-He
+db
 ij
-He
-ij
-ij
+db
 ij
 ij
-eL
+ij
+ij
+ao
 Qp
-eL
+ao
 ij
 ij
 ij
@@ -11057,18 +10065,18 @@ ij
 ij
 ij
 ij
-sA
+db
 ij
-sA
+db
 ij
-sA
-ij
-ij
+db
 ij
 ij
-yI
-fR
-eT
+ij
+ij
+ao
+ao
+ao
 ij
 ij
 ij
@@ -11138,14 +10146,14 @@ ij
 ij
 ij
 ij
-IQ
-rn
-rn
-rn
-SM
-JW
-JW
-JW
+db
+db
+db
+db
+ao
+db
+db
+db
 db
 ij
 ij
@@ -11217,7 +10225,7 @@ ij
 ij
 Qp
 Qp
-eL
+ao
 Qp
 Qp
 ij
@@ -11288,14 +10296,14 @@ ij
 ij
 ij
 ij
-IQ
-rn
-rn
-rn
-SM
-JW
-JW
-JW
+db
+db
+db
+db
+ao
+db
+db
+db
 db
 ij
 ij
@@ -11367,7 +10375,7 @@ ij
 ij
 Qp
 Qp
-eL
+ao
 Qp
 Qp
 ij
@@ -11438,14 +10446,14 @@ ij
 ij
 ij
 ij
-IQ
-rn
-rn
-rn
-SM
-JW
-JW
-JW
+db
+db
+db
+db
+ao
+db
+db
+db
 db
 ij
 ij
@@ -11517,7 +10525,7 @@ ij
 ij
 ij
 gM
-eL
+ao
 gM
 ij
 ij
@@ -11592,7 +10600,7 @@ ij
 ij
 ij
 Qp
-eL
+ao
 Qp
 ij
 ij
@@ -11667,7 +10675,7 @@ ij
 ij
 ij
 Qp
-eL
+ao
 Qp
 ij
 ij

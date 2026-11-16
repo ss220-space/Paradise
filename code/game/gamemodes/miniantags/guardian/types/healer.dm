@@ -210,7 +210,7 @@ GAME_VERB_DESC(/mob/living/simple_animal/hostile/guardian/healer, Beacon, "Ус�
 					return TRUE
 				if("damaged_organs")
 					var/obj/item/organ/internal/organ = pick(injures["damaged_organs"])
-					organ.damage = 0
+					organ.heal_internal_damage(organ.damage, robo_repair = TRUE)
 					to_chat(owner, "Восстановлен поврежденный орган.")
 					return TRUE
 		else

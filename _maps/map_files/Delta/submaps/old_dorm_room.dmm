@@ -19,15 +19,7 @@
 /turf/template_noop,
 /area/template_noop)
 "ca" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/template_noop)
-"dl" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "ds" = (
@@ -140,9 +132,7 @@
 /turf/simulated/wall,
 /area/station/commons/sleep)
 "sp" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock{
 	id_tag = "cabin3";
@@ -185,9 +175,7 @@
 /turf/simulated/wall,
 /area/template_noop)
 "CX" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/structure/cable,
 /obj/structure/table/wood,
 /obj/machinery/power/apc/directional/west,
 /obj/item/flashlight/lamp,
@@ -250,9 +238,7 @@
 /turf/simulated/floor/plating,
 /area/template_noop)
 "IP" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/structure/cable,
 /obj/structure/table/wood,
 /obj/machinery/light,
 /obj/item/paper_bin,
@@ -274,9 +260,7 @@
 /turf/simulated/floor/plating,
 /area/template_noop)
 "OS" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/wood/fancy/birch,
 /area/station/commons/sleep)
 "OW" = (
@@ -359,9 +343,7 @@
 /turf/simulated/wall,
 /area/station/commons/sleep)
 "Vj" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -369,9 +351,7 @@
 	},
 /area/template_noop)
 "Vs" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/cable,
 /obj/structure/chair/office/dark,
 /turf/simulated/floor/wood/fancy/birch,
 /area/station/commons/sleep)
@@ -391,9 +371,7 @@
 	},
 /area/template_noop)
 "XU" = (
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/template_noop)
@@ -569,7 +547,7 @@ lt
 ZS
 Vj
 ca
-dl
+ca
 yP
 DU
 lt

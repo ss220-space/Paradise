@@ -78,16 +78,16 @@
 		balloon_alert(user, "не подходящее место!")
 		return
 
+	fast_fire(user, user, BODY_ZONE_HEAD)
+
 	if(chambered) // if the gun is chambering live ammo, shoot self, if chambering empty ammo, 'click'
 		if(chambered.BB)
-			afterattack(user, user)
 			user.visible_message(
 				span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] в руках [user] стреляет!"),
 				span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] в ваших руках стреляет!")
 			)
 			return
 		else
-			afterattack(user, user)
 			user.visible_message(
 				span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] в руках [user] сухо щёлкает."),
 				span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] в ваших руках сухо щёлкает.")
@@ -145,16 +145,16 @@
 		balloon_alert(user, "не подходящее место!")
 		return
 
+	fast_fire(user, user, BODY_ZONE_HEAD)
+
 	if(chambered)	//if the gun is chambering live ammo, shoot self, if chambering empty ammo, 'click'
 		if(chambered.BB)
-			afterattack(user, user)
 			user.visible_message(
 				span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] в руках [user] стреляет!"),
 				span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] в ваших руках стреляет!")
 			)
 			return
 		else
-			afterattack(user, user)
 			user.visible_message(
 				span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] в руках [user] сухо щёлкает."),
 				span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] в ваших руках сухо щёлкает.")
@@ -407,10 +407,6 @@
 /obj/item/gun/projectile/shotgun/automatic/dual_tube/click_alt(mob/living/user)
 	pump()
 	return CLICK_ACTION_SUCCESS
-
-/obj/item/gun/projectile/shotgun/automatic/dual_tube/AltShiftClick(mob/user)
-	. = ..()
-	try_detach_gun_module(user)
 
 // MARK: Bulldog
 /obj/item/gun/projectile/automatic/shotgun/bulldog

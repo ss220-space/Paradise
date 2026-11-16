@@ -1,55 +1,57 @@
 /datum/looping_sound/active_outside_ashstorm
+	sound_channel = CHANNEL_WEATHER
 	mid_sounds = list(
 		'sound/weather/ashstorm/outside/active_mid1.ogg' = 1,
 		'sound/weather/ashstorm/outside/active_mid1.ogg' = 1,
 		'sound/weather/ashstorm/outside/active_mid1.ogg' = 1,
 	)
-	sound_channel = CHANNEL_AMBIENCE
-	mid_length = 80
+	mid_length = 8 SECONDS
 	start_sound = 'sound/weather/ashstorm/outside/active_start.ogg'
-	start_length = 130
+	start_length = 13 SECONDS
 	end_sound = 'sound/weather/ashstorm/outside/active_end.ogg'
 	volume = 40
 
 /datum/looping_sound/active_inside_ashstorm
+	sound_channel = CHANNEL_WEATHER
 	mid_sounds = list(
 		'sound/weather/ashstorm/inside/active_mid1.ogg' = 1,
 		'sound/weather/ashstorm/inside/active_mid2.ogg' = 1,
 		'sound/weather/ashstorm/inside/active_mid3.ogg' = 1,
 	)
-	mid_length = 80
+	mid_length = 8 SECONDS
 	start_sound = 'sound/weather/ashstorm/inside/active_start.ogg'
-	start_length = 130
+	start_length = 13 SECONDS
 	end_sound = 'sound/weather/ashstorm/inside/active_end.ogg'
 	volume = 30
 
 /datum/looping_sound/weak_outside_ashstorm
+	sound_channel = CHANNEL_WEATHER
 	mid_sounds = list(
 		'sound/weather/ashstorm/outside/weak_mid1.ogg' = 1,
 		'sound/weather/ashstorm/outside/weak_mid2.ogg' = 1,
 		'sound/weather/ashstorm/outside/weak_mid3.ogg' = 1,
 	)
-	sound_channel = CHANNEL_AMBIENCE
-	mid_length = 80
+	mid_length = 8 SECONDS
 	start_sound = 'sound/weather/ashstorm/outside/weak_start.ogg'
-	start_length = 130
+	start_length = 13 SECONDS
 	end_sound = 'sound/weather/ashstorm/outside/weak_end.ogg'
 	volume = 20
 
 /datum/looping_sound/weak_inside_ashstorm
+	sound_channel = CHANNEL_WEATHER
 	mid_sounds = list(
 		'sound/weather/ashstorm/inside/weak_mid1.ogg' = 1,
 		'sound/weather/ashstorm/inside/weak_mid2.ogg' = 1,
 		'sound/weather/ashstorm/inside/weak_mid3.ogg' = 1,
 	)
-	sound_channel = CHANNEL_AMBIENCE
-	mid_length = 80
+	mid_length = 8 SECONDS
 	start_sound = 'sound/weather/ashstorm/inside/weak_start.ogg'
-	start_length = 130
+	start_length = 13 SECONDS
 	end_sound = 'sound/weather/ashstorm/inside/weak_end.ogg'
 	volume = 10
 
 /datum/looping_sound/snowstorm
+	sound_channel = CHANNEL_WEATHER
 	mid_sounds = list(
 		'sound/ambience/weather/snowstorm/snow1.ogg' = 1,
 		'sound/ambience/weather/snowstorm/snow2.ogg' = 1,
@@ -63,7 +65,6 @@
 	)
 	mid_length = 10 SECONDS
 	volume = 30
-	sound_channel = CHANNEL_AMBIENCE
 	/// Dynamically adjust the length of the sound to appropriate values
 	var/list/sound_to_length = list(
 		'sound/ambience/weather/snowstorm/snow1.ogg' = 11.3 SECONDS,
