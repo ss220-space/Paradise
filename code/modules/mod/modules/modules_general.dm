@@ -613,6 +613,7 @@
 	SIGNAL_HANDLER
 
 	dna = null
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/mod/module/dna_lock/proc/on_mod_activation(datum/source, mob/user)
 	SIGNAL_HANDLER
