@@ -2713,7 +2713,7 @@
 /area/mine/production)
 "lF" = (
 /obj/effect/mapping_helpers/no_lava,
-/obj/structure/mortar/fixed,
+/obj/structure/mortar/fixed/up,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "lH" = (
