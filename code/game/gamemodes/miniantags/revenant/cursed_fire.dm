@@ -18,7 +18,7 @@
 
 /datum/status_effect/cursed_flame/Destroy()
 	flame_inflicter = null
-	. = ..()
+	return ..()
 
 /datum/status_effect/cursed_flame/on_creation(mob/living/new_owner, set_duration, mob/living/simple_animal/revenant/inflicter)
 	if(set_duration)
