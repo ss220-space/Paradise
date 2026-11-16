@@ -72,6 +72,11 @@
 	else
 		to_chat(user, span_warning("[src] resists your efforts to force it!"))
 
+/obj/machinery/door/poddoor/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	INVOKE_ASYNC(src, PROC_REF(open))
+	return TRUE
+
 // Whoever wrote the old code for multi-tile spesspod doors needs to burn in hell. - Unknown
 // Wise words. - Bxil
 /obj/machinery/door/poddoor/multi_tile

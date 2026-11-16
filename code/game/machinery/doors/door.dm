@@ -339,11 +339,6 @@
 		if(BURN)
 			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
 
-// MARK: Определить емаг_акт у дочерних!!
-/// Called 0.6 seconds after emag_act(). Defined at the base door level so subtypes can override it without declaring separate helper procs.
-/obj/machinery/door/proc/after_emag_act()
-	return
-
 /obj/machinery/door/cmag_act(mob/user)
 	if(!density)
 		return

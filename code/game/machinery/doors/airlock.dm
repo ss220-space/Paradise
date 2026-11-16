@@ -1467,13 +1467,13 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	addtimer(CALLBACK(src, PROC_REF(after_emag_act)), 0.6 SECONDS)
 	return TRUE
 
-/obj/machinery/door/airlock/after_emag_act()
+/obj/machinery/door/airlock/proc/after_emag_act()
 	if(QDELETED(src))
 		return
 	operating = NONE
-	obj_flags |= EMAGGED
 	if(!open())
 		update_icon(AIRLOCK_CLOSED, TRUE)
+	obj_flags |= EMAGGED
 
 /obj/machinery/door/airlock/cmag_act(mob/user)
 	set waitfor = FALSE

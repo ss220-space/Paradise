@@ -278,12 +278,12 @@
 	addtimer(CALLBACK(src, PROC_REF(after_emag_act)), 0.6 SECONDS)
 	return TRUE
 
-/obj/machinery/door/window/after_emag_act()
+/obj/machinery/door/window/proc/after_emag_act()
 	if(QDELETED(src))
 		return
 	operating = FALSE
-	obj_flags |= EMAGGED
 	open(2)
+	obj_flags |= EMAGGED
 
 /obj/machinery/door/window/cmag_act(mob/user)
 	if(operating || !density || HAS_TRAIT(src, TRAIT_CMAGGED) || (obj_flags & EMAGGED))
