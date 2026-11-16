@@ -15,7 +15,7 @@
 
 /datum/status_effect/revenant_hallucinations/Destroy()
 	owner.clear_fullscreen("revenant")
-	. = ..()
+	return ..()
 
 /datum/status_effect/revenant_hallucinations/proc/fire()
 	var/turf/fire_turf = pick(get_hollow_turfs_circle(owner, 5))
