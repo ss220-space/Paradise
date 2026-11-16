@@ -976,7 +976,7 @@
 /datum/chemical_reaction/ammoniumnitrate
 	name = "Ammonium Nitrate"
 	id = "ammonium_nitrate"
-	result = "ammonium_nitrate"
+	result = /datum/reagent/ammoniumnitrate
 	required_reagents = list(/datum/reagent/ammonia = 1, /datum/reagent/acid/polyacid = 1)
 	result_amount = 2
 
