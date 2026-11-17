@@ -365,6 +365,7 @@
 	SEND_SIGNAL(src, COMSIG_REAGENTS_CUP_TRANSFER_FROM, target)
 	target.update_appearance()
 	return ITEM_INTERACT_SUCCESS
+	
 /obj/item/reagent_containers/defile()
 	if(!is_open_container())
 		return
