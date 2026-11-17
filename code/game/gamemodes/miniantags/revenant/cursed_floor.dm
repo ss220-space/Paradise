@@ -20,7 +20,7 @@
 	var/turf/turf_loc = loc
 	turf_loc.slowdown = 0
 	STOP_PROCESSING(SSprocessing, src)
-	. = ..()
+	return ..()
 
 /obj/effect/cursed_floor/process(seconds_per_tick)
 	for(var/mob/living/carbon/human in loc.contents)
