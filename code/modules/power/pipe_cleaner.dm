@@ -91,7 +91,7 @@
 		cable_color(crayon.colourName)
 		return ATTACK_CHAIN_PROCEED
 
-	if((I.flags & CONDUCT))
+	if(I.flags & CONDUCT)
 		add_fingerprint(user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
