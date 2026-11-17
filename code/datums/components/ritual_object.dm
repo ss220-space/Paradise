@@ -7,13 +7,12 @@
 	var/list/allowed_species
 	/// Required special role to activate ritual object
 	var/list/allowed_special_role
-	/// Prevents from multiple uses
-	var/active_ui = FALSE
 	/// Temporary lists of invokers/Used things in rituals.
 	var/list/used_things
 	var/list/invokers
 	/// Cached selected ritual.
 	var/datum/ritual/ritual
+	var/ritual_state_flags = NONE
 
 /datum/component/ritual_object/Destroy(force)
 	QDEL_LIST(rituals)
@@ -64,7 +63,7 @@
 /datum/component/ritual_object/proc/attackby(datum/source, mob/living/carbon/human)
 	SIGNAL_HANDLER
 
-	if(active_ui)
+	if(ritual_state_flags & RITUAL_STATE_BUSY)
 		return
 
 	if(!istype(human))
@@ -76,16 +75,15 @@
 	if(allowed_special_role && !LAZYIN(allowed_special_role, human.mind?.special_role))
 		return
 
-	active_ui = TRUE
+	ritual_state_flags |= RITUAL_STATE_UI_OPEN
 	INVOKE_ASYNC(src, PROC_REF(open_ritual_ui), human)
-
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /datum/component/ritual_object/proc/open_ritual_ui(mob/living/carbon/human)
 	var/list/rituals_list = get_available_rituals(human)
 
 	if(!LAZYLEN(rituals_list))
-		active_ui = FALSE
+		ritual_state_flags &= ~RITUAL_STATE_UI_OPEN
 		to_chat(human, "Не имеется доступных для выполнения ритуалов.")
 		return
 
@@ -95,7 +93,6 @@
 /datum/component/ritual_object/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		// Open UI
 		ui = new(user, src, "RitualMenu")
 		ui.open()
 
@@ -125,20 +122,24 @@
 		if("select_ritual")
 			handle_ritual_selection(ui.user, params["selected_ritual"])
 			. = TRUE
-
 		if("start_ritual")
-			var/ritual_status = pre_ritual_check(ui.user)
-			if(ritual_status)
-				active_ui = FALSE
+			var/mob/user = ui.user
+			ui.close()
+			ritual_state_flags |= RITUAL_STATE_IN_PROGRESS
+			pre_ritual_check(user)
+			ritual_state_flags &= ~RITUAL_STATE_IN_PROGRESS
 			. = TRUE
 
 /datum/component/ritual_object/ui_close(mob/user)
 	. = ..()
-	active_ui = FALSE
+	ritual_state_flags &= ~RITUAL_STATE_UI_OPEN
 
 /datum/component/ritual_object/proc/handle_ritual_selection(mob/living/carbon/human, choosen_ritual)
+	if(ritual_state_flags & RITUAL_STATE_IN_PROGRESS)
+		return FALSE
+
 	if(!choosen_ritual)
-		active_ui = FALSE
+		ritual_state_flags &= ~RITUAL_STATE_UI_OPEN
 		return
 
 	for(var/datum/ritual/ritual as anything in rituals)
@@ -188,6 +189,9 @@
 	if((. & RITUAL_FAILED_ON_PROCEED) && (ritual.ritual_should_del_things_on_fail))
 		del_things = TRUE
 
+	for(var/atom/movable/atom as anything in used_things)
+		UnregisterSignal(atom, COMSIG_MOVABLE_MOVED)
+
 	if(del_things)
 		ritual.del_things(used_things)
 
@@ -201,12 +205,10 @@
 		var/atom/atom = parent
 		addtimer(CALLBACK(src, PROC_REF(create_message), atom, invoker, message), 0.5 SECONDS)
 
-	for(var/atom/movable/atom as anything in used_things)
-		UnregisterSignal(atom, COMSIG_MOVABLE_MOVED)
-
 	LAZYNULL(invokers)
 	LAZYNULL(used_things)
 	ritual = null
+	ritual_state_flags = NONE
 
 	return .
 
@@ -224,15 +226,16 @@
 		return RITUAL_FAILED_ON_PROCEED
 
 	if(ritual.cast_time)
+		ritual_state_flags &= ~RITUAL_STATE_CAST_CANCELLED
 		for(var/atom/movable/atom as anything in used_things)
-			RegisterSignal(atom, COMSIG_MOVABLE_MOVED, PROC_REF(track_atoms))
+			RegisterSignal(atom, COMSIG_MOVABLE_MOVED, PROC_REF(on_thing_moved))
 
 		if(!cast())
 			return RITUAL_FAILED_ON_PROCEED
 
 	return ritual.do_ritual(invoker, invokers, used_things)
 
-/datum/component/ritual_object/proc/track_atoms(
+/datum/component/ritual_object/proc/on_thing_moved(
 	atom/source,
 	atom/old_loc,
 	movement_dir,
@@ -242,7 +245,7 @@
 )
 	SIGNAL_HANDLER
 
-	INVOKE_ASYNC(src, PROC_REF(cast))
+	ritual_state_flags |= RITUAL_STATE_CAST_CANCELLED
 	UnregisterSignal(source, COMSIG_MOVABLE_MOVED)
 
 /datum/component/ritual_object/proc/check_invokers(mob/living/carbon/invoker)
@@ -319,20 +322,24 @@
 	return ritual.check_contents(invoker, used_things)
 
 /datum/component/ritual_object/proc/cast()
+	ritual_state_flags &= ~RITUAL_STATE_CAST_CANCELLED
 	for(var/mob/living/carbon/human/human in invokers)
-		if(!do_after(human, ritual.cast_time, parent, DA_IGNORE_HELD_ITEM, max_interact_count = 1))
+		if(!do_after(human, ritual.cast_time, parent, DA_IGNORE_HELD_ITEM, extra_checks = CALLBACK(src, PROC_REF(cast_still_valid)), max_interact_count = 1))
 			return FALSE
 
 	return TRUE
+
+/datum/component/ritual_object/proc/cast_still_valid()
+	return !(ritual_state_flags & RITUAL_STATE_CAST_CANCELLED) && ritual
 
 /datum/component/ritual_object/proc/get_available_rituals(mob/living/carbon/human)
 	var/list/rituals_list = list()
 
 	for(var/datum/ritual/ritual as anything in rituals)
-		if(ritual.charges == 0)
+		if(!COOLDOWN_FINISHED(ritual, ritual_cooldown))
 			continue
 
-		if(!COOLDOWN_FINISHED(ritual, ritual_cooldown))
+		if(ritual.charges == 0)
 			continue
 
 		if(ritual.allowed_species && !is_type_in_list(human.dna.species, ritual.allowed_species))

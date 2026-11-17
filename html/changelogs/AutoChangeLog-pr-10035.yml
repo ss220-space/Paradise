@@ -1,4 +1,0 @@
-author: "broodjeh-lang"
-delete-after: True
-changes:
-  - bugfix: "Шёпот ревенанта снова доходит до цели. (PR #10035)"

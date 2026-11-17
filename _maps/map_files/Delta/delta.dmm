@@ -16216,9 +16216,7 @@
 	},
 /area/station/engineering/atmos)
 "dCM" = (
-/obj/structure/sink/directional/north{
-	layer = 3.21
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -62317,9 +62315,7 @@
 /obj/item/clothing/mask/breath/medical,
 /obj/structure/cable,
 /obj/effect/landmark/start/hangover,
-/obj/machinery/shower/directional/north{
-	layer = 3.21
-	},
+/obj/machinery/shower/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitered"
