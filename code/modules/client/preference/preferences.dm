@@ -1781,7 +1781,7 @@ GLOBAL_LIST_INIT(zoom_modes, list(SCALING_METHOD_DISTORT = "Метод ближ�
 						autohiss_mode = autohiss_choice[new_autohiss_pref]
 
 				if("metadata")
-					var/new_metadata = tgui_input_text(user, "Укажите OOC-информацию, которую вы бы хотели показывать другим игрокам", "OOC-информация", metadata, multiline = TRUE, encode = FALSE)
+					var/new_metadata = tgui_input_text(user, "Укажите OOC-информацию, которую вы бы хотели показывать другим игрокам", "OOC-информация", metadata, multiline = TRUE)
 					if(isnull(new_metadata))
 						return
 					metadata = new_metadata

@@ -182,7 +182,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 				if(message_cooldown > world.time)
 					to_chat(ui.user, span_warning("Пожалуйста, подождите, прежде чем сделать новое объявление."))
 					return
-				var/input = tgui_input_text(ui.user, "Пожалуйста, напишите своё сообщение экипажу станции.", "Приоритетное объявление", multiline = TRUE, encode = FALSE)
+				var/input = tgui_input_text(ui.user, "Пожалуйста, напишите своё сообщение экипажу станции.", "Приоритетное объявление", multiline = TRUE)
 				if(!input || message_cooldown > world.time || ..() || !(is_authenticated(ui.user) >= COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_MSGLEN_MINIMUM)
@@ -192,7 +192,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 				message_cooldown = world.time + 600 //One minute
 
 		if("callshuttle")
-			var/input = tgui_input_text(ui.user, "Пожалуйста, укажите причину вызова шаттла", "Причина вызова шаттла.","", encode = FALSE)
+			var/input = tgui_input_text(ui.user, "Пожалуйста, укажите причину вызова шаттла", "Причина вызова шаттла.","")
 			if(!input || ..() || !is_authenticated(ui.user))
 				return
 			call_shuttle_proc(ui.user, input)
@@ -254,11 +254,11 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 			setMenuState(ui.user, COMM_SCREEN_STAT)
 
 		if("setmsg1")
-			stat_msg1 = tgui_input_text(ui.user, "Строка 1", stat_msg1, "Введите текст сообщения", encode = FALSE)
+			stat_msg1 = tgui_input_text(ui.user, "Строка 1", stat_msg1, "Введите текст сообщения")
 			setMenuState(ui.user, COMM_SCREEN_STAT)
 
 		if("setmsg2")
-			stat_msg2 = tgui_input_text(ui.user, "Строка 2", stat_msg2, "Введите текст сообщения", encode = FALSE)
+			stat_msg2 = tgui_input_text(ui.user, "Строка 2", stat_msg2, "Введите текст сообщения")
 			setMenuState(ui.user, COMM_SCREEN_STAT)
 
 		if("nukerequest")
@@ -266,7 +266,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 				if(centcomm_message_cooldown > world.time)
 					to_chat(ui.user, span_warning("Обработка массивов. Пожалуйста, подождите."))
 					return
-				var/input = tgui_input_text(ui.user, "Пожалуйста, укажите причину запроса кодов от устройства самоуничтожения. Злоупотребление системой запросов кодов недопустимо ни при каких обстоятельствах. Запрос не гарантирует ответа.", "Запрос кодов устройства самоуничтожения.", encode = FALSE)
+				var/input = tgui_input_text(ui.user, "Пожалуйста, укажите причину запроса кодов от устройства самоуничтожения. Злоупотребление системой запросов кодов недопустимо ни при каких обстоятельствах. Запрос не гарантирует ответа.", "Запрос кодов устройства самоуничтожения.")
 				if(isnull(input) || ..() || !(is_authenticated(ui.user) >= COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
@@ -288,7 +288,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 				if(centcomm_message_cooldown > world.time)
 					to_chat(ui.user, span_warning("Обработка массивов. Пожалуйста, подождите."))
 					return
-				var/input = tgui_input_text(ui.user, "Пожалуйста, выберите сообщение для передачи Центральному Командованию посредством квантовой запутанности. Имейте в виду, что этот процесс очень дорогостоящий, и злоупотребление этой системой крайне нежелательно. Передача не гарантирует ответа", "Сообщение на ЦК", encode = FALSE)
+				var/input = tgui_input_text(ui.user, "Пожалуйста, выберите сообщение для передачи Центральному Командованию посредством квантовой запутанности. Имейте в виду, что этот процесс очень дорогостоящий, и злоупотребление этой системой крайне нежелательно. Передача не гарантирует ответа", "Сообщение на ЦК")
 				if(!input || ..() || !(is_authenticated(ui.user) == COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
@@ -307,7 +307,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 				if(centcomm_message_cooldown > world.time)
 					to_chat(ui.user, "Обработка массивов. Пожалуйста, подождите.")
 					return
-				var/input = tgui_input_text(ui.user, "Пожалуйста, выберите сообщение для передачи в \[АНОМАЛЬНЫЕ КОРДИНАТЫ МАРШРУТИЗАЦИИ\] посредством квантовой запутанности. Имейте в виду, что этот процесс очень дорогостоящий, и злоупотребление этой системой крайне нежелательно. Передача не гарантирует ответа.", "Отправить сообщение", encode = FALSE)
+				var/input = tgui_input_text(ui.user, "Пожалуйста, выберите сообщение для передачи в \[АНОМАЛЬНЫЕ КОРДИНАТЫ МАРШРУТИЗАЦИИ\] посредством квантовой запутанности. Имейте в виду, что этот процесс очень дорогостоящий, и злоупотребление этой системой крайне нежелательно. Передача не гарантирует ответа.", "Отправить сообщение")
 				if(!input || ..() || !(is_authenticated(ui.user) == COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
