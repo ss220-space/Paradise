@@ -48,7 +48,7 @@
 	range = 5
 
 /obj/projectile/shrapnel/mine
-	range = 3
+	range = 2
 
 /obj/item/embedded/shrapnel
 	name = "shrapnel"
