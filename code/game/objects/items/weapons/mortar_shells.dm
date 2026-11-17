@@ -291,7 +291,7 @@
 /obj/structure/closet/crate/secure/mortar/mortar_kit
 	name = "mortar kit crate"
 
-/obj/structure/closet/crate/secure/mortar/populate_contents()
+/obj/structure/closet/crate/secure/mortar/mortar_kit/populate_contents()
 	new /obj/item/mortar_kit(src)
 	new /obj/item/mortar_shell/he(src)
 	new /obj/item/mortar_shell/he(src)

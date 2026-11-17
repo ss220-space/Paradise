@@ -508,6 +508,9 @@
 		return TRUE	//abort
 
 	var/mob/living/carbon/human/target = hit_atom
+	if(!get_location_accessible(target, BODY_ZONE_PRECISE_MOUTH))
+		return .
+
 	target.eat(src, target)
 	qdel(src)
 

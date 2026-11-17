@@ -1,4 +1,0 @@
-author: "FlitchTime"
-delete-after: True
-changes:
-  - qol: "Применение реагент контейнеров на Z. (PR #9910)"
