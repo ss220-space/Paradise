@@ -334,7 +334,7 @@
 			turfs += checked_turf
 	return turfs
 
-/proc/get_hollow_turfs_circle(center=usr, radius = 3)
+/proc/get_hollow_turfs_circle(center = usr, radius = 3)
 	var/turf/center_turf = get_turf(center)
 	var/center_x = center_turf.x
 	var/center_y = center_turf.y
