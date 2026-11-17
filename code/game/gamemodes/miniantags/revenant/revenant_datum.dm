@@ -33,7 +33,7 @@
 	var/targetAmount = 100
 
 /datum/objective/revenant_essence/New()
-	targetAmount = rand(350,600)
+	targetAmount = rand(350, 600)
 	explanation_text = "Поглотите [targetAmount] единиц[DECL_U_Y_0(targetAmount)] эссенции у людей."
 	..()
 
