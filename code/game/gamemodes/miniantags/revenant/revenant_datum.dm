@@ -59,7 +59,7 @@
 /datum/objective/revenant_puresouls/New(text, datum/team/team_to_join)
 	souls_needed = rand(2, 5)
 	explanation_text = "Поглотите [souls_needed] чист[DECL_YU_YH_YH(souls_needed)] душ[DECL_U_Y_0(souls_needed)]"
-	. = ..()
+	return..()
 
 /datum/objective/revenant_puresouls/check_completion()
 	var/total_souls = 0
