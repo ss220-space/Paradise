@@ -12,6 +12,10 @@
 	materials = list(MAT_METAL = 1000)
 	projectile_type = /obj/projectile/bullet/weakbullet3
 
+/obj/item/ammo_casing/a762x54/r
+	ammo_marking = "7,62x54R мм"
+	projectile_type = /obj/projectile/bullet/a762x54r
+
 // MARK: 7.62x51mm
 /obj/item/ammo_casing/a762x51
 	ammo_marking = "7,62x51 мм"

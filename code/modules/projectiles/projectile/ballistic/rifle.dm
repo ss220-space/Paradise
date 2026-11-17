@@ -125,3 +125,8 @@
 /obj/projectile/bullet/sniper/haemorrhage/a338
 
 /obj/projectile/bullet/sniper/penetrator/a338
+
+
+/obj/projectile/bullet/a762x54r
+	armour_penetration = 10
+	stamina = 15

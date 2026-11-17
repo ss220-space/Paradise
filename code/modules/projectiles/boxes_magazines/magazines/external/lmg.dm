@@ -30,7 +30,7 @@
 	gun_name = "станкового пулемета"
 	icon_state = "b762x54"
 	origin_tech = "combat=2"
-	ammo_type = /obj/item/ammo_casing/a762x54
+	ammo_type = /obj/item/ammo_casing/a762x54/r
 	caliber = CALIBER_7_DOT_62X54MM
 	max_ammo = 100
 
