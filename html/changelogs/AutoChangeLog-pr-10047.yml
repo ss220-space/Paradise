@@ -1,4 +1,0 @@
-author: "FlitchTime"
-delete-after: True
-changes:
-  - add: "Настенные наномеды можно прикрутить к стене гаечным ключом. (PR #10047)"
