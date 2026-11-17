@@ -137,7 +137,7 @@
 /obj/structure/closet/secure_closet/defile()
 	if(locked)
 		unlock()
-		new/obj/effect/temp_visual/revenant(loc)
+		new /obj/effect/temp_visual/revenant(loc)
 		return
 	return ..()
 
