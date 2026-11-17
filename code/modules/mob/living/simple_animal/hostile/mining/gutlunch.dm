@@ -50,28 +50,28 @@
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/Initialize(mapload)
 	if(gender != MALE)
-		AddComponent(/datum/component/udder, /obj/item/udder/gutlunch, FALSE, CALLBACK(src, PROC_REF(regenerate_icons)))
+		add_udder()
 	. = ..()
 
-/mob/living/simple_animal/hostile/asteroid/gutlunch/examine(mob/user)
-	. = ..()
+/mob/living/simple_animal/hostile/asteroid/gutlunch/proc/add_udder()
+	AddComponent(/datum/component/udder, /obj/item/udder/gutlunch, UDDER_EXAMINE | UDDER_GENERATE_ON_CONSUME, null, wanted_objects)
 
-	var/datum/component/udder/milk_component = GetComponent(/datum/component/udder)
-	if(!milk_component)
+/mob/living/simple_animal/hostile/asteroid/gutlunch/register_init_signals()
+	. = ..()
+	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_UDDER_FULL), PROC_REF(on_udder_fullness_changed))
+	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_UDDER_FULL), PROC_REF(on_udder_fullness_changed))
+
+/mob/living/simple_animal/hostile/asteroid/gutlunch/proc/on_udder_fullness_changed(datum/source)
+	SIGNAL_HANDLER
+
+	if(QDELETED(src))
 		return
 
-	var/obj/item/udder/udder = milk_component.udder
-	. += span_notice("В его [udder.declent_ru(PREPOSITIONAL)] содержится [udder.reagents.total_volume] единиц[DECL_A_Y_0(udder.reagents.total_volume)] молока.")
+	regenerate_icons()
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/regenerate_icons()
 	..()
-
-	var/datum/component/udder/milk_component = GetComponent(/datum/component/udder)
-	if(!milk_component)
-		return
-
-	var/obj/item/udder/udder = milk_component.udder
-	if(udder.reagents.total_volume == udder.reagents.maximum_volume)
+	if(HAS_TRAIT(src, TRAIT_UDDER_FULL))
 		add_overlay("gl_full")
 
 
@@ -106,13 +106,10 @@
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/AttackingTarget()
 	if(is_type_in_typecache(target, wanted_objects))
-		var/datum/component/udder/milk_component = GetComponent(/datum/component/udder)
-		if(milk_component)
-			milk_component.udder.generateMilk()
-
-		regenerate_icons()
-		visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] с хлюпаньем поглощает [target.declent_ru(ACCUSATIVE)]."))
-		qdel(target)
+		var/atom/food = target
+		visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] с хлюпаньем поглощает [food.declent_ru(ACCUSATIVE)]."))
+		SEND_SIGNAL(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, food, TRUE)
+		qdel(food)
 		return
 
 	return ..()
@@ -173,25 +170,8 @@
 		PREPOSITIONAL = "квохтуне",
 	)
 
-/mob/living/simple_animal/hostile/asteroid/gutlunch/guthen/Life()
-	..()
-
-	var/datum/component/udder/milk_component = GetComponent(/datum/component/udder)
-	if(!milk_component)
-		return
-
-	var/obj/item/udder/udder = milk_component.udder
-	if(udder.reagents.total_volume == udder.reagents.maximum_volume)
-		make_babies()
-
-/mob/living/simple_animal/hostile/asteroid/gutlunch/guthen/make_babies()
-	. = ..()
-	if(.)
-		var/datum/component/udder/milk_component = GetComponent(/datum/component/udder)
-		if(milk_component)
-			milk_component.udder.reagents.clear_reagents()
-
-		regenerate_icons()
+/mob/living/simple_animal/hostile/asteroid/gutlunch/guthen/add_udder()
+	AddComponent(/datum/component/udder, /obj/item/udder/gutlunch, UDDER_EXAMINE | UDDER_GENERATE_ON_CONSUME | UDDER_CLEAR_ON_BIRTH, CALLBACK(src, PROC_REF(make_babies)), wanted_objects)
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch
 	name = "grublunch"

@@ -158,7 +158,7 @@
 	icon_resting = "[icon_prefix]_[body_color]_rest"
 	icon_dead = "[icon_prefix]_[body_color]_dead"
 	update_icon(UPDATE_ICON_STATE)
-	AddComponent(/datum/component/udder)
+	AddComponent(/datum/component/udder, /obj/item/udder, UDDER_PASSIVE_GENERATION | UDDER_BOOST_ON_FEED)
 
 /mob/living/simple_animal/cow/update_icon_state()
 	..()
@@ -183,8 +183,7 @@
 			span_notice("Вы скармливаете пшеницу [declent_ru(DATIVE)]! [GEND_HE_SHE_CAP(src)] [pick(feedMessages)].")
 		)
 		COOLDOWN_START(src, feeded_cow, 60 SECONDS)
-		var/datum/component/udder/milk_component = GetComponent(/datum/component/udder)
-		milk_component.boost_production(60 SECONDS)
+		SEND_SIGNAL(src, COMSIG_SIMPLE_ANIMAL_FED, I, user)
 		qdel(I)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
