@@ -811,7 +811,7 @@
 	wing_time = 0.5 SECONDS
 
 /datum/emote/living/carbon/human/moth/wings
-	name = "Открыть/закрыть крылья (нианы)"
+	name = "расправить/сложить крылья (нианы)"
 	key = "wings"
 	key_third_person = "wings"
 	message = "свои крылья."
