@@ -149,7 +149,6 @@
 		for(var/I in reagents.reagent_list)
 			var/datum/reagent/R = I
 			. += span_notice("[R.name] — [R.volume] ед.")
-			. += span_notice("[R.volume] units of [R.name]")
 
 /obj/item/reagent_containers/food/defile()
 	add_ants()

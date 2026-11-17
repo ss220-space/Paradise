@@ -158,7 +158,7 @@
 	. = ..()
 	name = /obj/item/dnainjector::name
 	desc = /obj/item/dnainjector::desc
-	update_appearance()
+	update_appearance(UPDATE_NAME|UPDATE_DESC)
 
 /obj/item/dnainjector/hulkmut
 	name = "DNA-Injector (Hulk)"

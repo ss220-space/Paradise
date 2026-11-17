@@ -42,7 +42,7 @@
 		PREPOSITIONAL = "бутылке",
 	)
 	desc = /obj/item/reagent_containers/glass/bottle::desc
-	update_appearance()
+	update_appearance(UPDATE_NAME|UPDATE_DESC)
 
 /obj/item/reagent_containers/cup/bottle/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!reagents.total_volume)

@@ -172,7 +172,7 @@
 /obj/item/reagent_containers/applicator/defile()
 	name = /obj/item/reagent_containers/applicator::name
 	desc = /obj/item/reagent_containers/applicator::desc
-	update_appearance()
+	update_appearance(UPDATE_NAME|UPDATE_DESC)
 
 /obj/item/reagent_containers/applicator/brute
 	name = "brute auto-mender"

@@ -493,7 +493,7 @@
 		INSTRUMENTAL = "автоинъектором (Эпинефрин)",
 		PREPOSITIONAL = "автоинъекторе (Эпинефрин)",
 	)
-	update_appearance()
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
 
 /obj/item/reagent_containers/hypospray/autoinjector/teporone //basilisks
 	name = "teporone autoinjector"

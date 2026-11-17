@@ -220,9 +220,9 @@
 
 /obj/item/reagent_containers/iv_bag/defile()
 	. = ..()
-	name = /obj/item/dnainjector::name
-	desc = /obj/item/dnainjector::desc
-	update_appearance()
+	name = /obj/item/reagent_containers/iv_bag::name
+	desc = /obj/item/reagent_containers/iv_bag::desc
+	update_appearance(UPDATE_NAME|UPDATE_DESC)
 
 // MARK: Pre-filled IV Bags
 /obj/item/reagent_containers/iv_bag/salglu

@@ -193,7 +193,7 @@
 		INSTRUMENTAL = "шприцем",
 		PREPOSITIONAL = "шприце",
 	)
-	update_appearance()
+	update_appearance(UPDATE_NAME|UPDATE_DESC)
 
 /obj/item/reagent_containers/syringe/antiviral
 	name = "Syringe (spaceacillin)"

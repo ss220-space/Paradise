@@ -54,7 +54,7 @@
 		INSTRUMENTAL = "пластырем",
 		PREPOSITIONAL = "пластыре",
 	)
-	update_appearance()
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
 
 /obj/item/reagent_containers/food/pill/patch/styptic
 	name = "healing patch"

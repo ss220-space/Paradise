@@ -77,7 +77,7 @@
 		PREPOSITIONAL = "таблетке",
 	)
 	icon_state = /obj/item/reagent_containers/food/pill::icon_state
-	update_appearance()
+	update_appearance(UPDATE_NAME|UPDATE_DESC)
 
 ////////////////////////////////////////////////////////////////////////////////
 /// Pills. END
