@@ -313,10 +313,7 @@ GAME_VERB_SRC(/obj/machinery/gibber, eject, oview(1), "Опустошить мя
 
 /obj/machinery/gibber/pre_emagged
 	desc = "The name isn't descriptive enough? Safety lamp doesn't light!"
-
-/obj/machinery/gibber/pre_emagged/Initialize(mapload)
-	. = ..()
-	obj_flags |= EMAGGED
+	obj_flags = parent_type::obj_flags|EMAGGED
 
 /* AUTOGIBBER */
 

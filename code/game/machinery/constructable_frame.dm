@@ -1177,10 +1177,7 @@ to destroy them and players will be able to make replacements.
 		/obj/item/stock_parts/manipulator = 1,
 		/obj/item/stack/cable_coil = 1,
 	)
-
-/obj/item/circuitboard/quantumpad/syndiepad/Initialize(mapload)
-	. = ..()
-	obj_flags |= EMAGGED
+	obj_flags = parent_type::obj_flags|EMAGGED
 
 /obj/item/circuitboard/roboquest_pad
 

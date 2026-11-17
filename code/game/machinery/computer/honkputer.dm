@@ -64,7 +64,7 @@
 		return FALSE
 	obj_flags |= EMAGGED
 	if(user)
-		to_chat(user, "You scramble the login circuits, allowing anyone to use the console!")
+		to_chat(user, span_warning("Криптографический секвенсор закорачивает цепи авторизации, снимая ограничения доступа к консоли!"))
 	return TRUE
 
 /obj/machinery/computer/HONKputer/attack_hand(mob/user)

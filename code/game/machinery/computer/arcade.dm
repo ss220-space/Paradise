@@ -277,9 +277,8 @@
 	updateUsrDialog()
 	return TRUE
 
-/obj/machinery/computer/arcade/battle/emagged/Initialize(mapload)
-	. = ..()
-	obj_flags |= EMAGGED
+/obj/machinery/computer/arcade/battle/emagged
+	obj_flags = parent_type::obj_flags|EMAGGED
 
 // *** THE ORION TRAIL ** //
 

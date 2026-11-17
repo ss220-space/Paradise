@@ -71,12 +71,9 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 /obj/machinery/photocopier/faxmachine/longrange/syndie
 	name = "syndicate long range fax machine"
 	syndie_restricted = TRUE
+	obj_flags = parent_type::obj_flags|EMAGGED
 	req_access = list(ACCESS_SYNDICATE)
 	//No point setting fax network, being emagged overrides that anyway.
-
-/obj/machinery/photocopier/faxmachine/longrange/syndie/Initialize(mapload)
-	. = ..()
-	obj_flags |= EMAGGED
 
 /obj/machinery/photocopier/faxmachine/longrange/syndie/update_network()
 	if(department != UNKNOWN_STATUS_RUS)

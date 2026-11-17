@@ -808,11 +808,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	greyscale_config_inhand_right = null
 	greyscale_config_belt = null
 	ignore_flags = TRUE
+	obj_flags = parent_type::obj_flags|EMAGGED
 	var/base_icon = "alien_mender_brute"
-
-/obj/item/reagent_containers/applicator/abductor/Initialize(mapload)
-	. = ..()
-	obj_flags |= EMAGGED
 
 /obj/item/reagent_containers/applicator/abductor/get_ru_names()
 	return alist(

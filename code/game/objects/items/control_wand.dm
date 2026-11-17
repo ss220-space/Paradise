@@ -216,12 +216,9 @@
 	desc = "A device used for illegally interfacing with doors."
 	icon_state = "hacktool"
 	item_state = "hacktool"
+	obj_flags = parent_type::obj_flags|EMAGGED
 	var/hack_speed = 1 SECONDS
 	var/busy = FALSE
-
-/obj/item/door_remote/omni/access_tuner/Initialize(mapload)
-	. = ..()
-	obj_flags |= EMAGGED
 
 /obj/item/door_remote/omni/access_tuner/update_icon_state()
 	icon_state = "hacktool[busy ? "-g" : ""]"

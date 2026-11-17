@@ -59,10 +59,7 @@
 	desc = "Старый ботанический инструмент, испускающий контролируемое излучение, вызывающее мутации в клетках растений, не имеет самозарядки. Чтобы перезарядить это оружие, используйте устройство для подзарядки оружия.";
 	name = "old floral somatoray"
 	selfcharge = 0
-
-/obj/item/gun/energy/floragun/old/Initialize(mapload)
-	. = ..()
-	obj_flags |= EMAGGED
+	obj_flags = parent_type::obj_flags|EMAGGED
 
 // MARK: Meteor Gun
 /obj/item/gun/energy/meteorgun

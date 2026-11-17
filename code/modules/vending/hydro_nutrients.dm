@@ -49,6 +49,7 @@
 	)
 
 /obj/machinery/vending/hydronutrients/centcom
+	obj_flags = parent_type::obj_flags|EMAGGED
 	contraband = list()
 	products = list(
 		/obj/item/reagent_containers/cup/bottle/nutrient/ez=20,
@@ -63,7 +64,3 @@
 		/obj/item/reagent_containers/cup/bottle/ammonia=10,
 		/obj/item/reagent_containers/cup/bottle/diethylamine=5
 		)
-
-/obj/machinery/vending/hydronutrients/centcom/Initialize(mapload)
-	. = ..()
-	obj_flags |= EMAGGED

@@ -204,10 +204,7 @@
 /obj/machinery/recycler/deathtrap
 	name = "dangerous old crusher"
 	crush_damage = 120
-
-/obj/machinery/recycler/deathtrap/Initialize(mapload)
-	. = ..()
-	obj_flags |= EMAGGED
+	obj_flags = parent_type::obj_flags|EMAGGED
 
 /obj/item/paper/recycler
 	name = "paper - 'garbage duty instructions'"

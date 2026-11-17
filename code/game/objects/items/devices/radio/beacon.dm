@@ -34,9 +34,8 @@
 		to_chat(user, span_notice("The This beacon now only be locked on to by emagged teleporters!"))
 	return TRUE
 
-/obj/item/beacon/pre_emagged/Initialize(mapload)
-	. = ..()
-	obj_flags |= EMAGGED
+/obj/item/beacon/pre_emagged
+	obj_flags = parent_type::obj_flags|EMAGGED
 
 /// Probably a better way of doing this, I'm lazy.
 /obj/item/beacon/bacon

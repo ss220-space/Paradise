@@ -103,6 +103,7 @@
 	)
 
 /obj/machinery/vending/hydroseeds/centcom
+	obj_flags = parent_type::obj_flags|EMAGGED
 	contraband = list()
 	products = list(
 		/obj/item/seeds/aloe=3,
@@ -157,7 +158,3 @@
 		/obj/item/seeds/starthistle=2,
 		/obj/item/seeds/random=2
 		)
-
-/obj/machinery/vending/hydroseeds/centcom/Initialize(mapload)
-	. = ..()
-	obj_flags |= EMAGGED

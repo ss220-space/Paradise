@@ -254,10 +254,7 @@
 		/datum/reagent/cyanide = list('icons/mob/screen_corgi.dmi', "tox1"), \
 		/datum/reagent/sodium_thiopental = list('icons/obj/surgery.dmi', "lungs"))
 	upgrade_path = null //no upgrades
-
-/obj/item/reagent_containers/borghypo/emagged/Initialize(mapload)
-	. = ..()
-	obj_flags |= EMAGGED
+	obj_flags = parent_type::obj_flags|EMAGGED
 
 /obj/item/reagent_containers/borghypo/emagged/get_ru_names()
 	return alist(

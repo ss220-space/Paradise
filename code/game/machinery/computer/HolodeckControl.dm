@@ -170,8 +170,8 @@
 	add_attack_logs(user, src, "emagged")
 	playsound(get_turf(src), SFX_SPARKS, 75, TRUE)
 	if(user)
-		to_chat(user, span_notice("You vastly increase projector power and override the safety and security protocols."))
-		to_chat(user, "Warning.  Automatic shutoff and derezing protocols have been corrupted.  Please call Nanotrasen maintenance and do not use the simulator.")
+		to_chat(user, span_warning("Вы многократно увеличиваете мощность проекторов с помощью секвенсора и перезаписываете протоколы безопасности."))
+		to_chat(user, span_danger("Внимание. Протоколы автоматического отключения и дематериализации повреждены. Пожалуйста, свяжитесь с инженерным отделом «Нанотрейзен» и воздержитесь от использования симулятора."))
 	updateUsrDialog()
 	return TRUE
 
