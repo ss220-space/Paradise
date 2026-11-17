@@ -58,6 +58,31 @@
 	..()
 	explosion(target, devastation_range = 1, heavy_impact_range = 3, light_impact_range = 5, flash_range = 7) //devastating
 
+// MARK: 93mm thermobaric
+/obj/projectile/bullet/a93mm_thermobaric
+	name = "thermobaric rocket"
+	desc = "Термобарическая ракета объёмного взрыва."
+	icon_state = "84mm-he"
+	icon = 'icons/obj/weapons/ammo.dmi'
+	damage = 25
+	speed = 0.9
+	ricochets_max = 0
+	/// Radius of the napalm fire.
+	var/fire_radius = 3
+	/// Flame level on detonate.
+	var/flame_level = BURN_TIME_TIER_4
+	/// Burn damage per tick.
+	var/burn_level = BURN_LEVEL_TIER_4
+
+/obj/projectile/bullet/a93mm_thermobaric/on_hit(atom/target, blocked = 0, hit_zone)
+	. = ..()
+	var/turf/epicenter = get_turf(src)
+	if(!epicenter)
+		return
+	explosion(epicenter, devastation_range = 0, heavy_impact_range = 1, light_impact_range = 3, flash_range = 4, cause = src)
+	flame_radius(fire_radius, epicenter, flame_level, burn_level, FLAMESHAPE_DEFAULT, null, FIRE_VARIANT_DEFAULT)
+	playsound(epicenter, 'sound/weapons/gun_flamethrower2.ogg', 50, TRUE, 4)
+
 // MARK: 40mm
 /obj/projectile/bullet/a40mm
 	name = "40mm grenade"

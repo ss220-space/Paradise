@@ -47,6 +47,8 @@
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 	recoil = GUN_RECOIL_MEDIUM
 	can_air_shoot = FALSE
+	/// empty variant overlay exists
+	var/empty_overlay = TRUE
 
 /obj/item/gun/projectile/revolver/rocketlauncher/attackby(obj/item/I, mob/user, params)
 	if(isammobox(I) || isammocasing(I))
@@ -114,7 +116,7 @@
 
 /obj/item/gun/projectile/revolver/rocketlauncher/update_overlays()
 	. = ..()
-	if(!chambered)
+	if(empty_overlay && !chambered)
 		. += "[icon_state]_empty"
 
 /obj/item/gun/projectile/revolver/rocketlauncher/suicide_act(mob/user)
@@ -138,6 +140,54 @@
 		user.visible_message("<span class='warning'>[user] looks about the room realizing [user.p_theyre()] still there. [user.p_they(TRUE)] proceed to shove [src] down their throat and choke [user.p_them()]self with it!<span>")
 		sleep(2 SECONDS)
 		return OXYLOSS
+
+// MARK: RPO-A Shmel
+/obj/item/gun/projectile/revolver/rocketlauncher/shmel
+	name = "RPO-A Shmel"
+	desc = "Одноразовый реактивный гранатомёт, снаряжённый термобарической ракетой объёмного взрыва. \
+			Предназначен для поражения пехоты в укрытиях и создания очагов возгорания. После выстрела тубус непригоден для повторного использования."
+	icon_state = "shmel"
+	item_state = "rocketlauncher"
+	mag_type = /obj/item/ammo_box/magazine/internal/shmel
+	empty_overlay = FALSE
+
+/obj/item/gun/projectile/revolver/rocketlauncher/shmel/get_ru_names()
+	return alist(
+		NOMINATIVE = "одноразовый реактивный гранатомёт РПО-А \"Шмель\"",
+		GENITIVE = "одноразового реактивного гранатомёта РПО-А \"Шмель\"",
+		DATIVE = "одноразовому реактивному гранатомёту РПО-А \"Шмель\"",
+		ACCUSATIVE = "одноразовый реактивный гранатомёт РПО-А \"Шмель\"",
+		INSTRUMENTAL = "одноразовым реактивным гранатомётом РПО-А \"Шмель\"",
+		PREPOSITIONAL = "одноразовом реактивном гранатомёте РПО-А \"Шмель\"",
+	)
+
+/obj/item/gun/projectile/revolver/rocketlauncher/shmel/attackby(obj/item/I, mob/user, params)
+	if(isammobox(I) || isammocasing(I))
+		balloon_alert(user, "тубус одноразовый!")
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
+/obj/item/gun/projectile/revolver/rocketlauncher/shmel/unload_act(mob/user)
+	if(chambered)
+		balloon_alert(user, "тубус одноразовый!")
+	else
+		balloon_alert(user, "уже пусто!")
+	return
+
+/obj/item/gun/projectile/revolver/rocketlauncher/shmel/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)
+	var/obj/item/ammo_casing/spent_rocket = chambered
+	. = ..()
+	if(empty_chamber)
+		QDEL_NULL(spent_rocket)
+	update_appearance(UPDATE_ICON_STATE|UPDATE_OVERLAYS|UPDATE_DESC)
+
+/obj/item/gun/projectile/revolver/rocketlauncher/shmel/update_icon_state()
+	icon_state = "[initial(icon_state)][chambered ? "" : "_e"]"
+
+/obj/item/gun/projectile/revolver/rocketlauncher/shmel/update_desc(updates = ALL)
+	. = ..()
+	if(!chambered)
+		desc = "[initial(desc)] Тубус уже использован."
 
 // MARK: RPG-232
 /obj/item/gun/projectile/revolver/rocketlauncher/rpg232

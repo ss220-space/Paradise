@@ -17,6 +17,13 @@
 	caliber = CALIBER_84MM
 	max_ammo = 1
 
+// MARK: RPO-A Shmel
+/obj/item/ammo_box/magazine/internal/shmel
+	name = "RPO-A Shmel launching tube"
+	ammo_type = /obj/item/ammo_casing/caseless/rocket/shmel
+	caliber = CALIBER_93MM
+	max_ammo = 1
+
 // MARK: RPG-232 rocket launcher
 /obj/item/ammo_box/magazine/internal/rpg232
 	name = "RPG-232 internal magazine"
