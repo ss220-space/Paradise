@@ -379,13 +379,14 @@
 	stun_increase_per_level = 0.5 SECONDS
 	reveal = 3 SECONDS
 	reveal_increase_per_level = 2 SECONDS
+	targeting_type = /datum/aoe_targeting/rev_haunt
 	/// The maximum number of objects to haunt
 	max_targets = 7
 	/// Self explanatory
 	var/haunt_time = 10 SECONDS
 	/// A list of all attack timers started by this spell being cast
 	var/list/attack_timers = list()
-	targeting_type = /datum/aoe_targeting/rev_haunt
+	var/haunt_increase = 10 SECONDS
 
 /datum/action/cooldown/spell/aoe/revenant/haunt_object/get_spell_title()
 	switch(spell_level)
@@ -398,7 +399,7 @@
 
 /datum/action/cooldown/spell/aoe/revenant/haunt_object/level_spell(bypass_cap)
 	. = ..()
-	haunt_time += 10 SECONDS
+	haunt_time += haunt_increase
 
 /datum/action/cooldown/spell/aoe/revenant/haunt_object/cast(atom/cast_on)
 	. = ..()
@@ -780,9 +781,9 @@
 	target.Weaken(spell_level SECONDS)
 	target.EyeBlind(spell_level SECONDS)
 	target.Silence(spell_level SECONDS)
-	target.AdjustJitter((5 + ((spell_level-1)*10)) SECONDS)
-	target.AdjustConfused((5 + ((spell_level-1)*10)) SECONDS)
-	target.AdjustDizzy((5 + ((spell_level-1)*10)) SECONDS)
+	target.AdjustJitter((5 + ((spell_level - 1) * 10)) SECONDS)
+	target.AdjustConfused((5 + ((spell_level - 1) * 10)) SECONDS)
+	target.AdjustDizzy((5 + ((spell_level - 1) * 10)) SECONDS)
 
 /datum/action/cooldown/spell/pointed/revenant/tear
 	name = "слеза пламени"
@@ -843,7 +844,7 @@
 	. = ..()
 	var/obj/projectile/rev_tear/proj = new(owner.loc)
 	proj.firer = owner
-	proj.damage = 10+spell_level*10
+	proj.damage = 10 + spell_level * 10
 	proj.jitter = 15 SECONDS
 	if(spell_level >= 3)
 		proj.jitter += 15 SECONDS
@@ -967,16 +968,16 @@
 /obj/machinery/power/apc/rev_malfunction(cause_emp = TRUE, malfunction_level = 1)
 	if(malfunction_level < 3)
 		return
-	emp_act(1)
+	emp_act(EMP_HEAVY)
 
 /obj/machinery/power/smes/rev_malfunction(cause_emp = TRUE, malfunction_level = 1)
 	if(malfunction_level < 3)
 		return
-	emp_act(1)
+	emp_act(EMP_HEAVY)
 
 /obj/item/gun/energy/rev_malfunction(cause_emp = TRUE, malfunction_level = 1)
 	if(malfunction_level < 3)
 		return
-	emp_act(1)
+	emp_act(EMP_HEAVY)
 
 #undef INVISIBILITY_REVENANT
