@@ -88544,6 +88544,7 @@
 	},
 /obj/item/clipboard,
 /obj/item/mining_voucher,
+/obj/item/gun/projectile/revolver/rocketlauncher/shmel,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -92312,6 +92313,7 @@
 	},
 /obj/item/gun/projectile/revolver/mateba,
 /obj/machinery/light_switch/directional/west,
+/obj/item/gun/projectile/revolver/rocketlauncher/shmel,
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
 "teZ" = (

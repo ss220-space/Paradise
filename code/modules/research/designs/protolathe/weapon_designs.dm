@@ -383,6 +383,15 @@
 	locked = TRUE
 	category = list(PROTOLATHE_CATEGORY_ILLEGAL)
 
+/datum/design/shmel
+	id = "shmel"
+	req_tech = list(RESEARCH_TREE_COMBAT = 6, RESEARCH_TREE_ENGINEERING = 6, RESEARCH_TREE_ILLEGAL = 6)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 6000, MAT_PLASMA = 5000, MAT_TITANIUM = 5000)
+	build_path = /obj/item/gun/projectile/revolver/rocketlauncher/shmel
+	locked = TRUE
+	category = list(PROTOLATHE_CATEGORY_ILLEGAL)
+
 /datum/design/chameleon_kit
 	id = "chameleon_kit"
 	req_tech = list(RESEARCH_TREE_COMBAT = 4, RESEARCH_TREE_ENGINEERING = 6, RESEARCH_TREE_ILLEGAL = 3, RESEARCH_TREE_MAGNETS = 5)
