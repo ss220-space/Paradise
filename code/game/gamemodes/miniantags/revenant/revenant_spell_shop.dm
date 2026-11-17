@@ -48,6 +48,7 @@
 		spell_data["u_stun"] = spell.owned ? spell.upgraded_stun : 0
 		spell_data["u_reveal"] = spell.owned ? spell.upgraded_reveal : 0
 		spell_data["u_cooldown"] = spell.owned ? spell.u_cooldown_time : 0
+		spell_data["p_soul"] = spell.need_p_soul
 		all_spells += list(spell_data)
 	data["spells"] = all_spells
 	return data
@@ -87,6 +88,8 @@
 	var/owned = FALSE
 	var/u_cooldown_time
 	var/need_lamp = FALSE
+	var/need_p_soul = FALSE
+	var/upgrade_cost_modificator = 2
 
 /datum/revenant_spell/New()
 	. = ..()
@@ -94,7 +97,7 @@
 	update_stats()
 
 /datum/revenant_spell/proc/can_buy(mob/living/simple_animal/revenant/buyer)
-	if(!istype(buyer) || buyer.essence < cost || spell.spell_level == spell.spell_max_level && owned || need_lamp && !buyer.have_lamp)
+	if(!istype(buyer) || buyer.essence < cost || spell.spell_level == spell.spell_max_level && owned || need_lamp && !buyer.have_lamp || need_p_soul && buyer.perfectsouls <= 0)
 		return FALSE
 	return TRUE
 
@@ -102,17 +105,24 @@
 	if(need_lamp && !buyer.have_lamp)
 		return "Отсутствует фонарь"
 	if(!(spell in buyer.mob_spell_list))
-		return "Получить Способность"
+		return "Получить способность"
+	if(need_p_soul && buyer.perfectsouls <= 0)
+		return "Нужна идеальная душа"
 	if(spell.spell_level < spell.spell_max_level)
-		return "Усилить Способность"
+		return "Усилить способность"
 	return "Максимальный Уровень"
 
 /datum/revenant_spell/proc/buy(mob/living/simple_animal/revenant/user)
 	user.change_essence_amount(-cost, TRUE)
+	if(need_p_soul)
+		user.perfectsouls--
+		var/datum/hud/revenant/hud = user.hud_used
+		hud.update_huds()
 	if(owned)
 		spell.level_spell()
 		update_stats()
 		return
+	cost = cost * upgrade_cost_modificator
 	owned = TRUE
 	user.AddSpell(spell)
 
@@ -127,6 +137,9 @@
 	stun = spell.stun
 	reveal = spell.reveal
 	cooldown_time = spell.cooldown_time
+	if(spell.spell_level == spell.spell_max_level - 1)
+		cost = 0
+		need_p_soul = TRUE
 	if(spell.spell_level < 3)
 		upgraded_cast = get_upgraded_value(cast_cost, spell.cast_increase_per_level, spell.max_cast_amount)
 		upgraded_stun = get_upgraded_value(stun, spell.stun_increase_per_level, spell.max_stun)

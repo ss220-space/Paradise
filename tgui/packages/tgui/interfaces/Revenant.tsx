@@ -19,6 +19,7 @@ type RevenantSpell = {
   u_stun: number;
   u_reveal: number;
   u_cooldown: number;
+  p_soul: boolean;
 };
 
 type RevenantData = object
@@ -74,7 +75,7 @@ export const Revenant = (_props: unknown) => {
                               </Stack.Item>
 							  <Stack.Item>
                                 <Box bold color="label">
-                                  Цена: {spell.cost}
+                                  Цена: {spell.p_soul ? "идеальная душа" : spell.cost}
                                 </Box>
 
                               </Stack.Item>
