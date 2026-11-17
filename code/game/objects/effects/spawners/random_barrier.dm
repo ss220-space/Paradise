@@ -98,6 +98,6 @@
 /obj/effect/spawner/random_spawners/mine
 	name = "hidden mine maybe"
 	result = list(
-		/obj/effect/mine/explosive/lavaland = 35,
-		/datum/nothing = 75,
+		/obj/effect/mine/explosive/lavaland = 45,
+		/datum/nothing = 55,
 	)

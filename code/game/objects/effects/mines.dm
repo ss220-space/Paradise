@@ -30,7 +30,7 @@
 	if(arrived.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
 		return
 
-	if(faction && (faction in arrived.faction))
+	if(faction && (faction in arrived.faction) || HAS_TRAIT(arrived, TRAIT_MINE_TRIGGERER))
 		return
 
 	triggermine(arrived)
@@ -42,8 +42,13 @@
 	do_sparks(3, TRUE, src)
 	mineEffect(victim)
 	triggered = TRUE
+	mark_mine_triggerer(victim, src)
 	SEND_SIGNAL(src, COMSIG_MINE_TRIGGERED, victim)
 	qdel(src)
+
+/proc/mark_mine_triggerer(mob/living/victim, atom/source)
+	ADD_TRAIT(victim, TRAIT_MINE_TRIGGERER, UNIQUE_TRAIT_SOURCE(source))
+	addtimer(TRAIT_CALLBACK_REMOVE(victim, TRAIT_MINE_TRIGGERER, UNIQUE_TRAIT_SOURCE(source)), 0.5 SECONDS)
 
 /obj/effect/mine/ex_act(severity, target)
 	// Necessary because, as effects, they have infinite health, and wouldn't be destroyed otherwise.
