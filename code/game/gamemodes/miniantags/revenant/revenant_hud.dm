@@ -41,7 +41,7 @@
 		hudnum = 2
 	if(owner.essence >= essence_threshold * 2)
 		hudnum = 3
-	if(owner.essence >= essence_threshold*3)
+	if(owner.essence >= essence_threshold * 3)
 		hudnum = 4
 	maptext = "<font color='#d3f8fb'>[owner.essence]<br>[owner.essence_regen_cap]<font>"
 	add_overlay(image(icon = 'icons/mob/screen_gen.dmi', icon_state = "essencehud-[hudnum]"))
