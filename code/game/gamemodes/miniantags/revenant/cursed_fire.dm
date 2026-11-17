@@ -35,7 +35,7 @@
 	var/holywater = owner.reagents.has_reagent(/datum/reagent/holywater, 1)
 	if(holywater)
 		duration -= 2 SECONDS
-		owner.reagents.remove_reagent("holy_water", 1)
+		owner.reagents.remove_reagent(/datum/reagent/holywater, 1)
 		if(COOLDOWN_FINISHED(src, message_cooldown))
 			to_chat(owner, span_revendanger("Святая вода шипит внутри вас, гася призрачное пламя!"))
 			COOLDOWN_START(src, message_cooldown, 5 SECONDS)

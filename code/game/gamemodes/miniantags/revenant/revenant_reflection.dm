@@ -25,7 +25,7 @@
 /datum/status_effect/revenant_reflection/tick(seconds_between_ticks)
 	var/holywater = owner.reagents.has_reagent(/datum/reagent/holywater, 5)
 	if(holywater)
-		owner.reagents.remove_reagent("holy_water", 5)
+		owner.reagents.remove_reagent(/datum/reagent/holywater, 5)
 		qdel(src)
 
 /datum/status_effect/revenant_reflection/proc/reflect(reflected_damage)

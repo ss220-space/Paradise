@@ -37,6 +37,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	hud_type = /datum/hud/revenant
 	tts_seed = "Sylvanas"
+	var/visible = FALSE
 	var/essence = 75 //The resource of revenants. Max health is equal to three times this amount
 	var/essence_regen_cap = 75 //The regeneration cap of essence (go figure); regenerates every Life() tick up to this amount.
 	var/essence_regenerating = 1 //If the revenant regenerates essence or not; 1 for yes, 0 for no
@@ -99,7 +100,8 @@
 		unreveal_time = 0
 		revealed = 0
 		incorporeal_move = INCORPOREAL_REVENANT
-		invisibility = INVISIBILITY_REVENANT
+		SetInvisibility(INVISIBILITY_REVENANT, type)
+		visible = FALSE
 		pass_flags_self |= PASSPROJECTILE
 		to_chat(src, span_revenboldnotice("Реальность содрогается, и вы растворяетесь в тени."))
 	if(unstun_time && world.time >= unstun_time)
@@ -140,7 +142,7 @@
 	if(!revealed)
 		return .
 	if(!forced)
-		amount = amount - amount*min(base_resistance+resistance_per_psoul*perfectsouls, max_resistance)
+		amount = amount - amount * min(base_resistance + resistance_per_psoul * perfectsouls, max_resistance)
 	if(reflection)
 		var/amount_to_reflect = reflection.reflectpercent*amount
 		amount -= amount_to_reflect
@@ -207,7 +209,8 @@
 	to_chat(src, span_revendanger("НЕТ! Нет... уже слишком поздно, вы чувствуете, как ваша сущность распадается..."))
 	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, REVENANT_TRAIT)
 	revealed = 1
-	invisibility = 0
+	SetInvisibility(INVISIBILITY_NONE, type)
+	visible = TRUE
 	playsound(src, 'sound/effects/screech.ogg', 100, TRUE)
 	visible_message(span_warning("[declent_ru(NOMINATIVE)] издаёт затихающий визг, пока фиолетовый туман окутывает его распадающееся тело!"))
 	update_icon(UPDATE_ICON_STATE)
@@ -292,7 +295,8 @@
 	if(time <= 0)
 		return
 	revealed = 1
-	invisibility = 0
+	SetInvisibility(INVISIBILITY_NONE, type)
+	visible = TRUE
 	incorporeal_move = INCORPOREAL_NONE
 	pass_flags_self &= ~PASSPROJECTILE
 	if(!unreveal_time)
@@ -318,7 +322,7 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /mob/living/simple_animal/revenant/update_icon_state()
-	if(invisibility == 0)
+	if(visible)
 		if(HAS_TRAIT_FROM(src, TRAIT_NO_TRANSFORM, REVENANT_TRAIT))
 			if(draining)
 				icon_state = "[icon_drain][have_lamp ? "_lamp" : null]"

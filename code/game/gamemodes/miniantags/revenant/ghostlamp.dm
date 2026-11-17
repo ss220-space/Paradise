@@ -12,11 +12,22 @@
 	var/wisp_max = 5
 	var/wisp_per_creation = 1
 	var/current_wisps = 0
+	var/max_wisp_per_level = 5
 	var/stamina_damage_min = 2
 	var/slowdown = 0.1
 	var/mob/living/simple_animal/revenant/revenant_owner
 	var/datum/action/cooldown/spell/aoe/revenant/soul_lamp/spell
+	var/max_stamina_damage = 90
+	var/wisp_heal = 10
+	var/wisp_creation_time = 60 SECONDS
+	var/light_increase = 5
+	var/integrity_increase = 150
 	COOLDOWN_DECLARE(wisp_creation)
+
+/obj/structure/revenant_lamp/Destroy(force)
+	. = ..()
+	revenant_owner = null
+	spell = null
 
 /obj/structure/revenant_lamp/get_ru_names()
 	return alist(
@@ -46,7 +57,7 @@
 
 /obj/structure/revenant_lamp/process(seconds_per_tick)
 	for(var/mob/living/carbon/human/target in view(light_range, src))
-		if(target.getStaminaLoss() >= 90)
+		if(target.getStaminaLoss() >= max_stamina_damage)
 			continue
 		var/staminadamage = rand(stamina_damage_min, stamina_damage_min + 2)
 		target.adjustStaminaLoss(staminadamage)
@@ -54,10 +65,10 @@
 		revenant_owner.change_essence_amount(essence)
 		revenant_owner.change_essence_amount(count_bodies())
 	for(var/mob/living/simple_animal/hostile/wisp/wisp in range(light_range, src))
-		wisp.adjustHealth(-10)
+		wisp.adjustHealth(-wisp_heal)
 	if(COOLDOWN_FINISHED(src, wisp_creation))
 		create_wisps()
-		COOLDOWN_START(src, wisp_creation, 60 SECONDS)
+		COOLDOWN_START(src, wisp_creation, wisp_creation_time)
 
 /obj/structure/revenant_lamp/proc/create_wisps()
 	var/slots_avaible = wisp_max-current_wisps
@@ -67,19 +78,20 @@
 
 /obj/structure/revenant_lamp/proc/update_orbiting()
 	for(var/obj/effect/wisp/wisp in orbiters)
+		LAZYREMOVE(orbiters, wisp)
 		qdel(wisp)
 	for(var/i in 1 to current_wisps)
-		var/obj/effect/wisp/wisp = new /obj/effect/wisp(src)
+		var/obj/effect/wisp/wisp = new(src)
 		wisp.light_range = 0
 		wisp.orbit(src, radius = 30)
 
 /obj/structure/revenant_lamp/proc/update_level()
 	var/remove_integrity = max_integrity - obj_integrity
-	max_integrity += 150
+	max_integrity += integrity_increase
 	obj_integrity = max_integrity - remove_integrity
-	light_range += 5
-	wisp_max += 5
-	stamina_damage_min += 1
+	light_range += light_increase
+	wisp_max += max_wisp_per_level
+	stamina_damage_min++
 	update_light()
 
 /obj/structure/revenant_lamp/proc/count_bodies()

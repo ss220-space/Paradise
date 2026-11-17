@@ -3,7 +3,7 @@ import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type RevenantSpell = {
-  index: number;
+  UID: number;
   name: string;
   desc: string;
   cost: number;
@@ -33,7 +33,7 @@ export const Revenant = (_props: unknown) => {
 			    <Section fill scrollable>
                   <Stack vertical>
                     {visibleSpells.map((spell) => (
-                      <Stack.Item key={spell.index} mb={1}>
+                      <Stack.Item key={spell.UID} mb={1}>
                         <Section
                           title={spell.name}
                           buttons={
@@ -42,7 +42,7 @@ export const Revenant = (_props: unknown) => {
                                 disabled={!spell.can_buy}
                                 icon="magic"
                                 onClick={() =>
-                                  act('buy', { index: spell.index })
+                                  act('buy', { UID: spell.UID })
                                 }
                               >
 								{`${spell.buy_word}`}

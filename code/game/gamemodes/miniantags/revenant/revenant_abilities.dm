@@ -181,18 +181,20 @@
 /datum/action/cooldown/spell/revenantinvis/cast(atom/cast_on)
 	. = ..()
 	var/mob/living/simple_animal/revenant/caster = cast_on
-	if(caster.invisibility != INVISIBILITY_REVENANT)
+	if(caster.visible)
 		if(caster.unreveal_time >= world.time)
 			caster.balloon_alert(caster, "слишком рано!")
 			return
-		caster.invisibility = INVISIBILITY_REVENANT
+		caster.SetInvisibility(INVISIBILITY_REVENANT)
+		caster.visible = FALSE
 		caster.incorporeal_move = INCORPOREAL_REVENANT
 		caster.update_appearance(UPDATE_ICON)
 		return
 	if(caster.essence <= 0)
 		caster.balloon_alert(caster, "слишком мало эссенции!")
 		return
-	caster.invisibility = 0
+	caster.SetInvisibility(INVISIBILITY_NONE)
+	caster.visible = TRUE
 	caster.incorporeal_move = INCORPOREAL_NONE
 	caster.update_appearance(UPDATE_ICON)
 

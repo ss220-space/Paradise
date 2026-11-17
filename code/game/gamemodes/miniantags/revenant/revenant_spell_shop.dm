@@ -29,14 +29,14 @@
 /datum/action/cooldown/spell/revenant_spells/ui_data(mob/user)
 	var/list/data = list()
 	var/list/all_spells = list()
-	for(var/i in 1 to length(revenant_spell_list))
-		var/datum/revenant_spell/spell = revenant_spell_list[i]
+	for(var/spell_uid in revenant_spell_list)
+		var/datum/revenant_spell/spell = revenant_spell_list[spell_uid]
 		var/list/spell_data = list()
 		spell_data["name"] = spell.name
 		spell_data["cost"] = spell.cost
 		spell_data["cast_cost"] = spell.cast_cost
-		spell_data["index"] = i
-		spell_data["can_buy"] = spell.CanBuy(user)
+		spell_data["UID"] = spell_uid
+		spell_data["can_buy"] = spell.can_buy(user)
 		spell_data["desc"] = spell.desc
 		spell_data["cooldown"] = spell.cooldown_time / 10
 		spell_data["stun"] = spell.stun
@@ -56,17 +56,16 @@
 	. = ..()
 	var/list/types_to_create = subtypesof(/datum/revenant_spell/aoe) + subtypesof(/datum/revenant_spell/pointed)
 	for(var/type in types_to_create)
-		revenant_spell_list += new type
+		var/datum/revenant_spell/spell = new type
+		revenant_spell_list[spell.UID()] = spell
 
 /datum/action/cooldown/spell/revenant_spells/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 	if(action != "buy")
 		return FALSE
-	var/idx = params["index"]
-	if(!idx || idx > length(revenant_spell_list))
-		return
-	var/datum/revenant_spell/spell = revenant_spell_list[idx]
+	var/spell_UID = params["UID"]
+	var/datum/revenant_spell/spell = revenant_spell_list[spell_UID]
 	spell.buy(owner)
 	return TRUE
 
@@ -94,7 +93,7 @@
 	spell = new spell_type()
 	update_stats()
 
-/datum/revenant_spell/proc/CanBuy(mob/living/simple_animal/revenant/buyer)
+/datum/revenant_spell/proc/can_buy(mob/living/simple_animal/revenant/buyer)
 	if(!istype(buyer) || buyer.essence < cost || spell.spell_level == spell.spell_max_level && owned || need_lamp && !buyer.have_lamp)
 		return FALSE
 	return TRUE
@@ -117,16 +116,22 @@
 	owned = TRUE
 	user.AddSpell(spell)
 
+/datum/revenant_spell/proc/get_upgraded_value(value, increase, max_value)
+	var/upgraded_value = min(value + increase, max_value)
+	if(upgraded_value == value)
+		return 0
+	return upgraded_value
+
 /datum/revenant_spell/proc/update_stats()
 	cast_cost = spell.cast_amount
 	stun = spell.stun
 	reveal = spell.reveal
 	cooldown_time = spell.cooldown_time
 	if(spell.spell_level < 3)
-		upgraded_cast = min(cast_cost + spell.cast_increase_per_level, spell.max_cast_amount) == cast_cost ? 0 : min(cast_cost + spell.cast_increase_per_level, spell.max_cast_amount)
-		upgraded_stun = min(stun + spell.stun_increase_per_level, spell.max_stun) == stun ? 0 : min(stun + spell.stun_increase_per_level, spell.max_stun)
-		upgraded_reveal = min(reveal + spell.reveal_increase_per_level, spell.max_reveal) == reveal ? 0 : min(reveal + spell.reveal_increase_per_level, spell.max_reveal)
-		u_cooldown_time = min(cooldown_time + spell.cooldown_increase_per_level, spell.max_cooldown) == cooldown_time ? 0 : min(cooldown_time + spell.cooldown_increase_per_level, spell.max_cooldown)
+		upgraded_cast = get_upgraded_value(cast_cost, spell.cast_increase_per_level, spell.max_cast_amount)
+		upgraded_stun = get_upgraded_value(stun, spell.stun_increase_per_level, spell.max_stun)
+		upgraded_reveal = get_upgraded_value(reveal, spell.reveal_increase_per_level, spell.max_reveal)
+		u_cooldown_time = get_upgraded_value(cooldown_time, spell.cooldown_increase_per_level, spell.max_cooldown)
 		return
 	upgraded_radius = 0
 	upgraded_cast = 0
@@ -138,7 +143,7 @@
 	. = ..()
 	aoe_radius = spell.aoe_radius
 	if(spell.spell_level < 3)
-		upgraded_radius = min(aoe_radius + spell.radius_increase_per_level, spell.max_radius) == aoe_radius ? 0 : min(aoe_radius + spell.radius_increase_per_level, spell.max_radius)
+		upgraded_radius = get_upgraded_value(aoe_radius, spell.aoe_radius, spell.max_radius)
 		return
 	upgraded_radius = 0
 
@@ -153,7 +158,7 @@
 	. = ..()
 	aoe_radius = spell_pointed.cast_range
 	if(spell.spell_level < 3)
-		upgraded_radius = min(aoe_radius + spell.radius_increase_per_level, spell.max_radius) == aoe_radius ? 0 : min(aoe_radius + spell.radius_increase_per_level, spell.max_radius)
+		upgraded_radius = get_upgraded_value(aoe_radius, spell.radius_increase_per_level, spell.max_radius)
 		return
 	upgraded_radius = 0
 

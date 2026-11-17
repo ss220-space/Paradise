@@ -16,11 +16,9 @@
 		return TRUE
 	return FALSE
 
-/datum/spell_handler/revenant/before_cast(list/targets, mob/user, datum/action/cooldown/spell/spell)
+/datum/spell_handler/revenant/spend_spell_cost(mob/user, datum/action/cooldown/spell/spell)
 	var/mob/living/simple_animal/revenant/caster = user
-	if(caster.castcheck(-essence_cost, TRUE))
-		return TRUE
-	return FALSE
+	caster.change_essence_amount(-essence_cost, TRUE)
 
 /datum/spell_handler/revenant/after_cast(list/targets, mob/user, datum/action/cooldown/spell/spell)
 	. = ..()
