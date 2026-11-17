@@ -39,7 +39,7 @@
 	var/hudnum = 1
 	if(owner.essence >= essence_threshold)
 		hudnum = 2
-	if(owner.essence >= essence_threshold*2)
+	if(owner.essence >= essence_threshold * 2)
 		hudnum = 3
 	if(owner.essence >= essence_threshold*3)
 		hudnum = 4
