@@ -40,6 +40,8 @@
 	destination = get_turf(destination)
 	if(!force_update && (destination == get_turf(src)))
 		return //we are already here!
+	if(ai.viewing_camera && (QDELETED(ai.viewing_camera) || get_turf(ai.viewing_camera) != destination))
+		ai.set_viewing_camera(null)
 	abstract_move(destination)
 	SEND_SIGNAL(src, COMSIG_AI_EYE_MOVED, destination)
 	if(use_static)
@@ -86,6 +88,8 @@
 		if(AI.eyeobj && (AI.client.eye == AI.eyeobj) && (AI.eyeobj.z == z))
 			AI.cameraFollow = null
 			if(isturf(loc) || isturf(src))
+				if(istype(src, /obj/machinery/camera))
+					AI.set_viewing_camera(src)
 				AI.eyeobj.setLoc(get_turf(src))
 
 // AI MOVEMENT
@@ -130,6 +134,7 @@ GAME_VERB_PROC(/mob/living/silicon/ai, core, "К ядру ИИ", VERB_CATEGORY_A
 
 /mob/living/silicon/ai/proc/view_core()
 
+	set_viewing_camera(null)
 	current = null
 	cameraFollow = null
 	unset_machine()

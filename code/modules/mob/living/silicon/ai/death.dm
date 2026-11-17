@@ -4,6 +4,7 @@
 	if(!.)
 		return FALSE
 	update_appearance(UPDATE_ICON)
+	set_viewing_camera(null)
 	if(eyeobj)
 		eyeobj.setLoc(get_turf(src))
 	if(deployed_shell)

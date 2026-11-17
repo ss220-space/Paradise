@@ -41,6 +41,7 @@ GAME_VERB_PROC(/mob/living/silicon/ai, ai_camera_list, "Список камер"
 		return 0
 
 	var/obj/machinery/camera/C = track.cameras[camera]
+	set_viewing_camera(C)
 	src.eyeobj.setLoc(C)
 
 	return
@@ -226,6 +227,7 @@ GAME_VERB_PROC_DESC(/mob/living/silicon/ai, ai_camera_track, "Режим сле�
 		return
 	if(!src.can_use())
 		return
+	user.set_viewing_camera(src)
 	user.eyeobj.setLoc(get_turf(src))
 
 /mob/living/silicon/ai/attack_ai(mob/user)
