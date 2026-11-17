@@ -153,4 +153,4 @@
 
 /obj/item/reagent_containers/food/defile()
 	add_ants()
-	new/obj/effect/temp_visual/revenant(loc)
+	new /obj/effect/temp_visual/revenant(loc)
