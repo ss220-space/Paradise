@@ -261,4 +261,4 @@
 	name = /obj/structure/closet/crate::name
 	desc = /obj/structure/closet/crate::desc
 	icon_state = /obj/structure/closet/crate::icon_state
-	update_appearance()
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)

@@ -67,6 +67,6 @@
 	return FALSE
 
 /datum/lootpanel/ui_status(mob/user, datum/ui_state/state)
-	if(istype(user, /mob/living/simple_animal/revenant))
+	if(HAS_TRAIT(user, TRAIT_LOOTPANEL_ACTIVE))
 		return UI_INTERACTIVE
 	return ..()

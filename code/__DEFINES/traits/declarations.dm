@@ -703,3 +703,5 @@
 
 /// Trait that allows an item to perform holy rites akin to a nullrod
 #define TRAIT_NULLROD_ITEM "nullrod_item"
+/// Trait that allows mob use lootpanel without checks
+#define TRAIT_LOOTPANEL_ACTIVE "lootpanel_active"

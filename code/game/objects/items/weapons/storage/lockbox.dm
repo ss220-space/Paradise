@@ -105,7 +105,7 @@
 /obj/item/storage/lockbox/defile()
 	name = /obj/item/storage/lockbox::name
 	desc = /obj/item/storage/lockbox::desc
-	update_appearance()
+	update_appearance(UPDATE_NAME|UPDATE_DESC)
 
 /obj/item/storage/lockbox/mindshield
 	name = "Lockbox (Mindshield Implants)"

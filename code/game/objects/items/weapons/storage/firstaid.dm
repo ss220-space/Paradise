@@ -645,7 +645,7 @@
 	name = /obj/item/storage/pill_bottle::name
 	desc = /obj/item/storage/pill_bottle::desc
 	icon_state = /obj/item/storage/pill_bottle::icon_state
-	update_appearance()
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
 
 /obj/item/storage/pill_bottle/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!iscarbon(target) || !length(contents))
