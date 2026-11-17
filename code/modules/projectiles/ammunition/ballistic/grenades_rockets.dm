@@ -19,7 +19,6 @@
 	ammo_marking = "93 мм ТБ"
 	desc = "Термобарическая ракета объёмного взрыва. Предназначена для поражения пехоты в укрытиях и создания очагов возгорания."
 	caliber = CALIBER_93MM
-	icon_state = "84mm-he"
 	projectile_type = /obj/projectile/bullet/a93mm_thermobaric
 
 // MARK: 70mm HE
