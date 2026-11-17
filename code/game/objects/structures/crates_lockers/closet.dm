@@ -787,7 +787,7 @@ GAME_VERB_SRC(/obj/structure/closet, verb_toggleopen, view(1), "Toggle Open", VE
 	return ..()
 
 /obj/structure/closet/defile()
-	new/obj/effect/temp_visual/revenant(loc)
+	new /obj/effect/temp_visual/revenant(loc)
 	if(welded)
 		bust_open()
 		return
