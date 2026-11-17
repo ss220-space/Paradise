@@ -1496,3 +1496,5 @@ GAME_VERB_PROC_DESC(/mob/living/silicon/ai, control_integrated_radio, "Наст�
 
 /mob/living/silicon/ai/get_lootpanel_cache_key()
 	return "[display_icon_override] [portrait_appearance?.icon] [portrait_appearance?.icon_state]"
+
+#undef AI_CAMERA_WATCH_RANGE
