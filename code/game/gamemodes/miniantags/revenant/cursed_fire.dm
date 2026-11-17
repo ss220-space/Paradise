@@ -45,7 +45,7 @@
 	if(owner.IsSleeping() || owner.stat != CONSCIOUS)
 		return
 	var/damage = rand(4, 6)
-	essence += round(damage/2)
+	essence += round(damage / 2)
 	owner.adjustStaminaLoss(damage)
 	adjust_essence()
 	if(COOLDOWN_FINISHED(src, message_cooldown) && prob(30))
