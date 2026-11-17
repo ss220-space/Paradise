@@ -91,11 +91,11 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet/bluespace, SHIFTING_TOI
 	if(dir == NORTH || dir == SOUTH)
 		pixel_x = 0
 		pixel_y = (dir == NORTH) ? SHIFTING_TOILET : -SHIFTING_TOILET
-		layer = (dir == NORTH) ? OBJ_LAYER : FLY_LAYER
+		layer = (dir == NORTH) ? initial(layer) : FLY_LAYER
 	else
 		pixel_x = 0
 		pixel_y = 0
-		layer = OBJ_LAYER
+		layer = initial(layer)
 
 /obj/structure/toilet/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
@@ -427,7 +427,7 @@ GLOBAL_ALIST_INIT(shower_mode_descriptions, alist(
 	icon_state = "shower"
 	anchored = TRUE
 	dir = EAST
-	layer = OBJ_LAYER
+	layer = ABOVE_WINDOW_LAYER
 	use_power = NO_POWER_USE
 	/// Does the user want the shower on or off?
 	var/intended_on = FALSE
@@ -800,6 +800,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/shower, (16), (16))
 	icon_state = "sink"
 	desc = "A sink used for washing one's hands and face."
 	anchored = TRUE
+	layer = ABOVE_WINDOW_LAYER
 	var/busy = 0	//Something's being washed at the moment
 	var/can_move = 1	//if the sink can be disconnected and moved
 	var/can_rotate = 1	//if the sink can be rotated to face alternate directions
@@ -1025,11 +1026,11 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sink, (SHIFTING_SINK), (SHIFTING_SINK
 	if(dir == NORTH || dir == SOUTH)
 		pixel_x = 0
 		pixel_y = (dir == NORTH) ? SHIFTING_SINK : -SHIFTING_SINK
-		layer = (dir == NORTH) ? OBJ_LAYER : FLY_LAYER
+		layer = (dir == NORTH) ? initial(layer) : FLY_LAYER
 	else
 		pixel_x = (dir == EAST) ? SHIFTING_SINK : -SHIFTING_SINK
 		pixel_y = 0
-		layer = OBJ_LAYER
+		layer = initial(layer)
 
 /obj/structure/sink/process(seconds_per_tick)
 	// Water reclamation complete?
