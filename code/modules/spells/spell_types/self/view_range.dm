@@ -58,3 +58,4 @@
 /datum/action/cooldown/spell/view_range/genetic
 	desc = "Позволяет вам выбрать, как далеко вы будете видеть."
 	invocation = null
+	invocation_type = INVOCATION_NONE

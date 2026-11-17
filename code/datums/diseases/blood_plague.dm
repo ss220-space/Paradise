@@ -8,7 +8,6 @@
 	agent = ""
 	infectable_mobtypes = list(/mob/living/carbon/human)
 	severity = DISEASE_SEVERITY_BIOHAZARD
-	can_progress_in_dead = TRUE
 	carrier = TRUE
 	virus_heal_resistant = TRUE
 	can_immunity = FALSE

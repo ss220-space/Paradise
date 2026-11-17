@@ -257,6 +257,7 @@
 	has_special_eating_effects = TRUE
 	eat_time = 5 SECONDS
 	foodtype = MEAT
+
 /obj/item/reagent_containers/food/snacks/lavaland_food/get_ru_names()
 	return alist(
 		NOMINATIVE = "блюдо Лазиса",
@@ -507,6 +508,9 @@
 		return TRUE	//abort
 
 	var/mob/living/carbon/human/target = hit_atom
+	if(!get_location_accessible(target, BODY_ZONE_PRECISE_MOUTH))
+		return .
+
 	target.eat(src, target)
 	qdel(src)
 

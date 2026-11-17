@@ -4308,17 +4308,17 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 
 /datum/supply_packs/organic/goat
-	name = "Козёл"
+	name = "Коза"
 	cost = 50
 	containertype = /obj/structure/closet/crate/critter/goat
-	containername = "ящик с козлом"
+	containername = "ящик с козой"
 	container_ru_names = alist(
-		NOMINATIVE = "ящик с козлом",
-		GENITIVE = "ящика с козлом",
-		DATIVE = "ящику с козлом",
-		ACCUSATIVE = "ящик с козлом",
-		INSTRUMENTAL = "ящиком с козлом",
-		PREPOSITIONAL = "ящике с козлом",
+		NOMINATIVE = "ящик с козой",
+		GENITIVE = "ящика с козой",
+		DATIVE = "ящику с козой",
+		ACCUSATIVE = "ящик с козой",
+		INSTRUMENTAL = "ящиком с козой",
+		PREPOSITIONAL = "ящике с козой",
 	)
 
 /datum/supply_packs/organic/chicken
