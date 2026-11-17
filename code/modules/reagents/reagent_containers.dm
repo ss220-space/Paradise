@@ -373,7 +373,7 @@
 	for(var/datum/reagent/booze in reagents.reagent_list)
 		if(!istype(booze, /datum/reagent/consumable/ethanol))
 			continue
-		var/booze_amount = reagents.get_reagent_amount(booze.id)
+		var/booze_amount = reagents.get_reagent_amount(booze.type)
 		reagents.remove_reagent(booze.type, booze_amount)
 		reagents.add_reagent(/datum/reagent/blood, booze_amount)
 	new/obj/effect/temp_visual/revenant(loc)
