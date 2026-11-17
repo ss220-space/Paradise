@@ -139,6 +139,6 @@
 		unlock()
 		new/obj/effect/temp_visual/revenant(loc)
 		return
-	. = ..()
+	return ..()
 
 #undef CLOSET_BREAKOUT_TIME
