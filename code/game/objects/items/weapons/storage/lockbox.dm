@@ -86,7 +86,6 @@
 	. = ..()
 	if(broken)
 		return FALSE
-	add_attack_logs(user, src, "emagged")
 	broken = TRUE
 	locked = FALSE
 	desc = "It appears to be broken."

@@ -739,8 +739,9 @@
 /atom/proc/unemag()
 	return
 
-/atom/proc/cmag_act(mob/user)
-	return
+/atom/proc/cmag_act(mob/user, obj/item/card/cmag/cmag_card)
+	SHOULD_CALL_PARENT(TRUE)
+	return (SEND_SIGNAL(src, COMSIG_ATOM_CMAG_ACT, user, cmag_card))
 
 /**
  * Special treatment of [/datum/emote/living/carbon/human/fart].

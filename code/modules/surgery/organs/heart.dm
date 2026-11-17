@@ -282,7 +282,6 @@
 	. = ..()
 	obj_flags ^= EMAGGED
 	if(obj_flags & EMAGGED)
-		add_attack_logs(user, src, "emagged")
 		if(user)
 			balloon_alert(user, "протоколы безопасности взломаны")
 	else

@@ -46,7 +46,6 @@
 	. = ..()
 	if(broken)
 		return FALSE
-	add_attack_logs(user, src, "emagged")
 	broken = TRUE
 	locked = FALSE
 	playsound(loc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)

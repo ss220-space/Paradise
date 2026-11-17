@@ -65,7 +65,6 @@
 	. = ..()
 	if(malfunctioning)
 		return FALSE
-	add_attack_logs(user, src, "emagged")
 	malfunctioning = TRUE
 	if(user)
 		balloon_alert(user, "протоколы защиты сняты!")

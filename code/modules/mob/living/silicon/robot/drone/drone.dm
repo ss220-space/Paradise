@@ -276,7 +276,6 @@
 	to_chat(src, span_warning("Вы чувствуете внезапный всплеск вредоносного ПО, загруженного в ваш буфер исполнения. Ваш крошечный мозг методично анализирует, загружает и выполняет скрипт. Вы понимаете, что у вас есть пять минут, прежде чем сервер дронов обнаружит это и автоматически выключит вас."))
 
 	message_admins("[ADMIN_LOOKUPFLW(H)] emagged drone [key_name_admin(src)].  Laws overridden.")
-	add_attack_logs(user, src, "emagged")
 	add_conversion_logs(src, "Converted as a slave to [key_name_log(H)]")
 	var/time = time2text(world.realtime,"hh:mm:ss")
 	GLOB.lawchanges.Add("[time] <b>:</b> [H.name]([H.key]) emagged [name]([key])")

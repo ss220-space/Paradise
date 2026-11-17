@@ -134,7 +134,6 @@
 	if(obj_flags & EMAGGED)
 		return FALSE
 	obj_flags |= EMAGGED
-	add_attack_logs(user, src, "emagged")
 	if(user)
 		to_chat(user, span_notice("Излучатель успешно саботирован"))
 	return TRUE

@@ -24,6 +24,8 @@
 #define MOUNT_ON_LATE_INITIALIZE (1<<9)
 /// Object has been affected by a cryptographic sequencer (EMAG) disabling it or causing other malicious effects
 #define EMAGGED (1<<10)
+/// Object has been affected by /obj/item/card/cmag and now causing some fun
+#define CMAGGED (1<<11)
 
 // Flags for the item_flags var on /obj/item
 

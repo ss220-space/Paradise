@@ -112,7 +112,6 @@
 	if(obj_flags & EMAGGED)
 		return FALSE
 	obj_flags |= EMAGGED
-	add_attack_logs(user, src, "emagged")
 	do_sparks(3, TRUE, src)
 	if(user)
 		user.balloon_alert(user, "протокол безопасности отключен!")

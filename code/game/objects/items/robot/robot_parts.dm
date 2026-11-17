@@ -546,7 +546,6 @@
 			to_chat(user, span_warning("[src] is already sabotaged!"))
 		return FALSE
 	obj_flags |= EMAGGED
-	add_attack_logs(user, src, "emagged")
 	if(user)
 		to_chat(user, span_warning("You slide the emag into the dataport on [src] and short out the safeties."))
 	return TRUE

@@ -264,7 +264,6 @@
 		Reset()
 		return FALSE
 	obj_flags |= EMAGGED
-	add_attack_logs(user, src, "emagged")
 	temp = "Если вы умрёте в игре, вы умрёте по-настоящему!"
 	player_hp = 30
 	player_mp = 10

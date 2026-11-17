@@ -60,7 +60,6 @@
 			balloon_alert(user, "не удалось!")
 		return FALSE
 
-	add_attack_logs(user, src, "emagged")
 	locked = FALSE
 	broken = TRUE
 	playsound(loc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)

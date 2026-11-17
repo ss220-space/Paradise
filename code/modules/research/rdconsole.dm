@@ -282,7 +282,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(obj_flags & EMAGGED)
 		return FALSE
 	obj_flags |= EMAGGED
-	add_attack_logs(user, src, "emagged")
 	playsound(src.loc, 'sound/effects/sparks4.ogg', 75, TRUE)
 	req_access = list()
 	if(user)

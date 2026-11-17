@@ -288,7 +288,6 @@
 
 	if(obj_flags & EMAGGED)
 		return FALSE
-	add_attack_logs(user, src, "emagged")
 	obj_flags |= EMAGGED
 	return TRUE
 

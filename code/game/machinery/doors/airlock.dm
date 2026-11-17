@@ -620,7 +620,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	. = ..()
 	if(obj_flags & EMAGGED)
 		. += span_warning("Its access panel is smoking slightly.")
-	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+	if(obj_flags & CMAGGED)
 		. += span_warning("The access panel is coated in yellow ooze...")
 	if(note)
 		if(!in_range(user, src))
@@ -869,7 +869,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return TRUE
 	if(ispulsedemon(user))
 		return TRUE
-	if((obj_flags & EMAGGED) || HAS_TRAIT(src, TRAIT_CMAGGED))
+	if((obj_flags & EMAGGED) || (obj_flags & CMAGGED))
 		to_chat(user, span_warning("Unable to interface: Internal error."))
 		return FALSE
 	if(!canAIControl())
@@ -1461,7 +1461,6 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return FALSE
 	if(operating || !density || !arePowerSystemsOn() || (obj_flags & EMAGGED))
 		return FALSE
-	add_attack_logs(user, src, "emagged ([locked ? "bolted" : "not bolted"])")
 	operating = DOOR_MALF
 	update_icon(AIRLOCK_EMAG, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(after_emag_act)), 0.6 SECONDS)
@@ -1475,10 +1474,9 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		update_icon(AIRLOCK_CLOSED, TRUE)
 	obj_flags |= EMAGGED
 
-/obj/machinery/door/airlock/cmag_act(mob/user)
-	set waitfor = FALSE
-	if(operating || HAS_TRAIT(src, TRAIT_CMAGGED) || !density || !arePowerSystemsOn() || (obj_flags & EMAGGED))
-		return
+/obj/machinery/door/airlock/special_door_cmag(mob/user, obj/item/card/cmag/cmag_card)
+	if(operating || (obj_flags & CMAGGED) || !density || !arePowerSystemsOn() || (obj_flags & EMAGGED))
+		return FALSE
 	operating = DOOR_MALF
 	update_icon(AIRLOCK_EMAG, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(after_cmag_act)), 0.6 SECONDS)
@@ -1489,7 +1487,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return
 	operating = NONE
 	update_icon(AIRLOCK_CLOSED, TRUE)
-	ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
+	obj_flags |= CMAGGED
 
 /obj/machinery/door/airlock/emp_act(severity)
 	. = ..()

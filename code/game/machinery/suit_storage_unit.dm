@@ -788,7 +788,6 @@ GAME_VERB_SRC(/obj/machinery/suit_storage_unit, get_out, oview(1), "Извлеч
 		return FALSE
 	obj_flags |= EMAGGED
 
-	add_attack_logs(user, src, "emagged")
 	locked = FALSE
 	update_icon(UPDATE_OVERLAYS)
 	SStgui.update_uis(src)

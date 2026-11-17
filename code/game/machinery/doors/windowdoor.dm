@@ -58,7 +58,7 @@
 	. = ..()
 	if(obj_flags & EMAGGED)
 		. += span_warning("Its access panel is smoking slightly.")
-	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+	if(obj_flags & CMAGGED)
 		. += span_warning("The access panel is coated in yellow ooze...")
 
 /obj/machinery/door/window/emp_act(severity)
@@ -83,12 +83,12 @@
 		if(ismecha(moving_atom))
 			var/obj/mecha/mecha = moving_atom
 			if(mecha.occupant && allowed(mecha.occupant))
-				if(HAS_TRAIT(src, TRAIT_CMAGGED))
+				if(obj_flags & CMAGGED)
 					cmag_switch(FALSE)
 					return
 				open_and_close()
 			else
-				if(HAS_TRAIT(src, TRAIT_CMAGGED))
+				if(obj_flags & CMAGGED)
 					cmag_switch(TRUE)
 					return
 				INVOKE_ASYNC(src, PROC_REF(do_animate), "deny")
@@ -104,12 +104,12 @@
 		return
 	add_fingerprint(user)
 	if(!requiresID() || allowed(user))
-		if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		if(obj_flags & CMAGGED)
 			cmag_switch(FALSE, user)
 			return
 		open_and_close()
 	else
-		if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		if(obj_flags & CMAGGED)
 			cmag_switch(TRUE, user)
 			return
 		INVOKE_ASYNC(src, PROC_REF(do_animate), "deny")
@@ -271,7 +271,6 @@
 	. = ..()
 	if(operating || !density && (obj_flags & EMAGGED))
 		return FALSE
-	add_attack_logs(user, src, "emagged")
 	operating = TRUE
 	flick("[base_state]spark", src)
 	playsound(src, SFX_SPARKS, 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
@@ -285,12 +284,11 @@
 	open(2)
 	obj_flags |= EMAGGED
 
-/obj/machinery/door/window/cmag_act(mob/user)
-	if(operating || !density || HAS_TRAIT(src, TRAIT_CMAGGED) || (obj_flags & EMAGGED))
-		return
-	ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
+/obj/machinery/door/window/special_door_cmag(mob/user, obj/item/card/cmag/cmag_card)
+	if((obj_flags & CMAGGED) || operating || !density || (obj_flags & EMAGGED))
+		return FALSE
 	operating = TRUE
-	flick("[base_state]spark", src)
+	flick("door_spark", src)
 	playsound(src, SFX_SPARKS, 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	addtimer(CALLBACK(src, PROC_REF(after_cmag_act)), 0.6 SECONDS)
 	return TRUE
@@ -299,6 +297,7 @@
 	if(QDELETED(src))
 		return
 	operating = FALSE
+	obj_flags |= CMAGGED
 
 /obj/machinery/door/window/attackby(obj/item/I, mob/living/user, params)
 	//If it's in the process of opening/closing, ignore the click

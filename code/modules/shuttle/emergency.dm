@@ -80,7 +80,6 @@
 		return FALSE
 	obj_flags |= EMAGGED
 	var/time = SSshuttle.emergency.timeLeft()
-	add_attack_logs(user, src, "emagged")
 	message_admins("[key_name_admin(user)] has emagged the emergency shuttle: [time] seconds before launch.")
 	add_game_logs("has emagged the emergency shuttle in [COORD(src)]: [time] seconds before launch.", user)
 	GLOB.minor_announcement.announce(

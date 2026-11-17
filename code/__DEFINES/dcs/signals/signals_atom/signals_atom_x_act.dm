@@ -18,7 +18,7 @@
 	#define COMPONENT_CANCEL_BLOB_ACT (1<<0)
 ///from base of atom/acid_act(): (acidpwr, acid_volume)
 #define COMSIG_ATOM_ACID_ACT "atom_acid_act"
-///from base of atom/emag_act(): (/mob/user, obj/item/card/emag/emag_card). emag_card var can be null
+///from base of atom/emag_act(): (/mob, obj/item/card/emag). emag_card var can be null
 #define COMSIG_ATOM_EMAG_ACT "atom_emag_act"
 ///from base of atom/narsie_act(): ()
 #define COMSIG_ATOM_NARSIE_ACT "atom_narsie_act"
@@ -31,6 +31,8 @@
 	#define COMSIG_ATOM_BLOCKS_BSA_BEAM (1<<0)
 /// from base of atom/on_teleported(): ()
 #define COMSIG_ATOM_TELEPORT_ACT "atom_teleport_act"
+/// from atom/cmag_act(): (/mob/user, /obj/item/card/cmag)
+#define COMSIG_ATOM_CMAG_ACT "atom_cmag_act"
 
 /// Sent from [atom/proc/item_interaction], when this atom is left-clicked on by a mob with an item
 /// Sent from the very beginning of the click chain, intended for generic atom-item interactions

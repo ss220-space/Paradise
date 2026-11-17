@@ -84,7 +84,6 @@
 	if(obj_flags & EMAGGED)
 		return FALSE
 	obj_flags |= EMAGGED
-	add_attack_logs(user, src, "emagged")
 	var/turf/our_turf = get_turf(src)
 	do_sparks(5, FALSE, our_turf)
 	playsound(our_turf, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)

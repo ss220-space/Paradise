@@ -167,7 +167,6 @@
 	if(obj_flags & EMAGGED)
 		return FALSE
 	obj_flags |= EMAGGED
-	add_attack_logs(user, src, "emagged")
 	playsound(get_turf(src), SFX_SPARKS, 75, TRUE)
 	if(user)
 		to_chat(user, span_warning("Вы многократно увеличиваете мощность проекторов с помощью секвенсора и перезаписываете протоколы безопасности."))

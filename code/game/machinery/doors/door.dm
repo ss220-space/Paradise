@@ -125,12 +125,12 @@
 				if(world.time - mecha.occupant.last_bumped <= 10)
 					return
 			if(mecha.occupant && allowed(mecha.occupant) || check_access_list(mecha.operation_req_access))
-				if(HAS_TRAIT(src, TRAIT_CMAGGED))
+				if(obj_flags & CMAGGED)
 					cmag_switch(FALSE, mecha.occupant)
 					return
 				INVOKE_ASYNC(src, PROC_REF(open))
 			else
-				if(HAS_TRAIT(src, TRAIT_CMAGGED))
+				if(obj_flags & CMAGGED)
 					cmag_switch(TRUE, mecha.occupant)
 					return
 				INVOKE_ASYNC(src, PROC_REF(do_animate), "deny")
@@ -177,7 +177,7 @@
 		return
 
 	if(allowed(user))
-		if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		if(obj_flags & CMAGGED)
 			cmag_switch(FALSE, user)
 			return
 		INVOKE_ASYNC(src, PROC_REF(open))
@@ -188,7 +188,7 @@
 
 	if(pry_open_check(user))
 		return
-	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+	if(obj_flags & CMAGGED)
 		cmag_switch(TRUE, user)
 		return
 	INVOKE_ASYNC(src, PROC_REF(do_animate), "deny")
@@ -244,16 +244,16 @@
 		return
 	if(requiresID() && (allowed(user) || user.can_advanced_admin_interact()))
 		if(density)
-			if(HAS_TRAIT(src, TRAIT_CMAGGED) && !user.can_advanced_admin_interact()) //cmag should not prevent admin intervention
+			if((obj_flags & CMAGGED) && !user.can_advanced_admin_interact()) //cmag should not prevent admin intervention
 				cmag_switch(FALSE, user)
 				return
 			open()
 		else
-			if(HAS_TRAIT(src, TRAIT_CMAGGED) && !user.can_advanced_admin_interact())
+			if((obj_flags & CMAGGED) && !user.can_advanced_admin_interact())
 				return
 			close()
 		return TRUE
-	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+	if(obj_flags & CMAGGED)
 		cmag_switch(TRUE, user)
 		return
 	if(density)
@@ -290,10 +290,10 @@
 	user.visible_message(span_notice("[user] starts to clean the ooze off the access panel."), span_notice("You start to clean the ooze off the access panel."))
 	if(do_after(user, 5 SECONDS, src))
 		user.visible_message(span_notice("[user] cleans the ooze off [src]."), span_notice("You clean the ooze off [src]."))
-		REMOVE_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
+		obj_flags &= ~CMAGGED
 
 /obj/machinery/door/attackby(obj/item/I, mob/user, params)
-	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+	if(obj_flags & CMAGGED)
 		clean_cmag_ooze(I, user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -339,9 +339,13 @@
 		if(BURN)
 			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
 
-/obj/machinery/door/cmag_act(mob/user)
-	if(!density)
-		return
+/obj/machinery/door/cmag_act(mob/user, obj/item/card/cmag/cmag_card)
+	. = ..()
+	return special_door_cmag(user, cmag_card)
+
+/obj/machinery/door/proc/special_door_cmag(mob/user, obj/item/card/cmag/cmag_card)
+	if((obj_flags & CMAGGED) || !density)
+		return FALSE
 	flick("door_spark", src)
 	addtimer(CALLBACK(src, PROC_REF(after_cmag_act)), 0.6 SECONDS)
 	return TRUE
@@ -349,7 +353,7 @@
 /obj/machinery/door/proc/after_cmag_act()
 	if(QDELETED(src))
 		return
-	ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
+	obj_flags |= CMAGGED
 
 //Proc for inverting access on cmagged doors."canopen" should always return the OPPOSITE of the normal result.
 /obj/machinery/door/proc/cmag_switch(canopen, mob/living/user)

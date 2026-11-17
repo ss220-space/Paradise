@@ -82,7 +82,6 @@
 	playsound(src, SFX_SPARKS, 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	if(user)
 		to_chat(user, span_notice("You use the cryptographic sequencer on the [name]."))
-	add_attack_logs(user, src, "emagged")
 	return TRUE
 
 /obj/machinery/recycler/update_icon_state()

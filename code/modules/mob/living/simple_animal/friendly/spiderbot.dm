@@ -142,7 +142,6 @@
 	emagged = 1
 	to_chat(src, span_userdanger("You have been emagged; you are now completely loyal to [user] and [user.p_their()] every order!"))
 	emagged_master = user
-	add_attack_logs(user, src, "Emagged")
 	maxHealth = 60
 	health = 60
 	melee_damage_lower = 15

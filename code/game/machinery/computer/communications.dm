@@ -452,7 +452,6 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 	if(obj_flags & EMAGGED)
 		return FALSE
 	obj_flags |= EMAGGED
-	add_attack_logs(user, src, "emagged")
 	if(user)
 		to_chat(user, span_notice("Вы шифруете схемы маршрутизации связи!"))
 	SStgui.update_uis(src)

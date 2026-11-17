@@ -355,7 +355,6 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	if(!wires.is_cut(WIRE_WASHER_HACK))
 		wires.cut(WIRE_WASHER_HACK)
 	do_sparks(3, FALSE, src)
-	add_attack_logs(user, src, "emagged")
 	return TRUE
 
 /obj/machinery/washing_machine/attack_hand(mob/living/user)

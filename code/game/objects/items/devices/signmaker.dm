@@ -49,7 +49,6 @@
 		return FALSE
 	obj_flags |= EMAGGED
 	holosign_type = /obj/structure/holosoap/holosoap_emagged
-	add_attack_logs(user, src, "emagged")
 	clear_holosign()
 	if(user)
 		to_chat(user, "You broke the pointer, oh no")

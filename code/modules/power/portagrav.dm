@@ -167,7 +167,6 @@
 		return FALSE
 	obj_flags |= EMAGGED
 	do_sparks(3, TRUE, src)
-	add_attack_logs(user, src, "emagged")
 	if(user)
 		balloon_alert(user, "ограничитель поля снят")
 	return TRUE

@@ -1179,7 +1179,6 @@
 			to_chat(user, span_warning("ID слот меха [src] отклоняет карту."))
 		return FALSE
 
-	add_attack_logs(user, src, "emagged")
 	obj_flags |= EMAGGED
 	allowed_equipment |= MECH_EQUIPMENT_COMBAT
 	if(user)

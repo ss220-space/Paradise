@@ -321,8 +321,6 @@
 		return TRUE
 
 	if(!locked && open) //Bot panel is unlocked by ID or emag, and the panel is screwed open. Ready for emagging.
-		if(user)
-			add_attack_logs(user, src, "emagged")
 		emagged = 2
 		remote_disabled = TRUE //Manually emagging the bot locks out the AI built in panel.
 		locked = TRUE //Access denied forever!

@@ -35,7 +35,6 @@
 	if(obj_flags & EMAGGED)
 		return FALSE
 	obj_flags |= EMAGGED
-	add_attack_logs(user, src, "emagged")
 	if(user)
 		to_chat(user, span_warning("You short out the safeties on [src]"))
 	return TRUE
@@ -75,7 +74,7 @@
 	if((target.z != user_location.z) && !z_cross)
 		to_chat(user, span_danger("[target] is too far away to be controlled!"))
 		return
-	if(HAS_TRAIT(target, TRAIT_CMAGGED))
+	if(obj_flags & CMAGGED)
 		to_chat(user, span_danger("The door doesn't respond to [src]"))
 		return
 	if(target.is_special)
@@ -226,7 +225,7 @@
 /obj/item/door_remote/omni/access_tuner/afterattack(obj/machinery/door/airlock/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!istype(target))
 		return
-	if(HAS_TRAIT(target, TRAIT_CMAGGED))
+	if(obj_flags & CMAGGED)
 		to_chat(user, span_danger("The door doesn't respond to [src]!"))
 		return
 	if(busy)

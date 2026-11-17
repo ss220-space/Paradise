@@ -446,7 +446,6 @@
 	if(obj_flags & EMAGGED)
 		return FALSE
 	obj_flags |= EMAGGED
-	add_attack_logs(user, src, "emagged")
 	do_sparks(5, FALSE, src)
 	if(user)
 		user.visible_message(span_warning("[user] переписыва[PLUR_ET_YUT(user)] протоколы безопасности [declent_ru(GENITIVE)]."), span_warning("Вы переписываете протоколы безопасности."))

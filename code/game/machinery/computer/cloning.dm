@@ -163,7 +163,6 @@
 		ui_interact(user)
 		return FALSE
 	obj_flags |= EMAGGED
-	add_attack_logs(user, src, "emagged")
 	set_scan_temp((obj_flags & EMAGGED) ? "Уничтожитель готов." : "Сканер готов.", "good")
 	emp_act(EMP_HEAVY)
 	SStgui.update_uis(src)

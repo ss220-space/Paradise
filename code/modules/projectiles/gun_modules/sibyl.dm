@@ -254,7 +254,6 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	if(obj_flags & EMAGGED)
 		return FALSE
 
-	add_attack_logs(user, src, "emagged")
 	obj_flags |= EMAGGED
 	unlock(user)
 

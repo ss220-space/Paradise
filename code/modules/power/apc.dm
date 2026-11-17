@@ -1026,7 +1026,6 @@
 		if(user)
 			to_chat(user, "Nothing happens.")
 	else
-		add_attack_logs(user, src, "emagged")
 		flick("apc-spark", src)
 		obj_flags |= EMAGGED
 		locked = FALSE

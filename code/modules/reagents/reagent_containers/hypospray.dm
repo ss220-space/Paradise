@@ -82,7 +82,6 @@
 	if((obj_flags & EMAGGED) || !safety_hypo)
 		return FALSE
 	obj_flags |= EMAGGED
-	add_attack_logs(user, src, "emagged")
 	ignore_flags = TRUE
 	if(user)
 		balloon_alert(user, "протоколы безопасности взломаны")

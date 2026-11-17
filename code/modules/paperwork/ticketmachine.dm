@@ -34,7 +34,6 @@
 	if(obj_flags & EMAGGED)
 		return FALSE
 	obj_flags |= EMAGGED
-	add_attack_logs(user, src, "emagged")
 	ticket_number = rand(0, max_number)
 	current_number = ticket_number
 	for(var/obj/item/ticket_machine_ticket/ticket in tickets)

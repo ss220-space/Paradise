@@ -975,7 +975,6 @@
 /obj/machinery/computer/shuttle/proc/shuttle_console_emag(mob/user, obj/item/card/emag/emag_card)
 	if(obj_flags & EMAGGED)
 		return FALSE
-	add_attack_logs(user, src, "emagged")
 	req_access = list()
 	obj_flags |= EMAGGED
 	if(user)

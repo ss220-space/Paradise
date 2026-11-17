@@ -498,7 +498,6 @@
 	if(obj_flags & EMAGGED)
 		return FALSE
 	obj_flags |= EMAGGED
-	add_attack_logs(user, src, "emagged")
 	if(user)
 		user.balloon_alert(user, "открыты дополнительные заказы")
 	return TRUE

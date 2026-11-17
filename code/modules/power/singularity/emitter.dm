@@ -384,7 +384,6 @@
 	if(obj_flags & EMAGGED)
 		return FALSE
 	obj_flags |= EMAGGED
-	add_attack_logs(user, src, "emagged")
 	locked = FALSE
 	if(user)
 		user.visible_message(

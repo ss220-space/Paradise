@@ -45,7 +45,6 @@
 	if(obj_flags & EMAGGED)
 		return FALSE
 	obj_flags |= EMAGGED
-	add_attack_logs(user, src, "emagged")
 	desc = "A gun that changes the body temperature of its targets. Its temperature cap has been hacked."
 	if(user)
 		to_chat(user, span_caution("You double the gun's temperature cap! Targets hit by searing beams will burst into flames!"))
