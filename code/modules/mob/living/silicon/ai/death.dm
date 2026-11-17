@@ -4,7 +4,7 @@
 	if(!.)
 		return FALSE
 	update_appearance(UPDATE_ICON)
-	set_viewing_camera(null)
+	clear_watched_cameras()
 	if(eyeobj)
 		eyeobj.setLoc(get_turf(src))
 	if(deployed_shell)
