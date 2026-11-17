@@ -42,7 +42,7 @@
 			"products" = list(
 				///obj/item/chisel = 3,
 				/obj/item/toy/crayon/spraycan = 2,
-				/obj/item/stack/cable_coil/random = 10,
+				/obj/item/stack/pipe_cleaner/random = 10,
 				/obj/item/camera = 4,
 				/obj/item/camera_film = 6,
 				/obj/item/storage/photo_album = 2,

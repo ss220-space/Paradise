@@ -629,7 +629,17 @@
 /turf/attackby(obj/item/used, mob/user, params)
 	. = ..()
 
-	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !can_lay_cable())
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
+
+	if(istype(used, /obj/item/stack/pipe_cleaner)) // higher up cause you should be able to draw on kitchen floor
+		add_fingerprint(user) // thats clowns rights
+		var/obj/item/stack/pipe_cleaner/pipe_c = used
+		pipe_c.place_turf(src, user)
+		. |= (ATTACK_CHAIN_BLOCKED_ALL)
+		return .
+
+	if(!can_lay_cable())
 		return .
 
 	if(iscoil(used))
