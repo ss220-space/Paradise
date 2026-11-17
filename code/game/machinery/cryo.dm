@@ -543,7 +543,7 @@ GAME_VERB_SRC(/obj/machinery/atmospherics/unary/cryo_cell, move_eject, oview(1),
 
 /obj/machinery/atmospherics/unary/cryo_cell/defile()
 	go_out()
-	new/obj/effect/temp_visual/revenant(loc)
+	new /obj/effect/temp_visual/revenant(loc)
 
 #undef AUTO_EJECT_HEALTHY
 #undef AUTO_EJECT_DEAD
