@@ -6,7 +6,7 @@
 	setup_organless_effects()
 
 	. = ..()
-
+ 
 	if(!tts_seed)
 		tts_seed = SStts.get_random_seed(src)
 
