@@ -787,14 +787,13 @@ GAME_VERB_SRC(/obj/machinery/suit_storage_unit, get_out, oview(1), "Извлеч
 	if(obj_flags & EMAGGED)
 		return FALSE
 	obj_flags |= EMAGGED
-
 	locked = FALSE
 	update_icon(UPDATE_OVERLAYS)
 	SStgui.update_uis(src)
-	if(user)
-		to_chat(user, span_warning("You burn the locking mechanism, unlocking it forever."))
 	do_sparks(5, FALSE, loc)
 	playsound(loc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	if(user)
+		to_chat(user, span_warning("You burn the locking mechanism, unlocking it forever."))
 	return TRUE
 
 /obj/machinery/suit_storage_unit/shove_impact(mob/living/target, mob/living/attacker)

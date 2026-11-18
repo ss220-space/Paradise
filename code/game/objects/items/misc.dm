@@ -114,7 +114,6 @@
 	if(obj_flags & EMAGGED)
 		return FALSE
 	obj_flags |= EMAGGED
-
 	if(user)
 		balloon_alert(user, "протоколы безопасности взломаны")
 	return TRUE

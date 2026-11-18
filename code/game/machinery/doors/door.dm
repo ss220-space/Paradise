@@ -43,8 +43,6 @@
 	//Whether nonstandard door sounds (cmag laughter) are off cooldown.
 	var/sound_ready = TRUE
 	var/sound_cooldown = 1 SECONDS
-	//Emag vulnerability.
-	var/hackable = TRUE
 	/// Whether or not the door can be opened by hand (used for blast doors and shutters)
 	var/can_open_with_hands = TRUE
 

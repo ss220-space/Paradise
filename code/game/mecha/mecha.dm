@@ -1181,10 +1181,10 @@
 
 	obj_flags |= EMAGGED
 	allowed_equipment |= MECH_EQUIPMENT_COMBAT
-	if(user)
-		to_chat(user, span_notice("Вы проводите картой по ID слоту меха [src]."))
 	playsound(loc, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	desc += emag_desc
+	if(user)
+		to_chat(user, span_notice("Вы проводите картой по ID слоту меха [src]."))
 	return TRUE
 
 /////////////////////////////////////

@@ -26,6 +26,8 @@
 #define EMAGGED (1<<10)
 /// Object has been affected by /obj/item/card/cmag and now causing some fun
 #define CMAGGED (1<<11)
+/// Object with flag cannot be EMAGed
+#define NO_EMAG (1<<12)
 
 // Flags for the item_flags var on /obj/item
 

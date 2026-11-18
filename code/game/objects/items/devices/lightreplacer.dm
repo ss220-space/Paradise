@@ -273,10 +273,7 @@
 	desc = "A modified light replacer that zaps lights into place. Refill with broken or working light bulbs, or sheets of glass."
 	icon_state = "lightreplacer_blue0"
 	bluespace_toggle = TRUE
-
-/obj/item/lightreplacer/bluespace/emag_act(mob/user, obj/item/card/emag/emag_card)
-	. = ..()
-	return FALSE  // long range explosions are stupid
+	obj_flags = parent_type::obj_flags|NO_EMAG
 
 /obj/item/lightreplacer/bluespace/update_icon_state()
 	return

@@ -766,6 +766,6 @@
 	var/obj/item/emag_thing = new emag_item
 	items_list.Add(emag_thing)
 	ADD_TRAIT(emag_thing, TRAIT_NODROP, type)
-	user.visible_message(span_warning("Sparks fly out of [name]"), span_notice("You short out the safeties on [name]."))
 	playsound(loc, SFX_SPARKS, 50, TRUE)
+	user.visible_message(span_warning("Sparks fly out of [name]"), span_notice("You short out the safeties on [name]."))
 	return TRUE

@@ -25,7 +25,7 @@
 	name = "reinforced blast door"
 	desc = "A heavy duty blast door that opens mechanically. Looks even tougher than usual."
 	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|UNACIDABLE|ACID_PROOF
-	hackable = FALSE
+	obj_flags = parent_type::obj_flags|NO_EMAG
 
 /obj/machinery/door/poddoor/impassable/unhittable
 	obj_flags = IGNORE_HITS

@@ -458,12 +458,12 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	iconholder = 1
 	controllock = TRUE
 	enabled = FALSE //turns off the turret temporarily
-	if(user)
-		to_chat(user, span_warning("You short out [src]'s threat assessment circuits."))
-		visible_message("[src] hums oddly...")
 	//6 seconds for the traitor to gtfo of the area before the turret decides to ruin his shit
 	//turns it back on. The cover popUp() popDown() are automatically called in process(), no need to define it here
 	addtimer(CALLBACK(src, PROC_REF(finish_emag_act)), 6 SECONDS)
+	if(user)
+		to_chat(user, span_warning("You short out [src]'s threat assessment circuits."))
+		visible_message("[src] hums oddly...")
 	return TRUE
 
 /obj/machinery/porta_turret/proc/finish_emag_act()

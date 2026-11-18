@@ -315,7 +315,7 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_centcom
 	normal_integrity = 1000
 	security_level = 6
-	hackable = FALSE
+	obj_flags = parent_type::obj_flags|NO_EMAG
 	resistance_flags = INDESTRUCTIBLE
 
 /////////////////////////////////
@@ -362,7 +362,7 @@
 	explosion_block = 2
 	normal_integrity = 1000
 	security_level = 6
-	hackable = FALSE
+	obj_flags = parent_type::obj_flags|NO_EMAG
 
 /obj/machinery/door/airlock/hatch/syndicate/vault
 	name = "syndicate vault hatch"
@@ -946,3 +946,13 @@
 	locked = 1
 	name = "Dormitories"
 	obj_flags = parent_type::obj_flags|EMAGGED
+
+/*
+	Centcom
+*/
+/obj/machinery/door/airlock/gold/glass/centcom_no_emag
+	frequency = 2000
+	obj_flags = parent_type::obj_flags|NO_EMAG
+	id_tag = "CC-OP3-Ext"
+	locked = 1
+	name = "Zone 3"

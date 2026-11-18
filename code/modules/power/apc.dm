@@ -1019,21 +1019,22 @@
 	if(opened)
 		if(user)
 			to_chat(user, "You must close the cover to swipe an ID card.")
-	else if(panel_open)
+		return FALSE
+	if(panel_open)
 		if(user)
 			to_chat(user, "You must close the panel first.")
-	else if(stat & (BROKEN|MAINT))
+		return FALSE
+	if(stat & (BROKEN|MAINT))
 		if(user)
 			to_chat(user, "Nothing happens.")
-	else
-		flick("apc-spark", src)
-		obj_flags |= EMAGGED
-		locked = FALSE
-		update_icon()
-		if(user)
-			to_chat(user, "You emag the APC interface.")
-		return TRUE
-	return FALSE
+		return FALSE
+	flick("apc-spark", src)
+	obj_flags |= EMAGGED
+	locked = FALSE
+	update_icon()
+	if(user)
+		to_chat(user, "You emag the APC interface.")
+	return TRUE
 
 // attack with hand - remove cell (if cover open) or interact with the APC
 /obj/machinery/power/apc/attack_hand(mob/user)

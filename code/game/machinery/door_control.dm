@@ -303,12 +303,7 @@
 	base_icon_state = "altdoorctrl"
 	ai_control = FALSE
 	resistance_flags = INDESTRUCTIBLE
-
-/obj/machinery/door_control/secure/emag_act(mob/user, obj/item/card/emag/emag_card)
-	. = ..()
-	if(user)
-		to_chat(user, span_notice("The electronic systems in this device are far too advanced for your primitive hacking peripherals."))
-	return FALSE
+	obj_flags = parent_type::obj_flags|NO_EMAG
 
 /obj/machinery/door_control/secure/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE

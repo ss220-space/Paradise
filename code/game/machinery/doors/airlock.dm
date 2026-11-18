@@ -1455,10 +1455,6 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 /obj/machinery/door/airlock/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-	if(!hackable)
-		if(user)
-			to_chat(user, span_notice("The electronic systems in this door are far too advanced for your primitive hacking peripherals."))
-		return FALSE
 	if(operating || !density || !arePowerSystemsOn() || (obj_flags & EMAGGED))
 		return FALSE
 	operating = DOOR_MALF
@@ -1473,6 +1469,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(!open())
 		update_icon(AIRLOCK_CLOSED, TRUE)
 	obj_flags |= EMAGGED
+	update_icon(override = TRUE)
 
 /obj/machinery/door/airlock/special_door_cmag(mob/user, obj/item/card/cmag/cmag_card)
 	if(operating || (obj_flags & CMAGGED) || !density || !arePowerSystemsOn() || (obj_flags & EMAGGED))

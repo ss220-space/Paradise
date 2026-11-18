@@ -76,9 +76,6 @@
 
 /obj/item/reagent_containers/hypospray/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-	return hypospray_emag(user, emag_card)
-
-/obj/item/reagent_containers/hypospray/proc/hypospray_emag(mob/user, obj/item/card/emag/emag_card)
 	if((obj_flags & EMAGGED) || !safety_hypo)
 		return FALSE
 	obj_flags |= EMAGGED
@@ -150,6 +147,7 @@
 	volume = 60
 	possible_transfer_amounts = list(1, 2, 5, 10, 15, 20, 25, 30, 40, 60)
 	color_overlay = "colour_upgradedhypo"
+	obj_flags = parent_type::obj_flags|NO_EMAG
 
 /obj/item/reagent_containers/hypospray/safety/upgraded/get_ru_names()
 	return alist(
@@ -163,10 +161,6 @@
 
 /obj/item/reagent_containers/hypospray/safety/upgraded/update_icon_state()
 	icon_state = paint_color ? "upg_hypo_white" : "upg_hypo"
-
-// Send signal and return FALSE
-/obj/item/reagent_containers/hypospray/safety/upgraded/hypospray_emag(mob/user, obj/item/card/emag/emag_card)
-	return FALSE
 
 /obj/item/reagent_containers/hypospray/safety/ert
 	name = "medical hypospray (Omnizine)"

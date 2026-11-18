@@ -852,7 +852,7 @@
 	var/key = phrase_list[phrase]
 	var/message = phrase_list[key]
 
-	if(!(obj_flags & EMAGGED))
+	if(obj_flags & EMAGGED)
 		to_chat(user, span_notice("You set the restrictor to: FUCK YOUR CUNT YOU SHIT EATING COCKSUCKER MAN EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND DO SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT."))
 		return
 
@@ -936,7 +936,7 @@
 	var/message = phrase_list[key]
 
 	if(cooldown < world.time - 35) // A cooldown, to stop people being jerks
-		if(!(obj_flags & EMAGGED))
+		if(obj_flags & EMAGGED)
 			message = "FUCK YOUR CUNT YOU SHIT EATING COCKSUCKER MAN EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND DO SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT."
 			usr.visible_message("[usr]'s Compli-o-Nator: <font color='red' size='4'><b>[message]</b></font>")
 			playsound(src.loc, 'sound/voice/binsult.ogg', 100, FALSE, 4)

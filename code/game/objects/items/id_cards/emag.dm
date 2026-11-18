@@ -26,6 +26,9 @@
 	return ATTACK_CHAIN_PROCEED
 
 /obj/item/card/emag/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	if(interacting_with.obj_flags & NO_EMAG)
+		to_chat(user, span_warning("Электронные системы [interacting_with.declent_ru(ACCUSATIVE)] защищены от такого примитивного устройства взлома!"))
+		return ITEM_INTERACT_BLOCKING
 	if(interacting_with.emag_act(user, src))
 		SSblackbox.record_feedback("tally", "atom_emagged")
 		add_attack_logs(user, interacting_with, "emagged")

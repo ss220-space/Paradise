@@ -452,9 +452,9 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 	if(obj_flags & EMAGGED)
 		return FALSE
 	obj_flags |= EMAGGED
+	SStgui.update_uis(src)
 	if(user)
 		to_chat(user, span_notice("Вы шифруете схемы маршрутизации связи!"))
-	SStgui.update_uis(src)
 	return TRUE
 
 /obj/machinery/computer/communications/attack_ai(mob/user as mob)

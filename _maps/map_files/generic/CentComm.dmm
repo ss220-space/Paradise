@@ -30538,13 +30538,7 @@
 /area/centcom/syndicate_base/elite_squad)
 "oeJ" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/airlock/gold/glass{
-	frequency = 2000;
-	hackable = 0;
-	id_tag = "CC-OP3-Ext";
-	locked = 1;
-	name = "Zone 3"
-	},
+/obj/machinery/door/airlock/gold/glass/centcom_no_emag,
 /obj/machinery/access_button{
 	command = "cycle_exterior";
 	frequency = 2000;
@@ -36629,13 +36623,9 @@
 /area/centcom/syndicate_base/elite_squad)
 "qTo" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/airlock/gold/glass{
-	frequency = 2000;
-	hackable = 0;
+/obj/machinery/door/airlock/gold/glass/centcom_no_emag{
 	id_tag = "CC-OP4-Ext";
-	locked = 1;
-	name = "Zone 3"
-	},
+},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -48306,13 +48296,7 @@
 /area/centcom/central_command_areas/supplypod/loading/three)
 "vUy" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/airlock/gold/glass{
-	frequency = 2000;
-	hackable = 0;
-	id_tag = "CC-OP3-Ext";
-	locked = 1;
-	name = "Zone 3"
-	},
+/obj/machinery/door/airlock/gold/glass/centcom_no_emag,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -50567,13 +50551,7 @@
 /area/shuttle/syndicate)
 "xcV" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/airlock/gold/glass{
-	frequency = 2000;
-	hackable = 0;
-	id_tag = "CC-OP4-Ext";
-	locked = 1;
-	name = "Zone 3"
-	},
+/obj/machinery/door/airlock/gold/glass/centcom_no_emag,
 /obj/machinery/access_button{
 	command = "cycle_exterior";
 	frequency = 2000;

@@ -1,5 +1,6 @@
 /obj/machinery/door/unpowered
 	explosion_block = 1
+	obj_flags = parent_type::obj_flags|NO_EMAG
 
 /obj/machinery/door/unpowered/Bumped(atom/movable/moving_atom, skip_effects = TRUE)	// different arg
 	. = ..()
@@ -8,7 +9,3 @@
 	if(locked)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
-/obj/machinery/door/unpowered/emag_act(mob/user, obj/item/card/emag/emag_card)
-	. = ..()
-	return FALSE

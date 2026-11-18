@@ -254,7 +254,7 @@
 
 #define EMAG_TIMER 3000
 
-/mob/living/silicon/robot/drone/robot_emag_hack(mob/user)
+/mob/living/silicon/robot/drone/robot_emag_hack(mob/user, obj/item/card/emag/emag_card)
 	if(!client || stat == DEAD)
 		to_chat(user, span_warning("Нет смысла подчинять эту кучу хлама."))
 		return FALSE

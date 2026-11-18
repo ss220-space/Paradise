@@ -116,9 +116,9 @@ GLOBAL_LIST_EMPTY(firealarms)
 	if(obj_flags & EMAGGED)
 		return FALSE
 	obj_flags |= EMAGGED
+	playsound(loc, SFX_SPARKS, 50, TRUE)
 	if(user)
 		user.visible_message(span_warning("Sparks fly out of the [src]!"), span_notice("You emag [src], disabling its thermal sensors."))
-	playsound(loc, SFX_SPARKS, 50, TRUE)
 	return TRUE
 
 /obj/machinery/firealarm/temperature_expose(exposed_temperature, exposed_volume)

@@ -168,10 +168,10 @@
 		return FALSE
 	obj_flags |= EMAGGED
 	playsound(get_turf(src), SFX_SPARKS, 75, TRUE)
+	updateUsrDialog()
 	if(user)
 		to_chat(user, span_warning("Вы многократно увеличиваете мощность проекторов с помощью секвенсора и перезаписываете протоколы безопасности."))
 		to_chat(user, span_danger("Внимание. Протоколы автоматического отключения и дематериализации повреждены. Пожалуйста, свяжитесь с инженерным отделом «Нанотрейзен» и воздержитесь от использования симулятора."))
-	updateUsrDialog()
 	return TRUE
 
 /obj/machinery/computer/HolodeckControl/Initialize(mapload)

@@ -258,7 +258,7 @@
 /obj/structure/closet/crate/secure/loot/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
 
-	if(!locked)
+	if(!locked && (obj_flags & EMAGGED))
 		return FALSE
 
 	add_attack_logs(user, src, "emag-bombed")

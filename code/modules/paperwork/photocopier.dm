@@ -782,6 +782,9 @@
 
 /obj/machinery/photocopier/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
+	return photocopier_emag(user, emag_card)
+
+/obj/machinery/photocopier/proc/photocopier_emag(mob/user, obj/item/card/emag/emag_card)
 	if(obj_flags & EMAGGED)
 		if(user)
 			balloon_alert(user, "уже взломано!")

@@ -1142,9 +1142,9 @@ GAME_VERB(/mob/living/silicon/robot, cmd_robot_alerts, "Список трево�
 
 /mob/living/silicon/robot/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-	return robot_emag_hack(user)
+	return robot_emag_hack(user, emag_card)
 
-/mob/living/silicon/robot/proc/robot_emag_hack(mob/user)
+/mob/living/silicon/robot/proc/robot_emag_hack(mob/user, obj/item/card/emag/emag_card)
 	if(!ishuman(user) && !issilicon(user))
 		return FALSE
 
