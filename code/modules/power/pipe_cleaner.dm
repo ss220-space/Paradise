@@ -137,7 +137,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	if(!istype(tool, /obj/item/stack/pipe_cleaner_coil))
 		return ITEM_INTERACT_BLOCKING
 	var/obj/item/stack/pipe_cleaner_coil/coil = tool
-	if (coil.get_amount() < 1)
+	if(coil.get_amount() < 1)
 		to_chat(user, span_warning("Not enough pipe cleaner!"))
 		return ITEM_INTERACT_BLOCKING
 	coil.pipe_cleaner_join(src, user)
@@ -371,7 +371,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	// one end of the clicked pipe_cleaner is pointing towards us and no direction was supplied
 	if((C.d1 == dirn || C.d2 == dirn) && !forceddir)
 		if(!U.can_have_cabling()) //checking if it's a plating or catwalk
-			if (showerror)
+			if(showerror)
 				to_chat(user, span_warning("You can only lay pipe cleaners on catwalks and plating!"))
 			return
 		else
@@ -382,7 +382,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 			for(var/obj/structure/pipe_cleaner/LC in U) // check to make sure there's not a pipe_cleaner there already
 				if(LC.d1 == fdirn || LC.d2 == fdirn)
-					if (showerror)
+					if(showerror)
 						to_chat(user, span_warning("There's already a pipe cleaner at that position!"))
 					return
 
@@ -412,8 +412,8 @@ By design, d1 is the smallest direction and d2 is the highest
 		for(var/obj/structure/pipe_cleaner/LC in T) // check to make sure there's no matching pipe_cleaner
 			if(LC == C) // skip the pipe_cleaner we're interacting with
 				continue
-			if((LC.d1 == nd1 && LC.d2 == nd2) || (LC.d1 == nd2 && LC.d2 == nd1) ) // make sure no pipe_cleaner matches either direction
-				if (showerror)
+			if((LC.d1 == nd1 && LC.d2 == nd2) || (LC.d1 == nd2 && LC.d2 == nd1)) // make sure no pipe_cleaner matches either direction
+				if(showerror)
 					to_chat(user, span_warning("There's already a pipe cleaner at that position!"))
 
 				return
@@ -480,7 +480,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/item/stack/pipe_cleaner_coil/cut
 	amount = null
-	icon_state = "pipecleaner2"
+	icon_state = "pipe_cleaner2"
 
 /obj/item/stack/pipe_cleaner_coil/cut/Initialize(mapload)
 	if(!amount)
