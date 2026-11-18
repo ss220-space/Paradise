@@ -22,6 +22,7 @@
 
 /obj/structure/stationary_machinegun/fixed
 	allow_move = FALSE
+	internal_gun = /obj/item/gun/projectile/automatic/stationary_gun/bp
 
 /obj/structure/stationary_machinegun/get_ru_names()
 	return alist(

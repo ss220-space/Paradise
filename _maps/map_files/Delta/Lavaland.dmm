@@ -4677,9 +4677,9 @@
 /obj/item/stack/ore/glass/basalt,
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/mapping_helpers/no_lava,
-/obj/item/ammo_box/magazine/pkm,
-/obj/item/ammo_box/magazine/pkm,
-/obj/item/ammo_box/magazine/pkm,
+/obj/item/ammo_box/magazine/pkm/bp,
+/obj/item/ammo_box/magazine/pkm/bp,
+/obj/item/ammo_box/magazine/pkm/b32,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "xR" = (
@@ -6424,9 +6424,9 @@
 /area/mine/laborcamp)
 "Jj" = (
 /obj/effect/mapping_helpers/no_lava,
-/obj/item/ammo_box/magazine/pkm,
-/obj/item/ammo_box/magazine/pkm,
-/obj/item/ammo_box/magazine/pkm,
+/obj/item/ammo_box/magazine/pkm/bp,
+/obj/item/ammo_box/magazine/pkm/bp,
+/obj/item/ammo_box/magazine/pkm/b32,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Jk" = (

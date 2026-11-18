@@ -1,6 +1,6 @@
 // MARK: 7.62x54mm
 /obj/item/ammo_casing/a762x54
-	ammo_marking = "7,62x54 мм"
+	ammo_marking = "7,62x54R мм ЛПС"
 	icon_state = "762-casing"
 	materials = list(MAT_METAL = 4000)
 	caliber = CALIBER_7_DOT_62X54MM
@@ -12,9 +12,13 @@
 	materials = list(MAT_METAL = 1000)
 	projectile_type = /obj/projectile/bullet/weakbullet3
 
-/obj/item/ammo_casing/a762x54/r
-	ammo_marking = "7,62x54R мм"
-	projectile_type = /obj/projectile/bullet/a762x54r
+/obj/item/ammo_casing/a762x54/b32
+	ammo_marking = "7,62x54R мм Б-32"
+	projectile_type = /obj/projectile/bullet/a762x54b32
+
+/obj/item/ammo_casing/a762x54/bp
+	ammo_marking = "7,62x54R мм БП"
+	projectile_type = /obj/projectile/bullet/a762x54bp
 
 // MARK: 7.62x51mm
 /obj/item/ammo_casing/a762x51

@@ -127,6 +127,11 @@
 /obj/projectile/bullet/sniper/penetrator/a338
 
 
-/obj/projectile/bullet/a762x54r
+/obj/projectile/bullet/a762x54b32
 	armour_penetration = 10
 	stamina = 15
+	immolate = 1
+
+/obj/projectile/bullet/a762x54bp
+	armour_penetration = 20
+	stamina = 10

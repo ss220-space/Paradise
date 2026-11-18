@@ -100,7 +100,7 @@
 	magin_sound = 'sound/weapons/gun_interactions/lmg_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/lmg_magout.ogg'
 	fire_delay = 0.15 SECONDS
-	accuracy = GUN_ACCURACY_RIFLE_EXTEND_SPREAD
+	accuracy = GUN_ACCURACY_RIFLE_MACHINE_GUN
 	recoil = GUN_RECOIL_MEDIUM
 	static_gun = TRUE
 	gun_firemode_list = list(GUN_FIREMODE_AUTOMATIC)
@@ -122,3 +122,8 @@
 	if(!(locked_dir & get_dir(get_turf(src), target)))
 		return FALSE
 	return ..()
+
+/obj/item/gun/projectile/automatic/stationary_gun/bp/Initialize(mapload)
+	magazine = new /obj/item/ammo_box/magazine/pkm/bp(src)
+	return ..()
+
