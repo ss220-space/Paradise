@@ -275,6 +275,7 @@
 	flick("[base_state]spark", src)
 	playsound(src, SFX_SPARKS, 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	addtimer(CALLBACK(src, PROC_REF(after_emag_act)), 0.6 SECONDS)
+	obj_flags |= EMAGGED
 	return TRUE
 
 /obj/machinery/door/window/proc/after_emag_act()
@@ -282,7 +283,6 @@
 		return
 	operating = FALSE
 	open(2)
-	obj_flags |= EMAGGED
 
 /obj/machinery/door/window/special_door_cmag(mob/user, obj/item/card/cmag/cmag_card)
 	if((obj_flags & CMAGGED) || operating || !density || (obj_flags & EMAGGED))
