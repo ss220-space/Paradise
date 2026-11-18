@@ -273,3 +273,25 @@
 		PREPOSITIONAL = "Гатлинг-пульсере",
 	)
 
+/obj/item/gun/energy/gun/minigun/nyangun
+	name = "Nyangun"
+	icon_state = "cat2_rest"
+	item_state = "cat2"
+	icon = 'icons/mob/pets.dmi'
+	desc = "Это кот настолько милый, что может убить кого-то."
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/nyan)
+	cell_type = /obj/item/stock_parts/cell/infinite
+	sound_loop = /datum/looping_sound/nyangun
+	lefthand_file = 'icons/mob/inhands/mobs_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/mobs_righthand.dmi'
+	windup_autofire_reduction_multiplier = 0.05
+
+/obj/item/gun/energy/gun/minigun/nyangun/get_ru_names()
+	return alist(
+		NOMINATIVE = "Гатлинг-нян",
+		GENITIVE = "Гатлинг-няна",
+		DATIVE = "Гатлинг-няну",
+		ACCUSATIVE = "Гатлинг-нян",
+		INSTRUMENTAL = "Гатлинг-няном",
+		PREPOSITIONAL = "Гатлинг-няне",
+	)

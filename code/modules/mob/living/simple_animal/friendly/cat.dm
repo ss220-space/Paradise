@@ -32,6 +32,10 @@
 	holder_type = /obj/item/holder/cat2
 	var/sitting = FALSE
 
+/mob/living/simple_animal/pet/cat/Initialize(mapload)
+	. = ..()
+	add_language(LANGUAGE_GALACTIC_COMMON)
+
 /mob/living/simple_animal/pet/cat/floppa
 	name = "Big Floppa"
 	desc = "He looks like he is about to commit a warcrime.."
