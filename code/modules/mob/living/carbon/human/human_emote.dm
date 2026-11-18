@@ -821,6 +821,8 @@
 		addtimer(CALLBACK(src, PROC_REF(finish_flap), H), wing_time)
 
 /datum/emote/living/carbon/human/moth/flap/proc/finish_flap(mob/living/carbon/human/H)
+	if(QDELETED(H) || H.has_status_effect(STATUS_EFFECT_BURNT_WINGS))
+		return
 	H.toggle_wings()
 
 /datum/emote/living/carbon/human/moth/flap/angry
