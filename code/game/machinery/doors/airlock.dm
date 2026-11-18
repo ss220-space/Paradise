@@ -1477,6 +1477,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	operating = DOOR_MALF
 	update_icon(AIRLOCK_EMAG, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(after_cmag_act)), 0.6 SECONDS)
+	obj_flags |= CMAGGED
 	return TRUE
 
 /obj/machinery/door/airlock/after_cmag_act()
@@ -1484,7 +1485,6 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return
 	operating = NONE
 	update_icon(AIRLOCK_CLOSED, TRUE)
-	obj_flags |= CMAGGED
 
 /obj/machinery/door/airlock/emp_act(severity)
 	. = ..()

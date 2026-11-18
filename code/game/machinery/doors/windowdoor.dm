@@ -291,13 +291,13 @@
 	flick("door_spark", src)
 	playsound(src, SFX_SPARKS, 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	addtimer(CALLBACK(src, PROC_REF(after_cmag_act)), 0.6 SECONDS)
+	obj_flags |= CMAGGED
 	return TRUE
 
 /obj/machinery/door/window/after_cmag_act()
 	if(QDELETED(src))
 		return
 	operating = FALSE
-	obj_flags |= CMAGGED
 
 /obj/machinery/door/window/attackby(obj/item/I, mob/living/user, params)
 	//If it's in the process of opening/closing, ignore the click

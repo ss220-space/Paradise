@@ -346,12 +346,11 @@
 		return FALSE
 	flick("door_spark", src)
 	addtimer(CALLBACK(src, PROC_REF(after_cmag_act)), 0.6 SECONDS)
+	obj_flags |= CMAGGED
 	return TRUE
 
 /obj/machinery/door/proc/after_cmag_act()
-	if(QDELETED(src))
-		return
-	obj_flags |= CMAGGED
+	return
 
 //Proc for inverting access on cmagged doors."canopen" should always return the OPPOSITE of the normal result.
 /obj/machinery/door/proc/cmag_switch(canopen, mob/living/user)
