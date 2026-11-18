@@ -1166,7 +1166,7 @@
 	modules += new /obj/item/stack/sheet/rglass/cyborg(src)
 	modules += new /obj/item/stack/cable_coil/cyborg(src)
 	modules += new /obj/item/stack/rods/cyborg(src)
-	modules += new /obj/item/stack/pipe_cleaner/cyborg(src)
+	modules += new /obj/item/stack/pipe_cleaner_coil/cyborg(src)
 	modules += new /obj/item/stack/tile/plasteel(src)
 
 	fix_modules()

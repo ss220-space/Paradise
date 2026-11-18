@@ -627,9 +627,9 @@
 	return 2
 
 /turf/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
-	if(istype(tool, /obj/item/stack/pipe_cleaner))
+	if(istype(tool, /obj/item/stack/pipe_cleaner_coil))
 		add_fingerprint(user) // thats clowns rights
-		var/obj/item/stack/pipe_cleaner/pipe_c = tool
+		var/obj/item/stack/pipe_cleaner_coil/pipe_c = tool
 		pipe_c.place_turf(src, user)
 		return ITEM_INTERACT_SUCCESS
 
