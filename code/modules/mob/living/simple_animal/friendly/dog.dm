@@ -698,7 +698,7 @@ GAME_VERB_DESC(/mob/living/simple_animal/pet/dog, chasetail, "Гоняться �
 	. = ..()
 	if(emagged)
 		return FALSE
-	emagged = 1
+	emagged = TRUE
 	visible_message(span_warning("[user] swipes a card through [src]."), span_notice("You overload [src]s internal reactor."))
 	addtimer(CALLBACK(src, PROC_REF(explode)), 1000)
 	return TRUE

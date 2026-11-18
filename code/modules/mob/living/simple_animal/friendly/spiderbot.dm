@@ -139,7 +139,7 @@
 	if(emagged)
 		to_chat(user, span_warning("[src] doesn't seem to respond."))
 		return FALSE
-	emagged = 1
+	emagged = TRUE
 	to_chat(src, span_userdanger("You have been emagged; you are now completely loyal to [user] and [user.p_their()] every order!"))
 	emagged_master = user
 	maxHealth = 60

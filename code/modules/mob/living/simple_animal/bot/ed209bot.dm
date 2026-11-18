@@ -214,7 +214,7 @@
 
 /mob/living/simple_animal/bot/ed209/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-	if(emagged != 2)
+	if(!. || emagged != 2)
 		return .
 	audible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] странно жужжит!"))
 	declare_arrests = FALSE
