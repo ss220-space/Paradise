@@ -4680,7 +4680,6 @@
 /obj/item/ammo_box/magazine/pkm,
 /obj/item/ammo_box/magazine/pkm,
 /obj/item/ammo_box/magazine/pkm,
-/obj/item/ammo_box/magazine/pkm,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "xR" = (
@@ -5092,6 +5091,12 @@
 /obj/structure/stone_tile/center,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/lava/lava_land_surface/lava_only,
+/area/lavaland/surface/outdoors)
+"Ao" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/stationary_machinegun/fixed,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Au" = (
 /obj/item/stack/ore/iron,
@@ -6419,7 +6424,6 @@
 /area/mine/laborcamp)
 "Jj" = (
 /obj/effect/mapping_helpers/no_lava,
-/obj/item/ammo_box/magazine/pkm,
 /obj/item/ammo_box/magazine/pkm,
 /obj/item/ammo_box/magazine/pkm,
 /obj/item/ammo_box/magazine/pkm,
@@ -8257,6 +8261,19 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
+"VG" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/door/airlock/external{
+	frequency = null;
+	glass = 1;
+	locked = null;
+	name = "Mining External Airlock";
+	opacity = 0;
+	req_access = list(54)
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
 "VJ" = (
 /obj/machinery/computer/secure_data{
 	dir = 8
@@ -21584,7 +21601,7 @@ aj
 aj
 aj
 aj
-aj
+fw
 fw
 ai
 ai
@@ -21842,7 +21859,7 @@ aj
 aj
 Cs
 Cs
-ai
+Cs
 Zf
 Zf
 WO
@@ -22098,8 +22115,8 @@ aj
 aj
 aj
 Cs
-ai
-ai
+Cs
+Cs
 Zf
 az
 cp
@@ -22356,7 +22373,7 @@ aj
 aj
 Cs
 Cs
-ai
+Cs
 Zf
 aI
 Db
@@ -22869,8 +22886,8 @@ aj
 aj
 aj
 aj
-aj
-Cs
+up
+up
 Zf
 bf
 Db
@@ -23126,8 +23143,8 @@ aj
 aj
 aj
 aj
-aj
-Cs
+up
+fw
 Zf
 bT
 bi
@@ -23383,8 +23400,8 @@ aj
 aj
 aj
 aj
-aj
-Cs
+up
+Ao
 Zf
 Zf
 Tg
@@ -23640,10 +23657,10 @@ aj
 aj
 aj
 aj
-aj
-Cs
-Cs
-Zf
+up
+xQ
+fw
+VG
 bs
 za
 de
@@ -23897,9 +23914,9 @@ aj
 aj
 aj
 aj
-aj
-aj
-Cs
+up
+up
+up
 Zf
 Zf
 Fe
@@ -24156,8 +24173,8 @@ aj
 aj
 aj
 aj
-ab
-ab
+Cs
+Cs
 Zf
 uZ
 zD
@@ -27765,7 +27782,7 @@ aj
 aj
 aj
 up
-fw
+Ao
 fw
 up
 HU
@@ -28022,7 +28039,7 @@ aj
 aj
 up
 up
-fw
+xQ
 fw
 up
 yJ
@@ -28537,7 +28554,7 @@ jm
 jm
 jm
 up
-up
+fw
 fw
 fw
 fw
@@ -28793,7 +28810,7 @@ jm
 Cs
 Cs
 jm
-jm
+up
 up
 hs
 UH
@@ -29049,7 +29066,7 @@ Cs
 Cs
 jm
 Cs
-Cs
+jm
 jm
 jm
 hs
@@ -31112,14 +31129,14 @@ fw
 fw
 fw
 fw
-fw
-fw
-fw
-fw
-fw
-fw
-fw
-fw
+Cs
+Cs
+Cs
+Cs
+Cs
+Cs
+Cs
+Cs
 fw
 Cs
 Cs
@@ -31376,7 +31393,7 @@ Cs
 Cs
 Cs
 Cs
-fw
+Cs
 fw
 fw
 Cs
