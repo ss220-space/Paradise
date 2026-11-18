@@ -626,20 +626,19 @@
 	ChangeTurf(baseturf)
 	return 2
 
+/turf/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(istype(tool, /obj/item/stack/pipe_cleaner))
+		add_fingerprint(user) // thats clowns rights
+		var/obj/item/stack/pipe_cleaner/pipe_c = tool
+		pipe_c.place_turf(src, user)
+		return ITEM_INTERACT_SUCCESS
+
+	return ..()
+
 /turf/attackby(obj/item/used, mob/user, params)
 	. = ..()
 
-	if(ATTACK_CHAIN_CANCEL_CHECK(.))
-		return .
-
-	if(istype(used, /obj/item/stack/pipe_cleaner)) // higher up cause you should be able to draw on kitchen floor
-		add_fingerprint(user) // thats clowns rights
-		var/obj/item/stack/pipe_cleaner/pipe_c = used
-		pipe_c.place_turf(src, user)
-		. |= (ATTACK_CHAIN_BLOCKED_ALL)
-		return .
-
-	if(!can_lay_cable())
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !can_lay_cable())
 		return .
 
 	if(iscoil(used))
