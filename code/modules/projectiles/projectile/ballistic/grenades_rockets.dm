@@ -83,6 +83,16 @@
 	flame_radius(fire_radius, epicenter, flame_level, burn_level, FLAMESHAPE_DEFAULT, null, FIRE_VARIANT_DEFAULT)
 	playsound(epicenter, 'sound/weapons/gun_flamethrower2.ogg', 50, TRUE, 4)
 
+/obj/projectile/bullet/a93mm_thermobaric/get_ru_names()
+	return alist(
+		NOMINATIVE = "84мм термобарическая граната",
+		GENITIVE = "84мм термобарической гранаты",
+		DATIVE = "84мм термобарической гранате",
+		ACCUSATIVE = "84мм термобарическую гранату",
+		INSTRUMENTAL = "84мм термобарической гранатой",
+		PREPOSITIONAL = "84мм термобарической гранате",
+	)
+
 // MARK: 40mm
 /obj/projectile/bullet/a40mm
 	name = "40mm grenade"
