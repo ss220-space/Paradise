@@ -56,7 +56,7 @@
 /obj/structure/plasticflaps/Initialize(mapload)
 	. = ..()
 	alpha = 0
-	gen_overlay()
+	update_icon(UPDATE_OVERLAYS)
 	update_atmos_behaviour()
 	recalculate_atmos_connectivity()
 	var/static/list/loc_connections = list(
@@ -113,13 +113,15 @@
 
 /obj/structure/plasticflaps/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
 	if(!same_z_layer)
-		SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
-		gen_overlay()
+		update_icon(UPDATE_OVERLAYS)
 	return ..()
 
 /obj/structure/plasticflaps/setDir(newdir)
 	. = ..()
-	SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/structure/plasticflaps/update_overlays()
+	. = ..()
 	gen_overlay()
 
 /obj/structure/plasticflaps/proc/gen_overlay()
@@ -145,8 +147,7 @@
 		NAMEOF(src, icon_state),
 	)
 	if(var_name in relevant_vars)
-		SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
-		gen_overlay()
+		update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/plasticflaps/examine(mob/user)
 	. = ..()
