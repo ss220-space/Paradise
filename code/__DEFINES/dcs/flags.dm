@@ -51,12 +51,12 @@
 
 // Udder component features.
 /// Generate milk on Life ticks.
-#define UDDER_PASSIVE_GENERATION 1
+#define UDDER_PASSIVE_GENERATION (1<<0)
 /// Show the current milk volume when examined.
-#define UDDER_EXAMINE 2
+#define UDDER_EXAMINE (1<<1)
 /// Generate milk after consuming configured food types.
-#define UDDER_GENERATE_ON_CONSUME 4
+#define UDDER_GENERATE_ON_CONSUME (1<<2)
 /// Boost milk production after successful feeding.
-#define UDDER_BOOST_ON_FEED 8
+#define UDDER_BOOST_ON_FEED (1<<3)
 /// Empty the udder after the parent gives birth.
-#define UDDER_CLEAR_ON_BIRTH 16
+#define UDDER_CLEAR_ON_BIRTH (1<<4)
