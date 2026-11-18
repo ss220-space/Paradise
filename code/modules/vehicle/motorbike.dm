@@ -134,10 +134,12 @@
 	return ..()
 
 /obj/vehicle/ridden/motorbike/relaydrive(mob/living/user, direction)
-	if(isliving(user.pulling))
-		var/mob/living/towed = user.pulling
+	if(user.pulling)
+		var/atom/movable/towed = user.pulling
 		user.stop_pulling()
-		towed.Knockdown(2 SECONDS)
+		if(isliving(towed))
+			var/mob/living/towed_mob = towed
+			towed_mob.Knockdown(2 SECONDS)
 	. = ..()
 	if(!.)
 		return
