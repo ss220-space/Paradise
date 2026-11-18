@@ -345,13 +345,19 @@
 	invisibility = INVISIBILITY_MAXIMUM
 
 /obj/structure/mortar/proc/handle_shell(turf/target, obj/item/mortar_shell/shell)
+	// Zones in which a mortar shell does not detonate
+	var/static/list/safe_areas = list(
+		/area/planetoid/caves,
+		/area/planetoid/lazarus/engineering,
+		/area/planetoid/lazarus/science,
+	)
 	if(istype(shell, /obj/item/mortar_shell/custom)) // big shell warning for ghosts
 		var/obj/effect/effect = new /obj/effect/mortar_effect(target)
 		QDEL_IN(effect, 5 SECONDS)
 		notify_ghosts(title = "Custom Shell", message = "A custom mortar shell is about to land at [get_area(target)].", source = effect)
 	add_game_logs("fired an explosive shell from a mortar to ([target.x], [target.y], [target.z]).", usr)
 	message_admins("[usr] set mortar target to ([target.x], [target.y], [target.z]).[ADMIN_JMP(target)] [ADMIN_FLW(usr, usr)].")
-	if(istype(get_area(target), /area/planetoid/caves))
+	if(is_type_in_list(get_area(target), safe_areas))
 		handle_cave_impact(target)
 		qdel(shell)
 		firing = FALSE
