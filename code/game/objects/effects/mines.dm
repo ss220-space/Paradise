@@ -6,12 +6,15 @@
 	var/triggered = 0
 	var/faction = "syndicate"
 	var/destroy_on_ex = TRUE
+	var/list/mobtypes_bonus_damage
 
 /obj/effect/mine/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
+	if(mobtypes_bonus_damage)
+		mobtypes_bonus_damage = string_assoc_list(mobtypes_bonus_damage)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/effect/mine/proc/mineEffect(mob/living/victim)
@@ -42,6 +45,11 @@
 	do_sparks(3, TRUE, src)
 	mineEffect(victim)
 	triggered = TRUE
+	var/damage = 0
+	for(var/mob_type, mob_damage in mobtypes_bonus_damage)
+		if(istype(victim, mob_type))
+			damage += mob_damage
+	victim.adjustBruteLoss(damage)
 	mark_mine_triggerer(victim, src)
 	SEND_SIGNAL(src, COMSIG_MINE_TRIGGERED, victim)
 	qdel(src)
@@ -73,6 +81,12 @@
 	invisibility = INVISIBILITY_ANOMALY
 	destroy_on_ex = FALSE
 	range_heavy = 0
+	mobtypes_bonus_damage = list(
+		/mob/living/simple_animal = 10,
+		/mob/living/basic = 10,
+		/mob/living/simple_animal/hostile/asteroid = 30,
+		/mob/living/simple_animal/hostile/asteroid/goliath = 120,
+	)
 
 /obj/effect/mine/explosive/lavaland/ComponentInitialize()
 	AddComponent(/datum/component/pellet_cloud, projectile_type = /obj/projectile/shrapnel/mine, magnitude = 1)

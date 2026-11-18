@@ -116,6 +116,9 @@
 	if(locked)
 		to_chat(user, span_boldannounceic("Кажется, эта дверь [open ? "навеки открыта":"намертво запечатана"]."))
 		return
+	if("ashwalker" in user.faction)
+		to_chat(user, span_boldannounceic("Все ваше естество противится идее беспокоить священный Некрополь."))
+		return
 	toggle_the_gate(user)
 	return ..()
 
