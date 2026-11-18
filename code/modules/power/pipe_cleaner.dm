@@ -182,7 +182,6 @@ By design, d1 is the smallest direction and d2 is the highest
 	name = "pipe cleaner coil"
 	desc = "A coil of pipe cleaners. Good for arts and crafts, not to build with."
 	custom_price = PAYCHECK_CREW * 0.5
-	gender = NEUTER //That's a pipe_cleaner coil sounds better than that's some pipe_cleaner coils
 	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "pipe_cleaner"
 	item_state = "coil_red"
@@ -191,7 +190,6 @@ By design, d1 is the smallest direction and d2 is the highest
 	max_amount = MAXCOIL
 	amount = MAXCOIL
 	merge_type = /obj/item/stack/pipe_cleaner_coil // This is here to let its children merge between themselves
-	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 5
@@ -202,7 +200,6 @@ By design, d1 is the smallest direction and d2 is the highest
 	singular_name = "pipe cleaner piece"
 	full_w_class = WEIGHT_CLASS_SMALL
 	usesound = 'sound/items/deconstruct.ogg'
-	cost = 1
 	source = /datum/robot_energy_storage/wire
 	color = CABLE_HEX_COLOR_RED
 	///For updating inhand icons.
@@ -442,8 +439,6 @@ By design, d1 is the smallest direction and d2 is the highest
 /////////////////////////////
 
 /obj/item/stack/pipe_cleaner_coil/red
-	color = CABLE_HEX_COLOR_RED
-	pipecleaner_color = CABLE_COLOR_RED
 
 /obj/item/stack/pipe_cleaner_coil/yellow
 	color = CABLE_HEX_COLOR_YELLOW
@@ -496,8 +491,6 @@ By design, d1 is the smallest direction and d2 is the highest
 	update_appearance()
 
 /obj/item/stack/pipe_cleaner_coil/cut/red
-	color = CABLE_HEX_COLOR_RED
-	pipecleaner_color = CABLE_COLOR_RED
 
 /obj/item/stack/pipe_cleaner_coil/cut/yellow
 	color = CABLE_HEX_COLOR_YELLOW
