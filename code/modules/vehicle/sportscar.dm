@@ -35,6 +35,23 @@
 		if(WEST)
 			. += car_covers_cache[CAR_COVER_WEST]
 
+/obj/vehicle/ridden/car/cat
+	name = "catr"
+	desc = "Эта машина настолько пушистая что в ней можно утонуть."
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "penny"
+
+/obj/vehicle/ridden/car/cat/Initialize(mapload)
+	. = ..()
+	var/matrix/cat_transform = matrix(transform)
+	cat_transform.Scale(2.5, 1)
+	transform = cat_transform
+
+/obj/vehicle/ridden/car/cat/update_overlays()
+	return mutable_appearance(icon, "penny", ABOVE_MOB_LAYER)
+
+
+
 #undef CAR_COVER_NORTH
 #undef CAR_COVER_SOUTH
 #undef CAR_COVER_EAST
