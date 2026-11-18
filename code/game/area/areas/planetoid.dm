@@ -7,6 +7,11 @@
 	sound_environment = SOUND_ENVIRONMENT_CITY
 	ambience_index = AMBIENCE_PLANETOID
 	ambient_buzz = null
+	always_unpowered = TRUE
+	poweralm = FALSE
+	power_environ = FALSE
+	power_equip = FALSE
+	power_light = FALSE
 
 // MARK: Lazarus - station interiors, no rain
 /area/planetoid/lazarus
@@ -14,6 +19,11 @@
 	holomap_should_draw = TRUE
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	outdoors = FALSE
+	always_unpowered = FALSE
+	poweralm = TRUE
+	power_environ = TRUE
+	power_equip = TRUE
+	power_light = TRUE
 
 /area/planetoid/lazarus/abandoned_building
 	holomap_should_draw = FALSE
