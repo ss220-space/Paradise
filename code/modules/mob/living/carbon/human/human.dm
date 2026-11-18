@@ -2206,7 +2206,6 @@ GAME_VERB_DESC(/mob/living/carbon/human, set_flavor, "Описание внеш�
 
 /mob/living/carbon/human/proc/toggle_wings()
 	if(has_status_effect(STATUS_EFFECT_BURNT_WINGS))
-		to_chat(src, span_warning("У вас сгорели крылья!"))
 		return
 
 	if(body_accessory && istype(body_accessory, /datum/body_accessory/wing))
@@ -2214,4 +2213,3 @@ GAME_VERB_DESC(/mob/living/carbon/human, set_flavor, "Описание внеш�
 		wings.is_open = !wings.is_open
 		update_wing_layer()
 		update_body()
-
