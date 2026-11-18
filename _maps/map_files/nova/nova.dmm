@@ -46259,7 +46259,7 @@
 	specialfunctions = 4
 	},
 /obj/structure/sign/poster/contraband/random{
-	pixel_y = -32
+	pixel_y = 32
 	},
 /obj/structure/toilet/directional/west,
 /obj/machinery/light/small{
@@ -102937,9 +102937,7 @@
 /obj/effect/landmark/start/hangover,
 /obj/structure/sink/directional/west,
 /obj/structure/curtain/open/shower,
-/obj/machinery/shower/directional/north{
-	layer = 3.21
-	},
+/obj/machinery/shower/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
 	},
