@@ -14,6 +14,7 @@
 	var/icon_reveal = "revenant_revealed"
 	var/icon_stun = "revenant_stun"
 	var/icon_drain = "revenant_draining"
+	force_treshold = 19
 	incorporeal_move = INCORPOREAL_REVENANT
 	see_invisible = INVISIBILITY_REVENANT
 	invisibility = INVISIBILITY_REVENANT
