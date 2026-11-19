@@ -27,7 +27,6 @@
 	move_to_delay = 9
 
 	var/is_electronic = 0
-	gold_core_spawnable = HOSTILE_SPAWN
 	del_on_death = 1
 	AI_delay_max = 0.5 SECONDS
 
@@ -51,13 +50,14 @@
 	attacktext = "кусает"
 	stop_automated_movement = 1
 	wander = 0
+	gold_core_spawnable = HOSTILE_SPAWN
 	var/attempt_open = 0
 
 // Pickup loot
 /mob/living/simple_animal/hostile/mimic/crate/Initialize(mapload)
 	. = ..()
 	for(var/obj/item/I in loc)
-		I.loc = src
+		I.forceMove(src)
 
 /mob/living/simple_animal/hostile/mimic/crate/Destroy()
 	for(var/obj/item/item in contents)
@@ -111,6 +111,7 @@
 		// Put loot in crate
 		for(var/obj/O in src)
 			O.forceMove(C)
+		new /obj/item/stack/ore/gold(C, 3)
 	// due to `del_on_death`
 	return ..()
 
@@ -123,7 +124,6 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 	var/destroy_objects = 0
 	var/knockdown_people = 0
 	var/image/googly_eyes = null
-	gold_core_spawnable = NO_SPAWN
 
 /mob/living/simple_animal/hostile/mimic/copy/Initialize(mapload, obj/copy, mob/living/creator, destroy_original = 0)
 	. = ..()
