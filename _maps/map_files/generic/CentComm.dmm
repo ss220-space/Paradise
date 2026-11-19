@@ -36623,9 +36623,7 @@
 /area/centcom/syndicate_base/elite_squad)
 "qTo" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/airlock/gold/glass/centcom_no_emag{
-	id_tag = "CC-OP4-Ext"
-},
+/obj/machinery/door/airlock/gold/glass/centcom_no_emag,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
