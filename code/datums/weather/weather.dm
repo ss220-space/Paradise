@@ -36,9 +36,8 @@
 
 	/// Since it's above everything else, this is the layer used by default.
 	var/overlay_layer = AREA_LAYER
-	/// Plane the weather tile overlay renders to. Particle weather overrides this to list() so the tiles
-	/// don't render at all and the in-world particle emitters become the only visual.
-	var/list/overlay_planes = list(WEATHER_PLANE)
+	/// Plane for the overlay
+	var/overlay_plane = WEATHER_PLANE
 	var/aesthetic = FALSE //If the weather has no purpose other than looks
 	/// Used by mobs (or movables containing mobs, such as enviro bags) to prevent them from being affected by the weather.
 	var/immunity_type
@@ -252,9 +251,8 @@
 
 	var/list/gen_overlay_cache = list()
 	for(var/offset in 0 to SSmapping.max_plane_offset)
-		for(var/overlay_plane in overlay_planes)
-			var/mutable_appearance/new_weather_overlay = mutable_appearance('icons/effects/weather_effects.dmi', weather_state, overlay_layer, plane = overlay_plane, offset_const = offset)
-			new_weather_overlay.color = weather_color
-			gen_overlay_cache += new_weather_overlay
+		var/mutable_appearance/new_weather_overlay = mutable_appearance('icons/effects/weather_effects.dmi', weather_state, overlay_layer, plane = overlay_plane, offset_const = offset)
+		new_weather_overlay.color = weather_color
+		gen_overlay_cache += new_weather_overlay
 
 	return gen_overlay_cache
