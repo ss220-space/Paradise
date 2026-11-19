@@ -240,6 +240,17 @@
 	build_path = /obj/item/spacepod_module/passenger_seat
 	category = list(POD_FAB_CATEGORY_MISC)
 
+/datum/design/pod_cargo
+	construction_time = 100
+	name = "Грузовой отсек челнока"
+	desc = "Грузовой отсек для перевозки небольших предметов и ящиков."
+	id = "pod_cargo"
+	req_tech = list(RESEARCH_TREE_MATERIALS = 2, RESEARCH_TREE_ENGINEERING = 2)
+	build_type = PODFAB
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 2500)
+	build_path = /obj/item/spacepod_module/cargo
+	category = list(POD_FAB_CATEGORY_MISC)
+
 /datum/design/pod_extinguisher
 	construction_time = 100
 	name = "Модуль пожаротушения челнока."

@@ -408,7 +408,6 @@
 			return TRUE
 	if(firer && !ignore_source_check)
 		if(bumped_atom == firer || (bumped_atom == firer.loc && HAS_TRAIT(bumped_atom, TRAIT_IGNORE_OWN_PROJECTILE))) //cannot shoot yourself or your mech or pod
-			// loc = bumped_atom.loc
 			return FALSE
 
 	if(iff_passes_through(bumped_atom))

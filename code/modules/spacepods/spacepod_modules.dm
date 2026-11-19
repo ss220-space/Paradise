@@ -5,7 +5,6 @@
 	icon_state = "cargo_blank"
 	origin_tech = "programming=2;materials=2;engineering=2"
 	var/slot = 0
-	var/id = "unknown"
 	var/caption = "???"
 	var/module_name = "Модуль челнока"
 	var/datum/spacepod_systems/systems = null
@@ -29,9 +28,10 @@
 	var/connection_power_net = FALSE
 	/// Amount of consumed power in watt per tick
 	var/consume_power = 0
+	/// Module is immune to EMP shutdown
+	var/emp_immune = FALSE
 	/// Error detail data
 	var/error_text = null
-	var/static/module_id_counter = 1
 
 
 /obj/item/spacepod_module/get_ru_names()
@@ -55,9 +55,38 @@
 
 /obj/item/spacepod_module/examine(mob/user)
 	. = ..()
-	. += span_notice("Прочность [round(integrity / max_integrity * 100)]%")
+	. += span_notice("Прочность [get_integrity_percent()]%")
 	if(mass > 0)
 		. += span_notice("Вес [mass] кг.")
+
+/obj/item/spacepod_module/proc/get_integrity_percent()
+	return max_integrity > 0 ? clamp(round(integrity * 100 / max_integrity), 0, 100) : 0
+
+/obj/item/spacepod_module/proc/get_examine_details()
+	return ""
+
+/obj/item/spacepod_module/proc/get_examine_status()
+	var/integrity_percent = get_integrity_percent()
+	var/line = "- [module_name] ([caption]) — состояние [integrity_percent]%[get_examine_details()]"
+	if(integrity_percent <= 0)
+		return span_danger(line)
+	if(integrity_percent < 50)
+		return span_warning(line)
+	return span_notice(line)
+
+/obj/item/spacepod_module/proc/get_ui_data()
+	var/list/data = list()
+	data["id"] = UID()
+	data["caption"] = caption
+	data["name"] = module_name
+	data["enable"] = enable
+	data["link"] = connection_power_net
+	data["integrity"] = integrity
+	data["max_integrity"] = max_integrity
+	data["integrity_warn"] = integrity < max_integrity * 0.5
+	data["fire"] = fire
+	data["error_text"] = error_text
+	return data
 
 /obj/item/spacepod_module/welder_act(mob/living/user, obj/item/tool)
 	if(user.a_intent == INTENT_HARM)
@@ -84,13 +113,23 @@
 	return TRUE
 
 /obj/item/spacepod_module/proc/on_install(obj/spacepod/pod)
+	RegisterSignal(pod, COMSIG_SPACEPOD_EMP, PROC_REF(on_pod_emp))
 	return TRUE
 
 /obj/item/spacepod_module/proc/on_remove(obj/spacepod/pod)
+	UnregisterSignal(pod, COMSIG_SPACEPOD_EMP)
 	enable = FALSE
 	fire = FALSE
 	connection_power_net = FALSE
 	return TRUE
+
+/obj/item/spacepod_module/proc/on_pod_emp(datum/source, severity)
+	SIGNAL_HANDLER
+	if(emp_immune || !enable)
+		return
+	if(prob(POD_EMP_MODULE_DISABLE_CHANCE / max(severity, 1)))
+		turn_off()
+		error_text = "Модуль отключён ЭМИ"
 
 /obj/item/spacepod_module/proc/fire_process()
 	if(!fire)
@@ -105,17 +144,9 @@
 	return integrity > 0
 
 /obj/item/spacepod_module/proc/process_power(seconds_per_tick)
-	if(!connection_power_net)
+	if(!connection_power_net || !systems)
 		return FALSE
-	if(!systems)
-		return FALSE
-	var/list/batteries = systems.get_slot(SPACEPOD_MODULE_SLOT_BATTERY)
-	if(!length(batteries))
-		return FALSE
-	for(var/obj/item/spacepod_module/battery/batt as anything in batteries)
-		if(batt.consume_power(consume_power * seconds_per_tick))
-			return TRUE
-	return FALSE
+	return systems.consume_power(consume_power * seconds_per_tick)
 
 /obj/item/spacepod_module/proc/process_work(seconds_per_tick)
 	return enable
@@ -146,10 +177,10 @@
 	enable = FALSE
 	error_text = "Модуль уничтожен"
 
+
 // MARK: Fuel tank
 /obj/item/spacepod_module/fuel_tank
 	slot = SPACEPOD_MODULE_SLOT_FUEL_TANK
-	id = "fuel_tank"
 	caption = "TK"
 	module_name = "Топливный бак"
 	desc = "Стандартный топливный бак вместимостью 1000 литров. Обеспечивает челнок горючим для перелётов на средние расстояния."
@@ -164,14 +195,21 @@
 	/// Current fuel level in units
 	var/fuel_amount = 0
 
-/obj/item/spacepod_module/fuel_tank/New(loc, ...)
-	. = ..()
-	id = "fuel_tank_[module_id_counter++]"
-
 /obj/item/spacepod_module/fuel_tank/examine(mob/user)
 	. = ..()
 	. += span_notice("Емкость [fuel_capacity] л.")
 	. += span_notice("Заправлено на [fuel_amount] л.")
+
+/obj/item/spacepod_module/fuel_tank/get_examine_details()
+	var/fuel_percent = fuel_capacity > 0 ? clamp(round(fuel_amount * 100 / fuel_capacity), 0, 100) : 0
+	return ", топливо [fuel_percent]%"
+
+/obj/item/spacepod_module/fuel_tank/get_ui_data()
+	. = ..()
+	.["fuel_amount"] = fuel_amount
+	.["fuel_capacity"] = fuel_capacity
+	.["level_percent"] = fuel_capacity > 0 ? round(fuel_amount / fuel_capacity * 100, 1) : 0
+	return .
 
 /obj/item/spacepod_module/fuel_tank/proc/consume_fuel(amount)
 	if(amount > fuel_amount)
@@ -180,11 +218,34 @@
 	fuel_amount -= amount
 	return amount
 
+/obj/item/spacepod_module/fuel_tank/on_remove(obj/spacepod/pod)
+	. = ..()
+	for(var/obj/item/spacepod_module/fuel_pump/pump as anything in pod.systems.get_slot(SPACEPOD_MODULE_SLOT_FUEL_PUMP))
+		if(pump.source_tank == src)
+			pump.source_tank = null
+		if(pump.destination_tank == src)
+			pump.destination_tank = null
+
 /obj/item/spacepod_module/fuel_tank/on_destroy_module()
 	. = ..()
 	fuel_amount = 0
 
-/obj/item/spacepod_module/fuel_tank/full/New(id)
+/obj/item/spacepod_module/fuel_tank/install_to(mob/living/user, obj/spacepod/pod)
+	var/list/fuel_tanks = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_FUEL_TANK)
+	var/fueltank_id = "fueltank_[length(fuel_tanks) + 1]"
+	var/fueltank_name = tgui_input_text(user, "Название топливного бака", "Назвать топливный бак", default = fueltank_id, max_length = MAX_NAME_LEN, encode = TRUE)
+	if(isnull(fueltank_name))
+		return FALSE
+	var/caption = "TK [length(fuel_tanks) + 1]"
+	caption = tgui_input_text(user, "Сокращенный код бака", "Указать код топливный бак", default = caption, max_length = MAX_NAME_LEN, encode = TRUE)
+	if(QDELETED(src) || isnull(caption))
+		return FALSE
+	src.caption = caption
+	src.module_name = fueltank_name
+	update_appearance(UPDATE_NAME)
+	return TRUE
+
+/obj/item/spacepod_module/fuel_tank/full/New(loc, ...)
 	. = ..()
 	fuel_amount = fuel_capacity
 
@@ -197,33 +258,14 @@
 	mass = 250
 	fuel_capacity = 2000
 
-/obj/item/spacepod_module/fuel_tank/large/full/New(id)
+/obj/item/spacepod_module/fuel_tank/large/full/New(loc, ...)
 	. = ..()
 	fuel_amount = fuel_capacity
-
-/obj/item/spacepod_module/fuel_tank/install_to(mob/living/user, obj/spacepod/pod)
-	var/list/fuel_tanks = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_FUEL_TANK)
-	if(fuel_tanks && length(fuel_tanks) >= POD_MAX_FUEL_TANKS)
-		to_chat(user, span_notice("Установлено максимальное количество топливных баков в космическом челноке!"))
-		return FALSE
-	var/fueltank_id = "fueltank_[length(fuel_tanks) + 1]"
-	var/fueltank_name = tgui_input_text(user, "Название топливного бака", "Назвать топливный бак", default=fueltank_id, max_length = MAX_NAME_LEN, encode = TRUE)
-	if(fueltank_name == null)
-		return FALSE
-	var/caption = "TK [length(fuel_tanks) + 1]"
-	caption = tgui_input_text(user, "Сокращенный код бака", "Указать код топливный бак", default=caption, max_length = MAX_NAME_LEN, encode = TRUE)
-	if(QDELETED(src) || caption == null)
-		return FALSE
-	src.caption = caption
-	src.module_name = fueltank_name
-	update_appearance(UPDATE_NAME)
-	return TRUE
 
 
 // MARK: Battery
 /obj/item/spacepod_module/battery
 	slot = SPACEPOD_MODULE_SLOT_BATTERY
-	id = "battery"
 	caption = "BATT"
 	module_name = "Аккумуляторная батарея"
 	desc = "Аккумулирует электроэнергию от генераторов и питает электросеть для бортовых систем челнока."
@@ -232,36 +274,39 @@
 	fire_on_hit_chance = 10
 	mass = 80
 	enable = TRUE
+	emp_immune = TRUE
 	/// Battery capacity in watt
 	var/power_capacity = 10000 WATTS
 	/// Current power level in watt
 	var/power = 0
 
-/obj/item/spacepod_module/battery/full/New(id)
-	. = ..()
-	power = power_capacity
-	id = "battery_[module_id_counter++]"
-
 /obj/item/spacepod_module/battery/examine(mob/user)
 	. = ..()
-	. += span_notice("Емкость [power_capacity] Ватт.")
-	. += span_notice("Заряжено на [power] Ватт.")
+	. += span_notice("Емкость [display_power(power_capacity, convert = FALSE)].")
+	. += span_notice("Заряжено на [display_power(power, convert = FALSE)].")
 
-/obj/item/spacepod_module/battery/install_to(mob/living/user, obj/spacepod/pod)
-	var/list/batteries = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_BATTERY)
-	if(length(batteries) > 0)
-		to_chat(user, span_notice("Аккумуляторная батарея уже установлена в космическом челноке!"))
-		return FALSE
-	return TRUE
+/obj/item/spacepod_module/battery/get_examine_details()
+	var/charge_percent = power_capacity > 0 ? clamp(round(power * 100 / power_capacity), 0, 100) : 0
+	return ", заряд [charge_percent]%"
+
+/obj/item/spacepod_module/battery/get_ui_data()
+	. = ..()
+	.["power"] = round(power, 1)
+	.["capacity"] = power_capacity
+	.["percent"] = power_capacity > 0 ? round(power / power_capacity * 100, 1) : 0
+	return .
+
+/obj/item/spacepod_module/battery/on_pod_emp(datum/source, severity)
+	var/drain_percent = rand(POD_EMP_BATTERY_DRAIN_MIN, POD_EMP_BATTERY_DRAIN_MAX)
+	power = max(0, power - power_capacity * drain_percent / 100)
 
 /obj/item/spacepod_module/battery/on_remove(obj/spacepod/pod)
+	. = ..()
 	fire = FALSE
 	connection_power_net = FALSE
 
 /obj/item/spacepod_module/battery/proc/consume_power(amount)
-	if(!connection_power_net)
-		return FALSE
-	if(!enable)
+	if(!connection_power_net || !enable)
 		return FALSE
 	if(power < amount)
 		return FALSE
@@ -275,10 +320,14 @@
 	power = 0
 	error_text = "Модуль уничтожен"
 
+/obj/item/spacepod_module/battery/full/New(loc, ...)
+	. = ..()
+	power = power_capacity
+
+
 // MARK: Fuel pump
 /obj/item/spacepod_module/fuel_pump
 	slot = SPACEPOD_MODULE_SLOT_FUEL_PUMP
-	id = "fuel_pump"
 	caption = "PUMP"
 	module_name = "Топливный насос"
 	desc = "Перекачивает топливо из бака к двигателю. Несколько насосов повышают пропускную способность и стабильность подачи."
@@ -294,17 +343,21 @@
 	var/obj/item/spacepod_module/fuel_tank/source_tank
 	var/obj/item/spacepod_module/fuel_tank/destination_tank
 
-/obj/item/spacepod_module/fuel_pump/New(loc, ...)
-	. = ..()
-	id = "fuel_pump_[module_id_counter++]"
-
 /obj/item/spacepod_module/fuel_pump/examine(mob/user)
 	. = ..()
 	. += span_notice("Перекачивает [pump_speed] л. топлива в секунду.")
 
+/obj/item/spacepod_module/fuel_pump/get_ui_data()
+	. = ..()
+	.["power_link"] = connection_power_net
+	.["pump_speed"] = enable ? pump_speed : 0
+	.["temperature"] = 32 + rand(1, 10)
+	.["temperature_warn"] = FALSE
+	return .
+
 /obj/item/spacepod_module/fuel_pump/install_to(mob/living/user, obj/spacepod/pod)
 	var/list/fuel_tanks = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_FUEL_TANK)
-	if(length(fuel_tanks) == 0)
+	if(!length(fuel_tanks))
 		to_chat(user, span_notice("Чтобы установить топливный насос, сначала установите топливный бак!"))
 		return FALSE
 	var/list/engines = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_ENGINE)
@@ -313,12 +366,12 @@
 	var/obj/item/spacepod_module/fuel_tank/destination_fueltank = tgui_input_list(user, "Выберите куда насос будет качать топливо:", "Выбор назначения топлива", fuel_tanks | engines | apus)
 	var/fuel_pumps = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_FUEL_PUMP)
 	var/pump_id = "fuelpump_[length(fuel_pumps) + 1]"
-	var/pump_name = tgui_input_text(user, "Название топливного насоса", "Назвать топливный насос", default=pump_id, max_length = MAX_NAME_LEN, encode = TRUE)
-	if(pump_name == null)
+	var/pump_name = tgui_input_text(user, "Название топливного насоса", "Назвать топливный насос", default = pump_id, max_length = MAX_NAME_LEN, encode = TRUE)
+	if(isnull(pump_name))
 		return FALSE
 	var/caption = "PUMP [length(fuel_pumps) + 1]"
-	caption = tgui_input_text(user, "Сокращенный код топливного насоса", "Указать код топливного насоса", default=caption, max_length = MAX_NAME_LEN, encode = TRUE)
-	if(QDELETED(src) || caption == null)
+	caption = tgui_input_text(user, "Сокращенный код топливного насоса", "Указать код топливного насоса", default = caption, max_length = MAX_NAME_LEN, encode = TRUE)
+	if(QDELETED(src) || isnull(caption))
 		return FALSE
 	src.caption = caption
 	src.module_name = pump_name
@@ -331,7 +384,7 @@
 	. = ..()
 	if(!.)
 		return
-	if(source_tank == null || destination_tank == null)
+	if(isnull(source_tank) || isnull(destination_tank))
 		error_text = "Отсутствует подключение!"
 		turn_off()
 		return
@@ -358,7 +411,6 @@
 // MARK: Engines
 /obj/item/spacepod_module/fuel_tank/engine
 	slot = SPACEPOD_MODULE_SLOT_ENGINE
-	id = "engine"
 	module_name = "Двигатель челнока"
 	desc = "Базовый маршевый двигатель челнока. Обеспечивает тягу для перемещения в космосе. Требуется вспомогательная силовая установка для запуска данного двигателя."
 	icon_state = "engine"
@@ -368,6 +420,7 @@
 	fire_on_hit_chance = 15
 	mass = 150
 	fuel_capacity = 30
+	emp_immune = TRUE
 	var/thrust = 3500
 	/// Maximal rotations per minutes
 	var/max_rpm = 15000
@@ -385,43 +438,62 @@
 	/// Last time the pod successfully moved a tile
 	var/last_movement_time = 0
 
-/obj/item/spacepod_module/fuel_tank/engine/New(loc, ...)
-	. = ..()
-	id = "engine_[module_id_counter++]"
-
 /obj/item/spacepod_module/fuel_tank/engine/examine(mob/user)
 	. = ..()
 	. += span_notice("Тяга [thrust] кгс")
 	. += span_notice("Потребляет до [fuel_consume_speed] л. топлива в секунду при максимальных оборотах.")
 
+/obj/item/spacepod_module/fuel_tank/engine/get_ui_data()
+	. = ..()
+	var/rpm_percent = get_rpm_percent()
+	.["is_apu"] = is_apu()
+	.["rpm"] = current_rpm
+	.["rpm_percent"] = rpm_percent
+	.["rpm_warn"] = rpm_percent > 0 && (rpm_percent < 25 || rpm_percent > 120)
+	.["fuel_pressure"] = fuel_capacity > 0 ? round(fuel_amount / fuel_capacity * 100, 1) : 0
+	.["fuel_pressure_warn"] = .["fuel_pressure"] <= 30
+	.["power_link"] = null
+	.["rpm_provide_engines"] = null
+	.["selected_rpm_provide_engine"] = null
+	.["generator_enable"] = generator_enable
+	.["generated_power"] = generator_enable ? round(current_rpm / max_rpm * generate_power, 1) : 0
+	.["temperature"] = 32 + rand(1, 10)
+	.["temperature_warn"] = FALSE
+	return .
+
 /obj/item/spacepod_module/fuel_tank/engine/install_to(mob/living/user, obj/spacepod/pod)
 	var/list/engines = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_ENGINE)
-	if(length(engines) >= POD_MAX_ENGINES)
-		to_chat(user, span_notice("Установлено максимальное количество двигателей в космическом челноке!"))
-		return FALSE
 	var/engine_id = "engine_[length(engines) + 1]"
-	var/engine_name = tgui_input_text(user, "Название двигателя", "Назвать двигатель", default=engine_id, max_length = MAX_NAME_LEN, encode = TRUE)
-	if(engine_name == null)
+	var/engine_name = tgui_input_text(user, "Название двигателя", "Назвать двигатель", default = engine_id, max_length = MAX_NAME_LEN, encode = TRUE)
+	if(isnull(engine_name))
 		return FALSE
 	var/caption = "ENG [length(engines) + 1]"
-	caption = tgui_input_text(user, "Сокращенный код двигателя", "Указать код двигателя", default=caption, max_length = MAX_NAME_LEN, encode = TRUE)
-	if(QDELETED(src) || caption == null)
+	caption = tgui_input_text(user, "Сокращенный код двигателя", "Указать код двигателя", default = caption, max_length = MAX_NAME_LEN, encode = TRUE)
+	if(QDELETED(src) || isnull(caption))
 		return FALSE
-	src.id = engine_id
 	src.caption = caption
 	src.module_name = engine_name
 	update_appearance(UPDATE_NAME)
 	return TRUE
 
+/obj/item/spacepod_module/fuel_tank/engine/on_install(obj/spacepod/pod)
+	. = ..()
+	RegisterSignal(pod, COMSIG_SPACEPOD_MOVED, PROC_REF(on_pod_moved))
+
+/obj/item/spacepod_module/fuel_tank/engine/on_remove(obj/spacepod/pod)
+	UnregisterSignal(pod, COMSIG_SPACEPOD_MOVED)
+	return ..()
+
 /obj/item/spacepod_module/fuel_tank/engine/proc/get_rpm_percent()
-	return round(current_rpm / max_rpm * 100, 1)
+	return max_rpm > 0 ? round(current_rpm / max_rpm * 100, 1) : 0
 
 /obj/item/spacepod_module/fuel_tank/engine/proc/get_thrust(has_gravity)
 	if(has_gravity)
 		return thrust / POD_GRAVITY_SPEED_MOD
 	return thrust
 
-/obj/item/spacepod_module/fuel_tank/engine/proc/on_pod_moved()
+/obj/item/spacepod_module/fuel_tank/engine/proc/on_pod_moved(datum/source)
+	SIGNAL_HANDLER
 	if(is_apu() || !enable)
 		return
 	current_rpm = min(current_rpm + max_rpm * POD_ENGINE_MOVEMENT_RPM_GAIN, max_rpm)
@@ -455,11 +527,8 @@
 
 /obj/item/spacepod_module/fuel_tank/engine/process_work(seconds_per_tick)
 	if(generator_enable)
-		var/list/batteries = systems.get_slot(SPACEPOD_MODULE_SLOT_BATTERY)
 		var/rpm_mod = current_rpm / max_rpm
-		var/generated_power = rpm_mod * generate_power * seconds_per_tick
-		for(var/obj/item/spacepod_module/battery/batt as anything in batteries)
-			batt.accumulate_power(generated_power / length(batteries))
+		systems?.accumulate_power(rpm_mod * generate_power * seconds_per_tick)
 
 	if(!enable) // slowly stoping
 		if(external_rotation || current_rpm == 0)
@@ -513,7 +582,6 @@
 // MARK: APU
 /obj/item/spacepod_module/fuel_tank/engine/apu
 	slot = SPACEPOD_MODULE_SLOT_APU
-	id = "apu"
 	caption = "APU"
 	module_name = "Вспомогательная силовая установка"
 	desc = "Вспомогательная силовая установка обеспечивает челнок электроэнергией при выключенном маршевом двигателе и выдает крутящий момент для запуска основных двигателей челнока."
@@ -528,12 +596,18 @@
 /obj/item/spacepod_module/fuel_tank/engine/apu/is_apu()
 	return TRUE
 
-/obj/item/spacepod_module/fuel_tank/engine/apu/install_to(mob/living/user, obj/spacepod/pod)
-	var/list/apu_slot = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_APU)
-	if(length(apu_slot) > 0)
-		to_chat(user, span_notice("Вспомогательная силовая установка уже установлена в космическом челноке!"))
-		return FALSE
-	return TRUE
+/obj/item/spacepod_module/fuel_tank/engine/apu/get_ui_data()
+	. = ..()
+	.["power_link"] = connection_power_net
+	var/list/providers = list(list("displayText" = POD_RPM_PROVIDER_NONE, "value" = ""))
+	.["selected_rpm_provide_engine"] = ""
+	if(systems)
+		for(var/obj/item/spacepod_module/fuel_tank/engine/engine as anything in systems.get_slot(SPACEPOD_MODULE_SLOT_ENGINE))
+			providers += list(list("displayText" = engine.module_name, "value" = engine.UID()))
+			if(engine == rpm_destination_engine)
+				.["selected_rpm_provide_engine"] = engine.UID()
+	.["rpm_provide_engines"] = providers
+	return .
 
 /obj/item/spacepod_module/fuel_tank/engine/apu/ignite()
 	if(enable || current_rpm > 0)
@@ -552,7 +626,7 @@
 
 /obj/item/spacepod_module/fuel_tank/engine/apu/turn_off()
 	. = ..()
-	if(rpm_destination_engine != null)
+	if(!isnull(rpm_destination_engine))
 		select_rpm_destination_engine(null)
 
 /obj/item/spacepod_module/fuel_tank/engine/apu/process_work(seconds_per_tick)
@@ -571,17 +645,14 @@
 /obj/item/spacepod_module/fuel_tank/engine/apu/proc/select_rpm_destination_engine(obj/item/spacepod_module/fuel_tank/engine/destination)
 	if(!enable && destination)
 		return
-	if(rpm_destination_engine)
-		rpm_destination_engine.external_rotation = FALSE
+	rpm_destination_engine?.external_rotation = FALSE
 	rpm_destination_engine = destination
-	if(rpm_destination_engine)
-		rpm_destination_engine.external_rotation = TRUE
+	rpm_destination_engine?.external_rotation = TRUE
 
 
 // MARK: Gyroscope
 /obj/item/spacepod_module/gyroscope
 	slot = SPACEPOD_MODULE_SLOT_GYRO
-	id = "gyroscope"
 	module_name = "Гироскопический стабилизатор"
 	desc = "Генерирует крутящий момент для маневрирования челнока в открытом космосе, компенсирует вращение и раскачку челнока."
 	icon_state = "gyro"
@@ -597,15 +668,22 @@
 	/// Ignition acceleration (rpm increase per units)
 	var/ignition_acceleration = 10000
 
-/obj/item/spacepod_module/gyroscope/New(loc, ...)
+/obj/item/spacepod_module/gyroscope/get_ui_data()
 	. = ..()
-	id = "gyroscope_[module_id_counter++]"
+	var/rpm_percent = max_rpm > 0 ? round(current_rpm / max_rpm * 100, 1) : 0
+	.["power_link"] = connection_power_net
+	.["rpm"] = current_rpm
+	.["rpm_percent"] = rpm_percent
+	.["rpm_warn"] = rpm_percent < 10 || rpm_percent > 120
+	.["temperature"] = 32 + rand(1, 10)
+	.["temperature_warn"] = FALSE
+	return .
 
 /obj/item/spacepod_module/gyroscope/process_work(seconds_per_tick)
 	if(!enable) // slowly stoping
 		if(current_rpm == 0)
 			return
-		current_rpm = max(current_rpm - ignition_acceleration/2 * seconds_per_tick, 0)
+		current_rpm = max(current_rpm - ignition_acceleration / 2 * seconds_per_tick, 0)
 		return
 	if(!process_power(seconds_per_tick))
 		if(!connection_power_net)
@@ -618,13 +696,6 @@
 		return
 	current_rpm = min(current_rpm + ignition_acceleration * seconds_per_tick, max_rpm)
 
-/obj/item/spacepod_module/gyroscope/install_to(mob/living/user, obj/spacepod/pod)
-	var/list/gyroscopes = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_GYRO)
-	if(length(gyroscopes) > 0)
-		to_chat(user, span_notice("Стабилизирующий гироскоп уже установлен в космическом челноке!"))
-		return FALSE
-	return TRUE
-
 /obj/item/spacepod_module/gyroscope/proc/is_working()
 	return current_rpm > max_rpm * 0.25
 
@@ -632,7 +703,6 @@
 // MARK: Weapon
 /obj/item/spacepod_module/weapon
 	slot = SPACEPOD_MODULE_SLOT_WEAPON
-	id = "weapon"
 	module_name = "Вооружение"
 	desc = "Оружейная установка с двумя слотами для стрелкового оружия. Позволяет пилоту вести огонь из орудий, установленных на челноке."
 	icon_state = "weapon"
@@ -647,32 +717,73 @@
 	var/datum/spacepod_weapon_slot/primary = new("primary", "Основное")
 	var/datum/spacepod_weapon_slot/secondary = new("secondary", "Дополнительное")
 
-/obj/item/spacepod_module/weapon/New(loc, ...)
-	. = ..()
-	id = "weapon_[module_id_counter++]"
-
 /obj/item/spacepod_module/weapon/Destroy(force)
 	QDEL_NULL(primary)
 	QDEL_NULL(secondary)
+	return ..()
+
+/obj/item/spacepod_module/weapon/get_ui_data()
 	. = ..()
+	.["power_link"] = connection_power_net
+	.["guns"] = get_guns_data()
+	return .
+
+/obj/item/spacepod_module/weapon/proc/get_guns_data()
+	var/list/guns = list()
+	if(primary.weapon)
+		guns += list(get_gun_data(primary, TRUE))
+	if(secondary.weapon)
+		guns += list(get_gun_data(secondary, FALSE))
+	return guns
+
+/obj/item/spacepod_module/weapon/proc/get_gun_data(datum/spacepod_weapon_slot/gun_slot, is_primary)
+	var/list/data = list()
+	data["id"] = gun_slot.id
+	data["name"] = gun_slot.weapon.declent_ru(NOMINATIVE)
+	data["primary"] = is_primary
+	data["safety"] = gun_slot.safety
+	data["charging"] = gun_slot.charging
+	if(isprojectilegun(gun_slot.weapon))
+		data["type"] = 1
+		var/obj/item/gun/projectile/projectile_gun = gun_slot.weapon
+		data["ammo"] = projectile_gun.get_ammo()
+		data["capacity"] = projectile_gun.magazine ? projectile_gun.magazine.max_ammo : 0
+	else if(isenergygun(gun_slot.weapon))
+		data["type"] = 2
+		var/obj/item/gun/energy/energy_gun = gun_slot.weapon
+		data["ammo"] = energy_gun.get_ammo_count()
+		data["capacity"] = energy_gun.get_max_ammo_count()
+	else
+		data["type"] = 3
+		data["ammo"] = 0
+		data["capacity"] = 0
+	return data
 
 /obj/item/spacepod_module/weapon/on_remove(obj/spacepod/pod)
 	. = ..()
 	primary.restore_weapon_offset()
 	secondary.restore_weapon_offset()
 
-/obj/item/spacepod_module/weapon/install_to(mob/living/user, obj/spacepod/pod)
-	var/list/weapons = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_WEAPON)
-	if(length(weapons) > 0)
-		to_chat(user, span_notice("Модуль вооружения уже установлен в космическом челноке!"))
-		return FALSE
-	return TRUE
+/obj/item/spacepod_module/weapon/on_pod_emp(datum/source, severity)
+	for(var/datum/spacepod_weapon_slot/weapon_slot as anything in list(primary, secondary))
+		var/obj/item/gun/energy/energy_gun = weapon_slot.weapon
+		if(!isenergygun(energy_gun))
+			continue
+		if(energy_gun.chambered?.BB)
+			QDEL_NULL(energy_gun.chambered.BB)
+		energy_gun.chambered = null
+		if(energy_gun.cell)
+			energy_gun.cell.charge = 0
+			energy_gun.cell.update_icon(UPDATE_OVERLAYS)
+		energy_gun.newshot()
+		energy_gun.update_appearance()
+	return ..()
 
 /obj/item/spacepod_module/weapon/proc/install_gun(obj/item/gun/installed_gun)
-	if(primary.weapon == null)
+	if(isnull(primary.weapon))
 		primary.install_weapon(installed_gun)
 		return TRUE
-	if(secondary.weapon == null)
+	if(isnull(secondary.weapon))
 		secondary.install_weapon(installed_gun)
 		return TRUE
 	return FALSE
@@ -689,6 +800,29 @@
 		secondary.safety = TRUE
 		return selected_gun
 	return null
+
+
+/obj/item/spacepod_module/weapon/process_work(seconds_per_tick)
+	if(!enable)
+		return
+	if(!process_power(seconds_per_tick))
+		if(!connection_power_net)
+			error_text = "Нет подключения к электросети"
+		else
+			error_text = "Не хватает электричества для работы"
+		turn_off()
+		return
+	primary.process_charge(src)
+	secondary.process_charge(src)
+
+/obj/item/spacepod_module/weapon/course
+	module_name = "Курсовое вооружение"
+	desc = "Оружейная установка курсового огня с двумя слотами для стрелкового оружия. Позволяет пилоту вести огонь из орудий, установленных на челноке."
+	only_course_fire = TRUE
+
+/obj/item/spacepod_module/weapon/turret
+	module_name = "Турельное вооружение"
+	desc = "Турельная установка с двумя слотами для стрелкового оружия. Позволяет пилоту вести огонь из орудий, установленных на челноке."
 
 
 /datum/spacepod_weapon_slot
@@ -731,88 +865,52 @@
 	original_pixel_y = 0
 
 /datum/spacepod_weapon_slot/proc/reload(obj/spacepod/pod, mob/user)
-	if(weapon == null)
+	if(isnull(weapon))
 		return
 	if(isenergygun(weapon))
 		charging = !charging
 		return
-
-	if(isprojectilegun(weapon))
-		var/obj/item/gun/projectile/gun = weapon
-		if(gun.chambered && gun.chambered.BB == null)
-			gun.process_chamber(TRUE, TRUE)
-			pod.balloon_alert(user, "затвор передёрнут")
-			playsound(pod.loc, 'sound/weapons/gun_interactions/remove_bullet.ogg', 50, TRUE)
+	if(!isprojectilegun(weapon))
+		return
+	var/obj/item/gun/projectile/gun = weapon
+	if(gun.chambered && isnull(gun.chambered.BB))
+		gun.process_chamber(TRUE, TRUE)
+		pod.balloon_alert(user, "затвор передёрнут")
+		playsound(pod.loc, 'sound/weapons/gun_interactions/remove_bullet.ogg', 50, TRUE)
+		return
+	if(isnull(pod.cargo_hold))
+		return
+	for(var/obj/item/ammo_box/magazine/magazine in pod.cargo_hold.contents)
+		if(!istype(magazine, gun.mag_type))
+			continue
+		var/obj/item/ammo_box/magazine/gun_magazine = gun.magazine
+		gun.attackby(magazine, user)
+		var/mag_changed = (gun_magazine && gun_magazine.loc != gun)
+		if(!mag_changed || !pod.cargo_hold.can_be_inserted(gun_magazine))
 			return
-
-		for(var/obj/item/ammo_box/magazine/magazine in pod.cargo_hold.contents)
-			if(!istype(magazine, gun.mag_type))
-				continue
-			var/obj/item/ammo_box/magazine/gun_magazine = gun.magazine
-			gun.attackby(magazine, user)
-			var/mag_changed = (gun_magazine && gun_magazine.loc != gun)
-			if(!mag_changed || !pod.cargo_hold.can_be_inserted(gun_magazine))
-				return
-			pod.cargo_hold.handle_item_insertion(gun_magazine)
-			gun_magazine.update_appearance()
-			return
+		pod.cargo_hold.handle_item_insertion(gun_magazine)
+		gun_magazine.update_appearance()
+		return
 
 /datum/spacepod_weapon_slot/proc/process_charge(obj/item/spacepod_module/weapon/module)
-	if(weapon == null)
-		return
-	if(!charging)
-		return
-	if(!isenergygun(weapon))
+	if(isnull(weapon) || !charging || !isenergygun(weapon))
 		return
 	var/obj/item/gun/energy/energy_gun = weapon
-	var/list/batteries = module.systems.get_slot(SPACEPOD_MODULE_SLOT_BATTERY)
-	if(!length(batteries))
+	if(!module.systems)
 		return
-	for(var/obj/item/spacepod_module/battery/batt as anything in batteries)
-		if(batt.consume_power(recharge_rate))
-			energy_gun.cell.give(recharge_rate)
-			return
-
-/obj/item/spacepod_module/weapon/process_work(seconds_per_tick)
-	if(!enable)
-		return
-	if(!process_power(seconds_per_tick))
-		if(!connection_power_net)
-			error_text = "Нет подключения к электросети"
-		else
-			error_text = "Не хватает электричества для работы"
-		turn_off()
-		return
-	primary.process_charge(src)
-	secondary.process_charge(src)
-
-
-/obj/item/spacepod_module/weapon/course
-	id = "weapon_course"
-	module_name = "Курсовое вооружение"
-	desc = "Оружейная установка курсового огня с двумя слотами для стрелкового оружия. Позволяет пилоту вести огонь из орудий, установленных на челноке."
-	only_course_fire = TRUE
-
-/obj/item/spacepod_module/weapon/turret
-	id = "weapon_turret"
-	module_name = "Турельное вооружение"
-	desc = "Турельная установка с двумя слотами для стрелкового оружия. Позволяет пилоту вести огонь из орудий, установленных на челноке."
+	if(module.systems.consume_power(recharge_rate))
+		energy_gun.cell.give(recharge_rate)
 
 
 // MARK: Armor
 /obj/item/spacepod_module/armor
 	slot = SPACEPOD_MODULE_SLOT_ARMOR
-	id = "armor"
 	caption = "ARM"
 	module_name = "Броня челнока"
 	icon_state = "armor"
 	hit_weight = POD_MODULE_HIT_CHANCE_EXTRA_LARGE
 	max_integrity = 75
 	mass = 60
-
-/obj/item/spacepod_module/armor/New(loc, ...)
-	. = ..()
-	id = "armor_[module_id_counter++]"
 
 /obj/item/spacepod_module/armor/install_to(mob/living/user, obj/spacepod/pod)
 	var/list/armors = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_ARMOR)
@@ -821,20 +919,18 @@
 		to_chat(user, span_notice("Установлено максимальное количество модулей брони в космическом челноке!"))
 		return FALSE
 	var/armor_id = "armor_[length(armors) + 1]"
-	var/name = tgui_input_text(user, "Название бронеэлемента", "Указать название бронеэлемента", default=armor_id, max_length = MAX_NAME_LEN, encode = TRUE)
-	if(QDELETED(src) || name == null)
+	var/name = tgui_input_text(user, "Название бронеэлемента", "Указать название бронеэлемента", default = armor_id, max_length = MAX_NAME_LEN, encode = TRUE)
+	if(QDELETED(src) || isnull(name))
 		return FALSE
 	src.name = name
 	src.caption = "ARM [length(armors) + 1]"
 	return TRUE
 
 /obj/item/spacepod_module/armor/light
-	id = "armor_light"
 	module_name = "Лёгкая броня"
 	desc = "Лёгкая бронепластина для защиты корпуса челнока. Небольшой вес, но ограниченная прочность."
 
 /obj/item/spacepod_module/armor/heavy
-	id = "armor_heavy"
 	module_name = "Тяжёлая броня"
 	desc = "Усиленная бронепластина с высоким сопротивлением урону. Значительно тяжелее лёгкой, но выдерживает прямые попадания."
 	icon_state = "armor_heavy"
@@ -842,10 +938,34 @@
 	mass = 150
 
 
+// MARK: Cargo
+/obj/item/spacepod_module/cargo
+	slot = SPACEPOD_MODULE_SLOT_MISC
+	caption = "CARGO"
+	module_name = "Грузовой отсек"
+	desc = "Грузовой отсек для перевозки небольших предметов и ящиков. Позволяет загружать и выгружать груз через люк техобслуживания."
+	icon_state = "cargo_blank"
+	hit_weight = POD_MODULE_HIT_CHANCE_LARGE
+	mass = 100
+
+/obj/item/spacepod_module/cargo/install_to(mob/living/user, obj/spacepod/pod)
+	if(!isnull(pod.cargo_hold))
+		to_chat(user, span_notice("Грузовой отсек уже установлен в космическом челноке!"))
+		return FALSE
+	return TRUE
+
+/obj/item/spacepod_module/cargo/on_install(obj/spacepod/pod)
+	. = ..()
+	pod.create_cargo_hold()
+
+/obj/item/spacepod_module/cargo/on_remove(obj/spacepod/pod)
+	. = ..()
+	pod.remove_cargo_hold()
+
+
 // MARK: Life support
 /obj/item/spacepod_module/life_support
 	slot = SPACEPOD_MODULE_SLOT_MISC
-	id = "life_support"
 	caption = "AIR"
 	module_name = "Жизнеобеспечение"
 	desc = "Поддерживает пригодную для дыхания атмосферу и температуру в кабине шаттла."
@@ -853,13 +973,8 @@
 	mass = 40
 	consume_power = 50
 
-/obj/item/spacepod_module/life_support/New(loc, ...)
-	. = ..()
-	id = "life_support_[module_id_counter++]"
-
 /obj/item/spacepod_module/life_support/install_to(mob/living/user, obj/spacepod/pod)
-	var/life_supports = pod.systems.get_misc_module(/obj/item/spacepod_module/life_support)
-	if(life_supports != null)
+	if(!isnull(pod.systems.get_misc_module(/obj/item/spacepod_module/life_support)))
 		to_chat(user, span_notice("Модуль жизнеобеспечения уже установлен в космическом челноке!"))
 		return FALSE
 	return TRUE
@@ -868,8 +983,8 @@
 	if(!enable)
 		return
 	if(process_power(seconds_per_tick))
-		systems.pod.give_air()
-		systems.pod.regulate_temp()
+		systems?.pod.give_air()
+		systems?.pod.regulate_temp()
 		return
 
 	if(!connection_power_net)
@@ -882,17 +997,12 @@
 // MARK: Misc modules
 /obj/item/spacepod_module/passenger_seat
 	slot = SPACEPOD_MODULE_SLOT_MISC
-	id = "passenger_seat"
 	caption = "SEAT"
 	module_name = "Пассажирское сиденье"
 	desc = "Дополнительное место для пассажира. Позволяет взять на борт ещё одного человека, но не даёт ему управления челноком."
 	icon_state = "sec_cargo_chair"
 	hit_weight = 0
 	mass = 220
-
-/obj/item/spacepod_module/passenger_seat/New(loc, ...)
-	. = ..()
-	id = "passenger_seat_[module_id_counter++]"
 
 /obj/item/spacepod_module/passenger_seat/install_to(mob/living/user, obj/spacepod/pod)
 	var/list/engines = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_ENGINE)
@@ -902,40 +1012,34 @@
 	return TRUE
 
 /obj/item/spacepod_module/passenger_seat/on_install(obj/spacepod/pod)
-	pod.max_passengers += 1
+	. = ..()
+	pod.max_passengers++
 
 /obj/item/spacepod_module/passenger_seat/on_remove(obj/spacepod/pod)
 	. = ..()
-	pod.max_passengers -= 1
+	pod.max_passengers--
 
 /obj/item/spacepod_module/fire_extingusher
 	slot = SPACEPOD_MODULE_SLOT_MISC
-	id = "fire_extinguisher"
 	caption = "FIRE"
 	module_name = "Пожаротушение"
 	desc = "Система тушения пожара. Распыляет огнетушащий состав при обнаружении возгорания."
 	icon_state = "fire_extinguisher"
 	hit_weight = 0
-	var/charges = 3
 	mass = 180
-
-/obj/item/spacepod_module/fire_extingusher/New(loc, ...)
-	. = ..()
-	id = "fire_extingusher_[module_id_counter++]"
+	var/charges = 3
 
 /obj/item/spacepod_module/fire_extingusher/five_charges
 	charges = 5
 
 /obj/item/spacepod_module/fire_extingusher/install_to(mob/living/user, obj/spacepod/pod)
-	var/fire_extenguisher = pod.systems.get_misc_module(/obj/item/spacepod_module/fire_extingusher)
-	if(fire_extenguisher != null)
+	if(!isnull(pod.systems.get_misc_module(/obj/item/spacepod_module/fire_extingusher)))
 		to_chat(user, span_notice("Модуль пожаротушения уже установлен в космическом челноке!"))
 		return FALSE
 	return TRUE
 
 /obj/item/spacepod_module/key_lock
 	slot = SPACEPOD_MODULE_SLOT_MISC
-	id = "key_lock"
 	caption = "LOCK"
 	module_name = "Замок челнока"
 	desc = "Электронный замок, блокирующий доступ к челноку. Для посадки требуется специальный ключ изготовленный из заготовки."
@@ -944,9 +1048,31 @@
 	mass = 30
 	var/key_id
 
-/obj/item/spacepod_module/key_lock/New(loc, ...)
+/obj/item/spacepod_module/key_lock/install_to(mob/living/user, obj/spacepod/pod)
+	if(!isnull(pod.systems.get_misc_module(/obj/item/spacepod_module/key_lock)))
+		to_chat(user, span_notice("Модуль замка уже установлен в космическом челноке!"))
+		return FALSE
+	return TRUE
+
+/obj/item/spacepod_module/key_lock/on_install(obj/spacepod/pod)
 	. = ..()
-	id = "key_lock_[module_id_counter++]"
+	RegisterSignal(pod, COMSIG_ATOM_ITEM_INTERACTION, PROC_REF(on_key_used))
+
+/obj/item/spacepod_module/key_lock/on_remove(obj/spacepod/pod)
+	UnregisterSignal(pod, COMSIG_ATOM_ITEM_INTERACTION)
+	return ..()
+
+/obj/item/spacepod_module/key_lock/proc/on_key_used(datum/source, mob/living/user, obj/item/item, list/modifiers)
+	SIGNAL_HANDLER
+	if(!istype(item, /obj/item/spacepod_key))
+		return NONE
+	var/obj/item/spacepod_key/key = item
+	if(key.id != key_id)
+		balloon_alert(user, "неправильный ключ!")
+		return ITEM_INTERACT_BLOCKING
+	systems?.pod.add_fingerprint(user)
+	systems?.pod.toggle_lock(user)
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/spacepod_module/key_lock/auto_id
 	var/static/id_source = 0
@@ -954,13 +1080,6 @@
 /obj/item/spacepod_module/key_lock/auto_id/Initialize(mapload)
 	. = ..()
 	key_id = ++id_source
-
-/obj/item/spacepod_module/key_lock/install_to(mob/living/user, obj/spacepod/pod)
-	var/key_lock = pod.systems.get_misc_module(/obj/item/spacepod_module/key_lock)
-	if(key_lock != null)
-		to_chat(user, span_notice("Модуль замка уже установлен в космическом челноке!"))
-		return FALSE
-	return TRUE
 
 /obj/item/spacepod_module/key_lock/attackby(obj/item/item, mob/user, params)
 	if(istype(item, /obj/item/spacepod_key))
@@ -995,7 +1114,6 @@
 
 /obj/item/spacepod_module/catapult_module
 	slot = SPACEPOD_MODULE_SLOT_MISC
-	id = "catapult"
 	caption = "CAT"
 	module_name = "Аварийное катапультирование"
 	desc = "Система экстренной эвакуации пилота. Автоматически выбрасывает пилота в направлении, противоположном курсу челнока в случае критического повреждения корпуса."
@@ -1003,20 +1121,14 @@
 	hit_weight = POD_MODULE_HIT_CHANCE_SMALL
 	mass = 50
 
-/obj/item/spacepod_module/catapult_module/New(loc, ...)
-	. = ..()
-	id = "catapult_[module_id_counter++]"
-
 /obj/item/spacepod_module/catapult_module/install_to(mob/living/user, obj/spacepod/pod)
-	var/catapult = pod.systems.get_misc_module(/obj/item/spacepod_module/catapult_module)
-	if(catapult != null)
+	if(!isnull(pod.systems.get_misc_module(/obj/item/spacepod_module/catapult_module)))
 		to_chat(user, span_notice("Модуль катапульты уже установлен в космическом челноке!"))
 		return FALSE
 	return TRUE
 
 /obj/item/spacepod_module/tracker
 	slot = SPACEPOD_MODULE_SLOT_MISC
-	id = "tracker"
 	caption = "TR"
 	module_name = "GPS маячок"
 	desc = "Модуль маячка, позволяет находить челнок с помощью специальной консоли."
@@ -1025,18 +1137,14 @@
 	mass = 5
 	var/obj/spacepod/pod
 
-/obj/item/spacepod_module/tracker/New(loc, ...)
-	. = ..()
-	id = "tracker_[module_id_counter++]"
-
 /obj/item/spacepod_module/tracker/install_to(mob/living/user, obj/spacepod/pod)
-	var/tracker = pod.systems.get_misc_module(/obj/item/spacepod_module/tracker)
-	if(tracker != null)
+	if(!isnull(pod.systems.get_misc_module(/obj/item/spacepod_module/tracker)))
 		to_chat(user, span_notice("Модуль маячка уже установлен в космическом челноке!"))
 		return FALSE
 	return TRUE
 
 /obj/item/spacepod_module/tracker/on_install(obj/spacepod/pod)
+	. = ..()
 	src.pod = pod
 	GLOB.pod_trackers |= src
 	return TRUE

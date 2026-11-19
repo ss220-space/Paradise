@@ -57,7 +57,7 @@ GLOBAL_LIST_INIT(pod_slots, list(
 /// Distance from the pod center to each wing's firing origin, in pixels
 #define POD_WEAPON_WING_OFFSET 16
 
-/// Engine швду RPM
+/// Engine idle RPM ratio
 #define POD_ENGINE_IDLE_RPM_RATIO 0.3
 /// RPM gained per move
 #define POD_ENGINE_MOVEMENT_RPM_GAIN 0.15
@@ -70,6 +70,9 @@ GLOBAL_LIST_INIT(pod_slots, list(
 #define POD_EMP_BATTERY_DRAIN_MAX 20
 /// Base chance per module to be disabled by EMP
 #define POD_EMP_MODULE_DISABLE_CHANCE 30
+
+/// APU RPM provider is not selected
+#define POD_RPM_PROVIDER_NONE "Не передавать"
 
 
 /// List of active trackers

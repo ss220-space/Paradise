@@ -1,5 +1,3 @@
-#define NOT_SELECTED_RPM_PROVIDER "Не передавать"
-
 /datum/ui_module/spacepod_control_panels
 	name = "Панель управления космическим челноком"
 	var/obj/spacepod/pod
@@ -75,7 +73,6 @@
 
 // MARK: ui_data
 /datum/ui_module/spacepod_control_panels/ui_data(mob/user)
-	//create root data
 	var/list/data = list()
 	data["vessel"] = pod.name
 	data["electricity"] = create_electricity_panel_data()
@@ -87,192 +84,92 @@
 	data["misc"] = create_misc_panel_data()
 	return data
 
+/datum/ui_module/spacepod_control_panels/proc/get_slot_ui_data(slot_id)
+	var/list/modules_data = list()
+	for(var/obj/item/spacepod_module/module as anything in pod.systems.get_slot(slot_id))
+		modules_data += list(module.get_ui_data())
+	return modules_data
+
 /datum/ui_module/spacepod_control_panels/proc/create_electricity_panel_data()
-	var/list/panel = list()
-	panel["exists"] = FALSE
+	var/list/panel = list(
+		"exists" = FALSE,
+		"battery_id" = null,
+		"link" = FALSE,
+		"power" = 0,
+		"capacity" = 0,
+		"percent" = 0,
+	)
 	var/list/batteries = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_BATTERY)
-	for(var/obj/item/spacepod_module/battery/batt as anything in batteries)
+	if(length(batteries))
+		var/obj/item/spacepod_module/battery/battery = batteries[1]
+		var/list/battery_data = battery.get_ui_data()
 		panel["exists"] = TRUE
-		panel["battery_id"] = batt.id
-		panel["link"] = batt.connection_power_net
-		panel["power"] = round(batt.power, 1)
-		panel["capacity"] = batt.power_capacity
-		if(batt.power_capacity > 0)
-			panel["percent"] = round(batt.power / batt.power_capacity * 100, 1)
-		else
-			panel["percent"] = 0
-		break
+		panel["battery_id"] = battery_data["id"]
+		panel["link"] = battery_data["link"]
+		panel["power"] = battery_data["power"]
+		panel["capacity"] = battery_data["capacity"]
+		panel["percent"] = battery_data["percent"]
 
 	var/list/consumers = list()
-	for(var/obj/item/spacepod_module/module in pod.systems.modules)
+	for(var/obj/item/spacepod_module/module as anything in pod.systems.modules)
 		if(module.consume_power > 0)
-			var/list/consumer = list()
-			consumer["id"] = module.id
-			consumer["caption"] = module.caption
-			consumer["name"] = module.module_name
-			consumer["link"] = module.connection_power_net
-			consumers += list(consumer)
+			consumers += list(module.get_ui_data())
 	panel["consumers"] = consumers
 	return panel
 
 /datum/ui_module/spacepod_control_panels/proc/create_engines_panel_data()
 	var/list/panel = list()
 	var/list/engines = list()
-	var/list/pod_engines = list()
-	var/list/basic_engines = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_ENGINE)
-	pod_engines += basic_engines
-	pod_engines += pod.systems.get_slot(SPACEPOD_MODULE_SLOT_APU)
+	var/list/pod_engines = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_ENGINE) + pod.systems.get_slot(SPACEPOD_MODULE_SLOT_APU)
 	for(var/obj/item/spacepod_module/fuel_tank/engine/engine as anything in pod_engines)
-		var/list/engine_data= list()
-		engine_data["id"] = engine.id
-		engine_data["caption"] = engine.caption
-		engine_data["name"] = engine.module_name
-		engine_data["enable"] = engine.enable
-		engine_data["is_apu"] = engine.is_apu()
-		engine_data["rpm"] = engine.current_rpm
-		engine_data["rpm_percent"] = round(engine.current_rpm / engine.max_rpm * 100, 1)
-		engine_data["rpm_warn"] = engine_data["rpm_percent"] > 0 && (engine_data["rpm_percent"] < 25 || engine_data["rpm_percent"] > 120)
-		engine_data["fuel_pressure"] = round(engine.fuel_amount / engine.fuel_capacity * 100, 1)
-		engine_data["fuel_pressure_warn"] = engine_data["fuel_pressure"] <= 30
-		if(istype(engine, /obj/item/spacepod_module/fuel_tank/engine/apu))
-			var/obj/item/spacepod_module/fuel_tank/engine/apu/apu_engine = engine
-			engine_data["power_link"] = apu_engine.connection_power_net
-			engine_data["selected_rpm_provide_engine"] = apu_engine.rpm_destination_engine ? apu_engine.rpm_destination_engine.module_name : NOT_SELECTED_RPM_PROVIDER
-			var/rpm_destinations = list()
-			rpm_destinations += NOT_SELECTED_RPM_PROVIDER
-			for(var/obj/item/spacepod_module/fuel_tank/engine/dest_engine as anything in basic_engines)
-				if(engine == dest_engine)
-					continue
-				rpm_destinations += dest_engine.module_name
-			engine_data["rpm_provide_engines"] = rpm_destinations
-		else
-			engine_data["power_link"] = null
-			engine_data["rpm_provide_engines"] = null
-		engine_data["generator_enable"] = engine.generator_enable
-		engine_data["generated_power"] = engine.generator_enable ? round(engine.current_rpm / engine.max_rpm * engine.generate_power, 1) : 0
-		engine_data["temperature"] = 32 + rand(1, 10)
-		engine_data["temperature_warn"] = FALSE
-		engine_data["error_text"] = engine.error_text
-		engines += list(engine_data)
+		engines += list(engine.get_ui_data())
 	panel["engines"] = engines
 
-	// Gyroscope
 	panel["gyroscope"] = null
 	var/list/gyroscopes = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_GYRO)
-	for(var/obj/item/spacepod_module/gyroscope/gyro as anything in gyroscopes)
-		var/gyroscope_data = list()
-		gyroscope_data["id"] = gyro.id
-		gyroscope_data["name"] = gyro.module_name
-		gyroscope_data["power_link"] = gyro.connection_power_net
-		gyroscope_data["enable"] = gyro.enable
-		gyroscope_data["rpm"] = gyro.current_rpm
-		gyroscope_data["rpm_percent"] = round(gyro.current_rpm / gyro.max_rpm * 100, 1)
-		gyroscope_data["rpm_warn"] = gyroscope_data["rpm_percent"] < 10 || gyroscope_data["rpm_percent"] > 120
-		gyroscope_data["temperature"] = 32 + rand(1, 10)
-		gyroscope_data["temperature_warn"] = FALSE
-		gyroscope_data["error_text"] = gyro.error_text
-		panel["gyroscope"] = gyroscope_data
-
+	if(length(gyroscopes))
+		var/obj/item/spacepod_module/gyroscope/gyro = gyroscopes[1]
+		panel["gyroscope"] = gyro.get_ui_data()
 	return panel
 
 /datum/ui_module/spacepod_control_panels/proc/create_fuel_panel_data()
-	var/list/panel = list()
-	var/fuel_tanks = list()
-	var/list/pod_fuel_tanks = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_FUEL_TANK)
-	for(var/obj/item/spacepod_module/fuel_tank/fuel_tank as anything in pod_fuel_tanks)
-		var/tank_data = list()
-		tank_data["id"] = fuel_tank.id
-		tank_data["name"] = fuel_tank.module_name
-		tank_data["caption"] = fuel_tank.caption
-		tank_data["fuel_amount"] = fuel_tank.fuel_amount
-		tank_data["fuel_capacity"] = fuel_tank.fuel_capacity
-		tank_data["level_percent"] = round(fuel_tank.fuel_amount / fuel_tank.fuel_capacity * 100, 1)
-		fuel_tanks += list(tank_data)
-	panel["fuel_tanks"] = fuel_tanks
-
-	var/list/pod_fuel_pumps = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_FUEL_PUMP)
-	var/fuel_pumps = list()
-	for(var/obj/item/spacepod_module/fuel_pump/pump as anything in pod_fuel_pumps)
-		var/pump_data = list()
-		pump_data["id"] = pump.id
-		pump_data["name"] = pump.module_name
-		pump_data["caption"] = pump.caption
-		pump_data["enable"] = pump.enable
-		pump_data["power_link"] = pump.connection_power_net
-		pump_data["pump_speed"] = pump.enable ? pump.pump_speed : 0
-		pump_data["temperature"] = 32 + rand(1, 10)
-		pump_data["temperature_warn"] = FALSE
-		pump_data["error_text"] = pump.error_text
-		fuel_pumps += list(pump_data)
-	panel["fuel_pumps"] = fuel_pumps
+	var/list/panel = list(
+		"fuel_tanks" = get_slot_ui_data(SPACEPOD_MODULE_SLOT_FUEL_TANK),
+		"fuel_pumps" = get_slot_ui_data(SPACEPOD_MODULE_SLOT_FUEL_PUMP),
+	)
 	return panel
 
 /datum/ui_module/spacepod_control_panels/proc/create_weapons_panel_data()
-	var/list/panel = list()
+	var/list/panel = list(
+		"module" = null,
+		"guns" = list(),
+	)
 	var/list/weapons = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_WEAPON)
 	if(!length(weapons))
-		panel["module"] = null
-		panel["guns"] = list()
 		return panel
-
 	var/obj/item/spacepod_module/weapon/weapon = weapons[1]
-	var/module = list()
-	module["id"] = weapon.id
-	module["name"] = weapon.module_name
-	module["enable"] = weapon.enable
-	module["power_link"] = weapon.connection_power_net
-	module["error_text"] = weapon.error_text
-	panel["module"] = module
-	var/guns = list()
-	if(weapon.primary.weapon)
-		guns += list(create_weapon_data(weapon.primary, TRUE))
-	if(weapon.secondary.weapon)
-		guns += list(create_weapon_data(weapon.secondary, FALSE))
-	panel["guns"] = guns
+	var/list/weapon_data = weapon.get_ui_data()
+	panel["guns"] = weapon_data["guns"]
+	panel["module"] = weapon_data
 	return panel
-
-/datum/ui_module/spacepod_control_panels/proc/create_weapon_data(datum/spacepod_weapon_slot/gun_slot, is_primary)
-	var/data = list()
-	data["id"] = gun_slot.id
-	data["name"] = gun_slot.weapon.declent_ru(NOMINATIVE)
-	data["primary"] = is_primary
-	data["safety"] = gun_slot.safety
-	data["charging"] = gun_slot.charging
-	if(isprojectilegun(gun_slot.weapon))
-		data["type"] = 1
-		var/obj/item/gun/projectile/projectile_gun = gun_slot.weapon
-		data["ammo"] = projectile_gun.get_ammo()
-		if(projectile_gun.magazine)
-			data["capacity"] = projectile_gun.magazine.max_ammo
-		else
-			data["capacity"] = 0
-	else if(isenergygun(gun_slot.weapon))
-		data["type"] = 2
-		var/obj/item/gun/energy/energy_gun = gun_slot.weapon
-		data["ammo"] = energy_gun.get_ammo_count()
-		data["capacity"] = energy_gun.get_max_ammo_count()
-	else
-		data["type"] = 3
-		data["ammo"] = 0
-		data["capacity"] = 0
-	return data
 
 /datum/ui_module/spacepod_control_panels/proc/create_life_support_data()
 	var/list/panel = list()
 	var/obj/item/spacepod_module/life_support/life_supports = pod.systems.get_misc_module(/obj/item/spacepod_module/life_support)
-	panel["exists"] = life_supports != null
-	if(pod.internal_tank != null)
+	panel["exists"] = !isnull(life_supports)
+	if(!isnull(pod.internal_tank))
 		var/list/airtank = list()
 		airtank["name"] = pod.internal_tank.declent_ru(NOMINATIVE)
-		airtank["enable"] = life_supports != null && life_supports.enable
+		airtank["enable"] = !isnull(life_supports) && life_supports.enable
 		airtank["volume"] = pod.internal_tank.volume
 		airtank["pressure"] = pod.internal_tank.return_pressure()
 		airtank["low_pressure"] = pod.internal_tank.return_pressure() < 0.25 * pod.internal_tank.maximum_pressure
 		panel["airtank"] = airtank
 	else
 		panel["airtank"] = null
+
 	var/list/atmos = list()
-	if(life_supports != null && life_supports.enable)
+	if(!isnull(life_supports) && life_supports.enable)
 		atmos["pressure"] = pod.cabin_air.return_pressure()
 		atmos["low_pressure"] = pod.cabin_air.return_pressure() < 0.8 * ONE_ATMOSPHERE
 		var/temperature = pod.cabin_air.temperature()
@@ -291,71 +188,40 @@
 
 /datum/ui_module/spacepod_control_panels/proc/create_integrity_panel_data()
 	var/list/panel = list()
-	var/hull = list()
+	var/list/hull = list()
 	hull["name"] = "Корпус челнока"
 	hull["integrity"] = pod.obj_integrity
 	hull["max_integrity"] = pod.max_integrity
 	hull["integrity_warn"] = pod.obj_integrity < 0.25 * pod.max_integrity
 	hull["extenguish_charges"] = 0
 	var/obj/item/spacepod_module/fire_extingusher/fire_extenguisher = pod.systems.get_misc_module(/obj/item/spacepod_module/fire_extingusher)
-	if(fire_extenguisher != null)
+	if(!isnull(fire_extenguisher))
 		hull["extenguish_charges"] = fire_extenguisher.charges
 	panel["hull"] = hull
 
-	var/modules = list()
-	for(var/obj/item/spacepod_module/module in pod.systems.modules)
-		var/module_data = list()
-		module_data["id"] = module.id
-		module_data["caption"] = module.caption
-		module_data["name"] = module.module_name
-		module_data["enable"] = module.enable
-		module_data["integrity"] = module.integrity
-		module_data["max_integrity"] = module.max_integrity
-		module_data["integrity_warn"] = module.integrity < 0.5 * module.max_integrity
-		module_data["fire"] = module.fire
-		modules += list(module_data)
-	panel["modules"] = modules
+	var/list/modules_data = list()
+	for(var/obj/item/spacepod_module/module as anything in pod.systems.modules)
+		modules_data += list(module.get_ui_data())
+	panel["modules"] = modules_data
 	return panel
 
 /datum/ui_module/spacepod_control_panels/proc/create_misc_panel_data()
 	var/list/panel = list()
 	var/obj/item/spacepod_module/key_lock/key_lock = pod.systems.get_misc_module(/obj/item/spacepod_module/key_lock)
-	if(key_lock != null)
-		var/lock_data = list()
-		lock_data["locked"] = !pod.unlocked
-		panel["key_lock"] = lock_data
-	else
-		panel["key_lock"] = null
+	panel["key_lock"] = !isnull(key_lock) ? list("locked" = !pod.unlocked) : null
 
-	var/obj/item/spacepod_module/catapult_module/pod_catapult = pod.systems.get_misc_module(/obj/item/spacepod_module/catapult_module)
-	if(pod_catapult != null)
-		var/catapult = list()
-		catapult["id"] = pod_catapult.id
-		catapult["enable"] = pod_catapult.enable
-		panel["catapult"] = catapult
-	else
-		panel["catapult"] = null
+	var/obj/item/spacepod_module/catapult_module/catapult = pod.systems.get_misc_module(/obj/item/spacepod_module/catapult_module)
+	panel["catapult"] = !isnull(catapult) ? catapult.get_ui_data() : null
 
-	var/obj/item/spacepod_module/tracker/pod_tracker = pod.systems.get_misc_module(/obj/item/spacepod_module/tracker)
-	if(pod_tracker != null)
-		var/tracker_data = list()
-		tracker_data["id"] = pod_tracker.id
-		tracker_data["enable"] = pod_tracker.enable
-		panel["tracker"] = tracker_data
-	else
-		panel["tracker"] = null
+	var/obj/item/spacepod_module/tracker/tracker = pod.systems.get_misc_module(/obj/item/spacepod_module/tracker)
+	panel["tracker"] = !isnull(tracker) ? tracker.get_ui_data() : null
 	return panel
 
-
-//MARK: assets
-/datum/asset/simple/spacepod_panel
-	assets = list(
-		"eng-idle.png" = 'icons/ui_icons/spacepod_panel/engine-idle.png',
-		"eng-on.png" = 'icons/ui_icons/spacepod_panel/engine-on.png',
-		"eng-off.png" = 'icons/ui_icons/spacepod_panel/engine-off.png',
-		"eng-off-top.png" = 'icons/ui_icons/spacepod_panel/engine-off-top.png',
-		"eng-fail.png" = 'icons/ui_icons/spacepod_panel/engine-fail.png',
-	)
+/datum/ui_module/spacepod_control_panels/proc/find_module(module_uid)
+	var/obj/item/spacepod_module/module = locateUID(module_uid)
+	if(!istype(module) || module.systems != pod.systems)
+		return null
+	return module
 
 /datum/ui_module/spacepod_control_panels/ui_assets(mob/user)
 	return list(
@@ -373,85 +239,54 @@
 	playsound(pod.loc, SFX_TERMINAL_TYPE, 25, TRUE)
 	switch(action)
 		if("switch_powernet_link")
-			var/id = params["id"]
-			switch_powernet_link(id)
+			switch_powernet_link(params["id"])
 		if("switch_enable")
-			var/id = params["id"]
-			switch_enable(id)
+			switch_enable(params["id"])
 		if("ignite_engine")
-			var/id = params["id"]
-			ignite_engine(id)
+			ignite_engine(params["id"])
 		if("switch_generator_enable")
-			var/id = params["id"]
-			switch_generator_enable(id)
+			switch_generator_enable(params["id"])
 		if("select_rpm_provider")
-			var/id = params["id"]
-			var/dest_name = params["destination"]
-			select_engine_rpm_provider(id, dest_name)
+			select_engine_rpm_provider(params["id"], params["destination"])
 		if("toggle_weapon_safety")
-			var/id = params["id"]
-			toggle_weapon_safety(id)
+			toggle_weapon_safety(params["id"])
 		if("reload_weapon")
-			var/id = params["id"]
-			reload_weapon(id)
+			reload_weapon(params["id"])
 		if("switch_airtank")
 			switch_airtank()
 		if("extinguish")
-			var/id = params["id"]
-			extinguish_module(id)
+			extinguish_module(params["id"])
 		if("toggle_lock")
 			pod.toggle_lock(usr)
 		if("catapult_pilot")
 			pod.catapult_pilot(TRUE)
 		if("exit_pod")
-			// Closing the panel is handled by exit_pod() -> eject_pilot() ->
-			// ui_close(), which also restores the player HUD.
 			pod.exit_pod(usr)
 		if("map_click")
 			handle_map_click(usr, params)
 		else
 			return FALSE
 
-/// Proxies a click made on a transparent area of the control panel HUD to
-/// the game map underneath. Clicks are translated from pane pixel
-/// coordinates into world turf coordinates, honoring the current map zoom.
+/// Proxies a click made on a transparent area of the control panel HUD to the game map underneath.
 /datum/ui_module/spacepod_control_panels/proc/handle_map_click(mob/user, list/click_params)
 	var/client/user_client = user.client
 	if(!user_client)
 		return FALSE
-	var/turf/eye_turf = get_turf(user_client.eye)
-	if(!eye_turf)
+	var/list/map_size = splittext(winget(user_client, "mapwindow.map", "size"), "x")
+	if(length(map_size) < 2)
 		return FALSE
-
-	var/list/map_info = params2list(winget(user_client, "mapwindow.map", "size;view-size"))
-	var/list/map_size = splittext(map_info["size"], "x")
-	var/list/view_px = splittext(map_info["view-size"], "x")
-	if(length(map_size) < 2 || length(view_px) < 2)
-		return FALSE
-
 	var/map_width = text2num(map_size[1])
 	var/map_height = text2num(map_size[2])
-	var/view_width = text2num(view_px[1])
-	var/view_height = text2num(view_px[2])
-	if(!map_width || !map_height || !view_width || !view_height)
+	if(!map_width || !map_height)
 		return FALSE
 
-	var/list/view_tiles = getviewsize(user_client.view)
-	var/tiles_x = view_tiles[1]
-	var/tiles_y = view_tiles[2]
-	var/tile_width = view_width / tiles_x
-	var/tile_height = view_height / tiles_y
-	if(!tile_width || !tile_height)
+	var/list/loc_data = get_loc_from_mousepos(click_params["x"], click_params["y"], map_width, map_height, user_client)
+	var/turf/target = loc_data[1]
+	if(isnull(target))
 		return FALSE
-
-	// Position inside the rendered map (letterboxing is centered).
-	var/map_px = click_params["x"] - (map_width - view_width) / 2
-	var/map_py = click_params["y"] - (map_height - view_height) / 2
 
 	var/list/modifiers = list()
 	modifiers[BUTTON] = click_params["button"] || LEFT_CLICK
-	// Mark the button key itself (right -> RIGHT_CLICK and so on), the way
-	// native map clicks do.
 	modifiers[modifiers[BUTTON]] = "1"
 	if(click_params["ctrl"])
 		modifiers[CTRL_CLICK] = "1"
@@ -459,74 +294,31 @@
 		modifiers[ALT_CLICK] = "1"
 	if(click_params["shift"])
 		modifiers[SHIFT_CLICK] = "1"
+	modifiers[ICON_X] = "[loc_data[2]]"
+	modifiers[ICON_Y] = "[loc_data[3]]"
 
-	var/world_x = eye_turf.x + 0.5 - tiles_x / 2 + map_px / tile_width
-	var/world_y = eye_turf.y + 0.5 - tiles_y / 2 + (view_height - map_py) / tile_height
-	var/turf/target = locate(round(world_x), round(world_y), eye_turf.z)
-	if(!target)
-		return FALSE
-
-	// Pick the topmost visible atom on the tile, like a normal map click
-	// would (mobs and objects sit above the turf).
-	var/atom/click_target = target
-	for(var/atom/atom_on_tile as anything in target.contents)
-		if(atom_on_tile.mouse_opacity == MOUSE_OPACITY_TRANSPARENT)
-			continue
-		if(atom_on_tile.invisibility || atom_on_tile.alpha <= 0)
-			continue
-		if(atom_on_tile.layer > click_target.layer)
-			click_target = atom_on_tile
-
-	var/sx_tile = clamp(floor(map_px / tile_width) + 1, 1, tiles_x)
-	var/sx_offset = clamp(round(map_px - (sx_tile - 1) * tile_width), 0, tile_width - 1)
-	var/px_from_bottom = view_height - map_py
-	var/sy_tile = clamp(floor(px_from_bottom / tile_height) + 1, 1, tiles_y)
-	var/sy_offset = clamp(round(px_from_bottom - (sy_tile - 1) * tile_height), 0, tile_height - 1)
-	modifiers[SCREEN_LOC] = "[sx_tile]:[sx_offset],[sy_tile]:[sy_offset]"
-	modifiers[ICON_X] = "[sx_offset]"
-	modifiers[ICON_Y] = "[sy_offset]"
-	modifiers[VIS_X] = "[sx_tile]"
-	modifiers[VIS_Y] = "[sy_tile]"
-
-	user_client.Click(click_target, target, "mapwindow.map", list2params(modifiers))
+	user_client.Click(target, target, "mapwindow.map", list2params(modifiers))
 	return TRUE
 
 
-/datum/ui_module/spacepod_control_panels/proc/switch_powernet_link(id)
-	var/obj/item/spacepod_module/target_module = null
-	for(var/obj/item/spacepod_module/module in pod.systems.modules)
-		if(id == module.id)
-			target_module = module
-			break
-	if(!target_module)
+/datum/ui_module/spacepod_control_panels/proc/switch_powernet_link(module_uid)
+	var/obj/item/spacepod_module/module = find_module(module_uid)
+	if(isnull(module))
 		return
-	target_module.connection_power_net = !target_module.connection_power_net
+	module.connection_power_net = !module.connection_power_net
 
-/datum/ui_module/spacepod_control_panels/proc/switch_enable(id)
-	var/obj/item/spacepod_module/target_module = null
-	for(var/obj/item/spacepod_module/module in pod.systems.modules)
-		if(id == module.id)
-			target_module = module
-			break
-	if(!target_module || target_module.integrity <= 0)
+/datum/ui_module/spacepod_control_panels/proc/switch_enable(module_uid)
+	var/obj/item/spacepod_module/module = find_module(module_uid)
+	if(isnull(module) || module.integrity <= 0)
 		return
-	if(target_module.enable)
-		target_module.turn_off()
+	if(module.enable)
+		module.turn_off()
 	else
-		target_module.turn_on()
+		module.turn_on()
 
-/datum/ui_module/spacepod_control_panels/proc/ignite_engine(id)
-	var/apu_id = null
-	var/obj/item/spacepod_module/fuel_tank/engine/target_engine = null
-	var/list/total_engines = list()
-	total_engines += pod.systems.get_slot(SPACEPOD_MODULE_SLOT_ENGINE)
-	total_engines += pod.systems.get_slot(SPACEPOD_MODULE_SLOT_APU)
-	for(var/obj/item/spacepod_module/fuel_tank/engine/engine as anything in total_engines)
-		if(id == engine.id)
-			target_engine = engine
-		if(engine.is_apu())
-			apu_id = engine.id
-	if(!target_engine || apu_id == null)
+/datum/ui_module/spacepod_control_panels/proc/ignite_engine(module_uid)
+	var/obj/item/spacepod_module/fuel_tank/engine/target_engine = find_module(module_uid)
+	if(!istype(target_engine))
 		return
 	if(target_engine.enable)
 		target_engine.turn_off()
@@ -534,111 +326,71 @@
 	if(target_engine.is_apu())
 		target_engine.turn_on()
 		return
-	select_engine_rpm_provider_by_id(apu_id, id)
+
+	var/list/apus = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_APU)
+	if(!length(apus))
+		return
+	var/obj/item/spacepod_module/fuel_tank/engine/apu/apu = apus[1]
+	apu.select_rpm_destination_engine(target_engine)
 	addtimer(CALLBACK(src, PROC_REF(post_ignite_engine), target_engine), 3 SECONDS)
 
 /datum/ui_module/spacepod_control_panels/proc/post_ignite_engine(obj/item/spacepod_module/fuel_tank/engine/target_engine)
+	if(QDELETED(target_engine))
+		return
 	target_engine.turn_on()
 
-/datum/ui_module/spacepod_control_panels/proc/switch_generator_enable(id)
-	var/obj/item/spacepod_module/fuel_tank/engine/target_engine = null
-	var/list/total_engines = list()
-	total_engines += pod.systems.get_slot(SPACEPOD_MODULE_SLOT_ENGINE)
-	total_engines += pod.systems.get_slot(SPACEPOD_MODULE_SLOT_APU)
-	for(var/obj/item/spacepod_module/fuel_tank/engine/engine as anything in total_engines)
-		if(id == engine.id)
-			target_engine = engine
-			break
-	if(!target_engine)
+/datum/ui_module/spacepod_control_panels/proc/switch_generator_enable(module_uid)
+	var/obj/item/spacepod_module/fuel_tank/engine/target_engine = find_module(module_uid)
+	if(!istype(target_engine))
 		return
 	if(!target_engine.generator_enable)
 		target_engine.enable_power_generator()
 	else
 		target_engine.generator_enable = FALSE
 
-/datum/ui_module/spacepod_control_panels/proc/select_engine_rpm_provider(id, destination_engine_name)
-	var/obj/item/spacepod_module/fuel_tank/engine/apu/target_engine = null
-	var/obj/item/spacepod_module/fuel_tank/engine/destination_engine = null
-	var/list/apu_list = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_APU)
-	for(var/obj/item/spacepod_module/fuel_tank/engine/apu/apu as anything in apu_list)
-		if(id == apu.id)
-			target_engine = apu
-	var/list/engines = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_ENGINE)
-	for(var/obj/item/spacepod_module/fuel_tank/engine/engine as anything in engines)
-		if(destination_engine_name == engine.module_name)
-			destination_engine = engine
-	if(!target_engine)
+/datum/ui_module/spacepod_control_panels/proc/select_engine_rpm_provider(module_uid, destination_uid)
+	var/obj/item/spacepod_module/fuel_tank/engine/apu/target_engine = find_module(module_uid)
+	if(!istype(target_engine))
 		return
-	if(destination_engine_name == NOT_SELECTED_RPM_PROVIDER || destination_engine == null)
-		destination_engine = null
+	var/obj/item/spacepod_module/fuel_tank/engine/destination_engine = find_module(destination_uid)
 	target_engine.select_rpm_destination_engine(destination_engine)
 
-/datum/ui_module/spacepod_control_panels/proc/select_engine_rpm_provider_by_id(id, destination_engine_id)
-	var/obj/item/spacepod_module/fuel_tank/engine/apu/target_engine = null
-	var/obj/item/spacepod_module/fuel_tank/engine/destination_engine = null
-	var/list/apu_list = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_APU)
-	for(var/obj/item/spacepod_module/fuel_tank/engine/apu/apu as anything in apu_list)
-		if(id == apu.id)
-			target_engine = apu
-	var/list/engines = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_ENGINE)
-	for(var/obj/item/spacepod_module/fuel_tank/engine/engine as anything in engines)
-		if(destination_engine_id == engine.id)
-			destination_engine = engine
-	if(!target_engine)
-		return
-	if(destination_engine_id == null || destination_engine == null)
-		destination_engine = null
-	target_engine.select_rpm_destination_engine(destination_engine)
-
-/datum/ui_module/spacepod_control_panels/proc/toggle_weapon_safety(id)
+/datum/ui_module/spacepod_control_panels/proc/get_weapon_slot(weapon_slot_id)
 	var/list/weapons = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_WEAPON)
 	if(!length(weapons))
-		return
-	var/obj/item/spacepod_module/weapon/weapon_module = weapons[1]
-	var/datum/spacepod_weapon_slot/weapon_slot = null
-	if(weapon_module.primary.id == id)
-		weapon_slot = weapon_module.primary
-	if(weapon_module.secondary.id == id)
-		weapon_slot = weapon_module.secondary
-	if(weapon_slot == null)
+		return null
+	var/obj/item/spacepod_module/weapon/weapon = weapons[1]
+	if(weapon.primary.id == weapon_slot_id)
+		return weapon.primary
+	if(weapon.secondary.id == weapon_slot_id)
+		return weapon.secondary
+	return null
+
+/datum/ui_module/spacepod_control_panels/proc/toggle_weapon_safety(weapon_slot_id)
+	var/datum/spacepod_weapon_slot/weapon_slot = get_weapon_slot(weapon_slot_id)
+	if(isnull(weapon_slot))
 		return
 	weapon_slot.safety = !weapon_slot.safety
 
-/datum/ui_module/spacepod_control_panels/proc/reload_weapon(id)
-	var/list/weapons = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_WEAPON)
-	if(!length(weapons))
-		return
-	var/obj/item/spacepod_module/weapon/weapon_module = weapons[1]
-	var/datum/spacepod_weapon_slot/weapon_slot = null
-	if(weapon_module.primary.id == id)
-		weapon_slot = weapon_module.primary
-	if(weapon_module.secondary.id == id)
-		weapon_slot = weapon_module.secondary
-	if(weapon_slot == null)
+/datum/ui_module/spacepod_control_panels/proc/reload_weapon(weapon_slot_id)
+	var/datum/spacepod_weapon_slot/weapon_slot = get_weapon_slot(weapon_slot_id)
+	if(isnull(weapon_slot))
 		return
 	weapon_slot.reload(pod, usr)
 
 /datum/ui_module/spacepod_control_panels/proc/switch_airtank()
 	var/obj/item/spacepod_module/life_support/life_supports = pod.systems.get_misc_module(/obj/item/spacepod_module/life_support)
-	if(life_supports == null)
+	if(isnull(life_supports))
 		return
 	life_supports.enable = !life_supports.enable
 	to_chat(usr, span_notice("Подача воздуха: [life_supports.enable ? "из баллона" : "снаружи"]."))
 
-/datum/ui_module/spacepod_control_panels/proc/extinguish_module(module_id)
-	var/obj/item/spacepod_module/target_module = null
-	for(var/obj/item/spacepod_module/module in pod.systems.modules)
-		if(module_id == module.id)
-			target_module = module
-			break
-	if(!target_module)
-		return
-	if(!target_module.fire)
+/datum/ui_module/spacepod_control_panels/proc/extinguish_module(module_uid)
+	var/obj/item/spacepod_module/target_module = find_module(module_uid)
+	if(isnull(target_module) || !target_module.fire)
 		return
 	var/obj/item/spacepod_module/fire_extingusher/fire_extenguisher = pod.systems.get_misc_module(/obj/item/spacepod_module/fire_extingusher)
-	if(fire_extenguisher == null || fire_extenguisher.charges <= 0)
+	if(isnull(fire_extenguisher) || fire_extenguisher.charges <= 0)
 		return
-	fire_extenguisher.charges -= 1
+	fire_extenguisher.charges--
 	target_module.fire = FALSE
-
-#undef NOT_SELECTED_RPM_PROVIDER

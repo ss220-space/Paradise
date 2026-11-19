@@ -46,6 +46,11 @@ type EnginesPanelData = {
   gyroscope: GyroscopeData | null;
 };
 
+type RpmProviderOption = {
+  displayText: string;
+  value: string;
+};
+
 type EngineData = {
   id: string;
   caption: string;
@@ -58,7 +63,7 @@ type EngineData = {
   rpm_warn: boolean;
   fuel_pressure: number;
   fuel_pressure_warn: boolean;
-  rpm_provide_engines: string[] | null;
+  rpm_provide_engines: RpmProviderOption[] | null;
   selected_rpm_provide_engine: string | null;
   generator_enable: boolean;
   generated_power: number;
@@ -1123,7 +1128,7 @@ const EnginesSection = () => {
                         options={engine.rpm_provide_engines}
                         selected={
                           engine.selected_rpm_provide_engine ??
-                          engine.rpm_provide_engines[0]
+                          engine.rpm_provide_engines[0]?.value
                         }
                         onSelected={(value) =>
                           act('select_rpm_provider', {

@@ -14,7 +14,7 @@
 
 /obj/item/tank/jetpack/Initialize(mapload)
 	. = ..()
-	thrust_callback = CALLBACK(src, PROC_REF(allow_thrust), 0.01)
+	thrust_callback = CALLBACK(src, PROC_REF(allow_thrust), 0.1)
 	configure_jetpack(stabilize, skip_trails)
 
 /obj/item/tank/jetpack/Destroy()
