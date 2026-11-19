@@ -2213,3 +2213,4 @@ GAME_VERB_DESC(/mob/living/carbon/human, set_flavor, "Описание внеш�
 		wings.is_open = !wings.is_open
 		update_wing_layer()
 		update_body()
+
