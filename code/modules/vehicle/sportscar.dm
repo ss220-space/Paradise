@@ -41,6 +41,16 @@
 	icon = 'icons/mob/pets.dmi'
 	icon_state = "penny"
 
+/obj/vehicle/ridden/car/cat/get_ru_names()
+	return alist(
+		NOMINATIVE = "кошина",
+		GENITIVE = "кошины",
+		DATIVE = "кошине",
+		ACCUSATIVE = "кошину",
+		INSTRUMENTAL = "кошиной",
+		PREPOSITIONAL = "кошине",
+	)
+
 /obj/vehicle/ridden/car/cat/Initialize(mapload)
 	. = ..()
 	var/matrix/cat_transform = matrix(transform)
