@@ -1,3 +1,4 @@
+#define LIGHTFLOOR_BROKEN 0
 #define LIGHTFLOOR_ON 1
 #define LIGHTFLOOR_WHITE 2
 #define LIGHTFLOOR_RED 3
@@ -14,17 +15,17 @@
 #define LIGHTFLOOR_ICON_STATE 2
 #define LIGHTFLOOR_LIGHT_COLOR 3
 
-GLOBAL_LIST_INIT(lightfloor_configs, list(
-	"[LIGHTFLOOR_ON]" = list("Cyan", "light_on", LIGHT_COLOR_BLUE),
-	"[LIGHTFLOOR_WHITE]" = list("White", "light_on-w", COLOR_WHITE),
-	"[LIGHTFLOOR_RED]" = list("Red", "light_on-r", COLOR_SOFT_RED),
-	"[LIGHTFLOOR_GREEN]" = list("Green", "light_on-g", LIGHT_COLOR_ELECTRIC_GREEN),
-	"[LIGHTFLOOR_YELLOW]" = list("Yellow", "light_on-y", LIGHT_COLOR_DIM_YELLOW),
-	"[LIGHTFLOOR_BLUE]" = list("Blue", "light_on-b", LIGHT_COLOR_DARK_BLUE),
-	"[LIGHTFLOOR_PURPLE]" = list("Purple", "light_on-p", LIGHT_COLOR_PURPLE),
-	"[LIGHTFLOOR_GENERICCYCLE]" = list("Rainbow", "light_on-cycle_all", COLOR_WHITE),
-	"[LIGHTFLOOR_CYCLEA]" = list("Dancefloor A", "light_on-dancefloor_A", COLOR_RED),
-	"[LIGHTFLOOR_CYCLEB]" = list("Dancefloor B", "light_on-dancefloor_B", LIGHT_COLOR_DARK_BLUE),
+GLOBAL_ALIST_INIT(lightfloor_configs, alist(
+	LIGHTFLOOR_ON = list("Cyan", "light_on", LIGHT_COLOR_BLUE),
+	LIGHTFLOOR_WHITE = list("White", "light_on-w", COLOR_WHITE),
+	LIGHTFLOOR_RED = list("Red", "light_on-r", COLOR_SOFT_RED),
+	LIGHTFLOOR_GREEN = list("Green", "light_on-g", LIGHT_COLOR_ELECTRIC_GREEN),
+	LIGHTFLOOR_YELLOW = list("Yellow", "light_on-y", LIGHT_COLOR_DIM_YELLOW),
+	LIGHTFLOOR_BLUE = list("Blue", "light_on-b", LIGHT_COLOR_DARK_BLUE),
+	LIGHTFLOOR_PURPLE = list("Purple", "light_on-p", LIGHT_COLOR_PURPLE),
+	LIGHTFLOOR_GENERICCYCLE = list("Rainbow", "light_on-cycle_all", COLOR_WHITE),
+	LIGHTFLOOR_CYCLEA = list("Dancefloor A", "light_on-dancefloor_A", COLOR_RED),
+	LIGHTFLOOR_CYCLEB = list("Dancefloor B", "light_on-dancefloor_B", LIGHT_COLOR_DARK_BLUE),
 ))
 
 /turf/simulated/floor/light
@@ -49,10 +50,10 @@ GLOBAL_LIST_INIT(lightfloor_configs, list(
 		icon_state = "light_off"
 		return
 
-	var/list/config = GLOB.lightfloor_configs["[state]"]
+	var/list/config = GLOB.lightfloor_configs[state]
 	if(config)
 		icon_state = config[LIGHTFLOOR_ICON_STATE]
-		set_light(5, null, config[LIGHTFLOOR_LIGHT_COLOR], l_on = TRUE)
+		set_light(light_range, null, config[LIGHTFLOOR_LIGHT_COLOR], l_on = TRUE)
 	else
 		icon_state = "light_off"
 		set_light_on(FALSE)
@@ -73,7 +74,7 @@ GLOBAL_LIST_INIT(lightfloor_configs, list(
 		return .
 
 	if(istype(I, /obj/item/light/bulb)) //only for light tiles
-		if(state)
+		if(state != LIGHTFLOOR_BROKEN)
 			to_chat(user, span_notice("The light bulb seems fine, no need to replace it."))
 			return .
 		if(!user.drop_transfer_item_to_loc(I, src))
@@ -88,20 +89,20 @@ GLOBAL_LIST_INIT(lightfloor_configs, list(
 	. = TRUE
 	if(!can_modify_colour)
 		return
-	if(state == 0)
+	if(state == LIGHTFLOOR_BROKEN)
 		to_chat(user, span_warning("[src]'s light bulb appears to have burned out."))
 		return
 
 	var/list/choices = list()
-	var/list/name_to_state = list()
+	var/alist/name_to_state = alist()
 	for(var/state_key in GLOB.lightfloor_configs)
 		var/list/config = GLOB.lightfloor_configs[state_key]
 		var/mode_name = config[LIGHTFLOOR_NAME]
 		choices[mode_name] = image(icon = icon, icon_state = config[LIGHTFLOOR_ICON_STATE])
-		name_to_state[mode_name] = text2num(state_key)
+		name_to_state[mode_name] = state_key
 
-	var/choice = show_radial_menu(user, src, choices, radius = 48, require_near = TRUE, tooltips = TRUE)
-	if(!choice || !can_modify_colour || state == 0)
+	var/choice = show_radial_menu(user, src, choices, radius = 50, require_near = TRUE, tooltips = TRUE)
+	if(!choice || !can_modify_colour || state == LIGHTFLOOR_BROKEN)
 		return
 
 	var/new_state = name_to_state[choice]
@@ -152,6 +153,7 @@ GLOBAL_LIST_INIT(lightfloor_configs, list(
 	nitrogen = 0
 	temperature = TCMB
 
+#undef LIGHTFLOOR_BROKEN
 #undef LIGHTFLOOR_ON
 #undef LIGHTFLOOR_WHITE
 #undef LIGHTFLOOR_RED
