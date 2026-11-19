@@ -132,6 +132,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		possible_spawn_areas = list()
 		for(var/area/station/maintenance/area in GLOB.areas)
 			possible_spawn_areas += area
+		for(var/area/planetoid/jungle/area in GLOB.areas)
+			possible_spawn_areas += area
 		src.possible_spawn_areas = possible_spawn_areas
 
 	var/area/spawn_area = pick(possible_spawn_areas)
