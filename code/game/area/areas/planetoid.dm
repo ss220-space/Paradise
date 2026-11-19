@@ -1394,6 +1394,10 @@
 	name = "Spaceport"
 	holomap_should_draw = TRUE
 	holomap_color = HOLOMAP_AREACOLOR_HANGAR
+	always_unpowered = FALSE
+	power_environ = TRUE
+	power_equip = TRUE
+	power_light = TRUE
 
 /area/planetoid/spaceport/lz_addition_goals
 	name = "LZ Addition Goals"
@@ -1467,6 +1471,10 @@
 
 /area/planetoid/lakes/beach
 	name = "Beach"
+	always_unpowered = FALSE
+	power_environ = TRUE
+	power_equip = TRUE
+	power_light = TRUE
 
 /area/planetoid/lakes/central
 	name = "Central Of The River"
