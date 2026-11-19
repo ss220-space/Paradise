@@ -841,7 +841,7 @@
 
 /datum/emote/living/carbon/human/moth/wings/can_run_emote(mob/user, status_check = TRUE, intentional)
 	. = ..()
-	if(!..())
+	if(!.)
 		return FALSE
 	if(!ishuman(user))
 		return FALSE
