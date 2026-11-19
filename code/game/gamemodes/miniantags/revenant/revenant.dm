@@ -58,7 +58,6 @@
 		/datum/action/cooldown/spell/pointed/revenant_transmit,
 		/datum/action/cooldown/spell/revenantinvis,
 	)
-	var/base_resistance = 0.3
 	var/resistance_per_psoul = 0.05
 	var/max_resistance = 0.9
 	var/have_lamp = FALSE
@@ -142,8 +141,6 @@
 	. = STATUS_UPDATE_NONE
 	if(!revealed)
 		return .
-	if(!forced)
-		amount = amount - amount * min(base_resistance + resistance_per_psoul * perfectsouls, max_resistance)
 	if(reflection)
 		var/amount_to_reflect = reflection.reflectpercent*amount
 		amount -= amount_to_reflect
