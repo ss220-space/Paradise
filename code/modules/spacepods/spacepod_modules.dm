@@ -944,7 +944,6 @@
 	caption = "CARGO"
 	module_name = "Грузовой отсек"
 	desc = "Грузовой отсек для перевозки небольших предметов и ящиков. Позволяет загружать и выгружать груз через люк техобслуживания."
-	icon_state = "cargo_blank"
 	hit_weight = POD_MODULE_HIT_CHANCE_LARGE
 	mass = 100
 
