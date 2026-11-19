@@ -36624,7 +36624,7 @@
 "qTo" = (
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/airlock/gold/glass/centcom_no_emag{
-	id_tag = "CC-OP4-Ext";
+	id_tag = "CC-OP4-Ext"
 },
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
