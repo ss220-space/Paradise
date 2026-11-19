@@ -52,15 +52,15 @@
 	obj_flags = parent_type::obj_flags|EMAGGED
 	contraband = list()
 	products = list(
-		/obj/item/reagent_containers/cup/bottle/nutrient/ez=20,
-		/obj/item/reagent_containers/cup/bottle/nutrient/l4z=13,
-		/obj/item/reagent_containers/cup/bottle/nutrient/rh=6,
-		/obj/item/reagent_containers/spray/pestspray=20,
-		/obj/item/reagent_containers/syringe=5,
-		/obj/item/storage/bag/plants=5,
-		/obj/item/cultivator=3,
-		/obj/item/shovel/spade=3,
-		/obj/item/plant_analyzer=4,
-		/obj/item/reagent_containers/cup/bottle/ammonia=10,
-		/obj/item/reagent_containers/cup/bottle/diethylamine=5
-		)
+		/obj/item/reagent_containers/cup/bottle/nutrient/ez = 20,
+		/obj/item/reagent_containers/cup/bottle/nutrient/l4z = 13,
+		/obj/item/reagent_containers/cup/bottle/nutrient/rh = 6,
+		/obj/item/reagent_containers/spray/pestspray = 20,
+		/obj/item/reagent_containers/syringe = 5,
+		/obj/item/storage/bag/plants = 5,
+		/obj/item/cultivator = 3,
+		/obj/item/shovel/spade = 3,
+		/obj/item/plant_analyzer = 4,
+		/obj/item/reagent_containers/cup/bottle/ammonia = 10,
+		/obj/item/reagent_containers/cup/bottle/diethylamine = 5,
+	)

@@ -1186,7 +1186,7 @@ GAME_VERB(/mob/living/silicon/robot, cmd_robot_alerts, "Список трево�
 			to_chat(user, span_warning("Криптографический секвенсор искрится, но вы не видите результатов. Кажется, это просто пустая и бесполезная оболочка."))
 		else
 			evacuate_ai(DANGER_LVL_INSTA_DEATH)
-			balloon_alert(user, "ИИ удален")
+			balloon_alert(user, "отформатировано!")
 			death()
 		return TRUE
 	var/mob/living/living_user = user

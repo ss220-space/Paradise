@@ -881,8 +881,6 @@
 
 /obj/item/borg/upgrade/mounted_seat/pre_emaged
 	name = "VERY STRANGE robotic mounted seat module"
-
-/obj/item/borg/upgrade/mounted_seat/pre_emaged
 	obj_flags = parent_type::obj_flags|EMAGGED
 
 /obj/item/borg/upgrade/ai
