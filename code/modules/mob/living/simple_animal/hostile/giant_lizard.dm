@@ -49,6 +49,7 @@
 	can_be_on_fire = TRUE
 	move_to_delay = LIZARD_SPEED_NORMAL
 	speed = LIZARD_SPEED_NORMAL_CLIENT
+	footstep_type = FOOTSTEP_MOB_CLAW
 	nightvision = 12
 
 	speak_emote = list("шипит")
@@ -329,8 +330,9 @@
 		MoveToTarget()
 
 	if(resting && stat != DEAD)
-		health += maxHealth * 0.05
-		update_wounds()
+		if(getBruteLoss() > 0)
+			heal_damage_type(min(maxHealth * 0.02, getBruteLoss()), BRUTE)
+			update_wounds()
 
 	if(stat != DEAD && !HAS_TRAIT(src, TRAIT_INCAPACITATED) && !HAS_TRAIT(src, TRAIT_FLOORED) && prob(25))
 		flick("Giant Lizard Tongue", tongue_icon_holder)
@@ -369,7 +371,6 @@
 		lose_target()
 		stance = LIZARD_STANCE_IDLE
 		if(COOLDOWN_FINISHED(src, emote_cooldown))
-			custom_emote(message = "успокаивается.")
 			COOLDOWN_START(src, calm_cooldown, 4 SECONDS)
 			COOLDOWN_START(src, emote_cooldown, 3 SECONDS)
 
@@ -754,7 +755,7 @@
 
 // MARK: Food and taming
 /mob/living/simple_animal/hostile/giant_lizard/proc/handle_food(obj/item/reagent_containers/food/snacks/food)
-	visible_message("[src] начинает грызть [food.declent_ru(ACCUSATIVE)].")
+	visible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает грызть [food.declent_ru(ACCUSATIVE)].")
 	is_eating = TRUE
 	for(var/times_to_eat = rand(4, 6), times_to_eat--)
 		sleep(rand(1, 3) SECONDS)
@@ -768,7 +769,7 @@
 		if(faction_check_mob(nearest_mob) || nearest_mob.stat != CONSCIOUS)
 			continue
 		face_atom(nearest_mob)
-		visible_message("[src] смотрит на [nearest_mob.declent_ru(ACCUSATIVE)].")
+		visible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] смотрит на [nearest_mob.declent_ru(ACCUSATIVE)].")
 		if(tame)
 			break
 		if(prob(tame_chance))
