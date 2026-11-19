@@ -79,7 +79,7 @@
 	var/turf/epicenter = get_turf(src)
 	if(!epicenter)
 		return
-	explosion(epicenter, devastation_range = 0, heavy_impact_range = 1, light_impact_range = 3, flash_range = 4, cause = src)
+	explosion(epicenter, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 4, flash_range = 4, cause = src)
 	flame_radius(fire_radius, epicenter, flame_level, burn_level, FLAMESHAPE_DEFAULT, null, FIRE_VARIANT_DEFAULT)
 	playsound(epicenter, 'sound/weapons/gun_flamethrower2.ogg', 50, TRUE, 4)
 
