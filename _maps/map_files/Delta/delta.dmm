@@ -88544,7 +88544,6 @@
 	},
 /obj/item/clipboard,
 /obj/item/mining_voucher,
-/obj/item/gun/projectile/revolver/rocketlauncher/shmel,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},

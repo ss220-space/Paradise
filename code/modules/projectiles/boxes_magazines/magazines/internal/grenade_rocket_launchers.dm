@@ -19,7 +19,7 @@
 
 // MARK: RPO-A Shmel
 /obj/item/ammo_box/magazine/internal/shmel
-	name = "RPO-A Shmel launching tube"
+	name = "RGO-93 \"Spark\" launching tube"
 	ammo_type = /obj/item/ammo_casing/caseless/rocket/shmel
 	caliber = CALIBER_93MM
 	max_ammo = 1
