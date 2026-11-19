@@ -220,7 +220,8 @@
 
 /obj/item/spacepod_module/fuel_tank/on_remove(obj/spacepod/pod)
 	. = ..()
-	for(var/obj/item/spacepod_module/fuel_pump/pump as anything in pod.systems.get_slot(SPACEPOD_MODULE_SLOT_FUEL_PUMP))
+	var/list/slots = pod.systems.get_slot(SPACEPOD_MODULE_SLOT_FUEL_PUMP)
+	for(var/obj/item/spacepod_module/fuel_pump/pump as anything in slots)
 		if(pump.source_tank == src)
 			pump.source_tank = null
 		if(pump.destination_tank == src)
@@ -602,7 +603,8 @@
 	var/list/providers = list(list("displayText" = POD_RPM_PROVIDER_NONE, "value" = ""))
 	.["selected_rpm_provide_engine"] = ""
 	if(systems)
-		for(var/obj/item/spacepod_module/fuel_tank/engine/engine as anything in systems.get_slot(SPACEPOD_MODULE_SLOT_ENGINE))
+		var/list/slots = systems.get_slot(SPACEPOD_MODULE_SLOT_ENGINE)
+		for(var/obj/item/spacepod_module/fuel_tank/engine/engine as anything in slots)
 			providers += list(list("displayText" = engine.module_name, "value" = engine.UID()))
 			if(engine == rpm_destination_engine)
 				.["selected_rpm_provide_engine"] = engine.UID()

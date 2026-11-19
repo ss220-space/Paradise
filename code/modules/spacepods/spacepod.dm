@@ -471,7 +471,7 @@
 	return TRUE
 
 /obj/spacepod/mouse_drop_receive(mob/living/dropping, mob/living/user, params)
-	if(user in passengers || !isliving(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if((user in passengers) || !isliving(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(!isliving(dropping))
