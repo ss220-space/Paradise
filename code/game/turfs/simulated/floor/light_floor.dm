@@ -36,9 +36,19 @@ GLOBAL_ALIST_INIT(lightfloor_configs, alist(
 	var/on = TRUE
 	var/state = LIGHTFLOOR_ON
 	var/can_modify_colour = TRUE
+	var/static/list/choices
+	var/static/alist/name_to_state
 
 /turf/simulated/floor/light/Initialize(mapload)
 	. = ..()
+	if(!LAZYLEN(choices))
+		choices = list()
+		name_to_state = alist()
+		for(var/state_key in GLOB.lightfloor_configs)
+			var/list/config = GLOB.lightfloor_configs[state_key]
+			var/mode_name = config[LIGHTFLOOR_NAME]
+			choices[mode_name] = image(icon = icon, icon_state = config[LIGHTFLOOR_ICON_STATE])
+			name_to_state[mode_name] = state_key
 	update_icon()
 
 /turf/simulated/floor/light/broken_states()
@@ -73,7 +83,7 @@ GLOBAL_ALIST_INIT(lightfloor_configs, alist(
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .
 
-	if(istype(I, /obj/item/light/bulb)) //only for light tiles
+	if(istype(I, /obj/item/light/bulb))
 		if(state != LIGHTFLOOR_BROKEN)
 			to_chat(user, span_notice("The light bulb seems fine, no need to replace it."))
 			return .
@@ -93,14 +103,6 @@ GLOBAL_ALIST_INIT(lightfloor_configs, alist(
 		to_chat(user, span_warning("[src]'s light bulb appears to have burned out."))
 		return
 
-	var/list/choices = list()
-	var/alist/name_to_state = alist()
-	for(var/state_key in GLOB.lightfloor_configs)
-		var/list/config = GLOB.lightfloor_configs[state_key]
-		var/mode_name = config[LIGHTFLOOR_NAME]
-		choices[mode_name] = image(icon = icon, icon_state = config[LIGHTFLOOR_ICON_STATE])
-		name_to_state[mode_name] = state_key
-
 	var/choice = show_radial_menu(user, src, choices, radius = 50, require_near = TRUE, tooltips = TRUE)
 	if(!choice || !can_modify_colour || state == LIGHTFLOOR_BROKEN)
 		return
@@ -117,8 +119,6 @@ GLOBAL_ALIST_INIT(lightfloor_configs, alist(
 	update_icon()
 
 /turf/simulated/floor/light/proc/toggle_light(light)
-	// 0 = OFF
-	// 1 = ON
 	on = light
 	update_icon()
 
@@ -127,13 +127,10 @@ GLOBAL_ALIST_INIT(lightfloor_configs, alist(
 		toggle_light(FALSE)
 		visible_message(span_danger("[src] flickers and falls dark."))
 
-//Cycles through all of the colours
 /turf/simulated/floor/light/colour_cycle
 	state = LIGHTFLOOR_GENERICCYCLE
 	can_modify_colour = FALSE
 
-//Two different "dancefloor" types so that you can have a checkered pattern
-// (also has a longer delay than colour_cycle between cycling colours)
 /turf/simulated/floor/light/colour_cycle/dancefloor_a
 	name = "dancefloor"
 	desc = "Funky floor."
