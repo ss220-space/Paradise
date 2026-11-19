@@ -340,8 +340,7 @@
 			if("5")
 				screenstate = 5
 			if("6")
-				if(!COOLDOWN_FINISHED(src, bibledelay))
-
+				if(COOLDOWN_FINISHED(src, bibledelay))
 					var/obj/item/storage/bible/B = new /obj/item/storage/bible/copy(src.loc)
 					if(SSticker && ( SSticker.Bible_icon_state && SSticker.Bible_item_state))
 						B.icon_state = SSticker.Bible_icon_state
@@ -349,8 +348,9 @@
 						B.name = SSticker.Bible_name
 						B.deity_name = SSticker.Bible_deity_name
 					COOLDOWN_START(src, bibledelay, BIBLE_COOLDOWN)
-				else
-					visible_message("<b>[src]</b>'s monitor flashes, \"Bible printer currently unavailable, please wait a moment.\"")
+					return
+
+				visible_message("<b>[src]</b>'s monitor flashes, \"Bible printer currently unavailable, please wait a moment.\"")
 
 			if("7")
 				screenstate = 7

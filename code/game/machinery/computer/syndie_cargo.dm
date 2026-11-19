@@ -564,7 +564,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 			if(!istype(SP))
 				return
 
-			var/reason = tgui_input_text(ui.user, "Reason", "Why do you require this item?", encode = FALSE, timeout = 60 SECONDS)
+			var/reason = tgui_input_text(ui.user, "Reason", "Why do you require this item?", timeout = 60 SECONDS)
 			if(!reason || (!is_public && !is_authorized(usr)) || ..())
 				// Cancel if they take too long, they dont give a reason, they aint authed, or if they walked away
 				return

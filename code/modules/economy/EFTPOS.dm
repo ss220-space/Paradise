@@ -212,7 +212,7 @@
 				to_chat(user, "[get_examine_icon(usr)][span_notice(" Feature not available on this device.")]")
 				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, TRUE)
 				return
-			var/purpose = tgui_input_text(user, "Enter reason for EFTPOS transaction", "Transaction purpose", transaction_purpose, encode = FALSE)
+			var/purpose = tgui_input_text(user, "Enter reason for EFTPOS transaction", "Transaction purpose", transaction_purpose)
 			if(!Adjacent(user) || isnull(purpose))
 				return
 			transaction_purpose = purpose
