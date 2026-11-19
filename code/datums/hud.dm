@@ -44,6 +44,7 @@ GLOBAL_ALIST_INIT(huds, alist(
 	DATA_HUD_KIDAN_PHEROMONES = new/datum/atom_hud/kidan_pheromones(),
 	PACIFISM_HUD = new/datum/atom_hud/pacifism(),
 	DIABLERIE_AURA_HUD = new /datum/atom_hud/diablerie_aura(),
+	MINE_HUD = new /datum/atom_hud/mines(),
 ))
 
 /datum/atom_hud

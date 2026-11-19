@@ -77,6 +77,7 @@
 	explosion(loc, devastation_range = range_devastation, heavy_impact_range = range_heavy, light_impact_range = range_light, flash_range = range_flash)
 
 /obj/effect/mine/explosive/lavaland
+	icon_state = "landmine"
 	level = 1
 	invisibility = INVISIBILITY_ANOMALY
 	destroy_on_ex = FALSE
@@ -87,9 +88,25 @@
 		/mob/living/simple_animal/hostile/asteroid = 30,
 		/mob/living/simple_animal/hostile/asteroid/goliath = 120,
 	)
+	hud_possible = list(MINE_HUD)
 
 /obj/effect/mine/explosive/lavaland/ComponentInitialize()
 	AddComponent(/datum/component/pellet_cloud, projectile_type = /obj/projectile/shrapnel/mine, magnitude = 1)
+	return ..()
+
+/obj/effect/mine/explosive/lavaland/Initialize(mapload)
+	prepare_huds()
+	var/datum/atom_hud/mines/aura_hud = GLOB.huds[MINE_HUD]
+	aura_hud.add_atom_to_hud(src)
+	set_hud_image_state(MINE_HUD, "hudlandmine")
+	set_hud_image_active(MINE_HUD)
+	return ..()
+
+/obj/effect/mine/explosive/lavaland/Destroy(force)
+	var/datum/atom_hud/mines/aura_hud = GLOB.huds[MINE_HUD]
+	aura_hud.remove_atom_from_hud(src)
+	set_hud_image_state(MINE_HUD, "")
+	set_hud_image_inactive(MINE_HUD)
 	return ..()
 
 /obj/effect/mine/stun

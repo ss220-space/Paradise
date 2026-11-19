@@ -51,6 +51,7 @@
 	)
 	head = /obj/item/clothing/head/cowboyhat/tan
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/meson
+	cybernetic_implants = list(/obj/item/organ/internal/cyberimp/eyes/hud/mine)
 
 /datum/job/supply
 	abstract_type = /datum/job/supply
@@ -94,6 +95,7 @@
 	id = /obj/item/card/id/supply
 	pda = /obj/item/pda/cargo
 	backpack = /obj/item/storage/backpack/cargo
+	cybernetic_implants = list(/obj/item/organ/internal/cyberimp/eyes/hud/mine)
 
 /datum/job/supply/mining
 	title = JOB_TITLE_MINER
@@ -144,6 +146,7 @@
 	satchel = /obj/item/storage/backpack/satchel_explorer
 	box = /obj/item/storage/box/survival/survival_mining
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/meson
+	cybernetic_implants = list(/obj/item/organ/internal/cyberimp/eyes/hud/mine)
 
 /datum/outfit/job/mining/equipped
 	toggle_helmet = TRUE
@@ -206,10 +209,10 @@
 	l_hand = /obj/item/storage/firstaid/doctor/mining_medic
 	id = /obj/item/card/id/mining_medic
 	pda = /obj/item/pda/cargo
-
 	backpack_contents = list(
 		/obj/item/flashlight/lantern = 1,
 		/obj/item/radio/weather_monitor = 1,
 		/obj/item/wormhole_jaunter = 1,
 	)
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/medical
+	cybernetic_implants = list(/obj/item/organ/internal/cyberimp/eyes/hud/mine)

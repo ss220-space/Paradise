@@ -75,6 +75,9 @@
 /datum/atom_hud/diablerie_aura
 	hud_icons = list(DIABLERIE_AURA_HUD)
 
+/datum/atom_hud/mines
+	hud_icons = list(MINE_HUD)
+
 /* MED/SEC/DIAG HUD HOOKS */
 
 /*
