@@ -1,5 +1,6 @@
 /datum/event/dust
 	var/qnty = 1
+	blocked_on_planetary = TRUE
 
 /datum/event/dust/setup()
 	qnty = rand(1, 5)
