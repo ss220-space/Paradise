@@ -52,7 +52,7 @@ GLOBAL_ALIST_INIT(lightfloor_configs, alist(
 	update_icon()
 
 /turf/simulated/floor/light/broken_states()
-	return list("light_broken")//
+	return list("light_broken")
 
 /turf/simulated/floor/light/update_icon_state()
 	if(!on)
@@ -115,7 +115,6 @@ GLOBAL_ALIST_INIT(lightfloor_configs, alist(
 		return
 
 	state = new_state
-	to_chat(user, span_notice("You change [src]'s light bulb color to [lowertext(choice)]."))
 	update_icon()
 
 /turf/simulated/floor/light/proc/toggle_light(light)
