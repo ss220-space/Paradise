@@ -52,7 +52,7 @@ GLOBAL_ALIST_INIT(lightfloor_configs, alist(
 	update_icon()
 
 /turf/simulated/floor/light/broken_states()
-	return list("light_broken")
+	return list("light_broken")//
 
 /turf/simulated/floor/light/update_icon_state()
 	if(!on)
