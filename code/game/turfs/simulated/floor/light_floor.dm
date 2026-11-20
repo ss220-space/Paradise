@@ -85,14 +85,14 @@ GLOBAL_ALIST_INIT(lightfloor_configs, alist(
 
 	if(istype(I, /obj/item/light/bulb))
 		if(state != LIGHTFLOOR_BROKEN)
-			to_chat(user, span_notice("The light bulb seems fine, no need to replace it."))
+			to_chat(user, span_notice("Лампочка выглядит исправной, менять её не нужно."))
 			return .
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return .
 		qdel(I)
 		state = LIGHTFLOOR_ON
 		update_icon()
-		to_chat(user, span_notice("You replace the light bulb."))
+		to_chat(user, span_notice("Вы заменили лампочку."))
 		return . | ATTACK_CHAIN_BLOCKED_ALL
 
 /turf/simulated/floor/light/multitool_act(mob/user, obj/item/I)
@@ -100,7 +100,7 @@ GLOBAL_ALIST_INIT(lightfloor_configs, alist(
 	if(!can_modify_colour)
 		return
 	if(state == LIGHTFLOOR_BROKEN)
-		to_chat(user, span_warning("[src]'s light bulb appears to have burned out."))
+		to_chat(user, span_warning("Похоже, лампочка перегорела."))
 		return
 
 	var/choice = show_radial_menu(user, src, choices, radius = 50, require_near = TRUE, tooltips = TRUE)
