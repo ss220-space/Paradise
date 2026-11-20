@@ -14,6 +14,7 @@
 	var/icon_reveal = "revenant_revealed"
 	var/icon_stun = "revenant_stun"
 	var/icon_drain = "revenant_draining"
+	faction = list("Revenant")
 	incorporeal_move = INCORPOREAL_REVENANT
 	see_invisible = INVISIBILITY_REVENANT
 	invisibility = INVISIBILITY_REVENANT
@@ -32,7 +33,7 @@
 	density = FALSE
 	move_resist = INFINITY
 	mob_size = MOB_SIZE_TINY
-	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB | PASSGLASS | PASSMACHINE | PASSSTRUCTURE | PASSFENCE
+	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB | PASSGLASS | PASSSTRUCTURE | PASSFENCE
 	pass_flags_self = PASSMOB | PASSPROJECTILE | PASSGLASS
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	hud_type = /datum/hud/revenant

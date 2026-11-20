@@ -54,19 +54,22 @@
 		return
 
 	draining = TRUE
-	essence_drained = rand(15, 20)
+	essence_drained = rand(20, 25)
 	to_chat(src, span_revennotice("Вы ищете душу [target]."))
 
 	if(do_after(src, 1 SECONDS, target, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM)) //did they get deleted in that second?
 		if(target.ckey)
 			to_chat(src, span_revennotice("Их душа пылает интеллектом."))
-			essence_drained += rand(20, 30)
+			essence_drained += rand(25, 35)
 
 		if(target.stat != DEAD)
 			to_chat(src, span_revennotice("Их душа полыхает жизнью!"))
-			essence_drained += rand(40, 50)
+			essence_drained += rand(45, 55)
 		else
 			to_chat(src, span_revennotice("Их душа слаба и колеблется."))
+		if(target.has_status_effect(/datum/status_effect/cursed_flame))
+			to_chat(src, span_revennotice("Призрачное пламя с их души позволяет вам получить больше эссенции!"))
+			essence_drained += rand(20, 25)
 
 		if(do_after(src, 2 SECONDS, target, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM)) //did they get deleted NOW?
 			switch(essence_drained)
@@ -221,10 +224,10 @@
 
 /datum/action/cooldown/spell/aoe/revenant/New(Target, original)
 	. = ..()
-	name = "[get_spell_title()][initial(name)]"
+	name = "[get_spell_title()][initial(name)]([cast_amount])"
 
 /datum/action/cooldown/spell/aoe/revenant/create_new_handler()
-	var/datum/spell_handler/revenant/handler = new(cast_amount)
+	var/datum/spell_handler/revenant/handler = new(src, cast_amount)
 	return handler
 
 /datum/action/cooldown/spell/aoe/revenant/level_spell(bypass_cap)
@@ -625,7 +628,7 @@
 
 /datum/action/cooldown/spell/aoe/revenant/soul_lamp/cast(atom/cast_on)
 	. = ..()
-	spawned_lamps += new /obj/structure/revenant_lamp(owner.loc, src)
+	spawned_lamps += new /obj/structure/revenant_lamp(owner.loc, owner, src)
 
 /datum/action/cooldown/spell/aoe/revenant/soul_lamp/level_spell(bypass_cap)
 	. = ..()
@@ -700,10 +703,10 @@
 
 /datum/action/cooldown/spell/pointed/revenant/New(Target, original)
 	. = ..()
-	name = "[get_spell_title()][initial(name)]"
+	name = "[get_spell_title()][initial(name)]([cast_amount])"
 
 /datum/action/cooldown/spell/pointed/revenant/create_new_handler()
-	var/datum/spell_handler/revenant/handler = new(cast_amount)
+	var/datum/spell_handler/revenant/handler = new(src, cast_amount)
 	return handler
 
 /datum/action/cooldown/spell/pointed/revenant/level_spell(bypass_cap)

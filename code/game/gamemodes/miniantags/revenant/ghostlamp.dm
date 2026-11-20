@@ -12,6 +12,7 @@
 	var/wisp_max = 5
 	var/wisp_per_creation = 1
 	var/current_wisps = 0
+	var/list/wisps = list()
 	var/max_wisp_per_level = 5
 	var/stamina_damage_min = 2
 	var/slowdown = 0.1
@@ -22,10 +23,23 @@
 	var/wisp_creation_time = 60 SECONDS
 	var/light_increase = 5
 	var/integrity_increase = 150
+	var/flame_cd = 20 SECONDS
 	COOLDOWN_DECLARE(wisp_creation)
+	COOLDOWN_DECLARE(flame_cooldown)
+
+/obj/structure/revenant_lamp/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
+	. = ..()
+	if(!COOLDOWN_FINISHED(src, flame_cooldown))
+		return
+	revenant_fire_ring(src.loc, 3)
+	for(var/mob/living/carbon/human/target in range(3))
+		target.apply_damage(10, BURN)
+		target.apply_status_effect(/datum/status_effect/cursed_flame, 5 SECONDS, revenant_owner)
+		COOLDOWN_START(src, flame_cooldown, flame_cd)
 
 /obj/structure/revenant_lamp/Destroy(force)
 	. = ..()
+	QDEL_LIST(wisps)
 	revenant_owner = null
 	spell = null
 
@@ -41,11 +55,12 @@
 
 /obj/structure/revenant_lamp/Click(location, control, params)
 	. = ..()
-	if(isobserver(usr) && current_wisps > 0)
-		current_wisps--
-		var/mob/living/simple_animal/hostile/wisp/wisp = new(loc)
-		wisp.possess_by_player(usr.key)
-		update_orbiting()
+	if(!isobserver(usr) || !length(wisps))
+		return
+	var/mob/living/simple_animal/hostile/wisp/wisp = pick(wisps)
+	wisp.Click(location, control, params)
+	current_wisps--
+	LAZYREMOVE(wisps, wisp)
 
 /obj/structure/revenant_lamp/CanAllowThrough(atom/movable/mover, border_dir)
 	return ..() || istype(mover, /mob/living/simple_animal/revenant)
@@ -54,6 +69,7 @@
 	. = ..()
 	START_PROCESSING(SSprocessing, src)
 	spell = lamp_spell
+	revenant_owner = owner
 
 /obj/structure/revenant_lamp/process(seconds_per_tick)
 	for(var/mob/living/carbon/human/target in view(light_range, src))
@@ -73,17 +89,11 @@
 /obj/structure/revenant_lamp/proc/create_wisps()
 	var/slots_avaible = wisp_max-current_wisps
 	var/addwisps = min(rand(wisp_per_creation, wisp_per_creation+1), slots_avaible)
+	for(var/i in 1 to addwisps)
+		var/mob/living/simple_animal/hostile/wisp/wisp = new(src)
+		LAZYADD(wisps, wisp)
+		INVOKE_ASYNC(wisp, TYPE_PROC_REF(/atom/movable, orbit), src, rand(30, 40), rand(0, 1))
 	current_wisps += addwisps
-	update_orbiting()
-
-/obj/structure/revenant_lamp/proc/update_orbiting()
-	for(var/obj/effect/wisp/wisp in orbiters)
-		LAZYREMOVE(orbiters, wisp)
-		qdel(wisp)
-	for(var/i in 1 to current_wisps)
-		var/obj/effect/wisp/wisp = new(src)
-		wisp.light_range = 0
-		wisp.orbit(src, radius = 30)
 
 /obj/structure/revenant_lamp/proc/update_level()
 	var/remove_integrity = max_integrity - obj_integrity
@@ -92,6 +102,7 @@
 	light_range += light_increase
 	wisp_max += max_wisp_per_level
 	stamina_damage_min++
+	flame_cd -= flame_cd/2
 	update_light()
 
 /obj/structure/revenant_lamp/proc/count_bodies()
@@ -106,12 +117,20 @@
 	desc = "Маленький огонёк призрачного пламени. Милый, но опасный."
 	icon = 'icons/effects/revenant.dmi'
 	icon_state = "wisp"
+	faction = list("Revenant")
 	speed = 0
 	maxHealth = 30
 	health = 30
 	melee_damage_lower = 5
 	melee_damage_upper = 10
 	melee_damage_type = BURN
+	del_on_death = TRUE
+
+/mob/living/simple_animal/hostile/wisp/Click(location, control, params)
+	. = ..()
+	if(!isobserver(usr))
+		return
+	possess_by_player(usr.key)
 
 /mob/living/simple_animal/hostile/wisp/get_ru_names()
 	return alist(
