@@ -49,7 +49,7 @@ GLOBAL_ALIST_INIT(lightfloor_configs, alist(
 			var/mode_name = config[LIGHTFLOOR_NAME]
 			choices[mode_name] = image(icon = icon, icon_state = config[LIGHTFLOOR_ICON_STATE])
 			name_to_state[mode_name] = state_key
-	update_icon()
+	update_icon()//
 
 /turf/simulated/floor/light/broken_states()
 	return list("light_broken")
