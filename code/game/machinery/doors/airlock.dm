@@ -1483,10 +1483,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 /obj/machinery/door/airlock/after_cmag_act()
 	if(QDELETED(src))
 		return
-	if(!open())
-		update_icon(AIRLOCK_CLOSED, TRUE)
 	operating = NONE
-	update_icon(AIRLOCK_CLOSED, TRUE)
+	INVOKE_ASYNC(src, PROC_REF(open))
 
 /obj/machinery/door/airlock/emp_act(severity)
 	. = ..()
