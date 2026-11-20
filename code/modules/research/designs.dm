@@ -65,6 +65,11 @@ other types of metals and chemistry for reagents).
 	/// Description of the object that gets created.
 	var/build_object_desc
 
+/// Protolathe designs with tech requirements are no longer unlocked by raising tech levels.
+/// They have to be reverse engineered in the reverse engineering console and loaded from a design disk.
+/datum/design/proc/requires_analysis()
+	return (build_type & PROTOLATHE) && islist(req_tech) && length(req_tech)
+
 /datum/design/New()
 	. = ..()
 
