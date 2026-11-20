@@ -250,4 +250,3 @@
 	src.title = title
 	src.recipes = recipes
 
-
