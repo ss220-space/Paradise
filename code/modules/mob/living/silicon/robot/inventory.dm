@@ -25,6 +25,11 @@
 	if(!O)
 		return 0
 
+
+	if(module_active == O && istype(O, /obj/item/gripper/construction))
+		var/obj/item/gripper/construction/gripper = O
+		gripper.selection_revision++
+
 	O.dropped(src)
 	O.mouse_opacity = MOUSE_OPACITY_OPAQUE
 
@@ -230,6 +235,10 @@
 /mob/living/silicon/robot/proc/deselect_module(module) //Module is 1-3
 	if(module < 1 || module > 3)
 		return
+
+	if(module_selected(module) && istype(module_active, /obj/item/gripper/construction))
+		var/obj/item/gripper/construction/gripper = module_active
+		gripper.selection_revision++
 
 	if(iscyborgmobilitymodule(module_active))
 		remove_movespeed_modifier(/datum/movespeed_modifier/destroyer_mobility)
