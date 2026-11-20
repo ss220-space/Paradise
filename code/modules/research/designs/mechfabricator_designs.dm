@@ -1413,6 +1413,15 @@
 	construction_time = 12 SECONDS
 	category = list(MECH_FAB_CATEGORY_CYBORG_EQUIPMENT)
 
+/datum/design/borg_upgrade_jaunter
+	id = "borg_upgrade_jaunter"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/jaunter
+	req_tech = list(RESEARCH_TREE_ENGINEERING = 4, RESEARCH_TREE_MATERIALS = 4, RESEARCH_TREE_BLUESPACE = 4)
+	materials = list(MAT_METAL = 10000, MAT_GOLD = 250, MAT_URANIUM = 500)
+	construction_time = 12 SECONDS
+	category = list(MECH_FAB_CATEGORY_CYBORG_EQUIPMENT)
+
 /datum/design/borg_upgrade_mounted_seat
 	id = "borg_upgrade_mounted_seat"
 	build_type = MECHFAB
