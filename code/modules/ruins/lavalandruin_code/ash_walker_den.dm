@@ -167,6 +167,11 @@
 	eggtype = "шамана пеплоходцев"
 	skills_ref_job = JOB_TITLE_DOCTOR
 	discount_skill_category = list(/datum/skill/combat, /datum/skill/medical)
+	skills = alist(
+		/datum/skill/service/botany = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/medical/heal = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/cooking = SKILL_LEVEL_PROFESSIONAL,
+	)
 
 /obj/effect/mob_spawn/human/ash_walker/shaman/get_ru_names()
 	return alist(
