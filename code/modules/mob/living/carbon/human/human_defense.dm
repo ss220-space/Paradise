@@ -452,7 +452,7 @@ emp_act
 	. = ..()
 	if(!user || !emag_card)
 		return FALSE
-	var/obj/item/organ/external/selected_limb = user.zone_selected
+	var/obj/item/organ/external/selected_limb = get_organ(user.zone_selected)
 	if(!selected_limb || !istype(selected_limb))
 		return FALSE
 	if(!selected_limb.is_robotic())

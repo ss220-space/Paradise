@@ -282,7 +282,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(obj_flags & EMAGGED)
 		return FALSE
 	obj_flags |= EMAGGED
-	playsound(src.loc, 'sound/effects/sparks4.ogg', 75, TRUE)
+	playsound(loc, 'sound/effects/sparks4.ogg', 75, TRUE)
 	req_access = list()
 	if(user)
 		balloon_alert_to_viewers("искрит и жужжит!", "протоколы безопасности взломаны")

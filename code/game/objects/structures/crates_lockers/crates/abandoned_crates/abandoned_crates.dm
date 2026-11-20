@@ -246,15 +246,6 @@
 
 	return list("attempt" = guess, "bulls" = bulls, "cows" = cows)
 
-/obj/structure/closet/crate/secure/loot/attackby(obj/item/item, mob/user, params)
-	if(istype(item, /obj/item/card/emag))
-		if(locked)
-			emag_act(user)
-			return ATTACK_CHAIN_BLOCKED_ALL
-		add_fingerprint(user)
-		return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
-	return ..()
-
 /obj/structure/closet/crate/secure/loot/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
 
