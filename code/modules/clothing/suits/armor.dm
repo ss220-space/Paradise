@@ -635,10 +635,8 @@
 	armor = list(MELEE = 70, BULLET = 30, LASER = 50, ENERGY = 40, BOMB = 70, BIO = 60, FIRE = 100, ACID = 100)
 	hoodtype = /obj/item/clothing/head/hooded/drake
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
@@ -678,7 +676,6 @@
 	armor = list(MELEE = 70, BULLET = 30, LASER = 50, ENERGY = 40, BOMB = 70, BIO = 60, FIRE = 100, ACID = 100)
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF|ACID_PROOF
 	flags_cover = HEADCOVERSEYES
 
@@ -712,8 +709,6 @@
 	resistance_flags = FIRE_PROOF
 	hoodtype = /obj/item/clothing/head/hooded/goliath
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 
@@ -789,8 +784,6 @@
 	armor = list(MELEE = 60, BULLET = 10, LASER = 20, ENERGY = 10, BOMB = 30, BIO = 60, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	hide_tail_by_species = list(SPECIES_VOX , SPECIES_VULPKANIN , SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID, SPECIES_TAJARAN)
@@ -826,7 +819,6 @@
 	flags_cover = HEADCOVERSEYES
 	armor = list(MELEE = 60, BULLET = 10, LASER = 20, ENERGY = 10, BOMB = 30, BIO = 60, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
