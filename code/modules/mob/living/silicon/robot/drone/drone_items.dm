@@ -234,6 +234,38 @@
 		PREPOSITIONAL = "ядерном захвате",
 	)
 
+/obj/item/gripper/construction
+	name = "construction gripper"
+	desc = "Магнитный захват для работы со строительными материалами."
+	can_hold = list(
+		/obj/item/stack/sheet/plasteel,
+		/obj/item/stack/sheet/plasmaglass,
+		/obj/item/stack/sheet/plasmarglass,
+	)
+	var/selection_revision = 0
+
+/obj/item/gripper/construction/get_ru_names()
+	return alist(
+		NOMINATIVE = "строительный захват",
+		GENITIVE = "строительного захвата",
+		DATIVE = "строительному захвату",
+		ACCUSATIVE = "строительный захват",
+		INSTRUMENTAL = "строительным захватом",
+		PREPOSITIONAL = "строительном захвате",
+	)
+
+
+/obj/item/stack/sheet/ui_host(mob/user)
+	var/obj/item/gripper/construction/gripper = loc
+	if(!istype(gripper) || QDELETED(gripper) || !isrobot(user) || QDELETED(src))
+		return ..()
+	if(!istype(src, /obj/item/stack/sheet/plasteel) && !istype(src, /obj/item/stack/sheet/plasmaglass) && !istype(src, /obj/item/stack/sheet/plasmarglass))
+		return ..()
+	var/mob/living/silicon/robot/robot = user
+	if(QDELETED(robot) || robot.module_active != gripper || !robot.activated(gripper) || gripper.loc != robot || gripper.gripped_item != src)
+		return ..()
+	return gripper
+
 /obj/item/gripper/Initialize(mapload)
 	. = ..()
 	can_hold = typecacheof(can_hold)
