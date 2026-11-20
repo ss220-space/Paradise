@@ -420,6 +420,12 @@
 	greyscale_colors = CIRCUIT_COLOR_SUPPLY
 	build_path = /obj/machinery/computer/rdconsole/cargo
 
+/obj/item/circuitboard/reverse_engineering
+	board_name = "Reverse Engineering Console"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
+	build_path = /obj/machinery/computer/reverse_engineering
+	origin_tech = "programming=3;materials=2"
+
 /obj/item/circuitboard/roboquest
 	board_name = "Robotics Request Console"
 	greyscale_colors = CIRCUIT_COLOR_SCIENCE

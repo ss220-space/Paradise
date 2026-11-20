@@ -18,6 +18,7 @@ export const SettingsMenu = (properties) => {
     linked_destroy,
     linked_lathe,
     linked_imprinter,
+    linked_reverse_engineering,
     disk_only,
   } = data;
 
@@ -131,6 +132,19 @@ export const SettingsMenu = (properties) => {
                   </LabeledList.Item>
                 ) : (
                   <LabeledList.Item label="- Принтер плат (ОТКЛЮЧЕНО)" />
+                )}
+
+                {linked_reverse_engineering ? (
+                  <LabeledList.Item label="- Консоль обратной инженерии">
+                    <Button
+                      icon="unlink"
+                      onClick={() => act('disconnect', { item: 'reverse_engineering' })}
+                    >
+                      Отключить
+                    </Button>
+                  </LabeledList.Item>
+                ) : (
+                  <LabeledList.Item label="- Консоль обратной инженерии (ОТКЛЮЧЕНО)" />
                 )}
               </LabeledList>
             </Section>
