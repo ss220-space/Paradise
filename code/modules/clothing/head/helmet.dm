@@ -337,7 +337,7 @@
 	name = "skull helmet"
 	desc = "Этот шлем, который выглядит устрашающе и походит на племенной, кажется не очень удобным."
 	flags_inv = parent_type::flags_inv|HIDEMASK|HIDENAME
-	armor = list(MELEE = 25, BULLET = 15, LASER = 15, ENERGY = 10, BOMB = 20, BIO = 0, FIRE = 25, ACID = 25)
+	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 20, BIO = 0, FIRE = 20, ACID = 20)
 	icon_state = "skull"
 	item_state = "skull"
 	strip_delay = 100

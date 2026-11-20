@@ -8,6 +8,7 @@
 	item_state = "gem_necklace"
 	slot_flags = ITEM_SLOT_NECK|ITEM_SLOT_ACCESSORY //trust me, I am 100% triplechecked this
 	allow_duplicates = FALSE
+	var/has_antimagic = FALSE
 	var/obj/item/gem/gem = null
 	onmob_sheets = list(
 		ITEM_SLOT_ACCESSORY_STRING = 'icons/mob/clothing/jewelry.dmi',
@@ -108,6 +109,8 @@
 			name = "draconic necklace"
 		else
 			name = initial(name)
+	if(has_antimagic)
+		name = "blessed draconic necklace"
 
 /obj/item/clothing/accessory/necklace/gem/proc/update_state()
 	if(!gem)
@@ -173,6 +176,17 @@
 	. = ..()
 	if(dragon_power && isliving(user))
 		user.remove_status_effect(STATUS_EFFECT_DRAGON_STRENGTH)
+
+/obj/item/clothing/accessory/necklace/gem/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(!istype(I, /obj/item/melee/touch_attack/healtouch/shaman))
+		return ..()
+	if(dragon_power && isliving(user))
+		AddComponent(/datum/component/anti_magic, MAGIC_RESISTANCE_HOLY)
+		has_antimagic = TRUE
+		user.say("NWOC EGEVNER")
+		qdel(I)
+		update_appearance(UPDATE_NAME)
 
 //bracers
 /obj/item/clothing/gloves/jewelry_bracers

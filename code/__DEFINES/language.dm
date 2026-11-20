@@ -29,6 +29,7 @@
 #define LANGUAGE_HIVE_ABDUCTOR "Псисвязь Абдукторов"
 #define LANGUAGE_HIVE_GOLEM "Псисвязь Големов"
 #define LANGUAGE_HIVE_BORER "Кортикальная связь"
+#define LANGUAGE_HIVE_ASHWALKER "Связь Некрополя"
 #define LANGUAGE_BINARY "Бинарный канал"
 #define LANGUAGE_DRONE_BINARY "Канал Дронов"
 #define LANGUAGE_DRONE "Дрон"

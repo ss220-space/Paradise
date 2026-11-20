@@ -285,6 +285,7 @@ They're basically just lizards with all-around marginally better stats and fire 
 		TRAIT_RESIST_HEAT,	// dragons like fire
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_ASHSTORM_IMMUNE,
+		TRAIT_HEALS_FROM_ASH_TENDRIL,
 	)
 	no_equip = list(ITEM_SLOT_FEET) //everyone have to pay for
 	speed_mod = -0.25			//beeing slightly faster
@@ -295,7 +296,7 @@ They're basically just lizards with all-around marginally better stats and fire 
 		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/unathi,
 		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/unathi,
 		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
-		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/unathi,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/unathi/ash_walker,
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
 	) //no need to b-r-e-a-t-h
 
