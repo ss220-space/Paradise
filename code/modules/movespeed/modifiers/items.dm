@@ -15,4 +15,4 @@
 	multiplicative_slowdown = 1.2
 
 /datum/movespeed_modifier/sphere
-	multiplicative_slowdown = -1
+	multiplicative_slowdown = -0.5
