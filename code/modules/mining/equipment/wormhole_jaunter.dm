@@ -9,6 +9,7 @@
 	throw_range = 5
 	origin_tech = "bluespace=2"
 	slot_flags = ITEM_SLOT_BELT
+	var/single_use = TRUE
 
 /obj/item/wormhole_jaunter/get_ru_names()
 	return alist(
@@ -62,15 +63,21 @@
 	var/chosen_beacon = pick(destinations)
 
 	var/tunnel_lifespan = emagged ? 5 SECONDS : 10 SECONDS
-	var/obj/effect/portal/jaunt_tunnel/tunnel = new(get_turf(src), get_turf(chosen_beacon), src, tunnel_lifespan, user)
+	var/obj/effect/portal/jaunt_tunnel/tunnel = create_portal(user, get_turf(chosen_beacon), tunnel_lifespan)
+	if(!tunnel)
+		return FALSE
 	tunnel.emagged = emagged
 	if(teleport)
 		tunnel.teleport(user)
 	else if(adjacent)
 		try_move_adjacent(tunnel)
 
-	qdel(src)
+	if(single_use)
+		qdel(src)
 	return FALSE // used for chasm code
+
+/obj/item/wormhole_jaunter/proc/create_portal(mob/user, turf/destination, lifespan)
+	return new /obj/effect/portal/jaunt_tunnel(get_turf(src), destination, src, lifespan, user)
 
 /obj/item/wormhole_jaunter/proc/chasm_react(mob/user)
 	. = activate(user, FALSE, TRUE)
@@ -88,6 +95,33 @@
 		var/turf/our_turf = get_turf(src)
 		do_sparks(5, FALSE, our_turf)
 		playsound(our_turf, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+
+/obj/item/wormhole_jaunter/cyborg
+	name = "cyborg wormhole jaunter"
+	desc = "Встроенный экспериментальный многоразовый генератор червоточин, созданный компанией Ward-Takahashi GMB по заказу NanoTrasen. Создание портала расходует 10000 единиц заряда батареи и разрушает установленную бронеплиту"
+	single_use = FALSE
+	/// Charge consumed from the cyborg's cell per portal.
+	var/energy_cost = 10000
+
+/obj/item/wormhole_jaunter/cyborg/create_portal(mob/user, turf/destination, lifespan)
+	if(!isrobot(user))
+		return
+
+	var/mob/living/silicon/robot/robot = user
+	if(!robot.cell || robot.cell.charge < energy_cost)
+		balloon_alert(user, "недостаточно заряда!")
+		return
+
+	if(!robot.cell.use(energy_cost))
+		return
+
+	. = ..()
+
+	var/datum/robot_component/armour/armour = robot.get_armour()
+	if(armour)
+		armour.take_damage(armour.max_damage, 0, FALSE)
+		robot.updatehealth("wormhole jaunter activation")
+		SStgui.update_uis(robot.self_diagnosis)
 
 /obj/effect/portal/jaunt_tunnel
 	name = "jaunt tunnel"

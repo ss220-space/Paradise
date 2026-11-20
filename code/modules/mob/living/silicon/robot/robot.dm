@@ -163,6 +163,28 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/get_cell()
 	return cell
 
+/mob/living/silicon/robot/proc/try_chasm_jaunt()
+	if(!module)
+		return FALSE
+
+	var/obj/item/wormhole_jaunter/cyborg/jaunter = locate() in module.modules
+	if(QDELETED(jaunter))
+		return FALSE
+
+	var/turf/start_turf = get_turf(src)
+	if(!start_turf)
+		return FALSE
+
+	jaunter.activate(src, FALSE, TRUE)
+
+	var/turf/end_turf = get_turf(src)
+	if(QDELETED(src) || !end_turf || end_turf == start_turf)
+		return FALSE
+
+	to_chat(src, span_notice("Ваш [jaunter.declent_ru(NOMINATIVE)] автоматически активируется, спасая вас от пропасти!"))
+	SSblackbox.record_feedback("tally", "jaunter", 1, "Chasm")
+	return TRUE
+
 /mob/living/silicon/robot/Initialize(mapload, syndie = FALSE, unfinished = FALSE, alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(5, 0, src)

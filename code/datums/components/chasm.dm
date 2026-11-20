@@ -142,6 +142,10 @@
 			var/mob/living/dropped_living = dropped_mob
 			if(dropped_living.incorporeal_move)
 				return CHASM_NOT_DROPPING
+			if(isrobot(dropped_mob))
+				var/mob/living/silicon/robot/robot = dropped_mob
+				if(robot.try_chasm_jaunt())
+					return CHASM_NOT_DROPPING
 			if(ishuman(dropped_mob))
 				var/obj/item/wormhole_jaunter/jaunter = locate() in dropped_mob.get_all_contents()
 				if(jaunter)
