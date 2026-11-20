@@ -440,6 +440,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			if(tech_log && user)
 				investigate_log("[user] increased tech deconstructing [linked_destroy.loaded_item]: [tech_log]. ", INVESTIGATE_RESEARCH)
 
+			linked_destroy.loaded_item = null
 			for(var/obj/contained_object in linked_destroy.contents)
 				for(var/mob/contained_mob in contained_object.contents)
 					contained_mob.death()
@@ -453,7 +454,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				else if(!(contained_object in linked_destroy.component_parts))
 					qdel(contained_object)
 
-			linked_destroy.loaded_item = null
 			linked_destroy.busy = FALSE
 			linked_destroy.update_icon(UPDATE_ICON_STATE)
 			use_power(DECONSTRUCT_POWER)
