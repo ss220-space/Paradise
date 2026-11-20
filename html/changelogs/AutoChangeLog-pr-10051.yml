@@ -1,4 +1,0 @@
-author: "vovakons"
-delete-after: True
-changes:
-  - bugfix: "Фикс бага с названием реагента в консоли РНД. (PR #10051)"

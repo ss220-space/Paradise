@@ -189,8 +189,7 @@
 /datum/dna/gene/basic/grant_spell/remotetalk/activate(mob/living/mutant, flags)
 	. = ..()
 	var/datum/atom_hud/thoughts/hud = GLOB.huds[THOUGHTS_HUD]
-	var/datum/action/cooldown/spell/list_target/mindscan/spell = new
-	spell.Grant(mutant)
+	mutant.AddSpell(new /datum/action/cooldown/spell/list_target/mindscan)
 	hud.manage_hud(mutant, THOUGHTS_HUD_PRECISE)
 
 /datum/dna/gene/basic/grant_spell/remotetalk/deactivate(mob/living/mutant, flags)

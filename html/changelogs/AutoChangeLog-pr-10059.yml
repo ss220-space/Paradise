@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - qol: "Загрузка через ЛКМ загрузка из контейнера ПКМ в SmartFridge. (PR #10059)"
