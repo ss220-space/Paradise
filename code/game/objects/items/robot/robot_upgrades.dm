@@ -297,7 +297,7 @@
 
 /obj/item/borg/upgrade/jaunter
 	name = "mining cyborg wormhole jaunter upgrade"
-	desc = "Модуль для установки в шахтёрского киборга экспериментального многоразового генератора червоточин, созданного компанией Ward-Takahashi GMB по заказу NanoTrasen. Создание портала расходует 10000 единиц заряда батареи и разрушает установленную бронеплиту."
+	desc = "Модуль для установки в шахтёрского киборга экспериментального многоразового генератора червоточин, созданного компанией Ward-Takahashi GMB по заказу Nanotrasen. Создание портала расходует 10000 единиц заряда батареи и разрушает установленную бронеплиту."
 	icon_state = "cyborg_upgrade3"
 	origin_tech = "engineering=4;materials=4;bluespace=4"
 	require_module = TRUE

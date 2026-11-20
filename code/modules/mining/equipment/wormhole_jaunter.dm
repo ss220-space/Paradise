@@ -98,7 +98,7 @@
 
 /obj/item/wormhole_jaunter/cyborg
 	name = "cyborg wormhole jaunter"
-	desc = "Встроенный экспериментальный многоразовый генератор червоточин, созданный компанией Ward-Takahashi GMB по заказу NanoTrasen. Создание портала расходует 10000 единиц заряда батареи и разрушает установленную бронеплиту"
+	desc = "Встроенный экспериментальный многоразовый генератор червоточин, созданный компанией Ward-Takahashi GMB по заказу Nanotrasen. Создание портала расходует 10000 единиц заряда батареи и разрушает установленную бронеплиту"
 	single_use = FALSE
 	/// Charge consumed from the cyborg's cell per portal.
 	var/energy_cost = 10000
