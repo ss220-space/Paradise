@@ -901,8 +901,6 @@
 	armor = list(MELEE = 60, BULLET = 30, LASER = 30, ENERGY = 20, BOMB = 60, BIO = 0, FIRE = 40, ACID = 40)
 	resistance_flags = FIRE_PROOF
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	sprite_sheets = list(
