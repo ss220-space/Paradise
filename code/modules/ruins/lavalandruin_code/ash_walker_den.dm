@@ -131,6 +131,7 @@
 		/datum/skill/combat/melee = SKILL_LEVEL_ADVANCED,
 		/datum/skill/combat/bows = SKILL_LEVEL_BASIC,
 		/datum/skill/service/mining = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
 	)
 	var/eggtype = "пеплоходца"
 
@@ -169,7 +170,7 @@
 	discount_skill_category = list(/datum/skill/combat, /datum/skill/medical)
 	skills = alist(
 		/datum/skill/service/botany = SKILL_LEVEL_PROFESSIONAL,
-		/datum/skill/medical/heal = SKILL_LEVEL_ADVANCED,
+		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
 		/datum/skill/general/cooking = SKILL_LEVEL_PROFESSIONAL,
 	)
 
