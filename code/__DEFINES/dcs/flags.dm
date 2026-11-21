@@ -48,3 +48,15 @@
 #define CALTROP_BYPASS_WALKERS (1<<1)
 #define CALTROP_BYPASS_ROBOTIC_FOOTS (1<<2)
 #define CALTROP_BYPASS_CRAWLING (1<<3)
+
+// Udder component features.
+/// Generate milk on Life ticks.
+#define UDDER_PASSIVE_GENERATION (1<<0)
+/// Show the current milk volume when examined.
+#define UDDER_EXAMINE (1<<1)
+/// Generate milk after consuming configured food types.
+#define UDDER_GENERATE_ON_CONSUME (1<<2)
+/// Boost milk production after successful feeding.
+#define UDDER_BOOST_ON_FEED (1<<3)
+/// Empty the udder after the parent gives birth.
+#define UDDER_CLEAR_ON_BIRTH (1<<4)
