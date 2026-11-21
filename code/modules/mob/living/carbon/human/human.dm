@@ -2203,3 +2203,14 @@ GAME_VERB_DESC(/mob/living/carbon/human, set_flavor, "Описание внеш�
 	if(!istype(zombie))
 		return dna.species.unarmed
 	return zombie.claw_attack
+
+/mob/living/carbon/human/proc/toggle_wings()
+	if(has_status_effect(STATUS_EFFECT_BURNT_WINGS))
+		return
+
+	if(body_accessory && istype(body_accessory, /datum/body_accessory/wing))
+		var/datum/body_accessory/wing/wings = body_accessory
+		wings.is_open = !wings.is_open
+		update_wing_layer()
+		update_body()
+

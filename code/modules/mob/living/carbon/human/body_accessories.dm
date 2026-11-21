@@ -39,8 +39,9 @@ GLOBAL_LIST_EMPTY(body_accessory_by_species)
 	var/animated_icon = null
 	var/animated_icon_state = ""
 
-	var/blend_mode = null
+	var/pixel_x_offset = 0
 
+	var/blend_mode = null
 	var/list/allowed_species = list()
 	/// If true, adds an underlay (in addition to the regular overlay!) to the character sprite, with the state "[icon_state]_BEHIND".
 	var/has_behind = FALSE
@@ -140,6 +141,8 @@ GLOBAL_LIST_EMPTY(body_accessory_by_species)
 	icon_state = "plain"
 	allowed_species = list(SPECIES_MOTH)
 	has_behind = TRUE
+	var/is_open = FALSE
+	var/open_icon = 'icons/mob/sprite_accessories/moth/moth_wingsopen.dmi'
 
 /datum/body_accessory/wing/plain
 
