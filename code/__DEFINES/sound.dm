@@ -282,6 +282,7 @@ GLOBAL_LIST_EMPTY(sfx_datum_by_key)
 #define SFX_HALLUCINATION_I_SEE_YOU "hallucination_i_see_you"
 #define SFX_HALLUCINATION_OVER_HERE "hallucination_over_here"
 #define SFX_HALLUCINATION_I_M_HERE "hallucination_i_m_here"
+#define SFX_REV_HALLUCINATIONS "revenant_hallucinations"
 #define SFX_VOID_DEFLECT "void_deflect"
 #define SFX_LOW_HISS "low_hiss"
 #define SFX_INDUSTRIAL_SCAN "industrial_scan"
@@ -330,5 +331,4 @@ GLOBAL_LIST_EMPTY(sfx_datum_by_key)
 #define SFX_TRAY_DROP "tray_drop"
 #define SFX_MENDER "mender"
 #define SFX_GLITCHED_PDA_RINGTONE "glitched_pda"
-#define SFX_REV_HALLUCINATIONS "revenant_hallucinations"
 #define SFX_FLAMETHROWER "flamethrower"
