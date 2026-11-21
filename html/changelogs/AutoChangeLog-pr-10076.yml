@@ -1,4 +1,0 @@
-author: "ROdenFL"
-delete-after: True
-changes:
-  - bugfix: "баг с сохранением кпб (PR #10076)"
