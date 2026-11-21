@@ -5949,100 +5949,26 @@
 /area/centcom/central_command_areas/zone/one)
 "dev" = (
 /obj/structure/rack/holorack,
-/obj/item/clothing/head/beret/atmos{
-	name = "beret"
-	},
-/obj/item/clothing/head/beret/atmos{
-	name = "beret"
-	},
-/obj/item/clothing/head/beret/ce{
-	name = "beret"
-	},
-/obj/item/clothing/head/beret/ce{
-	name = "beret"
-	},
-/obj/item/clothing/head/beret/centcom/captain{
-	name = "beret"
-	},
-/obj/item/clothing/head/beret/centcom/captain{
-	name = "beret"
-	},
-/obj/item/clothing/head/beret/centcom/officer{
-	name = "beret"
-	},
-/obj/item/clothing/head/beret/centcom/officer{
-	name = "beret"
-	},
-/obj/item/clothing/head/beret/centcom/officer/navy{
-	name = "beret"
-	},
-/obj/item/clothing/head/beret/centcom/officer/navy{
-	name = "beret"
-	},
-/obj/item/clothing/head/beret/durathread{
-	name = "beret"
-	},
-/obj/item/clothing/head/beret/durathread{
-	name = "beret"
-	},
-/obj/item/clothing/head/beret/eng{
-	name = "beret"
-	},
-/obj/item/clothing/head/beret/eng{
-	name = "beret"
-	},
-/obj/item/clothing/head/beret/elo{
-	name = "beret"
-	},
-/obj/item/clothing/head/beret/elo{
-	name = "beret"
-	},
-/obj/item/clothing/head/beret/centcom/officer/sigholt{
-	name = "beret"
-	},
-/obj/item/clothing/head/beret/centcom/officer/sigholt{
-	name = "beret"
-	},
-/obj/item/clothing/head/beret/centcom/officer/sparkyninja_beret{
-	name = "beret"
-	},
-/obj/item/clothing/head/beret/centcom/officer/sparkyninja_beret{
-	name = "beret"
-	},
-/obj/item/clothing/head/beret/centcom/officer/sigholt{
-	icon_state = "officerberet";
-	name = "beret"
-	},
-/obj/item/clothing/head/beret/centcom/officer/sigholt{
-	icon_state = "officerberet";
-	name = "beret"
-	},
-/obj/item/clothing/head/fedora,
-/obj/item/clothing/head/fedora,
-/obj/item/clothing/head/fedora{
-	icon_state = "wfedora"
-	},
-/obj/item/clothing/head/fedora{
-	icon_state = "wfedora"
-	},
-/obj/item/clothing/head/beret/purple{
-	name = "beret"
-	},
-/obj/item/clothing/head/beret/purple{
-	name = "beret"
-	},
-/obj/item/clothing/head/beret/centcom/officer/sigholt{
-	icon_state = "beret_hos_black";
-	name = "beret"
-	},
-/obj/item/clothing/head/beret/centcom/officer/sigholt{
-	icon_state = "beret_hos_black";
-	name = "beret"
-	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/structure/window/reinforced,
+/obj/item/gun/projectile/revolver/rocketlauncher/shmel,
+/obj/item/gun/projectile/revolver/rocketlauncher/shmel,
+/obj/item/gun/projectile/revolver/rocketlauncher/shmel,
+/obj/item/gun/projectile/revolver/rocketlauncher/shmel,
+/obj/item/gun/projectile/revolver/rocketlauncher/shmel,
+/obj/item/gun/projectile/revolver/rocketlauncher/shmel,
+/obj/item/gun/projectile/revolver/rocketlauncher/shmel,
+/obj/item/gun/projectile/revolver/rocketlauncher/shmel,
+/obj/item/gun/projectile/revolver/rocketlauncher/shmel,
+/obj/item/gun/projectile/revolver/rocketlauncher/shmel,
+/obj/item/gun/projectile/revolver/rocketlauncher/shmel,
+/obj/item/gun/projectile/revolver/rocketlauncher/shmel,
+/obj/item/gun/projectile/revolver/rocketlauncher/shmel,
+/obj/item/gun/projectile/revolver/rocketlauncher/shmel,
+/obj/item/gun/projectile/revolver/rocketlauncher/shmel,
+/obj/item/gun/projectile/revolver/rocketlauncher/shmel,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -8043,6 +7969,10 @@
 /obj/item/gun/projectile/bombarda/secgl,
 /obj/item/gun/projectile/bombarda/secgl,
 /obj/item/gun/projectile/bombarda/secgl,
+/obj/item/gun/projectile/revolver/rocketlauncher/shmel,
+/obj/item/gun/projectile/revolver/rocketlauncher/shmel,
+/obj/item/gun/projectile/revolver/rocketlauncher/shmel,
+/obj/item/gun/projectile/revolver/rocketlauncher/shmel,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "navybluealt"
@@ -29677,6 +29607,96 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced,
+/obj/item/clothing/head/beret/centcom/officer/sigholt{
+	icon_state = "beret_hos_black";
+	name = "beret"
+	},
+/obj/item/clothing/head/beret/centcom/officer/sigholt{
+	icon_state = "beret_hos_black";
+	name = "beret"
+	},
+/obj/item/clothing/head/beret/purple{
+	name = "beret"
+	},
+/obj/item/clothing/head/beret/purple{
+	name = "beret"
+	},
+/obj/item/clothing/head/fedora{
+	icon_state = "wfedora"
+	},
+/obj/item/clothing/head/fedora{
+	icon_state = "wfedora"
+	},
+/obj/item/clothing/head/fedora,
+/obj/item/clothing/head/fedora,
+/obj/item/clothing/head/beret/centcom/officer/sigholt{
+	icon_state = "officerberet";
+	name = "beret"
+	},
+/obj/item/clothing/head/beret/centcom/officer/sigholt{
+	icon_state = "officerberet";
+	name = "beret"
+	},
+/obj/item/clothing/head/beret/centcom/officer/sparkyninja_beret{
+	name = "beret"
+	},
+/obj/item/clothing/head/beret/centcom/officer/sparkyninja_beret{
+	name = "beret"
+	},
+/obj/item/clothing/head/beret/centcom/officer/sigholt{
+	name = "beret"
+	},
+/obj/item/clothing/head/beret/centcom/officer/sigholt{
+	name = "beret"
+	},
+/obj/item/clothing/head/beret/elo{
+	name = "beret"
+	},
+/obj/item/clothing/head/beret/elo{
+	name = "beret"
+	},
+/obj/item/clothing/head/beret/eng{
+	name = "beret"
+	},
+/obj/item/clothing/head/beret/eng{
+	name = "beret"
+	},
+/obj/item/clothing/head/beret/durathread{
+	name = "beret"
+	},
+/obj/item/clothing/head/beret/durathread{
+	name = "beret"
+	},
+/obj/item/clothing/head/beret/centcom/officer/navy{
+	name = "beret"
+	},
+/obj/item/clothing/head/beret/centcom/officer/navy{
+	name = "beret"
+	},
+/obj/item/clothing/head/beret/centcom/officer{
+	name = "beret"
+	},
+/obj/item/clothing/head/beret/centcom/officer{
+	name = "beret"
+	},
+/obj/item/clothing/head/beret/centcom/captain{
+	name = "beret"
+	},
+/obj/item/clothing/head/beret/centcom/captain{
+	name = "beret"
+	},
+/obj/item/clothing/head/beret/ce{
+	name = "beret"
+	},
+/obj/item/clothing/head/beret/ce{
+	name = "beret"
+	},
+/obj/item/clothing/head/beret/atmos{
+	name = "beret"
+	},
+/obj/item/clothing/head/beret/atmos{
+	name = "beret"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

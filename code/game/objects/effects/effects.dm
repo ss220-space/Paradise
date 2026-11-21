@@ -26,6 +26,9 @@
 /obj/effect/fire_act(exposed_temperature, exposed_volume)
 	return
 
+/obj/effect/flamer_fire_act(damage)
+	return
+
 /obj/effect/acid_act()
 	return
 
