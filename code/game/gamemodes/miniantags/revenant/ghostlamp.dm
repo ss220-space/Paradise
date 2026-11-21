@@ -123,7 +123,8 @@
 	health = 30
 	melee_damage_lower = 5
 	melee_damage_upper = 10
-	melee_damage_type = BURN
+	melee_damage_type = STAMINA
+	obj_damage = 5
 	del_on_death = TRUE
 
 /mob/living/simple_animal/hostile/wisp/Click(location, control, params)

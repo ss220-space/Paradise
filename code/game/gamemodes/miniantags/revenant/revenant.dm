@@ -162,7 +162,7 @@
 
 	for(var/mob/M in GLOB.mob_list)
 		var/rendered = span_revennotice("[(isobserver(M) ? ("([ghost_follow_link(src, ghost = M)])") : "")] <b>[src]</b> говорит: \"[message]\"")
-		if(istype(M, /mob/living/simple_animal/revenant) || isobserver(M))
+		if(istype(M, /mob/living/simple_animal/revenant) || isobserver(M) || istype(M, /mob/living/simple_animal/hostile/wisp))
 			to_chat(M, rendered)
 
 /mob/living/simple_animal/revenant/get_status_tab_items()
@@ -297,6 +297,7 @@
 	SetInvisibility(INVISIBILITY_NONE, type)
 	visible = TRUE
 	incorporeal_move = INCORPOREAL_NONE
+	alpha = 255
 	pass_flags_self &= ~PASSPROJECTILE
 	if(!unreveal_time)
 		to_chat(src, span_revendanger("Ваша форма становится осязаемой, и смертные могут вас увидеть..."))

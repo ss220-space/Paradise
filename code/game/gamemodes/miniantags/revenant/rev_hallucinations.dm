@@ -3,6 +3,7 @@
 	duration = 60 SECONDS
 	status_type = STATUS_EFFECT_REFRESH
 	alert_type = /atom/movable/screen/alert/status_effect/cursed_hallucinations
+	tick_interval = 4 SECONDS
 	var/mob/living/simple_animal/revenant/inflicter
 
 /datum/status_effect/revenant_hallucinations/on_creation(mob/living/new_owner, mob/living/simple_animal/revenant/revenant)

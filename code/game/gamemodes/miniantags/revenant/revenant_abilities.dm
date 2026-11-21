@@ -180,6 +180,7 @@
 	button_icon_state = "revenanttoggle"
 	background_icon_state = "bg_revenant"
 	spell_requirements = NONE
+	var/alpha_to_set = 150
 
 /datum/action/cooldown/spell/revenantinvis/cast(atom/cast_on)
 	. = ..()
@@ -189,6 +190,7 @@
 			caster.balloon_alert(caster, "слишком рано!")
 			return
 		caster.SetInvisibility(INVISIBILITY_REVENANT)
+		caster.alpha = 255
 		caster.visible = FALSE
 		caster.incorporeal_move = INCORPOREAL_REVENANT
 		caster.update_appearance(UPDATE_ICON)
@@ -197,6 +199,7 @@
 		caster.balloon_alert(caster, "слишком мало эссенции!")
 		return
 	caster.SetInvisibility(INVISIBILITY_NONE)
+	caster.alpha = alpha_to_set
 	caster.visible = TRUE
 	caster.incorporeal_move = INCORPOREAL_NONE
 	caster.update_appearance(UPDATE_ICON)
@@ -245,11 +248,11 @@
 	name = "перегрузка сети"
 	desc = "Направляет большое количество эссенции в ближайшие источники света, заставляя их бить током окружающих."
 	cooldown_time = 15 SECONDS
-	cooldown_increase_per_level = 5 SECONDS
+	cooldown_increase_per_level = 10 SECONDS
 	stun = 0.5 SECONDS
 	stun_increase_per_level = 0.5 SECONDS
-	reveal = 3 SECONDS
-	reveal_increase_per_level = 3 SECONDS
+	reveal = 4 SECONDS
+	reveal_increase_per_level = 4 SECONDS
 	cast_amount = 30
 	cast_increase_per_level = 15
 	button_icon_state = "r_overload_lights"
@@ -303,17 +306,17 @@
 	name = "осквернение"
 	desc = "Искажает и оскверняет ближайшую территорию, а также рассеивает святую ауру на полу."
 	cooldown_time = 20 SECONDS
-	cooldown_increase_per_level = 5 SECONDS
+	cooldown_increase_per_level = 10 SECONDS
 	stun = 0.5 SECONDS
-	reveal = 3 SECONDS
-	reveal_increase_per_level = 3 SECONDS
+	reveal = 5 SECONDS
+	reveal_increase_per_level = 5 SECONDS
 	cast_amount = 20
 	cast_increase_per_level = 10
 	button_icon_state = "r_defile"
 	aoe_radius = 5
 	radius_increase_per_level = 1
 	max_radius = 6
-	stun_increase_per_level = 0.5 SECONDS
+	stun_increase_per_level = 1 SECONDS
 	targeting_type = /datum/aoe_targeting/turfs
 
 /datum/action/cooldown/spell/aoe/revenant/defile/cast_on_thing_in_aoe(atom/victim, atom/caster)
@@ -338,11 +341,11 @@
 	name = "сбой"
 	desc = "Повреждает и искажает ближайшие механизмы и технические объекты."
 	cooldown_time = 10 SECONDS
-	cooldown_increase_per_level = 5 SECONDS
+	cooldown_increase_per_level = 10 SECONDS
 	cast_amount = 30
 	cast_increase_per_level = 15
 	button_icon_state = "r_malfunction"
-	aoe_radius = 5
+	aoe_radius = 3
 	radius_increase_per_level = 1
 	stun = 0.5 SECONDS
 	stun_increase_per_level = 0.5 SECONDS
@@ -381,7 +384,7 @@
 	stun = 0.5 SECONDS
 	stun_increase_per_level = 0.5 SECONDS
 	reveal = 3 SECONDS
-	reveal_increase_per_level = 2 SECONDS
+	reveal_increase_per_level = 4 SECONDS
 	targeting_type = /datum/aoe_targeting/rev_haunt
 	/// The maximum number of objects to haunt
 	max_targets = 7
@@ -420,7 +423,7 @@
 	var/mob/living/simple_animal/possessed_object/possessed_object = new(item_to_possess) // Begin haunting object
 	item_to_possess.throwforce = min(item_to_possess.throwforce + 5, 15) // Damage it should do? throwforce+5 or 15, whichever is lower
 	set_outline(possessed_object)
-	possessed_object.maxHealth = 75*spell_level // Double the regular HP of possessed objects
+	possessed_object.maxHealth = 25*spell_level
 	possessed_object.health = possessed_object.maxHealth
 	possessed_object.escape_chance = 100 // We cannot be contained
 
@@ -474,16 +477,16 @@
 	name = "галлюцинации"
 	desc = "Играйте с живыми, показывая им видения того, что было или могло бы быть."
 	button_icon_state = "r_hallucinations"
-	cooldown_time = 15 SECONDS
+	cooldown_time = 20 SECONDS
+	cooldown_increase_per_level = 15 SECONDS
 	cast_amount = 15
 	cast_increase_per_level = 10
-	stun = 0
+	stun = 0.5 SECONDS
 	stun_increase_per_level = 1 SECONDS
 	max_stun = 1 SECONDS
 	reveal = 3 SECONDS
-	aoe_radius = 3
-	radius_increase_per_level = 1
-	reveal_increase_per_level = 2 SECONDS
+	aoe_radius = 7
+	reveal_increase_per_level = 4 SECONDS
 	targeting_type = /datum/aoe_targeting/living
 
 /datum/action/cooldown/spell/aoe/revenant/hallucinations/get_spell_title()
@@ -497,7 +500,7 @@
 
 /datum/action/cooldown/spell/aoe/revenant/hallucinations/cast_on_thing_in_aoe(atom/victim, atom/caster)
 	var/mob/living/carbon/human/target = victim
-	target.AdjustHallucinate(60 SECONDS, bound_upper = 300 SECONDS) //Lets not let them get more than 5 minutes of hallucinations
+	target.AdjustHallucinate(10 + 10 * spell_level, bound_upper = 120 SECONDS) //Lets not let them get more than 2 minutes of hallucinations
 	if(spell_level >= 3)
 		target.apply_status_effect(/datum/status_effect/revenant_hallucinations, owner)
 	new /obj/effect/temp_visual/revenant(get_turf(target))
@@ -648,13 +651,12 @@
 	cast_amount = 20
 	cast_increase_per_level = 20
 	cooldown_time = 25 SECONDS
-	cooldown_increase_per_level = -5 SECONDS
+	cooldown_increase_per_level = 10 SECONDS
 	stun = 0.5 SECONDS
 	stun_increase_per_level = 0.5 SECONDS
-	reveal = 2 SECONDS
-	reveal_increase_per_level = 2 SECONDS
+	reveal = 5 SECONDS
+	reveal_increase_per_level = 3 SECONDS
 	aoe_radius = 3
-	radius_increase_per_level = 1
 	targeting_type = /datum/aoe_targeting/human
 
 
