@@ -35,7 +35,7 @@
 	)
 
 /obj/structure/stationary_machinegun/ComponentInitialize()
-	AddElement(/datum/element/simple_rotation, post_rotation_proccall = PROC_REF(handle_rotation))
+	AddElement(/datum/element/simple_rotation, rotation_flags = ROTATION_IGNORE_ANCHORED, post_rotation_proccall = PROC_REF(handle_rotation))
 	return ..()
 
 /obj/structure/stationary_machinegun/Initialize(mapload)
