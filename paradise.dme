@@ -886,6 +886,7 @@
 #include "code\datums\components\temporary_body.dm"
 #include "code\datums\components\transforming.dm"
 #include "code\datums\components\twohanded.dm"
+#include "code\datums\components\udder.dm"
 #include "code\datums\components\usb_port.dm"
 #include "code\datums\components\weapon_description.dm"
 #include "code\datums\components\wet_floor.dm"
