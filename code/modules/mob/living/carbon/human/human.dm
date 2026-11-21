@@ -2204,8 +2204,19 @@ GAME_VERB_DESC(/mob/living/carbon/human, set_flavor, "Описание внеш�
 		return dna.species.unarmed
 	return zombie.claw_attack
 
+
 /mob/living/carbon/human/proc/toggle_wings()
 	if(has_status_effect(STATUS_EFFECT_BURNT_WINGS))
+		return
+
+	var/obj/item/organ/external/wing/wing_organ = get_organ(BODY_ZONE_WING)
+	if(!wing_organ)
+		return
+
+	if(wing_organ.body_accessory == GLOB.body_accessory_by_name["Burnt Off Wings"])
+		if(body_accessory && istype(body_accessory, /datum/body_accessory/wing) && body_accessory != wing_organ.body_accessory)
+			wing_organ.body_accessory = body_accessory
+			update_wing_layer()
 		return
 
 	if(body_accessory && istype(body_accessory, /datum/body_accessory/wing))
