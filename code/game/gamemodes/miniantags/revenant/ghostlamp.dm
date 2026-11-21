@@ -128,7 +128,7 @@
 
 /mob/living/simple_animal/hostile/wisp/Click(location, control, params)
 	. = ..()
-	if(!isobserver(usr))
+	if(!isobserver(usr) || ckey)
 		return
 	possess_by_player(usr.key)
 
