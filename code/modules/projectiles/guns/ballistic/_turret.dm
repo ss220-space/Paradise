@@ -7,6 +7,7 @@
 	icon_state = "pkm"
 	layer = ABOVE_OBJ_LAYER
 	can_buckle = TRUE
+	anchored = TRUE
 	buckle_lying = 0 // you stay in a stationary machinegun, not lay
 	max_integrity = 250
 	integrity_failure = 25
@@ -18,6 +19,10 @@
 	var/obj/item/gun/projectile/automatic/stationary_gun/internal_gun = /obj/item/gun/projectile/automatic/stationary_gun
 	var/offset_x = 12
 	var/allow_move = TRUE
+
+/obj/structure/stationary_machinegun/fixed
+	allow_move = FALSE
+	internal_gun = /obj/item/gun/projectile/automatic/stationary_gun/bp
 
 /obj/structure/stationary_machinegun/get_ru_names()
 	return alist(
@@ -38,9 +43,11 @@
 	item = new item(src)
 	item.origin = src
 	internal_gun = new internal_gun(src)
+	setDir(dir)
 
 /obj/structure/stationary_machinegun/Destroy()
 	QDEL_NULL(item)
+	QDEL_NULL(internal_gun)
 	return ..()
 
 /obj/structure/stationary_machinegun/setDir(newdir)

@@ -113,7 +113,7 @@ export const Mortar = (_props) => {
           >
             View Camera
           </Button>
-          {linked && (
+          {!!linked && (
             <Button onClick={() => act('unlink')}>Unlink Rangefinder</Button>
           )}
         </Section>

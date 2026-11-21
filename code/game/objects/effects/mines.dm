@@ -5,12 +5,16 @@
 	icon_state = "uglyminearmed"
 	var/triggered = 0
 	var/faction = "syndicate"
+	var/destroy_on_ex = TRUE
+	var/list/mobtypes_bonus_damage
 
 /obj/effect/mine/Initialize(mapload)
 	. = ..()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
+	if(mobtypes_bonus_damage)
+		mobtypes_bonus_damage = string_assoc_list(mobtypes_bonus_damage)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/effect/mine/proc/mineEffect(mob/living/victim)
@@ -29,7 +33,7 @@
 	if(arrived.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
 		return
 
-	if(faction && (faction in arrived.faction))
+	if(faction && (faction in arrived.faction) || HAS_TRAIT(arrived, TRAIT_MINE_TRIGGERER))
 		return
 
 	triggermine(arrived)
@@ -40,12 +44,25 @@
 	visible_message(span_danger("[victim] sets off [get_examine_icon(viewers(src))] [src]!"))
 	do_sparks(3, TRUE, src)
 	mineEffect(victim)
-	triggered = 1
+	triggered = TRUE
+	var/damage = 0
+	for(var/mob_type, mob_damage in mobtypes_bonus_damage)
+		if(istype(victim, mob_type))
+			damage += mob_damage
+	victim.adjustBruteLoss(damage)
+	mark_mine_triggerer(victim, src)
+	SEND_SIGNAL(src, COMSIG_MINE_TRIGGERED, victim)
 	qdel(src)
+
+/proc/mark_mine_triggerer(mob/living/victim, atom/source)
+	ADD_TRAIT(victim, TRAIT_MINE_TRIGGERER, UNIQUE_TRAIT_SOURCE(source))
+	addtimer(TRAIT_CALLBACK_REMOVE(victim, TRAIT_MINE_TRIGGERER, UNIQUE_TRAIT_SOURCE(source)), 0.5 SECONDS)
 
 /obj/effect/mine/ex_act(severity, target)
 	// Necessary because, as effects, they have infinite health, and wouldn't be destroyed otherwise.
 	// Also, they're pressure-sensitive mines, it makes sense that an explosion (wave of pressure) triggers/destroys them.
+	if(!destroy_on_ex)
+		return
 	qdel(src)
 
 /obj/effect/mine/explosive
@@ -58,6 +75,39 @@
 /obj/effect/mine/explosive/mineEffect(mob/living/victim)
 	add_attack_logs(victim, src, "Stepped on")
 	explosion(loc, devastation_range = range_devastation, heavy_impact_range = range_heavy, light_impact_range = range_light, flash_range = range_flash)
+
+/obj/effect/mine/explosive/lavaland
+	icon_state = "landmine"
+	level = 1
+	invisibility = INVISIBILITY_ANOMALY
+	destroy_on_ex = FALSE
+	range_heavy = 0
+	mobtypes_bonus_damage = list(
+		/mob/living/simple_animal = 10,
+		/mob/living/basic = 10,
+		/mob/living/simple_animal/hostile/asteroid = 30,
+		/mob/living/simple_animal/hostile/asteroid/goliath = 120,
+	)
+	hud_possible = list(MINE_HUD)
+
+/obj/effect/mine/explosive/lavaland/ComponentInitialize()
+	AddComponent(/datum/component/pellet_cloud, projectile_type = /obj/projectile/shrapnel/mine, magnitude = 1)
+	return ..()
+
+/obj/effect/mine/explosive/lavaland/Initialize(mapload)
+	prepare_huds()
+	var/datum/atom_hud/mines/aura_hud = GLOB.huds[MINE_HUD]
+	aura_hud.add_atom_to_hud(src)
+	set_hud_image_state(MINE_HUD, "hudlandmine")
+	set_hud_image_active(MINE_HUD)
+	return ..()
+
+/obj/effect/mine/explosive/lavaland/Destroy(force)
+	var/datum/atom_hud/mines/aura_hud = GLOB.huds[MINE_HUD]
+	aura_hud.remove_atom_from_hud(src)
+	set_hud_image_state(MINE_HUD, "")
+	set_hud_image_inactive(MINE_HUD)
+	return ..()
 
 /obj/effect/mine/stun
 	name = "stun mine"

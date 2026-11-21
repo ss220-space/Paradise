@@ -199,6 +199,15 @@
 	HUDType = DATA_HUD_SECURITY_ADVANCED
 	examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE
 
+/obj/item/organ/internal/cyberimp/eyes/hud/mine
+	name = "Mine HUD implant"
+	desc = "These cybernetic eye implants will display a mine HUD over everything you see."
+	slot = INTERNAL_ORGAN_EYE_MINE_SIGHT_DEVICE
+	eye_colour = COLOR_CYAN
+	origin_tech = "materials=4;programming=2;biotech=3;combat=2"
+	aug_message = "Job indicator icons pop up in your vision. That is not a certified surgeon..."
+	HUDType = MINE_HUD
+
 /obj/item/organ/internal/cyberimp/eyes/hud/science
 	name = "Science HUD implant"
 	desc = "These cybernetic eye implants with an analyzer for scanning items and reagents."

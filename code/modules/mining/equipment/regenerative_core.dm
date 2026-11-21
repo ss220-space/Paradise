@@ -120,7 +120,8 @@
 	if(inert)
 		to_chat(owner, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] рассыпается при попытке активации."))
 	else
-		owner.revive()
+		owner.heal_overall_damage(35, 35, affect_robotic = TRUE)
+		applyto(owner)
 	after_use()
 
 /obj/item/organ/internal/regenerative_core/on_life()

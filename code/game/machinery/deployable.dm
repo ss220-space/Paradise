@@ -70,6 +70,8 @@
 			return TRUE
 		if(prob(proj_pass_rate))
 			return TRUE
+		if(astype(proj.firer_source_atom, /obj/item/gun)?.bypass_baricades)
+			return TRUE
 		return FALSE
 	if(!isitem(mover)) //thrown items with the dropwall
 		return .

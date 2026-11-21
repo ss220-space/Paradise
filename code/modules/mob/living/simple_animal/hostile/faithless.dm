@@ -20,6 +20,7 @@
 	emote_taunt = list("воет")
 	taunt_chance = 25
 	footstep_type = FOOTSTEP_MOB_SHOE
+	butcher_results = list(/obj/item/stack/ore/titanium = 2)
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 

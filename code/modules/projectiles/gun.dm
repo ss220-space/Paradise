@@ -134,6 +134,7 @@
 	var/obj/item/flashlight/seclite/gun_light
 
 	var/can_holster = TRUE
+	var/bypass_baricades = FALSE
 
 	var/list/upgrades = list()
 
