@@ -1092,24 +1092,44 @@
 
 /obj/item/reagent_containers/food/snacks/pelmeni
 	name = "pelmeni"
-	desc = "Meat wrapped in thin uneven dough."
+	desc = "Мясо, завёрнутое в тонкое тесто"
 	icon_state = "pelmeni"
 	filling_color = "#d9be29"
 	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 2)
-	tastes = list("raw meat" = 1, "raw dough" = 1)
+	tastes = list("сырого мяса" = 1, "сырого теста" = 1)
 	foodtype = MEAT | RAW | GRAIN
+
+/obj/item/reagent_containers/food/snacks/pelmeni/get_ru_names()
+	return alist(
+		NOMINATIVE = "пельмени",
+		GENITIVE = "пельменей",
+		DATIVE = "пельменям",
+		ACCUSATIVE = "пельмени",
+		INSTRUMENTAL = "пельменями",
+		PREPOSITIONAL = "пельменях",
+	)
 
 /obj/item/reagent_containers/food/snacks/boiledpelmeni
 	name = "boiled pelmeni"
-	desc = "We don't know what was Siberia, but these tasty pelmeni definitely arrived from there."
+	desc = "Мы не знаем, что такое Сибирь, но эти вкусные пельмени определённо родом оттуда."
 	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "boiledpelmeni"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#d9be29"
 	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 5)
 	bitesize = 3
-	tastes = list("meat" = 2, "dough" = 2)
+	tastes = list("мяса" = 2, "теста" = 2)
 	foodtype = MEAT | GRAIN
+
+/obj/item/reagent_containers/food/snacks/boiledpelmeni/get_ru_names()
+	return alist(
+		NOMINATIVE = "варёные пельмени",
+		GENITIVE = "варёных пельменей",
+		DATIVE = "варёным пельменям",
+		ACCUSATIVE = "варёные пельмени",
+		INSTRUMENTAL = "варёными пельменями",
+		PREPOSITIONAL = "варёных пельменях",
+	)
 
 /obj/item/reagent_containers/food/snacks/organ
 	name = "organ"
@@ -1159,13 +1179,23 @@
 //Food made of species
 /obj/item/reagent_containers/food/snacks/fried_vox
 	name = "Kentucky Fried Vox"
-	desc = "Bucket of voxxy, yaya!"
+	desc = "Ведёрко жареного вокса по-Кентуккийски. Кикики!"
 	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "fried_vox"
 	trash = /obj/item/trash/fried_vox
 	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/protein = 5)
-	tastes = list("quills" = 1, "the shoal" = 1)
+	tastes = list("перьев" = 1, "космического мусора" = 1)
 	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/fried_vox/get_ru_names()
+	return alist(
+		NOMINATIVE = "жареный вокс по-Кентуккийски",
+		GENITIVE = "жареного вокса по-Кентуккийски",
+		DATIVE = "жареному воксу по-Кентуккийски",
+		ACCUSATIVE = "жареного вокса по-Кентуккийски",
+		INSTRUMENTAL = "жареным воксом по-Кентуккийски",
+		PREPOSITIONAL = "жареном воксе по-Кентуккийски",
+	)
 
 /obj/item/reagent_containers/food/snacks/kidanragu
 	name = "Spicy chitin ragu"
@@ -1178,69 +1208,148 @@
 
 /obj/item/reagent_containers/food/snacks/sliceable/lizard
 	name = "Fried reptile meat"
-	desc = " A Juicy steaks from the tail of a large lizard, makes you want to lie on warm rocks. Slicable"
+	desc = "Сочный стейк из хвоста крупной ящерицы. Так и хочется погреться на теплых камнях. Можно нарезать."
 	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "lizard_steak"
 	slice_path = /obj/item/reagent_containers/food/snacks/lizardslice
 	slices_num = 5
 	list_reagents = list(/datum/reagent/medicine/zessulblood = 50, /datum/reagent/consumable/nutriment/protein = 30, /datum/reagent/consumable/nutriment = 20, /datum/reagent/consumable/nutriment/vitamin = 10)
-	tastes = list("lizard meat" = 4, "chicken meat" = 2)
+	tastes = list("мяса ящерицы" = 4, "курятины" = 2)
 	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/sliceable/lizard/get_ru_names()
+	return alist(
+		NOMINATIVE = "стейк из унати",
+		GENITIVE = "стейка из унати",
+		DATIVE = "стейку из унати",
+		ACCUSATIVE = "стейк из унати",
+		INSTRUMENTAL = "стейком из унати",
+		PREPOSITIONAL = "стейке из унати",
+	)
 
 /obj/item/reagent_containers/food/snacks/lizardslice
 	name = "reptile steak"
-	desc = "A serving of unathi meat."
+	desc = "Порция мяса унати"
 	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "lizard_slice"
 	trash = /obj/item/trash/plate
 	filling_color = "#a55f3a"
-	tastes = list("lizard meat" = 2, "chicken meat" = 1)
+	tastes = list("мяса ящерицы" = 2, "курятины" = 1)
 	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/lizardslice/get_ru_names()
+	return alist(
+		NOMINATIVE = "стейк из унати",
+		GENITIVE = "стейка из унати",
+		DATIVE = "стейку из унати",
+		ACCUSATIVE = "стейк из унати",
+		INSTRUMENTAL = "стейком из унати",
+		PREPOSITIONAL = "стейке из унати",
+	)
 
 /obj/item/reagent_containers/food/snacks/tajaroni
 	name = "Tajaroni"
-	desc = "Spicy dried sausage with pepper and... Did it just meow?"
+	desc = "Острая вяленая колбаса с перцем и... Оно только что мяукнуло?"
 	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "tajaroni"
 	list_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/consumable/nutriment/vitamin = 4, /datum/reagent/consumable/nutriment/protein = 4)
-	tastes = list("dry meat" = 3, "cat meat" = 2)
+	tastes = list("вяленого мяса" = 3, "кошатины" = 2)
 	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/tajaroni/get_ru_names()
+	return alist(
+		NOMINATIVE = "таярони",
+		GENITIVE = "таярони",
+		DATIVE = "таярони",
+		ACCUSATIVE = "таярони",
+		INSTRUMENTAL = "таярони",
+		PREPOSITIONAL = "таярони",
+	)
 
 //vulpix
 /obj/item/reagent_containers/food/snacks/vulpix
 	name = "Vulpixes"
-	desc = "Appetizing-looking meat balls in the dough.. The main thing is not to think about WHO they are made of!"
+	desc = "Аппетитные мясные шарики в тесте... Главное — не думать о том, из КОГО они сделаны!"
 	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "vulpix"
 	list_reagents = list(/datum/reagent/consumable/nutriment = 10, /datum/reagent/consumable/nutriment/vitamin = 4, /datum/reagent/consumable/nutriment/protein = 5)
-	tastes = list("dough" = 2, "dog meat" = 3)
+	tastes = list("теста" = 2, "собачатины" = 3)
 	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/vulpix/get_ru_names()
+	return alist(
+		NOMINATIVE = "вульпиксы",
+		GENITIVE = "вульпиксов",
+		DATIVE = "вульпиксам",
+		ACCUSATIVE = "вульпиксы",
+		INSTRUMENTAL = "вульпиксами",
+		PREPOSITIONAL = "вульпиксах",
+	)
 
 /obj/item/reagent_containers/food/snacks/vulpix/cheese
 	name = "Cheese vulpixes"
-	desc = "Appetizing-looking meat balls in the dough filled with cheese.. The main thing is not to think about WHO they are made of!"
+	desc = "Аппетитные мясные шарики в тесте с сырной начинкой... Главное — не думать о том, из КОГО они сделаны!"
 	icon_state = "vulpix_cheese"
-	tastes = list("dough" = 2, "dog meat" = 3, "cheese" = 2)
+	tastes = list("теста" = 2, "собачатины" = 3, "сыра" = 2)
+
+/obj/item/reagent_containers/food/snacks/vulpix/cheese/get_ru_names()
+	return alist(
+		NOMINATIVE = "вульпиксы с сыром",
+		GENITIVE = "вульпиксов с сыром",
+		DATIVE = "вульпиксам с сыром",
+		ACCUSATIVE = "вульпиксы с сыром",
+		INSTRUMENTAL = "вульпиксами с сыром",
+		PREPOSITIONAL = "вульпиксах с сыром",
+	)
 
 /obj/item/reagent_containers/food/snacks/vulpix/bacon
 	name = "Bacon and mushroom vulpixes"
-	desc = "Appetizing-looking meat balls in the dough filled with.. The main thing is not to think about WHO they are made of!"
+	desc = "Аппетитные мясные шарики в тесте с беконом и грибами... Главное — не думать о том, из КОГО они сделаны!"
 	icon_state = "vulpix_bacon"
-	tastes = list("dough" = 2, "dog meat" = 3, "bacon" = 2, "mushroom" = 2)
+	tastes = list("теста" = 2, "собачатины" = 3, "бекона" = 2, "грибов" = 2)
+
+/obj/item/reagent_containers/food/snacks/vulpix/bacon/get_ru_names()
+	return alist(
+		NOMINATIVE = "вульпиксы с беконом",
+		GENITIVE = "вульпиксов с беконом",
+		DATIVE = "вульпиксам с беконом",
+		ACCUSATIVE = "вульпиксы с беконом",
+		INSTRUMENTAL = "вульпиксами с беконом",
+		PREPOSITIONAL = "вульпиксах с беконом",
+	)
 
 /obj/item/reagent_containers/food/snacks/vulpix/chilli
 	name = "Chilli vulpixes"
-	desc = "Appetizing-looking meat balls in the dough.. The main thing is not to think about WHO they are made of! Makes your tongue burn."
+	desc = "Аппетитные мясные шарики в тесте... Главное — не думать о том, из КОГО они сделаны! Заставляют твой язык гореть."
 	icon_state = "vulpix_chillie"
-	tastes = list("dough" = 2, "dog meat" = 3, "chillie" = 2)
+	tastes = list("теста" = 2, "собачатины" = 3, "чили" = 2)
+
+/obj/item/reagent_containers/food/snacks/vulpix/chilli/get_ru_names()
+	return alist(
+		NOMINATIVE = "вульпиксы с чили",
+		GENITIVE = "вульпиксов с чили",
+		DATIVE = "вульпиксам с чили",
+		ACCUSATIVE = "вульпиксы с чили",
+		INSTRUMENTAL = "вульпиксами с чили",
+		PREPOSITIONAL = "вульпиксах с чили",
+	)
 
 /obj/item/reagent_containers/food/snacks/bakedvulp
 	name = "oven-baked vulp"
-	desc = "Oven-baked vulp meat with a juicy apple in the mouth. She was unintelligent... Wasn't she?"
+	desc = "Запечённое в духовке мясо вульпканина с сочным яблоком во рту. Она была неразумной... Не так ли?"
 	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "bakedvulp"
 	trash = /obj/item/trash/tray
 	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 12, /datum/reagent/consumable/nutriment = 10, /datum/reagent/consumable/nutriment/vitamin = 5)
-	tastes = list("dog meat" = 2, "apple" = 1)
+	tastes = list("собачатины" = 2, "яблока" = 1)
 	foodtype = MEAT
 
+/obj/item/reagent_containers/food/snacks/bakedvulp/get_ru_names()
+	return alist(
+		NOMINATIVE = "запечённый вульпканин",
+		GENITIVE = "запечённого вульпканина",
+		DATIVE = "запечённому вульпканину",
+		ACCUSATIVE = "запечённого вульпканина",
+		INSTRUMENTAL = "запечённым вульпканином",
+		PREPOSITIONAL = "запечённом вульпканине",
+	)
