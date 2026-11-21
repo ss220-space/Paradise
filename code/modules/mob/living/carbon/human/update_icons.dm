@@ -947,7 +947,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	var/datum/body_accessory/wing/wings = bodypart_wing.body_accessory
 
-	if(!has_status_effect(STATUS_EFFECT_BURNT_WINGS))
+	if(!HAS_TRAIT(src, TRAIT_BURNT_WINGS))
 		if(wings.is_open)
 			wings.icon = wings.open_icon
 			wings.pixel_x_offset = -22
