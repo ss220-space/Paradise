@@ -203,11 +203,12 @@ GLOBAL_LIST_EMPTY(organ_rott_overlay_icons)
 	return S
 
 /obj/item/organ/internal/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
-	if(parent_organ_zone != parent.limb_zone)
+	if(check_zone(parent_organ_zone) != parent.limb_zone)
 		return FALSE
 
 	insert(target, special)
 	return TRUE
+//
 
 // Rendering!
 /obj/item/organ/internal/proc/render()
