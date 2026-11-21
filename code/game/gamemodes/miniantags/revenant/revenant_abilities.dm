@@ -227,7 +227,7 @@
 	name = "[get_spell_title()][initial(name)]([cast_amount])"
 
 /datum/action/cooldown/spell/aoe/revenant/create_new_handler()
-	var/datum/spell_handler/revenant/handler = new(src, cast_amount)
+	var/datum/spell_handler/revenant/handler = new(cast_amount)
 	return handler
 
 /datum/action/cooldown/spell/aoe/revenant/level_spell(bypass_cap)
@@ -706,7 +706,7 @@
 	name = "[get_spell_title()][initial(name)]([cast_amount])"
 
 /datum/action/cooldown/spell/pointed/revenant/create_new_handler()
-	var/datum/spell_handler/revenant/handler = new(src, cast_amount)
+	var/datum/spell_handler/revenant/handler = new(cast_amount)
 	return handler
 
 /datum/action/cooldown/spell/pointed/revenant/level_spell(bypass_cap)
