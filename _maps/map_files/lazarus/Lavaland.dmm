@@ -602,13 +602,6 @@
 	icon_state = "darkbrown"
 	},
 /area/mine/living_quarters)
-"eg" = (
-/obj/effect/turf_decal/delivery/green/hollow,
-/obj/structure/closet/crate/secure/mortar/mortar_shells/flare,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkfull"
-	},
-/area/mine/lobby)
 "ej" = (
 /obj/structure/table,
 /obj/item/reagent_containers/cup/soda_cans/beer,
@@ -1860,13 +1853,6 @@
 /obj/structure/stone_tile/center,
 /turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
-"kR" = (
-/obj/effect/decal/cleanable/dust,
-/obj/machinery/light/floor,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkfull"
-	},
-/area/mine/lobby)
 "lb" = (
 /obj/structure/sink/directional/west,
 /obj/structure/mirror{
@@ -2304,15 +2290,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/cafeteria)
-"nt" = (
-/obj/effect/turf_decal/delivery/red,
-/obj/structure/mortar{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkfull"
-	},
-/area/mine/lobby)
 "nu" = (
 /obj/machinery/mineral/equipment_vendor,
 /turf/simulated/floor/plasteel{
@@ -6850,7 +6827,7 @@
 /area/mine/living_quarters)
 "NA" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/fence/door/mesh/slim,
+/obj/structure/fence/meshfence/slim,
 /turf/simulated/floor/plating,
 /area/mine/lobby)
 "NC" = (
@@ -7115,13 +7092,6 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
-"Pk" = (
-/obj/effect/turf_decal/delivery/hollow,
-/obj/structure/closet/crate/secure/mortar/mortar_shells/incendiary,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkfull"
-	},
-/area/mine/lobby)
 "Pl" = (
 /obj/machinery/bodyscanner,
 /obj/structure/closet/gun_stand/fishingrod{
@@ -7143,14 +7113,6 @@
 	icon_state = "darkfull"
 	},
 /area/mine/living_quarters)
-"Pr" = (
-/obj/effect/turf_decal/delivery/red/hollow,
-/obj/structure/closet/crate/secure/mortar/mortar_shells/he,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkfull"
-	},
-/area/mine/lobby)
 "Pt" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
@@ -18531,8 +18493,8 @@ DH
 DH
 Ne
 Ne
-bB
-tG
+Ne
+Ne
 Ne
 Ne
 Ne
@@ -18787,9 +18749,9 @@ DH
 DH
 DH
 Ne
-bB
-bB
-tG
+Ne
+Ne
+Ne
 tG
 Ne
 Ne
@@ -19044,7 +19006,7 @@ DH
 DH
 Ne
 Ne
-bB
+Ne
 bB
 bB
 tG
@@ -19300,8 +19262,8 @@ DH
 DH
 Ne
 Ne
-bB
-bB
+Ne
+Ne
 bB
 bB
 bB
@@ -19558,7 +19520,7 @@ Ne
 Ne
 Ne
 Ne
-bB
+Ne
 bB
 bB
 bB
@@ -28528,10 +28490,10 @@ Ne
 Ne
 Ne
 Ne
-VW
-VD
-VD
-VD
+Ne
+Ne
+Ne
+Ne
 VD
 zt
 SH
@@ -28785,10 +28747,10 @@ Ne
 Ne
 Ne
 Ne
-VW
-eg
-Pk
-Pr
+Ne
+Ne
+Ne
+Ne
 Wh
 PQ
 Oi
@@ -29042,10 +29004,10 @@ Ne
 Ne
 Ne
 Ne
-VW
-Oi
-kR
-Oi
+Ne
+Ne
+Ne
+Ne
 VW
 PQ
 fW
@@ -29299,10 +29261,10 @@ Ne
 Ne
 Ne
 Ne
-VW
-PQ
-PQ
-PQ
+Ne
+Ne
+Ne
+Ne
 VW
 PQ
 Oi
@@ -29556,10 +29518,10 @@ Ne
 Ne
 Ne
 Ne
-VW
-PQ
-nt
-PQ
+Ne
+Ne
+Ne
+Ne
 NA
 ob
 LQ
@@ -29813,10 +29775,10 @@ Ne
 Ne
 Ne
 Ne
-VW
-PQ
-PQ
-PQ
+Ne
+Ne
+Ne
+Ne
 VW
 PQ
 fW
@@ -30070,10 +30032,10 @@ Ne
 Ne
 Ne
 Ne
-VW
-VW
-VW
-VW
+Ne
+Ne
+Ne
+Ne
 VW
 PQ
 ob
