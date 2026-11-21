@@ -70,7 +70,7 @@
 	else if(stat || HAS_TRAIT(src, TRAIT_UI_BLOCKED))
 		return UI_DISABLED
 	// Update UIs if incapicitated but concious.
-	else if(incapacitated())
+	else if(incapacitated)
 		return UI_UPDATE
 	return UI_INTERACTIVE
 

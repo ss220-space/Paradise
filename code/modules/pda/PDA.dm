@@ -172,7 +172,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	if(loc != user)
 		return FALSE
 
-	if(user.incapacitated() || !isAI(user) && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || !isAI(user) && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return FALSE
 
 	return TRUE
@@ -543,7 +543,7 @@ GAME_VERB_SRC(/obj/item/pda, verb_remove_pen, usr, "Извлечь ручку", 
 		alertee.balloon_alert(alertee, ring_message)
 
 /obj/item/pda/proc/set_ringtone(mob/user)
-	var/new_tone = tgui_input_text(user, "Введите новый рингтон", name, ttone, max_length = 20, encode = FALSE)
+	var/new_tone = tgui_input_text(user, "Введите новый рингтон", name, ttone, max_length = 20)
 	new_tone = trim(new_tone)
 
 	if(!in_range(src, user) || loc != user)

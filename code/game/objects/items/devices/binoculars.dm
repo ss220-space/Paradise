@@ -64,3 +64,104 @@
 		item_state = "binoculars_wielded"
 		return
 	item_state = "binoculars"
+
+#define RANGEFINDER_MODE_RANGE "измерение расстояния"
+#define RANGEFINDER_MODE_TARGET "целеуказание"
+
+/obj/item/binoculars/range
+	name = "rangefinder"
+	gender = NEUTER
+	actions_types = list(/datum/action/item_action/toggle_rangefinder_mode)
+	var/cooldown_duration = 20 SECONDS
+	var/obj/effect/overlay/temp/coord
+	var/coord_type = /obj/effect/overlay/temp/laser_coordinate
+	COOLDOWN_DECLARE(laser_cooldown)
+	var/last_x = 0
+	var/last_y = 0
+	var/last_z = 0
+	var/calculate_delay = 10 SECONDS
+	var/mode = RANGEFINDER_MODE_RANGE
+	var/connected = FALSE
+
+/obj/item/binoculars/range/get_ru_names()
+	return alist(
+		NOMINATIVE = "бинокль-дальномер",
+		GENITIVE = "бинокля-дальномера",
+		DATIVE = "биноклю-дальномеру",
+		ACCUSATIVE = "бинокль-дальномер",
+		INSTRUMENTAL = "биноклем-дальномером",
+		PREPOSITIONAL = "бинокле-дальномере",
+	)
+
+/obj/item/binoculars/range/ranged_interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	if(istype(interacting_with, /atom/movable/screen/fullscreen/cursor_catcher/scope))
+		var/atom/movable/screen/fullscreen/cursor_catcher/scope/scope = interacting_with
+		calculate_target(scope.given_turf, user)
+		return ITEM_INTERACT_SUCCESS
+	return ..()
+
+/obj/item/binoculars/range/proc/select_mode(mob/user)
+	switch(mode)
+		if(RANGEFINDER_MODE_RANGE)
+			mode = RANGEFINDER_MODE_TARGET
+			coord_type = /obj/effect/overlay/temp/laser_target
+		if(RANGEFINDER_MODE_TARGET)
+			mode = RANGEFINDER_MODE_RANGE
+			coord_type = /obj/effect/overlay/temp/laser_coordinate
+	balloon_alert(user, mode)
+
+/obj/item/binoculars/range/proc/calculate_target(turf/location, mob/user)
+	set waitfor = FALSE
+	if(!COOLDOWN_FINISHED(src, laser_cooldown))
+		balloon_alert(user, "на перезарядке")
+		return
+	var/check_dir = get_dir(user, location)
+	for(var/turf/position in get_line(user, location))
+		if(position.directional_opacity & check_dir)
+			balloon_alert(user, "есть препятствие")
+			return
+	coord = new coord_type(location)
+	COOLDOWN_START(src, laser_cooldown, cooldown_duration)
+	if(!do_after(user, calculate_delay, location))
+		return
+	last_x = location.x
+	last_y = location.y
+	last_z = location.z
+	switch(mode)
+		if(RANGEFINDER_MODE_RANGE)
+			ui_interact(user)
+		if(RANGEFINDER_MODE_TARGET)
+			on_target_selected(location, user)
+	QDEL_NULL(coord)
+
+/obj/item/binoculars/range/proc/on_target_selected(turf/location, mob/user)
+	balloon_alert(user, "цель захвачена")
+	SEND_SIGNAL(src, COMSIG_RANGEFINDER_TARGET_LOCKED, location, user)
+
+/obj/item/binoculars/range/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Binoculars", "[capitalize(name)]")
+		ui.open()
+
+/obj/item/binoculars/range/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/binoculars/range/ui_data(mob/user)
+	var/list/data = list()
+
+	data["xcoord"] = last_x
+	data["ycoord"] = last_y
+	data["zcoord"] = last_z
+
+	return data
+
+/datum/action/item_action/toggle_rangefinder_mode
+	name = "Переключить режим"
+
+/datum/action/item_action/toggle_rangefinder_mode/call_effect_proc()
+	var/obj/item/binoculars/range/item_target = target
+	item_target.select_mode(owner)
+
+#undef RANGEFINDER_MODE_RANGE
+#undef RANGEFINDER_MODE_TARGET

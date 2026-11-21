@@ -2,7 +2,7 @@
 
 GAME_VERB_HIDDEN(/mob/living, navigate, "Navigate")
 
-	if(incapacitated())
+	if(incapacitated)
 		return
 	if(length(client.navigation_images))
 		addtimer(CALLBACK(src, PROC_REF(cut_navigation)), world.tick_lag)
@@ -52,7 +52,7 @@ GAME_VERB_HIDDEN(/mob/living, navigate, "Navigate")
 	create_navigation_line(navigate_target)
 
 /mob/living/proc/create_navigation_line(atom/navigate_target)
-	if(isnull(navigate_target) || incapacitated())
+	if(isnull(navigate_target) || incapacitated)
 		return
 
 	cut_navigation()

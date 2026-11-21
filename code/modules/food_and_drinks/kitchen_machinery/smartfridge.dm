@@ -104,6 +104,15 @@
 		/obj/item/grown,
 		/obj/item/slimepotion,
 	))
+	register_context()
+
+/obj/machinery/smartfridge/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+	. = ..()
+	if(istype(held_item, /obj/item/storage/bag) || istype(held_item, /obj/item/storage/box))
+		context[SCREENTIP_CONTEXT_RMB] = "Загрузить из контейнера"
+	if(accept_check(held_item))
+		context[SCREENTIP_CONTEXT_LMB] = "Загрузить"
+	return CONTEXTUAL_SCREENTIP_SET
 
 /obj/machinery/smartfridge/RefreshParts()
 	max_n_of_items = 0
@@ -300,8 +309,12 @@
 		update_icon(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/storage/bag) || istype(I, /obj/item/storage/box))
-		var/obj/item/storage/storage = I
+	balloon_alert(user, "не подходит!")
+	return ATTACK_CHAIN_PROCEED
+
+/obj/machinery/smartfridge/item_interaction_secondary(mob/living/user, obj/item/tool, list/modifiers)
+	if(istype(tool, /obj/item/storage/bag) || istype(tool, /obj/item/storage/box))
+		var/obj/item/storage/storage = tool
 		var/items_loaded = 0
 		for(var/obj/item/thing as anything in storage.contents)
 			if(load(thing, user))
@@ -318,10 +331,8 @@
 		var/failed = length(storage.contents)
 		if(failed)
 			to_chat(user, span_notice("[failed] предмет[DECL_0_A_OV(failed)] не был[DECL_0_I_I(failed)] загружен[DECL_0_Y_Y(failed)]."))
-		return ATTACK_CHAIN_PROCEED_SUCCESS
-
-	balloon_alert(user, "не подходит!")
-	return ATTACK_CHAIN_PROCEED
+		return ITEM_INTERACT_SUCCESS
+	return ..()
 
 /obj/machinery/smartfridge/attack_ghost(mob/user)
 	return attack_hand(user)
@@ -336,7 +347,7 @@
 
 //Drag pill bottle to fridge to empty it into the fridge
 /obj/machinery/smartfridge/mouse_drop_receive(obj/over_object, mob/user, params)
-	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!ishuman(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(!istype(over_object, /obj/item/storage/pill_bottle)) //Only pill bottles, please
 		return

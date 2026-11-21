@@ -41,7 +41,7 @@ ADMIN_VERB(dsay, R_ADMIN|R_MOD, "DSay", "Speak to the dead.", ADMIN_CATEGORY_GAM
 	BLACKBOX_LOG_ADMIN_VERB("Dsay")
 
 /client/proc/get_dead_say()
-	var/msg = tgui_input_text(src, null, "dsay \"text\"", encode = FALSE)
+	var/msg = tgui_input_text(src, null, "dsay \"text\"")
 	if(isnull(msg))
 		return
 	SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/dsay, msg)

@@ -1,4 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - bugfix: "Исправлено несколько неприятных багов прицелов и антимагии. (PR #10015)"

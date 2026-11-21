@@ -641,7 +641,7 @@
 				amount = num_input
 
 			var/timeout = world.time + (60 SECONDS) // If you dont type the reason within a minute, theres bigger problems here
-			var/reason = tgui_input_text(ui.user, "Причина заказа", "Напишите причину заказа", encode = FALSE, timeout = timeout)
+			var/reason = tgui_input_text(ui.user, "Причина заказа", "Напишите причину заказа", timeout = timeout)
 			if(!reason || (!is_public && !is_authorized(ui.user)) || ..())
 				// Cancel if they take too long, they dont give a reason, they aint authed, or if they walked away
 				return

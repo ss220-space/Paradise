@@ -976,7 +976,7 @@
 			if(human.gloves != src)
 				to_chat(human, span_notice("You should wear [src]!"))
 				return
-			if(human.mind.martial_art)
+			if(!human.can_use_rapid_gloves())
 				to_chat(human, span_warning("You're too powerful to use it!"))
 				return
 			ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(FASTPUNCH_SPELL))
@@ -1021,7 +1021,7 @@
 		playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 		add_attack_logs(user, living, "Stunned with [src]")
 		deplete_spell()
-	if(north_star && !user.mind.martial_art)
+	if(north_star && user.can_use_rapid_gloves())
 		user.changeNext_move(CLICK_CD_RAPID)
 	if(fire_casting && iscarbon(A))
 		var/mob/living/carbon/C = A
@@ -1524,7 +1524,7 @@
 	clocker.heal_overall_damage(heal, heal, affect_robotic = robo_affect_heal)
 	if(!can_adv_heal)
 		return
-	clocker.reagents?.add_reagent("epinephrine", 5)
+	clocker.reagents?.add_reagent(/datum/reagent/medicine/epinephrine, 5)
 	var/mob/living/carbon/human/H = clocker
 	for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
 		bodypart.stop_internal_bleeding()

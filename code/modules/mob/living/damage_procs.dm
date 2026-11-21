@@ -46,8 +46,8 @@
 					UpdateDamageIcon()
 				if(QDELETED(bodypart) || bodypart.loc != src || bodypart.brute_dam != brute_was)
 					. |= STATUS_UPDATE_HEALTH
-					if(updating_health)
-						updatehealth("apply damage")
+				if(updating_health)
+					updatehealth("apply damage")
 			else
 				. |= adjustBruteLoss(damage, updating_health, def_zone, blocked, forced, used_weapon, sharp, silent)
 		if(BURN)
@@ -58,8 +58,8 @@
 					UpdateDamageIcon()
 				if(QDELETED(bodypart) || bodypart.loc != src || bodypart.burn_dam != burn_was)
 					. |= STATUS_UPDATE_HEALTH
-					if(updating_health)
-						updatehealth("apply damage")
+				if(updating_health)
+					updatehealth("apply damage")
 			else
 				. |= adjustFireLoss(damage, updating_health, def_zone, blocked, forced, used_weapon, sharp, silent)
 		if(TOX)

@@ -1162,7 +1162,7 @@
 
 /datum/action/cooldown/spell/anabiosis/can_cast_spell(feedback)
 	var/mob/living/carbon/human/user = owner
-	if(user.incapacitated())
+	if(user.incapacitated)
 		if(feedback)
 			user.balloon_alert(user, "нельзя использовать сейчас!")
 		return FALSE
@@ -1415,10 +1415,10 @@
 	for(var/datum/reagent/reagent in human_vampire.reagents.reagent_list)
 		if(istype(reagent, /datum/reagent/medicine/spaceacillin) || istype(reagent, /datum/reagent/medicine/mutadone))
 			continue
-		human_vampire.reagents.remove_reagent(reagent.id, amount_reagents_cleansed)
+		human_vampire.reagents.remove_reagent(reagent.type, amount_reagents_cleansed)
 
-	human_vampire.reagents.add_reagent("spaceacillin", 1)	// FOR
-	human_vampire.reagents.add_reagent("mutadone", 1)		// FREE!
+	human_vampire.reagents.add_reagent(/datum/reagent/medicine/spaceacillin, 1)	// FOR
+	human_vampire.reagents.add_reagent(/datum/reagent/medicine/mutadone, 1)		// FREE!
 
 	// cures heart attack, heart failure and shock
 	human_vampire.set_heartattack(FALSE)

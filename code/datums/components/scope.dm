@@ -383,7 +383,7 @@
 		ny /= n
 	given_x = range_modifier * nx * ax
 	given_y = range_modifier * ny * ay
-	given_turf = locate(owner.x + floor(given_x / ICON_SIZE_X), owner.y + floor(given_y / ICON_SIZE_Y), owner.z)
+	given_turf = locate(owner.x + round(given_x / ICON_SIZE_X, 1), owner.y + round(given_y / ICON_SIZE_Y, 1), owner.z)
 	crosshair_turf = locate(owner.x + floor((icon_x - half_x + given_x) / ICON_SIZE_X), owner.y + floor((icon_y - half_y + given_y) / ICON_SIZE_Y), owner.z)
 
 /datum/action/zoom

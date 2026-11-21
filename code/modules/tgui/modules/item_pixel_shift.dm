@@ -1,6 +1,6 @@
 GAME_VERB_SRC(/obj/item, shift_position, oview(1), "Shift Item Pixel Position", VERB_CATEGORY_HIDDEN)
 
-	if(!isturf(src.loc) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || src.anchored || src.density)
+	if(!isturf(src.loc) || usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || src.anchored || src.density)
 		return
 
 	if(!item_pixel_shift)
@@ -47,7 +47,7 @@ GAME_VERB_SRC(/obj/item, shift_position, oview(1), "Shift Item Pixel Position", 
 
 	var/obj/item/source = host
 
-	if(!isturf(source.loc) || usr.incapacitated() || !in_range(usr, source) || source.anchored || source.density)
+	if(!isturf(source.loc) || usr.incapacitated || !in_range(usr, source) || source.anchored || source.density)
 		return
 
 	var/shift_max = ICON_SIZE_ALL / 2

@@ -74,7 +74,7 @@
 	return "plural"
 
 /obj/item/clothing/glasses/click_alt(mob/living/carbon/human/user)
-	if(!istype(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!istype(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	over_mask = !over_mask
@@ -83,7 +83,7 @@
 	balloon_alert(user, "ношение [over_mask ? "поверх маски" : "под маской"]")
 
 /obj/item/clothing/glasses/attackby(obj/item/I, mob/living/carbon/human/user, params)
-	if(!ishuman(user) || user.incapacitated())
+	if(!ishuman(user) || user.incapacitated)
 		return ..()
 
 	if(istype(I, /obj/item/clothing/glasses/regular))
@@ -1179,7 +1179,7 @@
 	toggle_veil(user)
 
 /obj/item/clothing/glasses/proc/toggle_veil(mob/living/carbon/human/user)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return FALSE
 	. = TRUE
 	up = !up

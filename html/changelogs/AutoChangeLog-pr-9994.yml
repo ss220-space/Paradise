@@ -1,4 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - refactor: "Убрано двойное переопределение компонент инитиалайз у зюзяпушек. (PR #9994)"

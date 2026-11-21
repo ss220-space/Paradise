@@ -408,10 +408,6 @@
 	pump()
 	return CLICK_ACTION_SUCCESS
 
-/obj/item/gun/projectile/shotgun/automatic/dual_tube/AltShiftClick(mob/user)
-	. = ..()
-	try_detach_gun_module(user)
-
 // MARK: Bulldog
 /obj/item/gun/projectile/automatic/shotgun/bulldog
 	name = "\"Bulldog\" mag-fed shotgun"

@@ -80,7 +80,7 @@
 	return
 
 /obj/machinery/dnaforensics/proc/remove_sample(mob/living/remover)
-	if(!istype(remover) || remover.incapacitated() || HAS_TRAIT(remover, TRAIT_HANDS_BLOCKED) || !Adjacent(remover))
+	if(!istype(remover) || remover.incapacitated || HAS_TRAIT(remover, TRAIT_HANDS_BLOCKED) || !Adjacent(remover))
 		return
 	if(!swab)
 		to_chat(remover, span_warning("Внутри сканера нет образца!."))
