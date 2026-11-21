@@ -330,6 +330,28 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике костюмов для ВКД",
 	)
 
+/datum/supply_packs/emergency/new_spacesuit
+	name = "Экстренные костюмы для ВКД"
+	contains = list(
+		/obj/item/clothing/suit/space/eva,
+		/obj/item/clothing/suit/space/eva,
+		/obj/item/clothing/head/helmet/space/eva,
+		/obj/item/clothing/head/helmet/space/eva,
+		/obj/item/clothing/mask/breath,
+		/obj/item/clothing/mask/breath,
+	)
+	cost = 80
+	containertype = /obj/structure/closet/crate/secure
+	containername = "ящик экстренных костюмов для ВКД"
+	container_ru_names = alist(
+		NOMINATIVE = "ящик экстренных костюмов для ВКД",
+		GENITIVE = "ящика экстренных костюмов для ВКД",
+		DATIVE = "ящику экстренных костюмов для ВКД",
+		ACCUSATIVE = "ящик экстренных костюмов для ВКД",
+		INSTRUMENTAL = "ящиком экстренных костюмов для ВКД",
+		PREPOSITIONAL = "ящике экстренных костюмов для ВКД",
+	)
+
 /datum/supply_packs/emergency/scrubbercrate
 	name = "Очиститель воздуха"
 	contains = list(

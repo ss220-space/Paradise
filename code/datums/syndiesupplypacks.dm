@@ -96,6 +96,28 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 350
 	containername = "emergency crate"
 
+/datum/syndie_supply_packs/emergency/new_spacesuit
+	name = "Экстренные костюмы для ВКД"
+	contains = list(
+		/obj/item/clothing/suit/space/eva,
+		/obj/item/clothing/suit/space/eva,
+		/obj/item/clothing/head/helmet/space/eva,
+		/obj/item/clothing/head/helmet/space/eva,
+		/obj/item/clothing/mask/breath,
+		/obj/item/clothing/mask/breath,
+	)
+	cost = 150
+	containertype = /obj/structure/closet/crate/secure
+	containername = "ящик экстренных костюмов для ВКД"
+	container_ru_names = alist(
+		NOMINATIVE = "ящик экстренных костюмов для ВКД",
+		GENITIVE = "ящика экстренных костюмов для ВКД",
+		DATIVE = "ящику экстренных костюмов для ВКД",
+		ACCUSATIVE = "ящик экстренных костюмов для ВКД",
+		INSTRUMENTAL = "ящиком экстренных костюмов для ВКД",
+		PREPOSITIONAL = "ящике экстренных костюмов для ВКД",
+	)
+
 /datum/syndie_supply_packs/emergency/internals
 	name = "Internals Crate"
 	contains = list(
