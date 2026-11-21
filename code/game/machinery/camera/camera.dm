@@ -22,6 +22,8 @@
 	var/invuln = null
 	var/obj/item/camera_assembly/assembly = null
 	var/list/computers_watched_by = list()
+	/// Camera watchers list
+	var/list/watchers = list()
 
 	//OTHER
 
@@ -83,6 +85,7 @@
 	cancelCameraAlarm()
 	cancelAlarm()
 	LAZYCLEARLIST(computers_watched_by)
+	watchers.Cut()
 	return ..()
 
 /obj/machinery/camera/emp_act(severity)
@@ -92,7 +95,7 @@
 		if(prob(150/severity))
 			stat |= EMPED
 			set_light_on(FALSE)
-			update_icon(UPDATE_ICON_STATE)
+			update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 			GLOB.cameranet.removeCamera(src)
 
@@ -102,7 +105,7 @@
 
 /obj/machinery/camera/proc/restore_from_emp()
 	stat &= ~EMPED
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 	if(can_use())
 		GLOB.cameranet.addCamera(src)
@@ -244,7 +247,7 @@
 
 /obj/item/analyzer/camera_upgrade(obj/machinery/camera/target, power_use_update = TRUE)
 	..()
-	target.update_icon(UPDATE_ICON_STATE)
+	target.update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 	//Update what it can see.
 	GLOB.cameranet.updateVisibility(target, opacity_check = FALSE)
 
@@ -292,6 +295,26 @@
 	else if(stat & EMPED)
 		icon_state = "[icon_state]emp"
 
+/obj/machinery/camera/update_overlays()
+	. = ..()
+	if(!status || (stat & EMPED) || !length(watchers))
+		return
+	var/mutable_appearance/active_light = mutable_appearance(icon, isXRay() ? "xraycamera_active" : "camera_active", layer + 0.01)
+	active_light.dir = dir
+	. += active_light
+
+/obj/machinery/camera/proc/add_watcher(datum/watcher)
+	if(QDELETED(src) || !watcher || (watcher in watchers))
+		return
+	watchers += watcher
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/machinery/camera/proc/remove_watcher(datum/watcher)
+	if(QDELETED(src) || !watcher || !(watcher in watchers))
+		return
+	watchers -= watcher
+	update_icon(UPDATE_OVERLAYS)
+
 /obj/machinery/camera/proc/toggle_cam(mob/user, displaymessage = TRUE)
 	status = !status
 	if(can_use())
@@ -323,7 +346,7 @@
 			visible_message(span_danger("\The [src] [change_msg]!"))
 
 		playsound(loc, toggle_sound, 100, TRUE)
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 /obj/machinery/camera/proc/triggerCameraAlarm()
 	if(status || alarm_on || (assembly && assembly.state == 1)) // checks if camera still off OR alarms already on OR camera disasembled

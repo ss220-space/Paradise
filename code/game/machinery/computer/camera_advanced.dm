@@ -5,6 +5,7 @@
 	icon_keyboard = "security_key"
 	var/mob/camera/aiEye/remote/eyeobj
 	var/mob/living/carbon/human/current_user = null
+	var/obj/machinery/camera/current_camera = null
 	var/list/networks = list("SS13")
 	var/datum/action/innate/camera_off/off_action = new
 	var/datum/action/innate/camera_jump/jump_action = new
@@ -42,6 +43,7 @@
 /obj/machinery/computer/camera_advanced/proc/remove_eye_control(mob/living/user)
 	if(!user)
 		return
+	set_current_camera(null)
 	for(var/datum/action/A as anything in actions)
 		A.Remove(user)
 	actions.Cut()
@@ -62,7 +64,17 @@
 	if((stat & (NOPOWER|BROKEN)) || (!Adjacent(user) && !user.has_unlimited_silicon_privilege) || !user.has_vision() || user.incapacitated)
 		user.unset_machine()
 
+/obj/machinery/computer/camera_advanced/proc/set_current_camera(obj/machinery/camera/new_camera)
+	if(current_camera == new_camera)
+		return
+	if(!QDELETED(current_camera))
+		current_camera.remove_watcher(src)
+	current_camera = new_camera
+	if(!QDELETED(current_camera))
+		current_camera.add_watcher(src)
+
 /obj/machinery/computer/camera_advanced/Destroy()
+	set_current_camera(null)
 	if(current_user)
 		current_user.unset_machine()
 	QDEL_NULL(eyeobj)
@@ -160,6 +172,9 @@
 		if(!isturf(eye_user.loc) || !destination)
 			return
 		abstract_move(destination)
+
+		if(!QDELETED(origin))
+			origin.set_current_camera(locate(/obj/machinery/camera) in destination)
 
 		if(use_static)
 			GLOB.cameranet.visibility(src, GetViewerClient())

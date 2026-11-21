@@ -41,6 +41,7 @@
 
 /obj/machinery/computer/security/Destroy()
 	QDEL_NULL(cam_screen)
+	active_camera?.remove_watcher(src)
 	active_camera?.computers_watched_by -= src
 	active_camera = null
 	return ..()
@@ -134,9 +135,11 @@
 			to_chat(usr, span_warning("ОШИБКА. Камера не найдена."))
 			return
 
-		var/old_camera = active_camera
-		active_camera?.computers_watched_by -= src
+		var/obj/machinery/camera/old_camera = active_camera
+		old_camera?.remove_watcher(src)
+		old_camera?.computers_watched_by -= src
 		active_camera = selected_camera
+		active_camera.add_watcher(src)
 		active_camera.computers_watched_by += src
 		playsound(src, SFX_TERMINAL_TYPE, 25, FALSE)
 
@@ -186,10 +189,13 @@
 	// Unregister map objects
 	cam_screen?.hide_from(user)
 	// Turn off the console
-	if(length(concurrent_users) == 0 && is_living)
-		active_camera?.computers_watched_by -= src
-		active_camera = null
-		last_camera_turf = null
+	if(length(concurrent_users) != 0)
+		return
+	active_camera?.remove_watcher(src)
+	active_camera?.computers_watched_by -= src
+	active_camera = null
+	last_camera_turf = null
+	if(is_living)
 		playsound(src, 'sound/machines/terminal_off.ogg', 25, FALSE)
 
 /obj/machinery/computer/security/attack_hand(mob/user)
