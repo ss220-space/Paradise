@@ -713,6 +713,7 @@
 #include "code\datums\rituals.dm"
 #include "code\datums\ruins.dm"
 #include "code\datums\secspear_mode.dm"
+#include "code\datums\lightfloor_mode.dm"
 #include "code\datums\shuttles.dm"
 #include "code\datums\signals.dm"
 #include "code\datums\snake_fashion.dm"
