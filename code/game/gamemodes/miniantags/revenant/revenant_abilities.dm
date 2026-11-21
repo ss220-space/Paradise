@@ -100,8 +100,8 @@
 				if(do_after(src, 3 SECONDS, target, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM)) //As one cannot prove the existance of ghosts, ghosts cannot prove the existance of the target they were draining.
 					change_essence_amount(essence_drained, 0, target)
 					if(essence_drained > 90)
-						essence_regen_cap += 25
 						perfectsouls += 1
+						essence_regen_cap = initial(essence_regen_cap + perfectsouls*25)
 						var/datum/hud/revenant/hud = hud_used
 						hud.update_huds()
 						to_chat(src, span_revenboldnotice("Совершенство души [target] увеличило ваш максимальный уровень эссенции. Ваш новый максимум эссенции: [essence_regen_cap]."))

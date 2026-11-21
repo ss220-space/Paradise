@@ -116,6 +116,7 @@
 	user.change_essence_amount(-cost, TRUE)
 	if(need_p_soul)
 		user.perfectsouls--
+		user.essence_regen_cap = initial(user.essence_regen_cap + user.perfectsouls*25)
 		var/datum/hud/revenant/hud = user.hud_used
 		hud.update_huds()
 	if(owned)
