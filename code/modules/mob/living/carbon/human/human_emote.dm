@@ -776,10 +776,6 @@
 	if(istype(H))
 		H.change_head_accessory("Burnt Off Antennae")
 		H.change_body_accessory("Burnt Off Wings", H)
-		var/datum/body_accessory/wing/wings = H.body_accessory
-		if(istype(wings))
-			wings.is_open = FALSE
-		H.update_wing_layer()
 
 /datum/emote/living/carbon/human/moth/flap/can_run_emote(mob/user, status_check = TRUE, intentional)
 	. = ..()
@@ -846,11 +842,12 @@
 	if(!ishuman(user))
 		return FALSE
 	var/mob/living/carbon/human/H = user
-	if(H.has_status_effect(STATUS_EFFECT_BURNT_WINGS))
-		to_chat(user, span_warning("У вас сгорели крылья!"))
-		return FALSE
-	if(!H.body_accessory || !istype(H.body_accessory, /datum/body_accessory/wing))
+	var/obj/item/organ/external/wing/wing_organ = H.get_organ(BODY_ZONE_WING)
+	if(!wing_organ || !istype(wing_organ.body_accessory, /datum/body_accessory/wing))
 		to_chat(user, span_warning("У вас нет крыльев!"))
+		return FALSE
+	if(wing_organ.body_accessory == GLOB.body_accessory_by_name["Burnt Off Wings"])
+		to_chat(user, span_warning("У вас сгорели крылья!"))
 		return FALSE
 	return TRUE
 
