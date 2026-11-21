@@ -88,7 +88,7 @@
 	autohiss_exempt = list("Канилунц")
 
 	max_select_skills = list(
-		/datum/skill/general/cooking = 1,
+		/datum/skill/service/cooking = 1,
 		/datum/skill/medical/surgery = 1,
 	)
 
