@@ -13,9 +13,6 @@
 	color = CABLE_HEX_COLOR_WHITE
 	return
 
-/obj/structure/cable/multilayer/adjust_cable_layer()
-	return
-
 /obj/structure/cable/multilayer/update_icon_state()
 	SHOULD_CALL_PARENT(FALSE)
 	return
@@ -23,16 +20,16 @@
 /obj/structure/cable/multilayer/update_icon()
 	. = ..()
 	underlays.Cut()
-	var/mutable_appearance/cable_node_3 = mutable_appearance('icons/obj/engines_and_power/power_cond/layer_cable.dmi', "node_all")
+	var/mutable_appearance/cable_node_3 = mutable_appearance('icons/obj/engines_and_power/power_cond/layer_cable.dmi', "node_all2")
 	cable_node_3.transform = TRANSLATE_MATRIX(-4, -4)
 	cable_node_3.color = CABLE_COLOR_BLUE
 	cable_node_3?.alpha = cable_layer & CABLE_LAYER_3 ? 255 : 0
 	underlays += cable_node_3
-	var/mutable_appearance/cable_node_2 = mutable_appearance('icons/obj/engines_and_power/power_cond/layer_cable.dmi', "node_all")
+	var/mutable_appearance/cable_node_2 = mutable_appearance('icons/obj/engines_and_power/power_cond/layer_cable.dmi', "node_all2")
 	cable_node_2.color = CABLE_COLOR_RED
 	cable_node_2?.alpha = cable_layer & CABLE_LAYER_2 ? 255 : 0
 	underlays += cable_node_2
-	var/mutable_appearance/cable_node_1 = mutable_appearance('icons/obj/engines_and_power/power_cond/layer_cable.dmi', "node_all")
+	var/mutable_appearance/cable_node_1 = mutable_appearance('icons/obj/engines_and_power/power_cond/layer_cable.dmi', "node_all2")
 	cable_node_1.transform = TRANSLATE_MATRIX(4, 4)
 	cable_node_1.color = CABLE_COLOR_YELLOW
 	cable_node_1?.alpha = cable_layer & CABLE_LAYER_1 ? 255 : 0

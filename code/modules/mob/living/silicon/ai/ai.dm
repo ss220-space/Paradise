@@ -468,7 +468,7 @@ GAME_VERB_PROC(/mob/living/silicon/ai, ai_announcement_text, "Станционн
 		to_chat(src, span_warning("Пожалуйста, подождите [COOLDOWN_TIMELEFT(src, next_text_announcement) / 10] секунд[DECL_U_Y_0(COOLDOWN_TIMELEFT(src, next_text_announcement) / 10)] между объявлениями."))
 		return
 
-	var/input = tgui_input_text(usr, "Пожалуйста, напишите сообщение, которое вы хотите объявить экипажу станции.", "Объявление ИИ", multiline = TRUE, encode = FALSE)
+	var/input = tgui_input_text(usr, "Пожалуйста, напишите сообщение, которое вы хотите объявить экипажу станции.", "Объявление ИИ", multiline = TRUE)
 	if(!input)
 		return
 
@@ -481,7 +481,7 @@ GAME_VERB_PROC(/mob/living/silicon/ai, ai_call_shuttle, "Вызвать эвак
 	if(check_unable(AI_CHECK_WIRELESS))
 		return
 
-	var/input = tgui_input_text(src, "Please enter the reason for calling the shuttle.", "Shuttle Call Reason", multiline = TRUE, encode = FALSE)
+	var/input = tgui_input_text(src, "Please enter the reason for calling the shuttle.", "Shuttle Call Reason", multiline = TRUE)
 	if(!input || stat)
 		return
 
@@ -1038,7 +1038,7 @@ GAME_VERB_PROC_DESC(/mob/living/silicon/ai, arrivals_announcement, "Авто-о�
 
 GAME_VERB_PROC_DESC(/mob/living/silicon/ai, change_arrival_message, "Сообщение о прибытии", "Change the message that's transmitted when a new crew member arrives on station.", VERB_CATEGORY_AICOMMANDS)
 
-	var/newmsg = tgui_input_text(usr, "What would you like the arrival message to be? List of options: $name, $rank, $species, $gender, $age", "Change Arrival Message", arrivalmsg, encode = FALSE)
+	var/newmsg = tgui_input_text(usr, "What would you like the arrival message to be? List of options: $name, $rank, $species, $gender, $age", "Change Arrival Message", arrivalmsg)
 	if(isnull(newmsg) || newmsg == arrivalmsg)
 		to_chat(usr, "Arrival message changing aborted.")
 	else if(newmsg != arrivalmsg)
