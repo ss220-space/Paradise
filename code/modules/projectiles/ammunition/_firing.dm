@@ -91,7 +91,9 @@
 		QDEL_NULL(BB)
 		return TRUE
 
-	BB.preparePixelProjectile(target, user, modifiers, spread)
+	// TODO vakons refactor firing projectile source later
+	var/atom/projectile_source = length(modifiers) ? user : (firer_source_atom || user)
+	BB.preparePixelProjectile(target, projectile_source, modifiers, spread)
 
 	if(BB)
 		BB.fire()

@@ -19,6 +19,8 @@
 #define TRAIT_SOLARFLARE_IMMUNE "solarflare_immune"
 #define TRAIT_BLOBSTORM_IMMUNE "blobstorm_immune"
 #define TRAIT_WEATHER_IMMUNE "weather_immune" //Immune to ALL weather effects.
+/// Ignore own projectile
+#define TRAIT_IGNORE_OWN_PROJECTILE "ignore_own_projectile"
 
 // MARK: atom/movable traits
 /// Buckling yourself to objects with this trait won't immobilize you
