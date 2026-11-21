@@ -211,7 +211,8 @@
 		return .
 	attack_hand(user)
 
-/mob/living/simple_animal/bot/mulebot/emag_act(mob/user)
+// Mulebot have some special logic on emag_act, so we override bot_emagged
+/mob/living/simple_animal/bot/mulebot/bot_emagged(mob/user, obj/item/card/emag/emag_card)
 	if(emagged < 1)
 		emagged = 1
 	if(!open)

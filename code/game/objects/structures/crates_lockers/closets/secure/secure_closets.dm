@@ -42,16 +42,18 @@
 			return
 		open()
 
-/obj/structure/closet/secure_closet/emag_act(mob/user)
-	if(!broken)
-		add_attack_logs(user, src, "emagged")
-		broken = TRUE
-		locked = FALSE
-		playsound(loc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		flick_overlay_view(mutable_appearance(icon, overlay_sparking), sparking_duration)
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_appearance), UPDATE_ICON|UPDATE_DESC), sparking_duration)
-		if(user)
-			to_chat(user, span_notice("You break the lock on [src]."))
+/obj/structure/closet/secure_closet/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(broken)
+		return FALSE
+	broken = TRUE
+	locked = FALSE
+	playsound(loc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	flick_overlay_view(mutable_appearance(icon, overlay_sparking), sparking_duration)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_appearance), UPDATE_ICON|UPDATE_DESC), sparking_duration)
+	if(user)
+		to_chat(user, span_notice("You break the lock on [src]."))
+	return TRUE
 
 /obj/structure/closet/secure_closet/click_alt(mob/user)
 	togglelock(user)

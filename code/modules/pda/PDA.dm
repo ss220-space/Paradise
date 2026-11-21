@@ -120,13 +120,15 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	var/list/current_painting
 	var/current_theme = "nanotrasen"
 
-/obj/item/pda/emag_act(mob/user)
+/obj/item/pda/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
 	if(!user.mind.special_role && !is_admin(user) || !hidden_uplink)
 		explode()
 	else
 		hidden_uplink.trigger(user)
 		to_chat(usr, "The PDA softly beeps.")
 		close(usr)
+	return TRUE
 
 /*
  *	The Actual PDA
