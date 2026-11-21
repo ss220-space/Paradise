@@ -12,6 +12,7 @@
 	desc = "Для приготовления пищи, включая жарку, копчение, обугливание, запекание, поджаривание, тушение, обжиг, плавление, а иногда и для сжигания вещей."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "bonfire"
+	base_icon_state = "bonfire"
 	light_color = LIGHT_COLOR_FIRE
 	anchored = TRUE
 	buckle_lying = 0
@@ -49,7 +50,7 @@
 	return ..()
 
 /obj/structure/bonfire/update_icon_state()
-	icon_state = "bonfire[burning ? "_on_fire" : ""]"
+	icon_state = "[base_icon_state][burning ? "_on_fire" : ""]"
 
 /obj/structure/bonfire/update_overlays()
 	. = ..()
@@ -229,15 +230,11 @@
 /obj/structure/bonfire/prelit/campfire
 	icon = 'icons/obj/bonfire.dmi'
 	icon_state = "campfire"
-
-/obj/structure/bonfire/prelit/campfire/update_icon_state()
-	icon_state = "campfire[burning ? "_on_fire" : ""]"
+	base_icon_state = "campfire"
 
 /obj/structure/bonfire/prelit/brazier
 	icon = 'icons/obj/bonfire.dmi'
 	icon_state = "brazier"
-
-/obj/structure/bonfire/prelit/brazier/update_icon_state()
-	icon_state = "brazier[burning ? "_on_fire" : ""]"
+	base_icon_state = "brazier"
 
 #undef BONFIRE_FIRE_STACK_STRENGTH

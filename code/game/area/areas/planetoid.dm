@@ -1358,6 +1358,7 @@
 /area/planetoid/jungle
 	ambient_buzz = 'sound/ambience/misc/ambience_strata.ogg'
 	ambient_buzz_vol = 60
+	area_flags = BLOBS_ALLOWED | OBJECTIVE_SPAWN_ALLOWED
 
 /area/planetoid/jungle/east
 	name = "East Jungle"

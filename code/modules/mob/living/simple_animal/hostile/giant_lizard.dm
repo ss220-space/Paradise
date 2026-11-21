@@ -76,13 +76,13 @@
 	///Aggression value. At 0, the lizard calms down and enters standby mode.
 	var/aggression_value = 0
 	///Structures that the lizard can break.
-	var/list/destruction_targets = list(
+	var/list/destruction_targets = string_list(list(
 		/obj/structure/window,
 		/obj/structure/closet,
 		/obj/structure/table,
 		/obj/structure/grille,
 		/obj/structure/barricade,
-	)
+	))
 
 	var/list/pet_emotes = list("довольно рычит.", "виляет хвостом.")
 	COOLDOWN_DECLARE(emote_cooldown)

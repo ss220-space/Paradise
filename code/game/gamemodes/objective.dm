@@ -130,11 +130,12 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	if(!possible_spawn_areas)
 		possible_spawn_areas = list()
-		for(var/area/station/maintenance/area in GLOB.areas)
-			possible_spawn_areas += area
-		for(var/area/planetoid/jungle/area in GLOB.areas)
-			possible_spawn_areas += area
+		for(var/area/area in GLOB.areas)
+			if(area.area_flags & OBJECTIVE_SPAWN_ALLOWED)
+				possible_spawn_areas += area
 		src.possible_spawn_areas = possible_spawn_areas
+	if(isemptylist(possible_spawn_areas))
+		return
 
 	var/area/spawn_area = pick(possible_spawn_areas)
 	special_object_spawn_area = spawn_area

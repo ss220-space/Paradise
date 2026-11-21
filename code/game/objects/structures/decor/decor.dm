@@ -25,8 +25,13 @@
 
 /obj/structure/decor/ifv/Initialize(mapload, newdir)
 	. = ..()
-	if(newdir)
-		setDir(newdir)
+	update_dir()
+
+/obj/structure/decor/setDir(newdir)
+	. = ..()
+	update_dir()
+
+/obj/structure/decor/proc/update_dir()
 	switch(dir)
 		if(NORTH, SOUTH)
 			bound_width = 64

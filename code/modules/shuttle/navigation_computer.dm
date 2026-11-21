@@ -25,11 +25,11 @@
 	var/space_turfs_only = TRUE
 	/// Turf types that may sit under a landing spot even with space_turfs_only on.
 	/// Checked as an atom with istype(), so parent types cover all of their subtypes.
-	var/list/ignorable_landing_turfs = list(
+	var/list/ignorable_landing_turfs = string_list(list(
 		/turf/simulated/floor/planetoid,
 		/turf/simulated/wall/cm/indestructible/jungle,
 		/turf/simulated/floor/water/beach,
-	)
+	))
 	var/see_hidden = FALSE
 	var/designate_time = 0
 	var/turf/designating_target_loc

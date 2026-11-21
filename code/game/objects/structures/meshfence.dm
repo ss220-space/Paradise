@@ -1,5 +1,3 @@
-// CM-style mesh fences (poles + metal mesh between them)
-// Sprites: icons/obj/electric_fence.dmi, icons/obj/electric_fence_alt.dmi, icons/obj/electric_fence_alt_door.dmi
 /obj/structure/fence/meshfence
 	desc = "Большая металлическая сетка, натянутая между двумя столбами. Дешёвый способ разделить зоны, не мешая обзору."
 	icon = 'icons/obj/electric_fence.dmi'
@@ -8,12 +6,16 @@
 	max_integrity = 200
 	resistance_flags = FLAMMABLE
 	pass_flags_self = PASSFENCE
-
-	var/junction = 0
+	smooth = SMOOTH_BITMASK
+	base_icon_state = "fence"
+	smoothing_groups = SMOOTH_GROUP_MESH_FENCE
+	canSmoothWith = SMOOTH_GROUP_MESH_FENCE
 
 /obj/structure/fence/meshfence/Initialize(mapload)
 	. = ..()
-	update_nearby_icons()
+	if(hole_size)
+		base_icon_state = "brokenfence"
+	QUEUE_SMOOTH(src)
 
 /obj/structure/fence/meshfence/bullet_act(obj/projectile/P, def_zone)
 	playsound(src, 'sound/effects/fencehit.ogg', 35, TRUE)
@@ -24,28 +26,12 @@
 	. = ..()
 	if(our_turf)
 		for(var/direction in GLOB.cardinal)
-			var/obj/structure/fence/meshfence/fence = locate() in get_step(our_turf, direction)
-			fence?.update_cut_status()
+			var/atom/A = locate() in get_step(our_turf, direction)
+			if(A && (istype(A, /obj/structure/fence/meshfence) || istype(A, /obj/structure/fence/door/mesh)))
+				QUEUE_SMOOTH(A)
 
-/obj/structure/fence/meshfence/update_cut_status()
-	. = ..()
-	junction = 0
-	for(var/obj/structure/fence/meshfence/fence in orange(src, 1))
-		if(abs(x - fence.x) - abs(y - fence.y))
-			junction |= get_dir(src, fence)
-	for(var/obj/structure/fence/door/mesh/fence in orange(src, 1))
-		if(abs(x - fence.x) - abs(y - fence.y))
-			junction |= get_dir(src, fence)
-	if(!hole_size)
-		icon_state = "fence[junction]"
-	else
-		icon_state = "brokenfence[junction]"
-
-/obj/structure/fence/meshfence/proc/update_nearby_icons()
-	update_cut_status()
-	for(var/direction in GLOB.cardinal)
-		var/obj/structure/fence/meshfence/fence = locate() in get_step(src, direction)
-		fence?.update_cut_status()
+/obj/structure/fence/meshfence/set_smoothed_icon_state(new_junction)
+	icon_state = "[base_icon_state][new_junction]"
 
 /// Slim fence - electric_fence_alt.dmi
 /obj/structure/fence/meshfence/slim
@@ -63,13 +49,30 @@
 	icon = 'icons/obj/electric_fence_alt_door.dmi'
 	max_integrity = 70
 
-/obj/structure/fence/door/mesh/update_door_status()
-	set_density(!open)
-	icon_state = open ? "door_open" : "door_closed"
+	smoothing_groups = SMOOTH_GROUP_MESH_FENCE
+
+/obj/structure/fence/door/mesh/Initialize()
+	. = ..()
+	QUEUE_SMOOTH(src)
+
+/obj/structure/fence/door/mesh/Destroy()
+	var/turf/our_turf = get_turf(src)
+	. = ..()
+	if(our_turf)
+		for(var/direction in GLOB.cardinal)
+			var/atom/A = locate() in get_step(our_turf, direction)
+			if(A && (istype(A, /obj/structure/fence/meshfence) || istype(A, /obj/structure/fence/door/mesh)))
+				QUEUE_SMOOTH(A)
 
 /obj/structure/fence/door/mesh/toggle(mob/user)
 	flick(open ? "door_closing" : "door_opening", src)
 	..()
+	QUEUE_SMOOTH_NEIGHBORS(src)
 
+/obj/structure/fence/door/mesh/update_door_status()
+	set_density(!open)
+	icon_state = open ? "door_open" : "door_closed"
+
+/// Slim door
 /obj/structure/fence/door/mesh/slim
 	icon = 'icons/obj/dark_fence_alt_door.dmi'
