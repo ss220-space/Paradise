@@ -311,8 +311,8 @@
 	cast_increase_per_level = 10
 	button_icon_state = "r_defile"
 	aoe_radius = 5
-	radius_increase_per_level = 2
-	max_radius = 7
+	radius_increase_per_level = 1
+	max_radius = 6
 	stun_increase_per_level = 0.5 SECONDS
 	targeting_type = /datum/aoe_targeting/turfs
 
@@ -343,7 +343,7 @@
 	cast_increase_per_level = 15
 	button_icon_state = "r_malfunction"
 	aoe_radius = 5
-	radius_increase_per_level = 4
+	radius_increase_per_level = 1
 	stun = 0.5 SECONDS
 	stun_increase_per_level = 0.5 SECONDS
 	reveal = 3 SECONDS
@@ -481,8 +481,8 @@
 	stun_increase_per_level = 1 SECONDS
 	max_stun = 1 SECONDS
 	reveal = 3 SECONDS
-	aoe_radius = 5
-	radius_increase_per_level = 2
+	aoe_radius = 3
+	radius_increase_per_level = 1
 	reveal_increase_per_level = 2 SECONDS
 	targeting_type = /datum/aoe_targeting/living
 
@@ -654,7 +654,7 @@
 	reveal = 2 SECONDS
 	reveal_increase_per_level = 2 SECONDS
 	aoe_radius = 3
-	radius_increase_per_level = 2
+	radius_increase_per_level = 1
 	targeting_type = /datum/aoe_targeting/human
 
 
