@@ -3669,6 +3669,15 @@
 	icon_state = "brown"
 	},
 /area/mine/production)
+"qL" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/stationary_machinegun/fixed{
+	dir = 1
+	},
+/obj/structure/stationary_machinegun/fixed,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "qT" = (
 /turf/simulated/wall/rust,
 /area/mine/laborcamp)
@@ -27782,7 +27791,7 @@ aj
 aj
 aj
 up
-Ao
+qL
 fw
 up
 HU
