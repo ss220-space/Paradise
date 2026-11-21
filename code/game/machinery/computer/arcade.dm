@@ -185,6 +185,10 @@
 		gameover = 0
 		turtle = 0
 
+	if(obj_flags & EMAGGED)
+		Reset()
+		obj_flags &= ~EMAGGED
+
 	add_fingerprint(usr)
 	updateUsrDialog()
 	return

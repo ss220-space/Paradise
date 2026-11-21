@@ -15,12 +15,10 @@
 	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, BIO = 0, FIRE = 80, ACID = 80)
 	damage_deflection = 25
 	locked = TRUE
-	can_be_emaged = TRUE
 	overlay_lightmask = "securecrate_lightmask"
 	can_be_emissive = TRUE
 	secure = TRUE
 
-	var/can_be_emagged = TRUE
 	var/tamperproof = 0
 	/// Overlay for crate with broken lock
 	var/overlay_broken = "securecrateemag"
@@ -53,11 +51,6 @@
 /obj/structure/closet/crate/secure/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
 	if(!locked)
-		return FALSE
-	if(!can_be_emagged)
-		playsound(loc, 'sound/misc/sadtrombone.ogg', 60, TRUE)
-		if(user)
-			balloon_alert(user, "не удалось!")
 		return FALSE
 
 	locked = FALSE
@@ -269,9 +262,8 @@
 	desc = "Definitely a property of an evil corporation! And it has a hardened lock! And a microphone?"
 	icon_state = "syndiesecurecrate"
 	material_drop = /obj/item/stack/sheet/mineral/plastitanium
-	can_be_emaged = FALSE
+	obj_flags = parent_type::obj_flags|NO_EMAG
 	req_access = list(ACCESS_SYNDICATE)
-	can_be_emagged = FALSE
 
 // MARK: Blood crates
 /obj/structure/closet/crate/secure/blood

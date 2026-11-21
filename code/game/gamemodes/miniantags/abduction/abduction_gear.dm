@@ -871,10 +871,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon_state = "mender2_empty"
 	item_state = "mender2"
 	base_icon = "mender2"
-
-/obj/item/reagent_containers/applicator/abductor/industrial/Initialize(mapload)
-	. = ..()
-	obj_flags &= ~EMAGGED
+	obj_flags = parent_type::obj_flags & ~EMAGGED
 
 /obj/item/reagent_containers/applicator/abductor/industrial/get_ru_names()
 	return alist(

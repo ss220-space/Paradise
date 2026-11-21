@@ -460,14 +460,11 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	enabled = FALSE //turns off the turret temporarily
 	//6 seconds for the traitor to gtfo of the area before the turret decides to ruin his shit
 	//turns it back on. The cover popUp() popDown() are automatically called in process(), no need to define it here
-	addtimer(CALLBACK(src, PROC_REF(finish_emag_act)), 6 SECONDS)
+	addtimer(VARSET_CALLBACK(src, enabled, TRUE), 6 SECONDS)
 	if(user)
 		to_chat(user, span_warning("You short out [src]'s threat assessment circuits."))
 		visible_message("[src] hums oddly...")
 	return TRUE
-
-/obj/machinery/porta_turret/proc/finish_emag_act()
-	enabled = TRUE
 
 /obj/machinery/porta_turret/take_damage(force)
 	if(!raised && !raising)

@@ -118,7 +118,7 @@
 		if(user)
 			to_chat(user, span_warning("Nothing interesting happens!"))
 		return FALSE
-	addtimer(CALLBACK(src, PROC_REF(post_emag)), 1 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(post_emag)), 10 SECONDS)
 	if(user)
 		to_chat(user, span_notice("You emag the barsign. Takeover in progress..."))
 	return TRUE

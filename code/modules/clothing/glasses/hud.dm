@@ -54,7 +54,7 @@
 /obj/item/clothing/glasses/hud/emp_act(severity)
 	. = ..()
 	if(!(obj_flags & EMAGGED))
-		obj_flags |= TRUE
+		obj_flags |= EMAGGED
 
 /obj/item/clothing/glasses/hud/visor_toggling(mob/living/carbon/human/user)
 	. = ..()

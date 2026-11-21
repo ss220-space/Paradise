@@ -87,7 +87,7 @@
 		new_title = "СИСТЕМНАЯ ОШИБКА:",
 		color_override = "red"
 	)
-	SSshuttle.emergency.setTimer(100)
+	SSshuttle.emergency.setTimer(10 SECONDS)
 	return TRUE
 
 /obj/docking_port/mobile/emergency
