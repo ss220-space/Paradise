@@ -574,7 +574,7 @@
 		throw_icon.icon_state = "act_throw_off"
 	if(client?.mouse_override_icon == THROW_MODE_ICON)
 		client.mouse_override_icon = null
-		client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
+		update_mouse_pointer()
 
 /mob/living/carbon/proc/throw_mode_on()
 	SIGNAL_HANDLER //This signal is here so we can turn throw mode back on via carp when an object is caught
@@ -585,7 +585,7 @@
 		throw_icon.icon_state = "act_throw_on"
 	if(!client.mouse_override_icon)
 		client.mouse_override_icon = THROW_MODE_ICON
-		client.mouse_pointer_icon = THROW_MODE_ICON
+		update_mouse_pointer()
 	// we nullify click cd when someone tries to throw a grabbed mob
 	// improves combat robustness a lot
 	if(pulling && grab_state > GRAB_PASSIVE)
@@ -810,7 +810,7 @@
 		for(var/datum/reagent/consumable/C in reagents.reagent_list) //we add the nutrition value of what we're currently digesting
 			fullness += C.nutriment_factor * C.volume / (C.metabolization_rate * metabolism_efficiency * digestion_ratio)
 	if(user == src)
-		if(time_to_eat > 0 && !do_after(user, time_to_eat, max_interact_count = 1))
+		if(time_to_eat > 0 && !do_after(user, time_to_eat, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_SPACE_DRIFT|DA_IGNORE_SLOWDOWNS), max_interact_count = 1))
 			return FALSE
 		if(istype(toEat, /obj/item/reagent_containers/cup/glass))
 			if(!selfDrink(toEat))
@@ -854,15 +854,15 @@
 	return TRUE
 
 /mob/living/carbon/proc/forceFed(obj/item/reagent_containers/food/toEat, mob/user, fullness)
-	if(ispill(toEat) || fullness <= (600 * (1 + overeatduration / 1000)))
-		if(!toEat.instant_application)
-			visible_message(span_warning("[user] пыта[PLUR_ET_YUT(user)]ся заставить [src] [toEat.apply_method]ть [toEat.declent_ru(ACCUSATIVE)]!"))
-	else
+	if(!ispill(toEat) && fullness <= (600 * (1 + overeatduration / 1000)))
 		visible_message(span_warning("[user] не мо[PLUR_JET_GUT(user)]ся заставить [src] [toEat.apply_method]ть [toEat.declent_ru(ACCUSATIVE)]!"))
 		return FALSE
+
 	if(!toEat.instant_application)
+		visible_message(span_warning("[user] пыта[PLUR_ET_YUT(user)]ся заставить [src] [toEat.apply_method]ть [toEat.declent_ru(ACCUSATIVE)]!"))
 		if(!do_after(user, 3 SECONDS, src, NONE))
 			return FALSE
+
 	visible_message(span_warning("[user] заставля[PLUR_ET_YUT(user)] [src] [toEat.apply_method]ть [toEat.declent_ru(ACCUSATIVE)]!"))
 	return TRUE
 

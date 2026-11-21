@@ -469,9 +469,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	.[weight_class_to_text(w_class)] = weight_class_to_tooltip(w_class)
 
 	if(siemens_coefficient == 0)
-		.["изолирующий"] = "Сделано из хорошо изолированного материала, блокирующего прохождение любого электрического тока."
+		.["изолирующ[genderize_examine_descriptor("ий", "яя", "ее", "ие")]"] = "Сделано из хорошо изолированного материала, блокирующего прохождение любого электрического тока."
 	else if(siemens_coefficient <= 0.5)
-		.["частично изолирующий"] = "Сделано из плохо изолированного материала, который лишь ослабит, но не заблокирует прохождение электрического тока."
+		.["частично изолирующ[genderize_examine_descriptor("ий", "яя", "ее", "ие")]"] = "Сделано из плохо изолированного материала, который лишь ослабит, но не заблокирует прохождение электрического тока."
 
 /obj/item/examine_descriptor(mob/user)
 	return "предмет"
@@ -973,7 +973,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 GAME_VERB_SRC(/obj/item, verb_pickup, oview(1), "Pick up", VERB_CATEGORY_HIDDEN)
 
-	if(usr.incapacitated() || !isturf(loc) || !Adjacent(usr))
+	if(usr.incapacitated || !isturf(loc) || !Adjacent(usr))
 		return
 	if(!iscarbon(usr))
 		to_chat(usr, span_warning("Вы не можете поднимать предметы!"))
@@ -1179,7 +1179,7 @@ GAME_VERB_SRC(/obj/item, verb_pickup, oview(1), "Pick up", VERB_CATEGORY_HIDDEN)
 			return
 
 		var/mob/living/living_user = user
-		if(istype(living_user) && living_user.incapacitated())
+		if(istype(living_user) && living_user.incapacitated)
 			apply_outline(living_user, COLOR_RED_GRAY) //if they're dead or handcuffed, let's show the outline as red to indicate that they can't interact with that right now
 		else
 			apply_outline(living_user) //if the player's alive and well we send the command with no color set, so it uses the theme's color
@@ -1190,7 +1190,7 @@ GAME_VERB_SRC(/obj/item, verb_pickup, oview(1), "Pick up", VERB_CATEGORY_HIDDEN)
 	remove_outline()
 
 /obj/item/mouse_drop_receive(atom/dropping, mob/user, params)
-	if(!user || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || src == dropping)
+	if(!user || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || src == dropping)
 		return
 
 	if(loc && dropping.loc == loc && isstorage(loc) && loc.Adjacent(user)) // Are we trying to swap two items in the storage?

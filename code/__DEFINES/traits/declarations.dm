@@ -49,6 +49,7 @@
 #define TRAIT_LAVA_STOPPED "lava_stopped"
 
 // MARK: mob traits
+#define TRAIT_UDDER_FULL "udder_full"
 #define TRAIT_GODMODE "godmode"
 #define TRAIT_PACIFISM "pacifism"
 #define TRAIT_NO_DEATH "nodeath"
@@ -82,6 +83,7 @@
 #define TRAIT_WET_IMMUNITY "wet_immunity"
 /// This just means that the carbon will always have functional liverless metabolism
 #define TRAIT_LIVERLESS_METABOLISM "liverless_metabolism"
+
 
 /// Makes the user handcuff others faster
 #define TRAIT_FAST_CUFFING "fast_cuffing"
@@ -160,6 +162,8 @@
 #define TRAIT_UI_BLOCKED "uiblocked"
 /// Inability to pull things. Turned into a trait from [MOBILITY_PULL] to be able to track sources.
 #define TRAIT_PULL_BLOCKED "pullblocked"
+/// This mob is currently looking through a scope, such as binoculars. Prevents other scopes from taking over the view.
+#define TRAIT_USER_SCOPED "user_scoped"
 /// Abstract condition that prevents movement if being pulled and might be resisted against. Handcuffs and straight jackets, basically.
 #define TRAIT_RESTRAINED "restrained"
 

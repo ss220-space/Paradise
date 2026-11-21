@@ -44,19 +44,6 @@
 	name = "Medical Secondary Storage"
 	icon_state = "medbaysecstorage"
 
-/area/station/science/research/lobby
-	name = "Research Division"
-	icon_state = "research"
-
-/area/station/science/research
-	name = "RnD North Hallway"
-
-/area/station/science/robotics
-	name = "RnD South Hallway"
-
-/area/station/science/break_room
-	name = "RnD Restroom"
-
 /area/station/medical/virology
 	name = "Virology"
 	icon_state = "virology"
@@ -92,7 +79,7 @@
 	name = "Cryogenics"
 	icon_state = "cryo"
 
-/area/station/science/genetics
+/area/station/medical/genetics
 	name = "Genetics Lab"
 	icon_state = "genetics"
 

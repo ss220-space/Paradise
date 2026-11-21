@@ -241,7 +241,7 @@
 	if(world.time <= usr.next_move)
 		return TRUE
 
-	if(usr.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB))
+	if(INCAPACITATED_IGNORING(usr, INCAPABLE_RESTRAINTS|INCAPABLE_GRAB))
 		return TRUE
 
 	if(ismecha(usr.loc)) // stops inventory actions in a mech
@@ -261,7 +261,7 @@
 	if(!istype(storage))
 		return
 
-	if(!user || !storage || !istype(dropped) || user.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ismecha(user.loc))
+	if(!user || !storage || !istype(dropped) || INCAPACITATED_IGNORING(user, INCAPABLE_RESTRAINTS|INCAPABLE_GRAB) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ismecha(user.loc))
 		return
 
 	if(is_ventcrawling(user))
@@ -517,7 +517,7 @@
 	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/area_creator/Click()
-	if(usr.incapacitated() || (isobserver(usr) && !usr.can_admin_interact()))
+	if(usr.incapacitated || (isobserver(usr) && !usr.can_admin_interact()))
 		return TRUE
 	var/area/our_area = get_area(usr)
 	if(!our_area.outdoors)
@@ -582,7 +582,7 @@
 	if(world.time <= usr.next_move)
 		return TRUE
 
-	if(usr.incapacitated())
+	if(usr.incapacitated)
 		return TRUE
 
 	if(ismecha(usr.loc)) // stops inventory actions in a mech
@@ -602,7 +602,7 @@
 	return TRUE
 
 /atom/movable/screen/inventory/mouse_drop_receive(obj/item/dropped, mob/user, params)
-	if(!user || !istype(dropped) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ismecha(user.loc) || is_ventcrawling(user))
+	if(!user || !istype(dropped) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ismecha(user.loc) || is_ventcrawling(user))
 		return
 
 	if(isalien(user) && !dropped.allowed_for_alien())	// We need to do this here
@@ -734,7 +734,7 @@
 	if(world.time <= user.next_move)
 		return TRUE
 
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return TRUE
 
 	if(ismecha(user.loc)) // stops inventory actions in a mech
@@ -760,7 +760,7 @@
 	if(world.time <= usr.next_move)
 		return TRUE
 
-	if(usr.incapacitated())
+	if(usr.incapacitated)
 		return TRUE
 
 	if(ismob(usr))

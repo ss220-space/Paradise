@@ -126,7 +126,7 @@
 /obj/item/gun/energy/accumulator/proc/check_menu(mob/living/user)
 	if(!istype(user))
 		return FALSE
-	if(user.incapacitated() || !user.Adjacent(src))
+	if(user.incapacitated || !user.Adjacent(src))
 		return FALSE
 	return TRUE
 
@@ -268,10 +268,12 @@
 	attachable_offset = list(
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -7),
 	)
-	windup_delay = 1 SECONDS
 	windup_sound = 'sound/weapons/laser_charge_up.ogg'
-	zoomable = TRUE
-	zoom_amt = 5
+
+/obj/item/gun/energy/accumulator/sniper_rifle/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/charge_shot)
+	AddComponent(/datum/component/scope, range_modifier = 1.43)
 
 /obj/item/gun/energy/accumulator/sniper_rifle/get_ru_names()
 	return alist(

@@ -40,6 +40,7 @@
 
 	// For chemical fire
 	var/chemfiresupp = FALSE
+	var/chemfirescpec = FALSE
 	var/intensitymod = 0
 	var/durationmod = 0
 	var/radiusmod = 0
@@ -63,16 +64,48 @@
 
 	var/metabolizing
 	var/list/metabolized_traits
+	var/list/datum/chem_property/properties
 
 /datum/reagent/New()
 	addict_supertype = type
+	if(properties)
+		properties = string_assoc_list(properties_to_datums())
+	recalculate_variables()
 
 /datum/reagent/Destroy()
+	properties = null
 	. = ..()
 	holder = null
 	if(islist(data))
 		data.Cut()
 	data = null
+
+/datum/reagent/proc/recalculate_variables()
+	for(var/datum/chem_property/property, level in properties)
+		property.reset_reagent(src)
+
+	for(var/datum/chem_property/property, level in properties)
+		property.update_reagent(src, level)
+
+	for(var/datum/chem_property/property, level in properties)
+		property.post_update_reagent(src, level)
+
+/datum/reagent/proc/properties_to_datums()
+#ifdef UNIT_TESTS
+	if(!GLOB.chemical_properties_list)
+		CRASH("Chemistry reagents are not set up!")
+#endif
+
+	var/list/new_properties = list()
+	for(var/prop, level in properties)
+		if(istype(prop, /datum/chem_property))
+			new_properties += prop
+			continue
+		var/datum/chem_property/chem = GLOB.chemical_properties_list[prop]
+		if(!chem)
+			continue
+		new_properties[chem] = level
+	return new_properties
 
 /datum/reagent/proc/reaction_temperature(exposed_temperature, exposed_volume) //By default we do nothing.
 	return
@@ -80,7 +113,7 @@
 /datum/reagent/proc/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume, show_message = TRUE) // Some reagents transfer on touch, others don't; dependent on if they penetrate the skin or not.
 	if(holder)  // for catching rare runtimes
 		if(method == REAGENT_TOUCH && penetrates_skin && M.reagents && volume >= 1)
-			M.reagents.add_reagent(id, volume)
+			M.reagents.add_reagent(type, volume)
 
 		if(method == REAGENT_INGEST) //Yes, even Xenos can get addicted to drugs.
 			var/can_become_addicted = M.reagents.reaction_check(M, src)
@@ -103,7 +136,7 @@
 	handle_addiction(M, total_depletion_rate)
 	sate_addiction(M)
 
-	holder.remove_reagent(id, total_depletion_rate) //By default it slowly disappears.
+	holder.remove_reagent(type, total_depletion_rate) //By default it slowly disappears.
 	return STATUS_UPDATE_NONE
 
 /// Called when this reagent first starts being metabolized by a liver
@@ -120,8 +153,8 @@
 /datum/reagent/proc/handle_addiction(mob/living/M, consumption_rate)
 	if(addiction_chance && count_by_type(M.reagents.addiction_list, addict_supertype) < 1)
 		var/datum/reagent/new_reagent = new addict_supertype()
-		M.reagents.addiction_threshold_accumulated[new_reagent.id] += consumption_rate
-		var/current_threshold_accumulated = M.reagents.addiction_threshold_accumulated[new_reagent.id]
+		M.reagents.addiction_threshold_accumulated[new_reagent.type] += consumption_rate
+		var/current_threshold_accumulated = M.reagents.addiction_threshold_accumulated[new_reagent.type]
 
 		if(addiction_threshold < current_threshold_accumulated && prob(addiction_chance) && prob(addiction_chance_additional))
 			to_chat(M, span_danger("Вы чувствуете сильную эйфорию с лёгким оттенком вины..."))
@@ -186,7 +219,7 @@
 
 // Called in on_merge() proc if reagent can carry diseases
 /datum/reagent/proc/merge_diseases_data(list/mix_data)
-	if(!(id in GLOB.diseases_carrier_reagents))
+	if(!(type in GLOB.diseases_carrier_reagents))
 		return
 
 	if(data && mix_data)

@@ -160,6 +160,7 @@
 	announcement_color = "purple"
 
 /datum/security_level/delta_overload
+	name = SECURITY_CODE_DELTA_AZ5
 	number_level = SEC_LEVEL_DELTA_REACTOR
 	elevating_to_sound = 'sound/effects/delta_klaxon.ogg'
 	ai_announcement_sound = 'sound/AI/delta.ogg'
@@ -171,6 +172,7 @@
 	announcement_color = "purple"
 
 /datum/security_level/delta_rocket
+	name = SECURITY_CODE_DELTA_ROCKET
 	number_level = SEC_LEVEL_DELTA_ROCKET
 	elevating_to_sound = 'sound/effects/delta_klaxon.ogg'
 	ai_announcement_sound = 'sound/AI/delta.ogg'

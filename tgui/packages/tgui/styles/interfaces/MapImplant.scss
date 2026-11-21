@@ -1,0 +1,125 @@
+// Map cyberimplant minimap overlay.
+
+.theme-minimap:root {
+	--color-base: transparent;
+	--color-base-start: transparent;
+	--color-base-end: transparent;
+}
+
+.minimap-pane {
+	.Layout__content {
+		background-image: none;
+	}
+}
+
+.minimap-shell {
+	display: flex;
+	flex-direction: column;
+	gap: 7px;
+	height: 100%;
+	padding: 8px;
+	overflow: hidden;
+	color: #c3d2d7;
+	font-family: var(--font-family-mono);
+	font-size: 10px;
+	letter-spacing: 0.04em;
+	user-select: none;
+	background: rgba(5, 12, 16, 0.58);
+	border: 1px solid rgba(103, 216, 255, 0.32);
+	border-radius: 6px;
+	box-shadow:
+		0 4px 18px rgba(0, 0, 0, 0.35),
+		inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.minimap-header {
+	display: flex;
+	flex: none;
+	align-items: center;
+	gap: 7px;
+	height: 22px;
+	padding: 0 3px 0 7px;
+	cursor: move;
+	background: rgba(10, 24, 30, 0.62);
+	border: 1px solid rgba(130, 165, 175, 0.22);
+	border-radius: 3px;
+}
+
+.minimap-header__title {
+	flex: 1;
+	color: #67d8ff;
+	font-weight: bold;
+	letter-spacing: 0.16em;
+}
+
+.minimap-header__z {
+	color: #6f858d;
+	font-size: 9px;
+	letter-spacing: 0.08em;
+}
+
+.minimap-close {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 18px;
+	height: 18px;
+	padding: 0;
+	color: #6f858d;
+	font-size: 10px;
+	line-height: 1;
+	cursor: pointer;
+	background: rgba(16, 23, 26, 0.8);
+	border: 1px solid #26353c;
+	border-radius: 3px;
+	transition:
+		border-color 0.15s ease,
+		color 0.15s ease;
+
+	&:hover {
+		color: #ff5a4d;
+		border-color: rgba(255, 90, 77, 0.55);
+	}
+}
+
+.minimap-map-frame {
+	position: relative;
+	flex: none;
+	align-self: center;
+	overflow: hidden;
+	background: #000;
+	border: 1px solid rgba(130, 165, 175, 0.28);
+	border-radius: 3px;
+	box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.55);
+}
+
+.minimap-map {
+	position: relative;
+	transform-origin: top left;
+}
+
+.minimap-base {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	image-rendering: pixelated;
+	opacity: 0.92;
+}
+
+.minimap-marker {
+	position: absolute;
+	image-rendering: pixelated;
+	pointer-events: none;
+}
+
+.minimap-empty {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	color: #6f858d;
+	font-size: 10px;
+	letter-spacing: 0.1em;
+}

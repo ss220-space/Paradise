@@ -213,13 +213,15 @@ Works together with spawning an observer, noted above.
 
 	var/mob/dead/observer/ghost = new(src, flags)	//Transfer safety to observer spawning proc.
 	if(client)
-		client.mouse_pointer_icon = initial(client.mouse_pointer_icon) //Возвращает курсор в изначальное положение (после меха, нинзи, спелла и т.п)
+		client.mouse_override_icon = initial(client.mouse_pointer_icon)
+		update_mouse_pointer()
 
 	var/recordable_time = world.time
 	var/mob/living/former_mob = ghost.mind?.current
 	if(isliving(former_mob))
 		recordable_time = former_mob.timeofdeath
 
+	ghost.timeofdeath = recordable_time
 	ghost.persistent_client?.time_of_death = recordable_time
 	remove_from_respawnable_list()
 
@@ -832,9 +834,6 @@ GAME_VERB_DESC(/mob/dead/observer, pick_darkness, "Освещённость", "C
 
 	return FALSE
 
-/mob/dead/observer/incapacitated(ignore_flags)
-	return TRUE
-
 /**
  * Handles the pointing action for observer mobs, notifying nearby mobs and adding a follow link for invisible ghosts
  *
@@ -856,8 +855,8 @@ GAME_VERB_DESC(/mob/dead/observer, pick_darkness, "Освещённость", "C
 		var/follow_button
 		if(invisibility) // Only show the button if the ghost is not visible to the living
 			follow_button = "([ghost_follow_link(target, current_mob)])" // Ghost needs to be link clicker, otherwise it breaks
-
-		current_mob.show_message(span_deadsay("<b>[src]</b> указыва[PLUR_ET_YUT(src)] на [follow_button] [target.declent_ru(ACCUSATIVE)]."), EMOTE_VISIBLE)
+		var/follow_text = follow_button ? "[follow_button] " : ""
+		current_mob.show_message(span_deadsay("<b>[src]</b> указыва[PLUR_ET_YUT(src)] на [follow_text][target.declent_ru(ACCUSATIVE)]."), EMOTE_VISIBLE)
 		add_deadchat_logs(src, "point to [key_name(target)] [COORD(target)]")
 
 	return TRUE

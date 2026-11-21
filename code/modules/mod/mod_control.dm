@@ -365,7 +365,7 @@
 
 /obj/item/mod/control/click_alt(mob/user)
 	. = ..()
-	if(!ishuman(user) || !Adjacent(user) || user.incapacitated(FALSE, TRUE) || !bag)
+	if(!ishuman(user) || !Adjacent(user) || user.incapacitated || !bag)
 		return
 	bag.forceMove(user)
 	bag.show_to(user)

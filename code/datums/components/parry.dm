@@ -112,7 +112,7 @@
 
 	if(mob_user.stat != CONSCIOUS)
 		return
-	if(mob_user.incapacitated())
+	if(mob_user.incapacitated)
 		return
 	if(requires_two_hands && !HAS_TRAIT(parent, TRAIT_WIELDED)) // If our item has special conditions before being able to parry.
 		return

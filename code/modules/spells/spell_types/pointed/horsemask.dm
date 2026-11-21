@@ -14,13 +14,12 @@
 	sound = 'sound/magic/HorseHead_curse.ogg'
 
 /datum/action/cooldown/spell/pointed/horsemask/is_valid_target(atom/cast_on)
-	if(!iscarbon(cast_on))
+	if(!ishuman(cast_on))
 		return FALSE
-	if(ismob(cast_on))
-		var/mob/target = cast_on
-		if(target.can_block_magic(antimagic_flags))
-			return FALSE
-	return ..()
+	var/mob/living/carbon/human/target = cast_on
+	if(target.can_block_magic(antimagic_flags))
+		return FALSE
+	return TRUE
 
 /datum/action/cooldown/spell/pointed/horsemask/cast(atom/cast_on)
 	. = ..()
