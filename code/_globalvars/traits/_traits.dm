@@ -445,4 +445,3 @@ GLOBAL_LIST_INIT(movement_type_removetrait_signals, set_movement_type_removetrai
 		. += SIGNAL_REMOVETRAIT(trait)
 
 	return .
-
