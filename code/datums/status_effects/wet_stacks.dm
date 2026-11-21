@@ -9,7 +9,7 @@
 /datum/status_effect/stacking/wet/Destroy()
 	if(wet_effect)
 		QDEL_NULL(wet_effect)
-	. = ..()
+	return ..()
 
 /datum/status_effect/stacking/wet/proc/update_wet()
 	if(stacks > 0)
@@ -71,5 +71,5 @@
 
 	if(owner.bodytemperature <= T0C)
 		owner.apply_status_effect(/datum/status_effect/freon, stacks SECONDS)
-		DryMob()
+		qdel(src)
 
