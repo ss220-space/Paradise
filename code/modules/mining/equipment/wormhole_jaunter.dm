@@ -98,10 +98,18 @@
 
 /obj/item/wormhole_jaunter/cyborg
 	name = "cyborg wormhole jaunter"
-	desc = "Встроенный экспериментальный многоразовый генератор червоточин, созданный компанией Ward-Takahashi GMB по заказу Nanotrasen. Создание портала расходует 10000 единиц заряда батареи и разрушает установленную бронеплиту"
+	desc = "Встроенный экспериментальный многоразовый генератор червоточин, созданный компанией Ward-Takahashi GMB по заказу Nanotrasen. Создание портала расходует 10000 единиц заряда батареи и разрушает установленную бронеплиту. Срабатывает автоматически при падении в пропасть; ручная активация недоступна"
 	single_use = FALSE
 	/// Charge consumed from the cyborg's cell per portal.
 	var/energy_cost = 10000
+
+/obj/item/wormhole_jaunter/cyborg/attack_self(mob/user)
+	balloon_alert(user, "только при падении в пропасть!")
+
+/obj/item/wormhole_jaunter/cyborg/activate(mob/user, adjacent, teleport)
+	if(!teleport)
+		return FALSE
+	return ..()
 
 /obj/item/wormhole_jaunter/cyborg/create_portal(mob/user, turf/destination, lifespan)
 	if(!isrobot(user))
