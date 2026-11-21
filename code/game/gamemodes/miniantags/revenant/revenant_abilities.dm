@@ -101,7 +101,7 @@
 					change_essence_amount(essence_drained, 0, target)
 					if(essence_drained > 90)
 						perfectsouls += 1
-						essence_regen_cap = initial(essence_regen_cap + perfectsouls*25)
+						essence_regen_cap = initial(essence_regen_cap) + perfectsouls * 25
 						var/datum/hud/revenant/hud = hud_used
 						hud.update_huds()
 						to_chat(src, span_revenboldnotice("Совершенство души [target] увеличило ваш максимальный уровень эссенции. Ваш новый максимум эссенции: [essence_regen_cap]."))
