@@ -469,7 +469,7 @@ GAME_VERB_SRC(/obj/machinery/computer/id_upgrader/ussp, set_name, oview(1), "Ð’Ð
 
 	gloves = null
 	back = /obj/item/storage/backpack/explorer
-	uniform = /obj/item/clothing/under/soviet
+	uniform = /obj/item/clothing/under/ussp/soviet
 	head = /obj/item/clothing/head/sovietsidecap
 	id = /obj/item/card/id/gorky17/conscript
 	shoes = /obj/item/clothing/shoes/combat

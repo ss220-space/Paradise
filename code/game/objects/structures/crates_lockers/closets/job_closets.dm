@@ -22,13 +22,13 @@
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/clothing/head/hairflower
-	new /obj/item/clothing/under/sl_suit(src)
-	new /obj/item/clothing/under/sl_suit(src)
-	new /obj/item/clothing/under/rank/bartender(src)
-	new /obj/item/clothing/under/rank/bartender(src)
-	new /obj/item/clothing/under/rank/bartender/skirt(src)
-	new /obj/item/clothing/under/rank/bartender/skirt(src)
-	new /obj/item/clothing/under/dress/dress_saloon
+	new /obj/item/clothing/under/suit/sl(src)
+	new /obj/item/clothing/under/suit/sl(src)
+	new /obj/item/clothing/under/rank/service/bartender(src)
+	new /obj/item/clothing/under/rank/service/bartender(src)
+	new /obj/item/clothing/under/rank/service/bartender/skirt(src)
+	new /obj/item/clothing/under/rank/service/bartender/skirt(src)
+	new /obj/item/clothing/under/dress/saloon
 	new /obj/item/clothing/suit/wcoat(src)
 	new /obj/item/clothing/suit/wcoat(src)
 	new /obj/item/clothing/head/soft/black(src)
@@ -45,8 +45,8 @@
 	icon_state = "chef"
 
 /obj/structure/closet/chefcloset/populate_contents()
-	new /obj/item/clothing/under/waiter(src)
-	new /obj/item/clothing/under/waiter(src)
+	new /obj/item/clothing/under/miscellaneous/waiter(src)
+	new /obj/item/clothing/under/miscellaneous/waiter(src)
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/clothing/accessory/waistcoat(src)
@@ -58,7 +58,7 @@
 	new /obj/item/clothing/head/soft/mime(src)
 	new /obj/item/storage/box/mousetraps(src)
 	new /obj/item/storage/box/mousetraps(src)
-	new /obj/item/clothing/under/rank/chef(src)
+	new /obj/item/clothing/under/rank/service/chef(src)
 	new /obj/item/clothing/head/chefhat(src)
 	new /obj/item/rag(src)
 	new /obj/item/storage/belt/chef/artist(src)
@@ -100,7 +100,7 @@
 	new /obj/item/clothing/head/soft/purple(src)
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/radio/headset/headset_service(src)
-	new /obj/item/clothing/under/rank/janitor(src)
+	new /obj/item/clothing/under/rank/service/janitor(src)
 	new /obj/item/cartridge/janitor(src)
 
 /*
@@ -114,12 +114,12 @@
 /obj/structure/closet/lawcloset/populate_contents()
 	new /obj/item/storage/box/tapes(src)
 	new /obj/item/book/manual/faxes(src)
-	new /obj/item/clothing/under/lawyer/female(src)
-	new /obj/item/clothing/under/lawyer/black(src)
-	new /obj/item/clothing/under/lawyer/red(src)
-	new /obj/item/clothing/under/lawyer/bluesuit(src)
+	new /obj/item/clothing/under/rank/procedure/lawyer/female(src)
+	new /obj/item/clothing/under/rank/procedure/lawyer/black(src)
+	new /obj/item/clothing/under/rank/procedure/lawyer/red(src)
+	new /obj/item/clothing/under/rank/procedure/lawyer/bluesuit(src)
 	new /obj/item/clothing/suit/storage/lawyer/bluejacket(src)
-	new /obj/item/clothing/under/lawyer/purpsuit(src)
+	new /obj/item/clothing/under/rank/procedure/lawyer/purpsuit(src)
 	new /obj/item/clothing/suit/storage/lawyer/purpjacket(src)
 	new /obj/item/clothing/shoes/color/brown(src)
 	new /obj/item/clothing/shoes/color/black(src)
@@ -151,8 +151,8 @@
 	custom_door_overlay = "black"
 
 /obj/structure/closet/librarian/populate_contents()
-	new /obj/item/clothing/under/suit_jacket/red(src)
-	new /obj/item/clothing/under/suit_jacket/red(src)
+	new /obj/item/clothing/under/suit/jacket/red(src)
+	new /obj/item/clothing/under/suit/jacket/red(src)
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/storage/bag/books(src)
@@ -181,4 +181,4 @@
 
 /obj/structure/closet/burial/populate_contents()
 	for(var/i = 1 to 7)
-		new /obj/item/clothing/under/burial(src)
+		new /obj/item/clothing/under/miscellaneous/burial(src)

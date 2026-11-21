@@ -1664,7 +1664,7 @@
 "aOR" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/head/kitty,
-/obj/item/clothing/under/maid,
+/obj/item/clothing/under/costumes/maid,
 /obj/item/clothing/suit/storage/browntrenchcoat,
 /turf/simulated/floor/carpet,
 /area/centcom/central_command_areas/zone/three)
@@ -7175,7 +7175,7 @@
 	desc = null;
 	name = "Supreme judge wig"
 	},
-/obj/item/clothing/under/suit_jacket/really_black{
+/obj/item/clothing/under/suit/jacket/really_black{
 	name = "Supreme judge suit"
 	},
 /obj/item/clothing/shoes/centcom{
@@ -11832,7 +11832,7 @@
 	desc = null;
 	name = "Supreme judge wig"
 	},
-/obj/item/clothing/under/suit_jacket/really_black{
+/obj/item/clothing/under/suit/jacket/really_black{
 	name = "Supreme judge suit"
 	},
 /obj/item/clothing/shoes/centcom{
@@ -13594,7 +13594,7 @@
 /obj/structure/closet/secure_closet/clown{
 	req_access = null
 	},
-/obj/item/clothing/under/soldieruniform,
+/obj/item/clothing/under/ussp/clown/soldier,
 /obj/item/clothing/suit/soldiercoat,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -14160,48 +14160,44 @@
 /area/centcom/central_command_areas/special_operations)
 "gXM" = (
 /obj/structure/rack/holorack,
-/obj/item/clothing/under/assistantformal,
-/obj/item/clothing/under/captain_fly{
+/obj/item/clothing/under/miscellaneous/assistantformal,
+/obj/item/clothing/under/costumes/captain_fly{
 	name = "rogue uniform"
 	},
-/obj/item/clothing/under/captainparade{
-	name = "parade uniform"
-	},
-/obj/item/clothing/under/captainparade{
-	name = "parade uniform"
-	},
-/obj/item/clothing/under/captain_fly{
+/obj/item/clothing/under/rank/captain/parade,
+/obj/item/clothing/under/rank/captain/parade,
+/obj/item/clothing/under/costumes/captain_fly{
 	name = "rogue uniform"
 	},
-/obj/item/clothing/under/assistantformal,
+/obj/item/clothing/under/miscellaneous/assistantformal,
 /obj/item/clothing/under/fluff/elishirt,
 /obj/item/clothing/under/fluff/elishirt,
-/obj/item/clothing/under/lawyer/black,
-/obj/item/clothing/under/lawyer/black,
-/obj/item/clothing/under/lawyer/blue,
-/obj/item/clothing/under/lawyer/blue,
-/obj/item/clothing/under/lawyer/bluesuit,
-/obj/item/clothing/under/lawyer/bluesuit,
-/obj/item/clothing/under/lawyer/female,
-/obj/item/clothing/under/lawyer/female,
-/obj/item/clothing/under/lawyer/oldman,
-/obj/item/clothing/under/lawyer/oldman,
-/obj/item/clothing/under/lawyer/red,
-/obj/item/clothing/under/lawyer/red,
-/obj/item/clothing/under/mafia{
+/obj/item/clothing/under/rank/procedure/lawyer/black,
+/obj/item/clothing/under/rank/procedure/lawyer/black,
+/obj/item/clothing/under/rank/procedure/lawyer/blue,
+/obj/item/clothing/under/rank/procedure/lawyer/blue,
+/obj/item/clothing/under/rank/procedure/lawyer/bluesuit,
+/obj/item/clothing/under/rank/procedure/lawyer/bluesuit,
+/obj/item/clothing/under/rank/procedure/lawyer/female,
+/obj/item/clothing/under/rank/procedure/lawyer/female,
+/obj/item/clothing/under/rank/procedure/lawyer/oldman,
+/obj/item/clothing/under/rank/procedure/lawyer/oldman,
+/obj/item/clothing/under/rank/procedure/lawyer/red,
+/obj/item/clothing/under/rank/procedure/lawyer/red,
+/obj/item/clothing/under/suit/mafia{
 	name = "black outfit"
 	},
-/obj/item/clothing/under/mafia{
+/obj/item/clothing/under/suit/mafia{
 	name = "black outfit"
 	},
-/obj/item/clothing/under/mafia/white{
+/obj/item/clothing/under/suit/mafia/white{
 	name = "white outfit"
 	},
-/obj/item/clothing/under/mafia/white{
+/obj/item/clothing/under/suit/mafia/white{
 	name = "white outfit"
 	},
-/obj/item/clothing/under/misc/durathread,
-/obj/item/clothing/under/misc/durathread,
+/obj/item/clothing/under/miscellaneous/durathread,
+/obj/item/clothing/under/miscellaneous/durathread,
 /obj/item/clothing/under/retro/engineering,
 /obj/item/clothing/under/retro/engineering,
 /obj/item/clothing/under/retro/medical,
@@ -31344,7 +31340,7 @@
 /obj/structure/closet/secure_closet/clown{
 	req_access = null
 	},
-/obj/item/clothing/under/soldieruniform,
+/obj/item/clothing/under/ussp/clown/soldier,
 /obj/item/clothing/suit/soldiercoat,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -31355,7 +31351,7 @@
 /obj/structure/closet/secure_closet/clown{
 	req_access = null
 	},
-/obj/item/clothing/under/soldieruniform,
+/obj/item/clothing/under/ussp/clown/soldier,
 /obj/item/clothing/suit/soldiercoat,
 /obj/machinery/light{
 	dir = 1
@@ -35786,52 +35782,48 @@
 /area/centcom/central_command_areas/supplypod/loading/one)
 "qAL" = (
 /obj/structure/rack/holorack,
-/obj/item/clothing/under/assistantformal,
-/obj/item/clothing/under/captain_fly{
+/obj/item/clothing/under/miscellaneous/assistantformal,
+/obj/item/clothing/under/costumes/captain_fly{
 	name = "rogue uniform"
 	},
-/obj/item/clothing/under/captainparade{
-	name = "parade uniform"
-	},
-/obj/item/clothing/under/captainparade{
-	name = "parade uniform"
-	},
-/obj/item/clothing/under/captain_fly{
+/obj/item/clothing/under/rank/captain/parade,
+/obj/item/clothing/under/rank/captain/parade,
+/obj/item/clothing/under/costumes/captain_fly{
 	name = "rogue uniform"
 	},
-/obj/item/clothing/under/assistantformal,
+/obj/item/clothing/under/miscellaneous/assistantformal,
 /obj/item/clothing/under/fluff/benjaminfallout,
 /obj/item/clothing/under/fluff/benjaminfallout,
 /obj/item/clothing/under/fluff/elishirt,
 /obj/item/clothing/under/fluff/elishirt,
 /obj/item/clothing/under/fluff/jay_turtleneck,
 /obj/item/clothing/under/fluff/jay_turtleneck,
-/obj/item/clothing/under/lawyer/black,
-/obj/item/clothing/under/lawyer/black,
-/obj/item/clothing/under/lawyer/blue,
-/obj/item/clothing/under/lawyer/blue,
-/obj/item/clothing/under/lawyer/bluesuit,
-/obj/item/clothing/under/lawyer/bluesuit,
-/obj/item/clothing/under/lawyer/female,
-/obj/item/clothing/under/lawyer/female,
-/obj/item/clothing/under/lawyer/oldman,
-/obj/item/clothing/under/lawyer/oldman,
-/obj/item/clothing/under/lawyer/red,
-/obj/item/clothing/under/lawyer/red,
-/obj/item/clothing/under/mafia{
+/obj/item/clothing/under/rank/procedure/lawyer/black,
+/obj/item/clothing/under/rank/procedure/lawyer/black,
+/obj/item/clothing/under/rank/procedure/lawyer/blue,
+/obj/item/clothing/under/rank/procedure/lawyer/blue,
+/obj/item/clothing/under/rank/procedure/lawyer/bluesuit,
+/obj/item/clothing/under/rank/procedure/lawyer/bluesuit,
+/obj/item/clothing/under/rank/procedure/lawyer/female,
+/obj/item/clothing/under/rank/procedure/lawyer/female,
+/obj/item/clothing/under/rank/procedure/lawyer/oldman,
+/obj/item/clothing/under/rank/procedure/lawyer/oldman,
+/obj/item/clothing/under/rank/procedure/lawyer/red,
+/obj/item/clothing/under/rank/procedure/lawyer/red,
+/obj/item/clothing/under/suit/mafia{
 	name = "black outfit"
 	},
-/obj/item/clothing/under/mafia{
+/obj/item/clothing/under/suit/mafia{
 	name = "black outfit"
 	},
-/obj/item/clothing/under/mafia/white{
+/obj/item/clothing/under/suit/mafia/white{
 	name = "white outfit"
 	},
-/obj/item/clothing/under/mafia/white{
+/obj/item/clothing/under/suit/mafia/white{
 	name = "white outfit"
 	},
-/obj/item/clothing/under/misc/durathread,
-/obj/item/clothing/under/misc/durathread,
+/obj/item/clothing/under/miscellaneous/durathread,
+/obj/item/clothing/under/miscellaneous/durathread,
 /obj/item/clothing/under/retro/engineering,
 /obj/item/clothing/under/retro/engineering,
 /obj/item/clothing/under/retro/medical,
@@ -37105,24 +37097,24 @@
 /area/space)
 "rcs" = (
 /obj/structure/rack/holorack,
-/obj/item/clothing/under/acj{
+/obj/item/clothing/under/miscellaneous/acj{
 	pixel_x = -9;
 	pixel_y = 9
 	},
-/obj/item/clothing/under/acj{
+/obj/item/clothing/under/miscellaneous/acj{
 	pixel_x = -6;
 	pixel_y = 6
 	},
-/obj/item/clothing/under/acj{
+/obj/item/clothing/under/miscellaneous/acj{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/clothing/under/acj,
-/obj/item/clothing/under/acj{
+/obj/item/clothing/under/miscellaneous/acj,
+/obj/item/clothing/under/miscellaneous/acj{
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/item/clothing/under/acj{
+/obj/item/clothing/under/miscellaneous/acj{
 	pixel_x = 6;
 	pixel_y = -6
 	},
@@ -43781,7 +43773,7 @@
 	},
 /area/centcom/central_command_areas/special_operations)
 "tSR" = (
-/obj/item/clothing/under/maid,
+/obj/item/clothing/under/costumes/maid,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

@@ -1,4 +1,5 @@
 /obj/item/clothing/under/shorts
+	icon = 'icons/obj/clothing/uniforms/pants.dmi'
 	name = "athletic shorts"
 	desc = "95% Polyester, 5% Spandex!"
 	gender = PLURAL

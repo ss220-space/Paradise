@@ -45,7 +45,7 @@
 	name = JOB_TITLE_RU_CCOFFICER
 	jobtype = /datum/job/ntnavyofficer
 
-	uniform = /obj/item/clothing/under/rank/centcom/officer
+	uniform = /obj/item/clothing/under/rank/centcom/lieutenant
 	suit = /obj/item/clothing/suit/space/deathsquad/officer/centcom
 	gloves =  /obj/item/clothing/gloves/color/white
 	shoes = /obj/item/clothing/shoes/centcom

@@ -303,7 +303,7 @@
 /obj/effect/decal/cleanable/cobweb2,
 /obj/item/kitchen/knife/combat,
 /obj/item/clothing/head/sovietofficerhat,
-/obj/item/clothing/under/sovietadmiral,
+/obj/item/clothing/under/ussp/soviet/admiral,
 /turf/simulated/floor/wood,
 /area/ruin/ussp_space_banya)
 "pc" = (

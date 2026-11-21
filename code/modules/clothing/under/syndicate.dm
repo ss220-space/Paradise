@@ -1,6 +1,7 @@
 /obj/item/clothing/under/syndicate
 	name = "tactical turtleneck"
 	desc = "Водолазка с цифровым камуфляжным принтом и брюки карго, которые выглядят слегка подозрительно."
+	icon = 'icons/obj/clothing/uniforms/syndicate.dmi'
 	icon_state = "syndicate"
 	item_state = "bl_suit"
 	item_color = "syndicate"
@@ -37,7 +38,6 @@
 	icon_state = "tactifool"
 	item_color = "tactifool"
 	has_sensor = TRUE
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 40)
 
 /obj/item/clothing/under/syndicate/tacticool/get_ru_names()
 	return alist(
@@ -149,3 +149,35 @@
 		INSTRUMENTAL = "тактическим защитным костюмом плазмолюда",
 		PREPOSITIONAL = "тактическом защитном костюме плазмолюда",
 	)
+
+/obj/item/clothing/under/syndicate/contortionist
+	name = "atmospheric technician's jumpsuit"
+	desc = "A light jumpsuit useful for squeezing through narrow vents."
+	icon_state = "atmos"
+	item_state = "atmos_suit"
+	item_color = "atmos"
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
+	resistance_flags = FIRE_PROOF
+	clothing_traits = list(TRAIT_VENTCRAWLER_ITEM_BASED)
+
+/obj/item/clothing/under/syndicate/contortionist/get_ru_names()
+	return alist(
+		NOMINATIVE = "комбинезон атмосферного техника",
+		GENITIVE = "комбинезона атмосферного техника",
+		DATIVE = "комбинезону атмосферного техника",
+		ACCUSATIVE = "комбинезон атмосферного техника",
+		INSTRUMENTAL = "комбинезоном атмосферного техника",
+		PREPOSITIONAL = "комбинезоне атмосферного техника",
+	)
+
+/// Allowed to wear: glasses, shoes, gloves, mask, ears, pockets, id, pda and jumpsuit (obviously)
+#define CONTORTIONIST_ALLOWED_SLOTS (ITEM_SLOT_CLOTH_INNER|ITEM_SLOT_ID|ITEM_SLOT_PDA|ITEM_SLOT_GLOVES|ITEM_SLOT_FEET|ITEM_SLOT_MASK|ITEM_SLOT_EYES|ITEM_SLOT_EARS|ITEM_SLOT_POCKETS)
+
+/obj/item/clothing/under/syndicate/contortionist/used_for_ventcrawling(mob/living/user, provide_feedback = TRUE)
+	if(user.get_equipped_slots(include_hands = TRUE) & ~CONTORTIONIST_ALLOWED_SLOTS)
+		if(provide_feedback)
+			to_chat(user, span_warning("Вы можете ползать по вентиляции только с перчатками, обувью, маской, очками, наушниками, а также комбинезоном с ID-картой и PDA."))
+		return FALSE
+	return TRUE
+
+#undef CONTORTIONIST_ALLOWED_SLOTS

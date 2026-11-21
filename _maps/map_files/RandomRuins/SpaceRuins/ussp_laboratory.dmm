@@ -22,10 +22,10 @@
 /obj/structure/closet/cabinet,
 /obj/item/gun/projectile/shotgun/toy,
 /obj/item/toy/russian_revolver,
-/obj/item/clothing/under/soviet,
-/obj/item/clothing/under/soviet,
-/obj/item/clothing/under/soviet,
-/obj/item/clothing/under/soviet,
+/obj/item/clothing/under/ussp/soviet,
+/obj/item/clothing/under/ussp/soviet,
+/obj/item/clothing/under/ussp/soviet,
+/obj/item/clothing/under/ussp/soviet,
 /obj/item/clothing/head/ushanka,
 /obj/item/clothing/head/ushanka,
 /obj/item/clothing/head/ushanka,
@@ -1821,7 +1821,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
-/obj/item/clothing/under/soviet,
+/obj/item/clothing/under/ussp/soviet,
 /obj/item/clothing/head/ushanka,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -2249,7 +2249,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
-/obj/item/clothing/under/soviet,
+/obj/item/clothing/under/ussp/soviet,
 /obj/item/clothing/head/ushanka,
 /obj/item/clothing/mask/gas,
 /turf/simulated/floor/plasteel{
@@ -2557,7 +2557,7 @@
 /obj/item/storage/belt/utility,
 /obj/item/clothing/mask/gas,
 /obj/effect/decal/cleanable/blood,
-/obj/item/clothing/under/soviet,
+/obj/item/clothing/under/ussp/soviet,
 /obj/item/clothing/head/ushanka,
 /obj/machinery/alarm/directional/west{
 	alarm_frequency = 1200
@@ -3186,7 +3186,7 @@
 /area/ruin/ussp_xeno/gym_ussp)
 "UX" = (
 /obj/effect/decal/remains/human,
-/obj/item/clothing/under/soviet,
+/obj/item/clothing/under/ussp/soviet,
 /obj/item/clothing/head/ushanka,
 /turf/simulated/floor/plasteel{
 	dir = 4;

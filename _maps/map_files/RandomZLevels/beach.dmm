@@ -1059,8 +1059,8 @@
 /area/awaymission/beach)
 "ed" = (
 /obj/structure/closet/crate,
-/obj/item/clothing/under/pirate,
-/obj/item/clothing/under/pirate,
+/obj/item/clothing/under/costumes/pirate,
+/obj/item/clothing/under/costumes/pirate,
 /turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "ee" = (

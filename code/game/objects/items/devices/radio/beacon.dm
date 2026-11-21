@@ -126,7 +126,7 @@
 								/obj/item/ammo_box/magazine/m10mm = 1,										// 2.5 TK
 								/obj/item/ammo_box/magazine/m10mm/hp = 1,									// 5 TK
 								/obj/item/ammo_box/magazine/m10mm/ap = 2,									// 10 TK
-								/obj/item/clothing/under/suit_jacket/really_black = 1,						// 0 TK
+								/obj/item/clothing/under/suit/jacket/really_black = 1,						// 0 TK
 								/obj/item/card/id/syndicate = 1,											// 10 TK
 								/obj/item/clothing/suit/storage/lawyer/blackjacket/armored = 1,				// 0 TK
 								/obj/item/encryptionkey/syndicate = 1,										// 0-2 TK
@@ -154,7 +154,7 @@
 								/obj/item/card/emag = 1,													// 50 TK
 								/obj/item/jammer = 1,														// 10 TK
 								/obj/item/card/id/syndicate = 1,											// 10 TK
-								/obj/item/clothing/under/suit_jacket/really_black = 1,						// 0 TK
+								/obj/item/clothing/under/suit/jacket/really_black = 1,						// 0 TK
 								/obj/item/clothing/suit/storage/lawyer/blackjacket/armored = 1,				// 0 TK
 								/obj/item/clothing/gloves/color/latex/nitrile = 1,							// 0 TK
 								/obj/item/clothing/mask/gas/clown_hat = 1,									// 0 TK
@@ -208,7 +208,7 @@
 								/obj/item/ammo_box/magazine/sniper_rounds/compact/soporific = 1,			// 15 TK
 								/obj/item/clothing/glasses/chameleon/thermal = 1,							// 20 TK
 								/obj/item/clothing/gloves/combat = 1,										// 0-5 TK
-								/obj/item/clothing/under/suit_jacket/really_black = 1,						// 0 TK
+								/obj/item/clothing/under/suit/jacket/really_black = 1,						// 0 TK
 								/obj/item/clothing/suit/storage/lawyer/blackjacket/armored = 1,				// 0 TK
 								/obj/item/pen/edagger = 1,													// 10 TK
 								/obj/item/encryptionkey/syndicate = 1),										// 0-2 TK

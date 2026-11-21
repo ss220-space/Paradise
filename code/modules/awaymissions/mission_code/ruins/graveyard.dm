@@ -298,5 +298,5 @@
 
 /datum/outfit/space_graveyard/suit_and_shoes
 	name = "Jacket and shoes"
-	uniform = /obj/item/clothing/under/suit_jacket/charcoal
+	uniform = /obj/item/clothing/under/suit/jacket/charcoal
 	shoes = /obj/item/clothing/shoes/centcom

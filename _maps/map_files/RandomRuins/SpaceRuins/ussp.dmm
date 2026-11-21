@@ -1386,13 +1386,13 @@
 	},
 /obj/item/clothing/head/ushanka,
 /obj/item/clothing/head/ushanka,
-/obj/item/clothing/under/soviet,
-/obj/item/clothing/under/soviet,
-/obj/item/clothing/under/soviet,
-/obj/item/clothing/under/soviet,
+/obj/item/clothing/under/ussp/soviet,
+/obj/item/clothing/under/ussp/soviet,
+/obj/item/clothing/under/ussp/soviet,
+/obj/item/clothing/under/ussp/soviet,
 /obj/item/clothing/head/ushanka,
 /obj/item/clothing/head/ushanka,
-/obj/item/clothing/under/soviet,
+/obj/item/clothing/under/ussp/soviet,
 /turf/simulated/floor/plasteel,
 /area/derelict/crew_quarters)
 "dQ" = (

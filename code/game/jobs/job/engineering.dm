@@ -37,7 +37,7 @@
 	name = JOB_TITLE_RU_CHIEF_ENGINEER
 	jobtype = /datum/job/head_of_staff/chief_engineer
 
-	uniform = /obj/item/clothing/under/rank/chief_engineer
+	uniform = /obj/item/clothing/under/rank/engineering/chief_engineer
 	belt = /obj/item/storage/belt/utility/chief/full
 	gloves = /obj/item/clothing/gloves/color/yellow
 	shoes = /obj/item/clothing/shoes/color/brown
@@ -100,7 +100,7 @@
 	name = JOB_TITLE_RU_ENGINEER
 	jobtype = /datum/job/engineering/engineer
 
-	uniform = /obj/item/clothing/under/rank/engineer
+	uniform = /obj/item/clothing/under/rank/engineering/engineer
 	suit = /obj/item/clothing/suit/storage/hazardvest
 	belt = /obj/item/storage/belt/utility/full/multitool
 	gloves = /obj/item/clothing/gloves/color/yellow
@@ -144,7 +144,7 @@
 	name = JOB_TITLE_RU_ATMOSTECH
 	jobtype = /datum/job/engineering/atmos
 
-	uniform = /obj/item/clothing/under/rank/atmospheric_technician
+	uniform = /obj/item/clothing/under/rank/engineering/atmospheric_technician
 	belt = /obj/item/storage/belt/utility/atmostech
 	gloves = /obj/item/clothing/gloves/color/yellow
 	shoes = /obj/item/clothing/shoes/workboots
@@ -185,20 +185,20 @@
 	name = JOB_TITLE_RU_ENGINEER_TRAINEE
 	jobtype = /datum/job/engineering/engineer/trainee
 
-	uniform = /obj/item/clothing/under/rank/engineer/trainee
+	uniform = /obj/item/clothing/under/rank/engineering/trainee
 	id = /obj/item/card/id/engineering/trainee
 	gloves = /obj/item/clothing/gloves/color/orange
 
 /datum/outfit/job/engineer/trainee/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(H.gender == FEMALE)
-		uniform = /obj/item/clothing/under/rank/engineer/trainee/skirt
+		uniform = /obj/item/clothing/under/rank/engineering/trainee/skirt
 	if(H.mind && H.mind.role_alt_title)
 		switch(H.mind.role_alt_title)
 			if(ALT_JOB_TITLE_RU_ENGINEER_ASSISTANT)
-				uniform = /obj/item/clothing/under/rank/engineer/trainee/assistant
+				uniform = /obj/item/clothing/under/rank/engineering/trainee/assistant
 				if(H.gender == FEMALE)
-					uniform = /obj/item/clothing/under/rank/engineer/trainee/assistant/skirt
+					uniform = /obj/item/clothing/under/rank/engineering/trainee/assistant/skirt
 				head = /obj/item/clothing/head/soft/orange
 			if("Technical Student", "Technical Trainee")
 				head = /obj/item/clothing/head/soft/orange

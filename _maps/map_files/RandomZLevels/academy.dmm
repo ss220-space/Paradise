@@ -651,7 +651,7 @@
 	},
 /obj/item/clothing/glasses/hud/hydroponic,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/item/clothing/under/rank/hydroponics,
+/obj/item/clothing/under/rank/service/hydroponics,
 /obj/item/circuitboard/hydroponics,
 /obj/item/hatchet/wooden,
 /obj/item/plant_analyzer,
@@ -1875,7 +1875,7 @@
 	},
 /obj/item/clothing/glasses/hud/hydroponic,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/item/clothing/under/rank/hydroponics,
+/obj/item/clothing/under/rank/service/hydroponics,
 /obj/item/circuitboard/hydroponics,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/hatchet/wooden,
@@ -2504,7 +2504,7 @@
 	},
 /obj/item/clothing/glasses/hud/hydroponic,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/item/clothing/under/rank/hydroponics,
+/obj/item/clothing/under/rank/service/hydroponics,
 /obj/item/circuitboard/hydroponics,
 /obj/item/hatchet/wooden,
 /obj/item/plant_analyzer,
@@ -2820,7 +2820,7 @@
 "mN" = (
 /obj/structure/closet,
 /obj/item/lipstick/random,
-/obj/item/clothing/under/schoolgirl,
+/obj/item/clothing/under/costumes/schoolgirl,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "green"
@@ -5188,7 +5188,7 @@
 /area/awaymission/academy/academyaft)
 "Lw" = (
 /obj/structure/closet,
-/obj/item/clothing/under/blackskirt,
+/obj/item/clothing/under/miscellaneous/blackskirt,
 /obj/item/clothing/glasses/regular,
 /turf/simulated/floor/plasteel{
 	dir = 0;
@@ -5971,7 +5971,7 @@
 "TI" = (
 /obj/structure/closet,
 /obj/item/storage/belt/soulstone,
-/obj/item/clothing/under/schoolgirl,
+/obj/item/clothing/under/costumes/schoolgirl,
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "green"

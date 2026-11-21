@@ -1,7 +1,7 @@
 /datum/outfit/admin/debug
 	name = "Debug outfit"
 
-	uniform = /obj/item/clothing/under/patriotsuit
+	uniform = /obj/item/clothing/under/miscellaneous/patriotsuit
 	back = /obj/item/mod/control/pre_equipped/debug
 	backpack_contents = list(
 		/obj/item/melee/energy/axe = 1,
@@ -467,7 +467,7 @@
 	new /obj/item/reagent_containers/cup/glass/bottle/vodka/badminka(src)
 	new /obj/item/crowbar/power(src) // >admin only lol
 	new /obj/item/clothing/gloves/fingerless/rapid/admin(src)
-	new /obj/item/clothing/under/acj(src)
+	new /obj/item/clothing/under/miscellaneous/acj(src)
 	new /obj/item/clothing/suit/advanced_protective_suit(src)
 	new /obj/item/multitool/ai_detect/admin(src) // for giggles and shits
 	new /obj/item/adminfu_scroll(src)

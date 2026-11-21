@@ -156,7 +156,7 @@
 /datum/outfit/space_base_syndicate/cargotech
 	name = "Space Base Syndicate Cargo Technician"
 	head = /obj/item/clothing/head/soft
-	uniform = /obj/item/clothing/under/rank/cargotech
+	uniform = /obj/item/clothing/under/rank/cargo/cargotech
 	suit = /obj/item/clothing/suit/armor/vest
 	id = /obj/item/card/id/syndicate/cargo
 	shoes = /obj/item/clothing/shoes/color/black
@@ -179,7 +179,7 @@
 /datum/outfit/space_base_syndicate/chef
 	name = "Space Base Syndicate Chef"
 	head = /obj/item/clothing/head/chefhat
-	uniform = /obj/item/clothing/under/suit_jacket/charcoal
+	uniform = /obj/item/clothing/under/suit/jacket/charcoal
 	suit = /obj/item/clothing/suit/chef/classic
 	id = /obj/item/card/id/syndicate/kitchen
 	shoes = /obj/item/clothing/shoes/color/black

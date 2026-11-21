@@ -41,7 +41,7 @@
 
 /datum/outfit/ussp_general
 	name = "Генерал СССП"
-	uniform = /obj/item/clothing/under/sovietofficer
+	uniform = /obj/item/clothing/under/ussp/soviet/officer
 	head = /obj/item/clothing/head/sovietofficerhat
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat
@@ -94,7 +94,7 @@
 
 /datum/outfit/ussp_engineer
 	name = "Инженер СССП"
-	uniform = /obj/item/clothing/under/soviet
+	uniform = /obj/item/clothing/under/ussp/soviet
 	head = /obj/item/clothing/head/sovietsidecap
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat
@@ -146,7 +146,7 @@
 
 /datum/outfit/ussp_security
 	name = "Сотрудник безопасности СССП"
-	uniform = /obj/item/clothing/under/soviet
+	uniform = /obj/item/clothing/under/ussp/soviet
 	head = /obj/item/clothing/head/soviethelmet
 	belt = /obj/item/storage/belt/security
 	shoes = /obj/item/clothing/shoes/combat
@@ -189,7 +189,7 @@
 
 /datum/outfit/ussp_scientist
 	name = "Учёный СССП"
-	uniform = /obj/item/clothing/under/soviet
+	uniform = /obj/item/clothing/under/ussp/soviet
 	head = /obj/item/clothing/head/sovietsidecap
 	shoes = /obj/item/clothing/shoes/combat
 	r_ear = /obj/item/radio/headset/alt/soviet // See del_types above

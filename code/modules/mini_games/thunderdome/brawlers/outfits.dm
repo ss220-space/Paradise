@@ -6,7 +6,7 @@
 	implants = list(
 		/obj/item/implant/postponed_death,
 	)
-	uniform = /obj/item/clothing/under/redhawaiianshirt
+	uniform = /obj/item/clothing/under/miscellaneous/redhawaiianshirt
 	shoes = /obj/item/clothing/shoes/sandal
 	back = /obj/item/storage/backpack/thunderdome_infinite
 	head = /obj/item/clothing/head/sunflower_crown

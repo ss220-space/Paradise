@@ -1837,7 +1837,7 @@
 "Rf" = (
 /obj/structure/closet,
 /obj/item/lighter/zippo/black,
-/obj/item/clothing/under/sailordress,
+/obj/item/clothing/under/dress/sailor,
 /obj/item/clothing/head/helmet/riot/knight/templar,
 /obj/item/clothing/suit/armor/riot/knight/templar,
 /obj/item/megaphone,
