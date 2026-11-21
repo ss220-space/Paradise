@@ -21,7 +21,9 @@
 	return owner.stationary_ai ? owner.structure_fire_range : profile.fire_range
 
 /datum/overmap_ship_ai/proc/within_fire_range(obj/machinery/gun, x, y, target_radius = 0)
+	var/weapon_range = fire_range()
+	if(weapon_range <= 0)
+		return FALSE
 	var/list/origin = weapon_data(gun)["position"]
-	var/reach = fire_range() + (owner.stationary_ai ? 0 : target_radius)
-	return fire_range() > 0 && origin && (x - origin[1]) ** 2 + (y - origin[2]) ** 2 <= reach ** 2
-
+	var/reach = weapon_range + (owner.stationary_ai ? 0 : target_radius)
+	return origin && (x - origin[1]) ** 2 + (y - origin[2]) ** 2 <= reach ** 2

@@ -24,7 +24,6 @@
 	var/list/obj/machinery/sensor_array/sensor_arrays = list()
 	var/long_sensors_on = FALSE
 	var/short_sensors_on = FALSE
-	var/sensor_ping_until = 0
 	var/sensor_next_ping = 0
 
 	var/sensor_peel_at = 0
@@ -96,6 +95,7 @@
 	var/list/hull_collars
 	var/list/radar_shape
 	var/datum/turf_reservation/flight_reservation
+	var/datum/overmap_atmosphere/atmosphere
 	var/obj/overmap/entity/docked_ship
 	var/list/obj/overmap/entity/docked_guests = list()
 	var/dock_hull_x
@@ -208,6 +208,8 @@
 	AddComponent(/datum/component/overmap_shuttle)
 
 /obj/overmap/entity/Destroy()
+	QDEL_NULL(atmosphere)
+	docked_to = null
 	QDEL_NULL(ship_ai)
 	SSovermap_visuals.remove(src)
 	QDEL_NULL(relay_capture)
@@ -233,9 +235,6 @@
 	SSovermap.weapons_by_vessel -= src
 	SSovermap.projectile_poses -= src
 	SSovermap.flight_index.remove(src)
-	var/list/indexed_sector = SSovermap.flight_index.by_sector[sector]
-	if(indexed_sector)
-		indexed_sector -= src
 	for(var/obj/machinery/ship_engine/engine as anything in engines)
 		if(engine.vessel == src)
 			engine.vessel = null
@@ -254,9 +253,6 @@
 	sensor_arrays.Cut()
 	if(shuttle && SSovermap.shuttle_vessels[shuttle] == src)
 		SSovermap.shuttle_vessels -= shuttle
-	if(transponder?.vessel == src)
-		transponder.vessel = null
-	transponder = null
 	QDEL_LIST(virtual_iff_channels)
 	clear_encounter_visuals()
 	QDEL_NULL(radar_cache)
@@ -429,7 +425,7 @@
 	else
 		last_overlay_heading = -1
 		refresh_heading_overlay()
-	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
+	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 /obj/overmap/entity/proc/sync_transponder()
 	active_transponder()
@@ -471,7 +467,7 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	if(!identity_distress)
 		alpha = 255
-	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
+	update_icon(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 /obj/overmap/entity/proc/process_transponder_fx()
 	if(identity_distress && is_overmap_visible())
@@ -523,6 +519,10 @@
 	return TRUE
 
 /obj/overmap/entity/proc/get_helm_status_text()
+	if(atmosphere)
+		if(atmosphere.transition_end > world.time)
+			return atmosphere.end_scale > atmosphere.start_scale ? "Набор высоты" : "Снижение"
+		return "В атмосфере: [atmosphere.surface.host.name]"
 	if(is_physically_docked())
 		return docked_to ? "Пристыкован: [docked_to.name]" : "Пристыкован"
 	switch(status)
@@ -546,7 +546,8 @@
 /obj/overmap/entity/proc/can_helm_physical_dock()
 	if(overmap_pod)
 		return overmap_pod.can_physical_dock()
-	if(!overmap_shuttle || is_physically_docked() || !isturf(loc) || !get_dock_host())
+	var/obj/overmap/entity/host = get_dock_host()
+	if(!overmap_shuttle || is_physically_docked() || !isturf(loc) || !host || (host.dock_host?.planet_landing && !atmosphere))
 		return FALSE
 	return OVERMAP_SPEED_STOPPED(get_speed())
 
@@ -626,6 +627,8 @@
 
 /obj/overmap/entity/proc/get_dock_host()
 	RETURN_TYPE(/obj/overmap/entity)
+	if(atmosphere)
+		return atmosphere.surface.host
 	if(docked_to)
 		return docked_to
 	if(in_station_docking_zone())
@@ -649,6 +652,11 @@
 
 /obj/overmap/entity/proc/pad_matches_host(obj/docking_port/stationary/pad, obj/overmap/entity/host)
 	if(!pad || !host)
+		return FALSE
+	var/obj/docking_port/stationary/overmap/landing/stop = pad
+	if(istype(stop) && stop.temporary_stop)
+		return FALSE
+	if(atmosphere && pad.z != atmosphere.surface.bubble_z)
 		return FALSE
 	if(host == SSovermap.station_entity && in_station_docking_zone() && !SSovermap.station_docking_zone.accepts_pad(pad))
 		return FALSE
@@ -714,9 +722,6 @@
 
 /obj/overmap/entity/proc/has_working_sensor(kind)
 	return sensor_pack?.has_working_sensor(kind)
-
-/obj/overmap/entity/proc/sensor_ping_active()
-	return sensor_pack?.sensor_ping_active()
 
 /obj/overmap/entity/proc/signal_view_range()
 	return sensor_pack ? sensor_pack.signal_view_range() : 0
@@ -789,9 +794,6 @@
 				continue
 			listener.playsound_local(get_turf(listener), OVERMAP_SENSOR_LOOP_SOUND, 40, FALSE)
 
-/obj/overmap/entity/proc/start_sensor_ping()
-	return sensor_pack?.start_sensor_ping()
-
 /obj/overmap/entity/proc/sync_sensor_array_power()
 	sensor_pack?.sync_sensor_array_power()
 
@@ -814,19 +816,18 @@
 		vessel_mass = OVERMAP_MASS_STATION
 
 /obj/overmap/entity/proc/nest_inside(obj/overmap/entity/host)
-	if(!host)
+	if(QDELETED(host) || host == src || contains(host))
 		return
-	docked_to?.dock_host?.remove_nested(src)
 	docked_to = host
 	status = OVERMAP_STATUS_DOCKED
 	halted = TRUE
 	speed[1] = 0
 	speed[2] = 0
-	host.dock_host?.add_nested(src)
 	forceMove(host)
 	if(host.sector)
-		sector = host.sector
-		host.sector.objects |= src
+		host.sector.add_object(src)
+	else
+		sector?.remove_object(src)
 	position = list(0, 0)
 	update_overmap_pixel()
 	hidden_from_contacts = TRUE
@@ -843,21 +844,16 @@
 	var/list/saved_position
 	if(docked_to)
 		saved_position = list(docked_to.position[1], docked_to.position[2])
-	docked_to?.dock_host?.remove_nested(src)
 	docked_to = null
 	status = OVERMAP_STATUS_OVERMAP
 	halted = FALSE
 	hidden_from_contacts = FALSE
 	if(!open_turf && dest_sector)
 		open_turf = dest_sector.get_random_open_turf()
-	if(open_turf)
-		forceMove(open_turf)
-	if(dest_sector && dest_sector != sector)
-		sector?.remove_object(src)
+	if(dest_sector)
 		dest_sector.add_object(src, open_turf)
-	else if(dest_sector)
-		sector = dest_sector
-		dest_sector.objects |= src
+	else if(open_turf)
+		forceMove(open_turf)
 	if(saved_position)
 		position = saved_position
 		update_overmap_pixel()

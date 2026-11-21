@@ -84,7 +84,8 @@
 			if(radar_reach == reach)
 				return FALSE
 			radar_reach = reach
-			return TRUE
+			ui.send_update(list("radar_reach" = reach, "radar_terrain" = vessel.radar_terrain(reach)))
+			return FALSE
 		if("relink")
 			link_vessel()
 			return TRUE

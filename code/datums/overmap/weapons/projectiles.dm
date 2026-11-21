@@ -81,16 +81,21 @@
 		if(vessel == clear_from || vessel.sector != sector || (vessel.overmap_pod && vessel.overmap_pod.pod() == payload.firer_source_atom))
 			continue
 		var/list/previous = SSovermap.projectile_poses[vessel]
-		var/list/pose = previous && previous[4] == sector ? previous : list(vessel.get_world_x(), vessel.get_world_y(), vessel.get_facing())
-		var/travel = sqrt((vessel.get_world_x() - pose[1]) ** 2 + (vessel.get_world_y() - pose[2]) ** 2) + abs(TORADIANS(closer_angle_difference(pose[3], vessel.get_facing()))) * vessel.hull_radius
-		var/fraction = distance ? clamp(((vessel.get_world_x() - world_x) * delta_x + (vessel.get_world_y() - world_y) * delta_y) / (distance * distance), 0, 1) : 0
+		var/vessel_x = vessel.get_world_x()
+		var/vessel_y = vessel.get_world_y()
+		var/facing = vessel.get_facing()
+		var/list/pose = previous && previous[4] == sector ? previous : list(vessel_x, vessel_y, facing)
+		var/travel_x = vessel_x - pose[1]
+		var/travel_y = vessel_y - pose[2]
+		var/rotation = closer_angle_difference(pose[3], facing)
+		var/travel = sqrt(travel_x ** 2 + travel_y ** 2) + abs(TORADIANS(rotation)) * vessel.hull_radius
+		var/fraction = distance ? clamp(((vessel_x - world_x) * delta_x + (vessel_y - world_y) * delta_y) / (distance * distance), 0, 1) : 0
 		var/near_x = world_x + delta_x * fraction
 		var/near_y = world_y + delta_y * fraction
-		if((vessel.get_world_x() - near_x) ** 2 + (vessel.get_world_y() - near_y) ** 2 > (vessel.hull_radius + travel + 1) ** 2)
+		if((vessel_x - near_x) ** 2 + (vessel_y - near_y) ** 2 > (vessel.hull_radius + travel + 1) ** 2)
 			continue
-		if(abs(vessel.get_world_x() - center_x) <= vessel.hull_radius + distance / 2 + travel + 1 && abs(vessel.get_world_y() - center_y) <= vessel.hull_radius + distance / 2 + travel + 1)
-			vessels[vessel] = list(pose[1], pose[2], pose[3], vessel.get_world_x() - pose[1], vessel.get_world_y() - pose[2], closer_angle_difference(pose[3], vessel.get_facing()))
-			max_travel = max(max_travel, travel)
+		vessels[vessel] = list(pose[1], pose[2], pose[3], travel_x, travel_y, rotation)
+		max_travel = max(max_travel, travel)
 	var/list/fields = SSovermap.scatter_fields_at(sector, center_x, center_y, distance / 2 + 1)
 	var/list/spaces = list()
 	for(var/datum/overmap_bubble/space as anything in SSovermap.bubbles)
@@ -109,14 +114,14 @@
 	var/steps = max(1, CEILING((distance + max_travel) / 0.4, 1))
 	var/list/sample_pose = list(0, 0, 0)
 	for(var/step in 1 to steps)
-		var/x = world_x + delta_x * step / steps
-		var/y = world_y + delta_y * step / steps
+		var/fraction = step / steps
+		var/x = world_x + delta_x * fraction
+		var/y = world_y + delta_y * fraction
 		if(!in_bounds(x, y))
 			qdel(src)
 			return
 		for(var/obj/overmap/entity/vessel as anything in vessels)
 			var/list/previous = vessels[vessel]
-			var/fraction = step / steps
 			var/pose_x = previous[1] + previous[4] * fraction
 			var/pose_y = previous[2] + previous[5] * fraction
 			if((x - pose_x) ** 2 + (y - pose_y) ** 2 > (vessel.hull_radius + 1) ** 2)

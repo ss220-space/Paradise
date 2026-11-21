@@ -6,6 +6,7 @@
 	if(new_base_lighting_color != -1)
 		base_lighting_color = new_base_lighting_color
 	update_base_lighting()
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_AREA_BASE_LIGHTING_CHANGED, src)
 	return TRUE
 
 /area/vv_edit_var(var_name, var_value)

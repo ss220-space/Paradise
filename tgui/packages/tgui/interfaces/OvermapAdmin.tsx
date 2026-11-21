@@ -15,6 +15,7 @@ import type { BooleanLike } from 'tgui-core/react';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { AIShipsAdmin } from './overmap/AIShipsAdmin';
+import { shipFactionOptions } from './overmap/AIDiplomacy';
 import { GalaxyAdmin } from './overmap/GalaxyAdmin';
 
 type Sector = {
@@ -135,8 +136,8 @@ type Data = {
   suggest_sector?: string;
   faction_comms_keys?: Record<string, string>;
   observation_comms_key?: string;
-  iff_centcom?: string;
-  iff_syndicate?: string;
+  ai?: { faction_options: Record<string, string> };
+  faction_iff_keys?: Record<string, string>;
   transponders?: Transponder[] | Record<string, Transponder>;
   comms?: CommsSector[] | Record<string, CommsSector>;
 };
@@ -483,19 +484,13 @@ const ControlTab = () => {
                     label="ИИ орудий"
                   />
                   <Dropdown
-                    selected={
-                      ['neutral', 'nt', 'syndicate', 'rogue', 'erw'].includes(
-                        selected.structure_faction || '',
-                      )
-                        ? selected.structure_faction
-                        : 'neutral'
+                    selected={selected.structure_faction || 'neutral'}
+                    displayText={
+                      data.ai?.faction_options[
+                        selected.structure_faction || 'neutral'
+                      ]
                     }
-                    options={[
-                      { value: 'neutral', displayText: 'Нейтральная' },
-                      { value: 'nt', displayText: 'Nanotrasen' },
-                      { value: 'syndicate', displayText: 'Синдикат' },
-                      { value: 'erw', displayText: 'Eisenwehr Raumfahrtwerke' },
-                    ]}
+                    options={shipFactionOptions(data.ai?.faction_options)}
                     onSelected={(value) =>
                       act('set_field', {
                         uid: selected.uid,
@@ -934,11 +929,13 @@ const TransponderTab = () => {
   const [newKey, setNewKey] = useState('');
   return (
     <Section title="Транспондеры">
-      <Box mb={1}>
-        ЦК: <b>{data.iff_centcom || '—'}</b>
-        {' | '}
-        Синдикат: <b>{data.iff_syndicate || '—'}</b>
-      </Box>
+      <LabeledList>
+        {Object.entries(data.faction_iff_keys || {}).map(([id, cipher]) => (
+          <LabeledList.Item key={id} label={data.ai?.faction_options[id] || id}>
+            {cipher}
+          </LabeledList.Item>
+        ))}
+      </LabeledList>
       {transponders.map((beacon) => (
         <Section
           key={beacon.uid}
@@ -1010,12 +1007,6 @@ const TransponderTab = () => {
   );
 };
 
-const commsFactions: Record<string, string> = {
-  nt: 'Nanotrasen',
-  syndicate: 'Синдикат',
-  erw: 'Eisenwehr Raumfahrtwerke',
-};
-
 const CommsTab = () => {
   const { act, data } = useBackend<Data>();
   const sectors = asList(data.comms);
@@ -1036,7 +1027,7 @@ const CommsTab = () => {
             ([faction, cipher]) => (
               <LabeledList.Item
                 key={faction}
-                label={commsFactions[faction] || faction}
+                label={data.ai?.faction_options[faction] || faction}
               >
                 {cipher}
               </LabeledList.Item>

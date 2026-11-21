@@ -58,7 +58,7 @@
 	simulated = FALSE
 	plane = LIGHTING_PLANE
 	layer = HULL_PROXY_LIGHT_LAYER
-	appearance_flags = RESET_COLOR | RESET_ALPHA
+	appearance_flags = RESET_COLOR|RESET_ALPHA
 
 /obj/effect/abstract/hull_proxy_glow
 	name = "hull glow"
@@ -77,7 +77,7 @@
 	simulated = FALSE
 	plane = EMISSIVE_PLANE
 	layer = HULL_PROXY_SHADE_LAYER
-	appearance_flags = RESET_COLOR | RESET_ALPHA
+	appearance_flags = RESET_COLOR|RESET_ALPHA
 
 /obj/effect/abstract/hull_proxy_tile/proc/glide(visual_x, visual_y, target_z, matrix/new_transform, list/bounds, time)
 	var/anchor_x = clamp(round(visual_x, 1), bounds[1], bounds[3])
@@ -158,7 +158,7 @@
 	var/mutable_appearance/light_copy = new(source_light)
 	light_copy.plane = light_mask.plane
 	light_copy.layer = HULL_PROXY_LIGHT_LAYER
-	light_copy.appearance_flags = RESET_COLOR | RESET_ALPHA
+	light_copy.appearance_flags = RESET_COLOR|RESET_ALPHA
 	light_copy.invisibility = 0
 	light_copy.transform = light_mask.transform
 	if(corner_mask)

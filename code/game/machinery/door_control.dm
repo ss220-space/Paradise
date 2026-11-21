@@ -336,7 +336,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/door_control/secure, 24, 24)
 
 /obj/machinery/door_control/shuttle_blastdoors
 	name = "shuttle blast door button"
-	desc = "TEMP123TEMP"
+	desc = "Переключает защиту хрупких конструкций шаттла."
 	obj_flags = NODECONSTRUCT
 
 /obj/machinery/door_control/shuttle_blastdoors/get_ru_names()

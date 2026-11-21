@@ -1,5 +1,5 @@
 /datum/overmap_admin_panel/proc/ai_data()
-	var/list/result = list("name_template" = OVERMAP_SHIP_NAME_TEMPLATE, "ship_classes" = GLOB.overmap_ship_classes, "faction_options" = GLOB.overmap_ai_faction_options, "default_enemies" = GLOB.overmap_ai_default_enemies, "relation_options" = ai_relation_options(), "fleets" = ai_fleet_data(), "targets" = ai_order_targets(), "profiles" = list(), "ships" = list(), "uploads" = list(), "feedback" = ai_feedback, "failed" = ai_failed)
+	var/list/result = list("name_template" = OVERMAP_SHIP_NAME_TEMPLATE, "ship_classes" = GLOB.overmap_ship_classes, "faction_options" = SSovermap.faction_options, "default_enemies" = GLOB.overmap_ai_default_enemies, "relation_options" = ai_relation_options(), "fleets" = ai_fleet_data(), "targets" = ai_order_targets(), "profiles" = list(), "ships" = list(), "uploads" = list(), "feedback" = ai_feedback, "failed" = ai_failed)
 	for(var/id, record in GLOB.overmap_ai_profiles)
 		var/datum/overmap_ai_profile/profile = record
 		result["profiles"] += list(list("id" = id, "name" = profile.name))
@@ -16,7 +16,7 @@
 	return result
 
 /datum/overmap_admin_panel/proc/ai_action(action, list/params, mob/user)
-	if(!user?.client || !check_rights_for(user.client, R_ADMIN | R_EVENT) || !SSovermap?.initialized)
+	if(!user?.client || !check_rights_for(user.client, R_ADMIN|R_EVENT) || !SSovermap?.initialized)
 		return TRUE
 	ai_feedback = null
 	ai_failed = FALSE
@@ -65,7 +65,7 @@
 	var/faction = params["faction"]
 	var/datum/overmap_sector/sector = SSovermap.sectors[params["sector"]]
 	var/list/composition = params["ships"]
-	if(!(faction in list("nt", "syndicate", "neutral", "erw")) || !sector || !islist(composition) || !length(composition) || length(composition) > 32)
+	if(!SSovermap.is_ship_faction(faction) || !sector || !islist(composition) || !length(composition) || length(composition) > 32)
 		throw EXCEPTION("Выберите фракцию, сектор и состав соединения от 1 до 32 кораблей.")
 	var/name_template = istext(params["name_template"]) ? trim(strip_html(params["name_template"], 128)) : OVERMAP_SHIP_NAME_TEMPLATE
 	if(!length(name_template))
@@ -84,8 +84,7 @@
 	for(var/list/entry as anything in composition)
 		if(!islist(entry))
 			throw EXCEPTION("Некорректный состав соединения.")
-		var/datum/overmap_ai_profile/profile = GLOB.overmap_ai_profiles[entry["role"]]
-		if(!profile)
+		if(!GLOB.overmap_ai_profiles[entry["role"]])
 			throw EXCEPTION("Выберите роль для каждого корабля.")
 		var/datum/map_template/template
 		if(entry["template_id"])
@@ -96,7 +95,7 @@
 		if(class_code && !(class_code in GLOB.overmap_ship_classes))
 			throw EXCEPTION("Неизвестный класс в позывном корабля.")
 		var/ship_name = istext(entry["name"]) ? trim(strip_html(entry["name"], MAX_NAME_LEN)) : ""
-		plans += list(list("role" = entry["role"], "profile" = profile, "template" = template, "name" = ship_name, "ship_class" = class_code, "unarmed" = !!entry["unarmed"]))
+		plans += list(list("role" = entry["role"], "template" = template, "name" = ship_name, "ship_class" = class_code, "unarmed" = !!entry["unarmed"]))
 	if(!SSovermap.ai_controller)
 		SSovermap.ai_controller = new
 	var/datum/overmap_ai_controller/controller = SSovermap.ai_controller
@@ -104,46 +103,21 @@
 		throw EXCEPTION("Дождитесь завершения предыдущего спавна.")
 	var/count = length(plans)
 	var/group = istext(params["group"]) ? trim(strip_html(params["group"], 40)) : ""
-	if(!length(group))
-		group = "[faction]-fleet-[++controller.next_fleet]"
 	var/x = isnum(params["x"]) ? params["x"] : text2num(params["x"])
 	var/y = isnum(params["y"]) ? params["y"] : text2num(params["y"])
 	x = clamp(round(x || sector.size / 2), OVERMAP_EDGE + 1, sector.size - OVERMAP_EDGE)
 	y = clamp(round(y || sector.size / 2), OVERMAP_EDGE + 1, sector.size - OVERMAP_EDGE)
 	controller.pending_spawns = count
-	var/list/created = list()
+	var/list/created
 	try
-		for(var/list/plan as anything in plans)
-			if(QDELETED(src) || QDELETED(sector) || !user?.client || !check_rights_for(user.client, R_ADMIN | R_EVENT))
-				throw EXCEPTION("Создание соединения отменено.")
-			var/obj/overmap/entity/virtual_structure/ai/ship = new(null)
-			created += ship
-			var/datum/map_template/template = plan["template"]
-			var/datum/overmap_ai_profile/profile = plan["profile"]
-			var/loaded = template ? ship.load_template(template, TRUE) : ship.build_hull(profile, !plan["unarmed"])
-			if(!loaded || !ship.prepare_ai(profile))
-				throw EXCEPTION("Не удалось загрузить корпус или подготовить управление кораблём.")
-			if(QDELETED(src) || QDELETED(sector) || !user?.client || !check_rights_for(user.client, R_ADMIN | R_EVENT))
-				throw EXCEPTION("Создание соединения отменено.")
-			var/turf/spot = controller.spawn_position(sector, x, y, ship.hull_radius)
-			if(!spot)
-				throw EXCEPTION("В секторе нет свободного места для соединения.")
-			sector.add_object(ship, spot)
-			ship.ship_basename = plan["name"]
-			ship.registration_class = plan["ship_class"]
-			ship.ship_name_format = name_template
-			ship.radio_silence = !!params["radio_silence"]
-			ship.ship_ai = new(ship, controller, plan["role"], faction, group)
-			CHECK_TICK
+		created = controller.spawn_fleet(sector, x, y, plans, faction, group, name_template, !!params["radio_silence"], CALLBACK(src, PROC_REF(can_spawn_ai_fleet), user))
 	catch(var/exception/error)
 		controller.pending_spawns = 0
-		controller.index_until = 0
-		QDEL_LIST(created)
 		throw error
 	controller.pending_spawns = 0
-	controller.index_until = 0
 	selected = created[length(created)]
 	var/obj/overmap/entity/virtual_structure/ai/last_ship = selected
+	group = last_ship.ship_ai.group
 	var/fleet_key = controller.diplomacy_key(last_ship.ship_ai)
 	controller.fleet_enemies[fleet_key] = enemies
 	controller.fleet_friends[fleet_key] = friends
@@ -151,40 +125,17 @@
 	ai_feedback = "Создано соединение [group]: [count] кораблей."
 	report_spawn(user, last_ship, "virtual AI fleet \"[group]\": [count] ships, faction [faction], requested center [x]:[y]")
 
-/datum/overmap_ai_controller/proc/spawn_position(datum/overmap_sector/sector, wanted_x, wanted_y, radius)
-	var/turf/best
-	var/best_score = INFINITY
-	var/span = OVERMAP_TILE_SPAN * sector.tile_travel
-	var/list/blockers = list()
-	for(var/obj/overmap/entity/ship as anything in SSovermap.vessels)
-		if(!QDELETED(ship) && ship.sector == sector && isturf(ship.loc) && (ship.hull_radius || ship.physical_space))
-			blockers += list(list(ship.get_world_x(), ship.get_world_y(), overmap_ai_radius(ship) + radius + 8))
-	for(var/ix in OVERMAP_EDGE + 1 to sector.size - OVERMAP_EDGE)
-		for(var/iy in OVERMAP_EDGE + 1 to sector.size - OVERMAP_EDGE)
-			var/score = (ix - wanted_x) ** 2 + (iy - wanted_y) ** 2
-			if(score >= best_score)
-				continue
-			var/turf/spot = sector.locate_local(ix, iy)
-			if(!spot || sector.turf_occupied(spot))
-				continue
-			var/blocked = FALSE
-			for(var/list/circle as anything in blockers)
-				if((spot.x * span - circle[1]) ** 2 + (spot.y * span - circle[2]) ** 2 < circle[3] ** 2)
-					blocked = TRUE
-					break
-			if(!blocked)
-				best = spot
-				best_score = score
-	return best
+/datum/overmap_admin_panel/proc/can_spawn_ai_fleet(mob/user)
+	return !QDELETED(src) && user?.client && check_rights_for(user.client, R_ADMIN|R_EVENT)
 
 /datum/overmap_admin_panel/proc/validate_ai_factions(value, faction)
 	if(isnull(value) && faction)
-		value = GLOB.overmap_ai_default_enemies[faction]
-	if(!islist(value) || length(value) > length(GLOB.overmap_ai_faction_options))
+		value = GLOB.overmap_ai_default_enemies[faction] || list()
+	if(!islist(value) || length(value) > length(SSovermap.faction_options))
 		throw EXCEPTION("Некорректный список враждебных фракций.")
 	var/list/enemies = list()
 	for(var/affiliation in value)
-		if(!istext(affiliation) || !(affiliation in GLOB.overmap_ai_faction_options))
+		if(!istext(affiliation) || !(affiliation in SSovermap.faction_options))
 			throw EXCEPTION("Неизвестная враждебная фракция.")
 		enemies |= affiliation
 	return enemies

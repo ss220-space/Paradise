@@ -124,6 +124,8 @@ GLOBAL_VAR_INIT(glide_size_multiplier, 1.0)
 /// Used for falling down open space.
 #define ZMOVE_FALL_FLAGS (ZMOVE_FALL_CHECKS|ZMOVE_ALLOW_BUCKLED)
 
+#define Z_FALL_KNOCKDOWN_DURATION (5 SECONDS)
+
 #define ZMOVE_DELAY_DURATION (1 SECONDS)
 
 #define ACTIVE_MOVEMENT_OLDLOC 1

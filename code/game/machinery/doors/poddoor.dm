@@ -135,7 +135,7 @@
 
 /obj/machinery/door/poddoor/shuttle
 	name = "shuttle blast door"
-	desc = "TEMP123TEMP"
+	desc = "Бронированная дверь шаттла."
 	max_integrity = 800
 	obj_flags = NODECONSTRUCT
 

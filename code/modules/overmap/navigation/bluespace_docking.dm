@@ -88,7 +88,7 @@
 			return
 
 /obj/overmap/entity/proc/in_station_docking_zone()
-	return SSovermap.station_docking_zone?.contains_vessel(src)
+	return !atmosphere && SSovermap.station_docking_zone?.contains_vessel(src)
 
 /obj/docking_port/mobile/proc/overmap_docking_origin(obj/docking_port/stationary/pad)
 	if(SSovermap.station_docking_zone?.accepts_pad(pad) && !pad.dock_airlock && !istype(pad, /obj/docking_port/stationary/overmap))

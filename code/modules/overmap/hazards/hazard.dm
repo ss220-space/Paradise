@@ -23,7 +23,7 @@
 	scannable = FALSE
 	layer = LOW_OBJ_LAYER
 	map_color = "#8899aa"
-	appearance_flags = RESET_COLOR | KEEP_APART
+	appearance_flags = RESET_COLOR|KEEP_APART
 	color = null
 
 	var/moving_hazard = FALSE
@@ -54,7 +54,7 @@
 	return
 
 /obj/overmap/feature/hazard/proc/try_affect(obj/overmap/entity/vessel)
-	if(!vessel || QDELETED(vessel) || vessel.overmap_hazard_immune)
+	if(!vessel || QDELETED(vessel) || vessel.overmap_hazard_immune || vessel.atmosphere)
 		return
 	if(vessel.programmed_mission)
 		return
@@ -264,7 +264,7 @@
 	empulse(epicenter, heavy, radius, FALSE, "overmap EMP storm")
 
 /obj/overmap/feature/hazard/emp/proc/strike_lightning(turf/epicenter, obj/overmap/entity/vessel)
-	tesla_zap(source = epicenter, zap_range = rand(4, 8), power = 8e3, cutoff = 1e3, zap_flags = ZAP_MOB_DAMAGE | ZAP_OBJ_DAMAGE | ZAP_MOB_STUN)
+	tesla_zap(source = epicenter, zap_range = rand(4, 8), power = 8e3, cutoff = 1e3, zap_flags = ZAP_MOB_DAMAGE|ZAP_OBJ_DAMAGE|ZAP_MOB_STUN)
 	var/turf/cursor = epicenter
 	for(var/step_i in 1 to rand(2, 4))
 		cursor = get_step(cursor, pick(GLOB.cardinal))

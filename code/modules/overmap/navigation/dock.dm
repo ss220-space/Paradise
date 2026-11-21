@@ -343,7 +343,7 @@
 	anchored = TRUE
 	layer = OBJ_LAYER
 	use_power = NO_POWER_USE
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|UNACIDABLE|ACID_PROOF
 	light_range = 2
 	light_power = 0.8
 	light_color = "#7ec8e3"
@@ -385,8 +385,9 @@
 
 /obj/machinery/landing_beacon/examine(mob/user)
 	. = ..()
-	if(pad && !QDELETED(pad))
-		. += span_notice("Площадка стыковки: [pad.overmap_dock_label || pad.id].")
+	var/obj/docking_port/stationary/registered = pad || (locate(/obj/docking_port/stationary) in loc)
+	if(!QDELETED(registered) && !registered.hidden && !istype(registered, /obj/docking_port/stationary/transit))
+		. += span_notice("Площадка стыковки: [dock_name || registered.overmap_dock_label || registered.name].")
 	else
 		. += span_warning("Площадка стыковки не зарегистрирована.")
 

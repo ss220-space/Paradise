@@ -2,7 +2,6 @@
 	abstract_type = /obj/overmap/entity/virtual_structure/ai
 	name = "AI ship"
 	structure_faction = null
-	desc = "TEMP123TEMP"
 	wraparound = FALSE
 	vessel_flags = OVERMAP_VESSEL_SHUTTLE
 	closed_blastdoors = TRUE
@@ -31,9 +30,9 @@
 	mapped_ship_class = profile.ship_class
 	hull_center_x = (profile.width + 1) / 2
 	hull_center_y = (profile.height + 1) / 2
-	var/datum/overmap_virtual_model/floor_model = new("/turf/simulated/floor/plasteel,/area/space")
-	var/datum/overmap_virtual_model/wall_model = new("/turf/simulated/wall,/area/space")
-	var/datum/overmap_virtual_model/drive_model = new("/turf/simulated/floor/plasteel,/obj/machinery/ship_engine{dir = 2},/area/space")
+	var/datum/overmap_virtual_model/floor_model = new("[/turf/simulated/floor/plasteel],[/area/space]")
+	var/datum/overmap_virtual_model/wall_model = new("[/turf/simulated/wall],[/area/space]")
+	var/datum/overmap_virtual_model/drive_model = new("[/turf/simulated/floor/plasteel],[/obj/machinery/ship_engine]{dir = [SOUTH]},[/area/space]")
 	floor_model.health = 60
 	wall_model.health = 150
 	drive_model.health = 120
@@ -49,7 +48,7 @@
 				model = wall_model
 			if(iy == 2 && ix == hull_center_x)
 				model = drive_model
-			if(iy == profile.height && ix in gun_x)
+			if(iy == profile.height && (ix in gun_x))
 				var/datum/overmap_virtual_model/gun_model = new("/turf/simulated/floor/plasteel,[profile.gun_type]{dir = 1},/area/space")
 				gun_model.health = 120
 				virtual_models["gun[ix]"] = gun_model
@@ -151,7 +150,7 @@
 		ship_ai.weapons += gun
 	flight.engines_state = TRUE
 	flight.refresh_thrust()
-	map_color = GLOB.overmap_faction_colors[ship_ai.faction] || COLOR_WHITE
+	map_color = SSovermap.faction_color(ship_ai.faction) || COLOR_WHITE
 	identity_color = map_color
 	shape_dirty = TRUE
 	hull_version++

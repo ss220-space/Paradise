@@ -1,6 +1,6 @@
 /obj/machinery/computer/ship_console/weapons
 	name = "ship weapons console"
-	desc = "TEMP123TEMP"
+	desc = "Консоль для наведения и управления корабельными орудиями."
 	circuit = /obj/item/circuitboard/ship_weapons
 	icon_screen = "syndinavigation"
 	icon_keyboard = "security_key"

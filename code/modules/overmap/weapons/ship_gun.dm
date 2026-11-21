@@ -1,13 +1,13 @@
 /obj/machinery/ship_gun
 	abstract_type = /obj/machinery/ship_gun
 	name = "ship gun"
-	desc = "TEMP123TEMP"
+	desc = "Корабельное орудие с дистанционным управлением."
 	icon_state = "idle"
 	density = TRUE
 	anchored = TRUE
 	use_power = NO_POWER_USE
 	max_integrity = 300
-	appearance_flags = PIXEL_SCALE | KEEP_TOGETHER
+	appearance_flags = PIXEL_SCALE|KEEP_TOGETHER
 	ship_round_type = /obj/projectile/ship_round
 	ship_cooldown = 4 SECONDS
 
@@ -34,6 +34,6 @@
 		SEND_SIGNAL(src, COMSIG_OVERMAP_WEAPON_ROTATED, 0, dir)
 	return TRUE
 
-/obj/machinery/ship_gun/shuttleRotate(rotation, params = ROTATE_DIR | ROTATE_SMOOTH | ROTATE_OFFSET)
+/obj/machinery/ship_gun/shuttleRotate(rotation, params = ROTATE_DIR|ROTATE_SMOOTH|ROTATE_OFFSET)
 	. = ..(rotation, params & ~ROTATE_OFFSET)
 	SEND_SIGNAL(src, COMSIG_OVERMAP_WEAPON_ROTATED, rotation, dir)

@@ -4,12 +4,13 @@
 /obj/overmap/entity/proc/set_free_flight_view(enabled)
 	radar_epoch++
 	free_flight_view = enabled
-	if(enabled && undock_origin)
-		place_at_undock_origin()
 	if(enabled)
 		map_hull()
+		if(undock_origin)
+			place_at_undock_origin()
 		remember_pose()
 	else
+		QDEL_NULL(atmosphere)
 		clear_encounter_visuals()
 	var/obj/docking_port/stationary/transit/pad = shuttle.get_docked()
 	if(!istype(pad))

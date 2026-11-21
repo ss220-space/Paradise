@@ -66,6 +66,7 @@ export const OvermapWeapons = () => {
                 peels={data.radar_peels}
                 scatter={data.radar_scatter}
                 hazardFields={data.hazard_fields || []}
+                hazardContours={data.radar_hazard_contours}
                 onSelectPoint={(x, y) => act('radar_point', { x, y })}
                 onSelectObject={(id) => act('set_dest', { id })}
               />

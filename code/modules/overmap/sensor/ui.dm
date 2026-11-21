@@ -4,6 +4,13 @@
 		if(istype(found, /obj/overmap) && vessel?.can_short_scan(found))
 			return found
 
+/obj/machinery/computer/sensors/proc/scanned_radar_vessel()
+	if(!vessel || !scan_finished || vessel.relay_jump_from)
+		return null
+	var/obj/overmap/entity/subject = scan_subject(scanning_target)
+	if(istype(subject) && subject.shuttle)
+		return subject
+
 /obj/machinery/computer/sensors/proc/sync_peel_loop()
 	if(!peel_loop)
 		return
@@ -40,8 +47,9 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "OvermapSensors", name)
-		ui.open()
-	vessel?.watch_radar(ui)
+		if(ui.open())
+			var/obj/overmap/entity/radar_subject = scanned_radar_vessel() || vessel
+			radar_subject?.watch_radar(ui)
 	update_scan_info()
 
 /obj/machinery/computer/sensors/ui_close(mob/user)
@@ -71,8 +79,13 @@
 
 /obj/machinery/computer/sensors/ui_data(mob/user)
 	var/list/data = list()
-	if(vessel)
-		vessel.fill_radar_data(data)
+	var/obj/overmap/entity/scanned_vessel = scanned_radar_vessel()
+	if(scanned_vessel && !length(scanned_vessel.hull_turfs))
+		scanned_vessel.map_hull()
+	var/obj/overmap/entity/radar_subject = scanned_vessel || vessel
+	radar_subject?.fill_radar_data(data)
+	overmap_watch_radar(src, user, radar_subject)
+	data["scan_radar"] = !!scanned_vessel
 	data["linked"] = !!vessel
 	data["view_mode"] = view_mode
 	data["has_long"] = vessel?.has_working_sensor(OVERMAP_SENSOR_KIND_LONG)
@@ -83,17 +96,6 @@
 	data["scanning"] = scanning
 	data["scan_error"] = scan_error
 	data["scan"] = scan_info
-	var/obj/overmap/entity/radar_subject = vessel
-	data["scan_radar"] = FALSE
-	if(scan_finished && !vessel?.relay_jump_from)
-		var/obj/overmap/entity/subject = scan_subject(scanning_target)
-		if(istype(subject) && subject.shuttle)
-			if(!length(subject.hull_turfs))
-				subject.map_hull()
-			radar_subject = subject
-			subject.fill_radar_data(data)
-			data["scan_radar"] = TRUE
-	overmap_watch_radar(src, user, radar_subject)
 	data["scan_done"] = scan_finished
 	data["can_print"] = can_print
 	data["can_dump"] = can_dump
@@ -250,7 +252,7 @@
 	density = FALSE
 	invisibility = INVISIBILITY_ABSTRACT
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|UNACIDABLE|ACID_PROOF
 	can_print = FALSE
 
 /obj/machinery/computer/sensors/short_range/pod/Initialize(mapload)

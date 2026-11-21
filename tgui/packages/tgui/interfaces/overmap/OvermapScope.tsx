@@ -39,6 +39,7 @@ export type OvermapScopeData = {
   galaxy?: GalaxyMap;
   facing?: number;
   hazard_fields?: HazardField[];
+  radar_hazard_contours?: number[][][];
 };
 
 export const OvermapScope = ({ data }: { data: OvermapScopeData }) => {
@@ -68,6 +69,7 @@ export const OvermapScope = ({ data }: { data: OvermapScopeData }) => {
       sectorId={data.sector_id}
       galaxy={data.galaxy}
       hazardFields={data.hazard_fields || []}
+      hazardContours={data.radar_hazard_contours}
       peels={data.radar_peels}
       scatter={data.radar_scatter}
       radius={radius}

@@ -80,7 +80,7 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away
 /datum/milla_safe_must_sleep/late_setup_level
 
 // Ensures that atmos and environment are set up.
-/datum/milla_safe_must_sleep/late_setup_level/on_run(turf/bot_left, turf/top_right, smoothTurfs)
+/datum/milla_safe_must_sleep/late_setup_level/on_run(turf/bot_left, turf/top_right)
 	var/subtimer = start_watch()
 	log_debug("Setting up atmos")
 	/* setup_allturfs is superfluous during server initialization because

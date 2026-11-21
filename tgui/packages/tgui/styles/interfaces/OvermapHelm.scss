@@ -79,6 +79,7 @@
     top: 50%;
     width: 100%;
     aspect-ratio: 1;
+    max-height: 100%;
     transform: translateY(-50%);
   }
   .OvermapRadar__controls {
@@ -334,6 +335,16 @@
 .HelmSpeed--empty .HelmSpeed__signature {
   color: var(--helm-dim);
 }
+.HelmAtmosphereActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+
+  > button {
+    flex: 1;
+  }
+}
+
 .HelmDockingButton {
   white-space: normal;
 }

@@ -97,7 +97,7 @@
 		update_scan_info()
 		SStgui.update_uis(src)
 		return TRUE
-	addtimer(CALLBACK(src, PROC_REF(complete_short_scan)), OVERMAP_SENSOR_SCAN_TIME, TIMER_UNIQUE | TIMER_OVERRIDE)
+	addtimer(CALLBACK(src, PROC_REF(complete_short_scan)), OVERMAP_SENSOR_SCAN_TIME, TIMER_UNIQUE|TIMER_OVERRIDE)
 	update_scan_info()
 	SStgui.update_uis(src)
 	return TRUE

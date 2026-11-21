@@ -12,8 +12,9 @@
 	hidden_from_contacts = TRUE
 	scannable = FALSE
 	deny_pod_edge_dock = TRUE
-	appearance_flags = RESET_COLOR | RESET_TRANSFORM | KEEP_APART
+	appearance_flags = RESET_COLOR|RESET_TRANSFORM|KEEP_APART
 	var/footprint = OVERMAP_LAVALAND_FOOTPRINT
+	var/surface_tint
 	var/obj/overmap/entity/planet_station/outpost
 	var/list/obj/effect/overmap_planet_cell/cells
 
@@ -35,6 +36,12 @@
 	if(!isturf(origin) || footprint <= 0)
 		return
 	var/icon/full = icon(OVERMAP_PLANET_ICON_FILE, icon_state)
+	var/size = footprint * world.icon_size
+	if(full.Width() != size || full.Height() != size)
+		full.Scale(size, size)
+	if(surface_tint)
+		full.GrayScale()
+		full.Blend(surface_tint, ICON_MULTIPLY)
 	cells = list()
 	for(var/tile_x in 0 to footprint - 1)
 		for(var/tile_y in 0 to footprint - 1)
@@ -42,7 +49,7 @@
 			if(!spot)
 				continue
 			var/icon/piece = icon(full)
-			piece.Crop(tile_x * 32 + 1, tile_y * 32 + 1, (tile_x + 1) * 32, (tile_y + 1) * 32)
+			piece.Crop(tile_x * world.icon_size + 1, tile_y * world.icon_size + 1, (tile_x + 1) * world.icon_size, (tile_y + 1) * world.icon_size)
 			var/obj/effect/overmap_planet_cell/cell = new(spot)
 			cell.icon = piece
 			cell.parent_planet = src
@@ -61,8 +68,8 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	plane = FLOOR_PLANE
 	layer = ABOVE_OPEN_TURF_LAYER
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	appearance_flags = RESET_COLOR | RESET_TRANSFORM | KEEP_APART
+	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|UNACIDABLE|ACID_PROOF
+	appearance_flags = RESET_COLOR|RESET_TRANSFORM|KEEP_APART
 	var/obj/overmap/planet/parent_planet
 
 /obj/effect/overmap_planet_cell/Initialize(mapload)

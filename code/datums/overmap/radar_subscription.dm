@@ -27,7 +27,9 @@
 	if("sector_id" in data)
 		sector_id = data["sector_id"]
 	var/list/filtered = data.Copy()
-	for(var/field in list("radar_terrain", "radar_scatter", "radar_shapes", "radar_outlines"))
+	if("sector_id" in data)
+		filtered["galaxy"] = ui.radar_galaxy_open ? SSovermap.galaxy_map(ui.radar_source) : null
+	for(var/field in list("radar_terrain", "radar_scatter", "radar_shapes", "radar_outlines", "radar_hazard_contours"))
 		if(!(field in data))
 			continue
 		var/list/value = data[field]
@@ -35,6 +37,9 @@
 		if(field == "radar_terrain")
 			unchanged = unchanged && sent[field] == value?["revision"]
 			sent[field] = value?["revision"]
+		else if(field == "radar_hazard_contours")
+			unchanged = unchanged && compare_list(sent[field], value)
+			sent[field] = value
 		else if(field == "radar_scatter")
 			unchanged = unchanged && sent[field] == value
 			sent[field] = value

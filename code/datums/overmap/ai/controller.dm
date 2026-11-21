@@ -88,7 +88,8 @@
 
 /datum/overmap_ai_controller/proc/enemies_for(datum/overmap_ship_ai/brain)
 	var/list/enemies = fleet_enemies[diplomacy_key(brain)]
-	return isnull(enemies) ? GLOB.overmap_ai_default_enemies[brain.faction] : enemies
+	var/static/list/no_enemies = list()
+	return isnull(enemies) ? (GLOB.overmap_ai_default_enemies[brain.faction] || no_enemies) : enemies
 
 /datum/overmap_ai_controller/proc/rebuild_index()
 	var/list/previous = contacts
@@ -279,8 +280,9 @@
 		if(istype(craft))
 			controller.name_ship(craft, faction, profile)
 		owner.identity_broadcasting = TRUE
-		owner.identity_iff_ids = faction == "syndicate" ? list(OVERMAP_IFF_SYNDICATE) : faction == "nt" ? list(OVERMAP_IFF_CENTCOM) : faction == "erw" ? list(OVERMAP_IFF_ERW) : list()
-		owner.map_color = GLOB.overmap_faction_colors[faction] || COLOR_WHITE
+		var/channel_id = overmap_faction_iff_id(faction)
+		owner.identity_iff_ids = channel_id ? list(channel_id) : list()
+		owner.map_color = SSovermap.faction_color(faction) || COLOR_WHITE
 		owner.identity_color = owner.map_color
 		owner.identity_name = owner.name
 		owner.rebuild_identity_iff()

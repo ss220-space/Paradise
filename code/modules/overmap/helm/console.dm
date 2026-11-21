@@ -47,9 +47,12 @@
 	if(!vessel?.shuttle)
 		to_chat(user, span_warning("Нет физического шаттла."))
 		return FALSE
+	var/obj/overmap/entity/host = vessel.get_dock_host()
+	if(host?.dock_host?.planet_landing)
+		to_chat(user, span_notice("Для посадки в произвольной точке подведите шаттл к ней в атмосфере и нажмите «Остановиться»."))
+		return FALSE
 	if(!dock_picker)
 		dock_picker = new(src)
-	var/obj/overmap/entity/host = vessel.get_dock_host()
 	if(!host)
 		to_chat(user, span_warning("Невозможно установить произвольную точку посадки."))
 		return FALSE

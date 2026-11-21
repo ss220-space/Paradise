@@ -6,8 +6,8 @@
 	var/allow_custom_landing = TRUE
 
 	var/planet_landing = FALSE
-	var/list/obj/overmap/entity/nested
 	var/list/area/cached_host_areas
+	var/list/surfaces
 
 /datum/component/overmap_dock_host/Initialize(z_kind = OVERMAP_DOCK_Z_STATION, area/area_root, allow_custom_landing = TRUE, planet_landing = FALSE)
 	if(!istype(parent, /obj/overmap/entity))
@@ -30,8 +30,8 @@
 	if(token.physical_space?.host == token)
 		QDEL_NULL(token.physical_space)
 	SSovermap?.dock_hosts -= src
-	nested = null
 	cached_host_areas = null
+	QDEL_LIST_ASSOC_VAL(surfaces)
 
 /datum/component/overmap_dock_host/proc/host_areas()
 	if(cached_host_areas)
@@ -60,14 +60,6 @@
 		if(OVERMAP_DOCK_Z_TAIPAN)
 			return is_taipan(pad.z)
 	return FALSE
-
-/datum/component/overmap_dock_host/proc/add_nested(obj/overmap/entity/guest)
-	if(!nested)
-		nested = list()
-	nested |= guest
-
-/datum/component/overmap_dock_host/proc/remove_nested(obj/overmap/entity/guest)
-	nested -= guest
 
 /datum/component/overmap_dock_host/proc/allows_landing_z(z_level)
 	if(!z_level)

@@ -357,7 +357,7 @@
 			update_collision_index(vessel)
 	for(var/index in 1 to length(flying))
 		var/obj/overmap/entity/vessel = flying[index]
-		if(vessel.formation_transfer || vessel.formation_pad)
+		if(vessel.atmosphere || vessel.formation_transfer || vessel.formation_pad)
 			continue
 		var/obj/overmap/entity/body = vessel.docked_ship || vessel
 		var/list/candidates = flight_index.nearby(vessel.sector, vessel.get_world_x(), vessel.get_world_y(), vessel.hull_radius + vessel.pose_travel())

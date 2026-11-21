@@ -66,10 +66,6 @@
 		return TRUE
 	if(SSovermap.lavaland_planet?.covers_turf(spot))
 		return TRUE
-	if(locate(/obj/overmap/feature/hazard) in spot)
-		return TRUE
-	if(locate(/obj/overmap/portal) in spot)
-		return TRUE
 	var/obj/overmap/entity/station = SSovermap?.station_entity
 	if(station?.loc && max(abs(spot.x - station.loc.x), abs(spot.y - station.loc.y)) <= 1)
 		return TRUE
@@ -88,6 +84,10 @@
 	var/low_y = sector.origin_y + OVERMAP_EDGE
 	var/high_x = sector.origin_x + sector.size - OVERMAP_EDGE - 1
 	var/high_y = sector.origin_y + sector.size - OVERMAP_EDGE - 1
+	for(var/attempt in 1 to 8)
+		var/turf/candidate = locate(rand(low_x, high_x), rand(low_y, high_y), sector.z_level)
+		if(candidate && prob(round(overmap_hazard_edge_weight(sector, candidate) * 100)) && !overmap_hazard_spawn_blocked(sector, candidate))
+			return candidate
 	var/list/bag = list()
 	for(var/turf/spot as anything in block(locate(low_x, low_y, sector.z_level), locate(high_x, high_y, sector.z_level)))
 		if(overmap_hazard_spawn_blocked(sector, spot))
@@ -255,19 +255,24 @@
 				return overmap_hazard_paint_scatter(hazard_type, sector, start, rand(4, 7), rand(2, 3))
 			return overmap_hazard_paint_elbow(hazard_type, sector, start, rand(5, 8), pick(line_dirs))
 
-/proc/spawn_static_overmap_hazards(datum/overmap_sector/sector)
-	if(!sector || sector.hazard_spawn_weight <= 0)
+/proc/spawn_static_overmap_hazards(datum/overmap_sector/sector, list/generation)
+	var/density = generation?["hazards"]
+	if(!isnum(density))
+		density = sector?.hazard_spawn_weight
+	if(!sector || density <= 0)
 		return
-	var/scale = sector.hazard_spawn_weight * (sector.size / OVERMAP_DEFAULT_SIZE)
-	var/list/types = list("asteroids" = /obj/overmap/feature/hazard/asteroid, "emp" = /obj/overmap/feature/hazard/emp, "carp" = /obj/overmap/feature/hazard/carp)
+	var/scale = density * (sector.size / OVERMAP_DEFAULT_SIZE)
+	var/static/list/types = list("asteroids" = /obj/overmap/feature/hazard/asteroid, "emp" = /obj/overmap/feature/hazard/emp, "carp" = /obj/overmap/feature/hazard/carp)
 	for(var/key in types)
-		var/weight = sector.galaxy_generation?[key]
+		var/weight = generation?[key]
 		if(!isnum(weight))
-			weight = 1
+			weight = key == "asteroids" ? sector.asteroid_spawn_weight : 1
 		if(weight <= 0)
 			continue
 		var/base_count = key == "asteroids" ? rand(2, 3) : rand(1, 2)
-		scatter_overmap_hazard_type(sector, types[key], min(30, max(1, round(base_count * scale * weight))))
+		var/amount = base_count * scale * weight
+		var/groups = key == "asteroids" ? ROUND_PROB(amount) : round(amount)
+		scatter_overmap_hazard_type(sector, types[key], clamp(groups, 1, 30))
 
 /proc/scatter_overmap_hazard_type(datum/overmap_sector/sector, hazard_type, amount)
 	for(var/i in 1 to amount)

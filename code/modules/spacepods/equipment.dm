@@ -10,8 +10,8 @@
 	if(!craft.equipment_system || craft.equipment_system.weapon_system != src)
 		return
 	if(craft.overmap_vessel?.overmap_pod?.is_in_own_pocket())
-		if(!craft.overmap_vessel.in_free_flight() || !craft.overmap_vessel.sector)
-			to_chat(user, span_warning("Орудия недоступны во время перехода."))
+		if(craft.overmap_vessel.atmosphere || !craft.overmap_vessel.in_free_flight() || !craft.overmap_vessel.sector)
+			to_chat(user, span_warning("Орудия недоступны во время перехода и атмосферного полёта."))
 			return
 	if(isnum(target_x) && isnum(target_y))
 		var/obj/overmap/entity/vessel = craft.overmap_vessel || SSovermap.get_or_register_pod(craft)
@@ -26,7 +26,7 @@
 
 /obj/item/spacepod_equipment/weaponry/proc/fire_volley(mob/user, target_x, target_y)
 	var/obj/spacepod/craft = my_atom
-	if(QDELETED(craft) || QDELETED(src) || craft.pilot != user)
+	if(QDELETED(craft) || QDELETED(src) || craft.pilot != user || craft.overmap_vessel?.atmosphere)
 		return FALSE
 	if(craft.overmap_vessel?.overmap_pod?.is_in_own_pocket() && !craft.overmap_vessel.in_free_flight())
 		return FALSE

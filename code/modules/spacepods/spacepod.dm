@@ -1314,7 +1314,7 @@
 			to_chat(user, span_warning("Зажигание. Управление заблокировано."))
 		else
 			to_chat(user, span_warning("Управление корпусом заблокировано: челнок в гиперпространстве."))
-		COOLDOWN_START(src, spacepod_move_cooldown, 0.5 SECONDS) // Don't make it spam
+		COOLDOWN_START(src, spacepod_move_cooldown, 0.5 SECONDS)
 		return FALSE
 
 	. = TRUE

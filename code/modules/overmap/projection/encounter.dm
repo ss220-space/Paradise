@@ -141,14 +141,21 @@
 	return flight?.facing || 0
 
 /obj/overmap/entity/proc/get_world_x()
+	if(atmosphere)
+		return atmosphere.world_x
 	var/turf/here = get_overmap_turf()
 	return here ? (here.x + position[1]) * OVERMAP_TILE_SPAN * (sector?.tile_travel || 1) : 0
 
 /obj/overmap/entity/proc/get_world_y()
+	if(atmosphere)
+		return atmosphere.world_y
 	var/turf/here = get_overmap_turf()
 	return here ? (here.y + position[2]) * OVERMAP_TILE_SPAN * (sector?.tile_travel || 1) : 0
 
 /obj/overmap/entity/proc/set_world_position(world_x, world_y)
+	if(atmosphere)
+		atmosphere.set_position(world_x, world_y)
+		return
 	var/span = OVERMAP_TILE_SPAN * (sector?.tile_travel || 1)
 	var/tile_x = round(world_x / span, 1)
 	var/tile_y = round(world_y / span, 1)
@@ -191,11 +198,14 @@
 				continue
 			for(var/direction in GLOB.cardinal)
 				var/turf/outside = get_step(collar, direction)
-				if(isspaceturf(outside) && !port.shuttle_areas[outside.loc])
-					. += list(list(collar, outside, direction, null, host.get_overmap_display_name()))
-					break
+				if(!outside || port.shuttle_areas[outside.loc])
+					continue
+				if(!isspaceturf(outside) && (!atmosphere || !overmap_exposed_surface(outside) || outside.is_blocked_turf(exclude_mobs = TRUE)))
+					continue
+				. += list(list(collar, outside, direction, null, host.get_overmap_display_name()))
+				break
 
-/obj/overmap/entity/proc/dock_to_station(list/own, list/target)
+/obj/overmap/entity/proc/dock_to_station(list/own, list/target, owns_pad = FALSE)
 	var/turf/door_turf = own[1]
 	var/obj/machinery/door/airlock/external/docking/collar = locate() in door_turf
 	if(!collar)
@@ -203,21 +213,21 @@
 	shuttle.overmap_collar = collar
 	var/obj/machinery/door/airlock/external/docking/airlock = target[1]
 	var/obj/docking_port/stationary/pad = target[4]
-	var/old_dir = airlock.dir
+	if(QDELETED(airlock) || (owns_pad && airlock.overmap_pad && airlock.overmap_pad != pad))
+		return "Целевой стыковочный шлюз недоступен."
 	if(!pad)
 		pad = new /obj/docking_port/stationary/overmap(target[2])
 		pad.setDir(target[3])
-		airlock.setDir(target[3])
 		pad.dock_airlock = airlock
-		airlock.overmap_pad = pad
-		airlock.owns_overmap_pad = TRUE
-		airlock.sync_dock_label()
+		owns_pad = TRUE
 	var/can_status = shuttle.canDock(pad)
 	if(can_status != SHUTTLE_CAN_DOCK)
 		if(!target[4])
 			qdel(pad, TRUE)
-			airlock.setDir(old_dir)
 		return dock_fail_text(can_status)
+	if(owns_pad)
+		airlock.setDir(target[3])
+		airlock.link_overmap_pad(pad, TRUE)
 	speed[1] = 0
 	speed[2] = 0
 	flight.angular_velocity = 0
@@ -227,11 +237,15 @@
 	play_shuttle_sound('sound/effects/clang.ogg')
 	shake_shuttle(OVERMAP_SHIP_DOCK_SHAKE_TIME, OVERMAP_SHIP_DOCK_SHAKE_STRENGTH)
 	announce_sensor_event("Стыковка: [get_overmap_display_name()] → [target[5]]", "dock")
-	INVOKE_ASYNC(src, PROC_REF(finish_station_dock), pad)
+	INVOKE_ASYNC(src, PROC_REF(finish_station_dock), pad, owns_pad)
 	return TRUE
 
-/obj/overmap/entity/proc/finish_station_dock(obj/docking_port/stationary/pad)
-	if(shuttle.dock(pad) != DOCKING_SUCCESS)
+/obj/overmap/entity/proc/finish_station_dock(obj/docking_port/stationary/pad, remove_on_failure = FALSE)
+	if(QDELETED(shuttle) || QDELETED(pad) || shuttle.dock(pad) != DOCKING_SUCCESS)
+		if(remove_on_failure && !QDELETED(pad) && !pad.get_docked())
+			qdel(pad, TRUE)
+		if(atmosphere)
+			atmosphere.change_altitude(OVERMAP_ATMOSPHERE_SCALE)
 		shuttle_visible_message(span_warning("Захваты стыковочного шлюза не сработали."))
 
 /obj/overmap/entity/proc/radar_station_docks()
@@ -380,7 +394,13 @@
 /obj/overmap/entity/proc/update_flight_visuals(elapsed)
 	if(!free_flight_view || formation_pad || formation_transfer)
 		return
-	var/is_watched = SSovermap.visual_watched[src]
+	var/is_watched = length(SSovermap.viewports_by_frame[src])
+	if(atmosphere)
+		if(is_watched)
+			update_terrain_view(elapsed)
+		else
+			QDEL_NULL(terrain_view)
+		return
 	draw_scatter(scatter_candidates, elapsed, is_watched)
 	show_neighbors(elapsed, is_watched)
 	if(is_watched)
@@ -477,6 +497,8 @@
 			return list(other, hull_turf)
 
 /obj/overmap/entity/proc/eject_to_bubble(atom/movable/thing, turf/exit_turf)
+	if(atmosphere && !hull_turfs[exit_turf])
+		return atmosphere.drop_from_hull(thing, exit_turf)
 	if(overmap_hull_gripped(thing, src))
 		return TRUE
 	var/obj/projectile/bullet = thing
@@ -496,22 +518,23 @@
 		return TRUE
 	var/list/exit_world = hull_to_world(exit_turf.x, exit_turf.y)
 
-	var/datum/overmap_bubble/bubble = local_space?.static_level ? local_space : null
-	if(!bubble)
-		for(var/datum/overmap_bubble/place as anything in SSovermap.bubbles_by_z)
-			if(!place?.static_level)
-				continue
-			if(abs(place.origin_x - exit_world[1]) > OVERMAP_BUBBLE_SIZE || abs(place.origin_y - exit_world[2]) > OVERMAP_BUBBLE_SIZE)
-				continue
-			bubble = place
-			break
-	bubble = bubble || local_space || SSovermap.find_bubble(sector, exit_world[1], exit_world[2])
+	var/datum/overmap_bubble/bubble = local_space?.sector == sector ? local_space : null
 	var/turf/landing = bubble?.turf_at(exit_world[1], exit_world[2])
+	if(!landing)
+		for(var/datum/overmap_bubble/place as anything in SSovermap.bubbles)
+			if(place.sector != sector || place == bubble)
+				continue
+			landing = place.turf_at(exit_world[1], exit_world[2])
+			if(landing)
+				bubble = place
+				break
 	if(!landing && bubble?.static_level)
-
 		var/list/origin = undock_origin
-		if(origin && origin[1] <= length(SSovermap.bubbles_by_z) && SSovermap.bubbles_by_z[origin[1]])
-			landing = locate(clamp(round(origin[2]), 1, world.maxx), clamp(round(origin[3]), 1, world.maxy), origin[1])
+		if(origin)
+			var/turf/departure = locate(round(origin[2]), round(origin[3]), origin[1])
+			bubble = SSovermap.static_bubble_at(departure, sector)
+			if(bubble)
+				landing = departure
 	if(!landing)
 		log_game("OVERMAP: no landing turf to eject [thing] to at ([exit_world[1]], [exit_world[2]]); staying in transit.")
 		return FALSE
@@ -543,12 +566,6 @@
 	var/last_z
 	var/next_refresh = 0
 
-/obj/effect/abstract/overmap_contact_proxy/New(atom/new_source, datum/overmap_bubble/new_owner)
-	..()
-	source = new_source
-	owner = new_owner
-	refresh_appearance()
-
 /obj/effect/abstract/overmap_contact_proxy/Destroy()
 	if(owner?.contact_proxies[source] == src)
 		owner.contact_proxies -= source
@@ -565,6 +582,8 @@
 
 	copy.pixel_x = 0
 	copy.pixel_y = 0
+	if(istype(source, /obj/effect/overmap_planet_cell))
+		SET_PLANE_EXPLICIT(copy, PLANET_SURFACE_PLANE, src)
 	appearance = copy
 	opacity = source.opacity
 
@@ -610,16 +629,12 @@
 	return flight_reservations[SSmapping.used_turfs[spot]] || bubble_for_turf(spot)
 
 /datum/controller/subsystem/overmap/proc/frame_viewports(datum/owner)
-	. = list()
-	for(var/client/viewer as anything in client_eyes)
-		var/turf/eye = get_turf(viewer.eye || viewer.mob)
-		if(frame_owner(eye) == owner)
-			. += list(list(eye, (viewer.maxview() || world.view) + 4))
+	return viewports_by_frame[owner] || list()
 
 /datum/controller/subsystem/overmap/proc/frame_sector(datum/owner)
 	var/obj/overmap/entity/vessel = owner
 	if(istype(vessel))
-		return vessel.sector
+		return vessel.atmosphere ? null : vessel.sector
 	var/datum/overmap_bubble/bubble = owner
 	return bubble.sector
 
@@ -648,7 +663,7 @@
 /datum/controller/subsystem/overmap/proc/mirror_turf(turf/spot, turf/viewer_turf)
 	var/datum/spot_owner = frame_owner(spot)
 	var/datum/viewer_owner = frame_owner(viewer_turf)
-	if(!spot_owner || !viewer_owner || spot_owner == viewer_owner || frame_sector(spot_owner) != frame_sector(viewer_owner))
+	if(!spot_owner || !viewer_owner || spot_owner == viewer_owner || !frame_sector(spot_owner) || frame_sector(spot_owner) != frame_sector(viewer_owner))
 		return null
 	var/list/point = frame_to_world(spot_owner, spot)
 	return world_to_frame(viewer_owner, point[1], point[2])
@@ -670,13 +685,15 @@
 	if(!origin)
 		return
 	var/datum/overmap_sector/sector = frame_sector(origin)
+	if(!sector)
+		return
 	var/list/point = frame_to_world(origin, data.epicenter)
 	var/reach = max(data.devastation_range, data.heavy_impact_range, data.light_impact_range, data.flame_range, data.flash_range)
 	var/obj/overmap/entity/origin_vessel = origin
 	var/origin_heading = istype(origin_vessel) ? origin_vessel.get_facing() : 0
 	var/list/datum/targets = list()
 	for(var/obj/overmap/entity/vessel as anything in flying_vessels)
-		if(vessel == origin || vessel.sector != sector || istype(vessel, /obj/overmap/entity/virtual_structure))
+		if(vessel.atmosphere || vessel == origin || vessel.sector != sector || istype(vessel, /obj/overmap/entity/virtual_structure))
 			continue
 		if(sqrt((vessel.get_world_x() - point[1]) ** 2 + (vessel.get_world_y() - point[2]) ** 2) <= vessel.hull_radius + reach)
 			targets += vessel
@@ -724,7 +741,7 @@
 	if(!mover.simulated || !length(SSovermap.flying_vessels))
 		return TRUE
 	var/obj/overmap/entity/vessel = SSovermap.flight_reservations[SSmapping.used_turfs[src]]
-	if(!vessel)
+	if(!vessel || vessel.atmosphere)
 		return TRUE
 	var/list/foreign = vessel.foreign_hull_at(src, blocking = TRUE)
 	var/turf/hull_turf = foreign?[2]
@@ -742,13 +759,16 @@
 	if(bubble?.drifters[gone] && SSovermap.bubble_for_turf(gone.loc) != bubble)
 		bubble.remove_drifter(gone)
 
-/datum/controller/subsystem/overmap/proc/bubble_for_turf(turf/spot)
-	if(!isturf(spot))
+/datum/controller/subsystem/overmap/proc/static_bubble_at(turf/spot, datum/overmap_sector/sector)
+	if(!isturf(spot) || !spot.z || spot.z > length(static_bubbles_by_z))
 		return null
-	for(var/datum/overmap_bubble/bubble as anything in bubbles)
-		if(bubble.static_level && bubble.bubble_z == spot.z && bubble.covers(list(spot.x, spot.y), 0))
+	for(var/datum/overmap_bubble/bubble as anything in static_bubbles_by_z[spot.z])
+		if((!sector || sector == bubble.sector) && spot.x >= bubble.bounds[1] && spot.x <= bubble.bounds[3] && spot.y >= bubble.bounds[2] && spot.y <= bubble.bounds[4])
 			return bubble
-	return bubbles_by_reservation[SSmapping.used_turfs[spot]]
+
+/datum/controller/subsystem/overmap/proc/bubble_for_turf(turf/spot)
+	if(isturf(spot))
+		return static_bubble_at(spot) || bubbles_by_reservation[SSmapping.used_turfs[spot]]
 
 /datum/controller/subsystem/overmap/proc/on_space_entered(turf/space/spot, atom/movable/arrived)
 	if(!arrived.simulated || isobserver(arrived) || arrived.loc != spot)
@@ -786,7 +806,9 @@
 	for(var/obj/item/overmap_hull_grip/grip as anything in hull_grips)
 		grip.carry()
 	for(var/obj/overmap/entity/vessel as anything in flying)
-		if(vessel.docked_ship)
+		if(vessel.atmosphere)
+			vessel.process_atmosphere(elapsed)
+		else if(vessel.docked_ship)
 			vessel.follow_host()
 		else
 			vessel.keep_inside_local_space()
@@ -794,16 +816,22 @@
 		if(vessel.hull_dirty && !vessel.formation_transfer)
 			vessel.remap_hull()
 	for(var/obj/overmap/entity/vessel as anything in flying)
-		if(!vessel.formation_pad && !vessel.formation_transfer)
+		if(!vessel.atmosphere && !vessel.formation_pad && !vessel.formation_transfer)
 			vessel.process_scatter(elapsed)
 	flight_index.rebuild(flying)
 	process_collisions(flying)
+	var/aligning = FALSE
 	for(var/obj/overmap/entity/vessel as anything in flying)
-		if(!vessel.formation_transfer)
-			vessel.docking_approach?.process_approach(elapsed)
-	flight_index.rebuild(flying)
+		if(vessel.docking_approach && !vessel.formation_transfer)
+			aligning ||= vessel.docking_approach.aligning
+			vessel.docking_approach.process_approach(elapsed)
+	if(aligning)
+		flight_index.rebuild(flying)
 	for(var/obj/overmap/entity/vessel as anything in flying)
 		if(vessel.formation_pad || vessel.formation_transfer)
+			continue
+		if(vessel.atmosphere)
+			SSovermap_visuals.queue_update(vessel)
 			continue
 		vessel.update_neighbors(flight_index.nearby(vessel.sector, vessel.get_world_x(), vessel.get_world_y(), vessel.hull_radius + OVERMAP_CONTACT_RANGE))
 		SSovermap_visuals.queue_update(vessel)
@@ -816,10 +844,8 @@
 		vessel.remember_pose()
 
 /datum/controller/subsystem/overmap/proc/expire_bubbles()
-
 	if(spare_bubble_space && !length(flying_vessels))
-		spare_bubble_space.Release()
-		spare_bubble_space = null
+		QDEL_NULL(spare_bubble_space)
 	for(var/datum/overmap_bubble/bubble as anything in bubbles)
 		if(!bubble.static_level && !length(bubble.ships) && !length(bubble.drifters) && world.time > bubble.last_occupied + OVERMAP_BUBBLE_TIMEOUT)
 			qdel(bubble)

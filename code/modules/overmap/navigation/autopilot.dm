@@ -82,7 +82,7 @@
 			goal_y = (vessel.sector.origin_y + autopilot_y - 1) * span
 	if(!navigation)
 		navigation = new(src)
-	var/list/waypoint = (avoid_obstacles || vessel.navigation_collision_disabled()) ? navigation.waypoint(goal_x, goal_y, navigation_host) : list(goal_x, goal_y)
+	var/list/waypoint = !vessel.atmosphere && (avoid_obstacles || vessel.navigation_collision_disabled()) ? navigation.waypoint(goal_x, goal_y, navigation_host) : list(goal_x, goal_y)
 	if(!waypoint)
 		autopilot_status = navigation.planning ? "Прокладывает маршрут" : "Проход перекрыт: ожидание"
 		brake(elapsed)

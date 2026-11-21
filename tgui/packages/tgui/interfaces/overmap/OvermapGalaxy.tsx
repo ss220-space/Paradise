@@ -111,11 +111,16 @@ export const OvermapGalaxy = ({
   useEffect(() => {
     setAge(0);
     if (!galaxy.transits?.length) return;
+    const remaining = Math.max(
+      ...galaxy.transits.map((flight) => flight.remaining),
+    );
+    if (remaining <= 0) return;
     const start = performance.now();
     let handle = 0;
     const animate = (now: number) => {
-      setAge(now - start);
-      handle = requestAnimationFrame(animate);
+      const elapsed = Math.min(now - start, remaining);
+      setAge(elapsed);
+      if (elapsed < remaining) handle = requestAnimationFrame(animate);
     };
     handle = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(handle);

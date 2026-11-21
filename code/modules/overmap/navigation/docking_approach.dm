@@ -17,10 +17,19 @@
 	return approach
 
 /obj/overmap/entity/proc/select_radar_dock(uid)
-	if(!in_free_flight() || docked_ship || length(docked_guests) || docking_approach?.aligning)
+	if(!in_free_flight() || (atmosphere && !atmosphere.cruising()) || can_approach_planet() || docked_ship || length(docked_guests) || docking_approach?.aligning)
 		return FALSE
 	if(select_own_radar_dock(uid))
 		return TRUE
+	var/list/pads = radar_landing_pads()
+	for(var/obj/docking_port/stationary/pad as anything in pads)
+		if(pad.UID() != uid)
+			continue
+		if(overmap_pod)
+			return overmap_pod.prepare_approach(overmap_pick_pod_beacon_turf(pad), pad, pads[pad])
+		return prepare_landing(pad, pads[pad])
+	if(!shuttle)
+		return FALSE
 	var/datum/overmap_docking_approach/candidate
 	if(local_space)
 		for(var/list/target as anything in station_dock_targets(OVERMAP_APPROACH_RANGE, TRUE))
@@ -65,29 +74,28 @@
 	return FALSE
 
 /obj/overmap/entity/proc/prepare_stop()
-	if(!in_free_flight() || docked_ship || length(docked_guests) || !local_space?.static_level || docking_approach?.aligning)
+	if(!shuttle || !in_free_flight() || can_approach_planet() || (atmosphere && !atmosphere.cruising()) || docked_ship || length(docked_guests) || !local_space?.static_level || docking_approach?.aligning)
 		return FALSE
 	var/list/center = local_space.to_bubble(get_world_x(), get_world_y())
-	var/obj/docking_port/stationary/overmap/landing/pad = new(locate(round(center[1]), round(center[2]), local_space.bubble_z))
-	pad.overmap_dock_label = "Остановка в космосе"
+	var/obj/docking_port/stationary/overmap/landing/pad = new(null)
+	pad.overmap_dock_label = atmosphere ? "Посадка на поверхность" : "Остановка в космосе"
+	if(atmosphere)
+		pad.overmap_host_uid = atmosphere.surface.host.UID()
+		pad.landing_bounds = list(1 + OVERMAP_ATMOSPHERE_EDGE, 1 + OVERMAP_ATMOSPHERE_EDGE, world.maxx - OVERMAP_ATMOSPHERE_EDGE, world.maxy - OVERMAP_ATMOSPHERE_EDGE)
 	pad.temporary_stop = TRUE
 	var/stop_facing = SIMPLIFY_DEGREES(round(get_facing() / 90) * 90)
 	var/list/origin = shuttle.overmap_origin()
 	pad.setDir(angle2dir(dir2angle(origin[2]) + stop_facing))
-	var/list/stop_hull = shuttle.overmap_collect_hull(get_turf(shuttle))
 	for(var/radius in 0 to 12)
 		for(var/direction in GLOB.cardinal)
 			var/turf/spot = locate(round(center[1]) + (direction == EAST ? radius : (direction == WEST ? -radius : 0)), round(center[2]) + (direction == NORTH ? radius : (direction == SOUTH ? -radius : 0)), local_space.bubble_z)
 			if(!spot || !local_space.covers(list(spot.x, spot.y), hull_radius))
 				continue
+			var/obj/docking_port/stationary/existing = locate() in spot
+			if(existing && existing != pad)
+				continue
 			pad.forceMove(spot)
-			var/clear = TRUE
-			var/list/pairs = shuttle.overmap_move_pairs(pad, stop_hull)
-			for(var/turf/tile as anything in pairs[2])
-				if(!isspaceturf(tile) || tile.is_blocked_turf())
-					clear = FALSE
-					break
-			if(!clear || shuttle.canDock(pad) != SHUTTLE_CAN_DOCK)
+			if(shuttle.canDock(pad) != SHUTTLE_CAN_DOCK)
 				continue
 			QDEL_NULL(docking_approach)
 			var/datum/overmap_docking_approach/approach = new(src)
@@ -95,27 +103,57 @@
 			approach.space = local_space
 			approach.target_facing = stop_facing
 			approach.owns_pad = TRUE
-			return approach.update_target()
+			if(approach.update_target())
+				return TRUE
+			approach.owns_pad = FALSE
+			qdel(approach)
 	qdel(pad, TRUE)
 	return FALSE
 
-/obj/overmap/entity/proc/prepare_landing(obj/docking_port/stationary/pad)
+/obj/overmap/entity/proc/prepare_landing(obj/docking_port/stationary/pad, list/point)
 	if(!in_free_flight() || docked_ship || length(docked_guests) || !pad || docking_approach?.aligning || shuttle.canDock(pad) != SHUTTLE_CAN_DOCK)
 		return FALSE
 	var/obj/overmap/entity/host = get_dock_host()
-	if(!host || !pad_matches_host(pad, host))
+	if(!host || (host.dock_host?.planet_landing && !atmosphere) || (atmosphere && !atmosphere.cruising()) || !pad_matches_host(pad, host))
 		return FALSE
 	QDEL_NULL(docking_approach)
 	var/datum/overmap_docking_approach/approach = new(src)
 	approach.pad = pad
-	approach.space = host.physical_space
+	approach.space = atmosphere?.surface || host.physical_space
 	var/list/origin = shuttle.overmap_origin()
 	approach.target_facing = shuttle.overmap_dir_rotation(origin[2], shuttle.overmap_dest_dir(pad, origin[2]))
-	approach.target_x = get_world_x()
-	approach.target_y = get_world_y()
+	approach.target_x = point ? point[1] : get_world_x()
+	approach.target_y = point ? point[2] : get_world_y()
 	if(in_station_docking_zone() && SSovermap.station_docking_zone.accepts_pad(pad))
 		approach.space = null
-	return approach.update_target()
+	if(approach.update_target())
+		radar_docks_until = 0
+		return TRUE
+	qdel(approach)
+	return FALSE
+
+/obj/overmap/entity/proc/radar_landing_pads()
+	. = list()
+	var/obj/overmap/entity/host = get_dock_host()
+	if(!host || (host.dock_host?.planet_landing && !atmosphere))
+		return
+	var/in_zone = in_station_docking_zone()
+	if(!atmosphere && !in_zone && host.project_terrain && local_space != host.physical_space)
+		return
+	var/list/candidates = overmap_pod ? overmap_pod.host_landing_pads(host) : overmap_shuttle?.host_pads(host)
+	var/datum/overmap_bubble/space = atmosphere?.surface || host.physical_space
+	var/obj/overmap/entity/anchor = in_zone ? SSovermap.station_docking_zone : host
+	for(var/obj/docking_port/stationary/pad as anything in candidates)
+		if((pad.dock_airlock && !in_zone) || (!in_zone && space && pad.z != space.bubble_z))
+			continue
+		var/list/point
+		if(space && !in_zone)
+			point = space.to_world(pad.x, pad.y)
+		else
+			var/span = in_zone ? SSovermap.station_docking_zone.radius : OVERMAP_APPROACH_RANGE / 2
+			point = list(anchor.get_world_x() + (2 * pad.x / world.maxx - 1) * span, anchor.get_world_y() + (2 * pad.y / world.maxy - 1) * span)
+		if(max(abs(point[1] - get_world_x()), abs(point[2] - get_world_y())) <= OVERMAP_APPROACH_RANGE)
+			.[pad] = point
 
 /obj/overmap/entity/proc/radar_dock_targets()
 	if(radar_docks_cache && world.time < radar_docks_until)
@@ -127,13 +165,20 @@
 				dock["y"] = point_world[2]
 		return radar_docks_cache
 	. = list()
-	if(local_space)
+	var/list/pads = radar_landing_pads()
+	for(var/obj/docking_port/stationary/pad as anything in pads)
+		var/list/point = pads[pad]
+		var/available = overmap_pod ? !!overmap_pick_pod_beacon_turf(pad) : shuttle.canDock(pad) == SHUTTLE_CAN_DOCK
+		var/obj/machinery/landing_beacon/beacon = locate() in pad.loc
+		var/label = beacon?.dock_name || (pad.overmap_dock_mode == OVERMAP_DOCK_RESERVED ? pad.name : pad.overmap_dock_label) || pad.name
+		. += list(list("id" = pad.UID(), "name" = label, "x" = point[1], "y" = point[2], "available" = available, "selected" = docking_approach?.pad == pad))
+	if(shuttle && local_space && !can_approach_planet())
 		for(var/list/target as anything in station_dock_targets(OVERMAP_RADAR_TERRAIN_RANGE, TRUE))
 			var/atom/door = target[1]
 			var/turf/tile = target[2]
 			var/list/point_world = local_space.to_world(tile.x, tile.y)
-			var/datum/overmap_docking_approach/probe = shuttle ? dock_candidate(target) : null
-			. += list(list("id" = door.UID(), "name" = target[5], "x" = point_world[1], "y" = point_world[2], "available" = !!probe?.own))
+			var/datum/overmap_docking_approach/probe = dock_candidate(target)
+			. += list(list("id" = door.UID(), "name" = target[5], "x" = point_world[1], "y" = point_world[2], "available" = !!probe.own))
 			qdel(probe)
 	for(var/obj/overmap/entity/other as anything in nearby_ships)
 		for(var/list/collar as anything in other.hull_collars)
@@ -160,7 +205,3 @@
 		docking_approach.update_target()
 	radar_docks_cache = .
 	radar_docks_until = world.time + (0.5 SECONDS)
-
-/obj/overmap/entity/proc/can_radar_land()
-	var/obj/overmap/entity/host = get_dock_host()
-	return in_free_flight() && host && (in_station_docking_zone() || !host.project_terrain || host.dock_host?.planet_landing)

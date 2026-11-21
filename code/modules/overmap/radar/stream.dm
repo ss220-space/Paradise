@@ -49,12 +49,11 @@
 		return
 	if(!length(radar_uis) || !sector)
 		return
-	var/has_viewer = FALSE
+	var/list/viewers = list()
 	for(var/datum/tgui/ui as anything in radar_uis)
-		if(!QDELETED(ui) && !ui.closing && ui.initialized && ui.status >= UI_UPDATE)
-			has_viewer = TRUE
-			break
-	if(!has_viewer)
+		if(!QDELETED(ui) && !ui.closing && ui.initialized && ui.user?.client && ui.window && ui.status >= UI_UPDATE)
+			viewers += ui
+	if(!length(viewers))
 		return
 	var/list/scatter = radar_scatter_data()
 	var/list/data = list("radar_tick" = SSovermap.radar_frame_time * 100, "radar_epoch" = radar_epoch, "radar_locked" = !!relay_jump_from, "radar_docked" = !!(docked_to || docked_ship || is_physically_docked()), "self_pos" = radar_sector_position(), "radar_docks" = radar_dock_targets(), "dock_ready" = docking_approach?.ready(), "dock_in_range" = docking_approach?.in_alignment_range(), "dock_aligning" = docking_approach?.aligning, "radar" = radar_contacts(), "radar_drifters" = radar_drifters(), "radar_engines" = radar_engines(), "facing" = free_flight_view ? get_facing() : 0, "radar_world" = radar_world_origin())
@@ -68,7 +67,10 @@
 	radar_cache.motion_frame = data
 	radar_cache.motion_epoch = radar_epoch
 	radar_cache.motion_sector = sector
-	for(var/datum/tgui/ui as anything in radar_uis)
-		if(QDELETED(ui) || ui.status < UI_UPDATE)
-			continue
-		ui.send_update(data)
+	if("radar_scatter" in data)
+		for(var/datum/tgui/ui as anything in viewers)
+			ui.send_update(data)
+		return
+	var/message = TGUI_CREATE_MESSAGE("update", list("data" = data))
+	for(var/datum/tgui/ui as anything in viewers)
+		ui.window.send_raw_message(message)

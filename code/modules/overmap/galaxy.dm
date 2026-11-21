@@ -19,7 +19,11 @@
 					if(!islist(weights))
 						throw EXCEPTION("Invalid generation weights")
 					for(var/key in weights)
-						if(!(key in list("hazards", "asteroids", "emp", "carp", "ruins")) || !isnum(weights[key]) || weights[key] < 0 || weights[key] > 5)
+						var/value = weights[key]
+						if(key == "fleet_chance")
+							if(!isnum(value) || value != round(value) || value < 0 || value > 100)
+								throw EXCEPTION("Fleet chance must be a whole percentage from zero to 100")
+						else if(!(key in list("hazards", "asteroids", "emp", "carp", "ruins")) || !isnum(value) || value < 0 || value > 5)
 							throw EXCEPTION("Generation weights must be between zero and five")
 				ids[entry["id"]] = entry
 			if(!ids[OVERMAP_SECTOR_ID_STATION] || !ids[OVERMAP_SECTOR_ID_SERVICE] || !ids[OVERMAP_SECTOR_ID_WILDERNESS_A])
@@ -38,25 +42,29 @@
 			for(var/key in list("factions", "territories", "pois"))
 				if(isnull(layout[key]))
 					layout[key] = list()
-				if(!islist(layout[key]) || length(layout[key]) > 256)
+				var/limit = key == "factions" ? 256 + length(default_overmap_factions()) : 256
+				if(!islist(layout[key]) || length(layout[key]) > limit)
 					throw EXCEPTION("Invalid galaxy annotation list")
 				for(var/list/annotation as anything in layout[key])
-					if(!istext(annotation["id"]) || !istext(annotation["name"]))
+					if(!islist(annotation) || !istext(annotation["id"]) || !istext(annotation["name"]))
 						throw EXCEPTION("Invalid galaxy annotation")
 					if(key == "territories" && !galaxy_points_valid(annotation["points"], 3, 512))
 						throw EXCEPTION("Invalid territory polygon")
 					if(key == "pois" && (!isnum(annotation["x"]) || !isnum(annotation["y"])))
 						throw EXCEPTION("Invalid point of interest")
 			build_galaxy_routes(layout)
+			prepare_galaxy_factions(layout)
 			return layout
 		catch(var/exception/error)
 			log_world("Overmap: rejected galaxy layout [path]: [error]")
-	return list("version" = 1, "name" = "Межсекторная сеть", "systems" = list(
+	var/list/layout = list("version" = 1, "name" = "Межсекторная сеть", "systems" = list(
 		list("id" = OVERMAP_SECTOR_ID_STATION, "name" = station_sector.name, "x" = 0, "y" = 0),
 		list("id" = OVERMAP_SECTOR_ID_SERVICE, "name" = service_sector.name, "x" = -100, "y" = 0),
 		list("id" = OVERMAP_SECTOR_ID_WILDERNESS_A, "name" = wilderness_sector.name, "x" = 100, "y" = 0)),
 		"links" = list(list("id" = "station_service", "from" = "station", "to" = "service", "access" = "restricted"),
 		list("id" = "station_wilderness", "from" = "station", "to" = "wilderness_a")))
+	prepare_galaxy_factions(layout)
+	return layout
 
 /datum/controller/subsystem/overmap/proc/galaxy_points_valid(list/points, minimum, maximum)
 	if(!islist(points) || length(points) < minimum || length(points) > maximum)
@@ -146,6 +154,8 @@
 
 /datum/controller/subsystem/overmap/proc/initialize_galaxy_layout(spawn_links = TRUE)
 	galaxy_layout = load_galaxy_layout()
+	for(var/list/faction as anything in galaxy_layout["factions"])
+		register_faction(faction)
 	galaxy_systems = list()
 	for(var/list/entry as anything in galaxy_layout["systems"])
 		var/id = entry["id"]
@@ -157,12 +167,6 @@
 			sector = create_galaxy_sector(entry)
 			sectors[id] = sector
 			sector_order |= sector
-		sector.galaxy_generation = entry["generation"]
-		if(islist(sector.galaxy_generation))
-			if(isnum(sector.galaxy_generation["hazards"]))
-				sector.hazard_spawn_weight = sector.galaxy_generation["hazards"]
-			if(isnum(sector.galaxy_generation["ruins"]))
-				sector.ruin_spawn_weight = sector.galaxy_generation["ruins"]
 		sector.name = entry["name"] || sector.name
 		sector.map_area.name = "Overmap - [sector.name]"
 	if(spawn_links)
@@ -174,10 +178,12 @@
 	bump_galaxy()
 
 /datum/controller/subsystem/overmap/proc/create_galaxy_sector(list/entry)
-	if(entry["kind"] == "transit")
+	var/kind = entry["kind"] || OVERMAP_SECTOR_KIND_WILDERNESS
+	if(kind == "transit")
 		return null
-	var/datum/overmap_sector/sector = new(entry["id"], entry["name"], station_sector.size)
-	sector.sector_kind = entry["kind"] || OVERMAP_SECTOR_KIND_WILDERNESS
+	var/sector_type = kind == OVERMAP_SECTOR_KIND_WILDERNESS ? /datum/overmap_sector/wilderness : /datum/overmap_sector
+	var/datum/overmap_sector/sector = new sector_type(entry["id"], entry["name"], station_sector.size)
+	sector.sector_kind = kind
 	return sector
 
 /datum/controller/subsystem/overmap/proc/galaxy_positions()
@@ -207,7 +213,7 @@
 			if(local_x != low && local_x != high && local_y != low && local_y != high)
 				continue
 			var/turf/spot = sector.locate_local(local_x, local_y)
-			if(!spot || (sector.turf_occupied(spot) && spot != get_turf(ignore_relay)) || (reserved && spot in reserved))
+			if(!spot || (sector.turf_occupied(spot) && spot != get_turf(ignore_relay)) || (spot in reserved))
 				continue
 			var/blocked = FALSE
 			for(var/obj/overmap/entity/hyperrelay/nearby in range(1, spot))
@@ -273,15 +279,6 @@
 	a_relay.set_enabled(link["state"] != "closed")
 	b_relay.set_enabled(link["state"] != "closed")
 	return list(a_relay, b_relay)
-
-/datum/controller/subsystem/overmap/proc/sector_neighbours(datum/overmap_sector/sector)
-	. = list()
-	if(!sector)
-		return
-	for(var/obj/overmap/entity/hyperrelay/relay in sector.objects)
-		var/datum/overmap_sector/other = relay.paired?.sector
-		if(other && other != sector && !(other in .))
-			. += other
 
 /datum/controller/subsystem/overmap/proc/galaxy_map(obj/overmap/entity/viewer)
 	if(galaxy_snapshot_tick != world.time || galaxy_snapshot_revision != galaxy_revision)

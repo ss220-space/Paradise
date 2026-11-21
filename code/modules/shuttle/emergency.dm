@@ -264,7 +264,7 @@
 					return
 				if(overmap_result == FALSE)
 					if(dock(SSshuttle.getDock("emergency_home")))
-						setTimer(20)
+						setTimer(2 SECONDS)
 						return
 				overmap_leg_started = FALSE
 				mode = SHUTTLE_DOCKED

@@ -114,7 +114,7 @@
 
 /obj/item/assembly/control/shuttle_blastdoors
 	name = "shuttle blast door controller"
-	desc = "TEMP123TEMP"
+	desc = "Переключает защиту хрупких конструкций шаттла."
 	configurable = FALSE
 
 /obj/item/assembly/control/shuttle_blastdoors/get_ru_names()

@@ -1,26 +1,19 @@
 /proc/overmap_iff_id_for_key(key)
-	key = trim(key)
+	key = istext(key) ? trim(key) : null
 	if(!key)
 		return null
-	if(cmptext(key, SSovermap.iff_key_centcom))
-		return OVERMAP_IFF_CENTCOM
-	if(cmptext(key, SSovermap.iff_key_syndicate))
-		return OVERMAP_IFF_SYNDICATE
+	for(var/faction, cipher in SSovermap.faction_iff_keys)
+		if(cmptext(key, cipher))
+			return overmap_faction_iff_id(faction)
 	return null
 
 /proc/overmap_iff_label_for_id(id)
 	switch(id)
 		if(OVERMAP_IFF_GLOBAL)
 			return "Глобальный"
-		if(OVERMAP_IFF_CENTCOM)
-			return "Центком"
-		if(OVERMAP_IFF_SYNDICATE)
-			return "Синдикат"
-		if(OVERMAP_IFF_ERW)
-			return "Eisenwehr Raumfahrtwerke"
 		if(OVERMAP_IFF_HIJACK)
 			return "sys.iff_signal = %ERR#NULL%"
-	return id
+	return SSovermap.faction_options[SSovermap.iff_factions[id]] || id
 
 /proc/generate_overmap_iff_key()
 	var/alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"

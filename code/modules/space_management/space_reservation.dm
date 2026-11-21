@@ -30,16 +30,16 @@
 /datum/turf_reservation/proc/Release()
 	bottom_left_turfs.Cut()
 	top_right_turfs.Cut()
+	pre_cordon_turfs.Cut()
 
-	var/list/reserved_copy = reserved_turfs.Copy()
+	var/list/release_turfs = reserved_turfs + cordon_turfs
+	if(!length(release_turfs))
+		return
 	SSmapping.used_turfs -= reserved_turfs
 	reserved_turfs = list()
 
-	var/list/cordon_copy = cordon_turfs.Copy()
 	SSmapping.used_turfs -= cordon_turfs
 	cordon_turfs = list()
-
-	var/release_turfs = reserved_copy + cordon_copy
 
 	for(var/turf/reserved_turf as anything in release_turfs)
 		SEND_SIGNAL(reserved_turf, COMSIG_TURF_RESERVATION_RELEASED, src)
@@ -124,7 +124,7 @@
 		return
 	if(!enterer.simulated || istype(enterer, /obj/docking_port))
 		return //this was fucking hilarious, the docking ports were getting thrown to random Z-levels
-	if(isobserver(enterer) || istype(enterer, /obj/docking_port))
+	if(isobserver(enterer))
 		return
 	dump_in_space(enterer)
 
@@ -183,7 +183,7 @@
 		SSmapping.used_turfs[cordon_turf] = src
 	for(var/turf/reserved_turf as anything in final)
 		SSmapping.used_turfs[reserved_turf] = src
-		reserved_turf.turf_flags = (reserved_turf.turf_flags | RESERVATION_TURF) & ~UNUSED_RESERVATION_TURF
+		reserved_turf.turf_flags = (reserved_turf.turf_flags|RESERVATION_TURF) & ~UNUSED_RESERVATION_TURF
 	var/list/remaining = list()
 	for(var/turf/unused as anything in SSmapping.unused_turfs["[zlevel]"])
 		if(unused.turf_flags & UNUSED_RESERVATION_TURF)

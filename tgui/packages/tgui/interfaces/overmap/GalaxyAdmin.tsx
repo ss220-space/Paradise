@@ -13,7 +13,11 @@ import {
 import type { BooleanLike } from 'tgui-core/react';
 import { useBackend } from '../../backend';
 import { GalaxyMarkerEditor } from './GalaxyMarkerEditor';
-import type { GalaxyMap, GalaxyMarkerStyle } from './galaxyTypes';
+import type {
+  GalaxyFaction,
+  GalaxyMap,
+  GalaxyMarkerStyle,
+} from './galaxyTypes';
 import { OvermapGalaxy } from './OvermapGalaxy';
 
 type System = {
@@ -22,6 +26,7 @@ type System = {
   x: number;
   y: number;
   transit: BooleanLike;
+  faction?: string;
   marker?: GalaxyMarkerStyle;
 };
 type Route = {
@@ -42,6 +47,7 @@ type Poi = {
 type Data = {
   galaxy?: {
     systems: System[];
+    factions: GalaxyFaction[];
     links: Route[];
     pois: Poi[];
     preview?: GalaxyMap;
@@ -91,6 +97,15 @@ export const GalaxyAdmin = () => {
     value: system.id,
     displayText: system.name,
   }));
+  const factions = data.galaxy?.factions || [];
+  const factionOptions = factions.map(({ id, name }) => ({
+    value: id,
+    displayText: name,
+  }));
+  const [factionId, setFactionId] = useState('');
+  const [factionName, setFactionName] = useState('');
+  const [factionColor, setFactionColor] = useState('#78bded');
+  const [sectorFaction, setSectorFaction] = useState('');
   const [editId, setEditId] = useState('');
   const [name, setName] = useState('');
   const [x, setX] = useState(0);
@@ -147,6 +162,62 @@ export const GalaxyAdmin = () => {
           </Box>
         </Section>
       )}
+      <Section title="Фракции">
+        <LabeledList>
+          <LabeledList.Item label="Фракция">
+            <Dropdown
+              fluid
+              options={[
+                { value: '', displayText: 'Новая фракция' },
+                ...factionOptions,
+              ]}
+              selected={factionId}
+              displayText={
+                factions.find(({ id }) => id === factionId)?.name ||
+                'Новая фракция'
+              }
+              onSelected={(id) => {
+                const faction = factions.find((entry) => entry.id === id);
+                setFactionId(id);
+                setFactionName(faction?.name || '');
+                setFactionColor(faction?.color || '#78bded');
+              }}
+            />
+          </LabeledList.Item>
+          <LabeledList.Item label="Название">
+            <Input fluid value={factionName} onChange={setFactionName} />
+          </LabeledList.Item>
+          <LabeledList.Item label="Цвет">
+            <input
+              aria-label="Цвет фракции"
+              type="color"
+              value={factionColor}
+              onChange={(event) => setFactionColor(event.target.value)}
+            />{' '}
+            <Input
+              value={factionColor}
+              onChange={setFactionColor}
+              width="7em"
+            />
+          </LabeledList.Item>
+        </LabeledList>
+        <Button
+          mt={1}
+          icon={factionId ? 'pen' : 'plus'}
+          disabled={
+            !factionName.trim() || !/^#[0-9a-f]{6}$/i.test(factionColor)
+          }
+          onClick={() =>
+            act(factionId ? 'galaxy_edit_faction' : 'galaxy_add_faction', {
+              id: factionId,
+              name: factionName,
+              color: factionColor,
+            })
+          }
+        >
+          {factionId ? 'Обновить фракцию' : 'Создать фракцию'}
+        </Button>
+      </Section>
       <Section title="Секторы">
         <LabeledList>
           <LabeledList.Item label="Сектор">
@@ -162,6 +233,7 @@ export const GalaxyAdmin = () => {
                 setEditId(id);
                 const system = physical.find((entry) => entry.id === id);
                 setName(system?.name || '');
+                setSectorFaction(system?.faction || '');
                 setMarker(system?.marker || { shape: 'circle' });
                 setX(system?.x || 0);
                 setY(system?.y || 0);
@@ -170,6 +242,21 @@ export const GalaxyAdmin = () => {
           </LabeledList.Item>
           <LabeledList.Item label="Название">
             <Input fluid value={name} onChange={setName} />
+          </LabeledList.Item>
+          <LabeledList.Item label="Фракция">
+            <Dropdown
+              fluid
+              options={[
+                { value: '', displayText: 'Вне юрисдикции' },
+                ...factionOptions,
+              ]}
+              selected={sectorFaction}
+              displayText={
+                factions.find(({ id }) => id === sectorFaction)?.name ||
+                'Вне юрисдикции'
+              }
+              onSelected={setSectorFaction}
+            />
           </LabeledList.Item>
           <LabeledList.Item label="Положение">
             <Coordinates x={x} y={y} onX={setX} onY={setY} />
@@ -187,6 +274,7 @@ export const GalaxyAdmin = () => {
                 x,
                 y,
                 marker,
+                faction: sectorFaction,
               })
             }
           >

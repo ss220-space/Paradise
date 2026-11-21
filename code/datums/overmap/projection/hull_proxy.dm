@@ -150,7 +150,7 @@
 	fog.mark_dirty()
 
 /datum/hull_proxy/virtual/place(new_center_x, new_center_y, new_z, new_heading, list/bounds, time)
-	update_fog(new_center_x, new_center_y, new_z, new_heading)
+	var/rebuilt = update_fog(new_center_x, new_center_y, new_z, new_heading)
 	center_x = new_center_x
 	center_y = new_center_y
 	proxy_z = new_z
@@ -182,22 +182,18 @@
 	turned.Turn(new_heading)
 	for(var/key in wanted)
 		var/list/cell = wanted[key]
+		var/datum/overmap_virtual_model/model = cell[3]
 		var/obj/effect/abstract/hull_proxy_tile/tile = tiles_by_turf[key]
 		var/fresh = !tile
 		if(fresh)
-			var/datum/overmap_virtual_model/model = cell[3]
 			tile = new(null)
 			tile.appearance = model.visual
 			tile.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 			SET_PLANE_EXPLICIT(tile, GAME_PLANE, viewer_turf)
 			tiles_by_turf[key] = tile
 			fog.mark_dirty()
-		else
-			var/datum/overmap_virtual_model/model = cell[3]
-			if(model.warp_portal)
-				tile.appearance = model.visual
-				tile.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-				SET_PLANE_EXPLICIT(tile, GAME_PLANE, viewer_turf)
+		else if(rebuilt && model.warp_visual)
+			tile.overlays = model.visual.overlays
 		projected.drawn[tile] = tile
 		projected.source_positions[tile] = cell
 		var/dx = cell[1] - vessel.hull_center_x

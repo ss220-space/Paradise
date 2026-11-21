@@ -2,7 +2,8 @@
 	for(var/attempt in 1 to 999)
 		next_ship_id = next_ship_id % 999 + 1
 		var/id = add_zero("[next_ship_id]", 3)
-		if(!ship_ids[id] || QDELETED(ship_ids[id]))
+		var/obj/overmap/entity/registered = ship_ids[id]
+		if(QDELETED(registered))
 			ship_ids[id] = ship
 			return id
 	return add_zero("[rand(0, 999)]", 3)

@@ -6,11 +6,13 @@
 	var/obj/docking_port/stationary/pad
 	var/datum/overmap_bubble/space
 	var/aligning = FALSE
+	var/committing = FALSE
 	var/deadline = 0
 	var/target_x
 	var/target_y
 	var/target_facing
 	var/owns_pad = FALSE
+	var/turf/pod_landing
 	var/list/landing_offset
 	var/list/landing_footprint
 	var/landing_hull_version
@@ -24,6 +26,8 @@
 		vessel.docking_approach = src
 
 /datum/overmap_docking_approach/Destroy()
+	if(!committing && vessel?.atmosphere?.end_scale == 1)
+		vessel.atmosphere.change_altitude(OVERMAP_ATMOSPHERE_SCALE)
 	if(vessel?.docking_approach == src)
 		vessel.docking_approach = null
 	if(owns_pad && !QDELETED(pad) && !pad.get_docked())
@@ -37,7 +41,10 @@
 /datum/overmap_docking_approach/proc/update_target()
 	if(QDELETED(vessel) || !vessel.in_free_flight())
 		return FALSE
-	if(host)
+	if(pod_landing)
+		if(!vessel.overmap_pod || (pad && (QDELETED(pad) || !vessel.pad_matches_host(pad, vessel.get_dock_host()))) || (space && (vessel.local_space != space || pod_landing.z != space.bubble_z)))
+			return FALSE
+	else if(host)
 		if(QDELETED(host) || host.sector != vessel.sector || host.docked_ship)
 			return FALSE
 		var/turf/door = target[1]
@@ -86,7 +93,9 @@
 			var/dy = landing_offset[4]
 			target_x = point_world[1] - dx * cos(target_facing) - dy * sin(target_facing)
 			target_y = point_world[2] - dy * cos(target_facing) + dx * sin(target_facing)
-	return !!vessel.programmed_mission || distance() <= OVERMAP_APPROACH_RANGE + vessel.hull_radius
+	if(vessel.atmosphere && !vessel.atmosphere.can_reach(target_x, target_y))
+		return FALSE
+	return !!vessel.atmosphere || !!vessel.programmed_mission || distance() <= OVERMAP_APPROACH_RANGE + vessel.hull_radius
 
 /datum/overmap_docking_approach/proc/distance()
 	return sqrt((target_x - vessel.get_world_x()) ** 2 + (target_y - vessel.get_world_y()) ** 2)
@@ -106,7 +115,7 @@
 	return (own_world[1] - target_world[1]) ** 2 + (own_world[2] - target_world[2]) ** 2 <= OVERMAP_APPROACH_READY ** 2
 
 /datum/overmap_docking_approach/proc/start_alignment()
-	if(!ready())
+	if(aligning || (vessel.atmosphere && !vessel.atmosphere.cruising()) || !ready())
 		return "Подведите корабль ближе к синей области."
 	aligning = TRUE
 	previous_target_x = target_x
@@ -146,20 +155,36 @@
 		return
 	vessel.flight.set_facing(target_facing)
 	vessel.set_world_position(target_x, target_y)
-	owns_pad = FALSE
-	if(host)
+	if(vessel.atmosphere)
+		if(vessel.atmosphere.end_scale != 1)
+			vessel.atmosphere.change_altitude(1)
+			return
+		if(vessel.atmosphere.transition_end > world.time)
+			return
+	if(pod_landing)
+		vessel.docking_approach = null
+		committing = vessel.overmap_pod.land_at(pod_landing, vessel.get_dock_host())
+	else if(host)
 		INVOKE_ASYNC(vessel, TYPE_PROC_REF(/obj/overmap/entity, finish_ship_dock), host, own, target)
 	else if(target)
-		vessel.dock_to_station(own, target)
+		var/result = vessel.dock_to_station(own, target, owns_pad)
+		if(result == TRUE)
+			committing = TRUE
+			owns_pad = FALSE
+		else
+			vessel.announce_programmed(result)
 	else if(vessel.shuttle.canDock(pad) == SHUTTLE_CAN_DOCK)
 		vessel.selected_dock_id = pad.id
-		INVOKE_ASYNC(vessel, TYPE_PROC_REF(/obj/overmap/entity, finish_station_dock), pad)
+		committing = TRUE
+		INVOKE_ASYNC(vessel, TYPE_PROC_REF(/obj/overmap/entity, finish_station_dock), pad, owns_pad)
+		owns_pad = FALSE
 	else
 		vessel.announce_programmed("Посадочная область занята. Стыковка отменена.")
-	owns_pad = FALSE
 	qdel(src)
 
 /datum/overmap_docking_approach/proc/available()
+	if(pod_landing)
+		return update_target() && overmap_pod_2x2_landable(pod_landing) && (pad || !vessel.atmosphere || overmap_pod_exposed(pod_landing))
 	if(!own || !target || !update_target())
 		return !target && pad && vessel.shuttle?.canDock(pad) == SHUTTLE_CAN_DOCK
 	if(!host)

@@ -1,5 +1,4 @@
 /obj/projectile/ship_round
-	desc = "TEMP123TEMP"
 	name = "ship shell"
 	damage = 60
 	pass_flags = PASSPROJECTILE

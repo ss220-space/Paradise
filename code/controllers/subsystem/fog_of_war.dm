@@ -5,7 +5,7 @@ SUBSYSTEM_DEF(fog_of_war)
 
 	ss_flags = NONE
 	priority = FIRE_PRIORITY_VIS
-	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
+	runlevels = RUNLEVEL_GAME|RUNLEVEL_POSTGAME
 
 	wait = 2
 
@@ -113,9 +113,7 @@ SUBSYSTEM_DEF(fog_of_war)
 			var/datum/fog_view/view = views[key]
 			if(QDELETED(view))
 				continue
-			view.clear()
 			qdel(view)
-		fog_update_backdrop(viewer)
 	GLOB.fog_attached_views.Cut()
 	for(var/client/viewer as anything in GLOB.fog_proxy_backdrops)
 		var/atom/movable/screen/overmap_proxy_void/backdrop = GLOB.fog_proxy_backdrops[viewer]
@@ -124,32 +122,12 @@ SUBSYSTEM_DEF(fog_of_war)
 	native_reset()
 
 /datum/controller/subsystem/fog_of_war/fire(resumed)
-
 	flush_dirty()
-	drop_dead_views()
-
-	for(var/client/attached as anything in GLOB.fog_attached_views)
-		var/list/datum/fog_view/views = GLOB.fog_attached_views[attached]
-		if(QDELETED(attached) || !length(views))
-			GLOB.fog_attached_views -= attached
-			continue
-		for(var/key in views)
-			var/datum/fog_view/attached_view = views[key]
-			if(QDELETED(attached_view))
-				views -= key
-				continue
-			if(attached_view.needs_update())
-				attached_view.update()
-		if(!length(views))
-			GLOB.fog_attached_views -= attached
-
-/datum/controller/subsystem/fog_of_war/proc/drop_dead_views()
 	for(var/client/key as anything in GLOB.fog_attached_views)
 		var/list/datum/fog_view/views = GLOB.fog_attached_views[key]
 		if(QDELETED(key))
 			for(var/frame_key in views)
 				var/datum/fog_view/view = views[frame_key]
-				view?.clear()
 				qdel(view)
 			GLOB.fog_attached_views -= key
 
@@ -161,13 +139,13 @@ SUBSYSTEM_DEF(fog_of_war)
 		for(var/frame_key in views)
 			var/datum/fog_view/view = views[frame_key]
 			if(!QDELETED(view) && view.owner)
+				if(view.needs_update())
+					view.update()
 				continue
-			view?.clear()
 			qdel(view)
 			views -= frame_key
 		if(!length(views))
 			GLOB.fog_attached_views -= key
-
 			fog_update_backdrop(key)
 
 #undef FOG_OF_WAR_DIRTY_BATCH

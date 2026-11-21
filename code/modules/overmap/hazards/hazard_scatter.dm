@@ -135,14 +135,14 @@
 					next_overmap_hazard_hit = world.time + OVERMAP_HAZARD_HIT_COOLDOWN
 					field.try_affect(src)
 				continue
-			candidates[field] = field.nearby_scatter(self_x, self_y, reach)
-	if(!navigation_collision_disabled())
+			var/list/indices = field.nearby_scatter(self_x, self_y, reach)
+			if(length(indices))
+				candidates[field] = indices
+	if(length(candidates) && !navigation_collision_disabled())
 		collide_scatter(candidates, travel)
 	scatter_candidates = candidates
 
 /obj/overmap/entity/proc/collide_scatter(list/candidates, travel)
-	if(navigation_collision_disabled())
-		return
 	var/self_x = get_world_x()
 	var/self_y = get_world_y()
 	var/reach_squared = (hull_radius + travel + 1) ** 2
@@ -283,7 +283,7 @@
 					. += field
 
 /obj/overmap/entity/proc/radar_scatter_data(reach = 128)
-	if(!sector)
+	if(atmosphere || !sector)
 		return list()
 	reach = clamp(reach, 32, 128)
 	var/chunk_x = FLOOR(get_world_x() / 16, 1)

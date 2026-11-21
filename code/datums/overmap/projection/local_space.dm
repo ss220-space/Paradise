@@ -2,10 +2,14 @@
 	if(!host)
 		return
 
-	if(!sector && host.sector)
+	if(host.sector)
 		sector = host.sector
-	origin_x = host.get_world_x()
-	origin_y = host.get_world_y()
+	var/host_x = host.get_world_x()
+	var/host_y = host.get_world_y()
+	if(region && origin_x == host_x && origin_y == host_y)
+		return
+	origin_x = host_x
+	origin_y = host_y
 	region = null
 	region_z = null
 	ensure_region()
@@ -73,14 +77,17 @@
 			var/kind = 0
 			if(column <= high_x)
 				var/turf/spot = locate(column, row, bubble_z)
-				if(!isspaceturf(spot))
-					kind = spot.density ? OVERMAP_RADAR_WALL : OVERMAP_RADAR_FLOOR
-				for(var/atom/movable/thing as anything in spot)
-					if(wall_types[thing.type])
-						kind = OVERMAP_RADAR_WALL
-						break
-					if(!kind && frame_types[thing.type])
-						kind = OVERMAP_RADAR_FRAME
+				if(!orbital && !overmap_exposed_surface(spot))
+					kind = OVERMAP_RADAR_WALL
+				else
+					if(!isspaceturf(spot))
+						kind = spot.density ? OVERMAP_RADAR_WALL : OVERMAP_RADAR_FLOOR
+					for(var/atom/movable/thing as anything in spot)
+						if(wall_types[thing.type])
+							kind = OVERMAP_RADAR_WALL
+							break
+						if(!kind && frame_types[thing.type])
+							kind = OVERMAP_RADAR_FRAME
 			if(kind == run_kind)
 				continue
 			if(run_kind)

@@ -13,6 +13,7 @@
 	var/angular_velocity = 0
 	var/mob/pilot
 	var/obj/machinery/computer/helm/pilot_helm
+	var/list/helm_keys
 	var/pilot_turn = 0
 	var/thrust_north = 0
 	var/thrust_east = 0
@@ -94,9 +95,9 @@
 		if(!pod_vessel.in_free_flight())
 			if(pilot)
 				release_pilot()
-		else if(seat_pilot?.client && !seat_pilot.incapacitated() && pilot != seat_pilot)
+		else if(!autopilot && seat_pilot?.client && !seat_pilot.incapacitated() && pilot != seat_pilot)
 			take_pilot(seat_pilot, pod_vessel.pod.overmap_helm)
-	if(vessel.relay_jump_from || vessel.relay_capture)
+	if(vessel.relay_jump_from || vessel.relay_capture || (vessel.atmosphere && !vessel.atmosphere.cruising()))
 		stop_burn()
 		angular_velocity = 0
 		return
@@ -290,6 +291,7 @@
 		UnregisterSignal(pilot_helm, COMSIG_QDELETING)
 	pilot = null
 	pilot_helm = null
+	helm_keys = null
 	pilot_turn = 0
 
 /datum/component/overmap_flight/proc/block_pilot_walk()
@@ -316,14 +318,14 @@
 		release_pilot()
 		return FALSE
 	var/list/keys = pilot.client.keys_held
-	pilot_turn = !!keys["E"] - !!keys["Q"]
-	if(keys["Space"])
+	pilot_turn = !!(keys["E"] || ("E" in helm_keys)) - !!(keys["Q"] || ("Q" in helm_keys))
+	if(keys["Space"] || ("Space" in helm_keys))
 		pilot_braking = TRUE
 		brake(elapsed)
 		return TRUE
 
-	var/forward = !!keys["W"] - !!keys["S"]
-	var/sideways = !!keys["D"] - !!keys["A"]
+	var/forward = !!(keys["W"] || ("W" in helm_keys)) - !!(keys["S"] || ("S" in helm_keys))
+	var/sideways = !!(keys["D"] || ("D" in helm_keys)) - !!(keys["A"] || ("A" in helm_keys))
 	if(!forward && !sideways)
 		return FALSE
 	if(forward && sideways)
@@ -425,9 +427,6 @@
 		for(var/mob/living/passenger in place)
 			if(passenger.client && !passenger.buckled && !HAS_TRAIT(passenger, TRAIT_NEGATES_GRAVITY))
 				shake_camera(passenger, OVERMAP_JOLT_SHAKE_TIME, 1)
-
-/datum/component/overmap_flight/proc/engine_fires(obj/machinery/ship_engine/engine)
-	return !!engine_pushes(engine)
 
 /datum/component/overmap_flight/proc/engine_pushes(obj/machinery/ship_engine/engine)
 	if(!burn_sides && !burn_turn)
@@ -548,12 +547,6 @@
 
 /datum/component/overmap_flight/proc/process_autopilot(elapsed)
 	return process_navigation(elapsed)
-
-/datum/component/overmap_flight/proc/velocity_angle()
-	var/obj/overmap/entity/vessel = parent
-	if(!vessel.is_moving())
-		return null
-	return delta_to_angle(vessel.speed[1], vessel.speed[2])
 
 /datum/component/overmap_flight/proc/get_effective_cruise()
 	var/obj/overmap/entity/vessel = parent

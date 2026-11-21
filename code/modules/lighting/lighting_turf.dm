@@ -84,7 +84,11 @@
 
 /// Allows for reactions to an area change without inherently requiring change_area() be called (I hate maploading)
 /turf/proc/on_change_area(area/old_area, area/new_area)
+	if(old_area?.outdoors != new_area?.outdoors)
+		SEND_SIGNAL(src, COMSIG_TURF_EXPOSURE_CHANGED)
+		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_TURF_EXPOSURE_CHANGED, src)
 	transfer_area_lighting(old_area, new_area)
+	SEND_SIGNAL(src, COMSIG_TURF_LIGHTING_CHANGED)
 
 ///Transfer the lighting of one area to another
 /turf/proc/transfer_area_lighting(area/old_area, area/new_area)

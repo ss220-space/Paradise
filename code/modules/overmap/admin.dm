@@ -15,9 +15,7 @@
 	name = token.get_overmap_display_name()
 	icon = token.icon
 	icon_state = token.icon_state
-	sector = token.sector
-	if(token.sector)
-		token.sector.objects |= src
+	token.sector?.add_object(src)
 	speed = token.speed.Copy()
 	position = token.position.Copy()
 	if(token.loc)
@@ -32,9 +30,11 @@
 	var/turf/here = loc
 	if(isturf(here) && slave.loc != here)
 		slave.forceMove(here)
-	slave.sector = sector
-	if(sector)
-		sector.objects |= slave
+	if(slave.sector != sector)
+		if(sector)
+			sector.add_object(slave)
+		else
+			slave.sector?.remove_object(slave)
 	slave.speed = speed.Copy()
 	slave.position = position.Copy()
 	slave.update_overmap_pixel()
@@ -87,13 +87,13 @@
 	return TRUE
 
 /obj/machinery/computer/helm/admin/can_pilot(mob/user)
-	return user?.client && check_rights_for(user.client, R_ADMIN | R_EVENT)
+	return user?.client && check_rights_for(user.client, R_ADMIN|R_EVENT)
 
 /obj/machinery/computer/helm/admin/ui_state(mob/user)
-	return ADMIN_STATE(R_ADMIN | R_EVENT)
+	return ADMIN_STATE(R_ADMIN|R_EVENT)
 
 /obj/machinery/computer/helm/admin/ui_status(mob/user, datum/ui_state/state)
-	if(user?.client && check_rights_for(user.client, R_ADMIN | R_EVENT))
+	if(user?.client && check_rights_for(user.client, R_ADMIN|R_EVENT))
 		return UI_INTERACTIVE
 	return UI_CLOSE
 

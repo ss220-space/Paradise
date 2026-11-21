@@ -2,12 +2,12 @@
 	name = "MG338-montiert"
 	icon = 'icons/obj/ship_weapons/50cal.dmi'
 	ship_arc = 180
-	desc = "TEMP123TEMP"
+	desc = "Корабельная турель с автоматическим наведением."
 	icon_state = "idle"
 	icon_state_initial = "idle"
 	icon_state_active = "idle"
 	icon_state_destroyed = "idle"
-	appearance_flags = PIXEL_SCALE | KEEP_TOGETHER
+	appearance_flags = PIXEL_SCALE|KEEP_TOGETHER
 
 /obj/machinery/porta_turret/syndicate/ship/adder
 	parent_type = /obj/machinery/porta_turret/syndicate/ship/gun_50cal
@@ -67,5 +67,5 @@
 	. = ..()
 	SEND_SIGNAL(src, COMSIG_OVERMAP_WEAPON_CONFIGURE, list("arc" = ship_arc))
 
-/obj/machinery/porta_turret/syndicate/ship/gun_50cal/shuttleRotate(rotation, params = ROTATE_DIR | ROTATE_SMOOTH | ROTATE_OFFSET)
+/obj/machinery/porta_turret/syndicate/ship/gun_50cal/shuttleRotate(rotation, params = ROTATE_DIR|ROTATE_SMOOTH|ROTATE_OFFSET)
 	return ..(rotation, params & ~ROTATE_OFFSET)

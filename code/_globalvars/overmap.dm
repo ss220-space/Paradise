@@ -131,18 +131,12 @@ GLOBAL_LIST_EMPTY(overmap_virtual_structures)
 
 GLOBAL_LIST_EMPTY(overmap_weapons)
 
-GLOBAL_LIST_INIT(overmap_ai_faction_options, list("nt" = "Nanotrasen", "syndicate" = "Синдикат", "unknown" = "Неизвестные / без транспондера", "neutral" = "Нейтральные", "erw" = "Eisenwehr Raumfahrtwerke"))
-
 GLOBAL_LIST_INIT(overmap_ai_default_enemies, list(
 	"nt" = list("syndicate", "unknown"),
 	"syndicate" = list("nt", "unknown"),
-	"neutral" = list(),
-	"erw" = list(),
 ))
 
-GLOBAL_LIST_INIT(overmap_faction_prefixes, list("nt" = "NT", "syndicate" = "SY", "erw" = "ERW", "neutral" = "IN", "unknown" = "UN"))
-
-GLOBAL_LIST_INIT(overmap_faction_colors, list("nt" = "#78bded", "syndicate" = "#e77575", "erw" = "#B5443C", "neutral" = "#a0a0a0"))
+GLOBAL_LIST_INIT(overmap_faction_prefixes, list("nt" = "NT", "syndicate" = "SY", "trans_solar" = "TS", "ussp" = "USSP", "neutral" = "IN", "unknown" = "UN"))
 
 GLOBAL_LIST_INIT(overmap_ship_mass_multipliers, list("LC" = 1, "MC" = 2, "HC" = 4, "SC" = 4, "FS" = 6))
 

@@ -3,7 +3,7 @@ SUBSYSTEM_DEF(overmap_visuals)
 	wait = OVERMAP_FLIGHT_TICK
 	priority = FIRE_PRIORITY_DEFAULT / 2
 	ss_flags = SS_KEEP_TIMING
-	runlevels = RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME
+	runlevels = RUNLEVEL_SETUP|RUNLEVEL_GAME|RUNLEVEL_POSTGAME
 	dependencies = list(/datum/controller/subsystem/overmap)
 	var/list/pending = list()
 	var/list/currentrun = list()

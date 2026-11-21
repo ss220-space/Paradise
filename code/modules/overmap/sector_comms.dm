@@ -1,20 +1,3 @@
-/datum/controller/subsystem/overmap/proc/ensure_comms_keys()
-	if(observation_comms_key)
-		return
-	var/list/used = list(iff_key_centcom, iff_key_syndicate)
-	observation_comms_key = generate_overmap_iff_key()
-	while(observation_comms_key in used)
-		observation_comms_key = generate_overmap_iff_key()
-	used += observation_comms_key
-	for(var/faction in GLOB.overmap_faction_prefixes)
-		if(faction == "neutral" || faction == "unknown")
-			continue
-		var/key = generate_overmap_iff_key()
-		while(key in used)
-			key = generate_overmap_iff_key()
-		used += key
-		faction_comms_keys[faction] = key
-
 /datum/controller/subsystem/overmap/proc/print_roundstart_comms_keys()
 	for(var/obj/machinery/computer/communications/console as anything in GLOB.shuttle_caller_list)
 		if(istype(console))
@@ -33,7 +16,7 @@
 		body += "<b>Наблюдательный пост — ключ текущей смены:</b><br>[html_encode(observation_comms_key)]<br><br>"
 	var/key = faction_comms_keys[faction]
 	if(key)
-		body += "<b>Канал [html_encode(GLOB.overmap_faction_prefixes[faction])]:</b><br>[html_encode(key)]<br><br>"
+		body += "<b>Канал [html_encode(SSovermap.faction_options[faction])]:</b><br>[html_encode(key)]<br><br>"
 	if(!body)
 		return FALSE
 	var/obj/item/paper/overmap_keys/sheet = new(spot)
@@ -44,7 +27,7 @@
 /obj/item/paper/overmap_keys
 	name = "sector communications keys"
 	gender = PLURAL
-	desc = "TEMP123TEMP"
+	desc = "Лист с ключами связи."
 
 /obj/item/paper/overmap_keys/get_ru_names()
 	return alist(
@@ -74,7 +57,7 @@
 	if(istype(craft))
 		class_code = craft.registration_class || craft.mapped_ship_class || ship_ai?.profile.ship_class
 		number = craft.registration_id
-	if(shuttle && istype(shuttle.areaInstance, /area/shuttle))
+	if(shuttle && is_area_shuttle(shuttle.areaInstance))
 		var/area/shuttle/ship_area = shuttle.areaInstance
 		class_code ||= ship_area.overmap_ship_class
 	var/static/regex/registration = regex(@"^[A-Z]+-([A-Z]+)-([0-9]{3})( |$)")

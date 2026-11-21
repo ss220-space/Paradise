@@ -95,6 +95,7 @@ type OvermapSensorsData = {
   galaxy?: GalaxyMap;
   facing?: number;
   hazard_fields?: HazardField[];
+  radar_hazard_contours?: number[][][];
   scan_radar?: BooleanLike;
   radar_peels?: RadarPeel[];
   radar_scatter?: RadarScatterChunk[];
@@ -366,6 +367,7 @@ export const OvermapSensors = () => {
                     sectorId={data.sector_id}
                     galaxy={data.galaxy}
                     hazardFields={data.hazard_fields || []}
+                    hazardContours={data.radar_hazard_contours}
                     radius={data.scan_radar ? 64 : radius}
                     onZoom={setRadius}
                     followHeading={follow}

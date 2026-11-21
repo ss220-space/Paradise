@@ -1,6 +1,5 @@
 /obj/effect/ship_spawner
 	name = "ship spawner"
-	desc = "TEMP123TEMP"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pinonfar"
 	invisibility = INVISIBILITY_ABSTRACT

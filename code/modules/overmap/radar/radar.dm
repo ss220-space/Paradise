@@ -12,12 +12,13 @@
 	for(var/field in snapshot)
 		data[field] = snapshot[field]
 	data["radar_poses"] = null
-	if(radar_cache.motion_frame && radar_cache.motion_epoch == radar_epoch && radar_cache.motion_sector == sector)
-		for(var/field in radar_cache.motion_frame)
+	var/list/motion = radar_cache.motion_frame
+	if(motion && motion["radar_tick"] == SSovermap.radar_frame_time * 100 && radar_cache.motion_epoch == radar_epoch && radar_cache.motion_sector == sector)
+		for(var/field in motion)
 			if(field != "radar_poses")
-				data[field] = radar_cache.motion_frame[field]
+				data[field] = motion[field]
 		var/list/positions = list()
-		for(var/list/entry as anything in radar_cache.motion_frame["radar_poses"])
+		for(var/list/entry as anything in motion["radar_poses"])
 			positions[entry["id"]] = entry
 		var/list/objects = list()
 		for(var/list/entry as anything in data["objects"])
@@ -39,8 +40,8 @@
 		radar_docked_dir = shuttle.dir
 	var/obj/overmap/entity/host = get_dock_host()
 	var/datum/overmap_bubble/space = SSovermap.ensure_host_space(host)
-	if(!space && shuttle.z <= length(SSovermap.bubbles_by_z))
-		space = SSovermap.bubbles_by_z[shuttle.z]
+	if(!space)
+		space = SSovermap.static_bubble_at(get_turf(shuttle), sector)
 	local_space = space?.static_level && space.bubble_z == shuttle.z ? space : null
 	return TRUE
 
@@ -74,7 +75,6 @@
 	data["sector_id"] = sector?.id
 	data["sector_size"] = sector?.size || OVERMAP_DEFAULT_SIZE
 	data["cell_span"] = OVERMAP_TILE_SPAN * (sector?.tile_travel || 1)
-	data["galaxy"] = SSovermap.galaxy_map(src)
 	var/list/peels = list()
 	for(var/obj/overmap/entity/source in sector?.objects)
 		var/own_short = source == src && short_sensors_on && has_working_sensor(OVERMAP_SENSOR_KIND_SHORT)
@@ -171,13 +171,16 @@
 	data["view_range"] = view_range
 
 	var/list/hazard_fields = list()
+	var/list/hazard_contours = list()
 	if(sector)
+		var/span = OVERMAP_TILE_SPAN * sector.tile_travel
+		var/world_x = get_world_x()
+		var/world_y = get_world_y()
 		for(var/list/group as anything in overmap_hazard_clusters(sector))
 			var/obj/overmap/feature/hazard/seed = group[1]
 			if(!seed)
 				continue
-			var/list/cells = list()
-			var/list/seen_cells = list()
+			var/list/first_cell
 			var/field_visibility = 0
 			var/scan_uid
 			for(var/obj/overmap/feature/hazard/point as anything in group)
@@ -185,31 +188,29 @@
 				if(!isturf(spot))
 					continue
 				var/point_visibility = object_visibility(point, here, sensor_reach)
-				var/span = OVERMAP_TILE_SPAN * sector.tile_travel
-				var/local_geometry = abs(point.x * span - get_world_x()) < span + 128 && abs(point.y * span - get_world_y()) < span + 128
+				var/local_geometry = abs(point.x * span - world_x) < span + 128 && abs(point.y * span - world_y) < span + 128
 				if(point_visibility <= 0 && !local_geometry)
 					continue
 				field_visibility = max(field_visibility, point_visibility)
 				if(can_short_scan(point))
 					scan_uid = point.UID()
 
-				var/cell_key = "[sector.coord_x(spot)],[sector.coord_y(spot)]"
-				if(seen_cells[cell_key])
-					continue
-				seen_cells[cell_key] = TRUE
-				cells += list(list(sector.coord_x(spot), sector.coord_y(spot), point_visibility))
-			if(!length(cells))
+				if(!first_cell)
+					first_cell = list(sector.coord_x(spot), sector.coord_y(spot), point_visibility)
+			if(!first_cell)
 				continue
+			var/scanned = contact_identified(seed)
+			hazard_contours += list(overmap_hazard_contours(sector, group))
 			hazard_fields += list(list(
 				"id" = scan_uid,
-				"kind" = contact_identified(seed) ? hazard_flavour(seed) : null,
+				"kind" = scanned ? hazard_flavour(seed) : null,
 				"density" = overmap_hazard_cluster_density(group),
-				"cells" = cells,
-				"contours" = overmap_hazard_contours(sector, group),
-				"scanned" = contact_identified(seed),
+				"cells" = list(first_cell),
+				"scanned" = scanned,
 				"visibility" = field_visibility,
 			))
 	data["hazard_fields"] = hazard_fields
+	data["radar_hazard_contours"] = hazard_contours
 
 /obj/overmap/entity/proc/sensor_reach_cells()
 	if(has_working_sensor(OVERMAP_SENSOR_KIND_LONG) && long_sensors_on)

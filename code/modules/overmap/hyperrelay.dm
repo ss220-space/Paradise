@@ -1,7 +1,7 @@
 /obj/overmap/entity/hyperrelay
 	parent_type = /obj/overmap/entity/virtual_structure
 	name = "Гипертранслятор"
-	desc = "TEMP123TEMP"
+	desc = "Узел связи между секторами, через который корабли совершают гиперпереход."
 	icon_state = "object"
 	overmap_kind = OVERMAP_KIND_RELAY
 	vessel_flags = NONE
@@ -30,7 +30,7 @@
 	identity_name = name
 
 /obj/overmap/entity/proc/hyperrelay_jump_duration(obj/overmap/entity/hyperrelay/relay)
-	return max(15 SECONDS, round(OVERMAP_HYPERRELAY_JUMP_TIME * relay.get_link_distance() / 1000))
+	return max(2.5 SECONDS, round(OVERMAP_HYPERRELAY_JUMP_TIME * relay.get_link_distance() / 1000))
 
 /obj/overmap/entity/hyperrelay/Initialize(mapload)
 	. = ..()
@@ -114,7 +114,7 @@
 				portal_y = cell_y
 				nearest = distance
 		if(!isnull(portal_x))
-			var/datum/overmap_virtual_model/model = new("/obj/effect/overmap_warp_portal,/turf/space")
+			var/datum/overmap_virtual_model/model = new("[/obj/effect/overmap_warp_portal],[/turf/space]")
 			var/list/old_cell = virtual_cells["[portal_x],[portal_y]"]
 			var/datum/overmap_virtual_model/old_model = old_cell?[3]
 			if(old_model)
@@ -132,7 +132,7 @@
 	return round(hull_center_y * 2 - 1)
 
 /obj/overmap/entity/hyperrelay/on_virtual_cell_loaded(datum/overmap_virtual_model/model, cell_x, cell_y)
-	if(model.warp_portal)
+	if(model.warp_visual)
 		warp_portals += new /obj/effect/overmap_warp_portal(null, src, cell_x, cell_y)
 
 /obj/overmap/entity/hyperrelay/proc/clear_warp_portals()
@@ -146,9 +146,11 @@
 		portal.set_enabled(enabled)
 	for(var/key, model_entry in virtual_models)
 		var/datum/overmap_virtual_model/model = model_entry
-		if(!model.warp_portal)
+		if(!model.warp_visual)
 			continue
-		model.visual.overlays -= model.warp_visual
+		if(isnull(model.portal_base_overlays))
+			model.portal_base_overlays = model.visual.overlays.Copy()
+		model.visual.overlays = model.portal_base_overlays
 		if(enabled)
 			model.visual.overlays += model.warp_visual
 	hull_version++
@@ -220,7 +222,7 @@
 		return FALSE
 	if(is_overmap_jammed())
 		return FALSE
-	if(is_jumping() || relay_capture || docking_approach?.aligning || docked_ship || length(docked_guests) || is_physically_docked())
+	if(atmosphere || is_jumping() || relay_capture || docking_approach?.aligning || docked_ship || length(docked_guests) || is_physically_docked())
 		return FALSE
 	if(!OVERMAP_SPEED_STOPPED(get_speed()))
 		return FALSE
@@ -232,6 +234,8 @@
 	return iff_detects(relay) || contact_identified(relay)
 
 /obj/overmap/entity/proc/begin_hyperrelay_jump(forced = FALSE, obj/effect/overmap_warp_portal/portal)
+	if(atmosphere)
+		return FALSE
 	var/obj/overmap/entity/hyperrelay/relay = portal ? portal.relay : hyperrelay_on_tile()
 	if(portal)
 		if(!portal.is_active() || !can_enter_relay(relay))
@@ -280,13 +284,30 @@
 	return TRUE
 
 /obj/overmap/entity/proc/finish_hyperrelay_jump(obj/overmap/entity/hyperrelay/from_relay)
+	if(QDELETED(src))
+		return
+	var/datum/overmap_sector/source_sector = sector
+	var/obj/overmap/entity/hyperrelay/dest_relay = from_relay?.paired
+	var/turf/dest
+	if(!QDELETED(from_relay) && !QDELETED(dest_relay) && dest_relay.sector)
+		dest = dest_relay.get_overmap_turf()
 	var/was_portal_jump = relay_portal_jump
-	relay_portal_jump = FALSE
 	if(was_portal_jump)
 		hidden_from_contacts = relay_jump_was_hidden
-		if(relay_jump_origin && sector)
-			sector.add_object(src, relay_jump_origin)
+		if(!dest && relay_jump_origin)
+			source_sector?.add_object(src, relay_jump_origin)
 		relay_jump_origin = null
+	if(dest)
+		dest_relay.sector.add_object(src, dest)
+		position = list(0, 0)
+		if(was_portal_jump)
+			var/list/exit_point = dest_relay.relay_exit_position(src)
+			set_world_position(exit_point[1], exit_point[2])
+			flight?.set_facing(SIMPLIFY_DEGREES(dest_relay.get_facing() + 180))
+	if(was_portal_jump)
+		relay_arrival_cooldown = world.time + (5 SECONDS)
+	remember_pose()
+	relay_portal_jump = FALSE
 	relay_jump_from = null
 	relay_jump_started = 0
 	relay_jump_ends = 0
@@ -294,27 +315,10 @@
 	overmap_jammed_until = 0
 	halted = FALSE
 	stop_hyperrelay_transit_fx()
-	if(QDELETED(src))
-		return
-	var/obj/overmap/entity/hyperrelay/dest_relay = from_relay?.paired
-	if(QDELETED(from_relay) || QDELETED(dest_relay))
-		refresh_sensor_displays()
-		return
-	var/turf/dest = dest_relay.get_overmap_turf()
 	if(!dest)
 		refresh_sensor_displays()
 		return
-	var/datum/overmap_sector/source_sector = sector
-	sector?.remove_object(src)
-	dest_relay.sector?.add_object(src, dest)
 	SEND_SIGNAL(SSovermap, COMSIG_OVERMAP_RELAY_TRANSIT, src, source_sector, sector, TRUE)
-	position = list(0, 0)
-	if(was_portal_jump)
-		var/list/exit_point = dest_relay.relay_exit_position(src)
-		set_world_position(exit_point[1], exit_point[2])
-		flight?.set_facing(SIMPLIFY_DEGREES(dest_relay.get_facing() + 180))
-		relay_arrival_cooldown = world.time + (5 SECONDS)
-	remember_pose()
 	QDEL_NULL(terrain_view)
 	QDEL_LIST_ASSOC_VAL(neighbor_proxies)
 	nearby_ships = list()

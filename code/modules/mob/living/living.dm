@@ -172,7 +172,7 @@
 		AdjustWeakened(levels * 5 SECONDS)
 		return
 	// fall to 1 level
-	AdjustKnockdown(5 SECONDS)
+	AdjustKnockdown(Z_FALL_KNOCKDOWN_DURATION)
 	return . |= ZIMPACT_NO_SPIN
 
 // Generic Bump(). Override MobBump() and ObjBump() instead of this.

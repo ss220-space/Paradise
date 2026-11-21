@@ -1,6 +1,5 @@
 /turf/simulated/wall/mineral/titanium/reinforced
 	name = "reinforced titanium wall"
-	desc = "TEMP123TEMP"
 	icon = 'icons/turf/walls/ship_titanium.dmi'
 	icon_state = "ship_wall-0"
 	base_icon_state = "ship_wall"
@@ -60,7 +59,6 @@
 
 /turf/simulated/wall/mineral/plastitanium/composite
 	name = "composite wall"
-	desc = "TEMP123TEMP"
 	icon = 'icons/turf/walls/ship_plastitanium.dmi'
 	icon_state = "ship_wall-0"
 	base_icon_state = "ship_wall"

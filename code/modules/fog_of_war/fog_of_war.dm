@@ -1,5 +1,3 @@
-#define FOG_OF_WAR_BUILD "fog-3"
-
 #define FOG_OF_WAR_PLANE ABOVE_LIGHTING_PLANE
 #define FOG_OF_WAR_LAYER 1
 
@@ -40,7 +38,6 @@
 /datum/fog_frame/proc/anchor()
 	return origin
 
-
 GLOBAL_VAR_INIT(fog_model, FOG_MODEL_UNION)
 
 GLOBAL_VAR_INIT(fog_rust_verified, FALSE)
@@ -55,10 +52,6 @@ GLOBAL_VAR_INIT(fog_rust_error, null)
 	return FALSE
 #endif
 
-GLOBAL_VAR_INIT(fog_stat_tiles, 0)
-GLOBAL_VAR_INIT(fog_stat_steps, 0)
-GLOBAL_VAR_INIT(fog_stat_blocked, 0)
-
 GLOBAL_LIST_EMPTY(fog_attached_views)
 
 /proc/fog_attach_client(client/viewer, datum/fog_frame/frame)
@@ -68,14 +61,12 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 	if(!views)
 		views = list()
 		GLOB.fog_attached_views[viewer] = views
-	var/datum/fog_view/view = frame ? views[frame] : null
+	var/key = frame || "no frame"
+	var/datum/fog_view/view = views[key]
 	if(!view)
 		view = new(viewer)
 		view.frame = frame
-		if(frame)
-			views[frame] = view
-		else
-			views["no frame"] = view
+		views[key] = view
 
 	view.dirty = TRUE
 
@@ -91,12 +82,10 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 		if(!view)
 			return FALSE
 		views -= frame
-		view.clear()
 		qdel(view)
 	else
 		for(var/key in views)
 			var/datum/fog_view/view = views[key]
-			view?.clear()
 			qdel(view)
 		views.Cut()
 	if(!length(views))
@@ -107,15 +96,7 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 
 /proc/fog_attached_to(client/viewer, datum/fog_frame/frame)
 	var/list/datum/fog_view/views = GLOB.fog_attached_views[viewer]
-	return views ? views[frame] : null
-
-/proc/fog_mark_all_dirty()
-	for(var/client/viewer as anything in GLOB.fog_attached_views)
-		var/list/datum/fog_view/views = GLOB.fog_attached_views[viewer]
-		for(var/key in views)
-			var/datum/fog_view/view = views[key]
-			if(!QDELETED(view))
-				view.dirty = TRUE
+	return views?[frame || "no frame"]
 
 /proc/fog_turf_blocks_sight(turf/spot, list/blockers)
 	if(!spot)
@@ -134,19 +115,14 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 		walker = get_step_towards(walker, target)
 		if(!walker)
 			return FALSE
-		GLOB.fog_stat_steps++
 		if(walker == target)
 			return TRUE
 		if(fog_turf_blocks_sight(walker, blockers))
-			GLOB.fog_stat_blocked++
 			return FALSE
 	return TRUE
 
 /proc/fog_cast(turf/center, radius, model = null, list/blockers)
 	. = list()
-	GLOB.fog_stat_tiles = 0
-	GLOB.fog_stat_steps = 0
-	GLOB.fog_stat_blocked = 0
 	if(!center)
 		return
 	if(radius < 0)
@@ -154,7 +130,6 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 	if(isnull(model))
 		model = GLOB.fog_model
 	for(var/turf/target as anything in RANGE_TURFS(radius, center))
-		GLOB.fog_stat_tiles++
 		if(fog_line_of_sight_for(center, target, model, blockers))
 			.[target] = TRUE
 	fog_boundary_highlight(., center, radius, blockers)
@@ -213,19 +188,6 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 			return FALSE
 	return TRUE
 
-/proc/fog_cast_pixel(turf/center, radius, eye_x, eye_y, model = null)
-	. = list()
-	if(!center)
-		return
-	if(radius < 0)
-		radius = 0
-	if(isnull(model))
-		model = GLOB.fog_model
-	for(var/turf/target as anything in RANGE_TURFS(radius, center))
-		if(fog_line_of_sight_pixel(center, target, eye_x, eye_y))
-			.[target] = TRUE
-	fog_boundary_highlight(., center, radius)
-
 /proc/fog_line_of_sight_straight(turf/center, turf/target, list/blockers)
 	if(!center || !target || center.z != target.z)
 		return FALSE
@@ -280,40 +242,6 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 				break
 	for(var/turf/tile as anything in added)
 		visible[tile] = TRUE
-
-/proc/fog_cast_set(turf/center, list/targets, model = null, list/blockers)
-	. = list()
-	if(!center || !length(targets))
-		return
-	if(isnull(model))
-		model = GLOB.fog_model
-	GLOB.fog_stat_tiles = 0
-	GLOB.fog_stat_steps = 0
-	GLOB.fog_stat_blocked = 0
-	for(var/turf/target as anything in targets)
-		GLOB.fog_stat_tiles++
-		if(fog_line_of_sight_for(center, target, model, blockers))
-			.[target] = TRUE
-	fog_boundary_highlight_set(., targets, blockers)
-
-/proc/fog_boundary_highlight_set(list/visible, list/targets, list/blockers)
-	var/list/added = list()
-	for(var/turf/target as anything in targets)
-		if(visible[target] || !fog_turf_blocks_sight(target, blockers))
-			continue
-		for(var/direction in GLOB.alldirs)
-			var/turf/neighbour = get_step(target, direction)
-			if(neighbour && visible[neighbour])
-				added[target] = TRUE
-				break
-	for(var/turf/tile as anything in added)
-		visible[tile] = TRUE
-
-/proc/fog_hidden_from_visible_set(list/visible, list/targets)
-	. = list()
-	for(var/turf/tile as anything in targets)
-		if(!visible[tile])
-			. += tile
 
 #define FOG_NATIVE_MAX_RADIUS 32
 
@@ -406,7 +334,6 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 
 /datum/fog_view/proc/clear()
 	if(owner && length(tiles))
-
 		for(var/atom/tile as anything in tiles)
 			owner.images -= tiles[tile]
 	tiles.Cut()
@@ -437,7 +364,7 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 		return TRUE
 	var/turf/spot = cast_center()
 	if(!spot)
-		return FALSE
+		return !!center
 	if(spot != center || cast_radius() != radius)
 		return TRUE
 
@@ -452,6 +379,7 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 	var/turf/spot = cast_center()
 	if(!spot)
 		clear()
+		dirty = FALSE
 		return FALSE
 	var/new_radius = cast_radius()
 	if(dirty || spot != center || new_radius != radius || (SSfog_of_war?.max_age && world.time >= next_recast))
@@ -459,8 +387,7 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 		radius = new_radius
 		recast()
 		dirty = FALSE
-
-	next_recast = world.time + (SSfog_of_war?.max_age || 0)
+		next_recast = world.time + (SSfog_of_war?.max_age || 0)
 
 	if(!scene)
 		var/signature = frame_signature()
@@ -532,7 +459,7 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 		hung.plane = plane
 		hung.layer = FOG_OF_WAR_LAYER
 
-		hung.appearance_flags = RESET_COLOR | RESET_ALPHA
+		hung.appearance_flags = RESET_COLOR|RESET_ALPHA
 		hung.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 		return hung
 	var/atom/anchor = tile
@@ -554,7 +481,7 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 	var/image/fog = image(LIGHTING_ICON, anchor, "dark_lighting_object")
 	fog.plane = plane
 	fog.layer = FOG_OF_WAR_LAYER
-	fog.appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
+	fog.appearance_flags = RESET_COLOR|RESET_ALPHA|RESET_TRANSFORM
 	fog.pixel_x = pixel_x
 	fog.pixel_y = pixel_y
 	if(transform)
@@ -603,7 +530,6 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 	simulated = FALSE
 	vis_flags = VIS_HIDE
 
-#undef FOG_OF_WAR_BUILD
 #undef FOG_OF_WAR_PLANE
 #undef FOG_OF_WAR_LAYER
 #undef FOG_NATIVE_MAX_RADIUS

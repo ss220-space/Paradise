@@ -13,12 +13,14 @@
 	src.vessel = vessel
 	src.local_space = local_space
 	viewer_turf = locate(round(vessel.hull_center_x), round(vessel.hull_center_y), vessel.hull_z)
+	if(!local_space.orbital)
+		return
 	fog = new /datum/fog_scene/station(vessel)
 	addtimer(CALLBACK(src, PROC_REF(refresh_light_copies)), 1 SECONDS, TIMER_LOOP|TIMER_DELETE_ME)
 
 /datum/terrain_mirror/Destroy(force)
-	for(var/turf/shown as anything in tiles)
-		qdel(tiles[shown])
+	for(var/key in tiles)
+		qdel(tiles[key])
 	tiles.Cut()
 
 	QDEL_NULL(fog)
@@ -47,7 +49,7 @@
 	fog.client_eyes = SSovermap.client_eyes
 	fog.refresh()
 
-/datum/terrain_mirror/proc/update(elapsed)
+/datum/terrain_mirror/proc/update(elapsed, list/viewports = SSovermap.frame_viewports(vessel))
 	var/list/spot = local_space.to_bubble(vessel.get_world_x(), vessel.get_world_y())
 	var/facing = vessel.get_facing()
 	var/ship_moved = spot[1] != last_x || spot[2] != last_y
@@ -62,7 +64,6 @@
 	var/radius = mirror_radius()
 	var/cos_facing = cos(facing)
 	var/sin_facing = sin(facing)
-	var/list/viewports = SSovermap.frame_viewports(vessel)
 	var/center_x = round(spot[1], 1)
 	var/center_y = round(spot[2], 1)
 	var/list/wanted = list()

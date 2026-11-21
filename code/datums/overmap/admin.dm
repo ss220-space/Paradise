@@ -32,7 +32,7 @@
 	return ..()
 
 /datum/overmap_admin_panel/ui_state(mob/user)
-	return ADMIN_STATE(R_ADMIN | R_EVENT)
+	return ADMIN_STATE(R_ADMIN|R_EVENT)
 
 /datum/overmap_admin_panel/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -67,8 +67,7 @@
 		data["suggest_sector"] = hint_sector.id
 	data["faction_comms_keys"] = SSovermap?.faction_comms_keys
 	data["observation_comms_key"] = SSovermap?.observation_comms_key
-	data["iff_centcom"] = SSovermap?.iff_key_centcom
-	data["iff_syndicate"] = SSovermap?.iff_key_syndicate
+	data["faction_iff_keys"] = SSovermap?.faction_iff_keys
 	data["transponders"] = serialize_transponders()
 	data["comms"] = serialize_comms()
 	data["sectors"] = serialize_sectors()
@@ -212,21 +211,18 @@
 
 /datum/overmap_admin_panel/proc/serialize_hazard_types()
 	. = list()
-	var/obj/overmap/feature/hazard/base_hazard = /obj/overmap/feature/hazard
-	. += list(list("path" = "/obj/overmap/feature/hazard", "name" = initial(base_hazard.name)))
-	for(var/path in subtypesof(/obj/overmap/feature/hazard))
-		var/obj/overmap/feature/hazard/sample = path
-		. += list(list("path" = "[path]", "name" = initial(sample.name)))
+	for(var/obj/overmap/feature/hazard/hazard_type as anything in typesof(/obj/overmap/feature/hazard))
+		. += list(list("path" = "[hazard_type]", "name" = initial(hazard_type.name)))
 
 /datum/overmap_admin_panel/proc/serialize_spawn_types()
 	. = list()
-	. += list(list("path" = "/obj/overmap/feature", "name" = "Сигнатура / точка", "group" = "token"))
-	. += list(list("path" = "/obj/overmap/feature/hazard", "name" = "Угроза (базовая)", "group" = "hazard"))
+	. += list(list("path" = "[/obj/overmap/feature]", "name" = "Сигнатура / точка", "group" = "token"))
+	. += list(list("path" = "[/obj/overmap/feature/hazard]", "name" = "Угроза (базовая)", "group" = "hazard"))
 	for(var/path in subtypesof(/obj/overmap/feature/hazard))
 		var/obj/overmap/feature/hazard/sample = path
 		. += list(list("path" = "[path]", "name" = initial(sample.name), "group" = "hazard"))
-	. += list(list("path" = "/obj/overmap/portal", "name" = "Варп-портал", "group" = "portal"))
-	. += list(list("path" = "/obj/overmap/entity/feature/ruin", "name" = "Руина (физическая)", "group" = "ruin"))
+	. += list(list("path" = "[/obj/overmap/portal]", "name" = "Варп-портал", "group" = "portal"))
+	. += list(list("path" = "[/obj/overmap/entity/feature/ruin]", "name" = "Руина (физическая)", "group" = "ruin"))
 
 /datum/overmap_admin_panel/proc/serialize_templates()
 	. = list()
@@ -251,7 +247,7 @@
 		for(var/datum/overmap_iff_channel/channel as anything in beacon.iff_channels)
 			channels += list(list(
 				"id" = channel.id,
-				"label" = channel.label,
+				"label" = overmap_iff_label_for_id(channel.id),
 				"permanent" = channel.permanent,
 				"receive" = channel.receive,
 				"transmit" = channel.transmit,
@@ -534,10 +530,10 @@
 				if("structure_ai")
 					vessel.set_stationary_ai(truthy(value))
 				if("structure_faction")
-					if(!(value in list("neutral", "nt", "syndicate", "erw")))
+					if(!SSovermap.is_ship_faction(value))
 						return
 					vessel.structure_faction = value
-					vessel.map_color = GLOB.overmap_faction_colors[value] || vessel.map_color
+					vessel.map_color = SSovermap.faction_color(value)
 					vessel.identity_color = vessel.map_color
 					if(vessel.ship_ai)
 						vessel.ship_ai.faction = value
@@ -574,8 +570,8 @@
 	log_admin("[key_name(user)] set overmap [token] field [field] = [value]")
 
 /datum/overmap_admin_panel/proc/admin_teleport_token(obj/overmap/token, sector_id, coord_x, coord_y, mob/user)
-	var/datum/overmap_sector/sector = SSovermap?.sectors[sector_id]
-	if(!sector)
+	var/datum/overmap_sector/sector = istext(sector_id) ? SSovermap?.sectors[sector_id] : null
+	if(QDELETED(sector))
 		to_chat(user, span_warning("Сектор не найден."), confidential = TRUE)
 		return
 	var/turf/spot = sector.get_turf_at(coord_x, coord_y)
@@ -583,11 +579,18 @@
 		to_chat(user, span_warning("Клетка недоступна."), confidential = TRUE)
 		return
 	var/obj/overmap/entity/vessel = token
-	if(istype(vessel) && vessel.docked_to)
-		vessel.release_to_overmap(spot)
-	token.sector?.remove_object(token)
+	if(istype(vessel))
+		if(vessel.is_jumping() || vessel.relay_capture)
+			to_chat(user, span_warning("Дождитесь завершения перехода через гипертранслятор."), confidential = TRUE)
+			return
+		if(vessel.docked_to)
+			vessel.release_to_overmap(spot)
 	sector.add_object(token, spot)
 	token.position = list(0, 0)
+	if(istype(vessel))
+		vessel.remember_pose()
+		SSovermap.projectile_poses -= vessel
+		vessel.radar_epoch++
 	token.update_overmap_pixel()
 	SEND_SIGNAL(token, COMSIG_OVERMAP_MOVED)
 	log_admin("[key_name(user)] moved overmap [token] to [sector.id] [coord_x]:[coord_y].")
@@ -632,17 +635,17 @@
 	log_admin("[key_name(user)] loaded overmap dump ([added]) into [console] / [console.vessel].")
 
 /datum/overmap_admin_panel/proc/upload_dmm_from_user(mob/user, for_ai = FALSE)
-	if(!user?.client || !check_rights_for(user.client, R_ADMIN | R_EVENT))
+	if(!user?.client || !check_rights_for(user.client, R_ADMIN|R_EVENT))
 		return
 	var/uploaded = input(user, "Выберите .dmm файл", "Загрузка DMM") as null|file
-	if(!uploaded || QDELETED(src) || !user?.client || !check_rights_for(user.client, R_ADMIN | R_EVENT))
+	if(!uploaded || QDELETED(src) || !user?.client || !check_rights_for(user.client, R_ADMIN|R_EVENT))
 		return
 	var/datum/map_template/template = new /datum/map_template(map = uploaded, rename = "[uploaded]")
 	var/bounds = GLOB.maploader.load_map(uploaded, 1, 1, 1, shouldCropMap = FALSE, measureOnly = TRUE)
 	if(bounds)
 		template.width = bounds[MAP_MAXX]
 		template.height = bounds[MAP_MAXY]
-	if(QDELETED(src) || !user?.client || !check_rights_for(user.client, R_ADMIN | R_EVENT))
+	if(QDELETED(src) || !user?.client || !check_rights_for(user.client, R_ADMIN|R_EVENT))
 		qdel(template)
 		return
 	if(for_ai)
@@ -882,7 +885,7 @@
 	return ..()
 
 /datum/click_intercept/overmap_dump/InterceptClickOn(mob/user, params, atom/object)
-	if(!user?.client || !check_rights_for(user.client, R_ADMIN | R_EVENT))
+	if(!user?.client || !check_rights_for(user.client, R_ADMIN|R_EVENT))
 		quit()
 		return TRUE
 	var/obj/machinery/computer/sensors/console = object

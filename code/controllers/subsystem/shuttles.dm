@@ -146,9 +146,11 @@ SUBSYSTEM_DEF(shuttle)
 				break
 
 /datum/controller/subsystem/shuttle/proc/getShuttle(id)
-	. = assoc_mobile[id]
-	if(.)
-		return
+	var/obj/docking_port/mobile/cached = assoc_mobile[id]
+	if(!QDELETED(cached) && cached.id == id)
+		return cached
+	if(cached)
+		assoc_mobile -= id
 	for(var/obj/docking_port/mobile/M as anything in mobile)
 		if(M.id == id)
 			assoc_mobile[id] = M
@@ -156,9 +158,11 @@ SUBSYSTEM_DEF(shuttle)
 	WARNING("couldn't find shuttle with id: [id]")
 
 /datum/controller/subsystem/shuttle/proc/getDock(id, warn = TRUE)
-	. = assoc_stationary[id]
-	if(.)
-		return
+	var/obj/docking_port/stationary/cached = assoc_stationary[id]
+	if(!QDELETED(cached) && cached.id == id)
+		return cached
+	if(cached)
+		assoc_stationary -= id
 	for(var/obj/docking_port/stationary/S as anything in stationary)
 		if(S.id == id)
 			assoc_stationary[id] = S

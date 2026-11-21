@@ -39,20 +39,11 @@
 	return !is_in_own_pocket() && !is_undocking()
 
 /datum/component/overmap_pod/proc/release_pocket()
-	if(pocket && !QDELETED(pocket))
-		if(pocket_area && length(pocket.reserved_turfs))
-			var/area/world_area = GLOB.areas_by_type[world.area]
-			var/turf/first = pocket.reserved_turfs[1]
-			LISTASSERTLEN(world_area.turfs_by_zlevel, first.z, list())
-			LISTASSERTLEN(world_area.turfs_to_uncontain_by_zlevel, first.z, list())
-			world_area.turfs_to_uncontain_by_zlevel[first.z] -= pocket.reserved_turfs
-			world_area.contents += pocket.reserved_turfs
-			world_area.turfs_by_zlevel[first.z] |= pocket.reserved_turfs
-			pocket_area.turfs_by_zlevel[first.z] -= pocket.reserved_turfs
-		pocket.Release()
+	overmap_release_area(pocket_area)
+	pocket_area = null
+	if(pocket)
 		SSovermap.flight_reservations -= pocket
-	pocket = null
-	QDEL_NULL(pocket_area)
+		QDEL_NULL(pocket)
 
 /datum/component/overmap_pod/proc/can_undock_here()
 	var/obj/spacepod/craft = pod()
@@ -84,15 +75,26 @@
 	if(!origin || !host || !host.sector)
 		return FALSE
 	var/list/point
+	var/datum/overmap_bubble/planet_surface/surface
+	var/obj/overmap/entity/planet = host.dock_host?.planet_landing ? host : host.docked_to
+	var/list/ground
 	var/heading = dir2angle(craft.dir)
 	if(host.free_flight_view)
 		point = host.hull_to_world(origin.x + 0.5, origin.y + 0.5)
 		heading += host.get_facing()
+		if(host.atmosphere)
+			surface = host.atmosphere.surface
+			ground = host.atmosphere.hull_to_surface(origin.x + 0.5, origin.y + 0.5)
+	else if(planet?.dock_host?.planet_landing)
+		surface = planet.dock_host.planet_surface(origin.z)
+		if(!surface)
+			return FALSE
+		ground = list(origin.x + 0.5, origin.y + 0.5)
 	else
 		var/datum/overmap_bubble/space = SSovermap.bubble_for_turf(origin) || SSovermap.ensure_host_space(host)
 		if(space && space.bubble_z == origin.z)
 			point = space.to_world(origin.x + 0.5, origin.y + 0.5)
-		else if(!host.project_terrain || host.dock_host?.planet_landing)
+		else if(!host.project_terrain)
 			point = list(host.get_world_x(), host.get_world_y())
 		else
 			return FALSE
@@ -112,7 +114,11 @@
 	craft.vis_flags = (craft.vis_flags & ~VIS_INHERIT_ID) | VIS_INHERIT_PLANE
 	token.nest_inside(host)
 	token.speed = host.speed.Copy()
+	if(surface)
+		point = list(surface.host.get_world_x(), surface.host.get_world_y())
 	token.release_to_overmap(host.get_overmap_turf(), point, heading)
+	if(surface)
+		token.enter_atmosphere(surface.host, surface.bubble_z, ground[1], ground[2], TRUE)
 	token.status = OVERMAP_STATUS_OVERMAP
 	token.halted = FALSE
 	token.hidden_from_contacts = FALSE
@@ -130,19 +136,29 @@
 	var/obj/overmap/entity/pod/token = parent
 	if(!token.in_free_flight())
 		return null
+	if(token.atmosphere)
+		if(!token.atmosphere.cruising() || !OVERMAP_SPEED_STOPPED(token.get_speed()))
+			return null
+		var/list/center = token.local_space.to_bubble(token.get_world_x(), token.get_world_y())
+		var/turf/ground = locate(FLOOR(center[1], 1), FLOOR(center[2], 1), token.local_space.bubble_z)
+		if(overmap_pod_exposed(ground) && overmap_pod_2x2_landable(ground))
+			return list(ground, token.local_space.host)
+		return null
+	if(token.can_approach_planet())
+		return null
 	for(var/obj/overmap/entity/host as anything in SSovermap.flying_vessels)
-		if(host == token || host.overmap_pod || host.sector != token.sector)
+		if(host == token || host.atmosphere || host.overmap_pod || host.sector != token.sector)
 			continue
 		var/list/spot = host.world_to_hull(token.get_world_x(), token.get_world_y())
 		var/turf/dest = locate(round(spot[1]), round(spot[2]), host.hull_z)
-		if(!host.hull_turfs[dest] || token.relative_speed(host) * (1 SECONDS) > 1)
+		if(!dest || !host.hull_turfs?[dest] || token.relative_speed(host) * (1 SECONDS) > 1)
 			continue
 		if(overmap_pod_2x2_landable(dest) && overmap_pod_supported_by(dest, host))
 			return list(dest, host)
 	var/datum/overmap_bubble/space = token.local_space
 	var/obj/overmap/entity/host = token.get_dock_host()
 	if(host && (!host.project_terrain || host.dock_host?.planet_landing) && OVERMAP_SPEED_STOPPED(token.get_speed()))
-		for(var/obj/docking_port/stationary/overmap/landing/pad as anything in host_landing_pads(host))
+		for(var/obj/docking_port/stationary/pad as anything in host_landing_pads(host))
 			if(token.selected_dock_id && token.selected_dock_id != pad.id)
 				continue
 			var/turf/pad_turf = overmap_pick_pod_beacon_turf(pad)
@@ -168,14 +184,16 @@
 	var/obj/overmap/entity/host = token.get_dock_host()
 	if(!host || (host.project_terrain && !host.dock_host?.planet_landing))
 		return
-	for(var/obj/docking_port/stationary/overmap/landing/pad as anything in host_landing_pads(host))
+	for(var/obj/docking_port/stationary/pad as anything in host_landing_pads(host))
 		. += list(list("id" = pad.id, "name" = pad.overmap_dock_label || pad.name, "can_dock" = !!overmap_pick_pod_beacon_turf(pad), "selected" = token.selected_dock_id == pad.id))
 
 /datum/component/overmap_pod/proc/host_landing_pads(obj/overmap/entity/host)
 	. = list()
 	var/obj/overmap/entity/pod/token = parent
-	for(var/obj/docking_port/stationary/overmap/landing/pad as anything in SSshuttle.stationary)
-		if(!QDELETED(pad) && token.pad_matches_host(pad, host))
+	for(var/obj/docking_port/stationary/pad as anything in SSshuttle.stationary)
+		if(QDELETED(pad) || pad.hidden || (!istype(pad, /obj/docking_port/stationary/overmap/landing) && !(locate(/obj/machinery/landing_beacon) in pad.loc)))
+			continue
+		if(token.pad_matches_host(pad, host))
 			. += pad
 
 /datum/component/overmap_pod/proc/set_selected_pad(pad_id)
@@ -190,7 +208,31 @@
 	var/list/target = landing_target()
 	if(!target)
 		return "Подведите аппарат к свободному полу или решётке и погасите относительную скорость."
+	var/obj/overmap/entity/pod/token = parent
+	if(token.atmosphere)
+		return prepare_approach(target[1])
 	return land_at(target[1], target[2])
+
+/datum/component/overmap_pod/proc/prepare_approach(turf/ground, obj/docking_port/stationary/pad, list/point)
+	var/obj/overmap/entity/pod/token = parent
+	if(!ground || !token.in_free_flight() || token.docking_approach?.aligning || (token.atmosphere && !token.atmosphere.cruising()))
+		return FALSE
+	var/datum/overmap_docking_approach/approach = new(token, FALSE)
+	approach.space = token.atmosphere?.surface
+	if(approach.space)
+		point = approach.space.to_world(ground.x + 0.5, ground.y + 0.5)
+	approach.pod_landing = ground
+	approach.pad = pad
+	approach.target_x = point[1]
+	approach.target_y = point[2]
+	approach.target_facing = SIMPLIFY_DEGREES(round(token.get_facing() / 90) * 90)
+	if(!approach.available())
+		qdel(approach)
+		return FALSE
+	QDEL_NULL(token.docking_approach)
+	token.docking_approach = approach
+	token.radar_docks_until = 0
+	return TRUE
 
 /datum/component/overmap_pod/proc/land_at(turf/dest, obj/overmap/entity/host)
 	var/obj/overmap/entity/pod/token = parent
@@ -284,20 +326,14 @@
 			return spot
 	return null
 
+/proc/overmap_pod_exposed(turf/spot)
+	return overmap_exposed_surface(spot) && overmap_exposed_surface(get_step(spot, EAST)) && overmap_exposed_surface(get_step(spot, NORTH)) && overmap_exposed_surface(get_step(spot, NORTHEAST))
+
 /proc/overmap_pod_2x2_landable(turf/spot)
 	return overmap_pod_tile_landable(spot) && overmap_pod_tile_landable(get_step(spot, EAST)) && overmap_pod_tile_landable(get_step(spot, NORTH)) && overmap_pod_tile_landable(get_step(spot, NORTHEAST))
 
 /proc/overmap_pod_supported_by(turf/spot, obj/overmap/entity/host)
 	for(var/direction in list(NONE, EAST, NORTH, NORTHEAST))
 		if(!host.hull_turfs[get_step(spot, direction)])
-			return FALSE
-	return TRUE
-
-/proc/overmap_pod_2x2_free(turf/spot)
-	if(!spot)
-		return FALSE
-	for(var/direction in list(NONE, EAST, NORTH, NORTHEAST))
-		var/turf/tile = get_step(spot, direction)
-		if(!isspaceturf(tile) || is_hyperspace_turf(tile) || tile.is_blocked_turf())
 			return FALSE
 	return TRUE

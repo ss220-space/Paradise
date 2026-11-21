@@ -249,7 +249,8 @@ SUBSYSTEM_DEF(mapping)
 	// Cache for sonic speed
 	var/list/unused_turfs = src.unused_turfs
 	var/area/world_area = GLOB.areas_by_type[world.area]
-	var/list/world_turf_contents_by_z = world_area.turfs_by_zlevel
+	var/current_z = 0
+	var/list/world_turfs
 	var/list/lists_to_reserve = src.lists_to_reserve
 	var/index = 0
 	while(index < length(lists_to_reserve))
@@ -262,15 +263,19 @@ SUBSYSTEM_DEF(mapping)
 				return
 			var/turf/reserving_turf = packet[packetlen]
 			reserving_turf.empty(istype(reserving_turf, /turf/space/basic) ? null : RESERVED_TURF_TYPE, null, TRUE)
+			if(current_z != reserving_turf.z)
+				current_z = reserving_turf.z
+				LISTASSERTLEN(world_area.turfs_by_zlevel, current_z, list())
+				world_turfs = world_area.get_turfs_by_zlevel(current_z)
 			LAZYINITLIST(unused_turfs["[reserving_turf.z]"])
 			unused_turfs["[reserving_turf.z]"] |= reserving_turf
 			var/area/old_area = reserving_turf.loc
 			if(old_area != world_area)
 				LISTASSERTLEN(old_area.turfs_to_uncontain_by_zlevel, reserving_turf.z, list())
 				old_area.turfs_to_uncontain_by_zlevel[reserving_turf.z] += reserving_turf
+				world_area.contents += reserving_turf
 			reserving_turf.turf_flags |= UNUSED_RESERVATION_TURF
-			LISTASSERTLEN(world_turf_contents_by_z, reserving_turf.z, list())
-			world_turf_contents_by_z[reserving_turf.z] |= reserving_turf
+			world_turfs |= reserving_turf
 			packet.len--
 			packetlen = length(packet)
 
@@ -322,24 +327,6 @@ SUBSYSTEM_DEF(mapping)
 	render_offset_blacklist = list()
 	critical_planes = list()
 	create_plane_offsets(0, 0)
-
-// Do not confuse with seedRuins()
-/datum/controller/subsystem/mapping/proc/handleRuins()
-	// load in extra levels of space ruins
-	var/load_zlevels_timer = start_watch()
-	log_startup_progress("Creating random space levels...")
-	var/num_extra_space = map_datum?.space_ruins_levels ? map_datum.space_ruins_levels : SPACE_RUINS_NUMBER
-	for(var/i in 1 to num_extra_space)
-		GLOB.space_manager.add_new_zlevel("Ruin Area #[i]", linkage = CROSSLINKED, traits = list(REACHABLE, SPAWN_RUINS))
-	log_startup_progress("Loaded random space levels in [stop_watch(load_zlevels_timer)]s.")
-
-	// Now spawn ruins, random budget between 20 and 30 for all zlevels combined.
-	// While this may seem like a high number, the amount of ruin Z levels can be anywhere between 3 and 7.
-	// Note that this budget is not split evenly accross all zlevels
-	log_startup_progress("Seeding ruins...")
-	var/seed_ruins_timer = start_watch()
-	seedRuins(levels_by_trait(SPAWN_RUINS), rand(20, 30), /area/space, GLOB.space_ruins_templates)
-	log_startup_progress("Successfully seeded ruins in [stop_watch(seed_ruins_timer)]s.")
 
 /datum/controller/subsystem/mapping/proc/create_landmarks(turf/place)
 	var/landmarks = list(
@@ -588,6 +575,11 @@ SUBSYSTEM_DEF(mapping)
 	noisy = TRUE,
 	max_z_level = null,
 )
+	if(z_reservation)
+		if(!isnum(z_reservation) || z_reservation != round(z_reservation) || !ISINRANGE(z_reservation, 1, world.maxz))
+			return null
+		if(!check_level_trait(z_reservation, RESERVED_LEVEL))
+			return null
 	UNTIL((!z_reservation || reservation_ready["[z_reservation]"]) && !clearing_reserved_turfs)
 	var/datum/turf_reservation/reserve = new reservation_type
 	if(!isnull(turf_type_override))
@@ -606,12 +598,8 @@ SUBSYSTEM_DEF(mapping)
 		initialize_reserved_level(new_reserved_z, noisy)
 		if(reserve.reserve(width, height, z_size, new_reserved_z))
 			return reserve
-	else
-		if(!check_level_trait(z_reservation, RESERVED_LEVEL))
-			return
-		else
-			if(reserve.reserve(width, height, z_size, z_reservation))
-				return reserve
+	else if(reserve.reserve(width, height, z_size, z_reservation))
+		return reserve
 	QDEL_NULL(reserve)
 
 //This is not for wiping reserved levels, use wipe_reservations() for that.

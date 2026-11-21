@@ -555,10 +555,10 @@
 /datum/config_entry/flag/disable_space_ruins
 
 /datum/config_entry/number/extra_space_ruin_levels_min
-	default = 4
+	default = 2
 
 /datum/config_entry/number/extra_space_ruin_levels_max
-	default = 8
+	default = 3
 
 /datum/config_entry/flag/ooc_allowed
 	default = TRUE

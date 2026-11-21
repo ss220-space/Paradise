@@ -1,8 +1,8 @@
 /obj/effect/overmap_warp_portal
 	name = "варп-портал"
-	desc = "TEMP123TEMP"
-	icon = 'icons/obj/stationobjs.dmi'
-	icon_state = "portal"
+	icon = 'icons/effects/alphacolors.dmi'
+	icon_state = "white"
+	color = COLOR_BLUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	resistance_flags = INDESTRUCTIBLE
 	var/obj/overmap/entity/hyperrelay/relay
@@ -57,6 +57,8 @@
 	return abs(crossing_x - hull_x) <= capture_radius ? fraction : null
 
 /obj/overmap/entity/proc/can_enter_relay(obj/overmap/entity/hyperrelay/relay)
+	if(atmosphere)
+		return FALSE
 	return movable && isturf(loc) && sector == relay?.sector && !QDELETED(relay?.paired) \
 		&& !is_jumping() && !is_overmap_jammed() && !docked_ship && !length(docked_guests) \
 		&& !docking_approach?.aligning && !is_physically_docked() \

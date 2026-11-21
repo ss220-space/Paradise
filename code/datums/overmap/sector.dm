@@ -14,7 +14,9 @@
 
 	var/list/hazard_clusters
 	var/hazard_spawn_weight = 0
-	var/list/galaxy_generation
+	var/asteroid_spawn_weight = 1
+	var/guaranteed_content_placed = FALSE
+	var/populated = FALSE
 	var/list/obj/overmap/objects = list()
 	var/area/overmap/map_area
 
@@ -140,8 +142,8 @@
 		return TRUE
 	if(locate(/obj/overmap) in open_turf)
 		return TRUE
-	for(var/obj/overmap/planet/planet as anything in objects)
-		if(istype(planet) && planet.covers_turf(open_turf))
+	for(var/obj/overmap/planet/planet in objects)
+		if(planet.covers_turf(open_turf))
 			return TRUE
 	return FALSE
 
@@ -161,13 +163,12 @@
 	var/high_y = origin_y + size - OVERMAP_EDGE - 1
 	var/list/candidates = list()
 	for(var/turf/open_turf as anything in block(locate(low_x, low_y, z_level), locate(high_x, high_y, z_level)))
-		if(turf_occupied(open_turf))
-			continue
-		if(avoid_planet?.covers_turf(open_turf))
-			continue
 		var/dist = max(abs(open_turf.x - anchor.x), abs(open_turf.y - anchor.y))
-		if(dist >= min_dist && dist <= max_dist)
-			candidates += open_turf
+		if(dist < min_dist || dist > max_dist)
+			continue
+		if(turf_occupied(open_turf) || avoid_planet?.covers_turf(open_turf))
+			continue
+		candidates += open_turf
 	if(length(candidates))
 		return pick(candidates)
 	return get_random_open_turf()
@@ -177,6 +178,10 @@
 	var/low_y = origin_y + OVERMAP_EDGE
 	var/high_x = origin_x + size - OVERMAP_EDGE - 1
 	var/high_y = origin_y + size - OVERMAP_EDGE - 1
+	for(var/attempt in 1 to 8)
+		var/turf/candidate = locate(rand(low_x, high_x), rand(low_y, high_y), z_level)
+		if(!turf_occupied(candidate))
+			return candidate
 	var/list/candidates = list()
 	for(var/turf/open_turf as anything in block(locate(low_x, low_y, z_level), locate(high_x, high_y, z_level)))
 		if(turf_occupied(open_turf))
@@ -193,12 +198,10 @@
 	var/high_y = origin_y + size - OVERMAP_EDGE - 1
 	var/list/candidates = list()
 	for(var/turf/open_turf as anything in block(locate(low_x, low_y, z_level), locate(high_x, high_y, z_level)))
-		if(turf_occupied(open_turf))
-			continue
-		if(locate(/obj/overmap/entity/hyperrelay) in range(1, open_turf))
-			continue
 		var/edge_dist = min(open_turf.x - low_x, high_x - open_turf.x, open_turf.y - low_y, high_y - open_turf.y)
 		if(edge_dist < min_inset || edge_dist > max_inset)
+			continue
+		if(turf_occupied(open_turf) || (locate(/obj/overmap/entity/hyperrelay) in range(1, open_turf)))
 			continue
 		candidates += open_turf
 	if(length(candidates))
@@ -227,18 +230,23 @@
 	return best || start
 
 /datum/overmap_sector/proc/add_object(obj/overmap/overmap_object, turf/target)
+	var/changing_sector = overmap_object.sector != src
+	if(changing_sector)
+		overmap_object.sector?.remove_object(overmap_object)
 	if(istype(overmap_object, /obj/overmap/feature/hazard))
 		hazard_clusters = null
 		hazard_shapes = null
-	if(istype(overmap_object, /obj/overmap/entity) && overmap_object.sector != src)
-		var/obj/overmap/entity/vessel = overmap_object
-		vessel.sector_visit++
 	overmap_object.sector = src
 	objects |= overmap_object
-	if(target)
+	if(target && overmap_object.loc != target)
 		overmap_object.forceMove(target)
 	if(istype(overmap_object, /obj/overmap/entity))
 		var/obj/overmap/entity/token = overmap_object
+		if(changing_sector)
+			token.sector_visit++
+			for(var/obj/overmap/entity/guest in token)
+				if(guest.docked_to == token)
+					add_object(guest)
 		SSovermap?.ensure_host_space(token)
 
 /datum/overmap_sector/proc/remove_object(obj/overmap/overmap_object)
@@ -252,18 +260,53 @@
 /datum/overmap_sector/proc/get_map_turfs()
 	return block(locate_local(1, 1), locate_local(size, size))
 
-/datum/overmap_sector/proc/populate_roundstart()
+/datum/overmap_sector/proc/place_guaranteed_content()
+	if(guaranteed_content_placed)
+		return
+	guaranteed_content_placed = TRUE
+	var/static/list/spawns_by_sector = list(
+		OVERMAP_SECTOR_ID_SERVICE = valid_subtypesof(/obj/overmap/entity/service_site),
+	)
+	var/list/paths = spawns_by_sector[id]
+	if(!length(paths))
+		return
+	for(var/spawn_type in shuffle(paths))
+		if(!place_guaranteed_spawn(spawn_type))
+			log_world("Overmap: could not place guaranteed [spawn_type] in [id].")
+
+/datum/overmap_sector/proc/place_guaranteed_spawn(spawn_type)
+	if(ispath(spawn_type, /datum/map_template/ruin/space))
+		var/datum/map_template/ruin/space/ruin_type = spawn_type
+		var/datum/map_template/ruin/space/ruin = GLOB.space_ruins_templates[initial(ruin_type.name)]
+		return ruin && SSovermap.place_overmap_ruin_site(src, ruin, ruin.overmap_size == OVERMAP_RUIN_SIZE_LARGE)
+	if(!ispath(spawn_type, /obj/overmap))
+		return FALSE
+	var/turf/spot = get_random_open_turf()
+	if(turf_occupied(spot))
+		return FALSE
+	var/obj/overmap/placed = new spawn_type(spot)
+	if(QDELETED(placed))
+		return FALSE
+	add_object(placed, spot)
+	return TRUE
+
+/datum/overmap_sector/proc/populate(list/generation)
+	if(populated)
+		return
+	populated = TRUE
+	place_guaranteed_content()
+	if(sector_kind == OVERMAP_SECTOR_KIND_WILDERNESS && generation?["fleet_chance"] > 0)
+		spawn_patrols(generation["fleet_chance"])
 	if(can_spawn_static_hazards())
-		spawn_static_overmap_hazards(src)
-	SSovermap.spawn_overmap_ruins(src)
+		spawn_static_overmap_hazards(src, generation)
+	for(var/list/group as anything in overmap_hazard_clusters(src))
+		build_overmap_hazard_contours(src, group)
+		for(var/obj/overmap/feature/hazard/field as anything in group)
+			field.generate_scatter()
+		CHECK_TICK
 
 /datum/overmap_sector/proc/can_spawn_static_hazards()
 	return sector_kind != OVERMAP_SECTOR_KIND_SERVICE
-
-/datum/overmap_sector/station/populate_roundstart()
-	if(can_spawn_static_hazards())
-		spawn_static_overmap_hazards(src)
-	SSovermap.spawn_overmap_ruins(src)
 
 /datum/overmap_sector/station
 	id = OVERMAP_SECTOR_ID_STATION
@@ -275,16 +318,13 @@
 	id = OVERMAP_SECTOR_ID_SERVICE
 	name = "Дальний космос Эпсилон Лукусты"
 	sector_kind = OVERMAP_SECTOR_KIND_SERVICE
-	access_flags = OVERMAP_ACCESS_CENTCOM | OVERMAP_ACCESS_SYNDICATE
+	access_flags = OVERMAP_ACCESS_CENTCOM|OVERMAP_ACCESS_SYNDICATE
 
 /datum/overmap_sector/wilderness
 	sector_kind = OVERMAP_SECTOR_KIND_WILDERNESS
 	ruin_spawn_weight = 2
 	hazard_spawn_weight = 1
-
-/datum/overmap_sector/wilderness/populate_roundstart()
-	spawn_static_overmap_hazards(src)
-	SSovermap.spawn_overmap_ruins(src)
+	asteroid_spawn_weight = 1.2
 
 /datum/overmap_sector/wilderness/alpha
 	id = OVERMAP_SECTOR_ID_WILDERNESS_A

@@ -15,6 +15,12 @@ export type AIDiplomacyValue = {
   relations: AIRelation[];
 };
 
+export function shipFactionOptions(factions: Record<string, string> = {}) {
+  return Object.entries(factions)
+    .filter(([id]) => id !== 'unknown')
+    .map(([value, displayText]) => ({ value, displayText }));
+}
+
 export const AIDiplomacy = ({
   value,
   factions,

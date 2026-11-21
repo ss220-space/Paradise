@@ -9,29 +9,19 @@
 		return ship.structure_faction
 	if(ship.ship_ai?.faction == "neutral")
 		return "neutral"
-	if(deep_scan)
-		var/syndicate = FALSE
-		var/erw = FALSE
-		for(var/datum/overmap_iff_channel/channel as anything in ship.get_iff_channels())
-			if(channel.id == OVERMAP_IFF_CENTCOM)
-				return "nt"
-			if(channel.id == OVERMAP_IFF_SYNDICATE)
-				syndicate = TRUE
-			if(channel.id == OVERMAP_IFF_ERW)
-				erw = TRUE
-		return syndicate ? "syndicate" : erw ? "erw" : "unknown"
-	var/obj/machinery/transponder/beacon = ship.active_transponder()
-	if(ship.is_overmap_jammed() || (beacon && (beacon.stat & (NOPOWER|BROKEN))))
-		return "unknown"
-	var/nt = FALSE
-	var/erw = FALSE
+	if(!deep_scan)
+		var/obj/machinery/transponder/beacon = ship.active_transponder()
+		if(ship.is_overmap_jammed() || (beacon && (beacon.stat & (NOPOWER|BROKEN))))
+			return "unknown"
+	var/priority = deep_scan ? "nt" : "syndicate"
+	var/secondary = deep_scan ? "syndicate" : "nt"
+	var/detected
 	for(var/datum/overmap_iff_channel/channel as anything in ship.get_iff_channels())
-		if(!channel.transmit)
+		if(!deep_scan && !channel.transmit)
 			continue
-		if(channel.id == OVERMAP_IFF_SYNDICATE)
-			return "syndicate"
-		if(channel.id == OVERMAP_IFF_CENTCOM)
-			nt = TRUE
-		if(channel.id == OVERMAP_IFF_ERW)
-			erw = TRUE
-	return nt ? "nt" : erw ? "erw" : "unknown"
+		var/faction = SSovermap.iff_factions[channel.id]
+		if(faction == priority)
+			return faction
+		if(faction == secondary || !detected)
+			detected = faction
+	return detected || "unknown"

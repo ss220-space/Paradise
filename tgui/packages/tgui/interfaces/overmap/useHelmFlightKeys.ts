@@ -16,11 +16,22 @@ export const useHelmFlightKeys = (enabled: boolean) => {
   useEffect(() => {
     if (!enabled) return;
     const held = new Map<string, string>();
-    const command = (key: string, down: boolean) =>
-      Byond.command(`${down ? 'KeyDown' : 'KeyUp'} "${key}" 0 0 0 0`);
+    const sendFlightKeys = () => {
+      const keys = [...held.values()].filter((key) => key !== 'Shift');
+      Byond.command(`HelmInput "${Byond.windowId}" "${keys.join(',') || '-'}"`);
+    };
+    const changeKey = (key: string, down: boolean) => {
+      if (key === 'Shift') {
+        Byond.command(`${down ? 'KeyDown' : 'KeyUp'} "Shift" 0 0 0 0`);
+      } else {
+        sendFlightKeys();
+      }
+    };
     const release = () => {
-      for (const key of new Set(held.values())) command(key, false);
+      const keys = new Set(held.values());
       held.clear();
+      if (keys.delete('Shift')) changeKey('Shift', false);
+      if (keys.size) sendFlightKeys();
     };
     const keyEvent = (event: KeyboardEvent) => {
       const key = FLIGHT_KEYS[event.code];
@@ -28,7 +39,7 @@ export const useHelmFlightKeys = (enabled: boolean) => {
       const down = event.type === 'keydown';
       if (!down && held.has(event.code)) {
         held.delete(event.code);
-        if (![...held.values()].includes(key)) command(key, false);
+        if (![...held.values()].includes(key)) changeKey(key, false);
       } else {
         const typing =
           event.target instanceof Element &&
@@ -47,7 +58,7 @@ export const useHelmFlightKeys = (enabled: boolean) => {
         if (!held.has(event.code)) {
           const alreadyHeld = [...held.values()].includes(key);
           held.set(event.code, key);
-          if (!alreadyHeld) command(key, true);
+          if (!alreadyHeld) changeKey(key, true);
         }
       }
       event.preventDefault();

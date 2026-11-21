@@ -11,7 +11,6 @@
 		qdel(token)
 	token = null
 	parent_sector = null
-	SSovermap?.ruin_sites -= src
 	return ..()
 
 /datum/overmap_feature/proc/spawn_on(datum/overmap_sector/parent, coord_x, coord_y)
@@ -58,7 +57,6 @@
 	if(!parent)
 		return FALSE
 	parent_sector = parent
-	SSovermap?.ruin_sites |= src
 	var/placed = 0
 	for(var/quadrant in 1 to quadrants)
 		if(!(quadrant in enterable_quadrants))
@@ -93,7 +91,7 @@
 	var/quadrant = 1
 	var/size = OVERMAP_RUIN_REGION_SIZE
 	var/pad = OVERMAP_RUIN_REGION_PAD
-	var/datum/turf_reservation/space_reservation
+	var/datum/turf_reservation/overmap_ruin/space_reservation
 	var/space_origin_x = 1
 	var/space_origin_y = 1
 	var/space_z = 0
@@ -112,8 +110,10 @@
 	token = null
 	site = null
 	space_area?.region = null
+	overmap_release_area(space_area)
 	space_area = null
 	placed_ruins = null
+	space_reservation?.region = null
 	QDEL_NULL(space_reservation)
 	return ..()
 
@@ -126,6 +126,7 @@
 	if(!bottom_left)
 		qdel(src)
 		return FALSE
+	space_reservation.region = src
 	space_origin_x = bottom_left.x
 	space_origin_y = bottom_left.y
 	space_z = bottom_left.z

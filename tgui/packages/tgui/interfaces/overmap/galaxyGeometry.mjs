@@ -18,11 +18,15 @@ export const clamp = (value, low, high) => Math.min(high, Math.max(low, value));
 export const lineDash = (style) =>
   ({ dashed: '9 6', dotted: '2 5', 'dash-dot': '10 4 2 4' })[style];
 export const chartSystems = (chart) => chart.systems || chart.sectors || [];
-export const territoryStyle = (territory, factions = []) => ({
-  ...DEFAULT_STYLE,
-  ...factions.find((f) => f.id === territory.faction)?.style,
-  ...territory.style,
-});
+export function territoryStyle(territory, factions = []) {
+  const faction = factions.find((f) => f.id === territory.faction);
+  return {
+    ...DEFAULT_STYLE,
+    fill: faction?.color ?? DEFAULT_STYLE.fill,
+    ...faction?.style,
+    ...territory.style,
+  };
+}
 export function chartBounds(chart) {
   const points = [
     ...chartSystems(chart).map((s) => [s.x, s.y]),
@@ -109,7 +113,19 @@ export function niceStep(value) {
   const power = 10 ** Math.floor(Math.log10(Math.max(value, 0.0001)));
   return ([1, 2, 5, 10].find((v) => v * power >= value) || 10) * power;
 }
-export function validateGalaxy(doc) {
+export function includeDefaultFactions(chart, defaults) {
+  if (!chart || typeof chart !== 'object') return chart;
+  chart.factions ??= [];
+  if (Array.isArray(chart.factions)) {
+    const ids = new Set(chart.factions.map((entry) => entry?.id));
+    for (const faction of defaults) {
+      if (!ids.has(faction.id)) chart.factions.push({ ...faction });
+    }
+  }
+  return chart;
+}
+
+export function validateGalaxy(doc, defaults = []) {
   const errors = [];
   const fail = (path, text) => errors.push(`${path}: ${text}`);
   const number = (n, low, high) =>
@@ -128,8 +144,9 @@ export function validateGalaxy(doc) {
     fail('units', 'нужна строка до 64 символов');
   const ids = {};
   for (const key of ['systems', 'factions', 'territories', 'links', 'pois']) {
-    if (!Array.isArray(doc[key]) || doc[key].length > 256) {
-      fail(key, 'нужен массив, максимум 256 записей');
+    const limit = key === 'factions' ? 256 + defaults.length : 256;
+    if (!Array.isArray(doc[key]) || doc[key].length > limit) {
+      fail(key, `нужен массив, максимум ${limit} записей`);
       continue;
     }
     ids[key] = new Set();
@@ -213,10 +230,19 @@ export function validateGalaxy(doc) {
         Array.isArray(item.generation)
       )
         fail(item.id, 'неверные веса генерации');
-      else
-        for (const [key, value] of Object.entries(item.generation))
-          if (!GENERATION_KEYS.includes(key) || !number(value, 0, 5))
+      else {
+        for (const [key, value] of Object.entries(item.generation)) {
+          if (key === 'fleet_chance') {
+            if (!Number.isInteger(value) || !number(value, 0, 100))
+              fail(
+                item.id,
+                'шанс патруля должен быть целым числом от 0 до 100',
+              );
+          } else if (!GENERATION_KEYS.includes(key) || !number(value, 0, 5)) {
             fail(item.id, 'веса: от 0 до 5');
+          }
+        }
+      }
     }
   }
   for (const s of doc.systems) {
@@ -230,6 +256,8 @@ export function validateGalaxy(doc) {
       fail(s.id, 'неверное описание');
   }
   for (const f of doc.factions) {
+    if (f.id === 'neutral' || f.id === 'unknown')
+      fail(f.id, 'ID зарезервирован для контактов радара');
     if (!color(f.color)) fail(f.id, 'цвет: #RRGGBB');
     style(f.style || {}, f.id);
   }

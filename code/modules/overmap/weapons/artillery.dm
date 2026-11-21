@@ -24,7 +24,7 @@
 	QDEL_LIST(ship_parts)
 	return ..()
 
-/obj/machinery/bsa/full/ship/shuttleRotate(rotation, params = ROTATE_DIR | ROTATE_SMOOTH | ROTATE_OFFSET)
+/obj/machinery/bsa/full/ship/shuttleRotate(rotation, params = ROTATE_DIR|ROTATE_SMOOTH|ROTATE_OFFSET)
 	sprite_rotation = SIMPLIFY_DEGREES(sprite_rotation + rotation)
 	. = ..(rotation, params & ~ROTATE_OFFSET)
 	pixel_x = sprite_center_x * cos(sprite_rotation) + sprite_center_y * sin(sprite_rotation) - sprite_half_x

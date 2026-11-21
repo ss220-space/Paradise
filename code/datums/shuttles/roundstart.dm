@@ -2,7 +2,6 @@
 	name = "Roundstart ship template"
 	prefix = "_maps/map_files/shuttles/roundstart/"
 	port_id = "roundstart"
-	description = "TEMP123TEMP"
 
 /datum/map_template/shuttle/roundstart/get_map_path()
 	return "[prefix][suffix].dmm"

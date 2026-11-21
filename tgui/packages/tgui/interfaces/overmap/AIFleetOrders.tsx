@@ -49,15 +49,9 @@ const commands: Record<string, string> = {
   hold: 'Остановиться',
   auto: 'Отменить приказ · свободные действия',
 };
-const factions: Record<string, string> = {
-  erw: 'Eisenwehr Raumfahrtwerke',
-  neutral: 'Нейтральная',
-  nt: 'Нанотрейзен',
-  syndicate: 'Синдикат',
-};
-
 export const AIFleetOrders = () => {
   const { act, data } = useBackend<Data>();
+  const factions = data.ai?.faction_options || {};
   const fleets = data.ai?.fleets || [];
   const [fleetId, setFleetId] = useState('');
   const [command, setCommand] = useState('move');
@@ -117,7 +111,7 @@ export const AIFleetOrders = () => {
           <LabeledList.Item label="Дипломатия">
             <AIDiplomacy
               value={fleet}
-              factions={data.ai?.faction_options || {}}
+              factions={factions}
               contacts={data.ai?.relation_options || []}
               onChange={(value) =>
                 act('ai_diplomacy', { fleet: fleet.id, ...value })

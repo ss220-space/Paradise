@@ -94,9 +94,6 @@ export const HelmSpeedControl = (props: {
           <span className="HelmSpeed__minimum">0</span>
         </div>
       </div>
-      <div className="HelmKeys">
-        <kbd>ПРОБЕЛ</kbd> тормоз
-      </div>
     </div>
   );
 };

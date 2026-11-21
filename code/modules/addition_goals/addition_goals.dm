@@ -118,7 +118,7 @@ SUBSYSTEM_DEF(addition_goals)
 	return TRUE
 
 /// When dock shuttle to dock (signal handler)
-/datum/controller/subsystem/addition_goals/proc/on_shuttle_dock(datum/source, /obj/docking_port/mobile/shuttle, obj/docking_port/stationary/new_dock)
+/datum/controller/subsystem/addition_goals/proc/on_shuttle_dock(obj/docking_port/mobile/source, obj/docking_port/stationary/new_dock)
 	SIGNAL_HANDLER
 	if(goal_state == AGS_STATE_GOAL_PREPARE)
 		goal_state = AGS_STATE_GOAL_IN_PROGRESS

@@ -1,7 +1,7 @@
 /obj/overmap/entity/virtual_structure/observation_post
 	name = "observation post"
 	overmap_kind = OVERMAP_KIND_OTHER
-	desc = "TEMP123TEMP"
+	desc = "Пост наблюдения за сектором."
 	icon_state = "radio"
 	map_color = "#a0a0a0"
 	var/operational = TRUE
@@ -19,6 +19,13 @@
 		INSTRUMENTAL = "наблюдательным постом",
 		PREPOSITIONAL = "наблюдательном посте",
 	)
+
+/obj/overmap/entity/virtual_structure/observation_post/add_overmap_components()
+	AddComponent(/datum/component/overmap_sensors/observation_post)
+
+/datum/component/overmap_sensors/observation_post/has_working_sensor(kind)
+	var/obj/overmap/entity/virtual_structure/observation_post/post = parent
+	return kind == OVERMAP_SENSOR_KIND_LONG && post.template_loaded && post.operational
 
 /obj/overmap/entity/virtual_structure/observation_post/Initialize(mapload)
 	. = ..()
@@ -54,6 +61,7 @@
 	qdel(template)
 	loading_template = FALSE
 	if(template_loaded)
+		sensor_pack.set_long_sensors(TRUE)
 		GLOB.overmap_virtual_structures |= src
 	else
 		GLOB.overmap_virtual_structures -= src
@@ -84,6 +92,7 @@
 		destroyed_cells++
 		if(operational && destroyed_cells / max(1, length(virtual_cells)) >= 0.35)
 			operational = FALSE
+			sensor_pack.set_long_sensors(FALSE)
 			map_color = "#888888"
 			identity_color = map_color
 			radar_epoch++
@@ -97,7 +106,7 @@
 	if(ship.overmap_kind != OVERMAP_KIND_SHUTTLE)
 		return
 	var/list/identity = ship.traffic_identity()
-	var/affiliation = GLOB.overmap_ai_faction_options[identity["faction"]] || (identity["faction"] == "neutral" ? "нейтральная" : "не установлена")
+	var/affiliation = SSovermap.faction_options[identity["faction"]] || "не установлена"
 	var/route = arrived ? "прибыл из сектора '[from_sector?.name || "неизвестно"]'" : "убыл в сектор '[to_sector?.name || "неизвестно"]'"
 	var/body = "Контроль гиперпереходов: корабль класса [identity["class"]], фракция: [affiliation], номер: [identity["number"]], [route]."
 	sector.add_comms_message(new /datum/overmap_sector_message(body, SSovermap.observation_comms_key, "Наблюдательный пост", sector.id))

@@ -27,8 +27,8 @@
 		else
 			var/datum/overmap_docking_approach/approach = new(vessel)
 			approach.pad = pad
-			approach.space = host.physical_space
-			if(SSovermap.station_docking_zone?.accepts_pad(pad))
+			approach.space = vessel.atmosphere?.surface || host.physical_space
+			if(!host.dock_host?.planet_landing && SSovermap.station_docking_zone?.accepts_pad(pad))
 				approach.space = null
 				approach.target_x = SSovermap.station_docking_zone.get_world_x()
 				approach.target_y = SSovermap.station_docking_zone.get_world_y()
@@ -55,15 +55,26 @@
 	return TRUE
 
 /datum/overmap_programmed_mission/proc/continue_navigation()
+	var/obj/overmap/entity/host = resolved_dest_host()
+	if(host?.dock_host?.planet_landing && !vessel.atmosphere && vessel.get_dock_host() == host)
+		var/obj/docking_port/stationary/pad = SSshuttle.getDock(dock_id, warn = FALSE)
+		if(pad && vessel.enter_atmosphere(host, pad.z, pad.x, pad.y))
+			navigation_dock_prepared = FALSE
+			navigation_entry_box = null
+			navigation_entry_ready = TRUE
+			return
 	if(!navigation_dock_prepared && !prepare_navigation())
 		return
-	var/obj/overmap/entity/host = resolved_dest_host()
 	var/datum/overmap_docking_approach/approach = vessel.docking_approach
 	if(!approach || !host)
 		navigation_dock_prepared = FALSE
 		return
 	if(!approach.update_target())
 		navigation_dock_prepared = FALSE
+		return
+	if(vessel.atmosphere)
+		navigation_step = length(navigation_beacons) + 2
+		navigate_to(approach.target_x, approach.target_y, approach.target_facing, host)
 		return
 	var/world_x
 	var/world_y
@@ -157,6 +168,10 @@
 		qdel(src)
 		return
 	var/obj/overmap/entity/host = resolved_dest_host()
+	if(host?.dock_host?.planet_landing && !vessel.atmosphere)
+		phase = OVERMAP_PROG_FLY
+		continue_navigation()
+		return
 	if((vessel.docked_ship && vessel.docked_ship == host) || (host && host.docked_ship == vessel))
 		qdel(src)
 		return

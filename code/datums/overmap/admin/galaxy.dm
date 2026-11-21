@@ -1,5 +1,5 @@
 /datum/overmap_admin_panel/proc/galaxy_data()
-	var/list/data = list("preview" = SSovermap?.initialized && galaxy_preview ? SSovermap.galaxy_map(null) : null, "systems" = list(), "links" = list(), "pois" = SSovermap?.galaxy_layout?["pois"] || list())
+	var/list/data = list("preview" = SSovermap?.initialized && galaxy_preview ? SSovermap.galaxy_map(null) : null, "factions" = SSovermap?.galaxy_layout?["factions"] || list(), "systems" = list(), "links" = list(), "pois" = SSovermap?.galaxy_layout?["pois"] || list())
 	if(!SSovermap?.initialized)
 		return data
 	for(var/id, record in SSovermap.galaxy_systems)
@@ -30,7 +30,7 @@
 	return data
 
 /datum/overmap_admin_panel/proc/galaxy_action(action, list/params, mob/user)
-	if(!user?.client || !check_rights_for(user.client, R_ADMIN | R_EVENT) || !SSovermap?.initialized)
+	if(!user?.client || !check_rights_for(user.client, R_ADMIN|R_EVENT) || !SSovermap?.initialized)
 		return TRUE
 	if(!islist(SSovermap.galaxy_layout["pois"]))
 		SSovermap.galaxy_layout["pois"] = list()
@@ -40,6 +40,8 @@
 		switch(action)
 			if("galaxy_preview")
 				galaxy_preview = !galaxy_preview
+			if("galaxy_add_faction", "galaxy_edit_faction")
+				set_galaxy_faction(params, user, action == "galaxy_edit_faction")
 			if("galaxy_add_sector")
 				add_galaxy_sector(params, user)
 			if("galaxy_edit_sector")
@@ -102,15 +104,54 @@
 		used[entry["id"]] = TRUE
 	for(var/list/entry as anything in SSovermap.galaxy_layout["pois"])
 		used[entry["id"]] = TRUE
-	while(used[id])
+	while(used[id] || SSovermap.factions[id])
 		id = "[prefix]_[++index]"
 	return id
+
+/datum/overmap_admin_panel/proc/set_galaxy_faction(list/params, mob/user, editing)
+	var/faction_name = galaxy_label(params["name"])
+	var/new_color = galaxy_color(params["color"])
+	var/id = editing ? params["id"] : galaxy_id("faction")
+	var/list/entry = istext(id) ? SSovermap.factions[id] : null
+	if(editing && !entry)
+		throw EXCEPTION("Фракция не найдена.")
+	if(!editing && length(SSovermap.factions) >= 256 + length(default_overmap_factions()))
+		throw EXCEPTION("Достигнут предел в 256 пользовательских фракций.")
+	if(!editing || !cmptext(entry["name"], faction_name))
+		for(var/other in SSovermap.faction_options)
+			if(other != id && cmptext(SSovermap.faction_options[other], faction_name))
+				throw EXCEPTION("Это название уже занято.")
+	if(!editing)
+		entry = list("id" = id)
+		SSovermap.galaxy_layout["factions"] += list(entry)
+	var/old_color = entry["color"]
+	entry["name"] = faction_name
+	entry["color"] = new_color
+	SSovermap.register_faction(entry)
+	if(old_color && !cmptext(old_color, new_color))
+		for(var/obj/overmap/entity/ship as anything in SSovermap.vessels)
+			if(!cmptext(ship.identity_color, old_color) || ship.is_ai_destroyed())
+				continue
+			if((ship.structure_faction || ship.ship_ai?.faction || overmap_ai_faction(ship, TRUE)) == id)
+				ship.identity_color = new_color
+				ship.sync_transponder()
+	SSovermap.bump_galaxy()
+	galaxy_feedback = editing ? "Фракция обновлена." : "Фракция создана."
+	log_admin("[key_name(user)] [editing ? "edited" : "created"] overmap faction [id]: [faction_name] ([new_color]).")
+
+/datum/overmap_admin_panel/proc/galaxy_sector_faction(value)
+	if(!value)
+		return null
+	if(!istext(value) || !SSovermap.factions[value])
+		throw EXCEPTION("Фракция не найдена.")
+	return value
 
 /datum/overmap_admin_panel/proc/add_galaxy_sector(list/params, mob/user)
 	if(length(SSovermap.galaxy_systems) >= 256)
 		throw EXCEPTION("Достигнут предел: 256 секторов.")
-	var/list/entry = list("id" = galaxy_id("sector"), "name" = galaxy_label(params["name"]), "x" = galaxy_coordinate(params["x"]), "y" = galaxy_coordinate(params["y"]), "kind" = "wilderness", "description" = "TEMP123TEMP")
+	var/list/entry = list("id" = galaxy_id("sector"), "name" = galaxy_label(params["name"]), "x" = galaxy_coordinate(params["x"]), "y" = galaxy_coordinate(params["y"]), "kind" = "wilderness", "description" = "")
 	entry["marker"] = galaxy_marker(params["marker"])
+	entry["faction"] = galaxy_sector_faction(params["faction"])
 	for(var/id, record in SSovermap.galaxy_systems)
 		var/list/other = record
 		if(other["x"] == entry["x"] && other["y"] == entry["y"])
@@ -123,6 +164,8 @@
 	SSovermap.galaxy_systems[sector.id] = entry
 	SSovermap.galaxy_layout["systems"] += list(entry)
 	SSovermap.bump_galaxy()
+	SSovermap.spawn_overmap_ruins(list(sector))
+	sector.populate(entry["generation"])
 	galaxy_feedback = "Сектор создан: [sector.name]. Размер совпадает со станционным сектором."
 	log_admin("[key_name(user)] created galaxy sector [sector.id] at [entry["x"]], [entry["y"]].")
 
@@ -132,6 +175,7 @@
 		throw EXCEPTION("Выберите обычный сектор.")
 	var/new_name = galaxy_label(params["name"])
 	var/list/marker = galaxy_marker(params["marker"])
+	var/faction = ("faction" in params) ? galaxy_sector_faction(params["faction"]) : entry["faction"]
 	var/x = galaxy_coordinate(params["x"])
 	var/y = galaxy_coordinate(params["y"])
 	for(var/id, record in SSovermap.galaxy_systems)
@@ -141,6 +185,7 @@
 	if(entry["x"] != x || entry["y"] != y)
 		SSovermap.move_galaxy_system(entry, x, y)
 	entry["name"] = new_name
+	entry["faction"] = faction
 	entry["marker"] = marker
 	var/datum/overmap_sector/sector = SSovermap.sectors[entry["id"]]
 	sector.name = new_name
@@ -208,7 +253,7 @@
 /datum/overmap_admin_panel/proc/add_galaxy_poi(list/params, mob/user)
 	if(length(SSovermap.galaxy_layout["pois"]) >= 256)
 		throw EXCEPTION("Достигнут предел: 256 точек интереса.")
-	var/list/poi = list("id" = galaxy_id("poi"), "name" = galaxy_label(params["name"]), "x" = galaxy_coordinate(params["x"]), "y" = galaxy_coordinate(params["y"]), "kind" = "landmark", "color" = "#f2d681", "description" = "TEMP123TEMP")
+	var/list/poi = list("id" = galaxy_id("poi"), "name" = galaxy_label(params["name"]), "x" = galaxy_coordinate(params["x"]), "y" = galaxy_coordinate(params["y"]), "kind" = "landmark", "color" = "#f2d681", "description" = "")
 	poi["marker"] = galaxy_marker(params["marker"])
 	SSovermap.galaxy_layout["pois"] += list(poi)
 	SSovermap.bump_galaxy()

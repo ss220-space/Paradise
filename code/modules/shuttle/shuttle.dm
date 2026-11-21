@@ -320,6 +320,7 @@
 	var/mapped_dheight
 	var/shuttle_fit
 	var/transfer_busy = FALSE
+	var/list/landing_ground
 
 /obj/docking_port/mobile/Initialize(mapload)
 	. = ..()
@@ -391,6 +392,7 @@
 
 /obj/docking_port/mobile/Destroy(force)
 	if(force)
+		landing_ground = null
 		SSshuttle.mobile -= src
 		if(SSshuttle.assoc_mobile[id] == src)
 			SSshuttle.assoc_mobile -= id
@@ -407,11 +409,9 @@
 
 //this is a hook for custom behaviour. Maybe at some point we could add checks to see if engines are intact
 /obj/docking_port/mobile/proc/canMove()
-	return !has_collar_guests() //0 means we can move // FALSE should've mean YOU CAN'T MOVE WTF
+	return !(SEND_SIGNAL(src, COMSIG_SHUTTLE_SHOULD_MOVE) & BLOCK_SHUTTLE_MOVE) && !has_collar_guests()
 
 /obj/docking_port/mobile/proc/has_collar_guests()
-	if(length(SSovermap?.shuttle_vessels[src]?.docked_guests))
-		return TRUE
 	for(var/area/place as anything in shuttle_areas)
 		for(var/obj/machinery/door/airlock/external/docking/collar in place)
 			var/obj/docking_port/mobile/guest = collar.owns_overmap_pad ? collar.overmap_pad?.get_docked() : null
@@ -475,6 +475,11 @@
 	if(!newT || newT.x <= 1 || newT.y <= 1 || newT.x >= world.maxx || newT.y >= world.maxy)
 		return TRUE
 	var/obj/docking_port/stationary/overmap/landing/landing = S
+	if(istype(landing) && landing.temporary_stop)
+		if(landing.landing_bounds ? (isspaceturf(newT) || !overmap_exposed_surface(newT)) : !isspaceturf(newT))
+			return TRUE
+		if(newT.is_blocked_turf())
+			return TRUE
 	if(istype(landing) && landing.landing_bounds)
 		var/list/bounds = landing.landing_bounds
 		if(newT.x < bounds[1] || newT.y < bounds[2] || newT.x > bounds[3] || newT.y > bounds[4])

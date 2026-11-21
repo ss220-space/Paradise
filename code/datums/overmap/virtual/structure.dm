@@ -11,12 +11,13 @@
 	var/list/engines = list()
 	var/list/identity
 	var/list/weapons = list()
-	var/warp_portal = FALSE
 	var/mutable_appearance/warp_visual
+	var/list/portal_base_overlays
 
 /datum/overmap_virtual_model/Destroy()
 	visual = null
 	warp_visual = null
+	portal_base_overlays = null
 	identity = null
 	weapons = null
 	engines = null
@@ -34,9 +35,9 @@
 		var/path = text2path(path_text)
 		index = delimiter + 1
 		if(ispath(path, /obj/effect/overmap_warp_portal))
-			warp_portal = TRUE
 			visible = TRUE
-			warp_visual = mutable_appearance('icons/obj/stationobjs.dmi', "portal")
+			warp_visual = mutable_appearance(/obj/effect/overmap_warp_portal::icon, /obj/effect/overmap_warp_portal::icon_state)
+			warp_visual.color = /obj/effect/overmap_warp_portal::color
 			warp_visual.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 			warp_visual.layer = HIGH_OBJ_LAYER
 			continue

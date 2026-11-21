@@ -11,7 +11,7 @@
 	var/datum/overmap_sector/sector = frame_sector(owner)
 	var/obj/projectile/projectile = mover
 	for(var/obj/overmap/entity/pod/vessel as anything in flying_pods)
-		if(QDELETED(vessel) || !vessel.in_free_flight() || vessel.sector != sector || mover == vessel.pod)
+		if(QDELETED(vessel) || vessel.atmosphere || !vessel.in_free_flight() || vessel.sector != sector || mover == vessel.pod)
 			continue
 		if(istype(projectile) && (projectile.firer_source_atom == vessel.pod || (vessel.pod in projectile.permutated)))
 			continue
@@ -31,6 +31,7 @@
 		map_hull()
 		remember_pose()
 	else
+		QDEL_NULL(atmosphere)
 		clear_encounter_visuals()
 
 /obj/overmap/entity/pod/map_hull(keep_center = FALSE)
@@ -60,8 +61,12 @@
 /obj/overmap/entity/pod/solid_hull_at(world_x, world_y)
 	return hull_turf_at(world_x, world_y)
 
-/obj/overmap/entity/pod/can_radar_land()
-	return in_free_flight() && length(overmap_pod.build_dock_list()) > 0
+/obj/overmap/entity/pod/get_selected_pad()
+	var/list/pads = overmap_pod.host_landing_pads(get_dock_host())
+	for(var/obj/docking_port/stationary/pad as anything in pads)
+		if(pad.id == selected_dock_id)
+			return pad
+	return length(pads) ? pads[1] : null
 
 /obj/overmap/entity/pod/prepare_stop()
 	return overmap_pod?.begin_dock() == TRUE
@@ -156,6 +161,8 @@
 	return space
 
 /obj/overmap/entity/pod/eject_to_bubble(atom/movable/thing, turf/exit_turf)
+	if(atmosphere)
+		return atmosphere.drop_from_hull(thing, exit_turf)
 	var/obj/projectile/sector_shot = thing
 	if(istype(sector_shot) && sector_shot.overmap_persistent)
 		var/list/point = hull_to_world(exit_turf.x + (sector_shot.trajectory ? sector_shot.trajectory.return_px() / ICON_SIZE_X : 0), exit_turf.y + (sector_shot.trajectory ? sector_shot.trajectory.return_py() / ICON_SIZE_Y : 0))
@@ -187,6 +194,9 @@
 	return TRUE
 
 /obj/overmap/entity/pod/proc/fire_pod_projectile(obj/projectile/projectile, side, target_x, target_y)
+	if(atmosphere)
+		qdel(projectile)
+		return FALSE
 	var/list/point = hull_to_world(hull_center_x + side * 0.5, hull_center_y + 1.5)
 	var/heading = isnum(target_x) && isnum(target_y) ? delta_to_angle(target_x - point[1], target_y - point[2]) : get_facing()
 	if(!projectile.hitscan)
@@ -212,7 +222,7 @@
 	var/list/anchors = list(get_turf(src))
 	var/obj/overmap/entity/pod/vessel = overmap_vessel
 	if(vessel?.in_free_flight())
-		if(vessel.local_space)
+		if(vessel.local_space && !vessel.atmosphere)
 			var/list/spot = vessel.local_space.to_bubble(vessel.get_world_x(), vessel.get_world_y())
 			var/turf/anchor = locate(round(spot[1]), round(spot[2]), vessel.local_space.bubble_z)
 			if(anchor)

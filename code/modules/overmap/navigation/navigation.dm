@@ -25,4 +25,4 @@
 	return null
 
 /obj/overmap/entity/proc/navigation_collision_disabled()
-	return relay_capture || is_jumping() || flight?.navigation_ignore_collisions
+	return atmosphere || relay_capture || is_jumping() || flight?.navigation_ignore_collisions

@@ -30,7 +30,7 @@
 	return list(velocity[1] * OVERMAP_TILE_SPAN * (1 SECONDS), velocity[2] * OVERMAP_TILE_SPAN * (1 SECONDS))
 
 /datum/controller/subsystem/overmap/proc/launch_sector_projectile(obj/projectile/payload, datum/overmap_sector/sector, world_x, world_y, angle, obj/overmap/entity/source_vessel, inherit_velocity = TRUE)
-	if(QDELETED(payload) || !sector || payload.hitscan)
+	if(QDELETED(payload) || !sector || payload.hitscan || source_vessel?.atmosphere)
 		return FALSE
 	STOP_PROCESSING(SSprojectiles, payload)
 	payload.overmap_persistent = TRUE
@@ -117,6 +117,8 @@
 	return projectile_snapshots[sector?.id] || list()
 
 /obj/overmap/entity/proc/radar_projectiles()
+	if(atmosphere)
+		return list()
 	. = list()
 	if(!sector)
 		return

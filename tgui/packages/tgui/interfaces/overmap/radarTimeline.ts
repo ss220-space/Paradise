@@ -5,109 +5,125 @@ import {
   radarFrameStationary,
 } from './radarInterpolation';
 
-export class RadarTimeline {
-  private frames: { time: number; arrival: number; frame: RadarFrame }[];
-  private timing: { time: number; arrival: number }[];
-  private playhead: number;
-  private renderedAt: number;
-  private rate = 1;
-  private readonly prediction = 300;
+const CORRECTION_MS = 60;
+const MAX_PREDICTION_MS = 750;
+const CLOCK_WINDOW_MS = 1000;
 
-  constructor(
-    frame: RadarFrame,
-    arrival: number,
-    private readonly delay = 100,
-  ) {
-    const time = frame.tick ?? arrival;
-    this.frames = [{ frame, time, arrival }];
-    this.timing = [{ time, arrival }];
-    this.playhead = time - this.delay;
-    this.renderedAt = arrival;
+export class RadarTimeline {
+  private previous?: RadarFrame;
+  private latest: RadarFrame;
+  private arrivedAt: number;
+  private sampleAt: number;
+  private clockAt: number;
+  private clockTick?: number;
+  private rate = 1;
+  private interval = 0;
+  private moving = false;
+  private correction?: { from: RadarFrame; to: RadarFrame };
+
+  constructor(frame: RadarFrame, arrival: number) {
+    this.latest = frame;
+    this.sampleAt = this.arrivedAt = this.clockAt = arrival;
+    this.clockTick = frame.tick;
   }
 
   push(frame: RadarFrame, arrival: number) {
-    const last = this.frames[this.frames.length - 1];
-    const time = frame.tick ?? last.time + arrival - last.arrival;
-    if (time < last.time) return;
-    if (radarFrameDiscontinuous(last.frame, frame)) {
-      this.frames = [{ frame, time, arrival }];
-      this.timing = [{ time, arrival }];
-      this.playhead = time - this.delay;
-      this.renderedAt = arrival;
+    const elapsed = arrival - this.arrivedAt;
+    const timed = frame.tick !== undefined && this.latest.tick !== undefined;
+    const step = timed ? frame.tick! - this.latest.tick! : elapsed;
+    const discontinuous = radarFrameDiscontinuous(this.latest, frame);
+    if (
+      step < 0 &&
+      this.latest.epoch === frame.epoch &&
+      this.latest.sectorId === frame.sectorId
+    )
+      return;
+    if (
+      discontinuous ||
+      (step > 0 && (elapsed > CLOCK_WINDOW_MS || step > CLOCK_WINDOW_MS))
+    ) {
+      this.previous = undefined;
+      this.correction = undefined;
+      this.latest = frame;
+      this.sampleAt = this.arrivedAt = this.clockAt = arrival;
+      this.clockTick = frame.tick;
       this.rate = 1;
+      this.moving = false;
       return;
     }
-    if (time === last.time) {
-      last.frame = frame;
+    if (step === 0) {
+      this.latest = frame;
+      this.moving =
+        !!this.previous && !radarFrameStationary(this.previous, frame);
+      if (this.correction)
+        this.correction.to = this.predict(
+          this.arrivedAt - this.sampleAt + CORRECTION_MS,
+        );
       return;
     }
-    if (arrival - last.arrival > 2000) {
-      this.timing = [];
+
+    const displayed = this.at(arrival);
+    if (!this.previous || arrival - this.clockAt >= CLOCK_WINDOW_MS) {
+      if (frame.tick !== undefined && this.clockTick !== undefined) {
+        this.rate = Math.max(
+          0.1,
+          Math.min(2, (frame.tick - this.clockTick) / (arrival - this.clockAt)),
+        );
+      }
+      this.clockAt = arrival;
+      this.clockTick = frame.tick;
     }
-    this.timing.push({ time, arrival });
-    if (this.timing.length > 10) this.timing.shift();
-    const first = this.timing[0];
-    if (this.timing.length >= 4 && arrival > first.arrival) {
-      const measured = Math.max(
-        0.1,
-        Math.min(2, (time - first.time) / (arrival - first.arrival)),
-      );
-      this.rate += (measured - this.rate) * 0.2;
-    }
-    this.frames.push({ frame, time, arrival });
-    if (this.frames.length > 24) this.frames.shift();
+
+    this.interval = timed ? step / this.rate : elapsed;
+    const late =
+      this.previous && timed
+        ? Math.min(
+            this.interval / 2,
+            Math.max(0, arrival - this.sampleAt - this.interval),
+          )
+        : 0;
+    this.sampleAt = arrival - late;
+    this.previous = this.latest;
+    this.latest = frame;
+    this.arrivedAt = arrival;
+    this.moving = !radarFrameStationary(this.previous, frame);
+    this.correction =
+      !this.moving || radarFrameStationary(displayed, this.predict(late))
+        ? undefined
+        : { from: displayed, to: this.predict(late + CORRECTION_MS) };
   }
 
-  at(arrival: number) {
-    const last = this.frames[this.frames.length - 1];
-    const target = Math.min(
-      last.time + this.prediction,
-      last.time + (arrival - last.arrival) * this.rate - this.delay,
-    );
-    let elapsed = Math.max(0, arrival - this.renderedAt);
-    if (target - this.playhead > 500) {
-      this.playhead = target;
-      elapsed = 0;
-    }
-    const correction = Math.max(
-      0.1,
-      Math.min(1.3, 1 + (target - this.playhead) / 500),
-    );
-    this.playhead = Math.min(
-      this.delay === 0 ? target : last.time + this.prediction,
-      this.playhead + elapsed * this.rate * correction,
-    );
-    this.renderedAt = arrival;
-    while (this.frames.length > 2 && this.frames[1].time <= this.playhead)
-      this.frames.shift();
-    const first = this.frames[0];
-    if (this.playhead <= first.time) return first.frame;
-    if (this.playhead >= last.time) {
-      const previous = this.frames[this.frames.length - 2];
-      if (!previous || radarFrameStationary(previous.frame, last.frame))
-        return last.frame;
-      return interpolateRadarFrame(
-        previous.frame,
-        last.frame,
-        1 +
-          Math.min(this.prediction, this.playhead - last.time) /
-            Math.max(1, last.time - previous.time),
-        true,
-      );
-    }
-    const next = this.frames[1];
+  private predict(elapsed: number) {
+    if (!this.previous || !this.moving || elapsed <= 0) return this.latest;
+    const ahead = Math.min(elapsed, this.interval * 1.5, MAX_PREDICTION_MS);
     return interpolateRadarFrame(
-      first.frame,
-      next.frame,
-      (this.playhead - first.time) / (next.time - first.time),
+      this.previous,
+      this.latest,
+      1 + ahead / this.interval,
+      true,
     );
   }
 
-  pending(_arrival: number) {
-    const last = this.frames[this.frames.length - 1];
-    const previous = this.frames[this.frames.length - 2];
-    const moving =
-      previous && !radarFrameStationary(previous.frame, last.frame);
-    return this.playhead < last.time + (moving ? this.prediction : 0);
+  at(arrival: number, skipCorrection = false) {
+    const elapsed = Math.max(0, arrival - this.arrivedAt);
+    if (!skipCorrection && this.correction && elapsed < CORRECTION_MS) {
+      return interpolateRadarFrame(
+        this.correction.from,
+        this.correction.to,
+        elapsed / CORRECTION_MS,
+      );
+    }
+    this.correction = undefined;
+    return this.predict(arrival - this.sampleAt);
+  }
+
+  pending(arrival: number) {
+    const elapsed = arrival - this.arrivedAt;
+    return (
+      (!!this.correction && elapsed < CORRECTION_MS) ||
+      (this.moving &&
+        arrival - this.sampleAt <
+          Math.min(this.interval * 1.5, MAX_PREDICTION_MS))
+    );
   }
 }

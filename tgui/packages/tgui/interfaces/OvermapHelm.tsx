@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   Box,
   Button,
@@ -9,22 +9,21 @@ import {
 } from 'tgui-core/components';
 import { type BooleanLike, classes } from 'tgui-core/react';
 import { useBackend, useLocalState } from '../backend';
+import { HelmContacts, HelmWeapons } from './overmap/HelmControls';
+import { HelmHeading } from './overmap/HelmHeading';
+import {
+  HelmAutopilot,
+  type HelmSelection,
+  HelmTargetCard,
+  helmPointSelection,
+} from './overmap/HelmNavigation';
+import { HelmSpeedControl } from './overmap/HelmSpeedControl';
 import {
   OvermapFrame,
   OvermapRail,
   OvermapStat,
   OvermapStats,
 } from './overmap/OvermapChrome';
-import { HelmContacts, HelmWeapons } from './overmap/HelmControls';
-import { HelmSpeedControl } from './overmap/HelmSpeedControl';
-import { HelmHeading } from './overmap/HelmHeading';
-import { useHelmFlightKeys } from './overmap/useHelmFlightKeys';
-import {
-  HelmAutopilot,
-  helmPointSelection,
-  type HelmSelection,
-  HelmTargetCard,
-} from './overmap/HelmNavigation';
 import type { RadarPose } from './overmap/OvermapRadar';
 import {
   type GalaxyMap,
@@ -39,6 +38,8 @@ import {
   type RadarShape,
   type RadarTerrain,
 } from './overmap/OvermapRadar';
+import type { RadarDock } from './overmap/radarInterpolation';
+import { useHelmFlightKeys } from './overmap/useHelmFlightKeys';
 
 type OvermapObject = RadarObject & {
   nested?: BooleanLike;
@@ -80,17 +81,13 @@ export type OvermapHelmData = {
   radar_peels?: RadarPeel[];
   radar_scatter?: RadarScatterChunk[];
   linked: BooleanLike;
-  radar_docks?: { id: string; name: string; x: number; y: number }[];
+  radar_docks?: RadarDock[];
   dock_preview?: { x: number; y: number; facing: number; tiles: number[] };
-  docks?: {
-    id: string;
-    name: string;
-    can_dock: BooleanLike;
-    reason?: string;
-  }[];
   can_ship_undock?: BooleanLike;
   can_stop?: BooleanLike;
-  can_land?: BooleanLike;
+  can_approach_planet?: BooleanLike;
+  in_atmosphere?: BooleanLike;
+  changing_altitude?: BooleanLike;
   dock_ready?: BooleanLike;
   dock_in_range?: BooleanLike;
   dock_aligning?: BooleanLike;
@@ -188,6 +185,7 @@ export type OvermapHelmData = {
   objects: OvermapObject[];
   radar_poses?: RadarPose[];
   hazard_fields?: HazardField[];
+  radar_hazard_contours?: number[][][];
   programmed_locked?: BooleanLike;
   programmed_has_routes?: BooleanLike;
   programmed_busy?: BooleanLike;
@@ -263,12 +261,16 @@ export const OvermapHelm = () => {
   const { linked, programmed_locked } = data;
   useHelmFlightKeys(!!linked && !!data.piloting && !data.map_jammed);
   const [radius, setRadius] = useLocalState('helmRadarZoom', 160);
+  const radarFacing = useRef<((facing: number | null) => void) | null>(null);
+  const setRadarFacing = useCallback(
+    (facing: number | null) => radarFacing.current?.(facing),
+    [],
+  );
 
   const [followHeading, setFollowHeading] = useLocalState(
     'helmRadarFollow',
     false,
   );
-  const [landingPicker, setLandingPicker] = useState(false);
   const [selection, setSelection] = useState<HelmSelection | null>(null);
   useEffect(
     () => setSelection(null),
@@ -277,9 +279,6 @@ export const OvermapHelm = () => {
   useEffect(() => {
     act('helm_tab', { tab: 'flight' });
   }, []);
-  useEffect(() => {
-    if (!data.can_land) setLandingPicker(false);
-  }, [data.can_land]);
 
   return (
     <OvermapFrame
@@ -347,10 +346,9 @@ export const OvermapHelm = () => {
                 <RadarPanel
                   radius={radius}
                   onZoom={setRadius}
+                  onFacingChange={setRadarFacing}
                   followHeading={followHeading}
                   filter="all"
-                  landingPicker={landingPicker}
-                  onLandingPicker={setLandingPicker}
                   onSelect={setSelection}
                   selection={selection}
                 />
@@ -360,11 +358,6 @@ export const OvermapHelm = () => {
                 <div className="OvermapHelmBridge__maneuver OvermapHelmBridge__pilot">
                   <Section title="Управление" className="OvermapHelmBox">
                     <HelmPilotButton />
-                    <div className="OvermapHelmBridge__keys">
-                      <span>WASD · движение</span>
-                      <span>Q / E · поворот</span>
-                      <span>Пробел · тормоз</span>
-                    </div>
                   </Section>
                 </div>
                 <HelmWeapons />
@@ -391,7 +384,7 @@ export const OvermapHelm = () => {
               </div>
               <div className="OvermapHelmBridge__deck OvermapHelmBridge__deck--heading">
                 <HelmHeading
-                  onLanding={() => setLandingPicker(true)}
+                  radarFacing={radarFacing}
                   followHeading={followHeading}
                   onToggleFollow={() => setFollowHeading(!followHeading)}
                 />
@@ -553,18 +546,16 @@ const GaugesPanel = () => {
 };
 
 const RadarPanel = (props: {
+  onFacingChange: (facing: number | null) => void;
   radius: number;
   onZoom: (radius: number) => void;
   followHeading: boolean;
   filter: string;
-  landingPicker: boolean;
-  onLandingPicker: (open: boolean) => void;
   onSelect: (selection: HelmSelection | null) => void;
   selection: HelmSelection | null;
 }) => {
   const { act, data } = useBackend<OvermapHelmData>();
   const { radius, onZoom, followHeading, filter } = props;
-  const { landingPicker, onLandingPicker: setLandingPicker } = props;
   return (
     <Section
       className="OvermapHelmBox OvermapRadarSection"
@@ -582,7 +573,7 @@ const RadarPanel = (props: {
       ) : (
         <OvermapRadar
           fillViewport
-          interpolationDelay={0}
+          onFacingChange={props.onFacingChange}
           clickTarget={
             props.selection?.kind === 'object'
               ? { id: props.selection.id }
@@ -596,73 +587,11 @@ const RadarPanel = (props: {
           docked={!!data.radar_docked}
           tick={data.radar_tick}
           epoch={data.radar_epoch}
-          overlay={
-            landingPicker ? (
-              <div className="OvermapLandingPicker">
-                <div className="OvermapLandingPicker__head">
-                  <div>
-                    <small>НАВИГАЦИЯ / ПОСАДКА</small>
-                    <h2>Посадочные зоны</h2>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => setLandingPicker(false)}
-                    title="Вернуться к радару"
-                  >
-                    <Icon name="xmark" />
-                  </button>
-                </div>
-                <p>Выберите площадку для построения захода.</p>
-                <div className="OvermapLandingPicker__list">
-                  {(data.docks || [])
-                    .filter((dock) => dock.id !== '__overmap_custom')
-                    .map((dock, index) => (
-                      <button
-                        type="button"
-                        key={dock.id}
-                        disabled={!dock.can_dock}
-                        title={dock.reason}
-                        onClick={() => {
-                          act('prepare_landing', {
-                            id: dock.id,
-                          });
-                          setLandingPicker(false);
-                        }}
-                      >
-                        <span className="OvermapLandingPicker__number">
-                          {String(index + 1).padStart(2, '0')}
-                        </span>
-                        <span>
-                          <strong>{dock.name}</strong>
-                          <small>{dock.reason || 'Подготовить заход'}</small>
-                        </span>
-                        <Icon name="arrow-right" />
-                      </button>
-                    ))}
-                  {!(data.docks || []).filter(
-                    (dock) => dock.id !== '__overmap_custom',
-                  ).length && (
-                    <div className="OvermapLandingPicker__empty">
-                      <Icon name="satellite-dish" />
-                      <p>Посадочные зоны не обнаружены</p>
-                      <small>Подлетите к объекту с посадочными маяками.</small>
-                    </div>
-                  )}
-                </div>
-              </div>
-            ) : undefined
-          }
           peels={data.radar_peels}
           scatter={data.radar_scatter}
           dockTargets={data.radar_docks}
           dockPreview={data.dock_preview}
-          onSelectDock={(id) => {
-            const dock = data.radar_docks?.find((entry) => entry.id === id);
-            if (dock)
-              props.onSelect(
-                helmPointSelection(data, dock.x, dock.y, dock.name),
-              );
-          }}
+          onSelectDock={(id) => act('select_radar_dock', { id })}
           onSelectPoint={(x, y) =>
             props.onSelect(helmPointSelection(data, x, y))
           }
@@ -699,6 +628,7 @@ const RadarPanel = (props: {
           dest={data.dest}
           filter={filter}
           hazardFields={data.hazard_fields || []}
+          hazardContours={data.radar_hazard_contours}
         />
       )}
     </Section>

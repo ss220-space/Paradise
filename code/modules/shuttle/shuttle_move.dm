@@ -68,6 +68,8 @@
 	if(!has_dest)
 		return DOCKING_NULL_DESTINATION
 
+	SEND_SIGNAL(src, COMSIG_SHUTTLE_PRE_DOCK, old_dock, new_dock, move_data)
+
 	//close and lock the dock's airlocks
 	closePortDoors(old_dock)
 
@@ -79,8 +81,10 @@
 	// begin transition
 	var/list/touched = takeoff_turfs(job, old_turfs, new_turfs, move_data)
 	restore_origin_turfs(old_turfs, old_dock, touched)
+	landing_ground = move_data["landing_ground"]
 	job.flush_shuttle_atmos(touched)
 	postflight_dock(new_dock, new_turfs, move_data, transit)
+	SEND_SIGNAL(src, COMSIG_SHUTTLE_DOCK, new_dock, old_dock)
 	return DOCKING_SUCCESS
 
 /obj/docking_port/mobile/proc/collect_move_pairs(obj/docking_port/stationary/new_dock)
@@ -130,8 +134,9 @@
 			for(var/turf/oldT in old_turfs)
 				if(oldT)
 					var/area/old_place = get_area(oldT)
-					if(old_place != fallback_area)
-						oldT.change_area(old_place, fallback_area)
+					var/area/ground_area = landing_ground?[oldT]?["area"] || fallback_area
+					if(old_place != ground_area)
+						oldT.change_area(old_place, ground_area)
 
 	for(var/i in 1 to length(old_turfs))
 		/* CHECKING */
@@ -146,8 +151,9 @@
 
 		if(use_hull)
 			var/area/old_place = get_area(oldT)
-			if(fallback_area && old_place && old_place != fallback_area)
-				oldT.change_area(old_place, fallback_area)
+			var/area/ground_area = landing_ground?[oldT]?["area"] || fallback_area
+			if(ground_area && old_place && old_place != ground_area)
+				oldT.change_area(old_place, ground_area)
 			var/area/new_place = get_area(newT)
 			if(areaInstance && new_place != areaInstance)
 				newT.change_area(new_place, areaInstance)
@@ -204,7 +210,14 @@
 			old_shuttle_ceiling.ChangeTurf(old_shuttle_ceiling.old_turf_type)
 			touched[old_ceiling] = TRUE
 		/* RESTORE OLD TURF */
-		oldT.ChangeTurf(turf_type, keep_icon = FALSE)
+		var/list/ground = landing_ground?[oldT]
+		oldT.ChangeTurf(ground?["type"] || turf_type, keep_icon = FALSE)
+		if(ground)
+			oldT.baseturf = ground["baseturf"]
+			oldT.icon = ground["icon"]
+			oldT.icon_state = ground["state"]
+			oldT.setDir(ground["dir"])
+			oldT.color = ground["color"]
 		touched[oldT] = TRUE
 
 /datum/milla_safe_must_sleep/docking_port_dock/proc/flush_shuttle_atmos(list/turfs)
@@ -249,4 +262,3 @@
 			storm.update_audio()
 	#endif
 	unlockPortDoors(new_dock)
-	SEND_SIGNAL(src, COMSIG_SHUTTLE_DOCK, new_dock)

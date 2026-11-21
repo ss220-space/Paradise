@@ -65,4 +65,8 @@
 /obj/overmap/entity/process_movement(elapsed)
 	if(stationary_ai)
 		return
+	if(atmosphere)
+		if(movable && !halted && is_moving())
+			set_world_position(atmosphere.world_x + speed[1] * elapsed * OVERMAP_TILE_SPAN, atmosphere.world_y + speed[2] * elapsed * OVERMAP_TILE_SPAN)
+		return
 	return ..()

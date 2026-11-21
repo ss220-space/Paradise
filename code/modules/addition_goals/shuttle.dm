@@ -80,23 +80,10 @@
 	. = list()
 	if(!shuttle)
 		return
-	var/list/seen = list()
-	var/list/areas = list()
-	if(shuttle.areaInstance)
-		areas[shuttle.areaInstance] = TRUE
-	for(var/area/place as anything in shuttle.shuttle_areas)
-		if(place)
-			areas[place] = TRUE
-	for(var/area/place as anything in areas)
-		for(var/turf/spot as anything in place)
-			if(!spot || seen[spot])
-				continue
-			seen[spot] = TRUE
-			if(isspaceturf(spot) || spot.density)
-				continue
-			if(locate(/obj/machinery/door) in spot)
-				continue
-			. += spot
+	for(var/turf/spot as anything in shuttle.overmap_collect_hull(get_turf(shuttle)))
+		if(isspaceturf(spot) || spot.density || (locate(/obj/machinery/door) in spot))
+			continue
+		. += spot
 
 /datum/controller/subsystem/addition_goals/proc/get_empty_shuttle_turfs()
 	. = list()

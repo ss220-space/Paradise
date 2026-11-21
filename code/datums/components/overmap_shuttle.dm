@@ -12,30 +12,37 @@
 /datum/component/overmap_shuttle/RegisterWithParent()
 	var/obj/overmap/entity/token = parent
 	token.overmap_shuttle = src
+	if(token.shuttle)
+		bind(token.shuttle)
 
 /datum/component/overmap_shuttle/UnregisterFromParent()
 	var/obj/overmap/entity/token = parent
 	if(token.overmap_shuttle == src)
 		token.overmap_shuttle = null
 	if(token.shuttle)
-		UnregisterSignal(token.shuttle, COMSIG_SHUTTLE_DOCK)
+		UnregisterSignal(token.shuttle, list(COMSIG_SHUTTLE_DOCK, COMSIG_SHUTTLE_SHOULD_MOVE, COMSIG_SHUTTLE_PRE_DOCK))
 	reset_collar_cache()
 
 /datum/component/overmap_shuttle/proc/bind(obj/docking_port/mobile/port)
 	var/obj/overmap/entity/vessel = parent
-	if(!port || vessel.shuttle == port)
-		if(port)
-			RegisterSignal(port, COMSIG_SHUTTLE_DOCK, PROC_REF(on_physical_shuttle_dock), override = TRUE)
-		ensure_default_collar()
-		recalculate_mass()
-		return
-	if(vessel.shuttle)
-		UnregisterSignal(vessel.shuttle, COMSIG_SHUTTLE_DOCK)
-	vessel.shuttle = port
-	RegisterSignal(port, COMSIG_SHUTTLE_DOCK, PROC_REF(on_physical_shuttle_dock))
-	owned_docks_dirty = TRUE
+	if(port)
+		if(vessel.shuttle != port)
+			if(vessel.shuttle)
+				UnregisterSignal(vessel.shuttle, list(COMSIG_SHUTTLE_DOCK, COMSIG_SHUTTLE_SHOULD_MOVE, COMSIG_SHUTTLE_PRE_DOCK))
+				reset_collar_cache()
+			vessel.shuttle = port
+			owned_docks_dirty = TRUE
+		RegisterSignal(port, COMSIG_SHUTTLE_PRE_DOCK, PROC_REF(on_pre_dock), override = TRUE)
+		RegisterSignal(port, COMSIG_SHUTTLE_DOCK, PROC_REF(on_physical_shuttle_dock), override = TRUE)
+		RegisterSignal(port, COMSIG_SHUTTLE_SHOULD_MOVE, PROC_REF(on_shuttle_should_move), override = TRUE)
 	ensure_default_collar()
 	recalculate_mass()
+
+/datum/component/overmap_shuttle/proc/on_shuttle_should_move(datum/source)
+	SIGNAL_HANDLER
+	var/obj/overmap/entity/vessel = parent
+	if(length(vessel.docked_guests))
+		return BLOCK_SHUTTLE_MOVE
 
 /datum/component/overmap_shuttle/proc/recalculate_mass()
 	var/obj/overmap/entity/vessel = parent
@@ -123,7 +130,7 @@
 		if(pad.hidden && !is_custom_dock(pad))
 			continue
 		if(!is_custom_dock(pad) && !istype(pad, /obj/docking_port/stationary/overmap) && !pad.dock_airlock)
-			if(!is_owned_dock(pad))
+			if(!is_owned_dock(pad) && !(locate(/obj/machinery/landing_beacon) in pad.loc))
 				continue
 		if(!vessel.pad_matches_host(pad, host))
 			continue
@@ -280,7 +287,7 @@
 	var/current_id = vessel.shuttle.getDockedId()
 	var/chosen_id = vessel.selected_dock_id || vessel.last_dock_id
 	var/obj/docking_port/stationary/custom_pad = get_custom_dock(host)
-	if(host?.dock_host?.allow_custom_landing && !vessel.in_station_docking_zone())
+	if(host?.dock_host?.allow_custom_landing && !host.dock_host.planet_landing && !vessel.in_station_docking_zone())
 		. += list(list(
 			"id" = OVERMAP_DOCK_ID_CUSTOM,
 			"name" = "Произвольная точка ([host.name])",
@@ -428,7 +435,7 @@
 	if(!vessel.hull_needs_transit_undock())
 		vessel.release_to_overmap()
 		return TRUE
-	if(vessel.shuttle.has_collar_guests())
+	if(length(vessel.docked_guests) || vessel.shuttle.has_collar_guests())
 		return "К стыковочному шлюзу пристыкован другой корабль. Сначала он должен отстыковаться."
 	if(!instant && vessel.shuttle.mode != SHUTTLE_IDLE && vessel.shuttle.mode != SHUTTLE_RECHARGING)
 		return "Шаттл уже выполняет манёвр."
@@ -479,6 +486,8 @@
 	var/obj/overmap/entity/host = vessel.get_dock_host()
 	if(!host)
 		return "Не к чему стыковаться."
+	if(host.dock_host?.planet_landing)
+		return "Используйте заход на посадку с пульта управления."
 	if(!instant && (vessel.shuttle.mode == SHUTTLE_IGNITING || vessel.shuttle.mode == SHUTTLE_CALL || vessel.shuttle.mode == SHUTTLE_RECALL))
 		return TRUE
 	var/obj/docking_port/stationary/pad = get_selected_pad()
@@ -512,7 +521,23 @@
 	vessel.announce_sensor_event("Стыковка начата: [vessel.get_overmap_display_name()]", "dock")
 	return TRUE
 
-/datum/component/overmap_shuttle/proc/on_physical_shuttle_dock(obj/docking_port/mobile/port, obj/docking_port/stationary/new_dock)
+/datum/component/overmap_shuttle/proc/on_pre_dock(obj/docking_port/mobile/port, obj/docking_port/stationary/old_dock, obj/docking_port/stationary/new_dock, list/move_data)
+	SIGNAL_HANDLER
+	var/obj/overmap/entity/vessel = parent
+	if(vessel.formation_transfer)
+		return
+	if(istype(new_dock, /obj/docking_port/stationary/transit))
+		if(!vessel.undock_origin && SSovermap.resolve_nest_host(port, old_dock)?.dock_host?.planet_landing)
+			vessel.record_undock_origin()
+		return
+	if(vessel.atmosphere?.surface.bubble_z == new_dock.z)
+		var/list/ground = list()
+		for(var/turf/tile as anything in move_data["new_turfs"])
+			if(tile)
+				ground[tile] = list("area" = tile.loc, "type" = tile.type, "baseturf" = tile.baseturf, "icon" = tile.icon, "state" = tile.icon_state, "dir" = tile.dir, "color" = tile.color)
+		move_data["landing_ground"] = ground
+
+/datum/component/overmap_shuttle/proc/on_physical_shuttle_dock(obj/docking_port/mobile/port, obj/docking_port/stationary/new_dock, obj/docking_port/stationary/overmap/landing/previous_stop)
 	SIGNAL_HANDLER
 	var/obj/overmap/entity/vessel = parent
 	if(port != vessel.shuttle || QDELETED(new_dock))
@@ -521,8 +546,7 @@
 	reset_collar_cache()
 	if(vessel.formation_transfer)
 		return
-	var/obj/docking_port/stationary/overmap/landing/previous_stop = SSshuttle.getDock(vessel.last_dock_id, warn = FALSE)
-	if(istype(previous_stop) && previous_stop.temporary_stop && previous_stop != new_dock && !previous_stop.get_docked())
+	if(istype(previous_stop) && previous_stop.temporary_stop && !previous_stop.get_docked())
 		qdel(previous_stop, TRUE)
 	if(istype(new_dock, /obj/docking_port/stationary/transit))
 		vessel.status = OVERMAP_STATUS_OVERMAP
@@ -544,9 +568,6 @@
 	if(host && host != vessel)
 		var/was_nested = vessel.docked_to
 		vessel.nest_inside(host)
-		if(host.sector)
-			vessel.sector = host.sector
-			host.sector.objects |= vessel
 		vessel.shuttle.overmap_force_dock = FALSE
 		play_area_sound('sound/effects/hyperspace_end.ogg')
 		if(host != was_nested)

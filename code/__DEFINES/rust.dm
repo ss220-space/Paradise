@@ -40,6 +40,8 @@
 		if(fexists("./rust/target/i686-pc-windows-gnu/release/rustlibs.dll"))
 			return __rustlib = "./rust/target/i686-pc-windows-gnu/release/rustlibs.dll"
 		// Then check in the current directory.
+		if(fexists("./rustlibs[RUSTLIBS_SUFFIX]_gnu.dll"))
+			return __rustlib = "./rustlibs[RUSTLIBS_SUFFIX]_gnu.dll"
 		if(fexists("./rustlibs[RUSTLIBS_SUFFIX].dll"))
 			return __rustlib = "./rustlibs[RUSTLIBS_SUFFIX].dll"
 

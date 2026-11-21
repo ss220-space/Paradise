@@ -23,8 +23,8 @@
 	var/affiliation = faction || mapped["faction"] || overmap_ai_faction(src, TRUE)
 	var/first_registration = !registration_id
 	SSovermap.ai_controller.name_ship(src, affiliation)
-	if(first_registration && GLOB.overmap_faction_colors[affiliation])
-		identity_color = GLOB.overmap_faction_colors[affiliation]
+	if(first_registration)
+		identity_color = SSovermap.faction_color(affiliation) || identity_color
 	identity_name = name
 	sync_transponder()
 

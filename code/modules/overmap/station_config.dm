@@ -48,7 +48,7 @@
 	return best
 
 /datum/controller/subsystem/overmap/proc/spawn_planetary_station(datum/map/settings)
-	var/footprint = isnum(settings.overmap_station_planet_footprint) ? settings.overmap_station_planet_footprint : 3
+	var/footprint = isnum(settings.overmap_station_planet_footprint) ? settings.overmap_station_planet_footprint : initial(settings.overmap_station_planet_footprint)
 	footprint = clamp(round(footprint, 1), 1, min(8, local_sector.size - 2 * OVERMAP_EDGE))
 	var/turf/origin = station_planet_origin(footprint, settings.overmap_station_position)
 	if(!origin)
@@ -69,6 +69,7 @@
 /obj/overmap/planet/station_world/Initialize(mapload, datum/map/settings, footprint_size)
 	name = settings.overmap_station_planet_name
 	map_color = settings.overmap_station_planet_color
+	surface_tint = map_color
 	footprint = footprint_size
 	if(settings.overmap_station_planet_icon_state in icon_states(OVERMAP_PLANET_ICON_FILE))
 		icon_state = settings.overmap_station_planet_icon_state
@@ -107,7 +108,7 @@
 	return !SSmapping.map_datum.overmap_station_hidden && ..()
 
 /obj/overmap/planet/station_world
-	desc = "TEMP123TEMP"
+	desc = "Планета, на которой расположена станция."
 
 /obj/overmap/entity/planet_station/main_station
-	desc = "TEMP123TEMP"
+	desc = "Станция со стыковочными площадками на поверхности планеты."

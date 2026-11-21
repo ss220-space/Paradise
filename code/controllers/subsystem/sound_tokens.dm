@@ -16,7 +16,7 @@ SUBSYSTEM_DEF(sound_tokens)
 		var/mob/owned_mob = client?.mob
 		if(!owned_mob)
 			continue
-		for(var/datum/sound_token/token as anything in client.sound_tokens?.Copy())//it runtimes without ?.Copy()
+		for(var/datum/sound_token/token as anything in client.sound_tokens?.Copy())
 			if(QDELETED(token))
 				client.sound_tokens -= token
 				continue

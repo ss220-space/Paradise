@@ -25,18 +25,14 @@
 	var/suffix = null
 	/// Can the ruin be found by the locator
 	var/can_found = FALSE
-	/// Overmap footprint: OVERMAP_RUIN_SIZE_SMALL/MEDIUM/LARGE.
 	var/overmap_size
-	/// Overmap spawn pools
 	var/list/overmap_pools
-	/// Overmap beacon name. Defaults to ruin name if unset.
 	var/identity_name
 	var/identity_color = COLOR_WHITE
 	var/identity_icon = "event"
 	var/identity_distress = FALSE
 	var/identity_broadcasting = FALSE
 	var/identity_locked = FALSE
-	/// Same as shuttle profiles, id or id = FALSE for TX off.
 	var/list/identity_iff_ids
 	/// Extra ring of turfs around this ruin that the cave generator keeps in mind while it blends terrain
 	var/terrain_padding = 0
@@ -84,7 +80,8 @@
 			for(var/obj/structure/flora/ash/plant in T)
 				qdel(plant)
 
-		load(central_turf,centered = TRUE)
+		if(!load(central_turf, centered = TRUE))
+			return FALSE
 		loaded++
 
 		for(var/turf/T in get_affected_turfs(central_turf, 1))
@@ -95,14 +92,14 @@
 	return FALSE
 
 /datum/map_template/ruin/proc/try_to_place_in_region(datum/overmap_space_region/cell, margin = 0)
-	if(!cell)
+	if(!cell || width < 1 || height < 1)
 		return FALSE
 	if(width > cell.size || height > cell.size)
 		return FALSE
 	var/min_x = cell.playable_min_x() + round(width / 2) + margin
-	var/max_x = cell.playable_max_x() - round(width / 2) - margin
+	var/max_x = min_x + cell.size - width - 2 * margin
 	var/min_y = cell.playable_min_y() + round(height / 2) + margin
-	var/max_y = cell.playable_max_y() - round(height / 2) - margin
+	var/max_y = min_y + cell.size - height - 2 * margin
 	if(min_x > max_x || min_y > max_y)
 		return FALSE
 	var/tries = PLACEMENT_TRIES
@@ -137,12 +134,16 @@
 				break
 		if(!valid)
 			continue
-		load(central_turf, centered = TRUE)
-		loaded++
-		for(var/turf/marked as anything in get_affected_turfs(central_turf, TRUE))
-			marked.turf_flags |= NO_RUINS
-			SSovermap.ruin_lighting_turfs += marked
-		cell.register_ruin_footprint(central_turf, width, height)
-		new /obj/effect/landmark/ruin(central_turf, src)
-		return TRUE
+		return load_in_region(cell, central_turf)
 	return FALSE
+
+/datum/map_template/ruin/proc/load_in_region(datum/overmap_space_region/cell, turf/central_turf)
+	if(!load(central_turf, centered = TRUE))
+		return FALSE
+	loaded++
+	for(var/turf/marked as anything in get_affected_turfs(central_turf, TRUE))
+		marked.turf_flags |= NO_RUINS
+		SSovermap.ruin_lighting_turfs += marked
+	cell.register_ruin_footprint(central_turf, width, height)
+	new /obj/effect/landmark/ruin(central_turf, src)
+	return TRUE

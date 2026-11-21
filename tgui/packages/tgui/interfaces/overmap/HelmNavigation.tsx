@@ -175,7 +175,7 @@ export const HelmAutopilot = () => {
             <p>
               {dest
                 ? `${coordinates(dest[0], dest[1])} · ${decimal(distance)} кл`
-                : 'ЛКМ по радару → БУФЕР'}
+                : 'Буфер пуст'}
             </p>
           </div>
           <button

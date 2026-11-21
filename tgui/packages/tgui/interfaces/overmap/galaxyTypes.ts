@@ -20,6 +20,7 @@ export type GalaxyGeneration = {
   emp?: number;
   carp?: number;
   ruins?: number;
+  fleet_chance?: number;
 };
 export type GalaxyStyle = {
   line?: string;

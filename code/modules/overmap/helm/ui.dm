@@ -10,8 +10,12 @@
 
 /obj/machinery/computer/helm/ui_close(mob/user)
 	. = ..()
-	if(!vessel?.overmap_pod && vessel?.flight?.pilot == user)
-		vessel.flight.release_pilot()
+	var/datum/component/overmap_flight/nav = vessel?.flight
+	if(nav?.pilot_helm == src && nav.pilot == user)
+		if(vessel.overmap_pod)
+			nav.helm_keys = null
+		else
+			nav.release_pilot()
 
 /obj/machinery/computer/helm/ui_data(mob/user)
 	overmap_watch_radar(src, user, vessel)
@@ -44,7 +48,7 @@
 	data["heading"] = vessel.get_heading_angle()
 	data["facing"] = round(vessel.flight?.facing || 0)
 	data["phase"] = flight_phase()
-	data["piloting"] = vessel.flight?.pilot == user
+	data["piloting"] = vessel.flight?.pilot_helm == src && vessel.flight.pilot == user
 	data["pilot_name"] = vessel.flight?.pilot?.name
 	data["ship_docked_to"] = vessel.docked_ship?.get_overmap_display_name()
 	data["ship_guests"] = length(vessel.docked_guests)
@@ -111,42 +115,36 @@
 	data["is_shuttle"] = !!vessel.overmap_shuttle
 	data["is_pod"] = !!vessel.overmap_pod
 	data["can_ship_undock"] = !!vessel.docked_ship || length(vessel.docked_guests)
-	data["can_land"] = vessel.can_radar_land()
+	data["can_approach_planet"] = vessel.can_approach_planet()
+	data["in_atmosphere"] = !!vessel.atmosphere
+	data["changing_altitude"] = !!vessel.atmosphere && !vessel.atmosphere.cruising()
 	data["can_stop"] = vessel.overmap_pod ? vessel.overmap_pod.can_physical_dock() : (vessel.in_free_flight() && vessel.local_space?.static_level)
 	data["can_relay_jump"] = vessel.can_hyperrelay_jump()
 	data["dock_ready"] = vessel.docking_approach?.ready()
 	data["dock_in_range"] = vessel.docking_approach?.in_alignment_range()
 	data["dock_aligning"] = vessel.docking_approach?.aligning
 	data["can_undock"] = vessel.can_helm_undock()
-	data["can_physical_dock"] = vessel.can_helm_physical_dock()
-	data["can_edge_dock"] = vessel.can_helm_edge_dock()
-	data["docks"] = vessel.build_dock_list()
-	data["collars"] = vessel.build_collar_list()
-	data["selected_dock"] = vessel.selected_dock_id
-	for(var/list/pad as anything in data["docks"])
-		if(pad["selected"] || pad["id"] == data["selected_dock"])
-			data["selected_dock"] = pad["name"]
-			break
-	data["at_station"] = !!vessel.get_dock_host()
-	data["host_name"] = vessel.get_dock_host()?.name
 	data["distress"] = !!vessel.identity_distress
 	data["broadcasting"] = !!vessel.is_overmap_visible()
-	var/pads = data["docks"]
-	var/pad_free = 0
-	for(var/list/pad as anything in pads)
-		if(pad["can_dock"])
-			pad_free++
-	data["pad_total"] = length(pads)
-	data["pad_free"] = pad_free
-	data["near_planet"] = FALSE
-	if(!data["at_station"] && SSovermap.lavaland_planet?.covers_turf(here))
-		data["near_planet"] = TRUE
 	data["map_jammed"] = vessel.is_overmap_jammed()
 
 	vessel.fill_radar_data(data, radar_reach)
 	data["waypoints"] = build_ui_waypoints()
 	vessel.fill_programmed_ui(data)
 	return data
+
+GAME_VERB_NATIVE_INSTANT(/client, helm_input, "HelmInput", VERB_CATEGORY_HIDDEN, window_id as text, keys as text)
+	var/datum/tgui_window/window = tgui_windows[window_id]
+	var/datum/tgui/ui = window?.locked_by
+	var/obj/machinery/computer/helm/helm = ui?.src_object
+	if(!istype(helm) || ui.user != mob || ui.closing)
+		return
+	helm.set_flight_keys(mob, ui.status == UI_INTERACTIVE ? keys : "-")
+
+/obj/machinery/computer/helm/proc/set_flight_keys(mob/user, keys)
+	var/datum/component/overmap_flight/nav = vessel?.flight
+	if(nav?.pilot_helm == src && nav.pilot == user && length(keys) <= length("W,A,S,D,Q,E,Space"))
+		nav.helm_keys = keys == "-" ? null : splittext(keys, ",")
 
 /obj/machinery/computer/helm/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	var/mob/user = ui.user
@@ -161,7 +159,7 @@
 		to_chat(user, span_warning("Прямое управление заблокировано поставщиком услуг."))
 		return TRUE
 
-	if(vessel.is_jumping() && (action in list("undock", "dock", "dock_edge", "dock_ship", "dock_station", "prepare_stop", "prepare_landing", "align_dock", "relay_jump")))
+	if(vessel.is_jumping() && (action in list("undock", "dock", "dock_edge", "dock_ship", "dock_station", "prepare_stop", "select_radar_dock", "align_dock", "relay_jump")))
 		to_chat(user, span_warning("Идёт гиперпрыжок."))
 		return TRUE
 
@@ -169,16 +167,17 @@
 		to_chat(user, span_warning("Выполняется автодоводка. Сначала отмените стыковку."))
 		return TRUE
 	switch(action)
-		if("prepare_landing")
-			if(!vessel.can_radar_land())
-				return TRUE
-			if(vessel.set_selected_pad(params["id"]))
-				var/result = vessel.overmap_pod ? vessel.begin_physical_dock() : vessel.prepare_landing(vessel.get_selected_pad())
-				if(result != TRUE)
-					to_chat(user, span_warning("Посадочная область недоступна."))
+		if("approach_planet")
+			if(!vessel.approach_planet())
+				to_chat(user, span_warning("Вход в атмосферу недоступен."))
+			return TRUE
+		if("leave_atmosphere")
+			if(!vessel.leave_atmosphere())
+				to_chat(user, span_warning("Сейчас нельзя выйти из атмосферы."))
 			return TRUE
 		if("select_radar_dock")
-			vessel.select_radar_dock(params["id"])
+			if(!vessel.select_radar_dock(params["id"]))
+				to_chat(user, span_warning("Этот док недоступен."))
 			return TRUE
 		if("prepare_stop")
 			if(!vessel.prepare_stop())

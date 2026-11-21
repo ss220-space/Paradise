@@ -5,7 +5,7 @@
 	icon_state = "grab_passive"
 	layer = ABOVE_HUD_LAYER
 	plane = ABOVE_HUD_PLANE
-	item_flags = DROPDEL | ABSTRACT | NOBLUDGEON
+	item_flags = DROPDEL|ABSTRACT|NOBLUDGEON
 	w_class = WEIGHT_CLASS_HUGE
 	var/mob/living/holder
 	var/obj/overmap/entity/vessel

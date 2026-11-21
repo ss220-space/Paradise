@@ -14,6 +14,7 @@ import type { BooleanLike } from 'tgui-core/react';
 import { useBackend } from '../../backend';
 import {
   AIDiplomacy,
+  shipFactionOptions,
   type AIDiplomacyValue,
   type AIRelationOption,
 } from './AIDiplomacy';
@@ -81,12 +82,6 @@ const roles: Record<string, string> = {
   support: 'Поддержка',
   flagship: 'Флагман',
 };
-const factions: Record<string, string> = {
-  erw: 'Eisenwehr Raumfahrtwerke',
-  neutral: 'Нейтральная',
-  syndicate: 'Синдикат',
-  nt: 'Нанотрейзен',
-};
 const states: Record<string, string> = {
   patrol: 'Патруль',
   orbit: 'Кружение',
@@ -109,6 +104,7 @@ const roleOptions = Object.entries(roles).map(([value, displayText]) => ({
 
 export const AIShipsAdmin = () => {
   const { act, data } = useBackend<Data>();
+  const factions = data.ai?.faction_options || {};
   const sectors = asList(data.sectors);
   const [sectorId, setSectorId] = useState(
     data.suggest_sector || sectors[0]?.id || '',
@@ -206,17 +202,14 @@ export const AIShipsAdmin = () => {
               fluid
               selected={faction}
               displayText={factions[faction]}
-              options={Object.entries(factions).map(([value, displayText]) => ({
-                value,
-                displayText,
-              }))}
+              options={shipFactionOptions(factions)}
               onSelected={setFaction}
             />
           </LabeledList.Item>
           <LabeledList.Item label="Дипломатия">
             <AIDiplomacy
               value={diplomacy}
-              factions={data.ai?.faction_options || {}}
+              factions={factions}
               contacts={data.ai?.relation_options || []}
               onChange={(value) =>
                 setDiplomacyDrafts({ ...diplomacyDrafts, [faction]: value })

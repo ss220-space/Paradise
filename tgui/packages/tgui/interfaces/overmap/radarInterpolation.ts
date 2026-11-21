@@ -1,8 +1,8 @@
 import type {
   RadarContact,
   RadarObject,
-  RadarProjectile,
   RadarPose,
+  RadarProjectile,
 } from './OvermapRadar';
 
 export type RadarDock = {
@@ -85,6 +85,9 @@ const toHull = (point: number[], frame: RadarFrame) =>
 export const radarFrameDiscontinuous = (a: RadarFrame, b: RadarFrame) =>
   a.epoch !== b.epoch ||
   a.sectorId !== b.sectorId ||
+  (a.contacts[0]?.own &&
+    b.contacts[0]?.own &&
+    a.contacts[0].id !== b.contacts[0].id) ||
   a.cellSpan !== b.cellSpan ||
   !!a.world !== !!b.world ||
   (!!a.world &&
@@ -130,17 +133,19 @@ export const radarFrameStationary = (a: RadarFrame, b: RadarFrame) =>
 
 type FrameIndex = {
   contacts: Map<string, RadarFrame['contacts'][number]>;
-  objects: Map<string | undefined, RadarFrame['objects'][number]>;
+  objects: Map<string, RadarFrame['objects'][number]>;
   shots: Map<string, NonNullable<RadarFrame['projectiles']>[number]>;
   docks: Map<string, NonNullable<RadarFrame['dockTargets']>[number]>;
 };
 const frameIndexes = new WeakMap<RadarFrame, FrameIndex>();
-const indexFrame = (frame: RadarFrame): FrameIndex => {
+export const indexRadarFrame = (frame: RadarFrame): FrameIndex => {
   let index = frameIndexes.get(frame);
   if (!index) {
     index = {
       contacts: new Map(frame.contacts.map((entry) => [entry.id, entry])),
-      objects: new Map(frame.objects.map((entry) => [entry.id, entry])),
+      objects: new Map(
+        frame.objects.map((entry) => [entry.id || entry.name, entry]),
+      ),
       shots: new Map(frame.projectiles?.map((entry) => [entry.id, entry])),
       docks: new Map(frame.dockTargets?.map((entry) => [entry.id, entry])),
     };
@@ -170,7 +175,7 @@ export const interpolateRadarFrame = (
       ((frame.world?.[index] || 0) - (target.world?.[index] || 0)) /
         target.cellSpan,
   );
-  const index = indexFrame(start);
+  const index = indexRadarFrame(start);
   const previous = index.contacts;
   frame.contacts = target.contacts.map((contact) => {
     if (contact.own) return contact;
@@ -233,7 +238,15 @@ export const interpolateRadarFrame = (
 
   frame.objects = target.objects.map((object) => {
     if (object.is_self && frame.self) {
-      return { ...object, x: frame.self[0], y: frame.self[1] };
+      const old = object.id ? oldObjects.get(object.id) : undefined;
+      return {
+        ...object,
+        x: frame.self[0],
+        y: frame.self[1],
+        facing: old
+          ? angleBlend(old.facing ?? 0, object.facing ?? 0, fraction)
+          : object.facing,
+      };
     }
     const contact = object.id && contacts.get(object.id);
     if (contact && frame.self && frame.world) {
@@ -246,14 +259,18 @@ export const interpolateRadarFrame = (
       };
     }
     const old = object.id && oldObjects.get(object.id);
-    return old
-      ? {
-          ...object,
-          x: blend(old.x, object.x, fraction),
-          y: blend(old.y, object.y, fraction),
-          facing: angleBlend(old.facing || 0, object.facing || 0, fraction),
-        }
-      : object;
+    if (
+      !old ||
+      (old.x === object.x && old.y === object.y && old.facing === object.facing)
+    ) {
+      return object;
+    }
+    return {
+      ...object,
+      x: blend(old.x, object.x, fraction),
+      y: blend(old.y, object.y, fraction),
+      facing: angleBlend(old.facing || 0, object.facing || 0, fraction),
+    };
   });
   return frame;
 };

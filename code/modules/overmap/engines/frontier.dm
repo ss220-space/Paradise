@@ -1,4 +1,5 @@
 /obj/machinery/ship_engine/frontier
+	desc = "Корабельный двигатель направленной тяги со встроенным соплом."
 	omnidirectional = FALSE
 	generated_thrust = OVERMAP_ENGINE_SMALL_THRUST
 	active_power_usage = 0
@@ -11,11 +12,10 @@
 /obj/machinery/ship_engine/frontier_large
 	parent_type = /obj/machinery/ship_engine/frontier
 	name = "Frontier large thruster"
-	desc = "TEMP123TEMP"
 	icon = 'icons/obj/ship_engines/frontier/thruster_large.dmi'
 	icon_state = "base"
 	color = null
-	appearance_flags = PIXEL_SCALE | KEEP_TOGETHER
+	appearance_flags = PIXEL_SCALE|KEEP_TOGETHER
 	engine_size = 2
 	fuel_rate = 6
 	generated_thrust = 8
@@ -35,11 +35,10 @@
 /obj/machinery/ship_engine/nfsd_large
 	parent_type = /obj/machinery/ship_engine/frontier
 	name = "NFSD large thruster"
-	desc = "TEMP123TEMP"
 	icon = 'icons/obj/ship_engines/frontier/thrusternfsd_large.dmi'
 	icon_state = "base"
 	color = null
-	appearance_flags = PIXEL_SCALE | KEEP_TOGETHER
+	appearance_flags = PIXEL_SCALE|KEEP_TOGETHER
 	engine_size = 2
 	fuel_rate = 6
 	generated_thrust = 9
@@ -59,11 +58,10 @@
 /obj/machinery/ship_engine/rogue
 	parent_type = /obj/machinery/ship_engine/frontier
 	name = "Rogue thruster"
-	desc = "TEMP123TEMP"
 	icon = 'icons/obj/ship_engines/frontier/thrusterrogue.dmi'
 	icon_state = "base"
 	color = null
-	appearance_flags = PIXEL_SCALE | KEEP_TOGETHER
+	appearance_flags = PIXEL_SCALE|KEEP_TOGETHER
 	generated_thrust = 3
 	max_integrity = 350
 	engine_board = /obj/item/circuitboard/ship_engine_ion/rogue
@@ -81,11 +79,10 @@
 /obj/machinery/ship_engine/rogue_large
 	parent_type = /obj/machinery/ship_engine/frontier
 	name = "Rogue large thruster"
-	desc = "TEMP123TEMP"
 	icon = 'icons/obj/ship_engines/frontier/thrusterrogue_large.dmi'
 	icon_state = "base"
 	color = null
-	appearance_flags = PIXEL_SCALE | KEEP_TOGETHER
+	appearance_flags = PIXEL_SCALE|KEEP_TOGETHER
 	engine_size = 2
 	fuel_rate = 6
 	generated_thrust = 10
@@ -105,11 +102,10 @@
 /obj/machinery/ship_engine/ussp
 	parent_type = /obj/machinery/ship_engine/frontier
 	name = "USSP thruster"
-	desc = "TEMP123TEMP"
 	icon = 'icons/obj/ship_engines/frontier/thrusterussp.dmi'
 	icon_state = "base"
 	color = null
-	appearance_flags = PIXEL_SCALE | KEEP_TOGETHER
+	appearance_flags = PIXEL_SCALE|KEEP_TOGETHER
 	generated_thrust = 2.5
 	max_integrity = 500
 	engine_board = /obj/item/circuitboard/ship_engine_ion/ussp
@@ -127,11 +123,10 @@
 /obj/machinery/ship_engine/ussp_large
 	parent_type = /obj/machinery/ship_engine/frontier
 	name = "USSP large thruster"
-	desc = "TEMP123TEMP"
 	icon = 'icons/obj/ship_engines/frontier/thrusterussp_large.dmi'
 	icon_state = "base"
 	color = null
-	appearance_flags = PIXEL_SCALE | KEEP_TOGETHER
+	appearance_flags = PIXEL_SCALE|KEEP_TOGETHER
 	engine_size = 2
 	fuel_rate = 6
 	generated_thrust = 9

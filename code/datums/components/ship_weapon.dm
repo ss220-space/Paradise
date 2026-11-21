@@ -138,7 +138,7 @@
 	return dir2angle(mount_dir) + (vessel.free_flight_view ? vessel.get_facing() : 0)
 
 /datum/component/ship_weapon/proc/can_aim(obj/overmap/entity/vessel, x, y)
-	if(QDELETED(vessel))
+	if(QDELETED(vessel) || vessel.atmosphere)
 		return FALSE
 	var/list/point = world_position(vessel)
 	return point && abs(closer_angle_difference(heading(vessel), delta_to_angle(x - point[1], y - point[2]))) <= arc / 2
@@ -239,7 +239,7 @@
 	if(!vessel || !vessel.sector)
 		return FALSE
 	var/obj/machinery/porta_turret/turret = parent
-	if(vessel.ship_ai || vessel.structure_faction == "neutral")
+	if(vessel.atmosphere || vessel.ship_ai || vessel.structure_faction == "neutral")
 		return TRUE
 	if(!automatic || !turret.enabled || turret.disabled || (turret.stat & BROKEN) || world.time < next_fire)
 		return TRUE

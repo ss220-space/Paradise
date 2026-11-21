@@ -316,6 +316,13 @@
 	ensure_free_for_flight()
 	if(vessel.status == OVERMAP_STATUS_DOCKED)
 		return
+	if(vessel.atmosphere)
+		if(!vessel.atmosphere.cruising() || vessel.docking_approach?.aligning)
+			return
+		var/obj/docking_port/stationary/destination = SSshuttle.getDock(dock_id, warn = FALSE)
+		if(resolved_dest_host() != vessel.atmosphere.surface.host || destination?.z != vessel.atmosphere.surface.bubble_z)
+			vessel.leave_atmosphere()
+			return
 	if(departure_pending && continue_departure())
 		return
 	var/turf/here = vessel.get_overmap_turf()

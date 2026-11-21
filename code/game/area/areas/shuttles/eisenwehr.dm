@@ -1,23 +1,29 @@
 /area/shuttle/eisenwehr
-	name = "Eisenwehr Raumfahrtwerke"
-	overmap_ship_faction = "erw"
 	icon_state = "shuttle"
 
 /area/shuttle/eisenwehr/light
 	overmap_ship_class = "LC"
 
 /area/shuttle/eisenwehr/light/marder
-	name = "ERW Marder"
+	name = "Marder"
 	overmap_ship_name = "Marder"
 
 /area/shuttle/eisenwehr/light/iltis
-	name = "ERW Iltis"
+	name = "Iltis"
 	overmap_ship_name = "Iltis"
 
 /area/shuttle/eisenwehr/light/frettchen
-	name = "ERW Frettchen"
+	name = "Frettchen"
 	overmap_ship_name = "Frettchen"
 
+/area/shuttle/eisenwehr/heavy
+	overmap_ship_class = "HC"
+
+/area/shuttle/eisenwehr/heavy/eisbaer
+	name = "Eisbär"
+	overmap_ship_name = "Eisbär"
+
+/*
 /area/shuttle/eisenwehr/medium
 	overmap_ship_class = "MC"
 
@@ -32,9 +38,6 @@
 /area/shuttle/eisenwehr/medium/harpyie
 	name = "ERW Harpyie"
 	overmap_ship_name = "Harpyie"
-
-/area/shuttle/eisenwehr/heavy
-	overmap_ship_class = "HC"
 
 /area/shuttle/eisenwehr/heavy/vielfrass
 	name = "ERW Vielfraß"
@@ -65,3 +68,4 @@
 /area/shuttle/eisenwehr/flagship/eisbaer
 	name = "ERW Eisbär"
 	overmap_ship_name = "Eisbär"
+*/

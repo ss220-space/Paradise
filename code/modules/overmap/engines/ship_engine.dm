@@ -227,7 +227,7 @@
 	desc = "Тяжёлый двигатель. Даёт большое количество тяги для перелётов на самых больших судах."
 	icon = 'icons/obj/2x2.dmi'
 	icon_state = "large_engine"
-	appearance_flags = LONG_GLIDE | KEEP_TOGETHER
+	appearance_flags = LONG_GLIDE|KEEP_TOGETHER
 	generated_thrust = OVERMAP_ENGINE_LARGE_THRUST * 2
 	idle_power_usage = 1500
 	active_power_usage = 6000
@@ -251,7 +251,7 @@
 	icon_state = "huge_engine"
 	pixel_x = -32
 	pixel_y = -32
-	appearance_flags = LONG_GLIDE | KEEP_TOGETHER
+	appearance_flags = LONG_GLIDE|KEEP_TOGETHER
 	generated_thrust = OVERMAP_ENGINE_LARGE_THRUST * 2
 	idle_power_usage = 1500
 	active_power_usage = 6000

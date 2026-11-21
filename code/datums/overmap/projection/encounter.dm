@@ -23,6 +23,7 @@
 	var/list/atom/movable/drifters = list()
 	var/last_occupied
 	var/static_level = FALSE
+	var/orbital = TRUE
 	var/list/radar_chunks = list()
 
 	var/list/region
@@ -42,7 +43,8 @@
 	src.speed_y = speed_y
 	start_time = world.time
 	last_occupied = world.time
-	SSovermap.bubbles += src
+	if(orbital)
+		SSovermap.bubbles += src
 
 /datum/overmap_bubble/proc/fill_reservation(datum/turf_reservation/reservation)
 	src.reservation = reservation
@@ -68,16 +70,16 @@
 	bounds = list(1 + TRANSITIONEDGE, 1 + TRANSITIONEDGE, world.maxx - TRANSITIONEDGE, world.maxy - TRANSITIONEDGE)
 	center_x = round(world.maxx / 2)
 	center_y = round(world.maxy / 2)
-	if(length(SSovermap.bubbles_by_z) < level)
-		SSovermap.bubbles_by_z.len = level
-	SSovermap.bubbles_by_z[level] = src
+	if(orbital)
+		LISTASSERTLEN(SSovermap.static_bubbles_by_z, level, list())
+		SSovermap.static_bubbles_by_z[level] += src
 
 /datum/overmap_bubble/Destroy(force)
 	SSovermap_visuals.remove(src)
 	SSovermap.bubbles -= src
 	SSovermap.bubbles_by_reservation -= reservation
-	if(static_level && bubble_z <= length(SSovermap.bubbles_by_z) && SSovermap.bubbles_by_z[bubble_z] == src)
-		SSovermap.bubbles_by_z[bubble_z] = null
+	if(static_level && orbital)
+		SSovermap.static_bubbles_by_z[bubble_z] -= src
 	QDEL_LIST_ASSOC_VAL(ship_proxies)
 	ships.Cut()
 	QDEL_LIST_ASSOC_VAL(contact_proxies)
@@ -88,9 +90,9 @@
 	navigation_density_cache = null
 	for(var/atom/movable/drifter as anything in drifters)
 		remove_drifter(drifter)
-	reservation?.Release()
-	reservation = null
+	overmap_release_area(bubble_area)
 	bubble_area = null
+	QDEL_NULL(reservation)
 	if(host?.physical_space == src)
 		host.physical_space = null
 	host = null
@@ -190,28 +192,30 @@
 		var/list/spot = to_bubble(world_x, world_y)
 		if(!watched_near(spot, world.view + 1, eyes))
 			continue
-		var/obj/effect/abstract/overmap_contact_proxy/proxy = contact_proxies[target]
-		if(!proxy)
-			proxy = new(target, src)
-			contact_proxies[target] = proxy
 		wanted[target] = TRUE
-		proxy.place(spot[1], spot[2], bubble_z)
+		place_contact_proxy(target, spot)
 		var/obj/overmap/planet/planet = target
 		if(istype(planet))
 			for(var/obj/effect/overmap_planet_cell/cell as anything in planet.cells)
 				if(QDELETED(cell) || !isturf(cell.loc))
 					continue
 				var/list/cell_spot = to_bubble(cell.x * span, cell.y * span)
-				var/obj/effect/abstract/overmap_contact_proxy/cell_proxy = contact_proxies[cell]
-				if(!cell_proxy)
-					cell_proxy = new(cell, src)
-					contact_proxies[cell] = cell_proxy
-				cell_proxy.place(cell_spot[1], cell_spot[2], bubble_z)
+				place_contact_proxy(cell, cell_spot)
 				wanted[cell] = TRUE
 	for(var/atom/source as anything in contact_proxies)
 		if(!wanted[source] || QDELETED(source))
 			qdel(contact_proxies[source])
 			contact_proxies -= source
+
+/datum/overmap_bubble/proc/place_contact_proxy(atom/source, list/spot)
+	var/obj/effect/abstract/overmap_contact_proxy/proxy = contact_proxies[source]
+	if(!proxy)
+		proxy = new(source)
+		proxy.source = source
+		proxy.owner = src
+		proxy.refresh_appearance()
+		contact_proxies[source] = proxy
+	proxy.place(spot[1], spot[2], bubble_z)
 
 /datum/overmap_bubble/proc/watched_near(list/spot, reach, list/eyes)
 	for(var/turf/eye as anything in eyes)

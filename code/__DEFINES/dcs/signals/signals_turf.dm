@@ -5,6 +5,8 @@
 // /turf signals
 ///from base of turf/ChangeTurf(): (path, list/new_baseturf, flags, list/transferring_comps)
 #define COMSIG_TURF_CHANGE "turf_change"
+#define COMSIG_TURF_EXPOSURE_CHANGED "turf_exposure_changed"
+#define COMSIG_TURF_LIGHTING_CHANGED "turf_lighting_changed"
 ///from base of atom/has_gravity(): (atom/asker, list/forced_gravities)
 #define COMSIG_TURF_HAS_GRAVITY "turf_has_gravity"
 ///from base of turf/multiz_turf_del(): (turf/source, direction)

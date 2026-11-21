@@ -6,7 +6,7 @@
 	layer = HIGH_OBJ_LAYER
 	animate_movement = NO_STEPS
 	glide_size = 0
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|UNACIDABLE|ACID_PROOF
 	color = "#fffffe"
 
 	var/datum/overmap_sector/sector
@@ -223,7 +223,7 @@
 	if(OVERMAP_SPEED_STOPPED(get_speed()))
 		return
 	var/mutable_appearance/arrow = mutable_appearance(icon, "heading_indicator", ABOVE_OBJ_LAYER)
-	arrow.appearance_flags = RESET_COLOR | RESET_TRANSFORM | KEEP_APART
+	arrow.appearance_flags = RESET_COLOR|RESET_TRANSFORM|KEEP_APART
 	arrow.dir = SOUTH
 	arrow.transform = matrix().Turn(get_heading_angle() + 180)
 	. += arrow

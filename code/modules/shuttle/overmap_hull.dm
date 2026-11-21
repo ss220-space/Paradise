@@ -74,7 +74,6 @@
 	for(var/area/place as anything in areas)
 		if(!place || istype(place, /area/shuttle/transit))
 			continue
-		place.cannonize_contained_turfs_by_zlevel(origin.z)
 		for(var/turf/tile as anything in place.get_turfs_by_zlevel(origin.z))
 			if(!tile || seen[tile])
 				continue
@@ -221,10 +220,6 @@
 		var/turf/newT = overmap_project_turf(oldT, proj_origin, origin_dir, dest, dest_dir)
 		old_turfs += oldT
 		new_turfs += newT
-
-/obj/docking_port/mobile/proc/overmap_preview_turfs(obj/docking_port/stationary/S)
-	var/list/pairs = overmap_move_pairs(S)
-	return pairs[2]
 
 /obj/docking_port/mobile/proc/overmap_hull_blocked(obj/docking_port/stationary/S)
 	if(!S || istype(S, /obj/docking_port/stationary/transit))
