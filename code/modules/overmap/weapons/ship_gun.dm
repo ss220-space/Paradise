@@ -2,6 +2,7 @@
 	abstract_type = /obj/machinery/ship_gun
 	name = "ship gun"
 	desc = "Корабельное орудие с дистанционным управлением."
+	icon = 'icons/obj/ship_weapons/serpent.dmi'
 	icon_state = "idle"
 	density = TRUE
 	anchored = TRUE
