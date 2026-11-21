@@ -189,7 +189,7 @@
 	attack_hand(user)
 
 /obj/machinery/transponder/click_alt(mob/user)
-	if(!user.Adjacent(src) || user.incapacitated())
+	if(!user.Adjacent(src) || IS_DEAD_OR_INCAP(user))
 		return CLICK_ACTION_BLOCKING
 	set_distress(!distress)
 	to_chat(user, span_notice("Сигнал бедствия [distress ? "включён" : "выключен"]."))

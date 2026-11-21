@@ -78,7 +78,7 @@
 	return waypoint_name
 
 /obj/machinery/computer/helm/click_alt(mob/user)
-	if(!can_pilot(user) || (isliving(user) && user.incapacitated()) || (stat & (NOPOWER|BROKEN)))
+	if(!can_pilot(user) || (isliving(user) && IS_DEAD_OR_INCAP(user)) || (stat & (NOPOWER|BROKEN)))
 		return NONE
 	link_vessel()
 	toggle_helm(user)
@@ -91,7 +91,7 @@
 	if(nav.pilot == user)
 		nav.release_pilot()
 		return TRUE
-	if(!can_pilot(user) || (isliving(user) && user.incapacitated()) || (stat & (NOPOWER|BROKEN)) || !allowed(user))
+	if(!can_pilot(user) || (isliving(user) && IS_DEAD_OR_INCAP(user)) || (stat & (NOPOWER|BROKEN)) || !allowed(user))
 		return FALSE
 	if(nav.pilot)
 		to_chat(user, span_warning("За штурвалом уже [nav.pilot.name]."))

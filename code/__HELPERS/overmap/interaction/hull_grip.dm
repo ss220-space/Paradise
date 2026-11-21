@@ -6,7 +6,7 @@
 		ship.eject_to_bubble(user, spot)
 
 /proc/overmap_grab_hull(mob/living/user, turf/target)
-	if(!istype(user) || user.a_intent != INTENT_GRAB || user.incapacitated() || user.buckled || user.body_position == LYING_DOWN || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !isturf(user.loc) || !target)
+	if(!istype(user) || user.a_intent != INTENT_GRAB || IS_DEAD_OR_INCAP(user) || user.buckled || user.body_position == LYING_DOWN || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !isturf(user.loc) || !target)
 		return FALSE
 	var/obj/overmap/entity/ship = SSovermap.frame_owner(target)
 	if(!istype(ship) || !ship.hull_turfs[target] || ship.hull_area_turfs[get_turf(user)])
@@ -39,7 +39,7 @@
 	return FALSE
 
 /proc/overmap_board_from_drag(mob/living/user, turf/target)
-	if(!istype(user) || user.incapacitated() || user.buckled || !isturf(user.loc) || !target || target.is_blocked_turf(exclude_mobs = TRUE) || !target.Adjacent(user))
+	if(!istype(user) || IS_DEAD_OR_INCAP(user) || user.buckled || !isturf(user.loc) || !target || target.is_blocked_turf(exclude_mobs = TRUE) || !target.Adjacent(user))
 		return
 	var/datum/source_frame = SSovermap.frame_owner(user.loc)
 	var/datum/target_frame = SSovermap.frame_owner(target)

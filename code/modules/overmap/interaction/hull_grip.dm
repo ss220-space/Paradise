@@ -80,7 +80,7 @@
 	return TRUE
 
 /obj/item/overmap_hull_grip/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	if(user != holder || holder.incapacitated())
+	if(user != holder || IS_DEAD_OR_INCAP(holder))
 		return
 	var/obj/effect/abstract/hull_proxy_tile/proxy = target
 	var/turf/spot = istype(proxy) ? proxy.source_turf() : get_turf(target)
@@ -122,7 +122,7 @@
 	playsound(holder, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 
 /obj/item/overmap_hull_grip/proc/carry()
-	if(QDELETED(holder) || QDELETED(vessel) || loc != holder || holder.incapacitated() || holder.body_position == LYING_DOWN || !vessel.free_flight_view)
+	if(QDELETED(holder) || QDELETED(vessel) || loc != holder || IS_DEAD_OR_INCAP(holder) || holder.body_position == LYING_DOWN || !vessel.free_flight_view)
 		qdel(src)
 		return
 	var/datum/frame = SSovermap.frame_owner(get_turf(holder))

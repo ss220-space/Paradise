@@ -1,6 +1,6 @@
 /obj/item/spacepod_equipment/weaponry/proc/fire_weapons(mob/user, target_x, target_y)
 	var/obj/spacepod/craft = my_atom
-	if(!user || QDELETED(craft) || user != craft.pilot || user.incapacitated())
+	if(!user || QDELETED(craft) || user != craft.pilot || IS_DEAD_OR_INCAP(user))
 		return
 	if((HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt) && harmful)
 		to_chat(user, span_warning("Вы не хотите причинять вред живым существам."))

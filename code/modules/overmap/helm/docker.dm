@@ -130,7 +130,7 @@
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/overmap/check_eye(mob/user)
 	var/obj/machinery/computer/helm/helm = loc
-	if(!istype(helm) || (helm.stat & (NOPOWER|BROKEN)) || !helm.Adjacent(user) || user.incapacitated() || !user.has_vision())
+	if(!istype(helm) || (helm.stat & (NOPOWER|BROKEN)) || !helm.Adjacent(user) || IS_DEAD_OR_INCAP(user) || !user.has_vision())
 		user.unset_machine()
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/overmap/attack_hand(mob/user)

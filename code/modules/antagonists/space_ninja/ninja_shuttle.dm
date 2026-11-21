@@ -36,7 +36,7 @@
 	area_flags = NONE
 
 /proc/overmap_virtual_console_ok(mob/user, obj/overmap/entity/vessel)
-	if(!user || user.incapacitated())
+	if(!user || IS_DEAD_OR_INCAP(user))
 		return FALSE
 	return overmap_ninja_can_remote(user, vessel)
 
