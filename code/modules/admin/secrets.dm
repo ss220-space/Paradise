@@ -78,6 +78,7 @@
 					[security_levels_data]<br>
 					<b>Create Weather</b><br>
 					<a href='byond://?src=[UID()];secretsfun=weatherashstorm'>Weather - Ash Storm</a>&nbsp;&nbsp;
+					<a href='byond://?src=[UID()];secretsfun=weatherrain'>Weather - Rain</a>&nbsp;&nbsp;
 					<br>
 					<b>Reinforce Station</b><br>
 					<a href='byond://?src=[UID()];secretsfun=gammashuttle'>Move the Gamma Armory</a>&nbsp;&nbsp;

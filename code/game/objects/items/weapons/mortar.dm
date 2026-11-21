@@ -345,12 +345,23 @@
 	invisibility = INVISIBILITY_MAXIMUM
 
 /obj/structure/mortar/proc/handle_shell(turf/target, obj/item/mortar_shell/shell)
+	// Zones in which a mortar shell does not detonate
+	var/static/list/safe_areas = list(
+		/area/planetoid/caves,
+		/area/planetoid/lazarus/engineering,
+		/area/planetoid/lazarus/science,
+	)
 	if(istype(shell, /obj/item/mortar_shell/custom)) // big shell warning for ghosts
 		var/obj/effect/effect = new /obj/effect/mortar_effect(target)
 		QDEL_IN(effect, 5 SECONDS)
 		notify_ghosts(title = "Custom Shell", message = "A custom mortar shell is about to land at [get_area(target)].", source = effect)
 	add_game_logs("fired an explosive shell from a mortar to ([target.x], [target.y], [target.z]).", usr)
 	message_admins("[usr] set mortar target to ([target.x], [target.y], [target.z]).[ADMIN_JMP(target)] [ADMIN_FLW(usr, usr)].")
+	if(is_type_in_list(get_area(target), safe_areas))
+		handle_cave_impact(target)
+		qdel(shell)
+		firing = FALSE
+		return
 	if(!shell.silent)
 		handle_messages(target)
 	else
@@ -358,6 +369,16 @@
 	shell.detonate(target)
 	qdel(shell)
 	firing = FALSE
+
+/obj/structure/mortar/proc/handle_cave_impact(turf/target)
+	playsound(target, 'sound/weapons/gun_mortar_travel.ogg', 15, TRUE)
+	addtimer(CALLBACK(src, PROC_REF(cave_impact_aftermath), target), 4 SECONDS)
+
+/obj/structure/mortar/proc/cave_impact_aftermath(turf/target)
+	playsound(target, SSexplosions.creaking_explosion_sound, 40, TRUE)
+	for(var/mob/mob in range(6, target))
+		shake_camera(mob, 2, 1)
+	visible_message(span_danger("The shell impact thuds dully somewhere in the caves."))
 
 /obj/structure/mortar/proc/handle_messages(turf/target)
 	playsound(target, 'sound/weapons/gun_mortar_travel.ogg', 50, TRUE)

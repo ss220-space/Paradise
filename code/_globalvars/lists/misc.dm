@@ -97,6 +97,8 @@ GLOBAL_LIST_EMPTY(ash_storm_sounds)
 
 GLOBAL_LIST_EMPTY(snowstorm_sounds)
 
+GLOBAL_LIST_EMPTY(rain_sounds)
+
 GLOBAL_LIST_EMPTY(world_flora)
 
 GLOBAL_LIST_EMPTY(zombie_classes)
