@@ -35,7 +35,7 @@
 /datum/status_effect/stacking/wet/proc/slip_owner_instead(atom/source, mob/living/victim)
 	if(victim == owner || owner.stat == DEAD)
 		return FALSE
-	owner.slip(SLIPPERY_TIME_WATER, victim, SLIP_WHEN_LYING, 0)
+	owner.slip(SLIPPERY_TIME_WATER, victim, SLIP_WHEN_LYING|NO_SLIP_WHEN_WALKING, 0)
 	return FALSE
 
 /datum/status_effect/stacking/wet/add_stacks(stacks_added) //Adjusting the amount of fire_stacks we have on person
