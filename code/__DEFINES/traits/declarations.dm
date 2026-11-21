@@ -705,3 +705,5 @@
 
 /// Trait that allows an item to perform holy rites akin to a nullrod
 #define TRAIT_NULLROD_ITEM "nullrod_item"
+
+#define TRAIT_BURNT_WINGS "burnt_wings"
