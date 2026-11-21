@@ -264,6 +264,35 @@
 	beakers += B1
 	beakers += B2
 
+/obj/item/grenade/chem_grenade/catbomb
+	payload_name = "cat bomb"
+	desc = "Этот кот похоже собиратся взорваться."
+	stage = 2
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "cat"
+	item_state = "cat"
+	lefthand_file = 'icons/mob/inhands/mobs_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/mobs_righthand.dmi'
+
+/obj/item/grenade/chem_grenade/catbomb/Initialize(mapload)
+	. = ..()
+	var/obj/item/reagent_containers/cup/beaker/large/B1 = new(src)
+	var/obj/item/reagent_containers/cup/beaker/large/B2 = new(src)
+	B1.reagents.add_reagent(/datum/reagent/water, 70)
+	B2.reagents.add_reagent(/datum/reagent/potassium, 70)
+	beakers += B1
+	beakers += B2
+
+/obj/item/grenade/chem_grenade/catbomb/update_icon_state()
+	icon = initial(icon)
+	icon_state = initial(icon_state)
+
+/obj/item/grenade/chem_grenade/catbomb/attack_self(mob/user)
+	. = ..()
+	if(active)
+		add_atom_colour("#FF0000", FIXED_COLOUR_PRIORITY)
+		playsound(src, 'sound/creatures/cat_meow.ogg', 70, TRUE)
+
 // --------------------------------------
 //  Syndie Kits
 // --------------------------------------

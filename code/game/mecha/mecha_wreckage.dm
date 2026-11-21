@@ -125,6 +125,11 @@
 	name = "Special NT Gygax wreckage"
 	icon_state = "ntgygax-broken"
 
+/obj/structure/mecha_wreckage/gygax/box
+	name = "Box mech wreckage"
+	icon = 'icons/obj/mecha/catmecha.dmi'
+	icon_state = "boxmecha-broken"
+
 /obj/structure/mecha_wreckage/marauder
 	name = "Marauder wreckage"
 	icon_state = "marauder-broken"
