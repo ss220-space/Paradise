@@ -627,6 +627,8 @@
 /// Trait which means whatever has this is dancing by a dance machine
 #define TRAIT_DISCO_DANCER "disco_dancer"
 
+#define TRAIT_MINE_TRIGGERER "mine_triggerer"
+
 #define TRAIT_GIVE_READY "give_ready"
 
 #define TRAIT_NO_WIZARD_CLOTHES "no_wizard_clothes"
@@ -703,5 +705,3 @@
 
 /// Trait that allows an item to perform holy rites akin to a nullrod
 #define TRAIT_NULLROD_ITEM "nullrod_item"
-
-#define TRAIT_MINE_TRIGGERER "mine_triggerer"

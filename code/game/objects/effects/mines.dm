@@ -109,6 +109,11 @@
 	set_hud_image_inactive(MINE_HUD)
 	return ..()
 
+/obj/effect/mine/explosive/lavaland/mineEffect(mob/living/victim)
+	. = ..()
+	if(victim?.mind && (victim.mind.assigned_role in GLOB.supply_positions))
+		victim.client?.give_award(/datum/award/achievement/jobs/watch_your_steps, victim)
+
 /obj/effect/mine/stun
 	name = "stun mine"
 	var/stun_time = 16 SECONDS
