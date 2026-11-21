@@ -3671,11 +3671,9 @@
 /area/mine/production)
 "qL" = (
 /obj/effect/mapping_helpers/no_lava,
-/obj/effect/mapping_helpers/no_lava,
 /obj/structure/stationary_machinegun/fixed{
 	dir = 1
 	},
-/obj/structure/stationary_machinegun/fixed,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "qT" = (
@@ -4685,7 +4683,6 @@
 "xQ" = (
 /obj/item/stack/ore/glass/basalt,
 /obj/effect/mapping_helpers/no_lava,
-/obj/effect/mapping_helpers/no_lava,
 /obj/item/ammo_box/magazine/pkm/bp,
 /obj/item/ammo_box/magazine/pkm/bp,
 /obj/item/ammo_box/magazine/pkm/b32,
@@ -5100,12 +5097,6 @@
 /obj/structure/stone_tile/center,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/lava/lava_land_surface/lava_only,
-/area/lavaland/surface/outdoors)
-"Ao" = (
-/obj/effect/mapping_helpers/no_lava,
-/obj/effect/mapping_helpers/no_lava,
-/obj/structure/stationary_machinegun/fixed,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Au" = (
 /obj/item/stack/ore/iron,
@@ -6514,14 +6505,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
-"JH" = (
-/obj/effect/mapping_helpers/no_lava,
-/obj/effect/mapping_helpers/no_lava,
-/obj/structure/stationary_machinegun/fixed{
-	dir = 4
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "JJ" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -23410,7 +23393,7 @@ aj
 aj
 aj
 up
-Ao
+qL
 Zf
 Zf
 Tg
@@ -29081,12 +29064,12 @@ jm
 hs
 hs
 UH
-JH
+Ou
 xQ
 fw
 fw
 fw
-JH
+Ou
 xQ
 fw
 fw
