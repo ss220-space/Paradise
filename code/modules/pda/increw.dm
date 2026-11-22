@@ -1,5 +1,3 @@
-#define INCREW_MAX_GROUP_MEMBERS 50
-
 /datum/data/pda/app/increw
 	name = "InCrew"
 	icon = "comments"
@@ -8,6 +6,8 @@
 
 	/// Chat open on this PDA.
 	var/selected_chat_id
+	var/history_before
+	var/list/contact_search
 	var/show_public_groups = FALSE
 	var/datum/increw_call_member/call_member
 	var/datum/weakref/login_holder
@@ -20,8 +20,7 @@
 	return ..()
 
 /datum/data/pda/app/increw/stop()
-	selected_chat_id = null
-	show_public_groups = FALSE
+	open_chat(null)
 	return ..()
 
 /datum/data/pda/app/increw/proc/get_profile(mob/user)
@@ -58,8 +57,13 @@
 		UnregisterSignal(pda, COMSIG_MOVABLE_MOVED)
 	login_holder = null
 	login_profile = null
-	selected_chat_id = null
-	show_public_groups = FALSE
+	open_chat(null)
+
+/datum/data/pda/app/increw/proc/is_signed_in_as(datum/messenger_account/profile, mob/user)
+	if(pda.loc != user || login_holder?.resolve() != user || login_profile?.resolve() != profile)
+		return FALSE
+	var/obj/item/card/id/card = pda.id
+	return card?.loc != pda || profile.matches_card(card)
 
 /datum/data/pda/app/increw/proc/check_login_holder(obj/item/pda/source)
 	SIGNAL_HANDLER
@@ -75,7 +79,11 @@
 	data["active_chat"] = null
 	data["public_groups"] = null
 	data["call"] = null
+	data["contact_search"] = null
 	if(!profile)
+		data["owner_messenger_account"] = null
+		data["chats"] = null
+		data["blocked_contacts"] = null
 		return
 
 	var/list/chats = list()
@@ -84,23 +92,9 @@
 		if(chat.is_visible_to(profile))
 			chats += list(chat.get_summary(profile))
 
-	var/list/contacts = list()
-	var/profile_id = profile.owner.UID()
-	for(var/datum/money_account/account as anything in GLOB.all_money_accounts)
-		if(account == profile.owner || QDELETED(account) || !account.owner_name)
-			continue
-		var/account_id = account.UID()
-		if(profile.blocks(account_id) || account.messenger_profile?.blocks(profile_id))
-			continue
-		contacts += list(list(
-			"label" = account.owner_name,
-			"value" = account_id,
-			"has_private_chat" = !!account.messenger_profile && !!profile.private_chats?[account.messenger_profile],
-		))
-
 	data["owner_messenger_account"] = profile.get_ui_data()
 	data["chats"] = chats
-	data["contacts"] = contacts
+	data["contact_search"] = contact_search
 	var/list/blocked_contacts = list()
 	for(var/account_id in profile.blocked_accounts)
 		blocked_contacts += list(list("id" = account_id, "name" = profile.blocked_accounts[account_id]))
@@ -119,7 +113,7 @@
 
 	var/datum/messenger_chat/selected_chat = selected_chat_id ? profile.chats[selected_chat_id] : null
 	if(selected_chat?.is_visible_to(profile))
-		data["active_chat"] = selected_chat.get_details(profile)
+		data["active_chat"] = selected_chat.get_details(profile, history_before)
 
 /datum/data/pda/app/increw/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
@@ -132,6 +126,8 @@
 	switch(action)
 		if("accept_call", "decline_call", "leave_call", "toggle_call_mic")
 			return handle_call_action(action, params["callId"], profile, ui.user)
+		if("search_contacts")
+			return search_contacts(profile, params)
 		if("block_contact")
 			var/datum/messenger_account/target = get_target(params["target"])
 			if(!target || target == profile || profile.blocks(target.owner.UID()))
@@ -150,8 +146,8 @@
 			LAZYREMOVE(profile.blocked_accounts, target_id)
 			return TRUE
 		if("show_public_groups")
+			open_chat(null)
 			show_public_groups = TRUE
-			selected_chat_id = null
 			return TRUE
 		if("hide_public_groups")
 			show_public_groups = FALSE
@@ -160,15 +156,17 @@
 			return join_public_group(profile, params["chatId"])
 		if("create_private_chat")
 			var/datum/messenger_account/target = get_target(params["target"])
-			if(!target || target == profile || profile.private_chats?[target] || !profile.can_contact(target))
+			if(!target || target == profile || !profile.can_contact(target))
 				return FALSE
+			var/datum/messenger_chat/existing_chat = profile.private_chats?[target]
+			if(existing_chat)
+				return open_chat(existing_chat)
 			var/datum/messenger_chat/chat = new(null, "Приватный чат с пользователем", null)
 			chat.add_member(profile)
 			chat.add_member(target)
 			LAZYSET(profile.private_chats, target, chat)
 			LAZYSET(target.private_chats, profile, chat)
-			selected_chat_id = chat.UID()
-			return TRUE
+			return open_chat(chat)
 		if("create_group_chat")
 			var/name = params["name"]
 			var/description = params["description"]
@@ -183,17 +181,12 @@
 				return FALSE
 			var/datum/messenger_chat/chat = new(name, trim(description, 301), profile)
 			chat.add_member(profile)
-			for(var/target_id as anything in members)
-				var/datum/messenger_account/target = get_target(target_id)
-				if(target && profile.can_contact(target))
-					chat.add_member(target)
+			add_initial_members(chat, profile, members)
 			if(public)
 				chat.set_public(TRUE)
-			selected_chat_id = chat.UID()
-			return TRUE
+			return open_chat(chat)
 		if("close_chat")
-			selected_chat_id = null
-			return TRUE
+			return open_chat(null)
 
 	var/chat_id = params["chatId"]
 	if(!istext(chat_id))
@@ -206,11 +199,21 @@
 		if("start_call")
 			return start_call(profile, chat, ui.user)
 		if("open_chat")
-			selected_chat_id = chat_id
-			show_public_groups = FALSE
+			return open_chat(chat)
+		if("older_messages")
+			var/before = params["before"]
+			var/current_before = history_before || length(chat.messages) + 1
+			if(selected_chat_id != chat_id || !isnum(before) || before != round(before) || before <= 1 || before >= current_before)
+				return FALSE
+			history_before = before
+			return TRUE
+		if("latest_messages")
+			if(selected_chat_id != chat_id || !history_before)
+				return FALSE
+			history_before = null
 			return TRUE
 		if("read_chat")
-			if(selected_chat_id != chat_id || !profile.unread_chats?[chat_id] || params["messageId"] != length(chat.messages))
+			if(selected_chat_id != chat_id || history_before || !profile.unread_chats?[chat_id] || params["messageId"] != length(chat.messages))
 				return FALSE
 			LAZYREMOVE(profile.unread_chats, chat_id)
 			refresh_alert(profile)
@@ -266,9 +269,56 @@
 		if(length(chat.members) >= INCREW_MAX_GROUP_MEMBERS || !chat.add_member(profile))
 			return FALSE
 		chat.add_message("[profile.owner.owner_name] вступил(-а) в группу.", event_actor = profile)
-	selected_chat_id = chat_id
+	return open_chat(chat)
+
+/datum/data/pda/app/increw/proc/open_chat(datum/messenger_chat/chat)
+	selected_chat_id = chat?.UID()
+	history_before = null
+	contact_search = null
 	show_public_groups = FALSE
 	return TRUE
+
+/datum/data/pda/app/increw/proc/search_contacts(datum/messenger_account/profile, list/params)
+	var/query = params["query"]
+	var/picker = params["picker"]
+	var/list/excluded = params["excluded"]
+	if(!istext(query) || !istext(picker) || length(picker) > 40 || !islist(excluded) || length(excluded) > INCREW_MAX_GROUP_MEMBERS)
+		return FALSE
+	query = trim(query, 81)
+	if(!query)
+		return FALSE
+
+	var/list/matches = list()
+	var/profile_id = profile.owner.UID()
+	for(var/datum/money_account/account as anything in GLOB.all_money_accounts)
+		if(account == profile.owner || QDELETED(account) || !account.owner_name || !findtext(account.owner_name, query))
+			continue
+		var/account_id = account.UID()
+		var/datum/messenger_account/target = account.messenger_profile
+		if((account_id in excluded) || profile.blocks(account_id) || target?.blocks(profile_id))
+			continue
+		if(params["privateOnly"] && target && profile.private_chats?[target])
+			continue
+		matches += list(list("label" = account.owner_name, "value" = account_id))
+		if(length(matches) >= INCREW_MAX_CONTACT_RESULTS)
+			break
+
+	contact_search = list("query" = query, "picker" = picker, "matches" = matches)
+	return TRUE
+
+/datum/data/pda/app/increw/proc/add_initial_members(datum/messenger_chat/chat, datum/messenger_account/profile, list/members)
+	var/list/requested = list()
+	for(var/target_id in members)
+		if(istext(target_id) && length(target_id))
+			requested[target_id] = TRUE
+	if(!length(requested))
+		return
+	for(var/datum/money_account/account as anything in GLOB.all_money_accounts)
+		if(account == profile.owner || QDELETED(account) || !account.unique_datum_id || !requested[account.unique_datum_id])
+			continue
+		var/datum/messenger_account/target = account.get_messenger_profile()
+		if(profile.can_contact(target))
+			chat.add_member(target)
 
 /datum/data/pda/app/increw/proc/get_target(target_id)
 	if(!istext(target_id) || !length(target_id))
@@ -333,7 +383,7 @@
 		to_chat(user, span_warning("InCrew: все частоты заняты."))
 		return FALSE
 
-	COOLDOWN_START(profile, call_cooldown, 12 SECONDS)
+	COOLDOWN_START(profile, call_cooldown, INCREW_CALL_COOLDOWN)
 	var/datum/increw_call/call_session = new(chat, profile, frequency)
 	chat.add_message("[profile.owner.owner_name] начал(-а) звонок.", event_actor = profile)
 	call_session.add_member(profile, src, accepted = TRUE)
@@ -363,5 +413,3 @@
 			if(radio)
 				return radio.set_broadcasting(!radio.get_broadcasting())
 	return FALSE
-
-#undef INCREW_MAX_GROUP_MEMBERS

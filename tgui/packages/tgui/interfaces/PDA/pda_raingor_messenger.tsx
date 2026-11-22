@@ -2,6 +2,7 @@ import {
 	type ReactNode,
 	useCallback,
 	useEffect,
+	useId,
 	useRef,
 	useState,
 } from 'react';
@@ -16,7 +17,7 @@ import {
 } from 'tgui-core/components';
 import { useBackend } from '../../backend';
 
-type Contact = { label: string; value: string; has_private_chat: boolean };
+type Contact = { label: string; value: string };
 type Profile = { id: string; name: string; photo?: string };
 type Chat = {
 	chat_id: string;
@@ -39,6 +40,8 @@ type ChatDetails = {
 	chat_id: string;
 	chat_members: Profile[];
 	messages: Message[];
+	older_before: number | null;
+	showing_latest: boolean;
 };
 
 type CrewCall = {
@@ -59,7 +62,11 @@ type InCrewData =
 			can_login: true;
 			owner_messenger_account: Profile;
 			chats: Chat[];
-			contacts: Contact[];
+			contact_search: {
+				query: string;
+				picker: string;
+				matches: Contact[];
+			} | null;
 			blocked_contacts: Pick<Profile, 'id' | 'name'>[];
 			max_group_members: number;
 			public_groups: Chat[] | null;
@@ -222,7 +229,6 @@ function InCrew({ data }: { data: Extract<InCrewData, { can_login: true }> }) {
 		blocked_contacts,
 		call_busy,
 		chats,
-		contacts,
 		max_group_members,
 		owner_messenger_account,
 		public_groups,
@@ -236,7 +242,6 @@ function InCrew({ data }: { data: Extract<InCrewData, { can_login: true }> }) {
 				chat={chat}
 				details={active_chat}
 				profile={owner_messenger_account}
-				contacts={contacts}
 				maxMembers={max_group_members}
 				callBusy={call_busy}
 			/>
@@ -256,7 +261,6 @@ function InCrew({ data }: { data: Extract<InCrewData, { can_login: true }> }) {
 	if (page === 'create') {
 		return (
 			<CreateGroup
-				contacts={contacts}
 				maxMembers={max_group_members}
 				onClose={() => setPage('home')}
 			/>
@@ -271,7 +275,6 @@ function InCrew({ data }: { data: Extract<InCrewData, { can_login: true }> }) {
 		return (
 			<BlockedContacts
 				blocked={blocked_contacts}
-				contacts={contacts}
 				onClose={() => setPage('home')}
 			/>
 		);
@@ -325,9 +328,7 @@ function InCrew({ data }: { data: Extract<InCrewData, { can_login: true }> }) {
 			{page === 'contacts' && (
 				<Section title="Собеседник">
 					<ContactPicker
-						contacts={contacts.filter(
-							(contact) => !contact.has_private_chat,
-						)}
+						privateOnly
 						onSelect={(contact) => {
 							act('create_private_chat', {
 								target: contact.value,
@@ -399,24 +400,24 @@ function InCrew({ data }: { data: Extract<InCrewData, { can_login: true }> }) {
 	);
 }
 
-function BlockedContacts({
-	blocked,
-	contacts,
+function InCrewPage({
+	icon,
+	title,
 	onClose,
+	children,
 }: {
-	blocked: Pick<Profile, 'id' | 'name'>[];
-	contacts: Contact[];
+	icon: string;
+	title: string;
 	onClose: () => void;
+	children: ReactNode;
 }) {
-	const { act } = useBackend();
-
 	return (
 		<Section
 			className="increw-section"
 			title={
 				<Box className="text-gold">
-					<Icon name="ban" mr={0.5} />
-					Чёрный список
+					<Icon name={icon} mr={0.5} />
+					{title}
 				</Box>
 			}
 			buttons={
@@ -431,6 +432,22 @@ function BlockedContacts({
 			fill
 			scrollable
 		>
+			{children}
+		</Section>
+	);
+}
+
+function BlockedContacts({
+	blocked,
+	onClose,
+}: {
+	blocked: Pick<Profile, 'id' | 'name'>[];
+	onClose: () => void;
+}) {
+	const { act } = useBackend();
+
+	return (
+		<InCrewPage icon="ban" title="Чёрный список" onClose={onClose}>
 			{blocked.map((contact) => (
 				<Box key={contact.id} className="card" p={1} mb={0.5}>
 					<Stack align="center" wrap>
@@ -457,12 +474,11 @@ function BlockedContacts({
 				Заблокировать контакт
 			</Box>
 			<ContactPicker
-				contacts={contacts}
 				onSelect={(contact) =>
 					act('block_contact', { target: contact.value })
 				}
 			/>
-		</Section>
+		</InCrewPage>
 	);
 }
 
@@ -505,25 +521,10 @@ function PublicGroups({
 	const joined = new Set(chats.map((chat) => chat.chat_id));
 
 	return (
-		<Section
-			className="increw-section"
-			title={
-				<Box className="text-gold">
-					<Icon name="globe" mr={0.5} />
-					Открытые группы
-				</Box>
-			}
-			buttons={
-				<Button
-					className="btn-bank"
-					icon="arrow-left"
-					onClick={() => act('hide_public_groups')}
-				>
-					Назад
-				</Button>
-			}
-			fill
-			scrollable
+		<InCrewPage
+			icon="globe"
+			title="Открытые группы"
+			onClose={() => act('hide_public_groups')}
 		>
 			{!groups.length && (
 				<Box italic className="text-muted" textAlign="center" p={2}>
@@ -573,33 +574,54 @@ function PublicGroups({
 					</Box>
 				);
 			})}
-		</Section>
+		</InCrewPage>
 	);
 }
 
 function ContactPicker({
-	contacts,
 	onSelect,
+	privateOnly = false,
+	excluded = '',
 }: {
-	contacts: Contact[];
 	onSelect: (contact: Contact) => void;
+	privateOnly?: boolean;
+	excluded?: string;
 }) {
+	const { act, data } = useBackend<InCrewData>();
+	const picker = useId();
 	const [query, setQuery] = useState('');
-	const search = query.trim().toLocaleLowerCase();
-	const matches = contacts
-		.filter((contact) => contact.label.toLocaleLowerCase().includes(search))
-		.slice(0, 8);
+	const search = query.trim();
+	const response = data.can_login ? data.contact_search : null;
+	const matches =
+		response?.picker === picker && response.query === search
+			? response.matches
+			: null;
+
+	useEffect(() => {
+		if (!search) return;
+		const timeout = window.setTimeout(() => {
+			act('search_contacts', {
+				query: search,
+				picker,
+				privateOnly,
+				excluded: excluded ? excluded.split(',') : [],
+			});
+		}, 180);
+		return () => window.clearTimeout(timeout);
+	}, [act, excluded, picker, privateOnly, search]);
 
 	return (
 		<Stack vertical>
 			<Input
 				className="input-field"
 				fluid
+				maxLength={80}
 				placeholder="Поиск сотрудника…"
 				value={query}
 				onChange={setQuery}
 			/>
 			{!!search &&
+				matches &&
 				(matches.length ? (
 					matches.map((contact) => (
 						<Button
@@ -626,14 +648,12 @@ function Conversation({
 	chat,
 	details,
 	profile,
-	contacts,
 	maxMembers,
 	callBusy,
 }: {
 	chat: Chat;
 	details: ChatDetails;
 	profile: Profile;
-	contacts: Contact[];
 	maxMembers: number;
 	callBusy: boolean;
 }) {
@@ -653,6 +673,7 @@ function Conversation({
 
 	const readLatest = useCallback(() => {
 		if (
+			details.showing_latest &&
 			chat.unread_count > 0 &&
 			latestMessageId &&
 			latestMessageId !== lastReadSent.current
@@ -660,14 +681,25 @@ function Conversation({
 			lastReadSent.current = latestMessageId;
 			act('read_chat', { chatId, messageId: latestMessageId });
 		}
-	}, [act, chat.unread_count, chatId, latestMessageId]);
+	}, [
+		act,
+		chat.unread_count,
+		chatId,
+		details.showing_latest,
+		latestMessageId,
+	]);
 
 	useEffect(() => {
-		if (!showMembers && history.current && atBottom.current) {
+		if (
+			!showMembers &&
+			details.showing_latest &&
+			history.current &&
+			atBottom.current
+		) {
 			history.current.scrollTop = history.current.scrollHeight;
 			readLatest();
 		}
-	}, [readLatest, showMembers]);
+	}, [details.showing_latest, readLatest, showMembers]);
 
 	const sendMessage = () => {
 		if (draft.trim()) {
@@ -834,9 +866,9 @@ function Conversation({
 								Добавить участника
 							</Box>
 							<ContactPicker
-								contacts={contacts.filter(
-									(contact) => !members.has(contact.value),
-								)}
+								excluded={details.chat_members
+									.map((member) => member.id)
+									.join(',')}
 								onSelect={(contact) =>
 									act('add_member_to_chat', {
 										chatId,
@@ -849,6 +881,39 @@ function Conversation({
 				</Section>
 			) : (
 				<>
+					{(!!details.older_before || !details.showing_latest) && (
+						<Stack justify="space-between">
+							{details.older_before && (
+								<Button
+									className="btn-bank"
+									icon="arrow-up"
+									onClick={() => {
+										atBottom.current = false;
+										if (history.current)
+											history.current.scrollTop = 0;
+										act('older_messages', {
+											chatId,
+											before: details.older_before,
+										});
+									}}
+								>
+									Раньше
+								</Button>
+							)}
+							{!details.showing_latest && (
+								<Button
+									className="btn-bank"
+									icon="arrow-down"
+									onClick={() => {
+										atBottom.current = true;
+										act('latest_messages', { chatId });
+									}}
+								>
+									К новым
+								</Button>
+							)}
+						</Stack>
+					)}
 					<Section
 						ref={history}
 						fill
@@ -935,11 +1000,9 @@ function Conversation({
 }
 
 function CreateGroup({
-	contacts,
 	maxMembers,
 	onClose,
 }: {
-	contacts: Contact[];
 	maxMembers: number;
 	onClose: () => void;
 }) {
@@ -950,23 +1013,7 @@ function CreateGroup({
 	const [members, setMembers] = useState<Contact[]>([]);
 
 	return (
-		<Section
-			className="increw-section"
-			title={
-				<Box className="text-gold">
-					<Icon name="users" mr={0.5} />
-					Создание группы
-				</Box>
-			}
-			buttons={
-				<Button
-					className="btn-bank"
-					icon="arrow-left"
-					tooltip="Назад"
-					onClick={onClose}
-				/>
-			}
-		>
+		<InCrewPage icon="users" title="Создание группы" onClose={onClose}>
 			<Stack vertical>
 				<Box>
 					<Box className="field-label">Название</Box>
@@ -1033,13 +1080,9 @@ function CreateGroup({
 					))}
 					{members.length < maxMembers - 1 && (
 						<ContactPicker
-							contacts={contacts.filter(
-								(contact) =>
-									!members.some(
-										(member) =>
-											member.value === contact.value,
-									),
-							)}
+							excluded={members
+								.map((member) => member.value)
+								.join(',')}
 							onSelect={(contact) =>
 								setMembers([...members, contact])
 							}
@@ -1065,31 +1108,13 @@ function CreateGroup({
 			>
 				Создать группу
 			</Button>
-		</Section>
+		</InCrewPage>
 	);
 }
 
 function AboutInCrew({ onClose }: { onClose: () => void }) {
 	return (
-		<Section
-			className="increw-section"
-			title={
-				<Box className="text-gold">
-					<Icon name="info-circle" mr={0.5} />О InCrew
-				</Box>
-			}
-			buttons={
-				<Button
-					className="btn-bank"
-					icon="arrow-left"
-					onClick={onClose}
-				>
-					Назад
-				</Button>
-			}
-			fill
-			scrollable
-		>
+		<InCrewPage icon="info-circle" title="О InCrew" onClose={onClose}>
 			<InCrewCard icon="comments">
 				<Box textAlign="center">Связь для экипажей и станций</Box>
 			</InCrewCard>
@@ -1122,6 +1147,6 @@ function AboutInCrew({ onClose }: { onClose: () => void }) {
 					«Смена меняется. Связь остаётся.»
 				</Box>
 			</Box>
-		</Section>
+		</InCrewPage>
 	);
 }

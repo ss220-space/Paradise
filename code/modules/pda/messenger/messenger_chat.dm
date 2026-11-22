@@ -114,7 +114,7 @@ GLOBAL_LIST_EMPTY(increw_public_groups)
 		"unread_count" = viewer.unread_chats?[UID()] || 0,
 	)
 
-/datum/messenger_chat/proc/get_details(datum/messenger_account/viewer)
+/datum/messenger_chat/proc/get_details(datum/messenger_account/viewer, before)
 	var/list/member_rows = list()
 	for(var/member_id in members)
 		if(viewer.blocks(member_id))
@@ -122,10 +122,30 @@ GLOBAL_LIST_EMPTY(increw_public_groups)
 		var/datum/messenger_account/member = members[member_id]
 		member_rows += list(member.get_ui_data())
 
-	var/list/visible_messages = messages
-	if(length(viewer.blocked_accounts) && is_group)
-		visible_messages = list()
-		for(var/list/message as anything in messages)
-			if(!viewer.blocks(message["sender_id"]) && !viewer.blocks(message["actor_id"]))
-				visible_messages += list(message)
-	return list("chat_id" = UID(), "chat_members" = member_rows, "messages" = visible_messages)
+	var/last_index = before ? before - 1 : length(messages)
+	var/list/history = list()
+	var/older_before
+	if(is_group && length(viewer.blocked_accounts))
+		for(var/index = last_index; index >= 1; index--)
+			var/list/message = messages[index]
+			if(viewer.blocks(message["sender_id"]) || viewer.blocks(message["actor_id"]))
+				continue
+			if(length(history) == INCREW_HISTORY_SIZE)
+				var/list/oldest = history[length(history)]
+				older_before = oldest["id"]
+				break
+			history += list(message)
+		reverse_range(history)
+	else if(last_index)
+		var/start_index = max(1, last_index - INCREW_HISTORY_SIZE + 1)
+		history = messages.Copy(start_index, last_index + 1)
+		if(start_index > 1)
+			older_before = start_index
+
+	return list(
+		"chat_id" = UID(),
+		"chat_members" = member_rows,
+		"messages" = history,
+		"older_before" = older_before,
+		"showing_latest" = !before,
+	)

@@ -9,6 +9,7 @@
 	var/list/blocked_accounts
 	var/datum/increw_call/active_call
 	COOLDOWN_DECLARE(call_cooldown)
+	COOLDOWN_DECLARE(photo_retry)
 
 /datum/messenger_account/New(datum/money_account/owner)
 	src.owner = owner
@@ -27,7 +28,9 @@
 	return ..()
 
 /datum/messenger_account/proc/get_ui_data()
-	owner.set_photo()
+	if(!owner.photo && COOLDOWN_FINISHED(src, photo_retry))
+		owner.set_photo()
+		COOLDOWN_START(src, photo_retry, INCREW_PHOTO_RETRY)
 	return list(
 		"id" = owner.UID(),
 		"name" = owner.owner_name,

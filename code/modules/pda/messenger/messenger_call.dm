@@ -1,8 +1,5 @@
 GLOBAL_LIST_EMPTY(increw_call_frequencies)
 
-#define INCREW_CALL_RING_TIME (24 SECONDS)
-#define INCREW_CALL_RING_INTERVAL (4 SECONDS)
-
 /proc/get_increw_call_frequency()
 	var/list/reserved = list(ATMOS_TANKS_FREQ, ATMOS_DISTRO_FREQ, BOT_BEACON_FREQ, BOT_FREQ, AIRLOCK_FREQ, IMPL_FREQ, RSD_FREQ)
 	for(var/channel in SSradio.radiochannels)
@@ -134,7 +131,7 @@ GLOBAL_LIST_EMPTY(increw_call_frequencies)
 		"chat_name" = chat.get_display_name(member.profile),
 		"caller_name" = caller_name,
 		"is_group" = chat.is_group,
-		"connected_count" = count_connected(),
+		"connected_count" = connected ? count_connected() : 0,
 		"frequency" = connected ? format_frequency(frequency) : null,
 		"mic_on" = connected && member.radio?.get_broadcasting(),
 		"quiet" = member.quiet,
@@ -173,7 +170,7 @@ GLOBAL_LIST_EMPTY(increw_call_frequencies)
 
 /datum/increw_call_member/proc/is_available()
 	var/obj/item/pda/pda = device?.pda
-	return !QDELETED(pda) && user?.client && user.stat != DEAD && device.get_profile(user) == profile
+	return !QDELETED(pda) && user?.client && user.stat != DEAD && device.is_signed_in_as(profile, user)
 
 /datum/increw_call_member/proc/notify_invite()
 	var/chat_name = html_encode(call_session.chat.get_display_name(profile))
@@ -229,6 +226,3 @@ GLOBAL_LIST_EMPTY(increw_call_frequencies)
 
 /obj/item/radio/increw/deliver()
 	return call_member?.is_available() ? list(call_member.user) : list()
-
-#undef INCREW_CALL_RING_TIME
-#undef INCREW_CALL_RING_INTERVAL
