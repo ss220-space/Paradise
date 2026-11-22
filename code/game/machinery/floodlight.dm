@@ -230,27 +230,27 @@
 		icon_state = "flood_s_off"
 
 /obj/machinery/floodlight/colony/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
-    if(!istype(tool, /obj/item/stack/sheet/metal))
-        return NONE
+	if(!istype(tool, /obj/item/stack/sheet/metal))
+		return NONE
 
-    add_fingerprint(user)
+	add_fingerprint(user)
 
-    if(!(stat & BROKEN))
-        to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] не нуждается в ремонте."))
-        return ITEM_INTERACT_BLOCKING
+	if(!(stat & BROKEN))
+		to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] не нуждается в ремонте."))
+		return ITEM_INTERACT_BLOCKING
 
-    if(metal_added)
-        to_chat(user, span_notice("Металл уже добавлен."))
-        return ITEM_INTERACT_BLOCKING
+	if(metal_added)
+		to_chat(user, span_notice("Металл уже добавлен."))
+		return ITEM_INTERACT_BLOCKING
 
-    var/obj/item/stack/sheet/metal/metal = tool
-    if(!metal.use(5))
-        to_chat(user, span_warning("Нужно пять листов металла для ремонта."))
-        return ITEM_INTERACT_BLOCKING
+	var/obj/item/stack/sheet/metal/metal = tool
+	if(!metal.use(5))
+		to_chat(user, span_warning("Нужно пять листов металла для ремонта."))
+		return ITEM_INTERACT_BLOCKING
 
-    metal_added = TRUE
-    to_chat(user, span_notice("Вы добавляете пять листов металла. Теперь нужно приварить их."))
-    return ITEM_INTERACT_SUCCESS
+	metal_added = TRUE
+	to_chat(user, span_notice("Вы добавляете пять листов металла. Теперь нужно приварить их."))
+	return ITEM_INTERACT_SUCCESS
 
 /obj/machinery/floodlight/colony/wrench_act(mob/living/user, obj/item/I)
 	add_fingerprint(user)
