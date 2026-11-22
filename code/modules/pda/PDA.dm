@@ -91,6 +91,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		new/datum/data/pda/app/main_menu,
 		new/datum/data/pda/app/notekeeper,
 		new/datum/data/pda/app/messenger,
+		new/datum/data/pda/app/increw,
 		new/datum/data/pda/app/manifest,
 		new/datum/data/pda/app/atmos_scanner,
 		new/datum/data/pda/utility/flashlight,
