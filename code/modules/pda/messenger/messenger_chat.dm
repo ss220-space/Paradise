@@ -1,9 +1,12 @@
+GLOBAL_LIST_EMPTY(increw_public_groups)
+
 /datum/messenger_chat
 	var/name
 	var/description
 	/// Group owner.
 	var/datum/messenger_account/owner
 	var/is_group = FALSE
+	var/is_public = FALSE
 	/// Account UID -> profile.
 	var/list/members = list()
 	/// TGUI reuses these rows on refresh.
@@ -17,6 +20,9 @@
 	return ..()
 
 /datum/messenger_chat/Destroy()
+	if(is_public)
+		GLOB.increw_public_groups -= UID()
+
 	if(!is_group && length(members) == 2)
 		var/datum/messenger_account/first = members[members[1]]
 		var/datum/messenger_account/second = members[members[2]]
@@ -28,6 +34,17 @@
 	messages = null
 	owner = null
 	return ..()
+
+/datum/messenger_chat/proc/set_public(public)
+	if(!is_group || !isnum(public) || (public != TRUE && public != FALSE) || is_public == public)
+		return FALSE
+
+	is_public = public
+	if(is_public)
+		GLOB.increw_public_groups[UID()] = src
+	else
+		GLOB.increw_public_groups -= UID()
+	return TRUE
 
 /datum/messenger_chat/proc/add_member(datum/messenger_account/member)
 	var/member_id = member.owner.UID()
@@ -66,6 +83,7 @@
 		"name_chat" = get_display_name(viewer),
 		"description_chat" = description,
 		"is_group" = is_group,
+		"is_public" = is_public,
 		"owner_id" = owner?.owner.UID(),
 		"member_count" = length(members),
 	)

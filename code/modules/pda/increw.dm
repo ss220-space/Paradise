@@ -8,9 +8,11 @@
 
 	/// Chat open on this PDA.
 	var/selected_chat_id
+	var/show_public_groups = FALSE
 
 /datum/data/pda/app/increw/stop()
 	selected_chat_id = null
+	show_public_groups = FALSE
 	return ..()
 
 /datum/data/pda/app/increw/proc/get_profile()
@@ -28,8 +30,10 @@
 	var/datum/messenger_account/profile = get_profile()
 	data["can_login"] = !!profile
 	data["active_chat"] = null
+	data["public_groups"] = null
 	if(!profile)
 		selected_chat_id = null
+		show_public_groups = FALSE
 		return
 
 	var/list/chats = list()
@@ -50,6 +54,14 @@
 	data["owner_messenger_account"] = profile.get_ui_data()
 	data["chats"] = chats
 	data["contacts"] = contacts
+	data["max_group_members"] = INCREW_MAX_GROUP_MEMBERS
+
+	if(show_public_groups)
+		var/list/public_groups = list()
+		for(var/chat_id in GLOB.increw_public_groups)
+			var/datum/messenger_chat/chat = GLOB.increw_public_groups[chat_id]
+			public_groups += list(chat.get_summary(profile))
+		data["public_groups"] = public_groups
 
 	var/datum/messenger_chat/selected_chat = selected_chat_id ? profile.chats[selected_chat_id] : null
 	if(selected_chat)
@@ -64,6 +76,15 @@
 		return FALSE
 
 	switch(action)
+		if("show_public_groups")
+			show_public_groups = TRUE
+			selected_chat_id = null
+			return TRUE
+		if("hide_public_groups")
+			show_public_groups = FALSE
+			return TRUE
+		if("join_public_group")
+			return join_public_group(profile, params["chatId"])
 		if("create_private_chat")
 			var/datum/messenger_account/target = get_target(params["target"])
 			if(!target || target == profile || profile.private_chats?[target])
@@ -78,8 +99,11 @@
 		if("create_group_chat")
 			var/name = params["name"]
 			var/description = params["description"]
+			var/public = params["isPublic"]
 			var/list/members = params["members"]
 			if(!istext(name) || !istext(description) || !islist(members) || length(members) >= INCREW_MAX_GROUP_MEMBERS)
+				return FALSE
+			if(!isnum(public) || (public != TRUE && public != FALSE))
 				return FALSE
 			name = trim(name, 81)
 			if(!name)
@@ -90,6 +114,8 @@
 				var/datum/messenger_account/target = get_target(target_id)
 				if(target)
 					chat.add_member(target)
+			if(public)
+				chat.set_public(TRUE)
 			selected_chat_id = chat.UID()
 			return TRUE
 		if("close_chat")
@@ -106,6 +132,7 @@
 	switch(action)
 		if("open_chat")
 			selected_chat_id = chat_id
+			show_public_groups = FALSE
 			return TRUE
 		if("send_message")
 			var/message = params["message"]
@@ -126,6 +153,9 @@
 				chat.remove_member(profile)
 				chat.add_message("[profile.owner.owner_name] покинул(-а) группу.")
 				return TRUE
+		if("set_group_visibility")
+			if(chat.owner == profile)
+				return chat.set_public(params["isPublic"])
 		if("add_member_to_chat")
 			if(chat.owner != profile || length(chat.members) >= INCREW_MAX_GROUP_MEMBERS)
 				return FALSE
@@ -143,6 +173,20 @@
 				chat.add_message("[profile.owner.owner_name] исключил(-а) из группы [target.owner.owner_name].")
 				return TRUE
 	return FALSE
+
+/datum/data/pda/app/increw/proc/join_public_group(datum/messenger_account/profile, chat_id)
+	if(!istext(chat_id))
+		return FALSE
+	var/datum/messenger_chat/chat = GLOB.increw_public_groups[chat_id]
+	if(!chat)
+		return FALSE
+	if(!profile.chats[chat_id])
+		if(length(chat.members) >= INCREW_MAX_GROUP_MEMBERS || !chat.add_member(profile))
+			return FALSE
+		chat.add_message("[profile.owner.owner_name] вступил(-а) в группу.")
+	selected_chat_id = chat_id
+	show_public_groups = FALSE
+	return TRUE
 
 /datum/data/pda/app/increw/proc/get_target(target_id)
 	if(!istext(target_id) || !length(target_id))

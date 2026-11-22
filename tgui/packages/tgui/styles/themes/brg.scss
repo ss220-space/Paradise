@@ -169,6 +169,79 @@
 		}
 	}
 
+	.increw-actions {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 0.5em;
+	}
+
+	.increw-action {
+		height: 100%;
+		padding: 0.85em 0.35em;
+		text-align: center;
+		white-space: normal;
+
+		&.Button--selected {
+			border-color: var(--color-action);
+		}
+	}
+
+	.increw-avatar {
+		position: relative;
+		display: inline-block;
+		width: 1.9em;
+		aspect-ratio: 1;
+		flex: 0 0 auto;
+		overflow: hidden;
+		border-radius: 50%;
+		background: var(--color-base);
+
+		img {
+			position: absolute;
+			top: 0;
+			left: 50%;
+			width: 250%;
+			max-width: none;
+			transform: translateX(-50%);
+			image-rendering: pixelated;
+		}
+	}
+
+	.increw-composer {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(max-content, 18%);
+		gap: 0.5em;
+	}
+
+	.increw-send {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 2.5em;
+		padding-inline: 0.65em;
+	}
+
+	.increw-wrap {
+		overflow-wrap: anywhere;
+	}
+
+	.increw-section > .Section__title {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.5em;
+
+		> .Section__titleText {
+			min-width: 0;
+		}
+
+		> .Section__buttons {
+			position: static;
+			flex-shrink: 0;
+			margin: 0;
+		}
+	}
+
 	.increw-message {
 		width: fit-content;
 		max-width: 85%;

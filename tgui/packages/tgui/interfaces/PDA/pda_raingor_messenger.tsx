@@ -3,7 +3,6 @@ import {
 	Box,
 	Button,
 	Icon,
-	Image,
 	Input,
 	Section,
 	Stack,
@@ -18,6 +17,7 @@ type Chat = {
 	name_chat: string;
 	description_chat?: string;
 	is_group: boolean;
+	is_public: boolean;
 	owner_id?: string;
 	member_count: number;
 };
@@ -41,6 +41,8 @@ type InCrewData =
 			owner_messenger_account: Profile;
 			chats: Chat[];
 			contacts: Contact[];
+			max_group_members: number;
+			public_groups: Chat[] | null;
 			active_chat?: ChatDetails;
 	  };
 
@@ -69,12 +71,12 @@ function InCrewCard({ icon, children }: { icon: string; children: ReactNode }) {
 					InCrew
 				</Box>
 				<Box
-					fontSize="12px"
+					fontSize="0.85em"
 					className="text-white"
 					textAlign="center"
-					style={{ letterSpacing: '1.5px' }}
+					style={{ letterSpacing: '0.12em' }}
 				>
-					BlackRainGroup
+					Black Rain Group
 				</Box>
 				<Box className="divider" style={{ width: '60%', margin: 0 }} />
 				{children}
@@ -83,11 +85,29 @@ function InCrewCard({ icon, children }: { icon: string; children: ReactNode }) {
 	);
 }
 
+function Avatar({ photo }: { photo?: string }) {
+	return photo ? (
+		<span className="increw-avatar">
+			<img src={photo} alt="" />
+		</span>
+	) : (
+		<Icon name="user-circle" className="text-gold" />
+	);
+}
+
 function InCrew({ data }: { data: Extract<InCrewData, { can_login: true }> }) {
 	const { act } = useBackend();
-	const [showContacts, setShowContacts] = useState(false);
-	const [creatingGroup, setCreatingGroup] = useState(false);
-	const { active_chat, chats, contacts, owner_messenger_account } = data;
+	const [page, setPage] = useState<'home' | 'contacts' | 'create' | 'about'>(
+		'home',
+	);
+	const {
+		active_chat,
+		chats,
+		contacts,
+		max_group_members,
+		owner_messenger_account,
+		public_groups,
+	} = data;
 	const chat = chats.find((item) => item.chat_id === active_chat?.chat_id);
 
 	if (chat && active_chat) {
@@ -98,64 +118,74 @@ function InCrew({ data }: { data: Extract<InCrewData, { can_login: true }> }) {
 				details={active_chat}
 				profile={owner_messenger_account}
 				contacts={contacts}
+				maxMembers={max_group_members}
 			/>
 		);
 	}
 
-	if (creatingGroup) {
+	if (public_groups) {
+		return (
+			<PublicGroups
+				groups={public_groups}
+				chats={chats}
+				maxMembers={max_group_members}
+			/>
+		);
+	}
+
+	if (page === 'create') {
 		return (
 			<CreateGroup
 				contacts={contacts}
-				onClose={() => setCreatingGroup(false)}
+				maxMembers={max_group_members}
+				onClose={() => setPage('home')}
 			/>
 		);
+	}
+
+	if (page === 'about') {
+		return <AboutInCrew onClose={() => setPage('home')} />;
 	}
 
 	return (
 		<Stack vertical fill>
 			<InCrewCard icon="comments">
-				<Box bold>
-					<Icon name="user-circle" className="text-gold" mr={0.5} />
-					{owner_messenger_account.name}
-				</Box>
-			</InCrewCard>
-			<Stack>
-				<Stack.Item grow basis={0}>
-					<Button
-						className={
-							showContacts
-								? 'btn-bank btn-bank--primary'
-								: 'btn-bank'
-						}
-						fluid
-						p={1.5}
-						onClick={() => setShowContacts(!showContacts)}
-					>
-						<Stack vertical align="center">
-							<Icon
-								name="comment"
-								className="text-gold"
-								size={2}
-							/>
-							<Box>Новый диалог</Box>
-						</Stack>
-					</Button>
-				</Stack.Item>
-				<Stack.Item grow basis={0}>
+				<Stack align="center" justify="center" wrap="wrap">
+					<Avatar photo={owner_messenger_account.photo} />
+					<Box bold>{owner_messenger_account.name}</Box>
 					<Button
 						className="btn-bank"
-						fluid
-						p={1.5}
-						onClick={() => setCreatingGroup(true)}
+						icon="info-circle"
+						onClick={() => setPage('about')}
 					>
-						<Stack vertical align="center">
-							<Icon name="users" className="text-gold" size={2} />
-							<Box>Создать группу</Box>
-						</Stack>
+						О InCrew
 					</Button>
-				</Stack.Item>
-			</Stack>
-			{showContacts && (
+				</Stack>
+			</InCrewCard>
+			<Box className="increw-actions">
+				<QuickAction
+					icon="comment"
+					label="Новый диалог"
+					selected={page === 'contacts'}
+					onClick={() =>
+						setPage(page === 'contacts' ? 'home' : 'contacts')
+					}
+				/>
+				<QuickAction
+					icon="users"
+					label="Создать группу"
+					onClick={() => setPage('create')}
+				/>
+				<QuickAction
+					icon="globe"
+					label="Открытые группы"
+					onClick={() => {
+						setPage('home');
+						act('show_public_groups');
+					}}
+				/>
+			</Box>
+			{page === 'contacts' && (
 				<Section title="Собеседник">
 					<ContactPicker
 						contacts={contacts.filter(
@@ -165,7 +195,7 @@ function InCrew({ data }: { data: Extract<InCrewData, { can_login: true }> }) {
 							act('create_private_chat', {
 								target: contact.value,
 							});
-							setShowContacts(false);
+							setPage('home');
 						}}
 					/>
 				</Section>
@@ -198,7 +228,13 @@ function InCrew({ data }: { data: Extract<InCrewData, { can_login: true }> }) {
 					>
 						<Stack align="center">
 							<Icon
-								name={item.is_group ? 'users' : 'comment'}
+								name={
+									item.is_public
+										? 'globe'
+										: item.is_group
+											? 'users'
+											: 'comment'
+								}
 								className="text-gold"
 							/>
 							<Stack.Item grow style={{ whiteSpace: 'normal' }}>
@@ -215,6 +251,117 @@ function InCrew({ data }: { data: Extract<InCrewData, { can_login: true }> }) {
 				))}
 			</Section>
 		</Stack>
+	);
+}
+
+function QuickAction({
+	icon,
+	label,
+	selected = false,
+	onClick,
+}: {
+	icon: string;
+	label: string;
+	selected?: boolean;
+	onClick: () => void;
+}) {
+	return (
+		<Button
+			className="btn-bank increw-action"
+			selected={selected}
+			fluid
+			onClick={onClick}
+		>
+			<Stack vertical align="center">
+				<Icon name={icon} className="text-gold" size={1.8} />
+				<Box>{label}</Box>
+			</Stack>
+		</Button>
+	);
+}
+
+function PublicGroups({
+	groups,
+	chats,
+	maxMembers,
+}: {
+	groups: Chat[];
+	chats: Chat[];
+	maxMembers: number;
+}) {
+	const { act } = useBackend();
+	const joined = new Set(chats.map((chat) => chat.chat_id));
+
+	return (
+		<Section
+			className="increw-section"
+			title={
+				<Box className="text-gold">
+					<Icon name="globe" mr={0.5} />
+					Открытые группы
+				</Box>
+			}
+			buttons={
+				<Button
+					className="btn-bank"
+					icon="arrow-left"
+					onClick={() => act('hide_public_groups')}
+				>
+					Назад
+				</Button>
+			}
+			fill
+			scrollable
+		>
+			{!groups.length && (
+				<Box italic className="text-muted" textAlign="center" p={2}>
+					Открытых групп пока нет
+				</Box>
+			)}
+			{groups.map((group) => {
+				const isMember = joined.has(group.chat_id);
+				const isFull = group.member_count >= maxMembers;
+				return (
+					<Box key={group.chat_id} className="card" p={1} mb={0.75}>
+						<Stack align="center" wrap="wrap">
+							<Stack.Item grow minWidth="0">
+								<Box bold className="text-gold increw-wrap">
+									{group.name_chat}
+								</Box>
+								<Box className="text-muted">
+									{group.member_count} / {maxMembers}{' '}
+									участников
+								</Box>
+							</Stack.Item>
+							<Button
+								className="btn-bank"
+								icon={isMember ? 'comment' : 'sign-in-alt'}
+								disabled={!isMember && isFull}
+								onClick={() =>
+									act(
+										isMember
+											? 'open_chat'
+											: 'join_public_group',
+										{ chatId: group.chat_id },
+									)
+								}
+							>
+								{isMember
+									? 'Открыть'
+									: isFull
+										? 'Мест нет'
+										: 'Вступить'}
+							</Button>
+						</Stack>
+						{group.description_chat && (
+							<Box mt={0.5} className="increw-wrap">
+								{group.description_chat}
+							</Box>
+						)}
+					</Box>
+				);
+			})}
+		</Section>
 	);
 }
 
@@ -268,11 +415,13 @@ function Conversation({
 	details,
 	profile,
 	contacts,
+	maxMembers,
 }: {
 	chat: Chat;
 	details: ChatDetails;
 	profile: Profile;
 	contacts: Contact[];
+	maxMembers: number;
 }) {
 	const { act } = useBackend();
 	const [draft, setDraft] = useState('');
@@ -294,10 +443,17 @@ function Conversation({
 	return (
 		<Stack vertical fill>
 			<Section
+				className="increw-section"
 				title={
-					<Box className="text-gold">
+					<Box className="text-gold increw-wrap">
 						<Icon
-							name={chat.is_group ? 'users' : 'comment'}
+							name={
+								chat.is_public
+									? 'globe'
+									: chat.is_group
+										? 'users'
+										: 'comment'
+							}
 							mr={0.5}
 						/>
 						{chat.name_chat}
@@ -314,7 +470,9 @@ function Conversation({
 						<Button
 							icon="users"
 							selected={showMembers}
-							tooltip="Участники"
+							tooltip={
+								isOwner ? 'Участники и доступ' : 'Участники'
+							}
 							onClick={() => setShowMembers(!showMembers)}
 						/>
 						<Button.Confirm
@@ -336,27 +494,58 @@ function Conversation({
 				}
 			>
 				{chat.description_chat && (
-					<Box className="text-muted">{chat.description_chat}</Box>
+					<Box className="text-muted increw-wrap">
+						{chat.description_chat}
+					</Box>
 				)}
 			</Section>
 			{showMembers ? (
 				<Section title="Участники" fill scrollable>
+					{chat.is_group && (
+						<Box className="secure-notice" mb={0.75}>
+							<Box className="text-gold" bold>
+								<Icon
+									name={chat.is_public ? 'globe' : 'lock'}
+									mr={0.5}
+								/>
+								{chat.is_public
+									? 'Открытая группа'
+									: 'Закрытая группа'}
+							</Box>
+							<Box mt={0.25}>
+								{chat.is_public
+									? 'Вступить может любой сотрудник с InCrew.'
+									: 'Вход по приглашению владельца.'}
+							</Box>
+							{isOwner && (
+								<Button.Confirm
+									className="btn-bank"
+									icon={chat.is_public ? 'lock' : 'globe'}
+									mt={0.5}
+									confirmContent={
+										chat.is_public
+											? 'Подтвердить'
+											: 'Открыть доступ к истории?'
+									}
+									onClick={() =>
+										act('set_group_visibility', {
+											chatId,
+											isPublic: !chat.is_public,
+										})
+									}
+								>
+									{chat.is_public
+										? 'Закрыть группу'
+										: 'Сделать открытой'}
+								</Button.Confirm>
+							)}
+						</Box>
+					)}
 					{details.chat_members.map((member) => (
 						<Box key={member.id} className="card" p={1} mb={0.5}>
 							<Stack align="center">
-								{member.photo ? (
-									<Image
-										src={member.photo}
-										width={2}
-										height={2}
-									/>
-								) : (
-									<Icon
-										name="user-circle"
-										className="text-gold"
-									/>
-								)}
-								<Stack.Item grow>
+								<Avatar photo={member.photo} />
+								<Stack.Item grow className="increw-wrap">
 									{member.name}
 									{member.id === chat.owner_id && (
 										<Box className="text-muted">
@@ -380,7 +569,7 @@ function Conversation({
 							</Stack>
 						</Box>
 					))}
-					{isOwner && details.chat_members.length < 50 && (
+					{isOwner && details.chat_members.length < maxMembers && (
 						<Box mt={1}>
 							<Box className="field-label">
 								Добавить участника
@@ -428,20 +617,16 @@ function Conversation({
 									mb={0.5}
 									p={0.75}
 								>
-									<Stack align="center" mb={0.25}>
-										{!!photo && (
-											<Image
-												src={photo}
-												width={2}
-												height={2}
-											/>
+									<Stack align="center" wrap="wrap" mb={0.25}>
+										{message.sender_id && (
+											<Avatar photo={photo} />
 										)}
 										<Box bold className="text-gold">
 											{message.sender_name}
 										</Box>
 										<Box
 											className="text-muted"
-											fontSize="12px"
+											fontSize="0.85em"
 										>
 											{message.timestamp}
 										</Box>
@@ -451,26 +636,25 @@ function Conversation({
 							);
 						})}
 					</Section>
-					<Stack align="center">
-						<Stack.Item grow>
-							<Input
-								className="input-field"
-								fluid
-								maxLength={1024}
-								placeholder="Введите сообщение…"
-								value={draft}
-								onChange={setDraft}
-								onEnter={sendMessage}
-							/>
-						</Stack.Item>
+					<Box className="increw-composer">
+						<Input
+							className="input-field"
+							fluid
+							maxLength={1024}
+							placeholder="Введите сообщение…"
+							value={draft}
+							onChange={setDraft}
+							onEnter={sendMessage}
+						/>
 						<Button
-							className="btn-bank"
+							className="btn-bank increw-send"
 							icon="paper-plane"
-							tooltip="Отправить"
 							disabled={!draft.trim()}
 							onClick={sendMessage}
-						/>
-					</Stack>
+						>
+							Отправить
+						</Button>
+					</Box>
 				</>
 			)}
 		</Stack>
@@ -479,18 +663,22 @@ function Conversation({
 
 function CreateGroup({
 	contacts,
+	maxMembers,
 	onClose,
 }: {
 	contacts: Contact[];
+	maxMembers: number;
 	onClose: () => void;
 }) {
 	const { act } = useBackend();
 	const [name, setName] = useState('');
 	const [description, setDescription] = useState('');
+	const [isPublic, setIsPublic] = useState(false);
 	const [members, setMembers] = useState<Contact[]>([]);
 
 	return (
 		<Section
+			className="increw-section"
 			title={
 				<Box className="text-gold">
 					<Icon name="users" mr={0.5} />
@@ -530,6 +718,30 @@ function CreateGroup({
 					/>
 				</Box>
 				<Box>
+					<Box className="field-label">Доступ</Box>
+					<Stack wrap="wrap">
+						<Button
+							icon="lock"
+							selected={!isPublic}
+							onClick={() => setIsPublic(false)}
+						>
+							Закрытая
+						</Button>
+						<Button
+							icon="globe"
+							selected={isPublic}
+							onClick={() => setIsPublic(true)}
+						>
+							Открытая
+						</Button>
+					</Stack>
+					<Box className="text-muted" mt={0.5}>
+						{isPublic
+							? 'Группа появится в каталоге. Вступившие получат доступ к её истории.'
+							: 'Участники вступают по приглашению владельца.'}
+					</Box>
+				</Box>
+				<Box>
 					<Box className="field-label">Участники</Box>
 					{members.map((member) => (
 						<Button
@@ -546,7 +758,7 @@ function CreateGroup({
 							{member.label}
 						</Button>
 					))}
-					{members.length < 49 && (
+					{members.length < maxMembers - 1 && (
 						<ContactPicker
 							contacts={contacts.filter(
 								(contact) =>
@@ -572,6 +784,7 @@ function CreateGroup({
 					act('create_group_chat', {
 						name,
 						description,
+						isPublic,
 						members: members.map((member) => member.value),
 					});
 					onClose();
@@ -579,6 +792,63 @@ function CreateGroup({
 			>
 				Создать группу
 			</Button>
+		</Section>
+	);
+}
+
+function AboutInCrew({ onClose }: { onClose: () => void }) {
+	return (
+		<Section
+			className="increw-section"
+			title={
+				<Box className="text-gold">
+					<Icon name="info-circle" mr={0.5} />О InCrew
+				</Box>
+			}
+			buttons={
+				<Button
+					className="btn-bank"
+					icon="arrow-left"
+					onClick={onClose}
+				>
+					Назад
+				</Button>
+			}
+			fill
+			scrollable
+		>
+			<InCrewCard icon="comments">
+				<Box textAlign="center">Связь для экипажей и станций</Box>
+			</InCrewCard>
+			<Box className="lore-container" mt={1.5}>
+				<Box className="lore-paragraph">
+					<Box as="span" className="lore-highlight">
+						InCrew
+					</Box>{' '}
+					— служба связи холдинга Black Rain Group. Первую версию
+					сделали для ремонтных бригад BRG, которым нужно было
+					передавать заявки и оставлять записи следующей смене.
+				</Box>
+				<Box className="lore-paragraph">
+					Когда группа развернула сеть блюспейс-ретрансляторов для
+					Raingor Interstellar Bank, на той же инфраструктуре выделили
+					канал для связи экипажей. Со временем InCrew стал доступен и
+					станциям, которые обслуживает холдинг.
+				</Box>
+				<Box className="lore-paragraph">
+					Для объявлений и координации смены есть открытые группы. У
+					рабочих бригад — закрытые каналы по приглашению. Личные
+					разговоры остаются в отдельных диалогах.
+				</Box>
+				<Box className="card--quote">
+					<Icon
+						name="quote-left"
+						className="lore-icon-decor"
+						mr={0.5}
+					/>
+					«Смена меняется. Связь остаётся.»
+				</Box>
+			</Box>
 		</Section>
 	);
 }
