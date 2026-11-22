@@ -1,13 +1,11 @@
 /datum/gear/implant
-	subtype_path = /datum/gear/implant
+	abstract_type = /datum/gear/implant
 	slot = null
 	sort_category = "Импланты"
 	implantable = TRUE
 
 /datum/gear/implant/proc/resolve_implant_path(datum/outfit/job/job)
 	return path
-
-/datum/gear/implant/
 
 //Eye implants
 

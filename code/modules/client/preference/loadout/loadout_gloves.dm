@@ -1,5 +1,5 @@
 /datum/gear/gloves
-	subtype_path = /datum/gear/gloves
+	abstract_type = /datum/gear/gloves
 	slot = ITEM_SLOT_GLOVES
 	sort_category = "Перчатки"
 
