@@ -51,6 +51,7 @@
 #define TRAIT_LAVA_STOPPED "lava_stopped"
 
 // MARK: mob traits
+#define TRAIT_UDDER_FULL "udder_full"
 #define TRAIT_GODMODE "godmode"
 #define TRAIT_PACIFISM "pacifism"
 #define TRAIT_NO_DEATH "nodeath"
@@ -84,6 +85,7 @@
 #define TRAIT_WET_IMMUNITY "wet_immunity"
 /// This just means that the carbon will always have functional liverless metabolism
 #define TRAIT_LIVERLESS_METABOLISM "liverless_metabolism"
+
 
 /// Makes the user handcuff others faster
 #define TRAIT_FAST_CUFFING "fast_cuffing"
@@ -232,7 +234,6 @@
 #define TRAIT_FORCED_GRAVITY "forced_gravity"
 
 // MARK: item traits
-#define TRAIT_CMAGGED "cmagged"
 /// Trait to toggle Inugami Gloves built-in defibrillator mode
 #define TRAIT_DEFIB_BLOCKED "defib_blocked"
 /// The items needs two hands to be carried

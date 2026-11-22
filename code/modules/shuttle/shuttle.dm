@@ -968,13 +968,18 @@
 			destination = target_destination
 			return TRUE
 
-/obj/machinery/computer/shuttle/emag_act(mob/user)
-	if(!emagged)
-		add_attack_logs(user, src, "emagged")
-		src.req_access = list()
-		emagged = 1
-		if(user)
-			to_chat(user, span_notice("You fried the consoles ID checking system."))
+/obj/machinery/computer/shuttle/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	return shuttle_console_emag(user, emag_card)
+
+/obj/machinery/computer/shuttle/proc/shuttle_console_emag(mob/user, obj/item/card/emag/emag_card)
+	if(obj_flags & EMAGGED)
+		return FALSE
+	req_access = list()
+	obj_flags |= EMAGGED
+	if(user)
+		to_chat(user, span_notice("You fried the consoles ID checking system."))
+	return TRUE
 
 //for restricting when the computer can be used, needed for some console subtypes.
 /obj/machinery/computer/shuttle/proc/can_call_shuttle(mob/user, action)

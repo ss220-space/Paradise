@@ -24,12 +24,18 @@
 	GLOB.beacons -= src
 	return ..()
 
-/obj/item/beacon/emag_act(mob/user)
-	if(!emagged)
-		emagged = TRUE
-		syndicate = TRUE
-		if(user)
-			to_chat(user, span_notice("The This beacon now only be locked on to by emagged teleporters!"))
+/obj/item/beacon/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
+	syndicate = TRUE
+	if(user)
+		to_chat(user, span_notice("The This beacon now only be locked on to by emagged teleporters!"))
+	return TRUE
+
+/obj/item/beacon/pre_emagged
+	obj_flags = parent_type::obj_flags|EMAGGED
 
 /// Probably a better way of doing this, I'm lazy.
 /obj/item/beacon/bacon

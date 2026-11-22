@@ -87,3 +87,37 @@
 		balloon_alert(user, "крышка закрыта!")
 		return ATTACK_CHAIN_PROCEED
 	return ..()
+
+/obj/item/gun/projectile/automatic/stationary_gun
+	name = "stationary machinegun"
+	desc = "Тренога со стационарным пулеметом. Вы можете встать за него для стрельбы."
+	gender = MALE
+	w_class = WEIGHT_CLASS_HUGE
+	slot_flags = NONE
+	mag_type = /obj/item/ammo_box/magazine/pkm
+	weapon_weight = WEAPON_HEAVY
+	fire_sound = 'sound/weapons/gunshots/1mg2.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/lmg_magin.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/lmg_magout.ogg'
+	fire_delay = 0.15 SECONDS
+	accuracy = GUN_ACCURACY_RIFLE_EXTEND_SPREAD
+	recoil = GUN_RECOIL_MEDIUM
+	static_gun = TRUE
+	gun_firemode_list = list(GUN_FIREMODE_AUTOMATIC)
+	var/locked_dir
+
+/obj/item/gun/projectile/automatic/stationary_gun/get_ru_names()
+	return alist(
+		NOMINATIVE = "станковый пулемет",
+		GENITIVE = "станкового пулемета",
+		DATIVE = "станковому пулемету",
+		ACCUSATIVE = "станковый пулемет",
+		INSTRUMENTAL = "станковым пулеметом",
+		PREPOSITIONAL = "станковом пулемете",
+	)
+
+/obj/item/gun/projectile/automatic/stationary_gun/can_shoot_in_target()
+	get_angle()
+	if(!(locked_dir & get_dir(get_turf(src), target)))
+		return FALSE
+	return ..()

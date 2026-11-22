@@ -1,0 +1,4 @@
+author: "vovakons"
+delete-after: True
+changes:
+  - bugfix: "Добавлена забытая проверку на маску для одного блюда. (PR #10056)"

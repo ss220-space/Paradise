@@ -31,7 +31,7 @@
 		if(access_electronics)
 			to_chat(user, span_warning("There is already [access_electronics] installed!"))
 			return ATTACK_CHAIN_PROCEED
-		if(control.emagged)
+		if(control.obj_flags & EMAGGED)
 			to_chat(user, span_warning("The [control.name] is broken"))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))

@@ -40,13 +40,15 @@
 	popup.open(TRUE)
 	onclose(user, "tempgun")
 
-/obj/item/gun/energy/temperature/emag_act(mob/user)
-	if(!emagged)
-		add_attack_logs(user, src, "emagged")
-		emagged = TRUE
-		if(user)
-			to_chat(user, span_caution("You double the gun's temperature cap! Targets hit by searing beams will burst into flames!"))
-		desc = "A gun that changes the body temperature of its targets. Its temperature cap has been hacked."
+/obj/item/gun/energy/temperature/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
+	desc = "A gun that changes the body temperature of its targets. Its temperature cap has been hacked."
+	if(user)
+		to_chat(user, span_caution("You double the gun's temperature cap! Targets hit by searing beams will burst into flames!"))
+	return TRUE
 
 /obj/item/gun/energy/temperature/Topic(href, href_list)
 	if(..())
@@ -57,7 +59,7 @@
 	if(href_list["temp"])
 		var/amount = text2num(href_list["temp"])
 		if(amount > 0)
-			target_temperature = min((500 + 500*emagged), target_temperature+amount)
+			target_temperature = min((500 + 500 * (obj_flags & EMAGGED)), target_temperature+amount)
 		else
 			target_temperature = max(TCMB, target_temperature+amount)
 	if(ismob(loc))
@@ -94,11 +96,11 @@
 			powercostcolor = "blue"
 	if(target_temperature != temperature)
 		var/difference = abs(target_temperature - temperature)
-		if(difference >= (10 + 40*emagged)) //so emagged temp guns adjust their temperature much more quickly
+		if(difference >= (10 + 40 * (obj_flags & EMAGGED))) //so emagged temp guns adjust their temperature much more quickly
 			if(target_temperature < temperature)
-				temperature -= (10 + 40*emagged)
+				temperature -= (10 + 40 * (obj_flags & EMAGGED))
 			else
-				temperature += (10 + 40*emagged)
+				temperature += (10 + 40 * (obj_flags & EMAGGED))
 		else
 			temperature = target_temperature
 		update_icon()

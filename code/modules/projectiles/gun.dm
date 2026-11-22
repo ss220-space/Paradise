@@ -99,6 +99,8 @@
 
 	/// Dynamic asset cache for gun modification
 	var/datum/asset/simple/gun_modification/gun_modification_asset
+	/// Fix gun modification win double icon generation with signal
+	var/gun_modification_ignore_overlay_signal = FALSE
 
 /*
  * Gun modules
@@ -160,6 +162,7 @@
 	///How long it takes for weapons that have spooled-up to reset back to the original firing speed
 	var/windup_spindown = 3 SECONDS
 	var/datum/looping_sound/sound_loop
+	var/static_gun = FALSE
 
 	///windup delay before shots. USE ONLY WITH SEMI_AUTO guns
 	///Delay for the gun winding up before firing.
@@ -223,6 +226,8 @@
 	return .
 
 /obj/item/gun/Destroy()
+	SStgui.close_uis(src)
+	UnregisterSignal(src, COMSIG_ATOM_UPDATE_OVERLAYS)
 	QDEL_NULL(gun_light)
 	for(var/attachment in attachments_by_slot)
 		if(!attachments_by_slot[attachment])
@@ -467,10 +472,10 @@
 	if(!scope_fire && object.IsReachableBy(user, reach) && start_attack_chain_check(user, object)) //Dealt with by attack code
 		return
 
-	if(!isgun(user.get_active_hand())) // If the object in our active hand is not a gun, abort
+	if(!isgun(user.get_active_hand()) && !static_gun) // If the object in our active hand is not a gun, abort
 		return
 
-	if(!user.is_in_active_hand(src) && user.a_intent != INTENT_HARM)
+	if(!user.is_in_active_hand(src) && user.a_intent != INTENT_HARM && !static_gun)
 		return
 
 	if(!HAS_TRAIT(user, TRAIT_BADASS) && weapon_weight == WEAPON_HEAVY && (user.get_inactive_hand() || !user.has_inactive_hand() || (user.pulling && user.pull_hand != PULL_WITHOUT_HANDS)))
@@ -602,6 +607,12 @@
 	bonus_spread = 0
 	if(dual_wield && !(gun_user && HAS_TRAIT(gun_user, TRAIT_BADASS)))
 		bonus_spread += accuracy.dual_wield_spread * weapon_weight
+	var/mob/living/user = gun_user
+	if(user)
+		var/is_left_hand = user.l_hand == src
+		bonus_spread += user.get_fracture_spread_bonus(is_left_hand)
+		if(user.buckled)
+			bonus_spread += user.buckled.buckle_bonus_spread
 	//CLOWN CHECK
 	if(gun_user && (HAS_TRAIT(gun_user, TRAIT_CLUMSY) || !gun_user.check_brain_for_complex_interactions()))
 		bonus_spread += 75
@@ -668,6 +679,9 @@
 	SHOULD_CALL_PARENT(TRUE)
 	var/response = SEND_SIGNAL(src, COMSIG_GUN_CHECK_CAN_SHOOT, user)
 	return !(response & GUN_CHECK_CANCEL_ATTACK)
+
+/obj/item/gun/proc/can_shoot_in_target()
+	return TRUE
 
 /obj/item/gun/proc/shoot_with_empty_chamber(mob/living/user)
 	playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
@@ -780,6 +794,8 @@
 	var/atom/target = src.target
 	if(!target)
 		return NONE
+	if(!can_shoot_in_target())
+		return NONE
 	if(fire_cd)
 		return NONE
 	var/bonus_spread = src.bonus_spread
@@ -790,11 +806,6 @@
 
 	if(chambered)
 		chambered.leave_residue(user)
-
-	var/is_left_hand = user.l_hand == src
-	bonus_spread += user.get_fracture_spread_bonus(is_left_hand)
-	if(user.buckled)
-		bonus_spread += 45
 
 	SEND_SIGNAL(src, COMSIG_GUN_FIRED, user, target)
 	gun_user?.hud_used?.update_ammo_hud(src, get_display_ammo_count())
