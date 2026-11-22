@@ -1,5 +1,5 @@
 /datum/gear/hat
-	subtype_path = /datum/gear/hat
+	abstract_type = /datum/gear/hat
 	slot = ITEM_SLOT_HEAD
 	sort_category = "Головные уборы"
 
@@ -118,7 +118,7 @@
 	gear_tweaks += new /datum/gear_tweak/path(berets, src)
 
 /datum/gear/hat/beret_job
-	subtype_path = /datum/gear/hat/beret_job
+	abstract_type = /datum/gear/hat/beret_job
 	subtype_cost_overlap = FALSE
 
 /datum/gear/hat/beret_job/sec

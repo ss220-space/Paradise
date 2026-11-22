@@ -1,6 +1,7 @@
 GLOBAL_LIST_EMPTY(gear_datums)
 
 /datum/gear
+	abstract_type = /datum/gear
 	var/index_name       //index. Must be unique.
 	var/display_name = "ОШИБКА" //Name
 	var/description        //Description of this gear. If left blank will default to the description of the pathed item.
@@ -13,7 +14,6 @@ GLOBAL_LIST_EMPTY(gear_datums)
 	var/list/allowed_roles //Roles that can spawn with this item.
 	var/sort_category = "Основное"
 	var/list/gear_tweaks = list() //List of datums which will alter the item after it has been spawned.
-	var/subtype_path = /datum/gear //for skipping organizational subtypes (optional)
 	var/subtype_cost_overlap = TRUE //if subtypes can take points at the same time
 	var/implantable = FALSE    //For organ-like implants (huds, pumps, etc)
 	var/donator_tier = 0
