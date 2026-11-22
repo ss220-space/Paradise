@@ -771,7 +771,6 @@
 #include "code\datums\ai\monkey\monkey_behaviors.dm"
 #include "code\datums\ai\monkey\monkey_controller.dm"
 #include "code\datums\ai\monkey\monkey_subtrees.dm"
-#include "code\datums\ai\giant_lizard\giant_lizard_defines.dm"
 #include "code\datums\ai\giant_lizard\giant_lizard_behaviors.dm"
 #include "code\datums\ai\giant_lizard\giant_lizard_controller.dm"
 #include "code\datums\ai\giant_lizard\giant_lizard_subtrees.dm"
