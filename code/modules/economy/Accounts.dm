@@ -156,13 +156,21 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 	var/list/subscriptions = list()
 	var/list/possible_resubscriptions = list()
 	var/datum/economy_process/payment/payment_process
+	/// InCrew profile, created on first sign-in or invitation.
+	var/datum/messenger_account/messenger_profile
 
 /datum/money_account/New()
 	set_photo()
 
 /datum/money_account/Destroy(force)
+	QDEL_NULL(messenger_profile)
 	QDEL_NULL(payment_process)
 	return ..()
+
+/datum/money_account/proc/get_messenger_profile()
+	if(!messenger_profile)
+		messenger_profile = new(src)
+	return messenger_profile
 
 /datum/money_account/proc/set_photo()
 	if(photo)

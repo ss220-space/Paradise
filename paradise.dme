@@ -3820,6 +3820,8 @@
 #include "code\modules\pda\cart_apps.dm"
 #include "code\modules\pda\core_apps.dm"
 #include "code\modules\pda\messenger.dm"
+#include "code\modules\pda\messenger\messenger_account.dm"
+#include "code\modules\pda\messenger\messenger_chat.dm"
 #include "code\modules\pda\messenger_plugins.dm"
 #include "code\modules\pda\PDA.dm"
 #include "code\modules\pda\pda_cases.dm"
