@@ -15,7 +15,7 @@
 	var/icon_stun = "revenant_stun"
 	var/icon_drain = "revenant_draining"
 	faction = list("Revenant")
-	force_threshold = 14
+	force_threshold = 15
 	incorporeal_move = INCORPOREAL_REVENANT
 	see_invisible = INVISIBILITY_REVENANT
 	invisibility = INVISIBILITY_REVENANT
