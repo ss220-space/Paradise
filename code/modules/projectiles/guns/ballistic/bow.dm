@@ -208,7 +208,6 @@
 	accuracy = GUN_ACCURACY_BOW_ADVANCED
 	speed_modifier = 0.8
 	range_modifier = 1.1
-	zoomable = TRUE
 	ready_to_fire_time = 0.5 SECONDS
 
 /obj/item/gun/projectile/bow/tactical/get_ru_names()
@@ -220,6 +219,10 @@
 		INSTRUMENTAL = "тактическим луком",
 		PREPOSITIONAL = "тактическом луке",
 	)
+
+/obj/item/gun/projectile/bow/tactical/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/scope, range_modifier = 0.86)
 
 // MARK: Handmade
 /obj/item/gun/projectile/bow/handmade

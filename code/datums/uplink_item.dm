@@ -903,12 +903,11 @@
 
 /datum/uplink_item/dangerous/flamethrower
 	name = "Огнемёт"
-	desc = "Оснащён канистрой плазмы, украденной с одной из станций Nanotrasen. \
-			Идеальное для борьбы с живой силой в узких пространствах. Используйте с осторожностью!"
-	item = /obj/item/flamethrower/full/tank
-	cost = 20
+	desc = "Химический огнемёт, работающий на нестабильной смеси топлива и напалма. Поставляется с предварительно заполненным баллоном. Не использовать с осторожностью."
+	item = /obj/item/chemical_flamethrower/extended/nuclear
+	cost = 40
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	surplus = 40
+	surplus = 50
 
 /datum/uplink_item/dangerous/rapid
 	name = "Перчатки \"Полярная Звезда\""
@@ -1324,6 +1323,13 @@
 	cost = 4
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_TRAITOR)
 
+/datum/uplink_item/ammo/chemical_canister
+	name = "Коробка с баллонами для химического огнемёта"
+	desc = "Коробка с 2 баллонами огнемётного топлива — как раз достаточно, чтобы заправить огнемёт!"
+	item = /obj/item/storage/box/syndie_kit/chemical_canister
+	cost = 30
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 /**
  * MARK: Stealthy Weapons
  */
@@ -1630,6 +1636,8 @@
 	desc = "Пояс, содержащий 4 мощные боевые контактные осколочные гранаты."
 	item = /obj/item/storage/belt/grenade/frag/contact
 	cost = 20
+	hijack_only = TRUE
+	surplus = FALSE
 
 /datum/uplink_item/explosives/grenadier
 	name = "Пояс гренадера"
@@ -2433,6 +2441,15 @@
 			Устойчив к ЭМИ. Поставляется в комплекте с автоимплантером."
 	item = /obj/item/storage/box/cyber_implants/reviver_hardened
 	cost = 40
+
+/datum/uplink_item/cyber_implants/scope_eyes
+	name = "Автоимплантер с укреплёнными глазными имплантами \"Калейдо Оптикс\""
+	desc = "Эти кибернетические глазные импланты позволят вам приближать далёкие объекты. \
+	Многие пользователи находят это дезориентирующим и им трудно взаимодействовать с предметами вблизи, когда имплант активен. \
+	Эта пара была усилена для персонала специальных операций."
+	item = /obj/item/autoimplanter/oneuse/scope_eyes
+	cost = 10
+	excludefrom = list()
 
 /datum/uplink_item/cyber_implants/mantisblade
 	name = "Клинки богомола"

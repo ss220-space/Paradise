@@ -15,6 +15,8 @@
 	new /obj/effect/warp_effect/rathens(cast_on.loc)
 
 /datum/action/cooldown/spell/aoe/rathens_secret/cast_on_thing_in_aoe(atom/victim, atom/caster)
+	if(!ishuman(victim))
+		return
 	var/mob/living/carbon/human/target = victim
 	if(target.can_block_magic(antimagic_flags))
 		return

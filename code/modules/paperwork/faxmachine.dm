@@ -70,8 +70,8 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine/longrange/syndie
 	name = "syndicate long range fax machine"
-	emagged = TRUE
 	syndie_restricted = TRUE
+	obj_flags = parent_type::obj_flags|EMAGGED
 	req_access = list(ACCESS_SYNDICATE)
 	//No point setting fax network, being emagged overrides that anyway.
 
@@ -126,17 +126,18 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 	return ..()
 
-/obj/machinery/photocopier/faxmachine/emag_act(mob/user)
-	if(!emagged)
-		add_attack_logs(user, src, "emagged")
-		emagged = 1
-		req_access = list()
+/obj/machinery/photocopier/faxmachine/photocopier_emag(mob/user, obj/item/card/emag/emag_card)
+	if(obj_flags & EMAGGED)
 		if(user)
-			to_chat(user, span_notice("Передатчики настраиваются на неизвестный источник!"))
-			balloon_alert(user, "взломано")
-			playsound(loc, 'sound/machines/fax_emag.ogg', 50, FALSE)
-	else if(user)
-		balloon_alert(user, "уже взломано!")
+			balloon_alert(user, "уже взломано!")
+		return FALSE
+	obj_flags |= EMAGGED
+	req_access = list()
+	playsound(loc, 'sound/machines/fax_emag.ogg', 50, FALSE)
+	if(user)
+		to_chat(user, span_notice("Передатчики настраиваются на неизвестный источник!"))
+		balloon_alert(user, "взломано")
+	return TRUE
 
 /obj/machinery/photocopier/faxmachine/proc/is_authenticated(mob/user)
 	if(authenticated)
@@ -157,7 +158,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	data["scan_name"] = scan ? scan.name : FALSE
 	if(!data["authenticated"])
 		data["network"] = "Отключено"
-	else if(!emagged)
+	else if(!(obj_flags & EMAGGED))
 		data["network"] = fax_network
 	else
 		data["network"] = "ОШИ*?*%!*"
@@ -261,14 +262,14 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 						for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
 							if(F.ussp_restricted)
 								combineddepartments |= F.department
-				if(emagged)
+				if(obj_flags & EMAGGED)
 					combineddepartments += GLOB.hidden_admin_departments.Copy()
 					combineddepartments += GLOB.hidden_departments.Copy()
 				if(syndie_restricted)
 					combineddepartments = GLOB.hidden_admin_departments.Copy()
 					combineddepartments += GLOB.hidden_departments.Copy()
 					for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
-						if(F.emagged)//we can contact emagged faxes on the station
+						if(F.obj_flags & EMAGGED)//we can contact emagged faxes on the station
 							combineddepartments |= F.department
 				if(ussp_restricted)
 					combineddepartments = GLOB.hidden_ussp.Copy()
@@ -335,7 +336,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 GAME_VERB_SRC(/obj/machinery/photocopier/faxmachine, eject_id, oview(1), "Достать ID-карту", VERB_CATEGORY_HIDDEN)
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(scan)

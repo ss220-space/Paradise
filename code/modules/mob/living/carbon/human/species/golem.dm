@@ -745,7 +745,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	..()
 
 /datum/species/golem/wood/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	if(R.id == "glyphosate" || R.id == "atrazine")
+	if(R.type == /datum/reagent/glyphosate || R.type == /datum/reagent/glyphosate/atrazine)
 		H.adjustToxLoss(3) // Deal aditional damage
 		return TRUE
 	return ..()

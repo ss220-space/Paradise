@@ -278,14 +278,14 @@ ADMIN_VERB(drop_lightning_bolt, R_EVENT, "Drop lightning bolt", "Вызвать 
 	holder.mouse_up_icon = mouse_up_icon
 	holder.mouse_down_icon = mouse_down_icon
 	holder.mouse_override_icon = mouse_up_icon
-	holder.mouse_pointer_icon = holder.mouse_override_icon
+	holder.mob?.update_mouse_pointer()
 
 /datum/click_intercept/lightning_bolt_dropper/Destroy()
 	if(holder)
 		holder.mouse_up_icon = null
 		holder.mouse_down_icon = null
 		holder.mouse_override_icon = null
-		holder.mouse_pointer_icon = initial(holder.mouse_pointer_icon)
+		holder.mob?.update_mouse_pointer()
 	dropper = null
 	return ..()
 

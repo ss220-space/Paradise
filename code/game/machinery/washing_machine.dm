@@ -344,22 +344,18 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		return .
 	wires.Interact(user)
 
-/obj/machinery/washing_machine/emag_act(mob/user)
-	if(emagged)
-		return
-	emagged = TRUE
+/obj/machinery/washing_machine/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		if(wires.is_cut(WIRE_WASHER_HACK))
+			wires.cut(WIRE_WASHER_HACK)
+		obj_flags &= ~EMAGGED
+		return FALSE
+	obj_flags |= EMAGGED
 	if(!wires.is_cut(WIRE_WASHER_HACK))
 		wires.cut(WIRE_WASHER_HACK)
 	do_sparks(3, FALSE, src)
-	add_attack_logs(user, src, "emagged")
-	. = ..()
-
-/obj/machinery/washing_machine/unemag()
-	if(!emagged)
-		return
-	emagged = FALSE
-	if(wires.is_cut(WIRE_WASHER_HACK))
-		wires.cut(WIRE_WASHER_HACK)
+	return TRUE
 
 /obj/machinery/washing_machine/attack_hand(mob/living/user)
 	. = ..()
@@ -424,7 +420,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 
 /// All generic checks with feedback for the user
 /obj/machinery/washing_machine/proc/generic_check(mob/living/user, states_to_ignore)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, span_warning("You cannot do that right now!"))
 		return FALSE
 	if(!(states_to_ignore & STATE_WORKING) && (state & STATE_WORKING))

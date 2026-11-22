@@ -36,7 +36,7 @@
 			var/mob/M = usr
 			var/obj/item/I = M.get_id_card()
 			if(istype(I) && I.GetID())
-				if(src.check_access(I.GetID()) || src.emagged == 1)
+				if(src.check_access(I.GetID()) || (obj_flags & EMAGGED))
 					authenticated = 1
 		if("logout")
 			authenticated = 0
@@ -58,11 +58,14 @@
 
 	src.updateUsrDialog()
 
-/obj/machinery/computer/HONKputer/emag_act(mob/user)
-	if(!emagged)
-		emagged = 1
-		if(user)
-			to_chat(user, "You scramble the login circuits, allowing anyone to use the console!")
+/obj/machinery/computer/HONKputer/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
+	if(user)
+		to_chat(user, span_warning("Криптографический секвенсор закорачивает цепи авторизации, снимая ограничения доступа к консоли!"))
+	return TRUE
 
 /obj/machinery/computer/HONKputer/attack_hand(mob/user)
 	if(..())

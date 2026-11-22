@@ -61,7 +61,8 @@
 	if(spawned_disease)
 		var/datum/disease/F = new spawned_disease
 		var/list/data = list("diseases" = list(F), "blood_color" = BLOOD_COLOR_RED)
-		reagents.add_reagent("blood", disease_amount, data)
+		reagents.add_reagent(/datum/reagent/blood, disease_amount, data)
+
 	if(list_reagents)
 		list_reagents = string_assoc_list(list_reagents)
 	if(possible_transfer_amounts)
@@ -73,7 +74,7 @@
 	. = ..()
 	if(has_variable_transfer_amount)
 		if(possible_transfer_amounts.len)
-			. += span_notice("Объём перемещения содержимого — [amount_per_transfer_from_this] единиц[DECL_A_Y_0(amount_per_transfer_from_this)]. Используйте [EXAMINE_HINT("ЛКМ")] или [EXAMINE_HINT("ПКМ")] для изменения.")
+			. += span_notice("Объём перемещения содержимого — [amount_per_transfer_from_this] единиц[DECL_A_Y_0(amount_per_transfer_from_this)]. Используйте [EXAMINE_HINT("ПКМ")] и [EXAMINE_HINT("ALT+ЛКМ")] или [EXAMINE_HINT("ALT+ПКМ")] для изменения.")
 		else if(possible_transfer_amounts.len)
 			. += span_notice("Объём перемещения содержимого — [amount_per_transfer_from_this] единиц[DECL_A_Y_0(amount_per_transfer_from_this)].")
 
@@ -82,11 +83,17 @@
 		reagents.add_reagent_list(list_reagents)
 
 /obj/item/reagent_containers/attack_self(mob/user)
-	if(has_variable_transfer_amount)
-		change_transfer_amount(user, FORWARD)
-		return TRUE
+	attack(user, user, null, user.zone_selected)
 
 /obj/item/reagent_containers/attack_self_secondary(mob/user)
+	if(has_variable_transfer_amount)
+		select_transfer_amount(user)
+
+/obj/item/reagent_containers/click_alt(mob/user)
+	if(has_variable_transfer_amount)
+		change_transfer_amount(user, FORWARD)
+
+/obj/item/reagent_containers/click_alt_secondary(mob/user)
 	if(has_variable_transfer_amount)
 		change_transfer_amount(user, BACKWARD)
 

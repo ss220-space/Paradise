@@ -235,7 +235,7 @@
 				user.balloon_alert(user, "освободите вторую руку!")
 		return
 
-	if(user.l_arm_broken() || user.r_arm_broken())
+	if(!HAS_TRAIT(parent, TRAIT_NODROP) && (user.l_arm_broken() || user.r_arm_broken()))
 		if(require_twohands)
 			user.drop_item_ground(parent, force = TRUE)
 		if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))

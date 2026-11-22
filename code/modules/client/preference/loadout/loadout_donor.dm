@@ -654,3 +654,13 @@
 	donator_tier = 1
 	index_name = "old human head"
 	path = /obj/item/clothing/head/oldhuman_head
+
+/datum/gear/donor/angel_wings
+	index_name = "angel wings"
+	display_name = "Ангельские крылья"
+	path = /obj/item/clothing/neck/angel_wings
+
+/datum/gear/donor/devil_wings
+	index_name = "devil wings"
+	display_name = "Дьявольские крылья"
+	path = /obj/item/clothing/neck/devil_wings

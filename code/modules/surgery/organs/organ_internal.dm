@@ -272,7 +272,7 @@ GLOBAL_LIST_EMPTY(organ_rott_overlay_icons)
 	var/obj/S = ..()
 
 	if(inflamed)
-		S.reagents.add_reagent("????", 5)
+		S.reagents.add_reagent(/datum/reagent/questionmark, 5)
 
 	return S
 

@@ -126,7 +126,7 @@
 		user.RemoveElement(/datum/element/waddling)
 
 /obj/item/clothing/shoes/clown_shoes/CtrlClick(mob/living/user)
-	if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!isliving(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(user.get_active_hand() != src)
 		to_chat(user, "You must hold [src] in your hand to do this.")
@@ -608,7 +608,7 @@ GAME_VERB_SRC(/obj/item/clothing/shoes/workboots/mining, verb_remove_knife, usr,
 	user.RemoveElement(/datum/element/waddling)
 
 /obj/item/clothing/shoes/bhop/clown/CtrlClick(mob/living/user)
-	if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!isliving(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(user.get_active_hand() != src)
 		balloon_alert(user, "нужно держать в руках!")

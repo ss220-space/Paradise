@@ -109,7 +109,7 @@
 	if(!istype(user))
 		return FALSE
 
-	if(user.incapacitated() || !user.Adjacent(src))
+	if(user.incapacitated || !user.Adjacent(src))
 		return FALSE
 
 	return TRUE
@@ -128,11 +128,13 @@
 	if(selected_mode)
 		switch_tool(user, selected_mode)
 
-/obj/item/holotool/emag_act(mob/user)
-	if(emagged)
-		return
-
-	balloon_alert(user, "протоколы безопасности взломаны")
+/obj/item/holotool/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
 	balloon_alert_to_viewers("искрит и жужжит!", "протоколы безопасности взломаны")
 	do_sparks(5, FALSE, src)
-	emagged = TRUE
+	if(user)
+		balloon_alert(user, "протоколы безопасности взломаны")
+	return TRUE

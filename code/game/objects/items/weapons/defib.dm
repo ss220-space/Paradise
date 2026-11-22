@@ -113,7 +113,7 @@
 	toggle_paddles(user)
 
 /obj/item/defibrillator/CtrlClick(mob/user)
-	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+	if(!ishuman(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	toggle_paddles(user)
@@ -166,11 +166,12 @@
 	update_icon(UPDATE_OVERLAYS)
 	..()
 
-/obj/item/defibrillator/emag_act(mob/user)
+/obj/item/defibrillator/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
 	add_attack_logs(user, src, "[safety ? "" : "un-"]emagged")
 	safety = !safety
-	..()
 	update_icon(UPDATE_OVERLAYS)
+	return TRUE
 
 /obj/item/defibrillator/proc/toggle_paddles(mob/living/carbon/human/user = usr)
 	if(!paddles)
@@ -186,7 +187,7 @@
 		action.UpdateButtonIcon()
 
 /obj/item/defibrillator/proc/dispence_paddles(mob/living/carbon/human/user)
-	if(!paddles || !paddles_on_defib || !ishuman(user) || user.incapacitated())
+	if(!paddles || !paddles_on_defib || !ishuman(user) || user.incapacitated)
 		return
 
 	//Detach the paddles into the user's hands

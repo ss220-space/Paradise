@@ -525,7 +525,7 @@ GAME_VERB(/mob/living, mob_sleep, "Спать", VERB_CATEGORY_IC)
 	return TRUE
 
 /mob/proc/switch_to_camera(obj/machinery/camera/C)
-	if(!C.can_use() || incapacitated() || (get_dist(C, src) > 1 || machine != src || !has_vision()))
+	if(!C.can_use() || incapacitated || (get_dist(C, src) > 1 || machine != src || !has_vision()))
 		return FALSE
 	check_eye(src)
 	return TRUE

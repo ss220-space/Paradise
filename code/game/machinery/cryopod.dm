@@ -149,16 +149,17 @@
 /obj/machinery/computer/cryopod/proc/dispense_item(obj/item/I)
 	I.forceMove(get_turf(src)) // Will call item_got_removed due to the signal being registered to COMSIG_MOVABLE_MOVED
 
-/obj/machinery/computer/cryopod/emag_act(mob/user)
-	user.changeNext_move(CLICK_CD_MELEE)
+/obj/machinery/computer/cryopod/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
 	if(!length(objective_items))
 		visible_message(span_warning("The console buzzes in an annoyed manner."))
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
-		return
+		return TRUE
 	visible_message(span_warning("The console sparks, and some items fall out!"))
 	do_sparks(5, TRUE, src)
 	for(var/obj/item/I in objective_items)
 		dispense_item(I)
+	return TRUE
 
 /obj/item/circuitboard/cryopodcontrol
 	board_name = "Cryogenic Oversight Console"
@@ -302,7 +303,7 @@
 
 // So the user can use movement keys to get out of the cryopod
 /obj/machinery/cryopod/relaymove(mob/user)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return FALSE
 	go_out()
 
@@ -539,7 +540,7 @@
 /obj/machinery/cryopod/mouse_drop_receive(atom/movable/O, mob/user, params)
 	if(O.loc == user) //no you can't pull things out of your ass
 		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
 		return
 	if(get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
 		return

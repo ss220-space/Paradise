@@ -101,9 +101,12 @@
 	..()
 	playsound(loc, 'sound/weapons/saberoff.ogg', 50, TRUE, -1)
 
-/mob/living/simple_animal/bot/secbot/griefsky/emag_act(mob/user)
-	..()
+/mob/living/simple_animal/bot/secbot/griefsky/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(!.)
+		return FALSE
 	light_color = LIGHT_COLOR_INTENSE_RED //if you see a red one. RUN!!
+	return TRUE
 
 /mob/living/simple_animal/bot/secbot/griefsky/secbot_crossed(mob/living/carbon/arrived)
 	if(!iscarbon(arrived) || arrived != target || in_range(src, arrived))

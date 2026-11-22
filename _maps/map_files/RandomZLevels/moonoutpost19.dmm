@@ -1000,13 +1000,7 @@
 	},
 /area/moonoutpost19/syndicateoutpost)
 "cq" = (
-/obj/machinery/door/airlock/public/glass{
-	density = 0;
-	emagged = 1;
-	icon_state = "open";
-	locked = 1;
-	name = "Dormitories"
-	},
+/obj/machinery/door/airlock/public/glass/moonoutpost_emagged,
 /obj/item/stack/rods,
 /obj/item/shard{
 	icon_state = "small"
@@ -1287,15 +1281,7 @@
 	},
 /area/moonoutpost19/syndicateoutpost)
 "cT" = (
-/obj/machinery/door/airlock{
-	density = 0;
-	emagged = 1;
-	icon_state = "open";
-	id_tag = "awaydorm4";
-	locked = 1;
-	name = "Dorm 1";
-	opacity = 0
-	},
+/obj/machinery/door/airlock/moonoutpost_emagged,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/alien/weeds{
 	icon_state = "weeds2"
@@ -2706,15 +2692,7 @@
 "fQ" = (
 /obj/structure/cable,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/research{
-	density = 0;
-	emagged = 1;
-	icon_state = "open";
-	locked = 1;
-	name = "Xenobiology Lab";
-	opacity = 0;
-	req_access = list(271)
-	},
+/obj/machinery/door/airlock/research/moonoutpost_emagged,
 /obj/structure/alien/weeds{
 	icon_state = "weeds2"
 	},
@@ -4658,15 +4636,7 @@
 /area/moonoutpost19/mo19research)
 "jY" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/command{
-	density = 0;
-	emagged = 1;
-	icon_state = "open";
-	locked = 1;
-	name = "Research Director's Office";
-	opacity = 0;
-	req_access = list(271)
-	},
+/obj/machinery/door/airlock/command/moonoutpost_emagged,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"

@@ -211,7 +211,8 @@
 		return .
 	attack_hand(user)
 
-/mob/living/simple_animal/bot/mulebot/emag_act(mob/user)
+// Mulebot have some special logic on emag_act, so we override bot_emagged
+/mob/living/simple_animal/bot/mulebot/bot_emagged(mob/user, obj/item/card/emag/emag_card)
 	if(emagged < 1)
 		emagged = 1
 	if(!open)
@@ -259,7 +260,7 @@
 	if(..())
 		return TRUE
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	switch(href_list["op"])
@@ -423,7 +424,7 @@
 // mousedrop a crate to load the bot
 // can load anything if hacked
 /mob/living/simple_animal/bot/mulebot/mouse_drop_receive(atom/movable/AM, mob/user, params)
-	if(!istype(AM) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !in_range(user, src))
+	if(!istype(AM) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !in_range(user, src))
 		return
 
 	load(AM)
@@ -869,7 +870,7 @@
 /mob/living/simple_animal/bot/mulebot/relaymove(mob/user)
 	if(ispulsedemon(user))
 		return ..()
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 	if(load == user)
 		unload(0)

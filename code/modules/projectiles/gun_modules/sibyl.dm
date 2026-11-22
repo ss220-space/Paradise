@@ -42,7 +42,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 /obj/item/gun_module/sibyl/create_overlay()
 	return null
 
-/obj/item/gun_module/sibyl/try_attach(obj/item/gun/target_gun, mob/user)
+/obj/item/gun_module/sibyl/try_attach(obj/item/gun/target_gun, mob/user, instant = FALSE)
 	if(!isenergygun(target_gun))
 		if(user)
 			user.balloon_alert(user, "несовместимо с Sibyl System!")
@@ -115,7 +115,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	energy_gun.update_icon()
 
 /obj/item/gun_module/sibyl/proc/lock(mob/user)
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		return FALSE
 
 	auth_id = null
@@ -134,7 +134,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 		user.balloon_alert(user, "модуль поврежден!")
 		return FALSE
 
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		to_chat(user, span_danger("ОШИБКА АУТЕНТИФИКАЦИИ: [card_id] вызывает короткое замыкание при сканировании!"))
 		return
 
@@ -167,7 +167,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	if(!gun)
 		return FALSE
 
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		return TRUE
 
 	var/obj/item/card/id/current_auth = auth_id?.resolve()
@@ -248,18 +248,18 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	user.emote("scream")
 	to_chat(user, span_warning("Проклятье! [DECLENT_RU_CAP(tool, NOMINATIVE)] сорвал[GEND_SYA_AS_OS_IS(tool)] и повредил[GEND_A_O_I(tool)] [affecting.declent_ru(ACCUSATIVE)]!"))
 
-/obj/item/gun_module/sibyl/proc/on_emag_act(obj/item/source, mob/user)
+/obj/item/gun_module/sibyl/proc/on_emag_act(obj/item/source, mob/user, obj/item/card/emag/emag_card)
 	SIGNAL_HANDLER
 
-	if(emagged)
-		return
+	if(obj_flags & EMAGGED)
+		return FALSE
 
-	add_attack_logs(user, src, "emagged")
-	emagged = TRUE
+	obj_flags |= EMAGGED
 	unlock(user)
 
 	if(user)
 		user.visible_message(span_warning("Из [source.declent_ru(GENITIVE)] летят искры!"), span_notice("Вы взломали [source.declent_ru(ACCUSATIVE)], что привело к выключению [declent_ru(GENITIVE)]."))
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/gun_module/sibyl/proc/on_screwdriver_act(datum/source, mob/living/user, obj/item/tool)
 	SIGNAL_HANDLER
@@ -333,10 +333,20 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	UnregisterSignal(target_gun, COMSIG_GUN_CHECK_CAN_SHOOT)
 	target_gun.desc = initial(target_gun.desc)
 
-/obj/item/gun_module/gategun/proc/on_emag_act(obj/item/source, mob/user)
-	return
+/obj/item/gun_module/gategun/proc/on_emag_act(obj/item/source, mob/user, obj/item/card/emag/emag_card)
+	emag_act(user)
+
+/obj/item/gun_module/gategun/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
+	to_chat(user, span_warning("Вы замечаете как индикатор системы безопасности мигает и гаснет."))
+	return TRUE
 
 /obj/item/gun_module/gategun/proc/on_check_can_shoot(obj/item/source, mob/user)
+	if(obj_flags & EMAGGED)
+		return
 	if(user.loc && is_station_level(user.loc.z))
 		user.balloon_alert(user, "блокировка!")
 		return GUN_CHECK_CANCEL_ATTACK

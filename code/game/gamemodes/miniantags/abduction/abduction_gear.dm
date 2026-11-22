@@ -534,7 +534,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	target.Weaken(knockdown_time)
 
 /obj/item/melee/baton/abductor/proc/SleepAttack(mob/living/target, mob/living/user)
-	if(target.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB))
+	if(INCAPACITATED_IGNORING(target, INCAPABLE_RESTRAINTS|INCAPABLE_GRAB))
 		target.visible_message(
 			span_danger("[user] induces sleep in [target] with [src]!"),
 			span_userdanger("You suddenly feel very drowsy!"),
@@ -542,13 +542,14 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		playsound(src, on_stun_sound, 50, TRUE, -1)
 		target.Sleeping(2 MINUTES)
 		add_attack_logs(user, target, "put to sleep with [src]")
-	else
-		target.AdjustDrowsy(2 SECONDS)
-		to_chat(user, span_warning("Sleep inducement works fully only on stunned specimens! "))
-		target.visible_message(
-			span_danger("[user] tried to induce sleep in [target] with [src]!"),
-			span_userdanger("You suddenly feel drowsy!"),
-		)
+		return
+
+	target.AdjustDrowsy(2 SECONDS)
+	to_chat(user, span_warning("Sleep inducement works fully only on stunned specimens! "))
+	target.visible_message(
+		span_danger("[user] tried to induce sleep in [target] with [src]!"),
+		span_userdanger("You suddenly feel drowsy!"),
+	)
 
 /obj/item/melee/baton/abductor/proc/CuffAttack(mob/living/carbon/target, mob/living/user)
 	if(!iscarbon(target))
@@ -774,7 +775,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "bed"
 	no_icon_updates = 1 //no icon updates for this; it's static.
-	injected_reagents = list("corazone","spaceacillin")
+	injected_reagents = list(/datum/reagent/medicine/corazone, /datum/reagent/medicine/spaceacillin)
 	reagent_target_amount = 31 //the patient needs at least 30u of spaceacillin to prevent necrotization.
 	inject_amount = 10
 
@@ -806,8 +807,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
 	greyscale_config_belt = null
-	emagged = TRUE
 	ignore_flags = TRUE
+	obj_flags = parent_type::obj_flags|EMAGGED
 	var/base_icon = "alien_mender_brute"
 
 /obj/item/reagent_containers/applicator/abductor/get_ru_names()
@@ -833,7 +834,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /obj/item/reagent_containers/applicator/abductor/brute
 	name = "alien brute mender"
 	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия — для заживления механических повреждений. Выполнено из прочного инопланетного материала."
-	list_reagents = list("styptic_powder" = 200)
+	list_reagents = list(/datum/reagent/medicine/styptic_powder = 200)
 
 /obj/item/reagent_containers/applicator/abductor/brute/get_ru_names()
 	return alist(
@@ -849,7 +850,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	name = "alien burn mender"
 	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия — для заживления термических повреждений. Выполнено из прочного инопланетного материала."
 	base_icon = "alien_mender_burn"
-	list_reagents = list("silver_sulfadiazine" = 200)
+	list_reagents = list(/datum/reagent/medicine/silver_sulfadiazine = 200)
 
 /obj/item/reagent_containers/applicator/abductor/burn/get_ru_names()
 	return alist(
@@ -866,12 +867,11 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "Прототип улучшенного авто-мендера, созданного компанией \"Вита-пром\" как альтернатива стандартным мендерам \"Нанотрейзен\". \
 	Обладает увеличенным объёмом хранилища веществ и возможностью пробивать плотные материалы. Не попал в серийное производство из-за сложности и дороговизны, но всё ещё встречается на рынке в качестве единичных экземплеров."
 	volume = 500
-	list_reagents = list("synthflesh" = 500)
+	list_reagents = list(/datum/reagent/medicine/synthflesh = 500)
 	icon_state = "mender2_empty"
 	item_state = "mender2"
 	base_icon = "mender2"
-
-	emagged = FALSE
+	obj_flags = parent_type::obj_flags & ~EMAGGED
 
 /obj/item/reagent_containers/applicator/abductor/industrial/get_ru_names()
 	return alist(
@@ -904,7 +904,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/reagent_containers/cup/bottle/abductor/rezadone
 	name = "rezadone bottle"
-	list_reagents = list("rezadone" = 50)
+	list_reagents = list(/datum/reagent/medicine/rezadone = 50)
 
 /obj/item/reagent_containers/cup/bottle/abductor/rezadone/get_ru_names()
 	return alist(
@@ -918,7 +918,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/reagent_containers/cup/bottle/abductor/epinephrine
 	name = "epinephrine bottle"
-	list_reagents = list("epinephrine" = 50)
+	list_reagents = list(/datum/reagent/medicine/epinephrine = 50)
 
 /obj/item/reagent_containers/cup/bottle/abductor/epinephrine/get_ru_names()
 	return alist(
@@ -932,7 +932,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/reagent_containers/cup/bottle/abductor/salgu
 	name = "saline-glucose solution bottle"
-	list_reagents = list("salglu_solution" = 50)
+	list_reagents = list(/datum/reagent/medicine/salglu_solution = 50)
 
 /obj/item/reagent_containers/cup/bottle/abductor/salgu/get_ru_names()
 	return alist(
@@ -946,7 +946,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/reagent_containers/cup/bottle/abductor/oculine
 	name = "oculine bottle"
-	list_reagents = list("oculine" = 50)
+	list_reagents = list(/datum/reagent/medicine/oculine = 50)
 
 /obj/item/reagent_containers/cup/bottle/abductor/oculine/get_ru_names()
 	return alist(
@@ -960,7 +960,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/reagent_containers/cup/bottle/abductor/pen_acid
 	name = "pentetic acid bottle"
-	list_reagents = list("pen_acid" = 50)
+	list_reagents = list(/datum/reagent/medicine/pen_acid = 50)
 
 /obj/item/reagent_containers/cup/bottle/abductor/pen_acid/get_ru_names()
 	return alist(

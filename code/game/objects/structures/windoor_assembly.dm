@@ -169,7 +169,7 @@
 				if(electronics)
 					to_chat(user, span_warning("The windoor assembly already has [electronics] installed."))
 					return ATTACK_CHAIN_PROCEED
-				if(control.emagged)
+				if(control.obj_flags & EMAGGED)
 					to_chat(user, span_warning("The [control.name] is broken."))
 					return ATTACK_CHAIN_PROCEED
 				control.play_tool_sound(src)
@@ -177,7 +177,7 @@
 					span_notice("[user] installs the access control electronics into the windoor assembly."),
 					span_notice("You start to install the access control electronics into the windoor assembly..."),
 				)
-				if(!do_after(user, 4 SECONDS * control.toolspeed, src, category = DA_CAT_TOOL) || state != "02" || electronics || control.emagged)
+				if(!do_after(user, 4 SECONDS * control.toolspeed, src, category = DA_CAT_TOOL) || state != "02" || electronics || control.obj_flags & EMAGGED)
 					return ATTACK_CHAIN_PROCEED
 				if(!user.drop_transfer_item_to_loc(control, src))
 					return ..()
@@ -336,7 +336,7 @@ GAME_VERB_SRC(/obj/structure/windoor_assembly, revrotate, oview(1), "Повер�
 
 //Flips the windoor assembly, determines whather the door opens to the left or the right
 GAME_VERB_SRC(/obj/structure/windoor_assembly, flip, oview(1), "Повернуть", VERB_CATEGORY_HIDDEN)
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(facing == "l")

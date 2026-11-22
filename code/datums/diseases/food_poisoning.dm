@@ -5,7 +5,7 @@
 	max_stages = 3
 	stage_prob = 5
 	cure_text = "Правильное питание и сон"
-	cures = list("chicken_soup")
+	cures = list(/datum/reagent/consumable/chicken_soup)
 	cure_prob = 100	//override in has_cure()
 	severity = DISEASE_SEVERITY_MINOR
 	can_immunity = FALSE

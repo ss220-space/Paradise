@@ -6,7 +6,6 @@
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	var/list/part = null
-	var/sabotaged = 0 //Emagging limbs can have repercussions when installed as prosthetics.
 	var/model_info = "Unbranded"
 
 /obj/item/robot_parts/Initialize(mapload, model)
@@ -154,7 +153,7 @@
 /obj/item/robot_parts/robot_suit/proc/check_lawsync()
 	if(!aisync)
 		lawsync = FALSE
-	if(sabotaged)
+	if(obj_flags & EMAGGED)
 		aisync = FALSE
 		lawsync = FALSE
 
@@ -397,7 +396,7 @@
 		check_lawsync()
 		laws_to_give = get_new_laws(new_mmi)
 
-		var/mob/living/silicon/robot/new_borg = new(loc, sabotaged, TRUE, FALSE, aisync, forced_ai)
+		var/mob/living/silicon/robot/new_borg = new(loc, (obj_flags & EMAGGED), TRUE, FALSE, aisync, forced_ai)
 		if(QDELETED(new_borg))	// somehow??? jesus fucking christ
 			return .
 
@@ -447,7 +446,7 @@
 
 /obj/item/robot_parts/robot_suit/Topic(href, href_list)
 	var/mob/living/living_user = usr
-	if(living_user.incapacitated() || !Adjacent(living_user))
+	if(living_user.incapacitated || !Adjacent(living_user))
 		return
 	var/obj/item/item_in_hand = living_user.get_active_hand()
 	if(item_in_hand.tool_behaviour != TOOL_MULTITOOL)
@@ -464,7 +463,7 @@
 			created_name = ""
 
 	else if(href_list["Master"])
-		if(!sabotaged)
+		if(!(obj_flags & EMAGGED))
 			forced_ai = select_active_ai(usr)
 		if(!forced_ai)
 			to_chat(usr, span_error("No active AIs detected."))
@@ -540,12 +539,13 @@
 
 	return ..()
 
-/obj/item/robot_parts/emag_act(mob/user)
-	if(sabotaged)
+/obj/item/robot_parts/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
 		if(user)
 			to_chat(user, span_warning("[src] is already sabotaged!"))
-	else
-		add_attack_logs(user, src, "emagged")
-		if(user)
-			to_chat(user, span_warning("You slide the emag into the dataport on [src] and short out the safeties."))
-		sabotaged = 1
+		return FALSE
+	obj_flags |= EMAGGED
+	if(user)
+		to_chat(user, span_warning("You slide the emag into the dataport on [src] and short out the safeties."))
+	return TRUE

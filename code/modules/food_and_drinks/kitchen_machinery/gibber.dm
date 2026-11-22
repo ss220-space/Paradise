@@ -127,7 +127,7 @@
 	return ..()
 
 /obj/machinery/gibber/mouse_drop_receive(mob/target, mob/user, params)
-	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!ishuman(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(!isliving(target))
@@ -171,7 +171,7 @@
 
 GAME_VERB_SRC(/obj/machinery/gibber, eject, oview(1), "Опустошить мясорубку", VERB_CATEGORY_HIDDEN)
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	go_out()
@@ -310,6 +310,10 @@ GAME_VERB_SRC(/obj/machinery/gibber, eject, oview(1), "Опустошить мя
 		pixel_x = initial(pixel_x) //return to it's spot after shaking
 		operating = FALSE
 		update_icon(UPDATE_OVERLAYS)
+
+/obj/machinery/gibber/pre_emagged
+	desc = "The name isn't descriptive enough? Safety lamp doesn't light!"
+	obj_flags = parent_type::obj_flags|EMAGGED
 
 /* AUTOGIBBER */
 

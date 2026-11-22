@@ -272,6 +272,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset)
 	var/use_antag_skills = FALSE
 	var/skills_ref_job
+	var/list/discount_skill_category
 	var/alist/skills
 
 /obj/effect/mob_spawn/human/Initialize(mapload)
@@ -432,6 +433,8 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	if(use_antag_skills)
 		ADD_TRAIT(H.mind, TRAIT_HAS_ANTAG_SKILLS, UNIQUE_TRAIT_SOURCE(src))
 	H.mind.refresh_skills(ref_job = skills_ref_job)
+	if(length(discount_skill_category))
+		H.mind.discount_skill_category = typecacheof(discount_skill_category)
 
 /obj/effect/mob_spawn/human/special(mob/living/carbon/human/H)
 	if(!HAS_TRAIT(H, TRAIT_NO_DNA))
@@ -690,7 +693,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	suit = /obj/item/clothing/suit/armor/vest
 	belt = /obj/item/storage/belt/bandolier/full
 	shoes = /obj/item/clothing/shoes/color/black
-	glasses = /obj/item/clothing/glasses/sunglasses/reagent
+	glasses = /obj/item/clothing/glasses/science/sunglasses
 	id = /obj/item/card/id
 
 /obj/effect/mob_spawn/human/beach
@@ -808,7 +811,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	back = /obj/item/storage/backpack
 	shoes = /obj/item/clothing/shoes/color/black
 	suit = /obj/item/clothing/suit/armor/vest
-	glasses = /obj/item/clothing/glasses/sunglasses/reagent
+	glasses = /obj/item/clothing/glasses/science/sunglasses
 
 //For dead simple mobs
 

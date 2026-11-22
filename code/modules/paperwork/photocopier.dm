@@ -265,7 +265,7 @@
 
 	var/icon/temp_img
 
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		if(ishuman(copymob))
 			copymob.apply_damage(30, BURN, BODY_ZONE_PRECISE_GROIN)
 			if(copymob.has_pain())
@@ -667,7 +667,7 @@
 			continue
 		if(cached_syndicate && !(form_type.syndicate))
 			continue
-		if(!cached_syndicate && !emagged && (form_type.syndicate))
+		if(!cached_syndicate && !(obj_flags & EMAGGED) && (form_type.syndicate))
 			continue
 		var/list/form = list()
 		form["path"] = form_type
@@ -746,7 +746,7 @@
 		toner_cartridge.charges = 0
 
 /obj/machinery/photocopier/mouse_drop_receive(mob/target, mob/living/user, params)
-	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || isAI(user))
+	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || isAI(user))
 		return
 	if(check_mob()) //is target mob or another mob on this photocopier already?
 		return
@@ -780,13 +780,19 @@
 	else
 		return TRUE
 
-/obj/machinery/photocopier/emag_act(mob/user)
-	if(!emagged)
-		emagged = TRUE
+/obj/machinery/photocopier/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	return photocopier_emag(user, emag_card)
+
+/obj/machinery/photocopier/proc/photocopier_emag(mob/user, obj/item/card/emag/emag_card)
+	if(obj_flags & EMAGGED)
 		if(user)
-			balloon_alert(user, "взломано")
-	else if(user)
-		balloon_alert(user, "уже взломано!")
+			balloon_alert(user, "уже взломано!")
+		return FALSE
+	obj_flags |= EMAGGED
+	if(user)
+		balloon_alert(user, "взломано")
+	return TRUE
 
 /**
  * Removes a certain amount of toner that is affected by the efficiency of stock parts

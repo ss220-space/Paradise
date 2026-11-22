@@ -38,6 +38,12 @@
 	reagent_state = GAS
 	color = "#808080" // rgb: 128, 128, 128
 	taste_mult = 0
+	chemfiresupp = TRUE
+	intensitymod = 0.75
+	radiusmod = -0.08
+	burncolor = "#58daff"
+	burncolormod = 2
+	properties = list(PROPERTY_OXIDIZING = 2)
 
 /datum/reagent/nitrogen
 	name = "Азот"
@@ -54,6 +60,13 @@
 	reagent_state = GAS
 	color = "#808080" // rgb: 128, 128, 128
 	taste_mult = 0
+	chemfiresupp = TRUE
+	durationmod = -0.5
+	radiusmod = 0.2
+	intensitymod = -0.5
+	burncolor = "#b6f8ff"
+	burncolormod = 2
+	properties = list(PROPERTY_FUELING = 1)
 
 /datum/reagent/potassium
 	name = "Калий"
@@ -82,6 +95,12 @@
 	description = "Химический элемент."
 	color = "#832828" // rgb: 131, 40, 40
 	taste_description = "неправильных выборов"
+	chemfiresupp = TRUE
+	intensitymod = 1
+	durationmod = 0.1
+	radiusmod = -0.12
+	burncolor = "#ffdba4"
+	burncolormod = 5
 
 /datum/reagent/carbon
 	name = "Углерод"
@@ -89,6 +108,10 @@
 	description = "Химический элемент."
 	color = "#1C1300" // rgb: 30, 20, 0
 	taste_description = "пишущей части карандаша"
+	chemfiresupp = TRUE
+	durationmod = 1
+	burncolor = "#ffd700"
+	burncolormod = 3
 
 /datum/reagent/carbon/reaction_turf(turf/target_turf, volume)
 	if(!(locate(/obj/effect/decal/cleanable/dirt) in target_turf) && !isspaceturf(target_turf)) // Only add one dirt per turf.  Was causing people to crash.
@@ -127,6 +150,9 @@
 	description = "Высокопластичный металл."
 	color = "#6E3B08" // rgb: 110, 59, 8
 	taste_description = "меди"
+	chemfiresupp = TRUE
+	burncolor = "#78be5a"
+	burncolormod = 4
 
 /datum/reagent/chromium
 	name = "Хром"
@@ -185,14 +211,14 @@
 		var/datum/reagents/old_holder = holder
 		fire_flash_log(holder, id)
 		if(holder)
-			holder.del_reagent(id) // Remove first. Else fireflash triggers a reaction again
+			holder.del_reagent(type) // Remove first. Else fireflash triggers a reaction again
 
 		fireflash(target_turf, min(max(0, volume / 40), 8))
 		var/datum/effect_system/fluid_spread/smoke/bad/smoke = new
 		smoke.set_up(amount = 1, location = target_turf)
 		smoke.start()
 		if(!QDELETED(old_holder))
-			old_holder.add_reagent("ash", round(volume * 0.5))
+			old_holder.add_reagent(/datum/reagent/ash, round(volume * 0.5))
 
 /datum/reagent/oil/reaction_turf(turf/target_turf, volume)
 	if(volume >= 3 && !isspaceturf(target_turf) && !locate(/obj/effect/decal/cleanable/blood/oil) in target_turf)
@@ -398,7 +424,7 @@
 		var/lovely_phrase = pick("оценивают по достоинству", "любят", "ценят", "уважают", "признают")
 		to_chat(target_mob, span_notice("Вы чувствуете, что вас [lovely_phrase]."))
 
-	else if(!target_mob.incapacitated() && !HAS_TRAIT(target_mob, TRAIT_HANDS_BLOCKED))
+	else if(!target_mob.incapacitated && !HAS_TRAIT(target_mob, TRAIT_HANDS_BLOCKED))
 		for(var/mob/living/carbon/target_carbon in orange(1, target_mob))
 			if(target_carbon)
 				if(target_carbon == target_mob)
@@ -707,9 +733,30 @@
 	metabolization_rate = 2 * REAGENTS_METABOLISM
 
 /datum/reagent/bugmilk/on_mob_life(mob/living/target_mob)
-	target_mob.reagents.add_reagent("cream", 0.4)
-	target_mob.reagents.add_reagent("salglu_solution", 0.4)
+	target_mob.reagents.add_reagent(/datum/reagent/consumable/drink/milk/cream, 0.4)
+	target_mob.reagents.add_reagent(/datum/reagent/medicine/salglu_solution, 0.4)
 	return ..()
+
+/datum/reagent/shadowling_blindness_smoke //Blinds non-shadowlings, heals shadowlings/thralls
+	name = "Странная чёрная жидкость"
+	id = "blindness_smoke"
+	description = "ЗАПИСЬ В БАЗЕ ДАННЫХ ОТСУТСТВУЕТ"
+	metabolization_rate = 250 * REAGENTS_METABOLISM //still lel
+
+/datum/reagent/shadowling_blindness_smoke/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(!is_shadow_or_thrall(M))
+		to_chat(M, span_warning("Вы вдыхаете чёрный дым, и ваши глаза ужасно горят!"))
+		M.EyeBlind(10 SECONDS)
+		if(prob(25))
+			M.visible_message(span_warning("[M] яростно тр[PLUR_YOT_UT(M)] свои глаза!"))
+			M.Stun(4 SECONDS)
+	else
+		to_chat(M, span_notice("Вы вдыхаете чёрный дым и чувствуете лёгкость!"))
+		update_flags |= M.heal_organ_damage(10, 10, updating_health = FALSE)
+		update_flags |= M.adjustOxyLoss(-10, FALSE)
+		update_flags |= M.adjustToxLoss(-10, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/smart_foaming_agent //Smart foaming agent. Functions similarly to metal foam, but conforms to walls.
 	name = "Smart Foaming Agent"
