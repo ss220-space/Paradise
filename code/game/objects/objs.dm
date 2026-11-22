@@ -53,9 +53,6 @@
 	var/icon_preview
 	var/icon_state_preview
 
-	/// Is this object emagged?
-	var/emagged = FALSE
-
 /obj/vv_edit_var(var_name, var_value)
 	if(var_name == NAMEOF(src, obj_flags))
 		if((obj_flags & DANGEROUS_POSSESSION) && !(var_value & DANGEROUS_POSSESSION))

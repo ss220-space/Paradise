@@ -423,7 +423,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	. = ..()
 	//if the turret was attacked with the intention of harming it
 	//and the force of impact dealt at least 1 damage, the turret gets pissed off
-	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !pissed_check || attacked || emagged)
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !pissed_check || attacked || (obj_flags & EMAGGED))
 		return .
 	attacked = TRUE
 	addtimer(VARSET_CALLBACK(src, attacked, FALSE), 6 SECONDS)
@@ -451,19 +451,23 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		to_chat(M, span_noticealien("That object is useless to you."))
 	return
 
-/obj/machinery/porta_turret/emag_act(mob/user)
-	if(!emagged)
-		//Emagging the turret makes it go bonkers and stun everyone. It also makes
-		//the turret shoot much, much faster.
-		if(user)
-			to_chat(user, span_warning("You short out [src]'s threat assessment circuits."))
-			visible_message("[src] hums oddly...")
-		emagged = TRUE
-		iconholder = 1
-		controllock = TRUE
-		enabled = FALSE //turns off the turret temporarily
-		sleep(60) //6 seconds for the traitor to gtfo of the area before the turret decides to ruin his shit
-		enabled = TRUE //turns it back on. The cover popUp() popDown() are automatically called in process(), no need to define it here
+/obj/machinery/porta_turret/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
+	//Emagging the turret makes it go bonkers and stun everyone. It also makes
+	//the turret shoot much, much faster.
+	iconholder = 1
+	controllock = TRUE
+	enabled = FALSE //turns off the turret temporarily
+	//6 seconds for the traitor to gtfo of the area before the turret decides to ruin his shit
+	//turns it back on. The cover popUp() popDown() are automatically called in process(), no need to define it here
+	addtimer(VARSET_CALLBACK(src, enabled, TRUE), 6 SECONDS)
+	if(user)
+		to_chat(user, span_warning("You short out [src]'s threat assessment circuits."))
+		visible_message("[src] hums oddly...")
+	return TRUE
 
 /obj/machinery/porta_turret/take_damage(force)
 	if(!raised && !raising)
@@ -486,7 +490,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		return
 
 	if(enabled)
-		if(!attacked && !emagged)
+		if(!attacked && !(obj_flags & EMAGGED))
 			attacked = TRUE
 			spawn(60)
 				attacked = FALSE
@@ -509,7 +513,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	check_access = prob(20)	// check_access is a pretty big deal, so it's least likely to get turned on
 	check_anomalies = prob(50)
 	if(prob(5))
-		emagged = TRUE
+		obj_flags |= EMAGGED
 	enabled = FALSE
 	addtimer(VARSET_CALLBACK(src, enabled, TRUE), rand(6 SECONDS, 12 SECONDS), TIMER_DELETE_ME)
 
@@ -620,13 +624,13 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(!world_range_checked && get_dist(src, L) > scan_range)	//if it's too far away, why bother?
 		return TURRET_NOT_TARGET
 
-	if(emagged)		// If emagged not even the dead get a rest
+	if(obj_flags & EMAGGED)	// If emagged not even the dead get a rest
 		return L.stat ? TURRET_SECONDARY_TARGET : TURRET_PRIORITY_TARGET
 
-	if(L.stat && !emagged)		//if the perp is dead/dying, no need to bother really
+	if(L.stat && !(obj_flags & EMAGGED))		//if the perp is dead/dying, no need to bother really
 		return TURRET_NOT_TARGET	//move onto next potential victim!
 
-	if(!emagged && !syndicate && (issilicon(L) || isbot(L)))
+	if(!(obj_flags & EMAGGED) && !syndicate && (issilicon(L) || isbot(L)))
 		return (check_borgs && isrobot(L)) ? TURRET_PRIORITY_TARGET : TURRET_NOT_TARGET
 
 	if(in_faction(L))
@@ -740,7 +744,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(!raised && has_cover) //the turret has to be raised in order to fire - makes sense, right?
 		return
 
-	if(!emagged)	//if it hasn't been emagged, cooldown before shooting again
+	if(!(obj_flags & EMAGGED))	//if it hasn't been emagged, cooldown before shooting again
 		if((last_fired + shot_delay > world.time) || !raised)
 			return
 		last_fired = world.time
@@ -753,13 +757,14 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	update_icon(UPDATE_ICON_STATE)
 	// Lethal/emagged turrets use twice the power due to higher energy beams
 	// Emagged turrets again use twice as much power due to higher firing rates
-	use_power(reqpower * (2 * (emagged || lethal)) * (2 * emagged) * rapid)
+	use_power(reqpower * (2 * ((obj_flags & EMAGGED) || lethal)) * (2 * (obj_flags & EMAGGED)) * rapid)
 
 	fire_projectile_burst(CALLBACK(src, PROC_REF(shoot), target), rapid, rapid_fire_delay)
 
 /obj/machinery/porta_turret/proc/create_projectile(atom/location)
-	var/shot_type = (emagged || lethal) ? eprojectile : projectile
-	var/sound_file = (emagged || lethal) ? eshot_sound : shot_sound
+	var/use_lethal_projectile = lethal || (obj_flags & EMAGGED)
+	var/shot_type = use_lethal_projectile ? eprojectile : projectile
+	var/sound_file = use_lethal_projectile ? eshot_sound : shot_sound
 	if(!shot_type)
 		return
 	var/atom/movable/shot = new shot_type(location)

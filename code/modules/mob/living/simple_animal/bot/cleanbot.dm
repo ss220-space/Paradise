@@ -99,10 +99,13 @@
 
 	return ..()
 
-/mob/living/simple_animal/bot/cleanbot/emag_act(mob/user)
-	..()
-	if(emagged == 2 && user)
+/mob/living/simple_animal/bot/cleanbot/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(!. || emagged != 2)
+		return .
+	if(user)
 		to_chat(user, span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] странно жужжит!"))
+	return TRUE
 
 /mob/living/simple_animal/bot/cleanbot/process_scan(obj/effect/decal/cleanable/D)
 	for(var/T in target_types)

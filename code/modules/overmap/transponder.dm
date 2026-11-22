@@ -196,11 +196,12 @@
 	user.visible_message(span_warning("[user] [distress ? "активирует" : "глушит"] аварийный маяк на [declent_ru(PREPOSITIONAL)]."))
 	return CLICK_ACTION_SUCCESS
 
-/obj/machinery/transponder/emag_act(mob/user)
+/obj/machinery/transponder/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
 	if(find_iff_channel(OVERMAP_IFF_HIJACK))
-		return FALSE
+		return .
 	ensure_iff_channels()
-	emagged = TRUE
+	obj_flags |= EMAGGED
 	iff_channels += new /datum/overmap_iff_channel(OVERMAP_IFF_HIJACK, overmap_iff_label_for_id(OVERMAP_IFF_HIJACK), TRUE, TRUE, TRUE)
 	push_to_vessel()
 	if(user)

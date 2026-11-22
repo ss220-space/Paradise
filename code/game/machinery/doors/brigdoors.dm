@@ -157,7 +157,7 @@
 		update_display()
 		return PROCESS_KILL
 	if(timing)
-		if(emagged)
+		if(obj_flags & EMAGGED)
 			timer_end()
 			return PROCESS_KILL
 		if(timeleft() <= 0)
@@ -314,17 +314,19 @@
 	ui_interact(user)
 
 /obj/machinery/door_timer/emp_act(severity)
-	if((stat & (BROKEN|NOPOWER)) || emagged)
+	if((stat & (BROKEN|NOPOWER)) || (obj_flags & EMAGGED))
 		..(severity)
 		return
 	if(timing && prob(100 / severity))
-		emagged = TRUE
+		obj_flags |= EMAGGED
 	..(severity)
 
-/obj/machinery/door_timer/emag_act()
-	if((stat & (BROKEN|NOPOWER)) || emagged || !timing)
-		return
-	emagged = TRUE
+/obj/machinery/door_timer/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if((stat & (BROKEN|NOPOWER)) || (obj_flags & EMAGGED) || !timing)
+		return FALSE
+	obj_flags |= EMAGGED
+	return TRUE
 
 //Allows humans to use door_timer
 //Opens dialog window when someone clicks on door timer
@@ -471,7 +473,7 @@
 
 /obj/machinery/door_timer/update_overlays()
 	. = ..()
-	if(!(stat & NOPOWER) && ((stat & BROKEN) || emagged))
+	if(!(stat & NOPOWER) && ((stat & BROKEN) || (obj_flags & EMAGGED)))
 		. += "ai_bsod"
 
 /obj/machinery/door_timer/cell_1

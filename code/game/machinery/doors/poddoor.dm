@@ -25,7 +25,7 @@
 	name = "reinforced blast door"
 	desc = "A heavy duty blast door that opens mechanically. Looks even tougher than usual."
 	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|UNACIDABLE|ACID_PROOF
-	hackable = FALSE
+	obj_flags = parent_type::obj_flags|NO_EMAG
 
 /obj/machinery/door/poddoor/impassable/unhittable
 	obj_flags = IGNORE_HITS
@@ -71,6 +71,11 @@
 			to_chat(user, span_warning("[src] resists your efforts to force it!"))
 	else
 		to_chat(user, span_warning("[src] resists your efforts to force it!"))
+
+/obj/machinery/door/poddoor/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	INVOKE_ASYNC(src, PROC_REF(open))
+	return TRUE
 
 // Whoever wrote the old code for multi-tile spesspod doors needs to burn in hell. - Unknown
 // Wise words. - Bxil

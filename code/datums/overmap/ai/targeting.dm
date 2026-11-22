@@ -58,7 +58,7 @@
 /datum/overmap_ship_ai/proc/weapon_projectile_type(obj/machinery/gun)
 	var/obj/machinery/porta_turret/turret = gun
 	if(istype(turret))
-		return (turret.lethal || turret.emagged) ? turret.eprojectile : turret.projectile
+		return (turret.lethal || (turret.obj_flags & EMAGGED)) ? turret.eprojectile : turret.projectile
 	return gun.ship_round_type || /obj/projectile/bullet/ship_artillery
 
 /datum/overmap_ship_ai/proc/weapon_target_fit(obj/machinery/gun, obj/overmap/entity/contact)

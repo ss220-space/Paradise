@@ -1209,3 +1209,7 @@
 	for(var/atom/movable/to_clean as anything in src)
 		if(all_contents || HAS_TRAIT(to_clean, TRAIT_MOPABLE))
 			. |= to_clean.wash_tg(clean_types)
+
+/turf/proc/on_atom_inited(datum/source, atom/movable/movable)
+	SIGNAL_HANDLER
+	return

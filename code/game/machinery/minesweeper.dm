@@ -121,17 +121,18 @@
 	in_use = FALSE // in_use is /obj/machinery/arcade var, which i do not neew, so i just made it unnessecary
 	ui_interact(user)
 
-/obj/machinery/arcade/minesweeper/emag_act(mob/user)
+/obj/machinery/arcade/minesweeper/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-	if(emagged)
-		return
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
 	do_sparks(3, TRUE, src)
 	to_chat(user, span_warning("Smells like something burnt"))
 	mode = MINESWEEPER_16X16
 	switch_mode(mode)
-	emagged = TRUE
 	var/obj/circuit = locate(/obj/item/circuitboard/minesweeper) in component_parts
 	component_parts -= circuit
+	return TRUE
 
 /obj/machinery/arcade/minesweeper/power_change(forced = FALSE)
 	. = ..()
@@ -188,7 +189,7 @@
 			check_win(ui.user)
 			SStgui.update_uis(src)
 		if("Mode")
-			if(emagged)
+			if(obj_flags & EMAGGED)
 				to_chat(ui.user, span_warning("Looks like mode button is burnt."))
 				return
 			if(!first_touch)
@@ -213,7 +214,7 @@
 	if(!freeplay && mode != MINESWEEPER_9X9)
 		var/prize = /obj/item/stack/tickets
 		new prize(get_turf(src), rand(50, 90))
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		var/emag_prize = pick(emag_prizes)
 		new emag_prize(get_turf(src))
 	speak(pick(win_phrases))
@@ -224,7 +225,7 @@
 	show_message = "Ой-ой! Вот неудача!"
 	ignore_touches = TRUE
 	speak(pick(loose_phrases))
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		user.gib()
 	playsound(loc, 'sound/effects/explosionfar.ogg', 50, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(make_empty_matr)), 5 SECONDS)

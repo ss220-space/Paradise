@@ -92,7 +92,7 @@
 		if(access_electronics)
 			to_chat(user, span_warning("The [name] already has [access_electronics] installed."))
 			return ATTACK_CHAIN_PROCEED
-		if(control.emagged)
+		if(control.obj_flags & EMAGGED)
 			to_chat(user, span_warning("The [control.name] is broken."))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
@@ -103,8 +103,8 @@
 			span_notice("You install [I] into the button frame."),
 		)
 		access_electronics = I
-		if(emagged)
-			emagged = FALSE
+		if(obj_flags & EMAGGED)
+			obj_flags &= ~EMAGGED
 		update_icon(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -154,11 +154,14 @@
 	new /obj/item/mounted/frame/door_control(get_turf(user))
 	qdel(src)
 
-/obj/machinery/door_control/emag_act(mob/user)
-	if(!emagged)
-		emagged = TRUE
-		req_access = list()
-		playsound(src, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+/obj/machinery/door_control/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
+	req_access = list()
+	playsound(src, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	return TRUE
 
 /obj/machinery/door_control/attack_ghost(mob/user)
 	if(open)
@@ -191,7 +194,7 @@
 	access_electronics.one_access = check_one_access
 
 /obj/machinery/door_control/proc/update_access()
-	if(access_electronics && !emagged)
+	if(access_electronics && !(obj_flags & EMAGGED))
 		req_access = access_electronics.selected_accesses
 		check_one_access = access_electronics.one_access
 	else
@@ -219,7 +222,7 @@
 			access_electronics.forceMove_turf()
 			user.put_in_hands(access_electronics, ignore_anim = FALSE)
 			access_electronics.add_fingerprint(user)
-			if(emagged)
+			if(obj_flags & EMAGGED)
 				access_electronics.emag_act()
 			access_electronics = null
 
@@ -300,10 +303,7 @@
 	base_icon_state = "altdoorctrl"
 	ai_control = FALSE
 	resistance_flags = INDESTRUCTIBLE
-
-/obj/machinery/door_control/secure/emag_act(user)
-	if(user)
-		to_chat(user, span_notice("The electronic systems in this device are far too advanced for your primitive hacking peripherals."))
+	obj_flags = parent_type::obj_flags|NO_EMAG
 
 /obj/machinery/door_control/secure/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE

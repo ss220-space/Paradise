@@ -65,13 +65,15 @@
 
 	return ..()
 
-/obj/machinery/computer/teleporter/emag_act(mob/user)
-	if(!emagged)
-		emagged = TRUE
-		if(user)
-			to_chat(user, span_notice("The teleporter can now lock on to Syndicate beacons!"))
-	else
+/obj/machinery/computer/teleporter/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
 		ui_interact(user)
+		return FALSE
+	obj_flags |= EMAGGED
+	if(user)
+		to_chat(user, span_notice("The teleporter can now lock on to Syndicate beacons!"))
+	return TRUE
 
 /obj/machinery/computer/teleporter/attack_ai(mob/user)
 	attack_hand(user)
@@ -212,7 +214,7 @@
 			continue
 		if(!is_teleport_allowed(T.z) && !R.cc_beacon)
 			continue
-		if(R.syndicate && !emagged)
+		if(R.syndicate && !(obj_flags & EMAGGED))
 			continue
 		if(GLOB.full_lockdown && is_station_teleport && !is_station_level(T.z))
 			continue

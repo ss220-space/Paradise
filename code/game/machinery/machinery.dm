@@ -560,7 +560,7 @@
 	return 0
 
 /obj/machinery/proc/is_assess_emagged()
-	return emagged
+	return (obj_flags & EMAGGED)
 
 /obj/machinery/proc/assess_perp(mob/living/carbon/human/perp, check_access, auth_weapons, check_records, check_arrest)
 	var/threatcount = 0	//the integer returned

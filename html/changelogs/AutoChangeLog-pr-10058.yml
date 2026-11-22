@@ -1,0 +1,4 @@
+author: "SCPfollower"
+delete-after: True
+changes:
+  - refactor: "Рефактор emag_act() и cmag_act() (PR #10058)"

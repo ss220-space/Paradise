@@ -341,7 +341,7 @@
 		return	// and no mining gets done
 	if(actual_power_usage)
 		add_load(actual_power_usage)
-		var/points_to_add = (input_level + emagged) * base_points
+		var/points_to_add = (input_level + (obj_flags & EMAGGED)) * base_points
 		points += points_to_add	//point generation, emagging gets you 'free' points at the cost of higher anomaly chance
 		total_points += points_to_add
 	// actual input level changes slowly
@@ -349,13 +349,13 @@
 		input_level++
 	else if(input_level > desired_level)
 		input_level--
-	if(prob(input_level - safe_levels + (emagged * 5)))	//at dangerous levels, start doing freaky shit. prob with values less than 0 treat it as 0
+	if(prob(input_level - safe_levels + ((obj_flags & EMAGGED) * 5)))	//at dangerous levels, start doing freaky shit. prob with values less than 0 treat it as 0
 		GLOB.major_announcement.announce(
-			message = "Непредвиденный скачок напряжения во время работы Блюспейс-сборщика. Обнаружены появления внепространственных объектов. Возможная локация: [get_area(src)]. [emagged ? "Ошибка аварийного отключения! Пожалуйста, перейдите к ручной остановке." : "Запущено аварийное отключение."]",
+			message = "Непредвиденный скачок напряжения во время работы Блюспейс-сборщика. Обнаружены появления внепространственных объектов. Возможная локация: [get_area(src)]. [(obj_flags & EMAGGED) ? "Ошибка аварийного отключения! Пожалуйста, перейдите к ручной остановке." : "Запущено аварийное отключение."]",
 			new_title = ANNOUNCE_BLUESPACETAP_RU,
 			new_sound = 'sound/AI/harvester.ogg'
 		)
-		if(!emagged)
+		if(!(obj_flags & EMAGGED))
 			input_level = 0	//emergency shutdown unless we're sabotaged
 			desired_level = 0
 		for(var/i in 1 to rand(1, 3))
@@ -372,7 +372,7 @@
 	data["powerUse"] = actual_power_usage
 	data["availablePower"] = surplus()
 	data["maxLevel"] = max_level
-	data["emagged"] = emagged
+	data["emagged"] = (obj_flags & EMAGGED)
 	data["safeLevels"] = safe_levels
 	data["nextLevelPower"] = get_power_use(input_level + 1)
 
@@ -441,14 +441,15 @@
 		ui.open()
 
 //emaging provides slightly more points but at much greater risk
-/obj/machinery/power/bluespace_tap/emag_act(mob/user)
-	if(emagged)
-		return
-	add_attack_logs(user, src, "emagged")
-	emagged = TRUE
+/obj/machinery/power/bluespace_tap/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
 	do_sparks(5, FALSE, src)
 	if(user)
 		user.visible_message(span_warning("[user] переписыва[PLUR_ET_YUT(user)] протоколы безопасности [declent_ru(GENITIVE)]."), span_warning("Вы переписываете протоколы безопасности."))
+	return TRUE
 
 /obj/structure/spawner/nether/bluespace_tap
 	spawn_time = 30 SECONDS

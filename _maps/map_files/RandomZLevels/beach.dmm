@@ -771,9 +771,7 @@
 /turf/simulated/floor/indestructible/beach/sand,
 /area/awaymission/beach)
 "cZ" = (
-/obj/machinery/vending/boozeomat{
-	emagged = 1
-	},
+/obj/machinery/vending/boozeomat,
 /turf/simulated/floor/indestructible{
 	icon_state = "wood"
 	},

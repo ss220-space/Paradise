@@ -30,15 +30,17 @@
 	QDEL_NULL(ID)
 	return ..()
 
-/obj/item/door_remote/emag_act(mob/user)
-	if(!emagged)
-		add_attack_logs(user, src, "emagged")
-		emagged = TRUE
-		if(user)
-			to_chat(user, span_warning("You short out the safeties on [src]"))
+/obj/item/door_remote/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
+	if(user)
+		to_chat(user, span_warning("You short out the safeties on [src]"))
+	return TRUE
 
 /obj/item/door_remote/attack_self(mob/user)
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		switch(mode)
 			if(WAND_OPEN)
 				mode = WAND_BOLT
@@ -72,7 +74,7 @@
 	if((target.z != user_location.z) && !z_cross)
 		to_chat(user, span_danger("[target] is too far away to be controlled!"))
 		return
-	if(HAS_TRAIT(target, TRAIT_CMAGGED))
+	if(obj_flags & CMAGGED)
 		to_chat(user, span_danger("The door doesn't respond to [src]"))
 		return
 	if(target.is_special)
@@ -86,7 +88,7 @@
 		return
 	if(target.check_access(src.ID))
 		target.add_hiddenprint(user)
-		if(emagged)
+		if(obj_flags & EMAGGED)
 			switch(mode)
 				if(WAND_OPEN)
 					if(target.density)
@@ -123,7 +125,7 @@
 						target.electrified_until = -1
 						to_chat(user, span_notice("You electrify [target]."))
 						add_attack_logs(user, target, "electrified")
-		if(emagged == FALSE)
+		if(!(obj_flags & EMAGGED))
 			switch(mode)
 				if(WAND_OPEN)
 					if(target.density)
@@ -213,7 +215,7 @@
 	desc = "A device used for illegally interfacing with doors."
 	icon_state = "hacktool"
 	item_state = "hacktool"
-	emagged = TRUE
+	obj_flags = parent_type::obj_flags|EMAGGED
 	var/hack_speed = 1 SECONDS
 	var/busy = FALSE
 
@@ -223,7 +225,7 @@
 /obj/item/door_remote/omni/access_tuner/afterattack(obj/machinery/door/airlock/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!istype(target))
 		return
-	if(HAS_TRAIT(target, TRAIT_CMAGGED))
+	if(obj_flags & CMAGGED)
 		to_chat(user, span_danger("The door doesn't respond to [src]!"))
 		return
 	if(busy)

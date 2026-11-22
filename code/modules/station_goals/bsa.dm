@@ -526,12 +526,12 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 /obj/machinery/computer/bsa_control/admin
 	area_aim = TRUE
 	target_all_areas = TRUE
-	emagged = TRUE // Unlock power burst mode for admin
 
 /obj/machinery/computer/bsa_control/admin/Initialize(mapload)
 	. = ..()
 	if(!cannon)
 		cannon = deploy()
+	obj_flags |= EMAGGED // Unlock power burst mode for admin
 
 /obj/machinery/computer/bsa_control/Destroy()
 	if(cannon && cannon.controller == src)
@@ -646,7 +646,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	var/list/modes = list()
 	for(var/mode_id in GLOB.BSA_modes_list)
 		var/datum/bluespace_cannon_fire_mode/mode = GLOB.BSA_modes_list[mode_id]
-		if(mode.need_emag && !emagged)
+		if(mode.need_emag && !(obj_flags & EMAGGED))
 			continue
 		modes += mode.name
 	return modes
@@ -705,10 +705,11 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 		return
 	cannon.mode = new_mode
 
-/obj/machinery/computer/bsa_control/emag_act(mob/user)
-	if(emagged)
+/obj/machinery/computer/bsa_control/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
 		return FALSE
-	emagged = TRUE
+	obj_flags |= EMAGGED
 	if(user)
 		to_chat(user, span_warning("Вы взламываете [declent_ru(ACCUSATIVE)], протоколы безопасности отключены!"))
 	return TRUE
