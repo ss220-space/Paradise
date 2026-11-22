@@ -23,7 +23,7 @@
 	var/obj/item/camera_assembly/assembly = null
 	var/list/computers_watched_by = list()
 	/// Camera watchers list
-	var/list/watchers = list()
+	var/list/datum/weakref/watchers = list()
 
 	//OTHER
 
@@ -297,23 +297,34 @@
 
 /obj/machinery/camera/update_overlays()
 	. = ..()
-	if(!status || (stat & EMPED) || !length(watchers))
+	if(!status || (stat & EMPED) || !has_watchers())
 		return
-	var/mutable_appearance/active_light = mutable_appearance(icon, isXRay() ? "xraycamera_active" : "camera_active", layer + 0.01)
+	var/mutable_appearance/active_light = mutable_appearance(icon, isXRay() ? "xraycamera_active" : "camera_active")
 	active_light.dir = dir
 	. += active_light
 
+/obj/machinery/camera/proc/has_watchers()
+	list_clear_empty_weakrefs(watchers)
+	return length(watchers) > 0
+
 /obj/machinery/camera/proc/add_watcher(datum/watcher)
-	if(QDELETED(src) || !watcher || (watcher in watchers))
+	if(QDELETED(src))
 		return
-	watchers += watcher
+	var/datum/weakref/watcher_ref = WEAKREF(watcher)
+	if(!watcher_ref || (watcher_ref in watchers))
+		return
+	watchers += watcher_ref
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/camera/proc/remove_watcher(datum/watcher)
-	if(QDELETED(src) || !watcher || !(watcher in watchers))
+	if(QDELETED(src) || !watcher)
 		return
-	watchers -= watcher
-	update_icon(UPDATE_OVERLAYS)
+	for(var/datum/weakref/watcher_ref as anything in watchers)
+		if(!IS_WEAKREF_OF(watcher, watcher_ref))
+			continue
+		watchers -= watcher_ref
+		update_icon(UPDATE_OVERLAYS)
+		return
 
 /obj/machinery/camera/proc/toggle_cam(mob/user, displaymessage = TRUE)
 	status = !status

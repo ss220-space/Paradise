@@ -57,8 +57,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/mutable_appearance/portrait_appearance
 	var/list/network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
 	var/obj/machinery/camera/current = null
-	/// Cameras in range of the AI eye, used to show the red "being watched" light
-	var/list/obj/machinery/camera/watched_cameras = list()
+	/// Cameras in range of the AI eye
+	var/list/datum/weakref/watched_cameras = list()
 	var/list/connected_robots = list()
 	var/aiRestorePowerRoutine = POWER_RESTORATION_OFF
 	//var/list/laws = list()
@@ -782,7 +782,6 @@ GAME_VERB_PROC_DESC(/mob/living/silicon/ai, botcall, "Диспетчер роб�
 
 	return TRUE
 
-/// Marks every camera in the AI eye's range as watched, so they show the red indicator light.
 /mob/living/silicon/ai/proc/update_watched_cameras()
 	if(stat == DEAD)
 		clear_watched_cameras()
@@ -791,21 +790,32 @@ GAME_VERB_PROC_DESC(/mob/living/silicon/ai, botcall, "Диспетчер роб�
 	var/list/obj/machinery/camera/visible = list()
 	if(!QDELETED(eyeobj))
 		for(var/datum/camerachunk/chunk as anything in eyeobj.visibleCameraChunks)
-			for(var/z_key in chunk.cameras)
-				for(var/obj/machinery/camera/camera as anything in chunk.cameras[z_key])
+			for(var/z_key, chunk_cameras in chunk.cameras)
+				for(var/obj/machinery/camera/camera as anything in chunk_cameras)
 					if(!camera.can_use() || get_dist(camera, eyeobj) > AI_CAMERA_WATCH_RANGE)
 						continue
 					visible |= camera
 
-	for(var/obj/machinery/camera/camera as anything in watched_cameras - visible)
+	var/list/obj/machinery/camera/already_watched = list()
+	for(var/datum/weakref/camera_ref as anything in watched_cameras)
+		var/obj/machinery/camera/camera = camera_ref.resolve()
+		if(camera)
+			already_watched |= camera
+
+	for(var/obj/machinery/camera/camera as anything in already_watched - visible)
 		camera.remove_watcher(src)
-	for(var/obj/machinery/camera/camera as anything in visible - watched_cameras)
+	for(var/obj/machinery/camera/camera as anything in visible - already_watched)
 		camera.add_watcher(src)
-	watched_cameras = visible
+
+	watched_cameras.Cut()
+	for(var/obj/machinery/camera/camera as anything in visible)
+		watched_cameras += WEAKREF(camera)
 
 /mob/living/silicon/ai/proc/clear_watched_cameras()
-	for(var/obj/machinery/camera/camera as anything in watched_cameras)
-		camera.remove_watcher(src)
+	for(var/datum/weakref/camera_ref as anything in watched_cameras)
+		var/obj/machinery/camera/camera = camera_ref.resolve()
+		if(camera)
+			camera.remove_watcher(src)
 	watched_cameras.Cut()
 
 //Replaces /mob/living/silicon/ai/verb/change_network() in ai.dm & camera.dm
