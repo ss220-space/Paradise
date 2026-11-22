@@ -11,6 +11,8 @@
 	company_name = "\"Нанотрейзен\""
 	company_short = "НТ"
 	starsys_name = "Эпсилон Лукуста"
+
+	admin_only = TRUE
 	planetary = TRUE
 
 	traits = list(

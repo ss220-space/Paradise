@@ -482,7 +482,6 @@
 /mob/living/simple_animal/hostile/giant_lizard/Retaliate()
 	if(stat == DEAD || on_fire)
 		return
-	var/mob/living/current_target = isliving(target) ? target : null
 	aggression_value = clamp(aggression_value + 5, 0, 15)
 
 	. = ..()
