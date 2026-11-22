@@ -44,7 +44,7 @@
 		return
 	if(owner.IsSleeping() || owner.stat != CONSCIOUS)
 		return
-	var/damage = rand(4, 6)
+	var/damage = rand(3, 5)
 	essence += round(damage / 2)
 	owner.adjustStaminaLoss(damage)
 	adjust_essence()
