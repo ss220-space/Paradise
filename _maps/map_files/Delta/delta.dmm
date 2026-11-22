@@ -12104,11 +12104,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/carpet/red,
 /area/station/maintenance/library)
-"cIV" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/space,
-/area/space)
 "cJm" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -177003,7 +176998,7 @@ aaq
 aaq
 aaq
 aaq
-cIV
+coE
 aaq
 aaq
 aaq
