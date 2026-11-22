@@ -60,7 +60,7 @@
 	melee_damage_lower = 15
 	melee_damage_upper = 30
 	obj_damage = 10
-	retaliate_only = TRUE
+	retaliate_only = FALSE
 	vision_range = 16
 	aggro_vision_range = 16
 
@@ -75,14 +75,6 @@
 	var/max_retaliate_distance = 2
 	///Aggression value. At 0, the lizard calms down and enters standby mode.
 	var/aggression_value = 0
-	///Structures that the lizard can break.
-	var/list/destruction_targets = string_list(list(
-		/obj/structure/window,
-		/obj/structure/closet,
-		/obj/structure/table,
-		/obj/structure/grille,
-		/obj/structure/barricade,
-	))
 
 	var/list/pet_emotes = list("довольно рычит.", "виляет хвостом.")
 	COOLDOWN_DECLARE(emote_cooldown)
@@ -99,6 +91,7 @@
 	var/is_retreating = FALSE
 	var/retreat_attempts = 0
 	COOLDOWN_DECLARE(retreat_cooldown)
+	COOLDOWN_DECLARE(melee_cooldown)
 
 	var/tameable = TRUE
 	///Food this lizard accepts when hand-fed
@@ -133,12 +126,6 @@
 	vis_contents += tongue_icon_holder
 
 	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(change_tongue_offset))
-
-	GLOB.giant_lizards_alive += src
-	var/name_suffix = " ([rand(1, 999)])"
-	name += name_suffix
-	real_name = name
-	set_ru_names_suffix(name_suffix)
 
 /mob/living/simple_animal/hostile/giant_lizard/proc/change_tongue_offset(datum/source, olddir, newdir)
 	SIGNAL_HANDLER
@@ -496,8 +483,6 @@
 	if(stat == DEAD || on_fire)
 		return
 	var/mob/living/current_target = isliving(target) ? target : null
-	if(current_target && get_dist(src, current_target) < 6)
-		return
 	aggression_value = clamp(aggression_value + 5, 0, 15)
 
 	. = ..()
@@ -570,7 +555,9 @@
 /mob/living/simple_animal/hostile/giant_lizard/AttackingTarget(atom/inherited_target = null)
 	if(!inherited_target)
 		inherited_target = target
-	if(!inherited_target || !Adjacent(inherited_target) || is_ravaging || body_position == LYING_DOWN)
+	if(!inherited_target || !Adjacent(inherited_target) || is_ravaging || body_position == LYING_DOWN || is_eating)
+		return
+	if(!COOLDOWN_FINISHED(src, melee_cooldown))
 		return
 
 	if(isliving(inherited_target))
@@ -583,6 +570,7 @@
 		attacktext = attack_type ? "царапает" : "кусает"
 		attack_sound = attack_type ? 'sound/weapons/slash.ogg' : 'sound/weapons/bite.ogg'
 		target_living.attack_animal(src)
+		COOLDOWN_START(src, melee_cooldown, CLICK_CD_MELEE)
 
 		if(isalien(target_living))
 			var/extra_damage = rand(melee_damage_lower, melee_damage_upper) * 0.33
@@ -629,7 +617,13 @@
 /mob/living/simple_animal/hostile/giant_lizard/DestroySurroundings()
 	. = ..()
 	for(var/obj/structure/obstacle in view(1, src))
-		if(is_type_in_list(obstacle, destruction_targets))
+		if(is_type_in_list(obstacle, string_list(list(
+			/obj/structure/window,
+			/obj/structure/closet,
+			/obj/structure/table,
+			/obj/structure/grille,
+			/obj/structure/barricade,
+		))))
 			AttackingTarget(obstacle)
 			return .
 	return .
@@ -679,7 +673,6 @@
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_INCAPACITATED) || HAS_TRAIT(src, TRAIT_FLOORED))
 		return
 	if(!COOLDOWN_FINISHED(src, pounce_cooldown))
-		to_chat(src, span_warning("Вы не можете прыгнуть так быстро! Нужно подождать [round(COOLDOWN_TIMELEFT(src, pounce_cooldown) / 10, 1)] сек."))
 		return
 
 	COOLDOWN_START(src, pounce_cooldown, pounce_cooldown_length)
@@ -720,7 +713,6 @@
 	if(ishuman(pounced_target) && (pounced_target.dir in reverse_nearby_direction(dir)))
 		var/mob/living/carbon/human/human_mob = pounced_target
 		if(human_mob.check_shields(src, 0, "прыжок", attack_type = THROWN_PROJECTILE_ATTACK))
-			visible_message(span_danger("[src] врезается в [human_mob.declent_ru(ACCUSATIVE)]!"))
 			Knockdown(1)
 			Stun(1)
 			playsound(human_mob, 'sound/effects/meteorimpact.ogg', 75, FALSE)

@@ -25,11 +25,6 @@
 	var/space_turfs_only = TRUE
 	/// Turf types that may sit under a landing spot even with space_turfs_only on.
 	/// Checked as an atom with istype(), so parent types cover all of their subtypes.
-	var/list/ignorable_landing_turfs = string_list(list(
-		/turf/simulated/floor/planetoid,
-		/turf/simulated/wall/cm/indestructible/jungle,
-		/turf/simulated/floor/water/beach,
-	))
 	var/see_hidden = FALSE
 	var/designate_time = 0
 	var/turf/designating_target_loc
@@ -269,7 +264,11 @@
 
 	if(space_turfs_only)
 		var/turf_type = hidden_turf_info ? hidden_turf_info[2] : T.type
-		var/ignorable = is_type_in_list(T, ignorable_landing_turfs)
+		var/ignorable = is_type_in_list(T, string_list(list(
+			/turf/simulated/floor/planetoid,
+			/turf/simulated/wall/cm/indestructible/jungle,
+			/turf/simulated/floor/water/beach,
+		)))
 		if(!(ispath(turf_type, /turf/space) || ispath(turf_type, /turf/space/openspace)) && !ignorable && !is_mining_level(T.z))
 			return SHUTTLE_DOCKER_BLOCKED
 
