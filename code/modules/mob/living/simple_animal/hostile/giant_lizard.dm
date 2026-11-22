@@ -288,9 +288,7 @@
 	GiveTarget(null)
 	food_target = null
 	is_eating = FALSE
-	custom_emote(message = "шипит в агонии!")
 	playsound(src, 'sound/effects/giant_lizard_hiss2.ogg', 40)
-	MoveTo(null, 9, TRUE, 4 SECONDS, FALSE)
 	COOLDOWN_START(src, calm_cooldown, 8 SECONDS)
 
 /mob/living/simple_animal/hostile/giant_lizard/IgniteMob()
