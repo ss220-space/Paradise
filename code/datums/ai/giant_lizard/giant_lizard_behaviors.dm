@@ -17,7 +17,6 @@
 // MARK: Retaliate behavior - move toward target and attack
 /datum/ai_behavior/lizard_retaliate
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT
-	required_distance = 1
 	action_cooldown = 3 SECONDS
 
 /datum/ai_behavior/lizard_retaliate/setup(datum/ai_controller/giant_lizard/controller)
@@ -41,7 +40,6 @@
 // MARK: Hunt food behavior - move toward and eat food
 /datum/ai_behavior/lizard_eat_food
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT
-	required_distance = 1
 	action_cooldown = 5 SECONDS
 
 /datum/ai_behavior/lizard_eat_food/setup(datum/ai_controller/giant_lizard/controller)
@@ -67,8 +65,6 @@
 // MARK: Attack target behavior - simple melee attack
 /datum/ai_behavior/lizard_attack
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_MOVE_AND_PERFORM
-	required_distance = 1
-	action_cooldown = CLICK_CD_MELEE
 
 /datum/ai_behavior/lizard_attack/setup(datum/ai_controller/giant_lizard/controller)
 	controller.current_movement_target = controller.blackboard[BB_LIZARD_TARGET]
@@ -90,7 +86,6 @@
 // MARK: Pounce behavior - leap at target
 /datum/ai_behavior/lizard_pounce
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT
-	required_distance = 1
 	action_cooldown = 10 SECONDS
 
 /datum/ai_behavior/lizard_pounce/setup(datum/ai_controller/giant_lizard/controller)
