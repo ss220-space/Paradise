@@ -114,7 +114,7 @@
 	if(!in_free_flight() || docked_ship || length(docked_guests) || !pad || docking_approach?.aligning || shuttle.canDock(pad) != SHUTTLE_CAN_DOCK)
 		return FALSE
 	var/obj/overmap/entity/host = get_dock_host()
-	if(!host || (host.dock_host?.planet_landing && !atmosphere) || (atmosphere && !atmosphere.cruising()) || !pad_matches_host(pad, host))
+	if(!host || istype(host, /obj/overmap/entity/service_site) || (host.dock_host?.planet_landing && !atmosphere) || (atmosphere && !atmosphere.cruising()) || !pad_matches_host(pad, host))
 		return FALSE
 	QDEL_NULL(docking_approach)
 	var/datum/overmap_docking_approach/approach = new(src)
@@ -135,7 +135,7 @@
 /obj/overmap/entity/proc/radar_landing_pads()
 	. = list()
 	var/obj/overmap/entity/host = get_dock_host()
-	if(!host || (host.dock_host?.planet_landing && !atmosphere))
+	if(!host || istype(host, /obj/overmap/entity/service_site) || (host.dock_host?.planet_landing && !atmosphere))
 		return
 	var/in_zone = in_station_docking_zone()
 	if(!atmosphere && !in_zone && host.project_terrain && local_space != host.physical_space)

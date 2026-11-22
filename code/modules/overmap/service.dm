@@ -22,10 +22,48 @@
 
 /obj/overmap/entity/service_site/add_overmap_components()
 	AddComponent(/datum/component/overmap_sensors)
-	AddComponent(/datum/component/overmap_dock_host, OVERMAP_DOCK_Z_SERVICE, area_root, FALSE, TRUE)
+	AddComponent(/datum/component/overmap_dock_host, OVERMAP_DOCK_Z_SERVICE, area_root, FALSE)
 
 /obj/overmap/entity/service_site/get_overmap_display_name()
 	return identity_name || name
+
+/obj/overmap/entity/proc/service_dock_host()
+	RETURN_TYPE(/obj/overmap/entity/service_site)
+	if(sector != SSovermap.service_sector || !in_free_flight() || atmosphere || relay_capture || docked_ship || length(docked_guests) || docking_approach || shuttle?.transfer_busy || is_programmed_locked())
+		return null
+	var/obj/overmap/entity/service_site/site = get_dock_host()
+	return istype(site) ? site : null
+
+/obj/overmap/entity/service_site/proc/dock_options(obj/overmap/entity/vessel)
+	var/list/options = list()
+	for(var/obj/docking_port/stationary/pad as anything in SSshuttle.stationary)
+		if(QDELETED(pad) || pad.hidden || !vessel.pad_matches_host(pad, src))
+			continue
+		if(vessel.overmap_pod)
+			if(!pod_landing_turf(pad))
+				continue
+		else if(!vessel.overmap_shuttle?.pad_can_use(pad))
+			continue
+		var/label = pad.overmap_dock_mode == OVERMAP_DOCK_RESERVED ? pad.name : (pad.overmap_dock_label || pad.name)
+		options["[label] ([pad.id])"] = pad
+	return options
+
+/obj/overmap/entity/service_site/proc/pod_landing_turf(obj/docking_port/stationary/pad)
+	if(pad.get_docked())
+		return null
+	return overmap_pick_pod_beacon_turf(pad, src)
+
+/obj/overmap/entity/service_site/proc/dock_vessel(obj/overmap/entity/vessel, obj/docking_port/stationary/pad)
+	if(vessel.service_dock_host() != src || QDELETED(pad) || pad.hidden || !vessel.pad_matches_host(pad, src))
+		return "Стыковочный док недоступен."
+	if(!OVERMAP_SPEED_STOPPED(vessel.get_speed()))
+		return "Сначала остановитесь."
+	if(vessel.overmap_pod)
+		var/turf/ground = pod_landing_turf(pad)
+		if(!ground || !vessel.overmap_pod.land_at(ground, src))
+			return "Посадочная площадка занята."
+		return TRUE
+	return vessel.overmap_shuttle.begin_physical_dock(instant = TRUE, pad = pad)
 
 /obj/overmap/entity/service_site/centcom
 	name = "Центральное командование"

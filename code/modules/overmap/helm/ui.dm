@@ -116,6 +116,7 @@
 	data["is_pod"] = !!vessel.overmap_pod
 	data["can_ship_undock"] = !!vessel.docked_ship || length(vessel.docked_guests)
 	data["can_approach_planet"] = vessel.can_approach_planet()
+	data["can_dock_service"] = !!vessel.service_dock_host()
 	data["in_atmosphere"] = !!vessel.atmosphere
 	data["changing_altitude"] = !!vessel.atmosphere && !vessel.atmosphere.cruising()
 	data["can_stop"] = vessel.overmap_pod ? vessel.overmap_pod.can_physical_dock() : (vessel.in_free_flight() && vessel.local_space?.static_level)
@@ -167,6 +168,25 @@ GAME_VERB_NATIVE_INSTANT(/client, helm_input, "HelmInput", VERB_CATEGORY_HIDDEN,
 		to_chat(user, span_warning("Выполняется автодоводка. Сначала отмените стыковку."))
 		return TRUE
 	switch(action)
+		if("dock_service")
+			var/obj/overmap/entity/craft = vessel
+			var/obj/overmap/entity/service_site/site = craft.service_dock_host()
+			if(!site)
+				return TRUE
+			if(!OVERMAP_SPEED_STOPPED(craft.get_speed()))
+				to_chat(user, span_warning("Сначала остановитесь."))
+				return TRUE
+			var/list/options = site.dock_options(craft)
+			if(!length(options))
+				to_chat(user, span_warning("На объекте нет свободных совместимых доков."))
+				return TRUE
+			var/choice = tgui_input_list(user, "Выберите стыковочный док.", site.get_overmap_display_name(), options + "Отмена")
+			if(!choice || choice == "Отмена" || QDELETED(site) || QDELETED(craft) || vessel != craft || QDELETED(ui) || ui.closing || ui_status(user, state) != UI_INTERACTIVE)
+				return TRUE
+			var/result = site.dock_vessel(craft, options[choice])
+			if(result != TRUE)
+				to_chat(user, span_warning("[result]"))
+			return TRUE
 		if("approach_planet")
 			if(!vessel.approach_planet())
 				to_chat(user, span_warning("Вход в атмосферу недоступен."))

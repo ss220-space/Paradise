@@ -90,6 +90,8 @@
 		if(!surface)
 			return FALSE
 		ground = list(origin.x + 0.5, origin.y + 0.5)
+	else if(istype(host, /obj/overmap/entity/service_site))
+		point = list(host.get_world_x(), host.get_world_y())
 	else
 		var/datum/overmap_bubble/space = SSovermap.bubble_for_turf(origin) || SSovermap.ensure_host_space(host)
 		if(space && space.bubble_z == origin.z)
@@ -157,6 +159,8 @@
 			return list(dest, host)
 	var/datum/overmap_bubble/space = token.local_space
 	var/obj/overmap/entity/host = token.get_dock_host()
+	if(istype(host, /obj/overmap/entity/service_site))
+		return null
 	if(host && (!host.project_terrain || host.dock_host?.planet_landing) && OVERMAP_SPEED_STOPPED(token.get_speed()))
 		for(var/obj/docking_port/stationary/pad as anything in host_landing_pads(host))
 			if(token.selected_dock_id && token.selected_dock_id != pad.id)
@@ -317,12 +321,12 @@
 			return FALSE
 	return TRUE
 
-/proc/overmap_pick_pod_beacon_turf(obj/docking_port/stationary/pad)
+/proc/overmap_pick_pod_beacon_turf(obj/docking_port/stationary/pad, obj/overmap/entity/service_site/site)
 	var/turf/origin = get_turf(pad)
-	if(overmap_pod_2x2_landable(origin))
+	if(overmap_pod_2x2_landable(origin) && (!site || SSovermap.get_service_site(origin) == site))
 		return origin
 	for(var/turf/spot in orange(2, origin))
-		if(overmap_pod_2x2_landable(spot))
+		if(overmap_pod_2x2_landable(spot) && (!site || SSovermap.get_service_site(spot) == site))
 			return spot
 	return null
 

@@ -26,6 +26,10 @@ export const HelmDockingButton = () => {
     label = 'Отстыковка';
     action = data.can_ship_undock ? 'dock_ship' : 'undock';
     enabled = true;
+  } else if (data.can_dock_service) {
+    label = 'Стыковка';
+    action = 'dock_service';
+    enabled = true;
   } else if (data.can_approach_planet) {
     label = 'Сблизиться';
     action = 'approach_planet';

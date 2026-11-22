@@ -145,6 +145,11 @@
 	if(docked_ship)
 		undock_ship()
 	undock_host = docked_to || SSovermap.resolve_nest_host(shuttle)
+	if(istype(undock_host, /obj/overmap/entity/service_site))
+		undock_origin = null
+		undock_zone = null
+		undock_host = null
+		return
 	if(undock_host?.dock_host?.planet_landing)
 		undock_zone = null
 		undock_origin = list(hull_z, hull_center_x, hull_center_y, shuttle.overmap_origin()[2])

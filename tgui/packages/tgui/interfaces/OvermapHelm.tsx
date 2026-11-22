@@ -86,6 +86,7 @@ export type OvermapHelmData = {
   can_ship_undock?: BooleanLike;
   can_stop?: BooleanLike;
   can_approach_planet?: BooleanLike;
+  can_dock_service?: BooleanLike;
   in_atmosphere?: BooleanLike;
   changing_altitude?: BooleanLike;
   dock_ready?: BooleanLike;

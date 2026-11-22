@@ -4,8 +4,8 @@
 	var/cy = world_y / span
 	var/strength = 0
 	var/flavour = hazard_flavour(src)
-	for(var/ix in round(cx) - 1 to round(cx) + 1)
-		for(var/iy in round(cy) - 1 to round(cy) + 1)
+	for(var/ix in round(cx) to round(cx) + 1)
+		for(var/iy in round(cy) to round(cy) + 1)
 			var/turf/cell = locate(ix, iy, z)
 			for(var/obj/overmap/feature/hazard/other in cell)
 				if(hazard_flavour(other) != flavour)

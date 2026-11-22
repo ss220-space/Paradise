@@ -67,7 +67,7 @@
 	if(SSovermap.lavaland_planet?.covers_turf(spot))
 		return TRUE
 	var/obj/overmap/entity/station = SSovermap?.station_entity
-	if(station?.loc && max(abs(spot.x - station.loc.x), abs(spot.y - station.loc.y)) <= 1)
+	if(station?.sector == sector && station.loc && max(abs(spot.x - station.loc.x), abs(spot.y - station.loc.y)) <= 1)
 		return TRUE
 	return FALSE
 

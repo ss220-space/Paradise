@@ -40,7 +40,7 @@
 		radar_docked_dir = shuttle.dir
 	var/obj/overmap/entity/host = get_dock_host()
 	var/datum/overmap_bubble/space = SSovermap.ensure_host_space(host)
-	if(!space)
+	if(!space && !istype(host, /obj/overmap/entity/service_site))
 		space = SSovermap.static_bubble_at(get_turf(shuttle), sector)
 	local_space = space?.static_level && space.bubble_z == shuttle.z ? space : null
 	return TRUE

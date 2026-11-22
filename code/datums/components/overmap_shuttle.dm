@@ -469,7 +469,7 @@
 	owned_docks_dirty = TRUE
 	return TRUE
 
-/datum/component/overmap_shuttle/proc/begin_physical_dock(instant = FALSE)
+/datum/component/overmap_shuttle/proc/begin_physical_dock(instant = FALSE, obj/docking_port/stationary/pad)
 	var/obj/overmap/entity/vessel = parent
 	if(vessel.overmap_kind != OVERMAP_KIND_SHUTTLE)
 		return "Объект слишком большой для стыковки."
@@ -490,7 +490,8 @@
 		return "Используйте заход на посадку с пульта управления."
 	if(!instant && (vessel.shuttle.mode == SHUTTLE_IGNITING || vessel.shuttle.mode == SHUTTLE_CALL || vessel.shuttle.mode == SHUTTLE_RECALL))
 		return TRUE
-	var/obj/docking_port/stationary/pad = get_selected_pad()
+	if(!pad)
+		pad = get_selected_pad()
 	if(!pad && (vessel.selected_dock_id == OVERMAP_DOCK_ID_CUSTOM || host?.dock_host?.allow_custom_landing))
 		if(vessel.selected_dock_id == OVERMAP_DOCK_ID_CUSTOM || vessel.selected_dock_id == get_custom_dock(host)?.id)
 			return OVERMAP_DOCK_NEED_CUSTOM_PICK

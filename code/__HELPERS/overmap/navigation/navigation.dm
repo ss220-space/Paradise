@@ -84,15 +84,18 @@
 			return null
 		CHECK_TICK
 	var/list/open = list(1)
-	var/list/costs = list("1" = 0)
-	var/list/parents = list()
-	var/list/closed = list()
+	var/node_count = length(nodes)
+	var/list/costs = new /list(node_count)
+	var/list/parents = new /list(node_count)
+	var/list/closed = new /list(node_count)
+	var/list/scores = new /list(node_count)
+	costs[1] = 0
+	scores[1] = sqrt((start[1] - finish[1]) ** 2 + (start[2] - finish[2]) ** 2)
 	while(length(open))
 		var/best
 		var/best_score = INFINITY
 		for(var/index in open)
-			var/list/point = nodes[index]
-			var/score = costs["[index]"] + sqrt((point[1] - finish[1]) ** 2 + (point[2] - finish[2]) ** 2)
+			var/score = scores[index]
 			if(score < best_score)
 				best = index
 				best_score = score
@@ -101,21 +104,22 @@
 			var/list/path = list()
 			while(best != 1)
 				path.Insert(1, list(nodes[best]))
-				best = parents["[best]"]
+				best = parents[best]
 			return path
-		closed["[best]"] = TRUE
+		closed[best] = TRUE
 		var/list/from = nodes[best]
 		for(var/index in 2 to length(nodes))
-			if(closed["[index]"])
+			if(closed[index])
 				continue
 			var/list/destination = nodes[index]
-			var/cost = costs["[best]"] + sqrt((from[1] - destination[1]) ** 2 + (from[2] - destination[2]) ** 2)
-			if(!isnull(costs["[index]"]) && costs["[index]"] <= cost)
+			var/cost = costs[best] + sqrt((from[1] - destination[1]) ** 2 + (from[2] - destination[2]) ** 2)
+			if(!isnull(costs[index]) && costs[index] <= cost)
 				continue
 			if(!overmap_nav_clear(from, destination, boxes))
 				continue
-			costs["[index]"] = cost
-			parents["[index]"] = best
+			costs[index] = cost
+			parents[index] = best
+			scores[index] = cost + sqrt((destination[1] - finish[1]) ** 2 + (destination[2] - finish[2]) ** 2)
 			open |= index
 		CHECK_TICK
 	return null
