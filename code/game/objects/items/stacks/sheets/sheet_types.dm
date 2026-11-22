@@ -300,6 +300,7 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	new /datum/stack_recipe("mass Driver frame", /obj/machinery/mass_driver_frame, 3, time = 5 SECONDS, one_per_turf = TRUE),
 	new /datum/stack_recipe("metal crate", /obj/structure/closet/crate, 10, time = 5 SECONDS, one_per_turf = TRUE),
 	new /datum/stack_recipe("surgery Table", /obj/machinery/optable, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("secure closet", /obj/structure/closet/secure_closet/newly_made, 2, time = 3 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_name = CONSTRUCTING_SPEED_MOD),
 ))
 
 /obj/item/stack/sheet/plasteel
