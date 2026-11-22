@@ -181,3 +181,18 @@
 #define BB_BASIC_MOB_CURRENT_TARGET "BB_basic_current_target"
 #define BB_BASIC_MOB_CURRENT_TARGET_HIDING_LOCATION "BB_basic_current_target_hiding_location"
 #define BB_TARGETTING_DATUM "targetting_datum"
+
+///Giant Lizard AI controller blackboard keys
+#define BB_LIZARD_TARGET "lizard_target"
+#define BB_LIZARD_FOOD_TARGET "lizard_food_target"
+#define BB_LIZARD_IS_RETREATING "lizard_is_retreating"
+#define BB_LIZARD_AGGRESSION "lizard_aggression"
+#define BB_LIZARD_RETREAT_ATTEMPTS "lizard_retreat_attempts"
+#define BB_LIZARD_PACK_ALERT_COOLDOWN "lizard_pack_alert_cooldown"
+
+///Giant Lizard AI tuning constants
+#define PACK_ALERT_COOLDOWN_TIME 15 SECONDS
+#define MAX_ATTACK_DISTANCE 16
+#define GROWL_DISTANCE 4
+#define RETALIATE_DISTANCE 2
+#define FOOD_SEARCH_RANGE 6
