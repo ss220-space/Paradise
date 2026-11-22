@@ -116,8 +116,11 @@
 	var/obj/item/eftpos/device = target.is_type_in_hands(/obj/item/eftpos)
 	device?.scan_card(id_card, user)
 
-/obj/item/eftpos/emag_act(mob/user)
-	emagged = TRUE
+/obj/item/eftpos/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
 	visible_message(span_warning("[user] swipes a card through [src] and sparks fly out of it!"))
 	do_sparks(1, TRUE, src)
 	get_sfx(SFX_SPARKS)
@@ -135,6 +138,7 @@
 		linked_account.owner_name = pick(list(
 			"Taargüs Taargüs","n4n07r453n 7074lly 5ux","Maya Normousbutt","Al Coholic","Stu Piddiddiot",
 			"Yuri Nator","HAI GUYZ! LEARN HA TO CHANGE SECURITY SETTINGS! LOL!!"))
+	return TRUE
 
 /obj/item/eftpos/ui_state(mob/user)
 	return GLOB.inventory_state
@@ -208,7 +212,7 @@
 				to_chat(user, "[get_examine_icon(usr)][span_notice(" Feature not available on this device.")]")
 				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, TRUE)
 				return
-			var/purpose = tgui_input_text(user, "Enter reason for EFTPOS transaction", "Transaction purpose", transaction_purpose, encode = FALSE)
+			var/purpose = tgui_input_text(user, "Enter reason for EFTPOS transaction", "Transaction purpose", transaction_purpose)
 			if(!Adjacent(user) || isnull(purpose))
 				return
 			transaction_purpose = purpose
@@ -272,7 +276,7 @@
 /obj/item/eftpos/proc/scan_card(obj/item/card/id/id_card, mob/user)
 	visible_message(span_notice("[user] swipes a card through [src]."))
 
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		to_chat(user, "[get_examine_icon(usr)][span_warning("  Client Error #423 Device Locked. Contact Nanotrasen IT support.")]")
 		playsound(src, 'sound/machines/terminal_alert.ogg', 50, TRUE)
 		return

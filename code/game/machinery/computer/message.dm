@@ -17,7 +17,6 @@
 	//Computer properties
 	var/screen = 0		// 0 = Main menu, 1 = Message Logs, 2 = Hacked screen, 3 = Custom Message
 	var/hacking = 0		// Is it being hacked into by the AI/Cyborg
-	var/emag = 0		// When it is emagged.
 	var/message = span_notice_alt("System bootup complete. Please select an option.")	// The message that shows on the main menu.
 	var/auth = 0 // Are they authenticated?
 	var/optioncount = 8
@@ -55,35 +54,35 @@
 	return ..()
 
 /obj/machinery/computer/message_monitor/screwdriver_act(mob/user, obj/item/I)
-	if(emag) //Stops people from just unscrewing the monitor and putting it back to get the console working again.
+	if(obj_flags & EMAGGED) //Stops people from just unscrewing the monitor and putting it back to get the console working again.
 		to_chat(user, span_warning("It is too hot to mess with!"))
 		return
 	return ..()
 
-/obj/machinery/computer/message_monitor/emag_act(mob/user)
+/obj/machinery/computer/message_monitor/emag_act(mob/user, obj/item/card/emag/emag_card)
 	// Will create sparks and print out the console's password. You will then have to wait a while for the console to be back online.
 	// It'll take more time if there's more characters in the password..
-	if(!emag)
-		if(!isnull(src.linkedServer))
-			icon_screen = hack_icon // An error screen I made in the computers.dmi
-			emag = 1
-			screen = 2
-			do_sparks(5, FALSE, src)
-			var/obj/item/paper/monitorkey/MK = new/obj/item/paper/monitorkey
-			MK.loc = src.loc
-			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
-			// Will help make emagging the console not so easy to get away with.
-			MK.info += "<br><br><span style='color: red;'>�%@%(*$%&(�&?*(%&�/{}</span>"
-			update_icon()
-			spawn(100*length(src.linkedServer.decryptkey))
-				UnmagConsole()
-				update_icon()
-			message = rebootmsg
-		else if(user)
-			to_chat(user, span_notice("A no server error appears on the screen."))
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
+	if(!isnull(linkedServer))
+		icon_screen = hack_icon // An error screen I made in the computers.dmi
+		screen = 2
+		do_sparks(5, FALSE, src)
+		var/obj/item/paper/monitorkey/monitor_key = new(get_turf(src))
+		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
+		// Will help make emagging the console not so easy to get away with.
+		monitor_key.info += "<br><br><span style='color: red;'>�%@%(*$%&(�&?*(%&�/{}</span>"
+		update_icon()
+		addtimer(CALLBACK(src, PROC_REF(timed_unemag_console)), (length(linkedServer.decryptkey) SECONDS))
+		message = rebootmsg
+	else if(user)
+		to_chat(user, span_notice("A no server error appears on the screen."))
+	return TRUE
 
 /obj/machinery/computer/message_monitor/update_icon_state()
-	if(emag || hacking)
+	if((obj_flags & EMAGGED) || hacking)
 		icon_screen = hack_icon
 	else
 		icon_screen = normal_icon
@@ -95,7 +94,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 	//If the computer is being hacked or is emagged, display the reboot message.
-	if(hacking || emag)
+	if(hacking || (obj_flags & EMAGGED))
 		message = rebootmsg
 	var/dat = "<title>Message Monitor Console</title>"
 	dat += "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
@@ -110,7 +109,7 @@
 		dat += "<h4><a href='byond://?src=[UID()];auth=1'><span style='color: red;'>\[Unauthenticated\]</span></a>/"
 		dat += " Server Power: <u>[src.linkedServer && src.linkedServer.active ? "<span style='color: green;'>\[On\]</span>":"<span style='color: green;'>\[Off\]</span>"]</u></h4>"
 
-	if(hacking || emag)
+	if(hacking || (obj_flags & EMAGGED))
 		screen = 2
 	else if(!auth || !linkedServer || (linkedServer.stat & (NOPOWER|BROKEN)))
 		if(!linkedServer || (linkedServer.stat & (NOPOWER|BROKEN))) message = noserver
@@ -269,9 +268,10 @@
 	src.icon_screen = normal_icon
 	src.screen = 0 // Return the screen back to normal
 
-/obj/machinery/computer/message_monitor/proc/UnmagConsole()
-	src.icon_screen = normal_icon
-	src.emag = 0
+/obj/machinery/computer/message_monitor/proc/timed_unemag_console()
+	icon_screen = normal_icon
+	obj_flags &= ~EMAGGED
+	update_icon()
 
 /obj/machinery/computer/message_monitor/proc/ResetMessage()
 	customsender	= "System Administrator"

@@ -15,7 +15,6 @@
 	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, BIO = 0, FIRE = 80, ACID = 80)
 	damage_deflection = 25
 	locked = TRUE
-	can_be_emaged = TRUE
 	overlay_lightmask = "securecrate_lightmask"
 	can_be_emissive = TRUE
 	secure = TRUE
@@ -49,18 +48,19 @@
 	qdel(src)
 
 
-/obj/structure/closet/crate/secure/emag_act(mob/user)
+/obj/structure/closet/crate/secure/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
 	if(!locked)
-		return
-	add_attack_logs(user, src, "emagged")
+		return FALSE
+
 	locked = FALSE
 	broken = TRUE
 	playsound(loc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	flick_overlay_view(mutable_appearance(icon, overlay_sparking), sparking_duration)
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), sparking_duration)
-	if(!user)
-		return
-	balloon_alert(user, "разблокировано")
+	if(user)
+		balloon_alert(user, "разблокировано")
+	return TRUE
 
 /obj/structure/closet/crate/secure/emp_act(severity)
 	. = ..()
@@ -79,13 +79,6 @@
 			req_access += pick(get_all_accesses())
 		else
 			open()
-
-/obj/structure/closet/crate/secure/syndicate/emag_act(mob/user)
-	if(!locked || broken)
-		return
-	if(user)
-		balloon_alert(user, "не удалось!")
-	playsound(loc, 'sound/misc/sadtrombone.ogg', 60, TRUE)
 
 /obj/structure/closet/crate/secure/screwdriver_act(mob/living/user, obj/item/tool)
 	. = ..()
@@ -269,7 +262,7 @@
 	desc = "Definitely a property of an evil corporation! And it has a hardened lock! And a microphone?"
 	icon_state = "syndiesecurecrate"
 	material_drop = /obj/item/stack/sheet/mineral/plastitanium
-	can_be_emaged = FALSE
+	obj_flags = parent_type::obj_flags|NO_EMAG
 	req_access = list(ACCESS_SYNDICATE)
 
 // MARK: Blood crates

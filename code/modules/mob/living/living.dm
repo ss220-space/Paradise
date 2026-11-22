@@ -2139,7 +2139,7 @@ GAME_VERB_HIDDEN(/mob/living, succumb, "succumb")
 		return
 
 	last_words = null // In case we kept some from last time
-	var/final_words = tgui_input_text(src, "Каковы ваши последние слова?", "Goodnight, Sweet Prince", encode = FALSE)
+	var/final_words = tgui_input_text(src, "Каковы ваши последние слова?", "Goodnight, Sweet Prince")
 
 	if(isnull(final_words) && cancel_on_no_words)
 		to_chat(src, span_notice("Вы решаете, что ещё не готовы умирать."))

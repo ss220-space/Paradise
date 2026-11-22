@@ -36,22 +36,30 @@
 	selfcharge = TRUE
 	accuracy = GUN_ACCURACY_SNIPER
 
-/obj/item/gun/energy/floragun/emag_act(mob/user)
+/obj/item/gun/energy/floragun/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-
-	if(emagged)
-		return
-
-	if(user)
-		balloon_alert(user, "протоколы защиты сняты!")
-
-	emagged = TRUE
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
 	ammo_type = list(/obj/item/ammo_casing/energy/flora/alpha/emag, /obj/item/ammo_casing/energy/flora/beta, /obj/item/ammo_casing/energy/flora/gamma)
 	update_ammo_types()
+	if(user)
+		balloon_alert(user, "протоколы защиты сняты!")
+	return TRUE
 
 /obj/item/gun/energy/floragun/examine(mob/user)
 	. = ..()
 	. += span_notice("Mode: [ammo_type[select]]\nCharge: [cell.percent()]%")
+
+/obj/item/gun/energy/floragun/old
+	ammo_type = list(/obj/item/ammo_casing/energy/flora/beta,/obj/item/ammo_casing/energy/flora/gamma);
+	can_charge = 1
+	cell_type = /obj/item/stock_parts/cell/degraded
+	current_skin = "oldflora"
+	desc = "Старый ботанический инструмент, испускающий контролируемое излучение, вызывающее мутации в клетках растений, не имеет самозарядки. Чтобы перезарядить это оружие, используйте устройство для подзарядки оружия.";
+	name = "old floral somatoray"
+	selfcharge = 0
+	obj_flags = parent_type::obj_flags|EMAGGED
 
 // MARK: Meteor Gun
 /obj/item/gun/energy/meteorgun

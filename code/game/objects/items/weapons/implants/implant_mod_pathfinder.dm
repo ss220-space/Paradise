@@ -135,7 +135,7 @@
 	if(!path || !length(path))
 		return FALSE
 	for(var/obj/machinery/door/our_door in range(2, module.mod))
-		if(our_door.operating || our_door.emagged)
+		if(our_door.operating || our_door.obj_flags & EMAGGED)
 			continue
 		if(our_door.requiresID() && our_door.allowed(imp_in))
 			if(our_door.density)

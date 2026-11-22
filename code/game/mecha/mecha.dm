@@ -1169,20 +1169,23 @@
 		add_attack_logs(mech.occupant, src, "Mecha-attacked with [mech] ([uppertext(mech.occupant.a_intent)]) ([uppertext(mech.damtype)])")
 		. = ..()
 
-/obj/mecha/emag_act(mob/user)
-	if(emagged)
+/obj/mecha/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
 		return FALSE
+
 	if(!emaggable)
 		if(user)
 			to_chat(user, span_warning("ID слот меха [src] отклоняет карту."))
-		return
-	add_attack_logs(user, src, "emagged")
-	emagged = TRUE
+		return FALSE
+
+	obj_flags |= EMAGGED
 	allowed_equipment |= MECH_EQUIPMENT_COMBAT
-	if(user)
-		to_chat(user, span_notice("Вы проводите картой по ID слоту меха [src]."))
 	playsound(loc, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	desc += emag_desc
+	if(user)
+		to_chat(user, span_notice("Вы проводите картой по ID слоту меха [src]."))
+	return TRUE
 
 /////////////////////////////////////
 //////////// AI piloting ////////////

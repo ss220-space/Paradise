@@ -5390,9 +5390,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Buffer)
 "LN" = (
-/obj/machinery/door/airlock/syndicate/security{
-	emagged = 1
-	},
+/obj/machinery/door/airlock/syndicate/security,
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/awaymission/BMPship/TraderShuttle)
 "LR" = (

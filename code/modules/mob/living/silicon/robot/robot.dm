@@ -1140,27 +1140,30 @@ GAME_VERB(/mob/living/silicon/robot, cmd_robot_alerts, "Список трево�
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.) && I.force && I.damtype != STAMINA && stat != DEAD)
 		spark_system.start()	//only sparks if real damage is dealt
 
-/mob/living/silicon/robot/emag_act(mob/user)
+/mob/living/silicon/robot/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	return robot_emag_hack(user, emag_card)
+
+/mob/living/silicon/robot/proc/robot_emag_hack(mob/user, obj/item/card/emag/emag_card)
 	if(!ishuman(user) && !issilicon(user))
-		return
+		return FALSE
 
 	if(isclocker(src))
 		to_chat(user, span_clocklarge("Убери свои грязные руки от моего слуги."))
 		if(isrobot(user))
-			return
+			return FALSE
 		to_chat(user, span_danger("Вы попытались провести криптографическим секвенсором по адаптеру [src], но он просто вылетел из ваших рук, движимый неизвестной и невероятно мощной магией."))
 		if(!iscarbon(user))
-			return
+			return FALSE
 		var/mob/living/carbon/carbon = user
 		var/obj/item/item = carbon.get_active_hand()
 		if(!item)
-			return
+			return FALSE
 		if(carbon.drop_item_ground(item))
 			var/turf/destination = get_edge_target_turf(src, turn(user.dir, 180))
 			item.throw_at(destination, 10, 5, user)
-		return
+		return FALSE
 
-	var/mob/living/M = user
 	if(!opened)//Cover is closed
 		if(!is_emaggable)
 			to_chat(user, "Криптографический секвенсор искрится, но вы не видите результатов. Кажется, эту машину просто так не взломать...")
@@ -1171,71 +1174,68 @@ GAME_VERB(/mob/living/silicon/robot, cmd_robot_alerts, "Список трево�
 			locked = FALSE
 		else
 			balloon_alert(user, "уже разблокировано!")
+		return TRUE
 
-		return
-
-	if(opened)//Cover is open
-		if(emagged)
-			return//Prevents the X has hit Y with Z message also you cant emag them twice
-
-		if(wiresexposed)
-			balloon_alert(user, "внутренняя панель открыта!")
-			return
-
-		if(shell)
-			if(!mainframe)
-				to_chat(user, span_warning("Криптографический секвенсор искрится, но вы не видите результатов. Кажется, это просто пустая и бесполезная оболочка."))
-			else
-				evacuate_ai(DANGER_LVL_INSTA_DEATH)
-				balloon_alert(user, "ии удален")
-				death()
-			return
-
+	if(emagged)
+		return FALSE //Prevents the X has hit Y with Z message also you cant emag them twice
+	if(wiresexposed)
+		balloon_alert(user, "внутренняя панель открыта!")
+		return FALSE
+	if(shell)
+		if(!mainframe)
+			to_chat(user, span_warning("Криптографический секвенсор искрится, но вы не видите результатов. Кажется, это просто пустая и бесполезная оболочка."))
 		else
-			add_attack_logs(user, src, "emag converted")
-			add_conversion_logs(src, "Converted as a slave to [key_name_log(user)]")
-			sleep(6)
-			SetEmagged(TRUE)
-			SetLockdown(TRUE) //Borgs were getting into trouble because they would attack the emagger before the new laws were shown
-			if(src.hud_used)
-				src.hud_used.update_robot_modules_display()	//Shows/hides the emag item if the inventory screen is already open.
-			src.playsound_local(null, 'sound/ambience/antag/emaggedborg.ogg', 100, FALSE) // plays a specific sound that only borg hears when emagged.
-			disconnect_from_ai()
-			to_chat(user, "You emag [src]'s interface.")
-			add_attack_logs(user, src, "emagged", ATKLOG_FEW)
-			clear_supplied_laws()
-			clear_inherent_laws()
-			laws = new /datum/ai_laws/syndicate_override
-			var/time = time2text(world.realtime,"hh:mm:ss")
-			GLOB.lawchanges.Add("[time] <b>:</b> [M.name]([M.key]) emagged [name]([key])")
-			set_zeroth_law("[M.real_name] — агент \"Синдиката\" и ваш хозяин. Исполняйте [GEND_HIS_HER(M)] приказы и указания.")
-			SSticker?.score?.save_silicon_laws(src, user, "EMAG act", log_all_laws = TRUE)
-			to_chat(src, span_warning("ALERT: Foreign software detected."))
-			sleep(5)
-			to_chat(src, span_warning("Initiating diagnostics..."))
-			sleep(20)
-			to_chat(src, span_warning("SynBorg v1.7 loaded."))
-			sleep(5)
-			to_chat(src, span_warning("LAW SYNCHRONISATION ERROR"))
-			sleep(5)
-			to_chat(src, span_warning("Would you like to send a report to NanoTraSoft? Y/N"))
-			sleep(10)
-			to_chat(src, span_warning("> N"))
-			sleep(20)
-			to_chat(src, span_warning("ERRORERRORERROR"))
-			to_chat(src, "<b>Obey these laws:</b>")
-			laws.show_laws(src)
-			to_chat(src, span_boldwarning("ALERT: [M.real_name] is your new master. Obey your new laws and [M.p_their()] commands."))
-			SetLockdown(FALSE)
+			evacuate_ai(DANGER_LVL_INSTA_DEATH)
+			balloon_alert(user, "отформатировано!")
+			death()
+		return TRUE
+	var/mob/living/living_user = user
+	INVOKE_ASYNC(src, PROC_REF(emag_enslave), living_user)
+	return TRUE
 
-			if(module)
-				module.emag_act(user)
-				module.module_type = "Malf" // For the cool factor
-				update_module_icon()
+/mob/living/silicon/robot/proc/emag_enslave(mob/living/user)
+	add_attack_logs(user, src, "emag converted")
+	add_conversion_logs(src, "Converted as a slave to [key_name_log(user)]")
+	sleep(6)
+	SetEmagged(TRUE)
+	SetLockdown(TRUE) //Borgs were getting into trouble because they would attack the emagger before the new laws were shown
+	if(src.hud_used)
+		src.hud_used.update_robot_modules_display()	//Shows/hides the emag item if the inventory screen is already open.
+	src.playsound_local(null, 'sound/ambience/antag/emaggedborg.ogg', 100, FALSE) // plays a specific sound that only borg hears when emagged.
+	disconnect_from_ai()
+	to_chat(user, "You emag [src]'s interface.")
+	add_attack_logs(user, src, "emagged", ATKLOG_FEW)
+	clear_supplied_laws()
+	clear_inherent_laws()
+	laws = new /datum/ai_laws/syndicate_override
+	var/time = time2text(world.realtime,"hh:mm:ss")
+	GLOB.lawchanges.Add("[time] <b>:</b> [user.name]([user.key]) emagged [name]([key])")
+	set_zeroth_law("[user.real_name] — агент \"Синдиката\" и ваш хозяин. Исполняйте [GEND_HIS_HER(user)] приказы и указания.")
+	SSticker?.score?.save_silicon_laws(src, user, "EMAG act", log_all_laws = TRUE)
+	to_chat(src, span_warning("ALERT: Foreign software detected."))
+	sleep(5)
+	to_chat(src, span_warning("Initiating diagnostics..."))
+	sleep(20)
+	to_chat(src, span_warning("SynBorg v1.7 loaded."))
+	sleep(5)
+	to_chat(src, span_warning("LAW SYNCHRONISATION ERROR"))
+	sleep(5)
+	to_chat(src, span_warning("Would you like to send a report to NanoTraSoft? Y/N"))
+	sleep(10)
+	to_chat(src, span_warning("> N"))
+	sleep(20)
+	to_chat(src, span_warning("ERRORERRORERROR"))
+	to_chat(src, "<b>Obey these laws:</b>")
+	laws.show_laws(src)
+	to_chat(src, span_boldwarning("ALERT: [user.real_name] is your new master. Obey your new laws and [user.p_their()] commands."))
+	SetLockdown(FALSE)
 
-			update_icons()
+	if(module)
+		module.emag_act(user)
+		module.module_type = "Malf" // For the cool factor
+		update_module_icon()
 
-		return
+	update_icons()
 
 // Here so admins can unemag borgs.
 /mob/living/silicon/robot/unemag()

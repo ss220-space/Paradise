@@ -71,9 +71,9 @@
 
 	else
 		to_chat(user, span_notice("You close the maintenance panel."))
-		if(!broken && !emagged)
+		if(!broken && !(obj_flags & EMAGGED))
 			set_sign(pick(barsigns))
-		else if(emagged)
+		else if(obj_flags & EMAGGED)
 			set_sign(new /datum/barsign/hiddensigns/syndibarsign)
 		else
 			set_sign(new /datum/barsign/hiddensigns/empbarsign)
@@ -91,7 +91,7 @@
 		if(!panel_open)
 			to_chat(user, span_warning("You should open the service panel first!"))
 			return ATTACK_CHAIN_PROCEED
-		if(emagged) //Emagged, not broken by EMP
+		if(obj_flags & EMAGGED) //Emagged, not broken by EMP
 			to_chat(user, span_warning("Sign has been damaged beyond repair!"))
 			return ATTACK_CHAIN_PROCEED
 		if(!broken)
@@ -112,20 +112,22 @@
 	set_sign(new /datum/barsign/hiddensigns/empbarsign)
 	broken = TRUE
 
-/obj/structure/sign/barsign/emag_act(mob/user)
-	if(broken || emagged)
+/obj/structure/sign/barsign/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(broken || (obj_flags & EMAGGED))
 		if(user)
 			to_chat(user, span_warning("Nothing interesting happens!"))
-		return
+		return FALSE
+	addtimer(CALLBACK(src, PROC_REF(post_emag)), 10 SECONDS)
 	if(user)
 		to_chat(user, span_notice("You emag the barsign. Takeover in progress..."))
-	addtimer(CALLBACK(src, PROC_REF(post_emag)), 100)
+	return TRUE
 
 /obj/structure/sign/barsign/proc/post_emag()
-	if(broken || emagged)
+	if(broken || (obj_flags & EMAGGED))
 		return
 	set_sign(new /datum/barsign/hiddensigns/syndibarsign)
-	emagged = TRUE
+	obj_flags |= EMAGGED
 	req_access = list(ACCESS_SYNDICATE)
 
 /obj/structure/sign/barsign/proc/pick_sign()
