@@ -3822,6 +3822,7 @@
 #include "code\modules\pda\messenger.dm"
 #include "code\modules\pda\increw.dm"
 #include "code\modules\pda\messenger\messenger_account.dm"
+#include "code\modules\pda\messenger\messenger_call.dm"
 #include "code\modules\pda\messenger\messenger_chat.dm"
 #include "code\modules\pda\messenger_plugins.dm"
 #include "code\modules\pda\PDA.dm"

@@ -39,6 +39,8 @@
 	--section-background: rgba(40, 0, 0, 0.6);
 	--section-border-color: rgba(184, 134, 11, 0.5);
 	--tooltip-background: #2a0a0a;
+	--pda-footer-background: var(--color-base);
+	--pda-footer-border: var(--color-base);
 
 	.Layout__content {
 		background: linear-gradient(135deg, #2a0a0a 0%, #1a0505 100%);
@@ -223,6 +225,15 @@
 
 	.increw-wrap {
 		overflow-wrap: anywhere;
+	}
+
+	.increw-unread {
+		min-width: 1.5em;
+		padding-inline: 0.4em;
+		border-radius: 1em;
+		background: var(--color-action);
+		color: var(--color-base);
+		text-align: center;
 	}
 
 	.increw-section > .Section__title {

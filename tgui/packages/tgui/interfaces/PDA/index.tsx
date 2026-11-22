@@ -303,8 +303,8 @@ const PDAFooter = () => {
         display: 'grid',
         gridTemplateColumns: '1.15fr 1.15fr 1.15fr',
         gap: '0.5rem',
-        borderTop: '1px solid #222',
-        background: '#151821',
+        borderTop: '1px solid var(--pda-footer-border, #222)',
+        background: 'var(--pda-footer-background, #151821)',
         alignItems: 'stretch',
       }}
     >

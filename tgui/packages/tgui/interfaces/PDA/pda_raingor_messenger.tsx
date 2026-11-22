@@ -1,4 +1,10 @@
-import { type ReactNode, useState } from 'react';
+import {
+	type ReactNode,
+	useCallback,
+	useEffect,
+	useRef,
+	useState,
+} from 'react';
 import {
 	Box,
 	Button,
@@ -20,6 +26,7 @@ type Chat = {
 	is_public: boolean;
 	owner_id?: string;
 	member_count: number;
+	unread_count: number;
 };
 type Message = {
 	id: number;
@@ -34,6 +41,18 @@ type ChatDetails = {
 	messages: Message[];
 };
 
+type CrewCall = {
+	id: string;
+	state: 'incoming' | 'ringing' | 'connected';
+	chat_name: string;
+	caller_name: string;
+	is_group: boolean;
+	connected_count: number;
+	frequency: string | null;
+	mic_on: boolean;
+	quiet: boolean;
+};
+
 type InCrewData =
 	| { can_login: false }
 	| {
@@ -41,9 +60,12 @@ type InCrewData =
 			owner_messenger_account: Profile;
 			chats: Chat[];
 			contacts: Contact[];
+			blocked_contacts: Pick<Profile, 'id' | 'name'>[];
 			max_group_members: number;
 			public_groups: Chat[] | null;
 			active_chat?: ChatDetails;
+			call: CrewCall | null;
+			call_busy: boolean;
 	  };
 
 export const pda_raingor_messenger = () => {
@@ -59,8 +81,103 @@ export const pda_raingor_messenger = () => {
 		);
 	}
 
-	return <InCrew key={data.owner_messenger_account.id} data={data} />;
+	return (
+		<Stack key={data.owner_messenger_account.id} vertical fill>
+			{data.call && <CallPanel call={data.call} />}
+			<Stack.Item grow minHeight={0} overflowY="auto">
+				<InCrew data={data} />
+			</Stack.Item>
+		</Stack>
+	);
 };
+
+function CallPanel({ call }: { call: CrewCall }) {
+	const { act } = useBackend();
+	const incoming = call.state === 'incoming';
+	const connected = call.state === 'connected';
+	const quiet = !!call.quiet;
+	const params = { callId: call.id };
+
+	return (
+		<Section className="card--hero">
+			<Stack vertical>
+				<Box bold className="text-gold increw-wrap">
+					<Icon
+						name={connected ? 'broadcast-tower' : 'phone'}
+						mr={0.5}
+					/>
+					{connected
+						? 'В эфире'
+						: incoming
+							? quiet
+								? 'Вызов без звука'
+								: 'Входящий вызов'
+							: 'Вызов…'}
+					{' · '}
+					{incoming && !call.is_group
+						? call.caller_name
+						: call.chat_name}
+				</Box>
+				{incoming && !!call.is_group && (
+					<Box>Вызывает {call.caller_name}</Box>
+				)}
+				{connected && (
+					<Box>
+						Частота {call.frequency} · В эфире{' '}
+						{call.connected_count}
+					</Box>
+				)}
+				{connected && !!call.mic_on && (
+					<Box className="text-muted">
+						Обычная речь передаётся в радиоэфир.
+					</Box>
+				)}
+				<Stack wrap>
+					{incoming && (
+						<Button
+							icon="phone"
+							color="good"
+							onClick={() => act('accept_call', params)}
+						>
+							Принять
+						</Button>
+					)}
+					{connected && (
+						<Button
+							className="btn-bank"
+							icon={
+								call.mic_on ? 'microphone' : 'microphone-slash'
+							}
+							onClick={() => act('toggle_call_mic', params)}
+						>
+							{call.mic_on
+								? 'Выключить микрофон'
+								: 'Включить микрофон'}
+						</Button>
+					)}
+					{(!incoming || !quiet) && (
+						<Button
+							icon="phone-slash"
+							color="bad"
+							onClick={() =>
+								act(
+									incoming ? 'decline_call' : 'leave_call',
+									params,
+								)
+							}
+						>
+							{incoming
+								? 'Отклонить'
+								: connected
+									? 'Положить трубку'
+									: 'Отменить вызов'}
+						</Button>
+					)}
+				</Stack>
+			</Stack>
+		</Section>
+	);
+}
 
 function InCrewCard({ icon, children }: { icon: string; children: ReactNode }) {
 	return (
@@ -97,11 +214,13 @@ function Avatar({ photo }: { photo?: string }) {
 
 function InCrew({ data }: { data: Extract<InCrewData, { can_login: true }> }) {
 	const { act } = useBackend();
-	const [page, setPage] = useState<'home' | 'contacts' | 'create' | 'about'>(
-		'home',
-	);
+	const [page, setPage] = useState<
+		'home' | 'contacts' | 'create' | 'about' | 'blocked'
+	>('home');
 	const {
 		active_chat,
+		blocked_contacts,
+		call_busy,
 		chats,
 		contacts,
 		max_group_members,
@@ -119,6 +238,7 @@ function InCrew({ data }: { data: Extract<InCrewData, { can_login: true }> }) {
 				profile={owner_messenger_account}
 				contacts={contacts}
 				maxMembers={max_group_members}
+				callBusy={call_busy}
 			/>
 		);
 	}
@@ -147,6 +267,16 @@ function InCrew({ data }: { data: Extract<InCrewData, { can_login: true }> }) {
 		return <AboutInCrew onClose={() => setPage('home')} />;
 	}
 
+	if (page === 'blocked') {
+		return (
+			<BlockedContacts
+				blocked={blocked_contacts}
+				contacts={contacts}
+				onClose={() => setPage('home')}
+			/>
+		);
+	}
+
 	return (
 		<Stack vertical fill>
 			<InCrewCard icon="comments">
@@ -159,6 +289,13 @@ function InCrew({ data }: { data: Extract<InCrewData, { can_login: true }> }) {
 						onClick={() => setPage('about')}
 					>
 						О InCrew
+					</Button>
+					<Button
+						className="btn-bank"
+						icon="ban"
+						onClick={() => setPage('blocked')}
+					>
+						Чёрный список
 					</Button>
 				</Stack>
 			</InCrewCard>
@@ -240,9 +377,17 @@ function InCrew({ data }: { data: Extract<InCrewData, { can_login: true }> }) {
 							<Stack.Item grow style={{ whiteSpace: 'normal' }}>
 								{item.name_chat}
 							</Stack.Item>
-							{item.is_group && (
+							{!!item.is_group && (
 								<Box className="text-muted">
 									{item.member_count} уч.
+								</Box>
+							)}
+							{item.unread_count > 0 && (
+								<Box
+									className="increw-unread"
+									aria-label={`Непрочитанных сообщений: ${item.unread_count}`}
+								>
+									{item.unread_count}
 								</Box>
 							)}
 							<Icon name="chevron-right" className="text-gold" />
@@ -251,6 +396,73 @@ function InCrew({ data }: { data: Extract<InCrewData, { can_login: true }> }) {
 				))}
 			</Section>
 		</Stack>
+	);
+}
+
+function BlockedContacts({
+	blocked,
+	contacts,
+	onClose,
+}: {
+	blocked: Pick<Profile, 'id' | 'name'>[];
+	contacts: Contact[];
+	onClose: () => void;
+}) {
+	const { act } = useBackend();
+
+	return (
+		<Section
+			className="increw-section"
+			title={
+				<Box className="text-gold">
+					<Icon name="ban" mr={0.5} />
+					Чёрный список
+				</Box>
+			}
+			buttons={
+				<Button
+					className="btn-bank"
+					icon="arrow-left"
+					onClick={onClose}
+				>
+					Назад
+				</Button>
+			}
+			fill
+			scrollable
+		>
+			{blocked.map((contact) => (
+				<Box key={contact.id} className="card" p={1} mb={0.5}>
+					<Stack align="center" wrap>
+						<Stack.Item grow className="increw-wrap">
+							{contact.name}
+						</Stack.Item>
+						<Button
+							className="btn-bank"
+							onClick={() =>
+								act('unblock_contact', { target: contact.id })
+							}
+						>
+							Разблокировать
+						</Button>
+					</Stack>
+				</Box>
+			))}
+			{!blocked.length && (
+				<Box className="text-muted" mb={1}>
+					Список пуст
+				</Box>
+			)}
+			<Box className="field-label" mt={1}>
+				Заблокировать контакт
+			</Box>
+			<ContactPicker
+				contacts={contacts}
+				onSelect={(contact) =>
+					act('block_contact', { target: contact.value })
+				}
+			/>
+		</Section>
 	);
 }
 
@@ -416,22 +628,46 @@ function Conversation({
 	profile,
 	contacts,
 	maxMembers,
+	callBusy,
 }: {
 	chat: Chat;
 	details: ChatDetails;
 	profile: Profile;
 	contacts: Contact[];
 	maxMembers: number;
+	callBusy: boolean;
 }) {
 	const { act } = useBackend();
 	const [draft, setDraft] = useState('');
 	const [showMembers, setShowMembers] = useState(false);
+	const history = useRef<HTMLDivElement>(null);
+	const atBottom = useRef(true);
+	const lastReadSent = useRef<number>(0);
 	const isOwner = chat.owner_id === profile.id;
 	const canDelete = !chat.is_group || isOwner;
 	const chatId = chat.chat_id;
+	const latestMessageId = details.messages.at(-1)?.id;
 	const members = new Map(
 		details.chat_members.map((member) => [member.id, member]),
 	);
+
+	const readLatest = useCallback(() => {
+		if (
+			chat.unread_count > 0 &&
+			latestMessageId &&
+			latestMessageId !== lastReadSent.current
+		) {
+			lastReadSent.current = latestMessageId;
+			act('read_chat', { chatId, messageId: latestMessageId });
+		}
+	}, [act, chat.unread_count, chatId, latestMessageId]);
+
+	useEffect(() => {
+		if (!showMembers && history.current && atBottom.current) {
+			history.current.scrollTop = history.current.scrollHeight;
+			readLatest();
+		}
+	}, [readLatest, showMembers]);
 
 	const sendMessage = () => {
 		if (draft.trim()) {
@@ -468,6 +704,17 @@ function Conversation({
 							onClick={() => act('close_chat')}
 						/>
 						<Button
+							className="btn-bank"
+							icon="phone"
+							disabled={callBusy}
+							tooltip={
+								chat.is_group
+									? 'Начать конференцию'
+									: 'Позвонить'
+							}
+							onClick={() => act('start_call', { chatId })}
+						/>
+						<Button
 							icon="users"
 							selected={showMembers}
 							tooltip={
@@ -501,7 +748,7 @@ function Conversation({
 			</Section>
 			{showMembers ? (
 				<Section title="Участники" fill scrollable>
-					{chat.is_group && (
+					{!!chat.is_group && (
 						<Box className="secure-notice" mb={0.75}>
 							<Box className="text-gold" bold>
 								<Icon
@@ -553,6 +800,18 @@ function Conversation({
 										</Box>
 									)}
 								</Stack.Item>
+								{member.id !== profile.id && (
+									<Button.Confirm
+										icon="ban"
+										tooltip="Заблокировать контакт"
+										confirmContent="В чёрный список?"
+										onClick={() =>
+											act('block_contact', {
+												target: member.id,
+											})
+										}
+									/>
+								)}
 								{isOwner && member.id !== profile.id && (
 									<Button
 										icon="times"
@@ -569,7 +828,7 @@ function Conversation({
 							</Stack>
 						</Box>
 					))}
-					{isOwner && details.chat_members.length < maxMembers && (
+					{isOwner && chat.member_count < maxMembers && (
 						<Box mt={1}>
 							<Box className="field-label">
 								Добавить участника
@@ -590,7 +849,21 @@ function Conversation({
 				</Section>
 			) : (
 				<>
-					<Section fill scrollable>
+					<Section
+						ref={history}
+						fill
+						scrollable
+						onScroll={() => {
+							const panel = history.current;
+							if (!panel) return;
+							atBottom.current =
+								panel.scrollHeight -
+									panel.scrollTop -
+									panel.clientHeight <=
+								1;
+							if (atBottom.current) readLatest();
+						}}
+					>
 						{!details.messages.length && (
 							<Box
 								italic
