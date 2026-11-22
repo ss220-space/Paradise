@@ -595,6 +595,7 @@
 /obj/item/mod/module/dna_lock/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
 	on_emag(src, user, emag_card)
+	return TRUE
 
 /obj/item/mod/module/dna_lock/proc/dna_check(mob/user)
 	if(!iscarbon(user))
@@ -612,6 +613,7 @@
 	SIGNAL_HANDLER
 
 	dna = null
+	return ITEM_INTERACT_SUCCESS
 
 /obj/item/mod/module/dna_lock/proc/on_mod_activation(datum/source, mob/user)
 	SIGNAL_HANDLER

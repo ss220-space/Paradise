@@ -1516,7 +1516,6 @@
 #include "code\game\machinery\doors\airlock_control.dm"
 #include "code\game\machinery\doors\airlock_electronics.dm"
 #include "code\game\machinery\doors\airlock_types.dm"
-#include "code\game\machinery\doors\alarmlock.dm"
 #include "code\game\machinery\doors\brigdoors.dm"
 #include "code\game\machinery\doors\checkForMultipleDoors.dm"
 #include "code\game\machinery\doors\door.dm"

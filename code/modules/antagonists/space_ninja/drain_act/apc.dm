@@ -39,10 +39,10 @@
 			else
 				break
 
-		if(!(on_blueprints & emagged))
+		if(!(on_blueprints && (obj_flags & EMAGGED)))
 			flick("apc-spark", ninja_gloves)
 			playsound(loc, SFX_SPARKS, 50, TRUE, 5)
-			emagged = TRUE
+			obj_flags |= EMAGGED
 			locked = FALSE
 			update_icon()
 

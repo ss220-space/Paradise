@@ -73,8 +73,9 @@
 	SIGNAL_HANDLER
 	INVOKE_ASYNC(src, PROC_REF(ui_action_click))
 
-/obj/item/organ/internal/cyberimp/arm/emag_act()
-	return 0
+/obj/item/organ/internal/cyberimp/arm/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	return FALSE
 
 /obj/item/organ/internal/cyberimp/arm/emp_act(severity)
 	. = ..()
@@ -162,7 +163,8 @@
 
 	// You can emag the arm-mounted implant by activating it while holding emag in it's hand.
 	var/arm_slot = (parent_organ_zone == BODY_ZONE_R_ARM ? ITEM_SLOT_HAND_RIGHT : ITEM_SLOT_HAND_LEFT)
-	if(istype(owner.get_item_by_slot(arm_slot), /obj/item/card/emag) && emag_act(owner))
+	var/obj/item/inhand_item = owner.get_item_by_slot(arm_slot)
+	if(istype(inhand_item, /obj/item/card/emag) && emag_act(owner, inhand_item))
 		return
 
 	if(!active_item || (active_item in src))
@@ -238,13 +240,14 @@
 /obj/item/organ/internal/cyberimp/arm/toolset/l
 	parent_organ_zone = BODY_ZONE_L_ARM
 
-/obj/item/organ/internal/cyberimp/arm/toolset/emag_act(mob/user)
-	if(!(locate(/obj/item/kitchen/knife/combat/cyborg) in items_list))
-		if(user)
-			to_chat(user, span_notice("You unlock [src]'s integrated knife!"))
-		items_list += new /obj/item/kitchen/knife/combat/cyborg(src)
-		return TRUE
-	return FALSE
+/obj/item/organ/internal/cyberimp/arm/toolset/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(locate(/obj/item/kitchen/knife/combat/cyborg) in items_list)
+		return FALSE
+	if(user)
+		to_chat(user, span_notice("You unlock [src]'s integrated knife!"))
+	items_list += new /obj/item/kitchen/knife/combat/cyborg(src)
+	return TRUE
 
 /obj/item/organ/internal/cyberimp/arm/atmostoolset
 	name = "integrated atmos toolset implant"
@@ -562,7 +565,7 @@
 	var/obj/machinery/power/apc/A = target
 	var/mob/living/carbon/human/H = user
 	if(H.get_int_organ(/obj/item/organ/internal/cell))
-		if(A.emagged || A.stat & BROKEN)
+		if((A.obj_flags & EMAGGED) || A.stat & BROKEN)
 			do_sparks(3, TRUE, A)
 			to_chat(H, span_warning("The APC power currents surge erratically, damaging your chassis!"))
 			H.adjustFireLoss(10)

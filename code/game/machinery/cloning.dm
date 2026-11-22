@@ -213,7 +213,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	. = ..()
 	if(mess)
 		. += span_warning("Она заполнена мессивом из крови и внутренностей. Вам кажется или оно сейчас сдвинулось..?")
-	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+	if(obj_flags & CMAGGED)
 		. += span_warning("Из камеры хранения органического сырья сочится жёлтая слизь...")
 	if(!occupant || stat & (NOPOWER|BROKEN))
 		return
@@ -430,7 +430,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		go_out()
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+	if(obj_flags & CMAGGED)
 		add_fingerprint(user)
 		var/cleaning = FALSE
 		if(istype(I, /obj/item/reagent_containers/spray/cleaner))
@@ -451,7 +451,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			span_notice("[user] убира[PLUR_ET_YUT(user)] слизь с [declent_ru(GENITIVE)]."),
 			span_notice("Вы убрали слизь с [declent_ru(GENITIVE)].")
 		)
-		REMOVE_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
+		obj_flags &= ~CMAGGED
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	// A user can feed in biomass sources manually.
@@ -500,17 +500,21 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		connected.pods -= src
 		connected = null
 
-/obj/machinery/clonepod/emag_act(mob/user)
+/obj/machinery/clonepod/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
 	if(isnull(occupant))
-		return
+		return FALSE
 	go_out()
+	return TRUE
 
-/obj/machinery/clonepod/cmag_act(mob/user)
-	if(HAS_TRAIT(src, TRAIT_CMAGGED))
-		return
+/obj/machinery/clonepod/cmag_act(mob/user, obj/item/card/cmag/cmag_card)
+	. = ..()
+	if(obj_flags & CMAGGED)
+		return FALSE
 	playsound(src, SFX_SPARKS, 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	balloon_alert(user, "хонкнуто!")
-	ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
+	obj_flags |= CMAGGED
+	return TRUE
 
 /obj/machinery/clonepod/proc/update_clone_antag(mob/living/carbon/human/H)
 	// Check to see if the clone's mind is an antagonist of any kind and handle them accordingly to make sure they get their spells, HUD/whatever else back.
@@ -563,7 +567,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		to_chat(occupant, span_userdanger("Вы не можете ничего вспомнить с момента вашей смерти!"))
 		to_chat(occupant, span_notice("<b>Ваши глаза озаряет яркая вспышка!</b><br>\
 			<i>Вы будто бы заново родились.</i>"))
-		if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		if(obj_flags & CMAGGED)
 			playsound(loc, 'sound/items/bikehorn.ogg', 50, TRUE)
 			occupant.force_gene_block(GLOB.clumsyblock, TRUE, TRUE)
 			occupant.force_gene_block(GLOB.comicblock,, TRUE, TRUE)	//Until Genetics fixes you, this is your life now

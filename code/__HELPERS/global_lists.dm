@@ -67,22 +67,22 @@
 		GLOB.pai_software_by_key[software_instance.id] = software_instance
 
 	// Setup loadout gear
-	for(var/datum/gear/gear_type as anything in subtypesof(/datum/gear))
+	for(var/datum/gear/gear_type as anything in valid_subtypesof(/datum/gear))
 		if(gear_type == gear_type.path)
-			continue
-
-		if(gear_type == gear_type.subtype_path)
 			continue
 
 		if(!gear_type.index_name)
 			stack_trace("Loadout - Missing index name: [gear_type]")
 			continue
+
 		if(!gear_type.cost)
 			stack_trace("Loadout - Missing cost: [gear_type]")
 			continue
+
 		if(!gear_type.path)
 			stack_trace("Loadout - Missing path definition: [gear_type]")
 			continue
+
 		gear_type = new gear_type
 		var/obj/gear_item = gear_type.path
 		var/list/gear_tweaks = list()

@@ -44,7 +44,7 @@
  */
 /obj/structure/closet/secure_closet/contractor
 	anchored = TRUE
-	can_be_emaged = FALSE
+	obj_flags = parent_type::obj_flags|NO_EMAG
 	max_integrity = INFINITY
 	/// Lazy list of atoms which should process again when taken out.
 	var/list/atom/suspended_items = null

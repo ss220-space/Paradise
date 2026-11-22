@@ -33,7 +33,7 @@
 	. += "The door bolts [A.locked ? "have fallen!" : "look up."]"
 	. += "The door bolt lights are [(A.lights && haspower) ? "on." : "off!"]"
 	. += "The test light is [haspower ? "on." : "off!"]"
-	. += "The 'AI control allowed' light is [(A.aiControlDisabled == AICONTROLDISABLED_OFF && !A.emagged && haspower) ? "on" : "off"]."
+	. += "The 'AI control allowed' light is [(A.aiControlDisabled == AICONTROLDISABLED_OFF && !(A.obj_flags & EMAGGED) && haspower) ? "on" : "off"]."
 	. += "The 'Check Wiring' light is [(A.safe == 0 && haspower) ? "on" : "off"]."
 	. += "The 'Check Timing Mechanism' light is [(A.normalspeed == 0 && haspower) ? "on" : "off"]."
 	. += "The emergency lights are [(A.emergency && haspower) ? "on" : "off"]."
@@ -152,7 +152,8 @@
 		if(WIRE_OPEN_DOOR)
 			//tries to open the door without ID
 			//will succeed only if the ID wire is cut or the door requires no access and it's not emagged
-			if(A.emagged)	return
+			if(A.obj_flags & EMAGGED)
+				return
 			if(!A.requiresID() || A.check_access(null))
 				if(A.density)
 					INVOKE_ASYNC(A, TYPE_PROC_REF(/obj/machinery/door/airlock, open))

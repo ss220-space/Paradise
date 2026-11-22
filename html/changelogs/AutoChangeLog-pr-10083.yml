@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "Модификаторы от стаков мокрости больше не стакаются бесконечно. (PR #10083)"

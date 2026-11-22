@@ -21,7 +21,7 @@
 	var/sound_to_play
 	var/message
 
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		sound_to_play = 'sound/voice/binsult.ogg'
 		message = span_warning("[user]'s [name] gurgles, \"FUCK YOUR CUNT YOU SHIT EATING CUNT TILL YOU ARE A MASS EATING SHIT CUNT. EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS TO FUCK UP SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FROM THE DEPTHS OF SHIT\"")
 
@@ -39,9 +39,11 @@
 
 	return
 
-/obj/item/hailer/emag_act(mob/user)
-	if(!emagged)
-		if(user)
-			to_chat(user, span_warning("You overload \the [src]'s voice synthesizer."))
-
-		emagged = TRUE
+/obj/item/hailer/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
+	if(user)
+		to_chat(user, span_warning("You overload \the [src]'s voice synthesizer."))
+	return TRUE
