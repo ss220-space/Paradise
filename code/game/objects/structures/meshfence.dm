@@ -51,7 +51,7 @@
 
 	smoothing_groups = SMOOTH_GROUP_MESH_FENCE
 
-/obj/structure/fence/door/mesh/Initialize()
+/obj/structure/fence/door/mesh/Initialize(mapload)
 	. = ..()
 	QUEUE_SMOOTH(src)
 
