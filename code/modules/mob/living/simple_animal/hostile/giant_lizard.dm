@@ -60,7 +60,6 @@
 	melee_damage_lower = 15
 	melee_damage_upper = 30
 	obj_damage = 10
-	retaliate_only = FALSE
 	vision_range = 16
 	aggro_vision_range = 16
 
