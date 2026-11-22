@@ -65,7 +65,7 @@
 		controller.blackboard[BB_LIZARD_FOOD_TARGET] = null
 		current_food = null
 
-	if(current_food && current_food in view(6, lizard))
+	if(current_food && (current_food in view(6, lizard)))
 		if(lizard.Adjacent(current_food))
 			controller.queue_behavior(/datum/ai_behavior/lizard_eat_food)
 		return
@@ -95,7 +95,7 @@
 
 	// Growl or investigate intruders
 	for(var/mob/living/carbon/intruder in view(GROWL_DISTANCE + 2, lizard))
-		if((intruder.faction && length(intruder.faction) && lizard.faction[1] in intruder.faction) || intruder.stat != CONSCIOUS || ismonkey(intruder))
+		if((intruder.faction && length(intruder.faction) && (lizard.faction[1] in intruder.faction)) || intruder.stat != CONSCIOUS || ismonkey(intruder))
 			continue
 		if(intruder.alpha > 200 && isturf(intruder.loc))
 			controller.queue_behavior(/datum/ai_behavior/lizard_growl)
