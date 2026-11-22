@@ -232,7 +232,6 @@
 #define TRAIT_FORCED_GRAVITY "forced_gravity"
 
 // MARK: item traits
-#define TRAIT_CMAGGED "cmagged"
 /// Trait to toggle Inugami Gloves built-in defibrillator mode
 #define TRAIT_DEFIB_BLOCKED "defib_blocked"
 /// The items needs two hands to be carried

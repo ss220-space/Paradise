@@ -64,8 +64,8 @@
 			if(!target.get_organ(part_name))
 				continue
 			affected.robotize(make_tough = TRUE, company = L.model_info, convert_all = FALSE)
-			if(L.sabotaged)
-				affected.sabotaged = 1
+			if(L.obj_flags & EMAGGED)
+				affected.obj_flags |= EMAGGED
 			break
 	target.update_body()
 	target.updatehealth()

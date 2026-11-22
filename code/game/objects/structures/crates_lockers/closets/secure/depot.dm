@@ -13,9 +13,12 @@
 	. = ..()
 	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
 
-/obj/structure/closet/secure_closet/syndicate/depot/emag_act()
+/obj/structure/closet/secure_closet/syndicate/depot/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
+	if(!.)
+		return FALSE
 	loot_pickup()
+	return TRUE
 
 /obj/structure/closet/secure_closet/syndicate/depot/open(mob/living/user, force = FALSE)
 	. = ..()

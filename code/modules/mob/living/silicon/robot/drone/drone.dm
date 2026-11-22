@@ -254,19 +254,19 @@
 
 #define EMAG_TIMER 3000
 
-/mob/living/silicon/robot/drone/emag_act(mob/user)
+/mob/living/silicon/robot/drone/robot_emag_hack(mob/user, obj/item/card/emag/emag_card)
 	if(!client || stat == DEAD)
 		to_chat(user, span_warning("Нет смысла подчинять эту кучу хлама."))
-		return
+		return FALSE
 
 	if(!ishuman(user))
-		return
+		return FALSE
 	var/mob/living/carbon/human/H = user
 
 	if(emagged)
 		to_chat(src, span_warning("[user] пыта[PLUR_ET_YUT(user)]ся загрузить вредоносное ПО в вас, но ваши взломанные подпрограммы игнорируют попытку."))
 		to_chat(user, span_warning("Вы пытаетесь подчинить [declent_ru(GENITIVE)], но секвенсор не оказывает эффекта."))
-		return
+		return FALSE
 
 	to_chat(user, span_warning("Вы проводите секвенсором по интерфейсу [declent_ru(GENITIVE)] и наблюдаете, как его глаза мерцают."))
 
@@ -276,7 +276,6 @@
 	to_chat(src, span_warning("Вы чувствуете внезапный всплеск вредоносного ПО, загруженного в ваш буфер исполнения. Ваш крошечный мозг методично анализирует, загружает и выполняет скрипт. Вы понимаете, что у вас есть пять минут, прежде чем сервер дронов обнаружит это и автоматически выключит вас."))
 
 	message_admins("[ADMIN_LOOKUPFLW(H)] emagged drone [key_name_admin(src)].  Laws overridden.")
-	add_attack_logs(user, src, "emagged")
 	add_conversion_logs(src, "Converted as a slave to [key_name_log(H)]")
 	var/time = time2text(world.realtime,"hh:mm:ss")
 	GLOB.lawchanges.Add("[time] <b>:</b> [H.name]([H.key]) emagged [name]([key])")
@@ -298,6 +297,7 @@
 	to_chat(src, "<b>Соблюдайте эти законы:</b>")
 	laws.show_laws(src)
 	to_chat(src, span_boldwarning("ВНИМАНИЕ: [H.real_name] теперь ваш новый хозяин. Соблюдайте новые законы и команды [H.real_name]."))
+	return TRUE
 
 #undef EMAG_TIMER
 

@@ -111,15 +111,17 @@
 		addtimer(CALLBACK(src, PROC_REF(react_buzz)), 0.5 SECONDS)
 	return ..()
 
-/mob/living/simple_animal/bot/honkbot/emag_act(mob/user)
-	..()
-	if(emagged == 2)
-		if(user)
-			to_chat(user, span_warning("Вы замыкаете микросхемы системы целеуказания [declent_ru(GENITIVE)]. [DECLENT_RU_CAP(src, NOMINATIVE)] злобно смеётся!"))
-			oldtarget_name = user.name
-		audible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] злобно смеётся!"))
-		playsound(src, 'sound/machines/honkbot_evil_laugh.ogg', 75, TRUE, -1) // evil laughter
-		update_icon()
+/mob/living/simple_animal/bot/honkbot/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(!. || emagged != 2)
+		return .
+	audible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] злобно смеётся!"))
+	playsound(src, 'sound/machines/honkbot_evil_laugh.ogg', 75, TRUE, -1) // evil laughter
+	update_icon()
+	if(user)
+		to_chat(user, span_warning("Вы замыкаете микросхемы системы целеуказания [declent_ru(GENITIVE)]. [DECLENT_RU_CAP(src, NOMINATIVE)] злобно смеётся!"))
+		oldtarget_name = user.name
+	return TRUE
 
 /mob/living/simple_animal/bot/honkbot/bullet_act(obj/projectile/Proj)
 	if((istype(Proj,/obj/projectile/beam)) || (istype(Proj,/obj/projectile/bullet) && (Proj.damage_type == BURN))||(Proj.damage_type == BRUTE) && (!Proj.nodamage && Proj.damage < health && ishuman(Proj.firer)))

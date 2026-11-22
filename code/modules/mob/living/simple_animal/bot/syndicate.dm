@@ -77,9 +77,10 @@
 	target = H
 	mode = BOT_HUNT
 
-/mob/living/simple_animal/bot/ed209/syndicate/emag_act(mob/user)
+/mob/living/simple_animal/bot/ed209/syndicate/bot_emagged(mob/user, obj/item/card/emag/emag_card)
 	if(user)
 		balloon_alert(user, "сканер ID-карт отсутствует!")
+	return FALSE
 
 /mob/living/simple_animal/bot/ed209/syndicate/ed209_ai()
 	var/turf/current_turf = get_turf(src)

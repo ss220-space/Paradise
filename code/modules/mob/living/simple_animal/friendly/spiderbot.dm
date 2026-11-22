@@ -134,21 +134,22 @@
 	add_fingerprint(user)
 	user.visible_message("[user] repairs [src]!",span_notice("You repair [src]."))
 
-/mob/living/simple_animal/spiderbot/emag_act(mob/living/user)
+/mob/living/simple_animal/spiderbot/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
 	if(emagged)
 		to_chat(user, span_warning("[src] doesn't seem to respond."))
-		return 0
-	else if(istype(user))
-		emagged = 1
+		return FALSE
+	emagged = TRUE
+	to_chat(src, span_userdanger("You have been emagged; you are now completely loyal to [user] and [user.p_their()] every order!"))
+	emagged_master = user
+	maxHealth = 60
+	health = 60
+	melee_damage_lower = 15
+	melee_damage_upper = 15
+	attack_sound = 'sound/machines/defib_zap.ogg'
+	if(user)
 		to_chat(user, span_notice("You short out the security protocols and rewrite [src]'s internal memory."))
-		to_chat(src, span_userdanger("You have been emagged; you are now completely loyal to [user] and [user.p_their()] every order!"))
-		emagged_master = user
-		add_attack_logs(user, src, "Emagged")
-		maxHealth = 60
-		health = 60
-		melee_damage_lower = 15
-		melee_damage_upper = 15
-		attack_sound = 'sound/machines/defib_zap.ogg'
+	return TRUE
 
 /mob/living/simple_animal/spiderbot/proc/transfer_personality(obj/item/mmi/M)
 	mind = M.brainmob.mind
