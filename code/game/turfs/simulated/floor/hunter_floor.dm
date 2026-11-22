@@ -11,76 +11,35 @@
 /turf/simulated/floor/hunter/direction_1
 	icon_state = "3,2"
 
-/turf/simulated/floor/hunter/direction_1/north
-	dir = NORTH
-
-/turf/simulated/floor/hunter/direction_1/east
-	dir = EAST
-
-/turf/simulated/floor/hunter/direction_1/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/hunter/direction_1, 0, 0)
 
 /turf/simulated/floor/hunter/direction_2
 	icon_state = "20,4"
 
-/turf/simulated/floor/hunter/direction_2/north
-	dir = NORTH
-
-/turf/simulated/floor/hunter/direction_2/east
-	dir = EAST
-
-/turf/simulated/floor/hunter/direction_2/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/hunter/direction_2, 0, 0)
 
 /turf/simulated/floor/hunter/direction_3
 	icon_state = "21,4"
 
-/turf/simulated/floor/hunter/direction_3/north
-	dir = NORTH
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/hunter/direction_3, 0, 0)
 
-/turf/simulated/floor/hunter/direction_3/east
-	dir = EAST
-
-/turf/simulated/floor/hunter/direction_3/west
-	dir = WEST
 
 /turf/simulated/floor/hunter/direction_4
 	icon_state = "21,6"
 
-/turf/simulated/floor/hunter/direction_4/north
-	dir = NORTH
-
-/turf/simulated/floor/hunter/direction_4/east
-	dir = EAST
-
-/turf/simulated/floor/hunter/direction_4/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/hunter/direction_4, 0, 0)
 
 // Edge
 /turf/simulated/floor/hunter/edge
 	icon_state = "2,2"
 
-/turf/simulated/floor/hunter/edge/north
-	dir = NORTH
-
-/turf/simulated/floor/hunter/edge/east
-	dir = EAST
-
-/turf/simulated/floor/hunter/edge/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/hunter/edge, 0, 0)
 
 // Corner
 /turf/simulated/floor/hunter/corner
 	icon_state = "20,3"
 
-/turf/simulated/floor/hunter/corner/north
-	dir = NORTH
-
-/turf/simulated/floor/hunter/corner/east
-	dir = EAST
-
-/turf/simulated/floor/hunter/corner/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/hunter/corner, 0, 0)
 
 /turf/simulated/floor/hunter/borderless_vertical
 	icon_state = "borderless_v"
@@ -92,14 +51,7 @@
 /turf/simulated/floor/hunter/upper
 	icon_state = "11,5"
 
-/turf/simulated/floor/hunter/upper/north
-	dir = NORTH
-
-/turf/simulated/floor/hunter/upper/east
-	dir = EAST
-
-/turf/simulated/floor/hunter/upper/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/hunter/upper, 0, 0)
 
 // Red tiles
 /turf/simulated/floor/hunter/tile/red
@@ -139,14 +91,7 @@
 /turf/simulated/floor/hunter/hunter_grate
 	icon_state = "hunter_grate"
 
-/turf/simulated/floor/hunter/hunter_grate/north
-	dir = NORTH
-
-/turf/simulated/floor/hunter/hunter_grate/east
-	dir = EAST
-
-/turf/simulated/floor/hunter/hunter_grate/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/hunter/hunter_grate, 0, 0)
 
 /turf/simulated/floor/hunter/red_glow
 	icon_state = "hunter_glow"
@@ -159,86 +104,32 @@
 /turf/simulated/floor/hunter/tile/hunter_tile_1
 	icon_state = "hunter_tile_1"
 
-/turf/simulated/floor/hunter/tile/hunter_tile_1/south
-
-/turf/simulated/floor/hunter/tile/hunter_tile_1/north
-	dir = NORTH
-
-/turf/simulated/floor/hunter/tile/hunter_tile_1/west
-	dir = WEST
-
-/turf/simulated/floor/hunter/tile/hunter_tile_1/east
-	dir = EAST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/hunter/tile/hunter_tile_1, 0, 0)
 
 /turf/simulated/floor/hunter/tile/hunter_tile_2
 	icon_state = "hunter_tile_2"
 
-/turf/simulated/floor/hunter/tile/hunter_tile_2/south
-
-/turf/simulated/floor/hunter/tile/hunter_tile_2/north
-	dir = NORTH
-
-/turf/simulated/floor/hunter/tile/hunter_tile_2/west
-	dir = WEST
-
-/turf/simulated/floor/hunter/tile/hunter_tile_2/east
-	dir = EAST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/hunter/tile/hunter_tile_2, 0, 0)
 
 /turf/simulated/floor/hunter/tile/hunter_tile_3
 	icon_state = "hunter_tile_3"
 
-/turf/simulated/floor/hunter/tile/hunter_tile_3/south
-
-/turf/simulated/floor/hunter/tile/hunter_tile_3/north
-	dir = NORTH
-
-/turf/simulated/floor/hunter/tile/hunter_tile_3/west
-	dir = WEST
-
-/turf/simulated/floor/hunter/tile/hunter_tile_3/east
-	dir = EAST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/hunter/tile/hunter_tile_3, 0, 0)
 
 /turf/simulated/floor/hunter/tile/hunter_tile_4
 	icon_state = "hunter_tile_4"
 
-/turf/simulated/floor/hunter/tile/hunter_tile_4/south
-
-/turf/simulated/floor/hunter/tile/hunter_tile_4/north
-	dir = NORTH
-
-/turf/simulated/floor/hunter/tile/hunter_tile_4/west
-	dir = WEST
-
-/turf/simulated/floor/hunter/tile/hunter_tile_4/east
-	dir = EAST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/hunter/tile/hunter_tile_4, 0, 0)
 
 /turf/simulated/floor/hunter/tile/hunter_tile_5
 	icon_state = "hunter_tile_5"
 
-/turf/simulated/floor/hunter/tile/hunter_tile_5/south
-
-/turf/simulated/floor/hunter/tile/hunter_tile_5/north
-	dir = NORTH
-
-/turf/simulated/floor/hunter/tile/hunter_tile_5/west
-	dir = WEST
-
-/turf/simulated/floor/hunter/tile/hunter_tile_5/east
-	dir = EAST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/hunter/tile/hunter_tile_5, 0, 0)
 
 /turf/simulated/floor/hunter/tile/hunter_tile_6
 	icon_state = "hunter_tile_6"
 
-/turf/simulated/floor/hunter/tile/hunter_tile_6/south
-
-/turf/simulated/floor/hunter/tile/hunter_tile_6/north
-	dir = NORTH
-
-/turf/simulated/floor/hunter/tile/hunter_tile_6/west
-	dir = WEST
-
-/turf/simulated/floor/hunter/tile/hunter_tile_6/east
-	dir = EAST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/hunter/tile/hunter_tile_6, 0, 0)
 
 // Hunter Ship Hull
 /turf/simulated/floor/hunter/hull
@@ -248,26 +139,8 @@
 /turf/simulated/floor/hunter/hull/non_weedable_hull
 	icon_state = "outerhull_dir"
 
-/turf/simulated/floor/hunter/hull/non_weedable_hull/southwest
-	dir = SOUTHWEST
-
-/turf/simulated/floor/hunter/hull/non_weedable_hull/north
-	dir = NORTH
-
-/turf/simulated/floor/hunter/hull/non_weedable_hull/east
-	dir = EAST
-
-/turf/simulated/floor/hunter/hull/non_weedable_hull/northeast
-	dir = NORTHEAST
-
-/turf/simulated/floor/hunter/hull/non_weedable_hull/southeast
-	dir = SOUTHEAST
-
-/turf/simulated/floor/hunter/hull/non_weedable_hull/west
-	dir = WEST
-
-/turf/simulated/floor/hunter/hull/non_weedable_hull/northwest
-	dir = NORTHWEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/hunter/hull/non_weedable_hull, 0, 0)
+MAPPING_DIAGONAL_HELPERS(/turf/simulated/floor/hunter/hull/non_weedable_hull, 0)
 
 // Ancient Temple
 
@@ -296,50 +169,14 @@
 /turf/simulated/floor/ancient_temple/floor_3
 	icon_state = "floor3"
 
-/turf/simulated/floor/ancient_temple/floor_3/north
-	dir = NORTH
-
-/turf/simulated/floor/ancient_temple/floor_3/east
-	dir = EAST
-
-/turf/simulated/floor/ancient_temple/floor_3/west
-	dir = WEST
-
-/turf/simulated/floor/ancient_temple/floor_3/northeast
-	dir = NORTHEAST
-
-/turf/simulated/floor/ancient_temple/floor_3/northwest
-	dir = NORTHWEST
-
-/turf/simulated/floor/ancient_temple/floor_3/southeast
-	dir = SOUTHEAST
-
-/turf/simulated/floor/ancient_temple/floor_3/southwest
-	dir = SOUTHWEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/ancient_temple/floor_3, 0, 0)
+MAPPING_DIAGONAL_HELPERS(/turf/simulated/floor/ancient_temple/floor_3, 0)
 
 /turf/simulated/floor/ancient_temple/floor_4
 	icon_state = "floor4"
 
-/turf/simulated/floor/ancient_temple/floor_4/north
-	dir = NORTH
-
-/turf/simulated/floor/ancient_temple/floor_4/east
-	dir = EAST
-
-/turf/simulated/floor/ancient_temple/floor_4/west
-	dir = WEST
-
-/turf/simulated/floor/ancient_temple/floor_4/northeast
-	dir = NORTHEAST
-
-/turf/simulated/floor/ancient_temple/floor_4/northwest
-	dir = NORTHWEST
-
-/turf/simulated/floor/ancient_temple/floor_4/southeast
-	dir = SOUTHEAST
-
-/turf/simulated/floor/ancient_temple/floor_4/southwest
-	dir = SOUTHWEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/ancient_temple/floor_4, 0, 0)
+MAPPING_DIAGONAL_HELPERS(/turf/simulated/floor/ancient_temple/floor_4, 0)
 
 /turf/simulated/floor/ancient_temple/floor_5
 	icon_state = "floor5"
@@ -347,26 +184,8 @@
 /turf/simulated/floor/ancient_temple/floor_6
 	icon_state = "floor6"
 
-/turf/simulated/floor/ancient_temple/floor_6/north
-	dir = NORTH
-
-/turf/simulated/floor/ancient_temple/floor_6/east
-	dir = EAST
-
-/turf/simulated/floor/ancient_temple/floor_6/west
-	dir = WEST
-
-/turf/simulated/floor/ancient_temple/floor_6/northeast
-	dir = NORTHEAST
-
-/turf/simulated/floor/ancient_temple/floor_6/northwest
-	dir = NORTHWEST
-
-/turf/simulated/floor/ancient_temple/floor_6/southeast
-	dir = SOUTHEAST
-
-/turf/simulated/floor/ancient_temple/floor_6/southwest
-	dir = SOUTHWEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/ancient_temple/floor_6, 0, 0)
+MAPPING_DIAGONAL_HELPERS(/turf/simulated/floor/ancient_temple/floor_6, 0)
 
 /turf/simulated/floor/ancient_temple/floor_7
 	icon_state = "floor7"
@@ -377,50 +196,14 @@
 /turf/simulated/floor/ancient_temple/floor_9
 	icon_state = "floor9"
 
-/turf/simulated/floor/ancient_temple/floor_9/north
-	dir = NORTH
-
-/turf/simulated/floor/ancient_temple/floor_9/east
-	dir = EAST
-
-/turf/simulated/floor/ancient_temple/floor_9/west
-	dir = WEST
-
-/turf/simulated/floor/ancient_temple/floor_9/northeast
-	dir = NORTHEAST
-
-/turf/simulated/floor/ancient_temple/floor_9/northwest
-	dir = NORTHWEST
-
-/turf/simulated/floor/ancient_temple/floor_9/southeast
-	dir = SOUTHEAST
-
-/turf/simulated/floor/ancient_temple/floor_9/southwest
-	dir = SOUTHWEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/ancient_temple/floor_9, 0, 0)
+MAPPING_DIAGONAL_HELPERS(/turf/simulated/floor/ancient_temple/floor_9, 0)
 
 /turf/simulated/floor/ancient_temple/floor_10
 	icon_state = "floor10"
 
-/turf/simulated/floor/ancient_temple/floor_10/north
-	dir = NORTH
-
-/turf/simulated/floor/ancient_temple/floor_10/east
-	dir = EAST
-
-/turf/simulated/floor/ancient_temple/floor_10/west
-	dir = WEST
-
-/turf/simulated/floor/ancient_temple/floor_10/northeast
-	dir = NORTHEAST
-
-/turf/simulated/floor/ancient_temple/floor_10/northwest
-	dir = NORTHWEST
-
-/turf/simulated/floor/ancient_temple/floor_10/southeast
-	dir = SOUTHEAST
-
-/turf/simulated/floor/ancient_temple/floor_10/southwest
-	dir = SOUTHWEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/ancient_temple/floor_10, 0, 0)
+MAPPING_DIAGONAL_HELPERS(/turf/simulated/floor/ancient_temple/floor_10, 0)
 
 /turf/simulated/floor/ancient_temple/floor_11
 	icon_state = "floor11"
@@ -431,14 +214,7 @@
 /turf/simulated/floor/ancient_temple/floor_13
 	icon_state = "floor13"
 
-/turf/simulated/floor/ancient_temple/floor_13/north
-	dir = NORTH
-
-/turf/simulated/floor/ancient_temple/floor_13/east
-	dir = EAST
-
-/turf/simulated/floor/ancient_temple/floor_13/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/ancient_temple/floor_13, 0, 0)
 
 /turf/simulated/floor/ancient_temple/floor_14
 	icon_state = "floor14"
@@ -449,26 +225,12 @@
 /turf/simulated/floor/ancient_temple/floor_19
 	icon_state = "floor19"
 
-/turf/simulated/floor/ancient_temple/floor_19/north
-	dir = NORTH
-
-/turf/simulated/floor/ancient_temple/floor_19/east
-	dir = EAST
-
-/turf/simulated/floor/ancient_temple/floor_19/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/ancient_temple/floor_19, 0, 0)
 
 /turf/simulated/floor/ancient_temple/floor_20
 	icon_state = "floor20"
 
-/turf/simulated/floor/ancient_temple/floor_20/north
-	dir = NORTH
-
-/turf/simulated/floor/ancient_temple/floor_20/east
-	dir = EAST
-
-/turf/simulated/floor/ancient_temple/floor_20/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/ancient_temple/floor_20, 0, 0)
 
 // MISC
 
@@ -502,38 +264,17 @@
 /turf/simulated/floor/ancient_temple/deco/deco_1
 	icon_state = "floor_deco_1"
 
-/turf/simulated/floor/ancient_temple/deco/deco_1/north
-	dir = NORTH
-
-/turf/simulated/floor/ancient_temple/deco/deco_1/east
-	dir = EAST
-
-/turf/simulated/floor/ancient_temple/deco/deco_1/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/ancient_temple/deco/deco_1, 0, 0)
 
 /turf/simulated/floor/ancient_temple/deco/deco_2
 	icon_state = "floor_deco_2"
 
-/turf/simulated/floor/ancient_temple/deco/deco_2/north
-	dir = NORTH
-
-/turf/simulated/floor/ancient_temple/deco/deco_2/east
-	dir = EAST
-
-/turf/simulated/floor/ancient_temple/deco/deco_2/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/ancient_temple/deco/deco_2, 0, 0)
 
 /turf/simulated/floor/ancient_temple/deco/deco_alt
 	icon_state = "floor_deco_alt"
 
-/turf/simulated/floor/ancient_temple/deco/deco_alt/north
-	dir = NORTH
-
-/turf/simulated/floor/ancient_temple/deco/deco_alt/east
-	dir = EAST
-
-/turf/simulated/floor/ancient_temple/deco/deco_alt/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/ancient_temple/deco/deco_alt, 0, 0)
 
 /turf/simulated/floor/ancient_temple/deco/dark
 	icon_state = "floor_dark_deco"
@@ -544,50 +285,22 @@
 /turf/simulated/floor/ancient_temple/deco/dark/deco_1
 	icon_state = "floor_dark_deco_1"
 
-/turf/simulated/floor/ancient_temple/deco/dark/deco_1/north
-	dir = NORTH
-
-/turf/simulated/floor/ancient_temple/deco/dark/deco_1/east
-	dir = EAST
-
-/turf/simulated/floor/ancient_temple/deco/dark/deco_1/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/ancient_temple/deco/dark/deco_1, 0, 0)
 
 /turf/simulated/floor/ancient_temple/deco/dark/deco_2
 	icon_state = "floor_dark_deco_2"
 
-/turf/simulated/floor/ancient_temple/deco/dark/deco_2/north
-	dir = NORTH
-
-/turf/simulated/floor/ancient_temple/deco/dark/deco_2/east
-	dir = EAST
-
-/turf/simulated/floor/ancient_temple/deco/dark/deco_2/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/ancient_temple/deco/dark/deco_2, 0, 0)
 
 /turf/simulated/floor/ancient_temple/deco/dark/deco_alt
 	icon_state = "floor_deco_alt_dark"
 
-/turf/simulated/floor/ancient_temple/deco/dark/deco_alt/north
-	dir = NORTH
-
-/turf/simulated/floor/ancient_temple/deco/dark/deco_alt/east
-	dir = EAST
-
-/turf/simulated/floor/ancient_temple/deco/dark/deco_alt/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/ancient_temple/deco/dark/deco_alt, 0, 0)
 
 /turf/simulated/floor/ancient_temple/ruined
 	icon_state = "floor_breach"
 
-/turf/simulated/floor/ancient_temple/ruined/north
-	dir = NORTH
-
-/turf/simulated/floor/ancient_temple/ruined/east
-	dir = EAST
-
-/turf/simulated/floor/ancient_temple/ruined/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/ancient_temple/ruined, 0, 0)
 
 /turf/simulated/floor/ancient_temple/damaged
 	icon_state = "damaged1"
@@ -618,23 +331,9 @@
 /turf/simulated/floor/hunter/shuttle_border
 	icon_state = "17,15"
 
-/turf/simulated/floor/hunter/shuttle_border/north
-	dir = NORTH
-
-/turf/simulated/floor/hunter/shuttle_border/east
-	dir = EAST
-
-/turf/simulated/floor/hunter/shuttle_border/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/hunter/shuttle_border, 0, 0)
 
 /turf/simulated/floor/hunter/shuttle_border_corner
 	icon_state = "6,6"
 
-/turf/simulated/floor/hunter/shuttle_border_corner/north
-	dir = NORTH
-
-/turf/simulated/floor/hunter/shuttle_border_corner/east
-	dir = EAST
-
-/turf/simulated/floor/hunter/shuttle_border_corner/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/hunter/shuttle_border_corner, 0, 0)

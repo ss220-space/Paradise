@@ -48,34 +48,35 @@
 /turf/simulated/floor/planetoid/crowbar_act(mob/user, obj/item/I)
 	return
 
-/turf/simulated/floor/planetoid/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/rods))
-		build_with_rods(I, user)
+/turf/simulated/floor/planetoid/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(istype(tool, /obj/item/stack/rods))
+		build_with_rods(tool, user)
 		var/obj/structure/lattice/built_lattice = locate() in src
 		if(built_lattice)
 			built_lattice.layer = MID_TURF_LAYER
-		return ATTACK_CHAIN_BLOCKED_ALL
+		return ITEM_INTERACT_SUCCESS
 
-	if(istype(I, /obj/item/stack/tile))
+	if(istype(tool, /obj/item/stack/tile))
 		var/obj/structure/lattice/lattice = locate() in src
 		if(!lattice)
 			to_chat(user, span_warning("Грунту потребуется опора! Сначала установите металлические стержни."))
-			return ATTACK_CHAIN_BLOCKED_ALL
-		var/obj/item/stack/tile/tile = I
+			return ITEM_INTERACT_BLOCKING
+		var/obj/item/stack/tile/tile = tool
 		if(!tile.turf_type)
-			return ATTACK_CHAIN_BLOCKED_ALL
+			return ITEM_INTERACT_BLOCKING
 		if(!tile.use(1))
 			to_chat(user, span_warning("Для постройки пола нужна одна напольная плитка!"))
-			return ATTACK_CHAIN_BLOCKED_ALL
+			return ITEM_INTERACT_BLOCKING
 		qdel(lattice)
 		playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
 		if(istype(tile, /obj/item/stack/tile/plasteel))
 			ChangeTurf(/turf/simulated/floor/plating, keep_icon = FALSE)
 		else
 			ChangeTurf(tile.turf_type, keep_icon = FALSE)
-		return ATTACK_CHAIN_BLOCKED_ALL
+		return ITEM_INTERACT_SUCCESS
 
-	return ..()
+	return NONE
+
 
 /turf/simulated/floor/planetoid/ReplaceWithLattice()
 	new /obj/structure/lattice(src)
@@ -111,8 +112,7 @@
 
 /turf/simulated/floor/planetoid/desert/Initialize(mapload)
 	. = ..()
-	if(rand(0, 15) == 0) // occasional texture variation
-		icon_state = "desert[rand(0, 3)]"
+	icon_state = "desert[rand(0, 3)]"
 
 /turf/simulated/floor/planetoid/desert/desert
 
@@ -152,16 +152,7 @@
 	. = ..()
 	icon_state ="beach"
 
-/turf/simulated/floor/planetoid/desert/beachedge/south
-
-/turf/simulated/floor/planetoid/desert/beachedge/north
-	dir = NORTH
-
-/turf/simulated/floor/planetoid/desert/beachedge/east
-	dir = EAST
-
-/turf/simulated/floor/planetoid/desert/beachedge/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/planetoid/desert/beachedge, 0, 0)
 
 // DESERT - BEACH CORNER
 /turf/simulated/floor/planetoid/desert/beachcorner
@@ -172,16 +163,7 @@
 	. = ..()
 	icon_state ="beachcorner"
 
-/turf/simulated/floor/planetoid/desert/beachcorner/south
-
-/turf/simulated/floor/planetoid/desert/beachcorner/north
-	dir = NORTH
-
-/turf/simulated/floor/planetoid/desert/beachcorner/east
-	dir = EAST
-
-/turf/simulated/floor/planetoid/desert/beachcorner/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/planetoid/desert/beachcorner, 0, 0)
 
 /turf/simulated/floor/planetoid/desert/beachcorner2
 	icon_state = "beachcorner2"
@@ -191,16 +173,7 @@
 	. = ..()
 	icon_state ="beachcorner2"
 
-/turf/simulated/floor/planetoid/desert/beachcorner2/south
-
-/turf/simulated/floor/planetoid/desert/beachcorner2/north
-	dir = NORTH
-
-/turf/simulated/floor/planetoid/desert/beachcorner2/east
-	dir = EAST
-
-/turf/simulated/floor/planetoid/desert/beachcorner2/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/planetoid/desert/beachcorner2, 0, 0)
 
 /turf/simulated/floor/planetoid/desert/update_icon_state()
 	if(dug)
@@ -331,126 +304,54 @@
 	icon_state = "grassdirt_edge"
 	baseturf = /turf/simulated/floor/planetoid/grass/sandedge
 
-/turf/simulated/floor/planetoid/grass/sandedge/south
-
-/turf/simulated/floor/planetoid/grass/sandedge/north
-	dir = NORTH
-
-/turf/simulated/floor/planetoid/grass/sandedge/east
-	dir = EAST
-
-/turf/simulated/floor/planetoid/grass/sandedge/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/planetoid/grass/sandedge, 0, 0)
 
 // GRASS - SAND CORNER
 /turf/simulated/floor/planetoid/grass/sandcorner
 	icon_state = "grassdirt_corner"
 	baseturf = /turf/simulated/floor/planetoid/grass/sandcorner
 
-/turf/simulated/floor/planetoid/grass/sandcorner/south
-
-/turf/simulated/floor/planetoid/grass/sandcorner/north
-	dir = NORTH
-
-/turf/simulated/floor/planetoid/grass/sandcorner/east
-	dir = EAST
-
-/turf/simulated/floor/planetoid/grass/sandcorner/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/planetoid/grass/sandcorner, 0, 0)
 
 /turf/simulated/floor/planetoid/grass/sandcorner2
 	icon_state = "grassdirt_corner2"
 	baseturf = /turf/simulated/floor/planetoid/grass/sandcorner2
 
-/turf/simulated/floor/planetoid/grass/sandcorner2/south
-
-/turf/simulated/floor/planetoid/grass/sandcorner2/north
-	dir = NORTH
-
-/turf/simulated/floor/planetoid/grass/sandcorner2/east
-	dir = EAST
-
-/turf/simulated/floor/planetoid/grass/sandcorner2/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/planetoid/grass/sandcorner2, 0, 0)
 
 // GRASS - DIRT EDGE
 /turf/simulated/floor/planetoid/grass/dirtedge
 	icon_state = "grassdirt2_edge"
 	baseturf = /turf/simulated/floor/planetoid/grass/dirtedge
 
-/turf/simulated/floor/planetoid/grass/dirtedge/south
-
-/turf/simulated/floor/planetoid/grass/dirtedge/north
-	dir = NORTH
-
-/turf/simulated/floor/planetoid/grass/dirtedge/east
-	dir = EAST
-
-/turf/simulated/floor/planetoid/grass/dirtedge/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/planetoid/grass/dirtedge, 0, 0)
 
 // GRASS - DIRT CORNER
 /turf/simulated/floor/planetoid/grass/dirtcorner
 	icon_state = "grassdirt2_corner"
 	baseturf = /turf/simulated/floor/planetoid/grass/dirtcorner
 
-/turf/simulated/floor/planetoid/grass/dirtcorner/south
-
-/turf/simulated/floor/planetoid/grass/dirtcorner/north
-	dir = NORTH
-
-/turf/simulated/floor/planetoid/grass/dirtcorner/east
-	dir = EAST
-
-/turf/simulated/floor/planetoid/grass/dirtcorner/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/planetoid/grass/dirtcorner, 0, 0)
 
 /turf/simulated/floor/planetoid/grass/dirtcorner2
 	icon_state = "grassdirt2_corner2"
 	baseturf = /turf/simulated/floor/planetoid/grass/dirtcorner2
 
-/turf/simulated/floor/planetoid/grass/dirtcorner2/south
-
-/turf/simulated/floor/planetoid/grass/dirtcorner2/north
-	dir = NORTH
-
-/turf/simulated/floor/planetoid/grass/dirtcorner2/east
-	dir = EAST
-
-/turf/simulated/floor/planetoid/grass/dirtcorner2/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/planetoid/grass/dirtcorner2, 0, 0)
 
 // GRASS - BEACH EDGE
 /turf/simulated/floor/planetoid/grass/beachedge
 	icon_state = "grassbeach"
 	baseturf = /turf/simulated/floor/planetoid/grass/beachedge
 
-/turf/simulated/floor/planetoid/grass/beachedge/south
-
-/turf/simulated/floor/planetoid/grass/beachedge/north
-	dir = NORTH
-
-/turf/simulated/floor/planetoid/grass/beachedge/east
-	dir = EAST
-
-/turf/simulated/floor/planetoid/grass/beachedge/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/planetoid/grass/beachedge, 0, 0)
 
 // GRASS - BEACH CORNER
 /turf/simulated/floor/planetoid/grass/beachcorner
 	icon_state = "gbcorner"
 	baseturf = /turf/simulated/floor/planetoid/grass/beachcorner
 
-/turf/simulated/floor/planetoid/grass/beachcorner/south
-
-/turf/simulated/floor/planetoid/grass/beachcorner/north
-	dir = NORTH
-
-/turf/simulated/floor/planetoid/grass/beachcorner/east
-	dir = EAST
-
-/turf/simulated/floor/planetoid/grass/beachcorner/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/planetoid/grass/beachcorner, 0, 0)
 
 // MARK: GRASS SCORCHED
 /turf/simulated/floor/planetoid/grass/scorched1
@@ -468,79 +369,34 @@
 	icon_state = "grassdirt_edge_scorched1"
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched1/sandedge
 
-/turf/simulated/floor/planetoid/grass/scorched1/sandedge/south
-
-/turf/simulated/floor/planetoid/grass/scorched1/sandedge/north
-	dir = NORTH
-
-/turf/simulated/floor/planetoid/grass/scorched1/sandedge/east
-	dir = EAST
-
-/turf/simulated/floor/planetoid/grass/scorched1/sandedge/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/planetoid/grass/scorched1/sandedge, 0, 0)
 
 // GRASS SCORCHED - SAND CORNER
 /turf/simulated/floor/planetoid/grass/scorched1/sandcorner
 	icon_state = "grassdirt_corner_scorched1"
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched1/sandcorner
 
-/turf/simulated/floor/planetoid/grass/scorched1/sandcorner/south
-
-/turf/simulated/floor/planetoid/grass/scorched1/sandcorner/north
-	dir = NORTH
-
-/turf/simulated/floor/planetoid/grass/scorched1/sandcorner/east
-	dir = EAST
-
-/turf/simulated/floor/planetoid/grass/scorched1/sandcorner/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/planetoid/grass/scorched1/sandcorner, 0, 0)
 
 /turf/simulated/floor/planetoid/grass/scorched1/sandcorner2
 	icon_state = "grassdirt_corner2_scorched1"
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched1/sandcorner2
 
-/turf/simulated/floor/planetoid/grass/scorched1/sandcorner2/south
-
-/turf/simulated/floor/planetoid/grass/scorched1/sandcorner2/north
-	dir = NORTH
-
-/turf/simulated/floor/planetoid/grass/scorched1/sandcorner2/east
-	dir = EAST
-
-/turf/simulated/floor/planetoid/grass/scorched1/sandcorner2/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/planetoid/grass/scorched1/sandcorner2, 0, 0)
 
 // GRASS SCORCHED - BEACH EDGE
 /turf/simulated/floor/planetoid/grass/scorched1/beachedge
 	icon_state = "grassbeach_scorched1"
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched1/beachedge
 
-/turf/simulated/floor/planetoid/grass/scorched1/beachedge/south
-
-/turf/simulated/floor/planetoid/grass/scorched1/beachedge/north
-	dir = NORTH
-
-/turf/simulated/floor/planetoid/grass/scorched1/beachedge/east
-	dir = EAST
-
-/turf/simulated/floor/planetoid/grass/scorched1/beachedge/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/planetoid/grass/scorched1/beachedge, 0, 0)
 
 // GRASS SCORCHED - BEACH CORNER
 /turf/simulated/floor/planetoid/grass/scorched1/beachcorner
 	icon_state = "gbcorner_scorched1"
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched1/beachcorner
 
-/turf/simulated/floor/planetoid/grass/scorched1/beachcorner/south
-
-/turf/simulated/floor/planetoid/grass/scorched1/beachcorner/north
-	dir = NORTH
-
-/turf/simulated/floor/planetoid/grass/scorched1/beachcorner/east
-	dir = EAST
-
-/turf/simulated/floor/planetoid/grass/scorched1/beachcorner/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/planetoid/grass/scorched1/beachcorner, 0, 0)
 
 // MARK: GRASS SCORCHED2
 /turf/simulated/floor/planetoid/grass/scorched2
@@ -558,79 +414,34 @@
 	icon_state = "grassdirt_edge_scorched2"
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched2/sandedge
 
-/turf/simulated/floor/planetoid/grass/scorched2/sandedge/south
-
-/turf/simulated/floor/planetoid/grass/scorched2/sandedge/north
-	dir = NORTH
-
-/turf/simulated/floor/planetoid/grass/scorched2/sandedge/east
-	dir = EAST
-
-/turf/simulated/floor/planetoid/grass/scorched2/sandedge/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/planetoid/grass/scorched2/sandedge, 0, 0)
 
 // GRASS SCORCHED2 - SAND CORNER
 /turf/simulated/floor/planetoid/grass/scorched2/sandcorner
 	icon_state = "grassdirt_corner_scorched2"
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched2/sandcorner
 
-/turf/simulated/floor/planetoid/grass/scorched2/sandcorner/south
-
-/turf/simulated/floor/planetoid/grass/scorched2/sandcorner/north
-	dir = NORTH
-
-/turf/simulated/floor/planetoid/grass/scorched2/sandcorner/east
-	dir = EAST
-
-/turf/simulated/floor/planetoid/grass/scorched2/sandcorner/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/planetoid/grass/scorched2/sandcorner, 0, 0)
 
 /turf/simulated/floor/planetoid/grass/scorched2/sandcorner2
 	icon_state = "grassdirt_corner2_scorched2"
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched2/sandcorner2
 
-/turf/simulated/floor/planetoid/grass/scorched2/sandcorner2/south
-
-/turf/simulated/floor/planetoid/grass/scorched2/sandcorner2/north
-	dir = NORTH
-
-/turf/simulated/floor/planetoid/grass/scorched2/sandcorner2/east
-	dir = EAST
-
-/turf/simulated/floor/planetoid/grass/scorched2/sandcorner2/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/planetoid/grass/scorched2/sandcorner2, 0, 0)
 
 // GRASS SCORCHED2 - BEACH EDGE
 /turf/simulated/floor/planetoid/grass/scorched2/beachedge
 	icon_state = "grassbeach_scorched2"
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched2/beachedge
 
-/turf/simulated/floor/planetoid/grass/scorched2/beachedge/south
-
-/turf/simulated/floor/planetoid/grass/scorched2/beachedge/north
-	dir = NORTH
-
-/turf/simulated/floor/planetoid/grass/scorched2/beachedge/east
-	dir = EAST
-
-/turf/simulated/floor/planetoid/grass/scorched2/beachedge/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/planetoid/grass/scorched2/beachedge, 0, 0)
 
 // GRASS SCORCHED2 - BEACH CORNER
 /turf/simulated/floor/planetoid/grass/scorched2/beachcorner
 	icon_state = "gbcorner_scorched2"
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched2/beachcorner
 
-/turf/simulated/floor/planetoid/grass/scorched2/beachcorner/south
-
-/turf/simulated/floor/planetoid/grass/scorched2/beachcorner/north
-	dir = NORTH
-
-/turf/simulated/floor/planetoid/grass/scorched2/beachcorner/east
-	dir = EAST
-
-/turf/simulated/floor/planetoid/grass/scorched2/beachcorner/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/planetoid/grass/scorched2/beachcorner, 0, 0)
 
 // MARK: GRASS SCORCHED3
 /turf/simulated/floor/planetoid/grass/scorched3
@@ -648,79 +459,34 @@
 	icon_state = "grassdirt_edge_scorched3"
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched3/sandedge
 
-/turf/simulated/floor/planetoid/grass/scorched3/sandedge/south
-
-/turf/simulated/floor/planetoid/grass/scorched3/sandedge/north
-	dir = NORTH
-
-/turf/simulated/floor/planetoid/grass/scorched3/sandedge/east
-	dir = EAST
-
-/turf/simulated/floor/planetoid/grass/scorched3/sandedge/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/planetoid/grass/scorched3/sandedge, 0, 0)
 
 // GRASS SCORCHED3 - SAND CORNER
 /turf/simulated/floor/planetoid/grass/scorched3/sandcorner
 	icon_state = "grassdirt_corner_scorched3"
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched3/sandcorner
 
-/turf/simulated/floor/planetoid/grass/scorched3/sandcorner/south
-
-/turf/simulated/floor/planetoid/grass/scorched3/sandcorner/north
-	dir = NORTH
-
-/turf/simulated/floor/planetoid/grass/scorched3/sandcorner/east
-	dir = EAST
-
-/turf/simulated/floor/planetoid/grass/scorched3/sandcorner/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/planetoid/grass/scorched3/sandcorner, 0, 0)
 
 /turf/simulated/floor/planetoid/grass/scorched3/sandcorner2
 	icon_state = "grassdirt_corner2_scorched3"
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched3/sandcorner2
 
-/turf/simulated/floor/planetoid/grass/scorched3/sandcorner2/south
-
-/turf/simulated/floor/planetoid/grass/scorched3/sandcorner2/north
-	dir = NORTH
-
-/turf/simulated/floor/planetoid/grass/scorched3/sandcorner2/east
-	dir = EAST
-
-/turf/simulated/floor/planetoid/grass/scorched3/sandcorner2/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/planetoid/grass/scorched3/sandcorner2, 0, 0)
 
 // GRASS SCORCHED3 - BEACH EDGE
 /turf/simulated/floor/planetoid/grass/scorched3/beachedge
 	icon_state = "grassbeach_scorched3"
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched3/beachedge
 
-/turf/simulated/floor/planetoid/grass/scorched3/beachedge/south
-
-/turf/simulated/floor/planetoid/grass/scorched3/beachedge/north
-	dir = NORTH
-
-/turf/simulated/floor/planetoid/grass/scorched3/beachedge/east
-	dir = EAST
-
-/turf/simulated/floor/planetoid/grass/scorched3/beachedge/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/planetoid/grass/scorched3/beachedge, 0, 0)
 
 // GRASS SCORCHED3 - BEACH CORNER
 /turf/simulated/floor/planetoid/grass/scorched3/beachcorner
 	icon_state = "gbcorner_scorched3"
 	baseturf = /turf/simulated/floor/planetoid/grass/scorched3/beachcorner
 
-/turf/simulated/floor/planetoid/grass/scorched3/beachcorner/south
-
-/turf/simulated/floor/planetoid/grass/scorched3/beachcorner/north
-	dir = NORTH
-
-/turf/simulated/floor/planetoid/grass/scorched3/beachcorner/east
-	dir = EAST
-
-/turf/simulated/floor/planetoid/grass/scorched3/beachcorner/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/turf/simulated/floor/planetoid/grass/scorched3/beachcorner, 0, 0)
 
 // MARK: Water
 /turf/simulated/floor/water/planetoid

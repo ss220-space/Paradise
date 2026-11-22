@@ -813,19 +813,10 @@
 	icon = 'icons/obj/flora/jungleplants.dmi'
 	icon_state = "bush_1"
 
-/obj/structure/flora/jungle/thickbush/New()
-	..()
-	if(prob(75))
-		opacity = TRUE
-	setDir(pick(NORTH, EAST, SOUTH, WEST))
-
 /obj/structure/flora/jungle/thickbush/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
-	if(isliving(mover) && prob(50))
-		to_chat(mover, span_danger("Вы на мгновение застреваете в [DECLENT_RU_CAP(src, PREPOSITIONAL)]"))
-		return FALSE
 	if(isliving(mover))
 		var/mob/living/living_mover = mover
-		living_mover.Slowed(2 SECONDS)
+		living_mover.Slowed(1 SECONDS)
 	playsound(loc, SFX_VEGETATION_WALK, 25, TRUE)
 

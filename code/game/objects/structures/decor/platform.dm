@@ -8,51 +8,23 @@
 	. = ..()
 	AddElement(/datum/element/climbable)
 
-/obj/structure/decor/platform/ancient_temple/north
-	dir = NORTH
-
-/obj/structure/decor/platform/ancient_temple/east
-	dir = EAST
-
-/obj/structure/decor/platform/ancient_temple/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/decor/platform/ancient_temple, 0, 0)
 
 /obj/structure/decor/platform/ancient_temple/alt
 	icon_state = "ancient_platform_alt"
 
-/obj/structure/decor/platform/ancient_temple/alt/north
-	dir = NORTH
-
-/obj/structure/decor/platform/ancient_temple/alt/east
-	dir = EAST
-
-/obj/structure/decor/platform/ancient_temple/alt/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/decor/platform/ancient_temple/alt, 0, 0)
 
 // Corner
 /obj/structure/decor/platform/ancient_temple/corner
 	icon_state = "ancient_platform_deco"
 
-/obj/structure/decor/platform/ancient_temple/corner/north
-	dir = NORTH
-
-/obj/structure/decor/platform/ancient_temple/corner/east
-	dir = EAST
-
-/obj/structure/decor/platform/ancient_temple/corner/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/decor/platform/ancient_temple/corner, 0, 0)
 
 /obj/structure/decor/platform/ancient_temple/corner/alt
 	icon_state = "ancient_platform_alt_deco"
 
-/obj/structure/decor/platform/ancient_temple/corner/alt/north
-	dir = NORTH
-
-/obj/structure/decor/platform/ancient_temple/corner/alt/east
-	dir = EAST
-
-/obj/structure/decor/platform/ancient_temple/corner/alt/west
-	dir = WEST
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/decor/platform/ancient_temple/corner/alt, 0, 0)
 
 // Stair
 /obj/structure/decor/platform/ancient_temple/stair_cut/ancient_temple_left

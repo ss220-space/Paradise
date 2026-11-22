@@ -251,7 +251,6 @@
 	walltype = "ancient_stone"
 	baseturf = /turf/simulated/floor/ancient_temple
 	blend_objects = list(/obj/machinery/door, /obj/structure/window/full)
-	/// 0..3 — тип декора на прямых участках стены (см. LateInitialize)
 	var/decoration_type
 
 /turf/simulated/wall/cm/sandstone/runed/LateInitialize()

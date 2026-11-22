@@ -73,15 +73,15 @@
 
 /datum/weather/rain/start()
 	update_audio(MAIN_STAGE)
-	. = ..()
+	return ..()
 
 /datum/weather/rain/wind_down()
 	update_audio(WIND_DOWN_STAGE)
-	. = ..()
+	return ..()
 
 /datum/weather/rain/end()
 	update_audio(END_STAGE)
-	. = ..()
+	return ..()
 
 /datum/weather/rain/fire()
 	wetness_counter++

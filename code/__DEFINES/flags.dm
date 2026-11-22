@@ -194,6 +194,8 @@
 #define BLOBS_ALLOWED (1<<5)
 /// If blobs can spawn there and if it counts towards their score.
 #define MORTAR_ALLOWED (1<<6)
+// Is the zone suitable for an objective? Take a look at /datum/objective/proc/select_area_for_spawn()
+#define OBJECTIVE_SPAWN_ALLOWED (1<<7)
 
 //ORGAN TYPE FLAGS
 #define AFFECT_ROBOTIC_ORGAN (1<<0)
