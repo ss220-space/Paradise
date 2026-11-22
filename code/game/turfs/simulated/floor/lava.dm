@@ -57,11 +57,17 @@
 		update_appearance()
 	RegisterSignal(src, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON, PROC_REF(on_atom_inited))
 
+/turf/simulated/floor/lava/Destroy()
+	UnregisterSignal(src, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON)
+	if(datum_flags & DF_ISPROCESSING)
+		STOP_PROCESSING(SSprocessing, src)
+	return ..()
+
 ///We lazily add the immerse element when something is spawned or crosses this turf and not before.
 /turf/simulated/floor/lava/proc/on_atom_inited(datum/source, atom/movable/movable)
 	SIGNAL_HANDLER
 	if(burn_stuff(movable))
-		START_PROCESSING(SSobj, src)
+		START_PROCESSING(SSprocessing, src)
 	if(immerse_added || is_type_in_typecache(movable, GLOB.immerse_ignored_movable))
 		return
 	AddElement(/datum/element/immerse, "immerse", 215)
