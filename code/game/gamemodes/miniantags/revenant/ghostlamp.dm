@@ -8,12 +8,12 @@
 	layer = LARGE_MOB_LAYER
 	density = TRUE
 	anchored = TRUE
-	max_integrity = 150
-	var/wisp_max = 5
+	max_integrity = 100
+	var/wisp_max = 4
 	var/wisp_per_creation = 1
 	var/current_wisps = 0
 	var/list/wisps = list()
-	var/max_wisp_per_level = 5
+	var/max_wisp_per_level = 2
 	var/stamina_damage_min = 2
 	var/slowdown = 0.1
 	var/mob/living/simple_animal/revenant/revenant_owner
@@ -22,7 +22,7 @@
 	var/wisp_heal = 10
 	var/wisp_creation_time = 60 SECONDS
 	var/light_increase = 5
-	var/integrity_increase = 150
+	var/integrity_increase = 100
 	var/flame_cd = 20 SECONDS
 	COOLDOWN_DECLARE(wisp_creation)
 	COOLDOWN_DECLARE(flame_cooldown)
