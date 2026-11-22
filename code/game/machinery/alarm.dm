@@ -606,7 +606,7 @@ GLOBAL_LIST_INIT(human_tlv, list(
 	return data
 
 /obj/machinery/alarm/proc/has_rcon_access(mob/user)
-	return user && (isAI(user) || allowed(user) || emagged || rcon_setting == RCON_YES)
+	return user && (isAI(user) || allowed(user) || (obj_flags & EMAGGED) || rcon_setting == RCON_YES)
 
 // Intentional nulls here
 /obj/machinery/alarm/ui_data(mob/user)
@@ -625,7 +625,7 @@ GLOBAL_LIST_INIT(human_tlv, list(
 	data["rcon"] = rcon_setting
 	data["target_temp"] = target_temperature - T0C
 	data["atmos_alarm"] = alarm_area.atmosalm
-	data["emagged"] = emagged
+	data["emagged"] = (obj_flags & EMAGGED)
 	data["modes"] = list(
 		"mode[AALARM_MODE_FILTERING]"		= list("name" = GLOB.aalarm_modes["[AALARM_MODE_FILTERING]"],	"desc" = "Scrubs out contaminants. Will shut off and drop firelocks if pressure drops too low.", "id" = AALARM_MODE_FILTERING),
 		"mode[AALARM_MODE_DRAUGHT]"			= list("name" = GLOB.aalarm_modes["[AALARM_MODE_DRAUGHT]"],			"desc" = "Siphons out air while replacing", "id" = AALARM_MODE_DRAUGHT),
@@ -714,7 +714,7 @@ GLOBAL_LIST_INIT(human_tlv, list(
 		return TRUE
 	if(user.can_admin_interact())
 		return TRUE
-	else if(isAI(user) || (isrobot(user) || emagged || user.has_unlimited_silicon_privilege) && !iscogscarab(user))
+	else if(isAI(user) || (isrobot(user) || (obj_flags & EMAGGED) || user.has_unlimited_silicon_privilege) && !iscogscarab(user))
 		return TRUE
 	else
 		return !locked
@@ -854,13 +854,15 @@ GLOBAL_LIST_INIT(human_tlv, list(
 
 	return GLOB.default_state
 
-/obj/machinery/alarm/emag_act(mob/user)
-	if(!emagged)
-		emagged = TRUE
-		if(user)
-			user.visible_message(span_warning("Sparks fly out of the [src]!"), span_notice("You emag the [src], disabling its safeties."))
-		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
-		return
+/obj/machinery/airalarm/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
+	user.visible_message(span_warning("Sparks fly out of the [src]!"), span_notice("You emag the [src], disabling its safeties."))
+	balloon_alert(user, "authentication sensors scrambled")
+	playsound(src.loc, SFX_SPARKS, 50, TRUE)
+	return TRUE
 
 /obj/machinery/alarm/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)

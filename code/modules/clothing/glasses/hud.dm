@@ -20,7 +20,7 @@
 
 /obj/item/clothing/glasses/hud/examine(mob/user)
 	. = ..()
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		. += span_warning("Дисплей едва заметно мерцает.")
 
 /obj/item/clothing/glasses/hud/equipped(mob/living/carbon/human/user, slot, initial)
@@ -53,8 +53,8 @@
 
 /obj/item/clothing/glasses/hud/emp_act(severity)
 	. = ..()
-	if(!emagged)
-		emagged = TRUE
+	if(!(obj_flags & EMAGGED))
+		obj_flags |= EMAGGED
 
 /obj/item/clothing/glasses/hud/visor_toggling(mob/living/carbon/human/user)
 	. = ..()

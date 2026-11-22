@@ -248,13 +248,13 @@
 	item_state = "borghypo_emag"
 	icon_state = "borghypo_emag"
 	amount_per_transfer_from_this = 10
-	emagged = TRUE
 	var/safety_hypo = FALSE
 	reagent_ids = list( \
 		/datum/reagent/amanitin = list('icons/obj/hydroponics/harvest.dmi', "amanita"), \
 		/datum/reagent/cyanide = list('icons/mob/screen_corgi.dmi', "tox1"), \
 		/datum/reagent/sodium_thiopental = list('icons/obj/surgery.dmi', "lungs"))
 	upgrade_path = null //no upgrades
+	obj_flags = parent_type::obj_flags|EMAGGED
 
 /obj/item/reagent_containers/borghypo/emagged/get_ru_names()
 	return alist(

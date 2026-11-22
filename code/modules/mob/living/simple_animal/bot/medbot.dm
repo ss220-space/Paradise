@@ -311,16 +311,17 @@
 		return .
 	step_to(src, (get_step_away(src, user)))	//if medbot took some damage
 
-/mob/living/simple_animal/bot/medbot/emag_act(mob/user)
-	..()
-	if(emagged == 2)
-		declare_crit = FALSE
-		if(user)
-			to_chat(user, span_notice("Вы замыкаете микросхемы синтеза реагентов [declent_ru(GENITIVE)]."))
-		audible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] странно жужжит."))
-		flick("medibot_spark", src)
-		if(user)
-			oldpatient = user
+/mob/living/simple_animal/bot/medbot/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(!. || emagged != 2)
+		return .
+	declare_crit = FALSE
+	audible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] странно жужжит."))
+	flick("medibot_spark", src)
+	if(user)
+		oldpatient = user
+		to_chat(user, span_notice("Вы замыкаете микросхемы синтеза реагентов [declent_ru(GENITIVE)]."))
+	return TRUE
 
 /mob/living/simple_animal/bot/medbot/process_scan(mob/living/carbon/human/H)
 	if(buckled)

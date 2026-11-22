@@ -27,7 +27,7 @@
 	var/obj/machinery/suit_storage_unit/A = holder
 	switch(wire)
 		if(WIRE_IDSCAN)
-			if(!A.emagged)
+			if(!(A.obj_flags & EMAGGED))
 				A.locked = mend
 				if(A.locked && A.state_open)
 					A.state_open = FALSE
@@ -51,7 +51,7 @@
 		return
 	switch(wire)
 		if(WIRE_IDSCAN)
-			if(!A.emagged)
+			if(!(A.obj_flags & EMAGGED))
 				A.locked = !A.locked
 				if(A.locked && A.state_open)
 					A.state_open = FALSE

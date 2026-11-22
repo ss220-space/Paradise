@@ -257,7 +257,8 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	if(listening && on)
 		radio_connection = SSradio.add_object(src, frequency, RADIO_CHAT)
 
-/obj/item/radio/emag_act(mob/user)
+/obj/item/radio/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
 	if(!user.mind.special_role && !is_admin(user) || !hidden_uplink)
 		var/turf/T = get_turf(loc)
 
@@ -271,6 +272,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		qdel(src)
 	else
 		hidden_uplink.trigger(user)
+	return TRUE
 
 /obj/item/radio/attack_ghost(mob/user)
 	return interact(user)

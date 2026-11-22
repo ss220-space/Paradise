@@ -7,6 +7,7 @@
 	light_color = LIGHT_COLOR_ELECTRIC_CYAN
 	req_access = list(ACCESS_SYNDICATE)
 	bubble_icon = "syndibot"
+	obj_flags = parent_type::obj_flags|NO_EMAG
 	var/window_height = 400 // should be roughly 100 per section. Allow extra space for the lockout alert.
 	var/window_width = 400
 	var/security_lockout = FALSE
@@ -31,10 +32,6 @@
 		to_chat(user, span_warning("A firewall blocks your access."))
 		return TRUE
 	return ..()
-
-/obj/machinery/computer/syndicate_depot/emag_act(mob/user)
-	if(user)
-		to_chat(user, span_notice("The electronic systems in this console are far too advanced for your primitive hacking peripherals."))
 
 /obj/machinery/computer/syndicate_depot/allowed(mob/user)
 	if(user.can_advanced_admin_interact())

@@ -29,21 +29,22 @@
 	tickets.Cut()
 	return ..()
 
-/obj/machinery/ticket_machine/emag_act(mob/user) //Emag the ticket machine to dispense burning tickets, as well as randomize its number to destroy the HoP's mind.
-	if(emagged)
-		return
-	add_attack_logs(user, src, "emagged")
-	if(user)
-		to_chat(user, span_warning("You overload [src]'s bureaucratic logic circuitry to its MAXIMUM setting."))
+/obj/machinery/ticket_machine/emag_act(mob/user, obj/item/card/emag/emag_card) //Emag the ticket machine to dispense burning tickets, as well as randomize its number to destroy the HoP's mind.
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
 	ticket_number = rand(0, max_number)
 	current_number = ticket_number
-	emagged = TRUE
 	for(var/obj/item/ticket_machine_ticket/ticket in tickets)
 		ticket.visible_message(span_notice("\the [ticket] disperses!"))
 		qdel(ticket)
 	tickets.Cut()
 	update_icon(UPDATE_ICON_STATE)
 	handle_maptext()
+	if(user)
+		to_chat(user, span_warning("You overload [src]'s bureaucratic logic circuitry to its MAXIMUM setting."))
+	return TRUE
 
 /obj/machinery/ticket_machine/Initialize(mapload)
 	. = ..()
@@ -53,7 +54,7 @@
 /obj/machinery/ticket_machine/proc/increment()
 	if(current_number > ticket_number)
 		return
-	if(current_number && !(emagged) && tickets[current_number])
+	if(current_number && !(obj_flags & EMAGGED) && tickets[current_number])
 		var/obj/item/ticket_machine_ticket/ticket = tickets[current_number]
 		ticket.audible_message(span_notice("\the [tickets[current_number]] disperses!"))
 		qdel(ticket)
@@ -61,7 +62,7 @@
 		current_number ++ //Increment the one we're serving.
 		playsound(src, 'sound/misc/announce_dig.ogg', 50, FALSE)
 		atom_say("Очередь билета номер #[current_number]!")
-		if(!(emagged) && tickets[current_number])
+		if(!(obj_flags & EMAGGED) && tickets[current_number])
 			var/obj/item/ticket_machine_ticket/ticket = tickets[current_number]
 			ticket.audible_message(span_notice("\the [tickets[current_number]] vibrates!"))
 		update_icon(UPDATE_ICON_STATE) //Update our icon here rather than when they take a ticket to show the current ticket number being served
@@ -153,7 +154,7 @@
 	if(ticket_number >= max_number)
 		to_chat(user,span_warning("Ticket supply depleted, please refill this unit with a hand labeller refill cartridge!"))
 		return
-	if((user.UID() in ticket_holders) && !(emagged))
+	if((user.UID() in ticket_holders) && !(obj_flags & EMAGGED))
 		to_chat(user, span_warning("You already have a ticket!"))
 		return
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 100, FALSE)
@@ -169,7 +170,7 @@
 	user.put_in_hands(theirticket, ignore_anim = FALSE)
 	ticket_holders += user.UID()
 	tickets += theirticket
-	if(emagged) //Emag the machine to destroy the HOP's life.
+	if(obj_flags & EMAGGED) //Emag the machine to destroy the HOP's life.
 		ready = FALSE
 		addtimer(VARSET_CALLBACK(src, ready, TRUE), cooldown)	//Small cooldown to prevent piles of flaming tickets
 		theirticket.fire_act()
