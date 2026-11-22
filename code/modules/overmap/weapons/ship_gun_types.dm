@@ -159,7 +159,6 @@
 
 /obj/machinery/ship_gun/serpent
 	name = "Serpent"
-	icon = 'icons/obj/ship_weapons/serpent.dmi'
 	ship_arc = 70
 	ship_round_type = /obj/projectile/ship_round/serpent
 	ship_cooldown = 45 SECONDS
