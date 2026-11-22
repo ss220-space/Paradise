@@ -265,7 +265,7 @@
 	var/braking = angular_accel(min(torque_left, torque_right)) || angular_accel(max(torque_left, torque_right))
 	var/wanted = 0
 	if(abs(difference) >= 1)
-		wanted = sign(difference) * min(OVERMAP_TURN_RATE_MAX, sqrt(2 * braking * abs(difference)))
+		wanted = sign(difference) * min(OVERMAP_TURN_RATE_MAX, overmap_approach_speed(abs(difference), braking, elapsed))
 	change_spin(wanted, elapsed)
 
 /datum/component/overmap_flight/proc/take_pilot(mob/new_pilot, obj/machinery/computer/helm/helm)

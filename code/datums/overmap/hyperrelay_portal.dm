@@ -140,13 +140,18 @@
 /datum/overmap_programmed_mission/proc/navigate_relay_portal(obj/overmap/entity/hyperrelay/relay)
 	if(!relay.enabled || !length(relay.warp_portals) || !vessel.flight)
 		return
-	var/obj/effect/overmap_warp_portal/portal = relay.warp_portals[1]
-	if(relay_route_portal != portal)
-		relay_route_portal = portal
+	if(QDELETED(relay_route_portal) || relay_route_portal.relay != relay)
+		var/closest = INFINITY
+		for(var/obj/effect/overmap_warp_portal/candidate as anything in relay.warp_portals)
+			var/distance = (candidate.hull_x - relay.hull_center_x) ** 2 + (candidate.hull_y - relay.hull_center_y) ** 2
+			if(distance < closest)
+				closest = distance
+				relay_route_portal = candidate
 		relay_route_aligned = FALSE
+	var/obj/effect/overmap_warp_portal/portal = relay_route_portal
 	var/local_y = portal.hull_y
 	if(!relay_route_aligned)
 		local_y -= relay.hull_radius + vessel.hull_radius + portal.capture_depth + 8
 	var/list/target = relay.hull_to_world(portal.hull_x, local_y)
 	vessel.flight.cruise_speed = OVERMAP_FROM_DISPLAY(OVERMAP_PROGRAMMED_CRUISE)
-	vessel.flight.navigate_world(target[1], target[2], relay.get_facing(), relay_route_aligned ? relay : null, arrival_range = 0.25, known_obstacles_only = FALSE)
+	navigate_to(target[1], target[2], relay.get_facing(), relay_route_aligned ? relay : null, 0.25)

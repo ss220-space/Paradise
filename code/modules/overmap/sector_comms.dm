@@ -20,7 +20,7 @@
 	if(!body)
 		return FALSE
 	var/obj/item/paper/overmap_keys/sheet = new(spot)
-	sheet.info = body + "Введите ключ в панели секторной связи. Ключи действуют только в текущей смене."
+	sheet.info = body + "Введите ключ в панели секторной связи. Внимание: ключи связи являются секретной информацией и не подлежат разглашению."
 	sheet.update_icon()
 	return TRUE
 

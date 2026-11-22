@@ -142,7 +142,7 @@
 	if(needs_hyperrelay())
 		var/obj/overmap/entity/hyperrelay/relay = route_relay()
 		if(relay?.template_loaded)
-			relay_route_aligned = TRUE
+			relay_route_aligned = !relay_route_aligned
 			try_fly()
 			return
 		on_overmap_arrived()

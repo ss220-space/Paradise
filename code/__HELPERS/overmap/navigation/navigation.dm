@@ -1,3 +1,8 @@
+/proc/overmap_approach_speed(distance, acceleration, reaction_time)
+	if(distance <= 0 || acceleration <= 0)
+		return 0
+	return 2 * distance / (reaction_time + sqrt(reaction_time ** 2 + 2 * distance / acceleration))
+
 /proc/cmp_overmap_navigation_beacon(obj/effect/landmark/overmap_navigation_beacon/a, obj/effect/landmark/overmap_navigation_beacon/b)
 	return a.nav_order - b.nav_order
 
