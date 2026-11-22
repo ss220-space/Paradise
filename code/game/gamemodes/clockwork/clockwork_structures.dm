@@ -77,7 +77,7 @@
 			var/choice
 			if(!hidden)
 				choice = show_radial_menu(user, src, choosable_items, require_near = TRUE)
-				if(I.enchant_type != HIDE_SPELL || !choice || !Adjacent(user) || user.incapacitated())
+				if(I.enchant_type != HIDE_SPELL || !choice || !Adjacent(user) || user.incapacitated)
 					return ATTACK_CHAIN_BLOCKED_ALL
 			toggle_hide(choice)
 			to_chat(user, span_notice("You [hidden ? null : "un"]disguise [src]."))
@@ -156,9 +156,9 @@
 		for(var/mob/living/L in range(5, src))
 			if(!isclocker(L))
 				continue
-			if(L.reagents?.has_reagent("holywater"))
+			if(L.reagents?.has_reagent(/datum/reagent/holywater))
 				to_chat(L, span_warning("You feel a terrible liquid disappearing from your body."))
-				L.reagents.del_reagent("holywater")
+				L.reagents.del_reagent(/datum/reagent/holywater)
 			if(iscogscarab(L))
 				var/mob/living/silicon/robot/cogscarab/C = L
 				C.wind_up_timer = min(C.wind_up_timer + 60, CLOCK_MAX_WIND_UP_TIMER) //every 6 seconds gains 60 seconds. roughly, every second 10 to timer.
@@ -264,7 +264,7 @@
 			var/choice
 			if(!hidden)
 				choice = show_radial_menu(user, src, choosable_items, require_near = TRUE)
-				if(I.enchant_type != HIDE_SPELL || !choice || !Adjacent(user) || user.incapacitated())
+				if(I.enchant_type != HIDE_SPELL || !choice || !Adjacent(user) || user.incapacitated)
 					return ATTACK_CHAIN_BLOCKED_ALL
 			toggle_hide(choice)//cuz we sure its unhidden
 			if(datum_flags & DF_ISPROCESSING)

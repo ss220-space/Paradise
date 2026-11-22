@@ -547,7 +547,7 @@
 
 	if(check_if_child(src)) // Children aren't fertile enough
 		return FALSE
-	next_scan_time = world.time + 400
+	next_scan_time = world.time + 40 SECONDS
 
 	var/alone = TRUE
 	var/mob/living/simple_animal/partner
@@ -570,7 +570,10 @@
 		var/childspawn = pickweight(childtype)
 		var/turf/target = get_turf(loc)
 		if(target)
-			return new childspawn(target)
+			var/mob/living/simple_animal/child = new childspawn(target)
+			if(!QDELETED(child))
+				SEND_SIGNAL(src, COMSIG_SIMPLE_ANIMAL_GAVE_BIRTH, child)
+			return child
 
 /mob/living/simple_animal/get_item_by_slot(slot_id)
 	switch(slot_id)

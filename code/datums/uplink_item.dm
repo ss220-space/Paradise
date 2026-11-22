@@ -903,12 +903,11 @@
 
 /datum/uplink_item/dangerous/flamethrower
 	name = "Огнемёт"
-	desc = "Оснащён канистрой плазмы, украденной с одной из станций Nanotrasen. \
-			Идеальное для борьбы с живой силой в узких пространствах. Используйте с осторожностью!"
-	item = /obj/item/flamethrower/full/tank
-	cost = 20
+	desc = "Химический огнемёт, работающий на нестабильной смеси топлива и напалма. Поставляется с предварительно заполненным баллоном. Не использовать с осторожностью."
+	item = /obj/item/chemical_flamethrower/extended/nuclear
+	cost = 40
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	surplus = 40
+	surplus = 50
 
 /datum/uplink_item/dangerous/rapid
 	name = "Перчатки \"Полярная Звезда\""
@@ -1323,6 +1322,13 @@
 	item = /obj/item/storage/backpack/quiver/modern/full
 	cost = 4
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST, UPLINK_TYPE_TRAITOR)
+
+/datum/uplink_item/ammo/chemical_canister
+	name = "Коробка с баллонами для химического огнемёта"
+	desc = "Коробка с 2 баллонами огнемётного топлива — как раз достаточно, чтобы заправить огнемёт!"
+	item = /obj/item/storage/box/syndie_kit/chemical_canister
+	cost = 30
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /**
  * MARK: Stealthy Weapons

@@ -29,7 +29,7 @@
 	return get_ammo() && ..()
 
 /obj/item/gun/projectile/automatic/CtrlClick(mob/user)
-	if(user.is_in_hands(src) && chambered)
+	if((user.is_in_hands(src) || static_gun) && chambered)
 		process_chamber(TRUE, TRUE)
 		balloon_alert(user, "затвор передёрнут")
 		playsound(loc, 'sound/weapons/gun_interactions/remove_bullet.ogg', 50, TRUE)

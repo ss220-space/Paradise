@@ -383,7 +383,7 @@
 			if(params["prisoner_name"])
 				prisoner_name = params["prisoner_name"]
 			else
-				var/new_name = tgui_input_text(usr, "Prisoner Name:", name, prisoner_name, MAX_NAME_LEN, encode = FALSE)
+				var/new_name = tgui_input_text(usr, "Prisoner Name:", name, prisoner_name, MAX_NAME_LEN)
 				if(isnull(new_name))
 					return
 				prisoner_name = new_name
@@ -394,7 +394,7 @@
 				else
 					prisoner_hasrecord = FALSE
 		if("prisoner_charge")
-			var/new_charge = tgui_input_text(usr, "Prisoner Charge:", name, prisoner_charge, encode = FALSE)
+			var/new_charge = tgui_input_text(usr, "Prisoner Charge:", name, prisoner_charge)
 			if(isnull(new_charge))
 				return
 			prisoner_charge = new_charge

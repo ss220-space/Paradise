@@ -28,7 +28,7 @@
 	.["reagentsInformation"] = reagents_information
 	for(var/id in GLOB.chemical_reagents_list)
 		var/datum/reagent/R = GLOB.chemical_reagents_list[id]
-		reagents_information[id] = list(
+		reagents_information[R.id] = list(
 			"name" = R.name,
 		)
 

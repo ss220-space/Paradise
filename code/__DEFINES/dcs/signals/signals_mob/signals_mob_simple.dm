@@ -3,6 +3,11 @@
 #define COMSIG_SIMPLE_ANIMAL_ATTACKEDBY "simple_animal_attackedby"
 	#define COMPONENT_SIMPLE_ANIMAL_NO_ATTACK (1<<0)
 
+/// From /mob/living/simple_animal/cow/attackby(), after food is accepted: (obj/item/food, mob/feeder)
+#define COMSIG_SIMPLE_ANIMAL_FED "simple_animal_fed"
+/// From /mob/living/simple_animal/proc/make_babies(), after a child is created: (mob/living/simple_animal/child)
+#define COMSIG_SIMPLE_ANIMAL_GAVE_BIRTH "simple_animal_gave_birth"
+
 // /mob/living/simple_animal/hostile signals
 ///before attackingtarget has happened, source is the attacker and target is the attacked
 #define COMSIG_HOSTILE_PRE_ATTACKINGTARGET "hostile_pre_attackingtarget"

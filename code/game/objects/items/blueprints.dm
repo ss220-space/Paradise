@@ -80,7 +80,7 @@
 /obj/item/areaeditor/proc/edit_area(mob/user)
 	var/area/user_area = get_area(user)
 	var/prevname = "[sanitize(user_area.name)]"
-	var/str = tgui_input_text(usr, "New area name:", "Blueprint Editing", prevname, MAX_NAME_LEN, encode = FALSE)
+	var/str = tgui_input_text(usr, "New area name:", "Blueprint Editing", prevname, MAX_NAME_LEN)
 	if(!str || !length(str) || str == prevname) // Cancel
 		return
 	rename_area(user_area, str)

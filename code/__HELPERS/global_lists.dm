@@ -2,6 +2,7 @@
 
 	init_datum_subtypes(/datum/wryn_building, GLOB.wryn_structures, null, "name")
 	init_datum_subtypes(/datum/zombie_class, GLOB.zombie_classes, null, "name")
+	init_datum_subtypes(/datum/chem_property, GLOB.chemical_properties_list, null, "name")
 
 	init_datum_subtypes(/datum/robot_skin, GLOB.robot_skins, null, "type")
 
@@ -148,7 +149,12 @@
 		GLOB.preference_toggles[preference_toggle_type] = new preference_toggle_type()
 
 	// Init chemical reagents
-	init_datum_subtypes(/datum/reagent, GLOB.chemical_reagents_list, null, "id")
+	for(var/reagent_path in subtypesof(/datum/reagent))
+		var/datum/reagent/reagent = new reagent_path()
+		if(reagent.id == null)
+			continue
+
+		GLOB.chemical_reagents_list[reagent_path] = reagent
 
 	// Chemical Reactions - Initialises all /datum/chemical_reaction into an assoc list of: reagent -> list of chemical reactions
 	// For example:
@@ -259,7 +265,7 @@
 /proc/init_datum_subtypes(prototype, list/output_list, list/excluded_types, association_variable)
 	if(!istype(output_list))
 		output_list = list()
-	for(var/subtype_path in subtypesof(prototype) - excluded_types)
+	for(var/subtype_path in valid_subtypesof(prototype) - excluded_types)
 		var/datum/new_datum = new subtype_path()
 		if(istype(new_datum))
 			var/association_value

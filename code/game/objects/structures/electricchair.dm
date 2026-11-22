@@ -68,7 +68,7 @@
 	shock(user)
 
 /obj/structure/chair/e_chair/proc/shock(mob/living/user)
-	if(isliving(user) && (user.incapacitated() || !isAI(user) && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
+	if(isliving(user) && (user.incapacitated || !isAI(user) && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
 		return
 
 	// special power handling

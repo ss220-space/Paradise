@@ -5,6 +5,7 @@ import {
   NumberInput,
   Section,
 } from 'tgui-core/components';
+import type { BooleanLike } from 'tgui-core/react';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
@@ -14,6 +15,7 @@ type MortarData = {
   data_target_z: number;
   data_dial_x: number;
   data_dial_y: number;
+  linked: BooleanLike;
 };
 
 export const Mortar = (_props) => {
@@ -24,6 +26,7 @@ export const Mortar = (_props) => {
     data_target_z,
     data_dial_x,
     data_dial_y,
+    linked,
   } = data;
 
   const [target_x, setTargetX] = useState(data_target_x);
@@ -110,6 +113,9 @@ export const Mortar = (_props) => {
           >
             View Camera
           </Button>
+          {linked && (
+            <Button onClick={() => act('unlink')}>Unlink Rangefinder</Button>
+          )}
         </Section>
         <Section>
           <LabeledList>

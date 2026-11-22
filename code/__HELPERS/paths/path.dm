@@ -339,7 +339,7 @@
 	if(ismob(construct_from))
 		var/mob/mob_construct = construct_from
 		src.faction = mob_construct.faction?.Copy()
-		src.incapacitated = mob_construct.incapacitated()
+		src.incapacitated = mob_construct.incapacitated
 
 		if(mob_construct.buckled)
 			src.buckled_info = new(mob_construct.buckled, access, no_id, call_depth + 1)

@@ -19,7 +19,7 @@
 				to_chat(src, span_warning("Эта вентиляция ни к чему не подключена!"))
 			return FALSE
 
-	if(incapacitated() || HAS_TRAIT(src, TRAIT_IMMOBILIZED) || HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+	if(incapacitated || HAS_TRAIT(src, TRAIT_IMMOBILIZED) || HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		if(provide_feedback)
 			to_chat(src, span_warning("Вы не можете ползать по вентиляции в текущем состоянии!"))
 		return FALSE

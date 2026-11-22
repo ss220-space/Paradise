@@ -390,9 +390,10 @@
 	data["bodyTemperatureF"] = "[H.bodytemperature*1.8-459.67]"
 	data["genes"] = H.gene_stability
 	data["DRN"] = DNR
+	data["hasIrradiated"] = HAS_TRAIT(H, TRAIT_IRRADIATED)
 
-	var/blood_id = H.get_blood_id()
-	if(blood_id)
+	var/current_blood_type = H.get_blood_type()
+	if(current_blood_type)
 		if(H.bleed_rate)
 			data["bleed"] = TRUE
 
@@ -400,12 +401,12 @@
 		var/blood_type = H.dna.blood_type
 		var/blood_species = H.dna.species.blood_species
 
-		if(blood_id != "blood")
-			var/datum/reagent/R = GLOB.chemical_reagents_list[blood_id]
+		if(current_blood_type != /datum/reagent/blood)
+			var/datum/reagent/R = GLOB.chemical_reagents_list[current_blood_type]
 			if(R)
 				blood_type = R.name
 			else
-				blood_type = blood_id
+				blood_type = current_blood_type
 
 		data["bloodData"] = list(
 			blood_percent = blood_percent,
@@ -503,7 +504,7 @@
 		var/obj/item/organ/external/bodypart = H.bodyparts_by_name[name]
 		if(!bodypart)
 			continue
-		var/limb = bodypart.declent_ru(PREPOSITIONAL)
+		var/limb = bodypart.declent_ru_base(PREPOSITIONAL)
 		if(bodypart.has_fracture())
 			var/list/check_list = list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
 			if((bodypart.limb_zone in check_list) && !bodypart.is_splinted())
@@ -667,7 +668,7 @@
 		else if(H.getBrainLoss() >= 10)
 			scan_data += span_warning("Обнаружено значительное повреждение мозга.")
 	else
-		scan_data += span_warning(">Мозг не обнаружен.")
+		scan_data += span_warning("Мозг не обнаружен.")
 
 	SEND_SIGNAL(target, COMSIG_LIVING_HEALTHSCAN, scan_data, advanced, user, mode, tochat)
 
@@ -678,7 +679,7 @@
 		if(bodypart.has_fracture())
 			var/list/check_list = list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
 			if((bodypart.limb_zone in check_list) && !bodypart.is_splinted())
-				scan_data += span_warning("Обнаружен перелом в [GLOB.body_zone[bodypart.limb_zone][PREPOSITIONAL]]")
+				scan_data += span_warning("Обнаружен перелом в [GLOB.body_zone[bodypart.limb_zone][PREPOSITIONAL]].")
 		if(bodypart.has_infected_wound())
 			scan_data += span_warning("Заражение в [GLOB.body_zone[bodypart.limb_zone][PREPOSITIONAL]].")
 
@@ -708,8 +709,8 @@
 		if(bodypart.has_internal_bleeding())
 			scan_data += span_warning("Обнаружено внутреннее кровотечение. Локализация невозможна.")
 			break
-	var/blood_id = H.get_blood_id()
-	if(blood_id)
+	var/current_blood_type = H.get_blood_type()
+	if(current_blood_type)
 		if(H.bleed_rate)
 			scan_data += span_danger("Обнаружено кровотечение.")
 		var/blood_percent =  round((H.blood_volume / BLOOD_VOLUME_NORMAL)*100)
@@ -733,12 +734,12 @@
 		if(ru_blood_species[blood_species])
 			blood_species_text = ", кровь расы: [ru_blood_species[blood_species]]"
 
-		if(blood_id != "blood")//special blood substance
-			var/datum/reagent/R = GLOB.chemical_reagents_list[blood_id]
+		if(current_blood_type != /datum/reagent/blood)//special blood substance
+			var/datum/reagent/R = GLOB.chemical_reagents_list[current_blood_type]
 			if(R)
 				blood_type = R.name
 			else
-				blood_type = blood_id
+				blood_type = current_blood_type
 
 		if(H.blood_volume <= BLOOD_VOLUME_SAFE && H.blood_volume > BLOOD_VOLUME_OKAY)
 			scan_data += "Уровень крови: [span_danger("НИЗКИЙ")] - [blood_percent] %, [H.blood_volume] u, тип: [blood_type][blood_species_text]."

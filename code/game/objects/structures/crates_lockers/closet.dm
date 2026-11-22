@@ -414,7 +414,7 @@ GLOBAL_LIST_EMPTY(closets)
 /obj/structure/closet/proc/togglelock(mob/living/user)
 	if(!istype(user))
 		return FALSE
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		balloon_alert(user, "невозможно!")
 		return FALSE
 	if(opened)

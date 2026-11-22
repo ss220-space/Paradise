@@ -115,7 +115,7 @@
 
 /obj/item/paper/proc/ProcFoldPlane(mob/living/carbon/user, obj/item/paper)
 	if(ishuman(user))
-		if(!Adjacent(user) || user.incapacitated())
+		if(!Adjacent(user) || user.incapacitated)
 			return
 		to_chat(user, span_notice("You fold [src] into the shape of a plane!"))
 		user.drop_item_ground(src)
