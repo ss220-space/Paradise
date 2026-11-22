@@ -11,14 +11,14 @@
 		BB_LIZARD_IS_RETREATING = FALSE,
 		BB_LIZARD_AGGRESSION = 0,
 		BB_LIZARD_RETREAT_ATTEMPTS = 0,
-		BB_LIZARD_PACK_ALERT_COOLDOWN = 0
+		BB_LIZARD_PACK_ALERT_COOLDOWN = 0,
 	)
 
 	ai_movement = /datum/ai_movement/jps
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/giant_lizard_combat,
 		/datum/ai_planning_subtree/giant_lizard_hunt_food,
-		/datum/ai_planning_subtree/giant_lizard_idle
+		/datum/ai_planning_subtree/giant_lizard_idle,
 	)
 
 	COOLDOWN_DECLARE(pack_alert_cooldown)
