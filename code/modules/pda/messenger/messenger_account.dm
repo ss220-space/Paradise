@@ -1,8 +1,8 @@
 /datum/messenger_account
 	var/datum/money_account/owner
-	/// Chat UID to chat.
+	/// Chat UID -> chat.
 	var/list/chats = list()
-	/// Other participant to private chat, allocated only once a direct message exists.
+	/// Other profile -> private chat.
 	var/list/private_chats
 
 /datum/messenger_account/New(datum/money_account/owner)

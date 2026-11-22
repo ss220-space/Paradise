@@ -156,7 +156,7 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 	var/list/subscriptions = list()
 	var/list/possible_resubscriptions = list()
 	var/datum/economy_process/payment/payment_process
-	/// InCrew profile, created on first sign-in or invitation.
+	/// Created on login or invite.
 	var/datum/messenger_account/messenger_profile
 
 /datum/money_account/New()

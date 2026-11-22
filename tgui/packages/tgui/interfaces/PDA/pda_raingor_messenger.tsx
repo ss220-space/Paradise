@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { type ReactNode, useState } from 'react';
 import {
 	Box,
 	Button,
+	Icon,
 	Image,
 	Input,
-	LabeledList,
 	Section,
 	Stack,
 	TextArea,
@@ -49,17 +49,43 @@ export const pda_raingor_messenger = () => {
 
 	if (!data.can_login) {
 		return (
-			<Section title="Вход в InCrew">
-				Вставьте ID-карту, привязанную к вашему личному счёту.
-			</Section>
+			<InCrewCard icon="id-card">
+				<Box textAlign="center">
+					Вставьте ID-карту, привязанную к вашему личному счёту.
+				</Box>
+			</InCrewCard>
 		);
 	}
 
 	return <InCrew key={data.owner_messenger_account.id} data={data} />;
 };
 
+function InCrewCard({ icon, children }: { icon: string; children: ReactNode }) {
+	return (
+		<Section className="card--hero">
+			<Stack vertical align="center" p={2}>
+				<Icon name={icon} className="text-gold" size={2.5} />
+				<Box bold fontSize={1.8} className="text-gold">
+					InCrew
+				</Box>
+				<Box
+					fontSize="12px"
+					className="text-white"
+					textAlign="center"
+					style={{ letterSpacing: '1.5px' }}
+				>
+					BlackRainGroup
+				</Box>
+				<Box className="divider" style={{ width: '60%', margin: 0 }} />
+				{children}
+			</Stack>
+		</Section>
+	);
+}
+
 function InCrew({ data }: { data: Extract<InCrewData, { can_login: true }> }) {
 	const { act } = useBackend();
+	const [showContacts, setShowContacts] = useState(false);
 	const [creatingGroup, setCreatingGroup] = useState(false);
 	const { active_chat, chats, contacts, owner_messenger_account } = data;
 	const chat = chats.find((item) => item.chat_id === active_chat?.chat_id);
@@ -87,39 +113,104 @@ function InCrew({ data }: { data: Extract<InCrewData, { can_login: true }> }) {
 
 	return (
 		<Stack vertical fill>
-			<Section
-				title={owner_messenger_account.name}
-				buttons={
-					<Button icon="users" onClick={() => setCreatingGroup(true)}>
-						Создать группу
+			<InCrewCard icon="comments">
+				<Box bold>
+					<Icon name="user-circle" className="text-gold" mr={0.5} />
+					{owner_messenger_account.name}
+				</Box>
+			</InCrewCard>
+			<Stack>
+				<Stack.Item grow basis={0}>
+					<Button
+						className={
+							showContacts
+								? 'btn-bank btn-bank--primary'
+								: 'btn-bank'
+						}
+						fluid
+						p={1.5}
+						onClick={() => setShowContacts(!showContacts)}
+					>
+						<Stack vertical align="center">
+							<Icon
+								name="comment"
+								className="text-gold"
+								size={2}
+							/>
+							<Box>Новый диалог</Box>
+						</Stack>
 					</Button>
+				</Stack.Item>
+				<Stack.Item grow basis={0}>
+					<Button
+						className="btn-bank"
+						fluid
+						p={1.5}
+						onClick={() => setCreatingGroup(true)}
+					>
+						<Stack vertical align="center">
+							<Icon name="users" className="text-gold" size={2} />
+							<Box>Создать группу</Box>
+						</Stack>
+					</Button>
+				</Stack.Item>
+			</Stack>
+			{showContacts && (
+				<Section title="Собеседник">
+					<ContactPicker
+						contacts={contacts.filter(
+							(contact) => !contact.has_private_chat,
+						)}
+						onSelect={(contact) => {
+							act('create_private_chat', {
+								target: contact.value,
+							});
+							setShowContacts(false);
+						}}
+					/>
+				</Section>
+			)}
+			<Section
+				title={
+					<Box className="text-gold">
+						<Icon name="inbox" mr={0.5} />
+						Чаты
+					</Box>
 				}
-			/>
-			<Section title="Начать диалог">
-				<ContactPicker
-					contacts={contacts.filter(
-						(contact) => !contact.has_private_chat,
-					)}
-					onSelect={(contact) =>
-						act('create_private_chat', { target: contact.value })
-					}
-				/>
-			</Section>
-			<Section title="Чаты" fill scrollable>
+				fill
+				scrollable
+			>
 				{!chats.length && (
-					<Box color="label">Нет активных диалогов</Box>
+					<Box italic className="text-muted" textAlign="center" p={2}>
+						Нет активных диалогов
+					</Box>
 				)}
 				{chats.map((item) => (
 					<Button
 						key={item.chat_id}
+						className="btn-bank"
 						fluid
-						icon={item.is_group ? 'users' : 'comment'}
+						mb={0.5}
+						p={1}
 						onClick={() =>
 							act('open_chat', { chatId: item.chat_id })
 						}
 					>
-						{item.name_chat}
-						{item.is_group && ` · ${item.member_count} уч.`}
+						<Stack align="center">
+							<Icon
+								name={item.is_group ? 'users' : 'comment'}
+								className="text-gold"
+							/>
+							<Stack.Item grow style={{ whiteSpace: 'normal' }}>
+								{item.name_chat}
+							</Stack.Item>
+							{item.is_group && (
+								<Box className="text-muted">
+									{item.member_count} уч.
+								</Box>
+							)}
+							<Icon name="chevron-right" className="text-gold" />
+						</Stack>
 					</Button>
 				))}
 			</Section>
@@ -143,6 +234,7 @@ function ContactPicker({
 	return (
 		<Stack vertical>
 			<Input
+				className="input-field"
 				fluid
 				placeholder="Поиск сотрудника…"
 				value={query}
@@ -153,6 +245,7 @@ function ContactPicker({
 					matches.map((contact) => (
 						<Button
 							key={contact.value}
+							className="btn-bank"
 							icon="plus"
 							fluid
 							onClick={() => {
@@ -164,7 +257,7 @@ function ContactPicker({
 						</Button>
 					))
 				) : (
-					<Box color="label">Никого не найдено</Box>
+					<Box className="text-muted">Никого не найдено</Box>
 				))}
 		</Stack>
 	);
@@ -201,10 +294,19 @@ function Conversation({
 	return (
 		<Stack vertical fill>
 			<Section
-				title={chat.name_chat}
+				title={
+					<Box className="text-gold">
+						<Icon
+							name={chat.is_group ? 'users' : 'comment'}
+							mr={0.5}
+						/>
+						{chat.name_chat}
+					</Box>
+				}
 				buttons={
 					<>
 						<Button
+							className="btn-bank"
 							icon="arrow-left"
 							tooltip="К списку чатов"
 							onClick={() => act('close_chat')}
@@ -233,50 +335,82 @@ function Conversation({
 					</>
 				}
 			>
-				{chat.description_chat}
+				{chat.description_chat && (
+					<Box className="text-muted">{chat.description_chat}</Box>
+				)}
 			</Section>
 			{showMembers ? (
 				<Section title="Участники" fill scrollable>
 					{details.chat_members.map((member) => (
-						<Stack key={member.id} align="center">
-							<Stack.Item grow>
-								{member.name}
-								{member.id === chat.owner_id && ' · Владелец'}
-							</Stack.Item>
-							{isOwner && member.id !== profile.id && (
-								<Button
-									icon="times"
-									color="bad"
-									tooltip="Исключить из группы"
-									onClick={() =>
-										act('remove_member_from_chat', {
-											chatId,
-											target: member.id,
-										})
-									}
-								/>
-							)}
-						</Stack>
+						<Box key={member.id} className="card" p={1} mb={0.5}>
+							<Stack align="center">
+								{member.photo ? (
+									<Image
+										src={member.photo}
+										width={2}
+										height={2}
+									/>
+								) : (
+									<Icon
+										name="user-circle"
+										className="text-gold"
+									/>
+								)}
+								<Stack.Item grow>
+									{member.name}
+									{member.id === chat.owner_id && (
+										<Box className="text-muted">
+											Владелец
+										</Box>
+									)}
+								</Stack.Item>
+								{isOwner && member.id !== profile.id && (
+									<Button
+										icon="times"
+										color="bad"
+										tooltip="Исключить из группы"
+										onClick={() =>
+											act('remove_member_from_chat', {
+												chatId,
+												target: member.id,
+											})
+										}
+									/>
+								)}
+							</Stack>
+						</Box>
 					))}
 					{isOwner && details.chat_members.length < 50 && (
-						<ContactPicker
-							contacts={contacts.filter(
-								(contact) => !members.has(contact.value),
-							)}
-							onSelect={(contact) =>
-								act('add_member_to_chat', {
-									chatId,
-									target: contact.value,
-								})
-							}
-						/>
+						<Box mt={1}>
+							<Box className="field-label">
+								Добавить участника
+							</Box>
+							<ContactPicker
+								contacts={contacts.filter(
+									(contact) => !members.has(contact.value),
+								)}
+								onSelect={(contact) =>
+									act('add_member_to_chat', {
+										chatId,
+										target: contact.value,
+									})
+								}
+							/>
+						</Box>
 					)}
 				</Section>
 			) : (
 				<>
 					<Section fill scrollable>
 						{!details.messages.length && (
-							<Box color="label">Нет сообщений</Box>
+							<Box
+								italic
+								className="text-muted"
+								textAlign="center"
+								p={2}
+							>
+								Нет сообщений
+							</Box>
 						)}
 						{details.messages.map((message) => {
 							const photo =
@@ -286,16 +420,15 @@ function Conversation({
 							return (
 								<Box
 									key={message.id}
-									backgroundColor={
+									className={
 										outgoing
-											? 'rgba(40, 115, 175, 0.25)'
-											: 'rgba(128, 128, 128, 0.1)'
+											? 'increw-message increw-message--outgoing'
+											: 'increw-message'
 									}
 									mb={0.5}
-									p={0.5}
-									style={{ overflowWrap: 'anywhere' }}
+									p={0.75}
 								>
-									<Stack align="center">
+									<Stack align="center" mb={0.25}>
 										{!!photo && (
 											<Image
 												src={photo}
@@ -303,8 +436,13 @@ function Conversation({
 												height={2}
 											/>
 										)}
-										<Box bold>{message.sender_name}</Box>
-										<Box color="label">
+										<Box bold className="text-gold">
+											{message.sender_name}
+										</Box>
+										<Box
+											className="text-muted"
+											fontSize="12px"
+										>
 											{message.timestamp}
 										</Box>
 									</Stack>
@@ -316,6 +454,7 @@ function Conversation({
 					<Stack align="center">
 						<Stack.Item grow>
 							<Input
+								className="input-field"
 								fluid
 								maxLength={1024}
 								placeholder="Введите сообщение…"
@@ -325,6 +464,7 @@ function Conversation({
 							/>
 						</Stack.Item>
 						<Button
+							className="btn-bank"
 							icon="paper-plane"
 							tooltip="Отправить"
 							disabled={!draft.trim()}
@@ -351,32 +491,50 @@ function CreateGroup({
 
 	return (
 		<Section
-			title="Создание группы"
+			title={
+				<Box className="text-gold">
+					<Icon name="users" mr={0.5} />
+					Создание группы
+				</Box>
+			}
 			buttons={
-				<Button icon="arrow-left" tooltip="Назад" onClick={onClose} />
+				<Button
+					className="btn-bank"
+					icon="arrow-left"
+					tooltip="Назад"
+					onClick={onClose}
+				/>
 			}
 		>
-			<LabeledList>
-				<LabeledList.Item label="Название">
+			<Stack vertical>
+				<Box>
+					<Box className="field-label">Название</Box>
 					<Input
+						className="input-field"
+						aria-label="Название"
 						fluid
 						maxLength={80}
 						value={name}
 						onChange={setName}
 					/>
-				</LabeledList.Item>
-				<LabeledList.Item label="Описание">
+				</Box>
+				<Box>
+					<Box className="field-label">Описание</Box>
 					<TextArea
+						className="input-field"
+						aria-label="Описание"
 						fluid
 						maxLength={300}
 						value={description}
 						onChange={setDescription}
 					/>
-				</LabeledList.Item>
-				<LabeledList.Item label="Участники">
+				</Box>
+				<Box>
+					<Box className="field-label">Участники</Box>
 					{members.map((member) => (
 						<Button
 							key={member.value}
+							className="btn-bank"
 							icon="times"
 							tooltip="Убрать из списка"
 							onClick={() =>
@@ -402,9 +560,11 @@ function CreateGroup({
 							}
 						/>
 					)}
-				</LabeledList.Item>
-			</LabeledList>
+				</Box>
+			</Stack>
 			<Button
+				className="btn-bank btn-bank--primary"
+				fluid
 				icon="plus"
 				disabled={!name.trim()}
 				mt={1}

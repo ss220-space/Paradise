@@ -1,12 +1,12 @@
 /datum/messenger_chat
 	var/name
 	var/description
-	/// Group creator. Private conversations have no owner.
+	/// Group owner.
 	var/datum/messenger_account/owner
 	var/is_group = FALSE
-	/// Money account UID to messenger profile.
+	/// Account UID -> profile.
 	var/list/members = list()
-	/// Stored as TGUI rows so polling does not rebuild the history.
+	/// TGUI reuses these rows on refresh.
 	var/list/messages = list()
 
 /datum/messenger_chat/New(name, description, datum/messenger_account/owner)

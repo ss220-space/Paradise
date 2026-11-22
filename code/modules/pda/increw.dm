@@ -6,7 +6,7 @@
 	notify_icon = "comments"
 	template = "pda_raingor_messenger"
 
-	/// The open conversation on this PDA. The profile is checked again on every update.
+	/// Chat open on this PDA.
 	var/selected_chat_id
 
 /datum/data/pda/app/increw/stop()

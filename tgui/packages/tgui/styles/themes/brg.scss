@@ -169,6 +169,25 @@
 		}
 	}
 
+	.increw-message {
+		width: fit-content;
+		max-width: 85%;
+		overflow-wrap: anywhere;
+		background: var(--color-secondary);
+		border: 1px solid var(--section-border-color);
+		border-radius: 8px;
+
+		&--outgoing {
+			margin-left: auto;
+			background: linear-gradient(
+				135deg,
+				var(--color-secondary),
+				var(--button-background-hover)
+			);
+			border-color: var(--color-label);
+		}
+	}
+
 	.input-field {
 		background: rgba(30, 5, 5, 0.8);
 		border: 1px solid rgba(184, 134, 11, 0.4);
