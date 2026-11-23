@@ -161,13 +161,15 @@
 	toggle_power(user)
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
-/obj/machinery/power/portagrav/emag_act(mob/user)
-	if(emagged)
-		return
-	emagged = TRUE
+/obj/machinery/power/portagrav/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
 	do_sparks(3, TRUE, src)
-	balloon_alert(user, "ограничитель поля снят")
-	add_attack_logs(user, src, "emagged")
+	if(user)
+		balloon_alert(user, "ограничитель поля снят")
+	return TRUE
 
 /obj/machinery/power/portagrav/proc/toggle_power(mob/user)
 	if(on)
@@ -201,7 +203,7 @@
 	return cell?.charge >= power_per_level * field_level
 
 /obj/machinery/power/portagrav/proc/max_gravity()
-	return emagged ? GRAVITY_DAMAGE_THRESHOLD + 1 : GRAVITY_DAMAGE_THRESHOLD - 1
+	return (obj_flags & EMAGGED) ? GRAVITY_DAMAGE_THRESHOLD + 1 : GRAVITY_DAMAGE_THRESHOLD - 1
 
 /obj/machinery/power/portagrav/proc/update_field()
 	if(!gravity_field)

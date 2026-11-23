@@ -246,6 +246,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 	icon_keyboard = "syndie_key"
 	req_access = list(ACCESS_SYNDICATE_CARGO)
 	circuit = /obj/item/circuitboard/syndicatesupplycomp
+	obj_flags = parent_type::obj_flags|NO_EMAG
 	/// Is this a public console
 	var/is_public = FALSE
 	var/datum/syndie_data_storage/data_storage = null
@@ -425,11 +426,6 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 	circuit = /obj/item/circuitboard/syndicatesupplycomp/public
 	req_access = list()
 	is_public = TRUE
-
-/obj/machinery/computer/syndie_supplycomp/emag_act(mob/user)
-	if(user)
-		to_chat(user, span_notice("The electronic systems in this console are far too advanced for your primitive hacking peripherals."))
-	return
 
 /obj/machinery/computer/syndie_supplycomp/attack_hand(mob/user as mob)
 	if(..())

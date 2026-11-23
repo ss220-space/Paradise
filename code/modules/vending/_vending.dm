@@ -969,10 +969,14 @@
 	inserted_item = null
 	SStgui.update_uis(src)
 
-/obj/machinery/vending/emag_act(mob/user)
-	emagged = TRUE
+/obj/machinery/vending/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
 	if(user)
 		balloon_alert(user, "взломано")
+	return TRUE
 
 /obj/machinery/vending/attack_ai(mob/user)
 	return attack_hand(user)
@@ -1207,7 +1211,7 @@
 		to_chat(usr, "Товар \"[product_record.name]\" закончился!")
 		flick_vendor_overlay(FLICK_VEND)
 		return
-	if(!allowed(usr) && !usr.can_admin_interact() && !emagged && scan_id)
+	if(!allowed(usr) && !usr.can_admin_interact() && !(obj_flags & EMAGGED) && scan_id)
 		balloon_alert(usr, "в доступе отказано!")
 		flick_vendor_overlay(FLICK_DENY)
 		return
@@ -1265,7 +1269,7 @@
 		vend_ready = TRUE
 
 /obj/machinery/vending/proc/vend(datum/data/vending_product/product_record, mob/user, list/greyscale_colors)
-	if(!allowed(user) && !user.can_admin_interact() && !emagged && scan_id)	//For SECURE VENDING MACHINES YEAH
+	if(!allowed(user) && !user.can_admin_interact() && !(obj_flags & EMAGGED) && scan_id)	//For SECURE VENDING MACHINES YEAH
 		to_chat(user, span_warning("В доступе отказано!"))//Unless emagged of course
 		flick_vendor_overlay(FLICK_DENY)
 		vend_ready = TRUE

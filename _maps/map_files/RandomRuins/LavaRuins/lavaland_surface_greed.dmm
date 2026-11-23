@@ -46,9 +46,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/powered/greed)
 "k" = (
-/obj/machinery/computer/arcade/battle{
-	emagged = 1
-	},
+/obj/machinery/computer/arcade/battle/emagged,
 /turf/simulated/floor/engine/cult,
 /area/ruin/powered/greed)
 "l" = (

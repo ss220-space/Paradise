@@ -289,15 +289,17 @@
 		return .
 	retaliate(user)
 
-/mob/living/simple_animal/bot/secbot/emag_act(mob/user)
-	..()
-	if(emagged == 2)
-		if(user)
-			to_chat(user, span_danger("Вы замыкаете микросхемы системы целеуказания [declent_ru(GENITIVE)]."))
-			oldtarget_name = user.name
-		audible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] странно жужжит!"))
-		declare_arrests = FALSE
-		icon_state = "[base_icon][on]"
+/mob/living/simple_animal/bot/secbot/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(!. || emagged != 2)
+		return .
+	audible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] странно жужжит!"))
+	declare_arrests = FALSE
+	icon_state = "[base_icon][on]"
+	if(user)
+		to_chat(user, span_danger("Вы замыкаете микросхемы системы целеуказания [declent_ru(GENITIVE)]."))
+		oldtarget_name = user.name
+	return TRUE
 
 /mob/living/simple_animal/bot/secbot/bullet_act(obj/projectile/Proj)
 	if(istype(Proj ,/obj/projectile/beam) || istype(Proj,/obj/projectile/bullet))

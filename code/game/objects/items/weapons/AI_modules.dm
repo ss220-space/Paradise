@@ -21,24 +21,26 @@ AI MODULES
 	origin_tech = "programming=3"
 	materials = list(MAT_GOLD=50)
 	var/datum/ai_laws/laws = null
-	var/cmagged = FALSE
 
 // check install
 /obj/item/ai_module/proc/check_install(mob/user)
 	return TRUE
 
-/obj/item/ai_module/cmag_act()
+/obj/item/ai_module/cmag_act(mob/user, obj/item/card/cmag/cmag_card)
 	. = ..()
+	if(obj_flags & CMAGGED)
+		return FALSE
 	name = "'Pranksimov' core AI module"
 	laws = new/datum/ai_laws/pranksimov
-	cmagged = TRUE
+	obj_flags |= CMAGGED
+	return TRUE
 
 /obj/item/ai_module/proc/transmit_instructions(mob/living/silicon/ai/target, mob/sender, registered_name = UNKNOWN_NAME_RUS)
 	log_law_changes(target, sender)
 
 	if(laws)
 		laws.sync(target, FALSE)
-	if(!cmagged)
+	if(!(obj_flags & CMAGGED))
 		add_additional_laws(target, sender, registered_name)
 
 	to_chat(target, "[registered_name] has uploaded a change to the laws you must follow, using \an [src]. From now on: ")

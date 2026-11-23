@@ -1,7 +1,7 @@
 /datum/gear/donor
+	abstract_type = /datum/gear/donor
 	donator_tier = 2
 	sort_category = "Донат"
-	subtype_path = /datum/gear/donor
 
 /datum/gear/donor/can_select(client/cl, job_name, species_name, silent = FALSE)
 	if(!..()) // there's no point in being here
@@ -149,7 +149,7 @@
 	donator_tier = 1
 
 /datum/gear/donor/strip
-	subtype_path = /datum/gear/donor/strip
+	abstract_type = /datum/gear/donor/strip
 	subtype_cost_overlap = FALSE
 
 /datum/gear/donor/strip/cap

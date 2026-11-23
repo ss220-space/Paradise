@@ -1,6 +1,6 @@
 /datum/gear/plushie
+	abstract_type = /datum/gear/plushie
 	sort_category = "Игрушки"
-	subtype_path = /datum/gear/plushie
 
 /datum/gear/plushie/balloon
 	index_name = "a balloon"
