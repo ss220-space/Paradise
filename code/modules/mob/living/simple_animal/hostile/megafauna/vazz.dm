@@ -11,7 +11,7 @@ VAZZ
 — Рывок           — если цель далеко и рывок готов.
 — Выстрел с телепортом — если игрок слишком долго стоит вплотную (Vazz уходит и стреляет).
 — Арена           — ниже 50% здоровья, затем раз в ~40 секунд. Vazz встаёт перед ареной, на время арены неуязвим.
-                    Волны: лучи черепов, веера снарядов и "заградительный огонь" с безопасными полосами.
+					Волны: лучи черепов, веера снарядов и "заградительный огонь" с безопасными полосами.
 — Ближний бой     — обычные удары.
 
 Урон от каждого луча наносится ОДИН раз в момент разряда по клеткам, зафиксированным в начале телеграфа.
@@ -181,7 +181,7 @@ Difficulty: Insane
 	enraged_loot = /obj/item/disk/fauna_research/vazz
 	light_color = "#A5603A"
 	speak_emote = list("говорит")
-	tts_seed = "Chen"
+	tts_seed = "Wrathion_Deathwing"
 	speed = 3
 	melee_damage_lower = 28
 	melee_damage_upper = 32
@@ -428,7 +428,7 @@ Difficulty: Insane
 	if(vazz_is_wounded() && world.time >= arena_ready_at)
 		return VAZZ_ATTACK_ARENA
 	if(melee_streak >= VAZZ_MELEE_STREAK_LIMIT)
-		// Цель слишком долго стоит вплотную - уходим и стреляем, цикл не сдвигаем
+		// Цель слишком долго стоит вплотную — уходим и стреляем, цикл не сдвигаем
 		return VAZZ_ATTACK_SHOT
 	if(world.time >= charge_ready_at && get_dist(src, aim_turf) >= VAZZ_CHARGE_FAR_DISTANCE)
 		return VAZZ_ATTACK_CHARGE
@@ -786,7 +786,7 @@ Difficulty: Insane
 
 	var/list/figures = list()
 	var/list/danger = list()
-	// Центр берётся из текущей позиции цели и больше не меняется - лучи не преследуют игрока
+	// Центр берётся из текущей позиции цели и больше не меняется — лучи не преследуют игрока
 	vazz_add_cross(figures, danger, get_turf(aim_target), VAZZ_CROSS_ARM_LENGTH, FALSE)
 	if(!length(figures))
 		return
