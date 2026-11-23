@@ -37,24 +37,57 @@
 /obj/effect/overmap_warp_portal/proc/world_position()
 	return relay.hull_to_world(hull_x, hull_y)
 
-/obj/effect/overmap_warp_portal/proc/catches(obj/overmap/entity/vessel)
-	if(!is_active() || !vessel.can_enter_relay(relay) || vessel.relay_arrival_cooldown > world.time || isnull(vessel.last_world_x))
-		return FALSE
-	var/fraction = crossing_fraction(vessel.last_world_x, vessel.last_world_y, vessel.get_world_x(), vessel.get_world_y())
-	if(isnull(fraction))
-		return FALSE
-	var/list/impact = vessel.find_impact(relay)
-	return !impact || impact[1] >= fraction
+/datum/overmap_sector/proc/relay_search_bounds()
+	var/list/bounds = list()
+	for(var/obj/overmap/entity/hyperrelay/relay in objects)
+		if(!relay.enabled || !relay.template_loaded || QDELETED(relay) || QDELETED(relay.paired) || !relay.paired.sector)
+			continue
+		var/reach = 0
+		for(var/obj/effect/overmap_warp_portal/portal as anything in relay.warp_portals)
+			if(portal.enabled)
+				var/local_x = abs(portal.hull_x - relay.hull_center_x) + portal.capture_radius
+				var/local_y = abs(portal.hull_y - portal.capture_depth - relay.hull_center_y)
+				reach = max(reach, local_x + local_y + 1)
+		if(reach)
+			bounds[relay] = list(relay.get_world_x(), relay.get_world_y(), reach)
+	return bounds
 
-/obj/effect/overmap_warp_portal/proc/crossing_fraction(from_x, from_y, to_x, to_y)
-	var/list/previous = relay.world_to_hull(from_x, from_y)
-	var/list/current = relay.world_to_hull(to_x, to_y)
-	var/threshold = hull_y - capture_depth
-	if(previous[2] > threshold || current[2] < threshold || current[2] <= previous[2])
+/datum/overmap_sector/proc/crossed_relay_portal(list/bounds_by_sector, from_x, from_y, to_x, to_y, obj/overmap/entity/vessel)
+	if(from_x == to_x && from_y == to_y)
 		return null
-	var/fraction = (threshold - previous[2]) / (current[2] - previous[2])
-	var/crossing_x = previous[1] + (current[1] - previous[1]) * fraction
-	return abs(crossing_x - hull_x) <= capture_radius ? fraction : null
+	var/list/bounds = bounds_by_sector[src]
+	if(!bounds)
+		bounds = relay_search_bounds()
+		bounds_by_sector[src] = bounds
+	for(var/obj/overmap/entity/hyperrelay/relay as anything in bounds)
+		var/list/region = bounds[relay]
+		var/origin_x = region[1]
+		var/origin_y = region[2]
+		var/reach = region[3]
+		if(max(from_x, to_x) < origin_x - reach || min(from_x, to_x) > origin_x + reach || max(from_y, to_y) < origin_y - reach || min(from_y, to_y) > origin_y + reach)
+			continue
+		if(vessel && !vessel.can_enter_relay(relay))
+			continue
+		var/facing = relay.get_facing()
+		var/list/previous = relay.world_to_hull(from_x, from_y, origin_x, origin_y, facing)
+		var/list/current = relay.world_to_hull(to_x, to_y, origin_x, origin_y, facing)
+		var/delta_y = current[2] - previous[2]
+		if(delta_y <= 0)
+			continue
+		var/delta_x = current[1] - previous[1]
+		var/list/impact
+		for(var/obj/effect/overmap_warp_portal/portal as anything in relay.warp_portals)
+			var/threshold = portal.hull_y - portal.capture_depth
+			if(!portal.enabled || previous[2] > threshold || current[2] < threshold)
+				continue
+			var/fraction = (threshold - previous[2]) / delta_y
+			if(abs(previous[1] + delta_x * fraction - portal.hull_x) > portal.capture_radius)
+				continue
+			if(vessel && !impact)
+				impact = vessel.find_impact(relay)
+			if(!impact || impact[1] >= fraction)
+				return portal
+	return null
 
 /obj/overmap/entity/proc/can_enter_relay(obj/overmap/entity/hyperrelay/relay)
 	if(atmosphere)
@@ -70,26 +103,21 @@
 	return list(get_world_x() - sin(heading) * reach, get_world_y() - cos(heading) * reach)
 
 /datum/controller/subsystem/overmap/proc/process_hyperrelay_portals(elapsed)
+	var/list/bounds_by_sector = list()
 	for(var/obj/overmap/entity/vessel as anything in vessels)
 		if(QDELETED(vessel))
 			continue
 		if(vessel.relay_capture)
 			vessel.relay_capture.process_capture()
 			continue
-		if(!vessel.movable || !vessel.sector || vessel.is_jumping())
+		if(!vessel.movable || !vessel.sector || isnull(vessel.last_world_x) || vessel.relay_arrival_cooldown > world.time || vessel.is_jumping())
 			continue
-		for(var/obj/overmap/entity/hyperrelay/relay in vessel.sector.objects)
-			if(!relay.enabled || !relay.template_loaded)
-				continue
-			for(var/obj/effect/overmap_warp_portal/portal as anything in relay.warp_portals)
-				if(portal.catches(vessel))
-					vessel.relay_capture = new /datum/overmap_relay_capture(vessel, portal)
-					break
-			if(vessel.relay_capture)
-				break
-	process_relay_drifters()
+		var/obj/effect/overmap_warp_portal/portal = vessel.sector.crossed_relay_portal(bounds_by_sector, vessel.last_world_x, vessel.last_world_y, vessel.get_world_x(), vessel.get_world_y(), vessel)
+		if(portal)
+			vessel.relay_capture = new /datum/overmap_relay_capture(vessel, portal)
+	process_relay_drifters(bounds_by_sector)
 
-/datum/controller/subsystem/overmap/proc/process_relay_drifters()
+/datum/controller/subsystem/overmap/proc/process_relay_drifters(list/bounds_by_sector)
 	for(var/atom/movable/thing as anything in relay_drifter_captures)
 		var/datum/overmap_relay_drifter_capture/capture = relay_drifter_captures[thing]
 		capture.process_capture()
@@ -107,15 +135,13 @@
 			if(QDELETED(thing) || thing.anchored || !isturf(thing.loc) || relay_drifter_captures[thing])
 				continue
 			var/list/point = space.to_world(thing.x, thing.y)
-			positions[thing] = list(point[1], point[2], space.sector)
+			point.len = 3
+			point[3] = space.sector
+			positions[thing] = point
 			var/list/previous = relay_drifter_positions[thing]
 			if(!previous || previous[3] != space.sector)
 				continue
-			for(var/obj/overmap/entity/hyperrelay/relay in space.sector?.objects)
-				for(var/obj/effect/overmap_warp_portal/portal as anything in relay.warp_portals)
-					if(portal.is_active() && !isnull(portal.crossing_fraction(previous[1], previous[2], point[1], point[2])))
-						new /datum/overmap_relay_drifter_capture(thing, portal, space, point)
-						break
-				if(relay_drifter_captures[thing])
-					break
+			var/obj/effect/overmap_warp_portal/portal = space.sector?.crossed_relay_portal(bounds_by_sector, previous[1], previous[2], point[1], point[2])
+			if(portal)
+				new /datum/overmap_relay_drifter_capture(thing, portal, space, point)
 	relay_drifter_positions = positions

@@ -225,7 +225,7 @@
 	if(physical_space?.host == src)
 		QDEL_NULL(physical_space)
 	undock_host = null
-	SSovermap.ai_controller?.release_ship_id(src)
+	SSovermap.ai_controller?.forget_ship(src)
 	for(var/obj/machinery/transponder/beacon as anything in transponders)
 		if(beacon.vessel == src)
 			beacon.vessel = null

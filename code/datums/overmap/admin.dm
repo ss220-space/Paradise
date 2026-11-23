@@ -393,11 +393,8 @@
 				vessel.AddComponent(/datum/component/overmap_sensors)
 			vessel.long_sensors_on = TRUE
 			vessel.short_sensors_on = TRUE
-			if(!vessel.sensor_pack.short_identified)
-				vessel.sensor_pack.short_identified = list()
-			if(vessel.sector)
-				for(var/obj/overmap/other as anything in vessel.sector.objects)
-					vessel.sensor_pack.short_identified[other.UID()] = TRUE
+			for(var/obj/overmap/other as anything in vessel.sector?.objects)
+				vessel.sensor_pack.remember_short_contact(other)
 			vessel.refresh_sensor_displays()
 			log_admin("[key_name(user)] forced sensors on [vessel].")
 			return TRUE

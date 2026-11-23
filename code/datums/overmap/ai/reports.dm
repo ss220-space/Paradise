@@ -96,6 +96,8 @@
 		body += " [message.details]"
 	body += " Сектор: [owner.sector.name]."
 	owner.sector.add_comms_message(new /datum/overmap_sector_message(body, key, owner.get_overmap_display_name(), owner.sector.id))
+	if(message.contact_uid && QDELETED(contact))
+		return TRUE
 	var/list/history = controller.fleet_reports[message.history_key]
 	if(!history)
 		history = list()

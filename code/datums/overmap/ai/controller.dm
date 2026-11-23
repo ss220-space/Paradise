@@ -61,12 +61,6 @@
 		sector_entries -= list(entry)
 		if(!length(sector_entries))
 			sector_contacts -= ship.sector
-	var/id = ship.UID()
-	for(var/key, record in fleet_reports)
-		var/list/history = record
-		for(var/signature in history)
-			if(findtextEx(signature, "/[id]/"))
-				history -= signature
 	contacts -= ship
 	fleet_contacts = list()
 	fleet_life = list()
@@ -82,6 +76,23 @@
 			brain.target_visible = FALSE
 	UnregisterSignal(ship, COMSIG_QDELETING)
 	index_until = 0
+
+/datum/overmap_ai_controller/proc/forget_ship(obj/overmap/entity/ship)
+	release_ship_id(ship)
+	var/id = ship.unique_datum_id
+	if(!id)
+		return
+	for(var/key, memory in fleet_recognized)
+		var/list/known = memory
+		known -= id
+	for(var/key, record in fleet_incidents)
+		var/list/incidents = record
+		incidents -= id
+	for(var/key, record in fleet_reports)
+		var/list/history = record
+		for(var/signature in history)
+			if(findtextEx(signature, "/[id]/"))
+				history -= signature
 
 /datum/overmap_ai_controller/proc/group_key(datum/overmap_ship_ai/brain)
 	return "[brain.owner.sector?.id]/[brain.faction]/[brain.group]"

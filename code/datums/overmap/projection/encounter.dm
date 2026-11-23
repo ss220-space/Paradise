@@ -228,10 +228,18 @@
 		return
 	drifters[drifter] = TRUE
 	RegisterSignal(drifter, COMSIG_MOVABLE_SPACEMOVE, PROC_REF(on_drifter_spacemove))
+	RegisterSignal(drifter, COMSIG_MOVABLE_MOVED, PROC_REF(on_drifter_moved))
+	RegisterSignal(drifter, COMSIG_QDELETING, PROC_REF(remove_drifter))
 
 /datum/overmap_bubble/proc/remove_drifter(atom/movable/drifter)
+	SIGNAL_HANDLER
 	drifters -= drifter
-	UnregisterSignal(drifter, COMSIG_MOVABLE_SPACEMOVE)
+	UnregisterSignal(drifter, list(COMSIG_MOVABLE_SPACEMOVE, COMSIG_MOVABLE_MOVED, COMSIG_QDELETING))
+
+/datum/overmap_bubble/proc/on_drifter_moved(atom/movable/drifter)
+	SIGNAL_HANDLER
+	if(SSovermap.bubble_for_turf(drifter.loc) != src)
+		remove_drifter(drifter)
 
 /datum/overmap_bubble/proc/on_drifter_spacemove(atom/movable/drifter, movement_dir, continuous_move)
 	SIGNAL_HANDLER

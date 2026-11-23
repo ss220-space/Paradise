@@ -753,12 +753,6 @@
 	bump_into_hull(mover, hull_turf)
 	return FALSE
 
-/turf/space/Exited(atom/movable/gone, direction)
-	. = ..()
-	var/datum/overmap_bubble/bubble = SSovermap.bubble_for_turf(src)
-	if(bubble?.drifters[gone] && SSovermap.bubble_for_turf(gone.loc) != bubble)
-		bubble.remove_drifter(gone)
-
 /datum/controller/subsystem/overmap/proc/static_bubble_at(turf/spot, datum/overmap_sector/sector)
 	if(!isturf(spot) || !spot.z || spot.z > length(static_bubbles_by_z))
 		return null

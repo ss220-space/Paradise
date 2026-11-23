@@ -268,24 +268,33 @@
 	return always_sees(other)
 
 /datum/component/overmap_sensors/proc/identify_short(obj/overmap/other)
-	if(!other)
-		return
-	if(!short_identified)
-		short_identified = list()
-	short_identified[other.UID()] = TRUE
-	refresh_sensor_displays()
+	if(remember_short_contact(other))
+		refresh_sensor_displays()
+
+/datum/component/overmap_sensors/proc/remember_short_contact(obj/overmap/other)
+	if(QDELETED(other))
+		return FALSE
+	var/id = other.UID()
+	if(short_identified?[id])
+		return FALSE
+	LAZYSET(short_identified, id, TRUE)
+	RegisterSignal(other, COMSIG_QDELETING, PROC_REF(on_short_contact_deleted))
+	return TRUE
+
+/datum/component/overmap_sensors/proc/on_short_contact_deleted(obj/overmap/other)
+	SIGNAL_HANDLER
+	short_identified -= other.UID()
+	UnregisterSignal(other, COMSIG_QDELETING)
+	if(!QDELETED(parent))
+		refresh_sensor_displays()
 
 /datum/component/overmap_sensors/proc/identify_short_many(list/others)
 	if(!length(others))
 		return
-	if(!short_identified)
-		short_identified = list()
 	var/changed = FALSE
 	for(var/obj/overmap/other as anything in others)
-		if(QDELETED(other) || short_identified[other.UID()])
-			continue
-		short_identified[other.UID()] = TRUE
-		changed = TRUE
+		if(remember_short_contact(other))
+			changed = TRUE
 	if(changed)
 		refresh_sensor_displays()
 
@@ -299,17 +308,11 @@
 /datum/component/overmap_sensors/proc/import_short_dump(list/uids, source_name)
 	if(!length(uids))
 		return 0
-	if(!short_identified)
-		short_identified = list()
 	var/added = 0
 	for(var/uid in uids)
-		var/datum/found = locateUID(uid)
-		if(!istype(found, /obj/overmap) || QDELETED(found))
-			continue
-		if(short_identified[uid])
-			continue
-		short_identified[uid] = TRUE
-		added++
+		var/obj/overmap/found = locateUID(uid)
+		if(istype(found) && remember_short_contact(found))
+			added++
 	if(added)
 		add_sensor_journal(
 			"Импорт дампа: +[added] контакт[added == 1 ? "" : "ов"][source_name ? " ([source_name])" : ""]",
