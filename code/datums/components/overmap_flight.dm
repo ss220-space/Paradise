@@ -42,6 +42,7 @@
 	var/obj/overmap/entity/navigation_host
 	var/obj/overmap/entity/navigation_target
 	var/navigation_arrival_range = OVERMAP_AUTOPILOT_ARRIVE_RANGE
+	var/navigation_fly_through = FALSE
 	var/navigation_ignore_collisions = FALSE
 	var/navigation_known_obstacles_only = TRUE
 	var/list/navigation_entry_box

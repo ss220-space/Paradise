@@ -35,6 +35,7 @@
 	var/list/limits
 	var/list/finish
 	var/step = 2
+	var/path_precision = 0.5
 
 /datum/overmap_navigation_grid/Destroy()
 	navigation = null
@@ -119,6 +120,18 @@
 		return null
 	if(segment_clear(start, finish))
 		return list(finish)
+	if(!point_clear(start))
+		if(navigation.flight.navigation_ignore_collisions && overmap_nav_clear(start, start, boxes))
+			for(var/axis in 1 to 2)
+				var/offset = abs(start[axis] - finish[axis])
+				if(!offset || offset > path_precision)
+					continue
+				var/list/aligned = start.Copy()
+				aligned[axis] = finish[axis]
+				if(overmap_nav_clear(start, aligned, boxes) && segment_clear(aligned, finish))
+					path_precision = 0.01
+					return list(aligned, finish)
+		return null
 	var/start_x = round((start[1] - finish[1]) / step)
 	var/start_y = round((start[2] - finish[2]) / step)
 	var/start_key = "start"

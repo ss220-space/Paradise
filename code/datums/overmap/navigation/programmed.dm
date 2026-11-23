@@ -209,8 +209,8 @@
 	SIGNAL_HANDLER
 	INVOKE_ASYNC(src, PROC_REF(navigation_arrived))
 
-/datum/overmap_programmed_mission/proc/navigate_to(world_x, world_y, heading, obj/overmap/entity/host, arrival_range = 1)
-	vessel.flight.navigate_world(world_x, world_y, heading, host, arrival_range = arrival_range, ignore_collisions = TRUE, known_obstacles_only = FALSE, entry_box = navigation_entry_box)
+/datum/overmap_programmed_mission/proc/navigate_to(world_x, world_y, heading, obj/overmap/entity/host, arrival_range = 1, fly_through = FALSE)
+	vessel.flight.navigate_world(world_x, world_y, heading, host, arrival_range = arrival_range, ignore_collisions = TRUE, known_obstacles_only = FALSE, entry_box = navigation_entry_box, fly_through = fly_through)
 
 /datum/overmap_programmed_mission/proc/eta_string()
 	if(QDELETED(vessel))

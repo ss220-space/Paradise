@@ -26,7 +26,7 @@
 		vessel.docking_approach = src
 
 /datum/overmap_docking_approach/Destroy()
-	if(!committing && vessel?.atmosphere?.end_scale == 1)
+	if(aligning && !committing && vessel?.atmosphere?.end_scale == 1)
 		vessel.atmosphere.change_altitude(OVERMAP_ATMOSPHERE_SCALE)
 	if(vessel?.docking_approach == src)
 		vessel.docking_approach = null

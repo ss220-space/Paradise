@@ -135,7 +135,7 @@
 	if(host?.physical_space && !entry_box)
 		var/datum/overmap_navigation_grid/grid = new(src, host.physical_space, boxes, limits, finish)
 		result = grid.find_path(start)
-		precision = 0.5
+		precision = grid.path_precision
 		qdel(grid)
 	else
 		result = overmap_navigation_path(start, finish, boxes, limits)

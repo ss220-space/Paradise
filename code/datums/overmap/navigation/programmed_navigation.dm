@@ -129,7 +129,7 @@
 		var/list/entry = overmap_navigation_entry(navigation_entry_box, list(world_x, world_y))
 		world_x = entry[1]
 		world_y = entry[2]
-	navigate_to(world_x, world_y, heading, host)
+	navigate_to(world_x, world_y, heading, host, fly_through = !!navigation_entry_box || navigation_step < length(navigation_beacons) + 2)
 
 /datum/overmap_programmed_mission/proc/navigation_arrived()
 	if(phase != OVERMAP_PROG_FLY)
@@ -218,5 +218,5 @@
 		var/lead = max(beacon.lead_distance, vessel.hull_radius * 2 + 4)
 		point[1] -= sin(heading) * lead
 		point[2] -= cos(heading) * lead
-	navigate_to(point[1], point[2], heading, departure_host)
+	navigate_to(point[1], point[2], heading, departure_host, fly_through = TRUE)
 	return TRUE

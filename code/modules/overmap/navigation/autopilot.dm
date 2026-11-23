@@ -8,12 +8,13 @@
 	navigation_facing = null
 	navigation_host = null
 	navigation_arrival_range = OVERMAP_AUTOPILOT_ARRIVE_RANGE
+	navigation_fly_through = FALSE
 	navigation_ignore_collisions = FALSE
 	navigation_known_obstacles_only = TRUE
 	navigation_entry_box = null
 	matching_velocity = FALSE
 
-/datum/component/overmap_flight/proc/navigate_world(world_x, world_y, heading, obj/overmap/entity/host, arrival_range = OVERMAP_AUTOPILOT_ARRIVE_RANGE, ignore_collisions = FALSE, known_obstacles_only = TRUE, list/entry_box)
+/datum/component/overmap_flight/proc/navigate_world(world_x, world_y, heading, obj/overmap/entity/host, arrival_range = OVERMAP_AUTOPILOT_ARRIVE_RANGE, ignore_collisions = FALSE, known_obstacles_only = TRUE, list/entry_box, fly_through = FALSE)
 	if(!autopilot)
 		release_pilot()
 		held_brake = FALSE
@@ -25,6 +26,7 @@
 	navigation_facing = heading
 	navigation_host = host
 	navigation_arrival_range = arrival_range
+	navigation_fly_through = fly_through
 	navigation_ignore_collisions = ignore_collisions
 	navigation_known_obstacles_only = known_obstacles_only
 	navigation_entry_box = entry_box
@@ -93,15 +95,16 @@
 	var/final_leg = abs(waypoint[1] - goal_x) + abs(waypoint[2] - goal_y) < 0.1
 	var/arrival_range = navigation_arrival_range
 	var/in_range = final_leg && distance <= arrival_range
-	if(in_range && (vessel.speed[1] ** 2 + vessel.speed[2] ** 2) * OVERMAP_TILE_SPAN ** 2 <= OVERMAP_AUTOPILOT_ARRIVE_SPEED ** 2)
-		if(!isnull(navigation_facing) && abs(closer_angle_difference(facing, navigation_facing)) > 2)
-			brake(elapsed)
-			return navigation_facing + main_axis_angle()
-		vessel.speed[1] = 0
-		vessel.speed[2] = 0
-		if(!isnull(navigation_facing))
-			set_facing(navigation_facing)
-		angular_velocity = 0
+	if(in_range && (navigation_fly_through || (vessel.speed[1] ** 2 + vessel.speed[2] ** 2) * OVERMAP_TILE_SPAN ** 2 <= OVERMAP_AUTOPILOT_ARRIVE_SPEED ** 2))
+		if(!navigation_fly_through)
+			if(!isnull(navigation_facing) && abs(closer_angle_difference(facing, navigation_facing)) > 2)
+				brake(elapsed)
+				return navigation_facing + main_axis_angle()
+			vessel.speed[1] = 0
+			vessel.speed[2] = 0
+			if(!isnull(navigation_facing))
+				set_facing(navigation_facing)
+			angular_velocity = 0
 		autopilot = FALSE
 		navigation.reset()
 		vessel.refresh_heading_overlay()
