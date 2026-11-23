@@ -119,11 +119,14 @@
 	to_chat(user, span_notice("You have uploaded the data from [multitool]'s buffer."))
 	multitool.buffer = null
 
-/obj/machinery/computer/roboquest/emag_act(mob/user)
-	if(!emagged)
-		emagged = TRUE
-		atom_say("System override detected. Instant mech teleportation is available.")
-		playsound(src, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+/obj/machinery/computer/roboquest/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
+	atom_say("System override detected. Instant mech teleportation is available.")
+	playsound(src, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	return TRUE
 
 /obj/machinery/computer/roboquest/proc/check_pad()
 	var/obj/mecha/M
@@ -179,7 +182,7 @@
 	return // Unused for now.
 
 /obj/machinery/computer/roboquest/proc/can_instant_teleport()
-	return emagged || pad?.advanced
+	return (obj_flags & EMAGGED) || pad?.advanced
 
 /obj/machinery/computer/roboquest/attack_hand(mob/user)
 	if(..())
@@ -306,7 +309,7 @@
 				if("ntos_roboblue")
 					style = "ntos_terminal"
 				if("ntos_terminal")
-					if(emagged)
+					if(obj_flags & EMAGGED)
 						style = "syndicate" //gagaga
 					else
 						style = "ntos_roboquest"

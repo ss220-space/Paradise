@@ -150,8 +150,7 @@
 
 /obj/item/shard/shark_teeth/Initialize(mapload)
 	. = ..()
-	pixel_x = base_pixel_x + rand(-5, 5)
-	pixel_y = base_pixel_y + rand(-5, 5)
+	scatter_atom()
 
 /obj/item/fish/catfish
 	name = "catfish"

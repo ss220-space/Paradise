@@ -49,6 +49,7 @@
 #define TRAIT_LAVA_STOPPED "lava_stopped"
 
 // MARK: mob traits
+#define TRAIT_UDDER_FULL "udder_full"
 #define TRAIT_GODMODE "godmode"
 #define TRAIT_PACIFISM "pacifism"
 #define TRAIT_NO_DEATH "nodeath"
@@ -82,6 +83,7 @@
 #define TRAIT_WET_IMMUNITY "wet_immunity"
 /// This just means that the carbon will always have functional liverless metabolism
 #define TRAIT_LIVERLESS_METABOLISM "liverless_metabolism"
+
 
 /// Makes the user handcuff others faster
 #define TRAIT_FAST_CUFFING "fast_cuffing"
@@ -230,7 +232,6 @@
 #define TRAIT_FORCED_GRAVITY "forced_gravity"
 
 // MARK: item traits
-#define TRAIT_CMAGGED "cmagged"
 /// Trait to toggle Inugami Gloves built-in defibrillator mode
 #define TRAIT_DEFIB_BLOCKED "defib_blocked"
 /// The items needs two hands to be carried
@@ -404,7 +405,10 @@
 
 #define TRAIT_FAKE_FIRE "fake_fire"
 
-#define TRAIT_CAN_SEE_WIRES "can_see_wires"
+/// Show what machine/door wires do when held.
+#define TRAIT_SHOW_WIRE_INFO "show_wire_info"
+
+#define TRAIT_WIRE_BLIND "wire_blind" // This doesn't block someone from seeing wires or recalling their position, but randomizes name / function to the user
 
 #define TRAIT_DECOY_BRAIN "decoy_brain"
 
@@ -705,3 +709,6 @@
 
 /// Trait that allows an item to perform holy rites akin to a nullrod
 #define TRAIT_NULLROD_ITEM "nullrod_item"
+
+#define TRAIT_MEPHEDRONE_ADAPTED "mephedrone_adapted" // Trait that changes the ending effects of twitch leaving your system
+#define TRAIT_NOKNOCKDOWNSLOWDOWN "noknockdownslowdown" //If this person has this trait, they are not slowed via knockdown, but they can be hit by bullets like a self knockdown

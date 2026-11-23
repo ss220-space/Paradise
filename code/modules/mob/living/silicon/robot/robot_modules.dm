@@ -334,10 +334,11 @@
 	handle_storages()
 
 // Disable safeties on the borg's defib.
-/obj/item/robot_module/medical/emag_act(mob/user)
+/obj/item/robot_module/medical/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
 	for(var/obj/item/twohanded/shockpaddles/borg/defib in modules)
-		defib.emag_act()
+		defib?.emag_act(user)
+	return TRUE
 
 // Enable safeties on the borg's defib.
 /obj/item/robot_module/medical/unemag()
@@ -603,6 +604,7 @@
 	modules += new /obj/item/extinguisher/mini(src)
 	modules += new /obj/item/reagent_containers/spray/pestspray(src) //kill all kidans!
 	modules += new /obj/item/crowbar/cyborg(src)
+	modules += new /obj/item/melee/flyswatter(src)
 	emag = new /obj/item/reagent_containers/spray(src)
 
 	emag.reagents.add_reagent(/datum/reagent/lube, 250)
@@ -812,16 +814,17 @@
 	fix_modules()
 
 // Replace their normal drill with a diamond drill.
-/obj/item/robot_module/miner/emag_act()
+/obj/item/robot_module/miner/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-	for(var/obj/item/pickaxe/drill/cyborg/D in modules)
+	for(var/obj/item/pickaxe/drill/cyborg/cyborg_drill in modules)
 		// Make sure we don't remove the diamond drill If they already have a diamond drill from the borg upgrade.
-		if(!istype(D, /obj/item/pickaxe/drill/cyborg/diamond))
-			qdel(D)
-			modules -= D // Remove it from this list so it doesn't get added in the rebuild.
+		if(!istype(cyborg_drill, /obj/item/pickaxe/drill/cyborg/diamond))
+			qdel(cyborg_drill)
+			modules -= cyborg_drill // Remove it from this list so it doesn't get added in the rebuild.
 
 	modules += new /obj/item/pickaxe/drill/cyborg/diamond(src)
 	rebuild()
+	return TRUE
 
 // Readd the normal drill
 /obj/item/robot_module/miner/unemag()
@@ -1167,6 +1170,7 @@
 	modules += new /obj/item/stack/sheet/rglass/cyborg(src)
 	modules += new /obj/item/stack/cable_coil/cyborg(src)
 	modules += new /obj/item/stack/rods/cyborg(src)
+	modules += new /obj/item/stack/pipe_cleaner_coil/cyborg(src)
 	modules += new /obj/item/stack/tile/plasteel(src)
 
 	fix_modules()

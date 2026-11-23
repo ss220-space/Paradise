@@ -74,19 +74,21 @@
 
 	return ..()
 
-/obj/machinery/computer/emergency_shuttle/emag_act(mob/user)
-	if(!emagged && SSshuttle.emergency.mode == SHUTTLE_DOCKED && user)
-		var/time = SSshuttle.emergency.timeLeft()
-		add_attack_logs(user, src, "emagged")
-		message_admins("[key_name_admin(user)] has emagged the emergency shuttle: [time] seconds before launch.")
-		add_game_logs("has emagged the emergency shuttle in [COORD(src)]: [time] seconds before launch.", user)
-		GLOB.minor_announcement.announce(
-			message = "Запуск эвакуационного шаттла через 10 секунд",
-			new_title = "СИСТЕМНАЯ ОШИБКА:",
-			color_override = "red"
-		)
-		SSshuttle.emergency.setTimer(100)
-		emagged = 1
+/obj/machinery/computer/emergency_shuttle/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if((obj_flags & EMAGGED) || (SSshuttle.emergency.mode != SHUTTLE_DOCKED))
+		return FALSE
+	obj_flags |= EMAGGED
+	var/time = SSshuttle.emergency.timeLeft()
+	message_admins("[key_name_admin(user)] has emagged the emergency shuttle: [time] seconds before launch.")
+	add_game_logs("has emagged the emergency shuttle in [COORD(src)]: [time] seconds before launch.", user)
+	GLOB.minor_announcement.announce(
+		message = "Запуск эвакуационного шаттла через 10 секунд",
+		new_title = "СИСТЕМНАЯ ОШИБКА:",
+		color_override = "red"
+	)
+	SSshuttle.emergency.setTimer(10 SECONDS)
+	return TRUE
 
 /obj/docking_port/mobile/emergency
 	name = "emergency shuttle"
@@ -379,16 +381,18 @@
 	density = FALSE
 
 /obj/machinery/computer/shuttle/pod/update_icon_state()
-	icon_state = "dorm_[emagged ? "emag" : "available"]"
+	icon_state = "dorm_[(obj_flags & EMAGGED) ? "emag" : "available"]"
 
 /obj/machinery/computer/shuttle/pod/update_overlays()
 	. = list()
 
-/obj/machinery/computer/shuttle/pod/emag_act(mob/user)
-	if(user)
-		to_chat(user, span_warning(" Access requirements overridden. The pod may now be launched manually at any time."))
+/obj/machinery/computer/shuttle/pod/shuttle_console_emag(mob/user, obj/item/card/emag/emag_card)
 	admin_controlled = FALSE
 	update_icon(UPDATE_ICON_STATE)
+	obj_flags |= EMAGGED
+	if(user)
+		to_chat(user, span_warning(" Access requirements overridden. The pod may now be launched manually at any time."))
+	return TRUE
 
 /obj/docking_port/stationary/random
 	name = "escape pod"

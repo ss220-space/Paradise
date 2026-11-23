@@ -43,8 +43,6 @@
 	//Whether nonstandard door sounds (cmag laughter) are off cooldown.
 	var/sound_ready = TRUE
 	var/sound_cooldown = 1 SECONDS
-	//Emag vulnerability.
-	var/hackable = TRUE
 	/// Whether or not the door can be opened by hand (used for blast doors and shutters)
 	var/can_open_with_hands = TRUE
 
@@ -101,7 +99,7 @@
 /obj/machinery/door/Bumped(atom/movable/moving_atom, skip_effects = FALSE)
 	. = ..()
 
-	if(skip_effects || operating || emagged || (!can_open_with_hands && density))
+	if(skip_effects || operating || (obj_flags & EMAGGED) || (!can_open_with_hands && density))
 		return .
 	if(ismob(moving_atom))
 		var/mob/B = moving_atom
@@ -125,12 +123,12 @@
 				if(world.time - mecha.occupant.last_bumped <= 10)
 					return
 			if(mecha.occupant && allowed(mecha.occupant) || check_access_list(mecha.operation_req_access))
-				if(HAS_TRAIT(src, TRAIT_CMAGGED))
+				if(obj_flags & CMAGGED)
 					cmag_switch(FALSE, mecha.occupant)
 					return
 				INVOKE_ASYNC(src, PROC_REF(open))
 			else
-				if(HAS_TRAIT(src, TRAIT_CMAGGED))
+				if(obj_flags & CMAGGED)
 					cmag_switch(TRUE, mecha.occupant)
 					return
 				INVOKE_ASYNC(src, PROC_REF(do_animate), "deny")
@@ -173,11 +171,11 @@
 		return
 	add_fingerprint(user)
 
-	if(!density || emagged)
+	if(!density || (obj_flags & EMAGGED))
 		return
 
 	if(allowed(user))
-		if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		if(obj_flags & CMAGGED)
 			cmag_switch(FALSE, user)
 			return
 		INVOKE_ASYNC(src, PROC_REF(open))
@@ -188,7 +186,7 @@
 
 	if(pry_open_check(user))
 		return
-	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+	if(obj_flags & CMAGGED)
 		cmag_switch(TRUE, user)
 		return
 	INVOKE_ASYNC(src, PROC_REF(do_animate), "deny")
@@ -240,20 +238,20 @@
 
 /obj/machinery/door/proc/try_to_activate_door(mob/user)
 	add_fingerprint(user)
-	if(operating || emagged || !can_open_with_hands)
+	if(operating || (obj_flags & EMAGGED) || !can_open_with_hands)
 		return
 	if(requiresID() && (allowed(user) || user.can_advanced_admin_interact()))
 		if(density)
-			if(HAS_TRAIT(src, TRAIT_CMAGGED) && !user.can_advanced_admin_interact()) //cmag should not prevent admin intervention
+			if((obj_flags & CMAGGED) && !user.can_advanced_admin_interact()) //cmag should not prevent admin intervention
 				cmag_switch(FALSE, user)
 				return
 			open()
 		else
-			if(HAS_TRAIT(src, TRAIT_CMAGGED) && !user.can_advanced_admin_interact())
+			if((obj_flags & CMAGGED) && !user.can_advanced_admin_interact())
 				return
 			close()
 		return TRUE
-	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+	if(obj_flags & CMAGGED)
 		cmag_switch(TRUE, user)
 		return
 	if(density)
@@ -290,10 +288,10 @@
 	user.visible_message(span_notice("[user] starts to clean the ooze off the access panel."), span_notice("You start to clean the ooze off the access panel."))
 	if(do_after(user, 5 SECONDS, src))
 		user.visible_message(span_notice("[user] cleans the ooze off [src]."), span_notice("You clean the ooze off [src]."))
-		REMOVE_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
+		obj_flags &= ~CMAGGED
 
 /obj/machinery/door/attackby(obj/item/I, mob/user, params)
-	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+	if(obj_flags & CMAGGED)
 		clean_cmag_ooze(I, user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -339,26 +337,20 @@
 		if(BURN)
 			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
 
-/obj/machinery/door/emag_act(mob/user)
-	if(!hackable)
-		if(user)
-			to_chat(user, span_notice("The electronic systems in this door are far too advanced for your primitive hacking peripherals."))
-		return
-	if(density)
-		add_attack_logs(user, src, "emagged ([locked ? "bolted" : "not bolted"])")
-		flick("door_spark", src)
-		sleep(6)
-		open()
-		emagged = TRUE
-		return TRUE
+/obj/machinery/door/cmag_act(mob/user, obj/item/card/cmag/cmag_card)
+	. = ..()
+	return special_door_cmag(user, cmag_card)
 
-/obj/machinery/door/cmag_act(mob/user)
-	if(!density)
-		return
+/obj/machinery/door/proc/special_door_cmag(mob/user, obj/item/card/cmag/cmag_card)
+	if((obj_flags & CMAGGED) || !density)
+		return FALSE
 	flick("door_spark", src)
-	sleep(6) //The cmag doesn't automatically open doors. It inverts access, not provides it!
-	ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
+	addtimer(CALLBACK(src, PROC_REF(after_cmag_act)), 0.6 SECONDS)
+	obj_flags |= CMAGGED
 	return TRUE
+
+/obj/machinery/door/proc/after_cmag_act()
+	return
 
 //Proc for inverting access on cmagged doors."canopen" should always return the OPPOSITE of the normal result.
 /obj/machinery/door/proc/cmag_switch(canopen, mob/living/user)

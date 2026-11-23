@@ -1691,6 +1691,20 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	required_tech = list(RESEARCH_TREE_MATERIALS = 2, RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_PROGRAMMING = 6)
 
+/datum/supply_packs/security/armory/bluespace_anchor
+	name = "блюспейс якорь"
+	contains = list(/obj/item/organ/internal/cyberimp/chest/bluespace_anchor)
+	cost = 250
+	containername = "ящик с блюспейс якорем"
+	container_ru_names = alist(
+		NOMINATIVE = "ящик с блюспейс якорем",
+		GENITIVE = "ящика с блюспейс якорем",
+		DATIVE = "ящику с блюспейс якорем",
+		ACCUSATIVE = "ящик с блюспейс якорем",
+		INSTRUMENTAL = "ящиком с блюспейс якорем",
+		PREPOSITIONAL = "ящике с блюспейс якорем",
+	)
+
 /datum/supply_packs/security/armory/ion_carbine
 	name = "Ионные карабины"
 	cost = 120
@@ -6819,7 +6833,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	manifest += "Содержит [num_contained] люб[DECL_OJ_YH_YH(num_contained)] предмет[DECL_0_A_OV(num_contained)] из списка:"
 	..()
 
-/datum/supply_packs/contraband/foamforce/bonus
+/datum/supply_packs/contraband/foamforce
 	name = "Игрушечные пистолеты"
 	contains = list(
 		/obj/item/gun/projectile/automatic/toy/pistol,

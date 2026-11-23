@@ -51,8 +51,6 @@ GLOBAL_LIST_EMPTY(closets)
 	var/breakout_time = 2 MINUTES
 	/// Whether the closet is considered 'large' (affects passing through certain openings).
 	var/large = TRUE
-	/// Can this closet be emagged?
-	var/can_be_emaged = FALSE
 	/// Can this closet be welded shut?
 	var/can_weld_shut = TRUE
 	/// If TRUE, this closet is wall-mounted and never blocks movement.
@@ -393,7 +391,7 @@ GLOBAL_LIST_EMPTY(closets)
 	var/is_emag = istype(used, /obj/item/card/emag)
 	if(is_emag || istype(used, /obj/item/melee/energy/blade))
 		add_fingerprint(user)
-		if(!can_be_emaged || broken)
+		if(broken)
 			var/add_flags = NONE
 			if(is_emag)
 				add_flags |= ATTACK_CHAIN_NO_AFTERATTACK

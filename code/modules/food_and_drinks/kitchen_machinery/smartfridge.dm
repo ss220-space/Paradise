@@ -436,7 +436,7 @@
 
 	switch(action)
 		if("vend")
-			if(is_secure && !emagged && scan_id && !allowed(usr)) //secure fridge check
+			if(is_secure && !(obj_flags & EMAGGED) && scan_id && !allowed(usr)) //secure fridge check
 				to_chat(usr, span_warning("Отказано в доступе."))
 				return FALSE
 
@@ -551,16 +551,20 @@
 /obj/machinery/smartfridge/secure
 	is_secure = TRUE
 
-/obj/machinery/smartfridge/secure/emag_act(mob/user)
-	emagged = TRUE
+/obj/machinery/smartfridge/secure/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
 	if(user)
 		balloon_alert(user, "механизм блокировки взломан!")
+	return TRUE
 
 /obj/machinery/smartfridge/secure/emp_act(severity)
 	. = ..()
-	if(!emagged && prob(40 / severity))
+	if(!(obj_flags & EMAGGED) && prob(40 / severity))
 		playsound(loc, 'sound/effects/sparks4.ogg', 60, TRUE)
-		emagged = TRUE
+		obj_flags |= EMAGGED
 
 /**
  * # Seed Storage

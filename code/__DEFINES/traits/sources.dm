@@ -34,8 +34,6 @@
 /// (B)admins only.
 #define ADMIN_TRAIT "admin"
 
-#define CMAGGED "clown_emag"
-
 #define NO_HITSCAN_TURRET_TRAIT "no-hitscan-in-turret"
 #define ABSTRACT_ITEM_TRAIT "abstract-item"
 #define ABDUCTOR_VEST_TRAIT "abductor-vest"

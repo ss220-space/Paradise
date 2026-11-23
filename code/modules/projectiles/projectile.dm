@@ -438,7 +438,10 @@
 	if(prehit_cancelled)
 		return FALSE
 
-	var/permutation = bumped_atom.bullet_act(src, def_zone) // searches for return value, could be deleted after run so check A isn't null
+	var/pre_permutation = SEND_SIGNAL(src, COMSIG_ATOM_PREHIT, src)
+	var/permutation = -1
+	if(pre_permutation != ATOM_PREHIT_FAILURE && !(bumped_atom in permutated))
+		permutation = bumped_atom.bullet_act(src, def_zone) // searches for return value, could be deleted after run so check A isn't null
 	if(permutation == -1 || forcedodge == -1 ||forcedodge >= 1) // the bullet passes through a dense object!
 		if(forcedodge >= 1)
 			forcedodge -= 1

@@ -399,9 +399,11 @@
 		return req_access.Copy()
 	return ..()
 
-/obj/item/mod/control/emag_act(mob/user)
+/obj/item/mod/control/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
 	locked = !locked
 	balloon_alert(user, "доступ [locked ? "требуется" : "не требуется"]")
+	return TRUE
 
 /obj/item/mod/control/emp_act(severity)
 	. = ..()

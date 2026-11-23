@@ -8,5 +8,5 @@
 		to_chat(ninja, span_warning("Не стоит взламывать двери здесь!"))
 		return INVALID_DRAIN
 */
-	if(!operating && density && hasPower() && !(on_blueprints & emagged))
+	if(!operating && density && hasPower() && !(on_blueprints && (obj_flags & EMAGGED)))
 		emag_act(ninja)

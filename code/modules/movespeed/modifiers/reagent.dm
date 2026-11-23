@@ -21,6 +21,9 @@
 /datum/movespeed_modifier/reagent/nitrium
 	multiplicative_slowdown = -0.3
 
+/datum/movespeed_modifier/reagent/mephedrone
+	multiplicative_slowdown = -1
+
 /datum/movespeed_modifier/reagent/freon
 	multiplicative_slowdown = 1.6
 	conflicts_with = null

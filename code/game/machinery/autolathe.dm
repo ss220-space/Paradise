@@ -398,12 +398,13 @@
 			var/list/materials_used = list(MAT_METAL=metal_cost/coeff, MAT_GLASS=glass_cost/coeff)
 			materials.use_amount(materials_used)
 		SStgui.update_uis(src)
-		sleep(32/coeff)
+		sleep(32 / coeff)
 		if(is_stack)
 			new D.build_path(BuildTurf, multiplier)
 		else
 			var/obj/item/new_item = new D.build_path(BuildTurf)
 			new_item.update_materials_coeff(coeff)
+			new_item.scatter_atom()
 		playsound(loc, 'sound/machines/rnd_machines/lathe_print.ogg', HALFWAY_SOUND_VOLUME, TRUE, -1, use_reverb = TRUE)
 	SStgui.update_uis(src)
 
