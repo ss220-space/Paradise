@@ -281,7 +281,7 @@
 	var/mob/living/living_owner = owner
 	var/datum/antagonist/zombie/datum = living_owner.mind.has_antag_datum(/datum/antagonist/zombie)
 	var/selected_class = tgui_input_list(owner, "Выберите класс зомби", "Класс зомби", GLOB.zombie_classes)
-	if(isnull(selected_class))
+	if(isnull(selected_class) || QDELETED(datum))
 		return ..()
 	datum.class = GLOB.zombie_classes[selected_class]
 	datum.class.apply(living_owner)
