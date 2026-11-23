@@ -703,6 +703,7 @@
 	)
 	newtonian_move(get_dir(target, src))
 	thrown_thing.throw_at(target, range, speed, src, null, null, null, move_force)
+	thrown_thing.scatter_atom()
 
 //generates realistic-ish pulse output based on preset levels
 /mob/living/carbon/proc/get_pulse(method)	//method 0 is for hands, 1 is for machines, more accurate
@@ -1022,7 +1023,7 @@ so that different stomachs can handle things in different ways VB*/
 	. = ..()
 	if(isnull(.))
 		return .
-	if(new_value == LYING_DOWN)
+	if(new_value == LYING_DOWN && (!(HAS_TRAIT(src, TRAIT_NOKNOCKDOWNSLOWDOWN) || resting)))
 		add_movespeed_modifier(/datum/movespeed_modifier/carbon_crawling)
 	else
 		remove_movespeed_modifier(/datum/movespeed_modifier/carbon_crawling)
