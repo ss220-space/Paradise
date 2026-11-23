@@ -1023,7 +1023,7 @@ so that different stomachs can handle things in different ways VB*/
 	. = ..()
 	if(isnull(.))
 		return .
-	if(new_value == LYING_DOWN && (!(HAS_TRAIT(src, TRAIT_NOKNOCKDOWNSLOWDOWN) || resting)))
+	if(new_value == LYING_DOWN && (!HAS_TRAIT(src, TRAIT_NOKNOCKDOWNSLOWDOWN) || resting))
 		add_movespeed_modifier(/datum/movespeed_modifier/carbon_crawling)
 	else
 		remove_movespeed_modifier(/datum/movespeed_modifier/carbon_crawling)
