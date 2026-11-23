@@ -129,7 +129,7 @@
 
 /mob/living/simple_animal/hostile/wisp/Click(location, control, params)
 	. = ..()
-	if(!isobserver(usr) || ckey)
+	if(!isobserver(usr) || ckey || QDELETED(src))
 		return
 	possess_by_player(usr.key)
 
