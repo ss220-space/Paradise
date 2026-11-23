@@ -165,3 +165,18 @@
 		INSTRUMENTAL = "диском проекта HRD-MDE \"Бубльгум\"",
 		PREPOSITIONAL = "диске проекта HRD-MDE \"Бубльгум\"",
 	) //I hate this so much
+
+/obj/item/disk/fauna_research/vazz
+	name = "Vazz HRD-MDE project disk"
+	desc = "Диск, используемый проектом HRD-MDE. Содержит данные о Vazz и <font face='Wingdings'>REDACTED</font>."
+	output = /obj/item/clothing/accessory/medal/gold/cargo/vazz
+
+/obj/item/disk/fauna_research/vazz/get_ru_names()
+	return alist(
+		NOMINATIVE = "диск проекта HRD-MDE \"Вазз\"",
+		GENITIVE = "диска проекта HRD-MDE \"Вазз\"",
+		DATIVE = "диску проекта HRD-MDE \"Вазз\"",
+		ACCUSATIVE = "диск проекта HRD-MDE \"Вазз\"",
+		INSTRUMENTAL = "диском проекта HRD-MDE \"Вазз\"",
+		PREPOSITIONAL = "диске проекта HRD-MDE \"Вазз\"",
+	)

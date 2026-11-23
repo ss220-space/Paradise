@@ -1100,3 +1100,31 @@
 		return
 	var/mob/living/carbon/human/human_owner = owner
 	human_owner.remove_fracture_ignore_trait(src)
+
+/datum/status_effect/force_shield
+	id = "forceshield"
+	alert_type = null
+	status_type = STATUS_EFFECT_REFRESH
+	duration = 5 SECONDS
+	tick_interval = 0
+	var/mutable_appearance/shield
+
+/datum/status_effect/force_shield/on_apply()
+	. = ..()
+	if(!. || !ishuman(owner))
+		return
+	var/mutable_appearance/MA = mutable_appearance('icons/effects/effects.dmi', "shield-cult", ABOVE_MOB_LAYER)
+	var/mob/living/carbon/human/H = owner
+	H.add_overlay(MA)
+	shield = MA
+	H.physiology.stamina_mod *= 0.1
+	H.physiology.brute_mod *= 0.5
+	H.physiology.burn_mod *= 0.5
+
+/datum/status_effect/force_shield/on_remove()
+	. = ..()
+	var/mob/living/carbon/human/H = owner
+	H.cut_overlay(shield)
+	H.physiology.stamina_mod /= 0.1
+	H.physiology.brute_mod /= 0.5
+	H.physiology.burn_mod /= 0.5

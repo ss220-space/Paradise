@@ -198,7 +198,7 @@
 					can_spawn = FALSE
 					break
 			if(can_spawn)
-				if(ispath(picked_mob, /mob/living/simple_animal/hostile/megafauna/bubblegum)) //there can be only one bubblegum, so don't waste spawns on it
+				if(ispath(picked_mob, /mob/living/simple_animal/hostile/megafauna/bubblegum) || ispath(picked_mob, /mob/living/simple_animal/hostile/megafauna/vazz)) //there can be only one bubblegum and only one vazz, so don't waste spawns on them
 					weighted_megafauna_spawn_list.Remove(picked_mob)
 					megafauna_spawn_list = expand_weights(weighted_megafauna_spawn_list)
 					megas_allowed = megas_allowed && length(megafauna_spawn_list)

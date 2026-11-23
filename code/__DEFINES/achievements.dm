@@ -44,6 +44,7 @@
 #define BOSS_MEDAL_ANY "Boss Killer"
 #define BOSS_MEDAL_MINER "Blood-drunk Miner Killer"
 #define BOSS_MEDAL_BUBBLEGUM "Bubblegum Killer"
+#define BOSS_MEDAL_VAZZ "Vazz Killer"
 #define BOSS_MEDAL_COLOSSUS "Colossus Killer"
 #define BOSS_MEDAL_DRAKE "Drake Killer"
 #define BOSS_MEDAL_HIEROPHANT "Hierophant Killer"
@@ -55,6 +56,7 @@
 
 #define BOSS_MEDAL_MINER_CRUSHER "Blood-drunk Miner Crusher"
 #define BOSS_MEDAL_BUBBLEGUM_CRUSHER "Bubblegum Crusher"
+#define BOSS_MEDAL_VAZZ_CRUSHER "Vazz Crusher"
 #define BOSS_MEDAL_COLOSSUS_CRUSHER "Colossus Crusher"
 #define BOSS_MEDAL_DRAKE_CRUSHER "Drake Crusher"
 #define BOSS_MEDAL_HIEROPHANT_CRUSHER "Hierophant Crusher"
@@ -74,6 +76,7 @@
 #define BOSS_SCORE "Bosses Killed"
 #define MINER_SCORE "BDMs Killed"
 #define BUBBLEGUM_SCORE "Bubblegum Killed"
+#define VAZZ_SCORE "Vazz Killed"
 #define COLOSSUS_SCORE "Colossus Killed"
 #define DRAKE_SCORE "Drakes Killed"
 #define HIEROPHANT_SCORE "Hierophants Killed"

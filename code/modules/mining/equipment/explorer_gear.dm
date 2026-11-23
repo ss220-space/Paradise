@@ -148,6 +148,7 @@
 	desc = "Экспериментальный Кинетический Защитный Обшитый Шлем: шлем, специально созданный для защиты от широкого спектра опасностей Лазиса. Прошлому его владельцу этого, видимо, не хватило."
 	icon_state = "hostile_env"
 	item_state = "hostile_env"
+	var/add_glass_overlay = TRUE
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	armor = list(MELEE = 70, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 100, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | LAVA_PROOF | ACID_PROOF
@@ -179,8 +180,9 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/clothing/head/helmet/space/hostile_environment/update_overlays()
-	. = ..()
-	. += mutable_appearance(icon, "hostile_env_glass", appearance_flags = RESET_COLOR)
+    . = ..()
+    if(add_glass_overlay)
+        . += mutable_appearance(icon, "hostile_env_glass", appearance_flags = RESET_COLOR)
 
 /obj/item/clothing/head/helmet/space/hostile_environment/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
 	. = ..()
@@ -191,6 +193,111 @@
 		armor = getArmor(melee = 35, bullet = 25, laser = 25, energy = 25, bomb = 25, bio = 50, fire = 50, acid = 50)
 		return
 	armor = getArmor(melee = 70, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, fire = 100, acid = 100)
+
+/obj/item/clothing/suit/space/hostile_environment/mk2
+	name = "H.E.C.K. suit Mk II"
+	desc = "Личная броня, выкованная её владельцем с помощью сил Лаваленда. Его происхождение известно лишь немногим."
+	icon_state = "hostile_env_mk2"
+	item_state = "hostile_env_mk2"
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	resistance_flags = FIRE_PROOF | LAVA_PROOF | ACID_PROOF
+	slowdown = 0
+	armor = list(MELEE = 80, BULLET = 55, LASER = 55, ENERGY = 55, BOMB = 90, BIO = 100, FIRE = 100, ACID = 100)
+	allowed = ALLOWED_MINING_SUIT_ITEMS
+	jetpack = /obj/item/tank/jetpack/suit
+	jetpack_upgradable = TRUE
+
+	sprite_sheets = list(
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/suit.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
+	)
+
+/obj/item/clothing/suit/space/hostile_environment/mk2/get_ru_names()
+	return alist(
+		NOMINATIVE = "Э.К.З.О. костюм Мк II",
+		GENITIVE = "Э.К.З.О. костюма Мк II",
+		DATIVE = "Э.К.З.О. костюму Мк II",
+		ACCUSATIVE = "Э.К.З.О. костюм Мк II",
+		INSTRUMENTAL = "Э.К.З.О. костюмом Мк II",
+		PREPOSITIONAL = "Э.К.З.О. костюме Мк II",
+	)
+
+/obj/item/clothing/suit/space/hostile_environment/mk2/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/radiation_protected_clothing)
+	START_PROCESSING(SSobj, src)
+
+/obj/item/clothing/suit/space/hostile_environment/mk2/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+/obj/item/clothing/suit/space/hostile_environment/mk2/process()
+	var/mob/living/carbon/C = loc
+	if(istype(C) && prob(2)) //cursed by vazzek
+		if(prob(15))
+			C.cause_hallucination(/datum/hallucination/delusion/preset/demon, "hostile environment suit hallucination", duration = 100, skip_nearby = FALSE)
+			to_chat(C, span_colossus("<b>[pick("ТЫ ЗАШЁЛ СЛИШКОМ ДАЛЕКО.", "СКОЛЬКО ЕЩЁ ТЫ БУДЕШЬ ИСКАТЬ?", "ТВОЙ ПУТЬ ЕЩЁ НЕ ОКОНЧЕН.", "ТЫ ПОМНИШЬ, КЕМ БЫЛ?", "ПОКОЙ НЕ ДЛЯ ТЕБЯ.", "УСТРОЙ КРОВАВУЮ БАНЮ!")]</b>"))
+		else
+			to_chat(C, span_warning("[pick("Вы слышите тихий металлический скрежет.", "В воздухе будто пахнет кровью.", "Вам кажется, что кто-то зовёт вас.", "Вас не покидает чуство утраты.", "Потерянный. Ради чего всё это?.")]"))
+
+/obj/item/clothing/suit/space/hostile_environment/mk2/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
+	. = ..()
+	// We are in the nullspace
+	if(!new_turf)
+		return
+	if(!is_mining_level(new_turf.z))
+		armor = getArmor(melee = 55, bullet = 35, laser = 30, energy = 35, bomb = 60, bio = 100, fire = 100, acid = 60)
+		return
+	armor = getArmor(melee = 80, bullet = 60, laser = 55, energy = 55, bomb = 90, bio = 100, fire = 100, acid = 100)
+
+/obj/item/clothing/head/helmet/space/hostile_environment/mk2
+	name = "H.E.C.K. helmet Mk II"
+	desc = "Личная броня, выкованная её владельцем с помощью сил Лаваленда. Его происхождение известно лишь немногим."
+	icon_state = "hostile_env_mk2"
+	item_state = "hostile_env_mk2"
+	add_glass_overlay = FALSE
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	armor = list(MELEE = 80, BULLET = 55, LASER = 55, ENERGY = 55, BOMB = 90, BIO = 100, FIRE = 100, ACID = 100)
+	resistance_flags = FIRE_PROOF | LAVA_PROOF | ACID_PROOF
+
+	sprite_sheets = list(
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
+		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/helmet.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/helmet.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
+	)
+
+/obj/item/clothing/head/helmet/space/hostile_environment/mk2/get_ru_names()
+	return alist(
+		NOMINATIVE = "Э.К.З.О. шлем Мк II",
+		GENITIVE = "Э.К.З.О. шлема Мк II ",
+		DATIVE = "Э.К.З.О. шлему Мк II",
+		ACCUSATIVE = "Э.К.З.О. шлем Мк II",
+		INSTRUMENTAL = "Э.К.З.О. шлемом Мк II",
+		PREPOSITIONAL = "Э.К.З.О. шлеме Мк II",
+	)
+
+/obj/item/clothing/head/helmet/space/hostile_environment/mk2/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/radiation_protected_clothing)
+
+/obj/item/clothing/head/helmet/space/hostile_environment/mk2/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
+	. = ..()
+	// We are in the nullspace
+	if(!new_turf)
+		return
+	if(!is_mining_level(new_turf.z))
+		armor = getArmor(melee = 55, bullet = 35, laser = 30, energy = 35, bomb = 60, bio = 100, fire = 100, acid = 60)
+		return
+	armor = getArmor(melee = 80, bullet = 60, laser = 55, energy = 55, bomb = 90, bio = 100, fire = 100, acid = 100)
 
 /obj/item/clothing/head/helmet/space/hardsuit/champion
 	name = "champion's helmet"

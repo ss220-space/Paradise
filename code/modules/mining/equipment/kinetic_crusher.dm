@@ -804,6 +804,51 @@
 /obj/item/crusher_trophy/empowered_legion_skull/on_mark_detonation(mob/living/target, mob/living/user)
 	user.apply_status_effect(STATUS_EFFECT_DASH)
 
+/// Осколок пластины H.E.C.K. Mk II. Трофей для кинетического крушителя.
+/// Метка ложится на любое существо (а не только на крупных), а детонация метки наносит дополнительный ожог.
+/// На уровне станции бонус к урону слабее в 10 раз.
+/obj/item/crusher_trophy/vazz_shard
+	name = "H.E.C.K. Mk II shard"
+	desc = "Осколок пластины личной брони H.E.C.K. Mk II. Края до сих пор тёплые."
+	icon_state = "vazz_shard"
+	bonus_value = 25
+	denied_type = /obj/item/crusher_trophy/vazz_shard
+	/// Множитель бонусного урона на уровне станции
+	var/station_multiplier = 0.1
+
+/obj/item/crusher_trophy/vazz_shard/get_ru_names()
+	return alist(
+		NOMINATIVE = "осколок Э.К.З.О. Mk II",
+		GENITIVE = "осколка Э.К.З.О. Mk II",
+		DATIVE = "осколку Э.К.З.О. Mk II",
+		ACCUSATIVE = "осколок Э.К.З.О. Mk II",
+		INSTRUMENTAL = "осколком Э.К.З.О. Mk II",
+		PREPOSITIONAL = "осколке Э.К.З.О. Mk II",
+	)
+
+/obj/item/crusher_trophy/vazz_shard/effect_desc()
+	return "метку, которая ложится на любое существо, и дополнительный ожог в [bonus_value] при её детонации (на уровне станции - в десять раз слабее)"
+
+/// Если метка не легла сама (штатно она ложится только на крупных существ), накладываем её принудительно.
+/obj/item/crusher_trophy/vazz_shard/on_mark_application(mob/living/target, datum/status_effect/crusher_mark/mark, had_mark)
+	. = ..()
+	if(mark || QDELETED(target) || target.stat == DEAD || !istype(loc, /obj/item))
+		return
+	var/old_size = target.mob_size
+	target.mob_size = MOB_SIZE_LARGE
+	// Трофей лежит внутри крушителя, поэтому loc - это и есть крушитель, которому принадлежит метка
+	target.apply_status_effect(STATUS_EFFECT_CRUSHERMARK, loc)
+	target.mob_size = old_size
+
+/obj/item/crusher_trophy/vazz_shard/on_mark_detonation(mob/living/target, mob/living/user)
+	. = ..()
+	if(QDELETED(target) || target.stat == DEAD)
+		return
+	var/bonus_damage = bonus_value
+	if(is_station_level(target.z))
+		bonus_damage = round(bonus_damage * station_multiplier)
+	target.apply_damage(bonus_damage, BURN)
+
 //Magmite Crusher
 
 /obj/item/twohanded/kinetic_crusher/mega
