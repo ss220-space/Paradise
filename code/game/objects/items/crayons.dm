@@ -575,6 +575,12 @@
 	if(!can_paint(target, user))
 		return
 
+	if(istype(target, /obj/effect/decal/cleanable/crayon) && (!length(modifiers) || !modifiers[RIGHT_CLICK]))
+		var/turf/underlying_turf = get_turf(target)
+		if(is_type_in_list(underlying_turf, validSurfaces))
+			spray_surface(underlying_turf, user, modifiers, target.pixel_x, target.pixel_y)
+		return
+
 	if(isobj(target))
 		target.balloon_alert_to_viewers("закрашивание...")
 		if(!do_after(user, 5 SECONDS, target, NONE))
@@ -612,14 +618,14 @@
 
 	return ..()
 
-/obj/item/toy/crayon/spraycan/proc/spray_surface(turf/target, mob/user, list/modifiers)
-	var/click_x = 0
-	var/click_y = 0
+/obj/item/toy/crayon/spraycan/proc/spray_surface(turf/target, mob/user, list/modifiers, offset_x = 0, offset_y = 0)
+	var/click_x = offset_x
+	var/click_y = offset_y
 	if(length(modifiers))
 		if(modifiers[ICON_X])
-			click_x = clamp(text2num(modifiers[ICON_X]) - SPRAYCAN_HALF_TILE, -SPRAYCAN_HALF_TILE, SPRAYCAN_HALF_TILE)
+			click_x = clamp(text2num(modifiers[ICON_X]) - SPRAYCAN_HALF_TILE + offset_x, -SPRAYCAN_HALF_TILE, SPRAYCAN_HALF_TILE)
 		if(modifiers[ICON_Y])
-			click_y = clamp(text2num(modifiers[ICON_Y]) - SPRAYCAN_HALF_TILE, -SPRAYCAN_HALF_TILE, SPRAYCAN_HALF_TILE)
+			click_y = clamp(text2num(modifiers[ICON_Y]) - SPRAYCAN_HALF_TILE + offset_y, -SPRAYCAN_HALF_TILE, SPRAYCAN_HALF_TILE)
 
 	var/half_extent = round(SPRAYCAN_HALF_TILE * scale)
 	var/min_x = -SPRAYCAN_HALF_TILE
