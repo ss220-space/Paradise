@@ -1,5 +1,5 @@
 /datum/gear/accessory
-	subtype_path = /datum/gear/accessory
+	abstract_type = /datum/gear/accessory
 	slot = ITEM_SLOT_ACCESSORY
 	sort_category = "Аксессуары"
 
@@ -139,7 +139,7 @@
 	path = /obj/item/clothing/accessory/armband/yb
 
 /datum/gear/accessory/armband_job
-	subtype_path = /datum/gear/accessory/armband_job
+	abstract_type = /datum/gear/accessory/armband_job
 	subtype_cost_overlap = FALSE
 
 /datum/gear/accessory/armband_job/sec

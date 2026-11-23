@@ -93,7 +93,7 @@
 /turf/simulated/floor/indestructible/gray_floor,
 /area/deathmatch)
 "rn" = (
-/obj/machinery/door/airlock/alarmlock,
+/obj/machinery/door/airlock/public/glass,
 /turf/simulated/floor/indestructible/gray_floor,
 /area/deathmatch)
 "rW" = (
@@ -340,7 +340,7 @@
 /turf/simulated/floor/indestructible/gray_floor,
 /area/deathmatch)
 "YU" = (
-/obj/machinery/door/airlock/alarmlock,
+/obj/machinery/door/airlock/public/glass,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/indestructible/gray_floor,
 /area/deathmatch)

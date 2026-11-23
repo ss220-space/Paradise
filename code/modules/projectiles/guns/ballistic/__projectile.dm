@@ -15,6 +15,7 @@
 	var/can_air_shoot = FALSE
 	/// Magazine reload duration
 	var/reload_duration = 1.2 SECONDS
+	var/can_sawoff = FALSE
 
 /obj/item/gun/projectile/Initialize(mapload)
 	. = ..()
@@ -258,6 +259,8 @@
 
 /obj/item/gun/projectile/proc/sawoff(mob/user)
 	. = FALSE
+	if(!can_sawoff)
+		return
 	if(sawn_state == SAWN_OFF)
 		balloon_alert(user, "уже укорочено!")
 		return .

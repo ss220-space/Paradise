@@ -126,6 +126,9 @@
 	var/list/data = list()
 	var/list/replace_colors
 	GET_SKILL_LEVEL(user, skill_type, skill_level)
+	var/obj/item/held_item = user.get_active_hand()
+	var/obj/item/offhand = user.get_inactive_hand()
+	var/ignore_skillcheck = held_item && HAS_TRAIT(held_item, TRAIT_SHOW_WIRE_INFO) || offhand && HAS_TRAIT(offhand, TRAIT_SHOW_WIRE_INFO) || HAS_TRAIT(user, TRAIT_SHOW_WIRE_INFO)
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -139,7 +142,13 @@
 		var/replaced_color = color
 		var/color_name = color
 
-		if(color in replace_colors) // If this color is one that needs to be replaced using the colorblindness list.
+		if(HAS_TRAIT(user, TRAIT_WIRE_BLIND)) //You are going to be seeing colours, colourblind or not. And it is going to be WRONG
+			replaced_color = rgb(rand(1, 255), rand(1, 255), rand(1, 255))
+			var/list/fake_colour_chars = list("!", "@", "#", "$", "%", "^", "&", "*", "-", "?", "/")
+			color_name = ""
+			for(var/i in 1 to rand(5, 8))
+				color_name += pick(fake_colour_chars)
+		else if(color in replace_colors) // If this color is one that needs to be replaced using the colorblindness list.
 			replaced_color = replace_colors[color]
 			if(replaced_color in LIST_COLOR_RENAME) // If its an ugly written color name like "darkolivegreen", rename it to something like "dark green".
 				color_name = LIST_COLOR_RENAME[replaced_color]
@@ -155,13 +164,13 @@
 			"attached" = is_attached(color) // Whether or not a signaler is attached to this wire.
 		))
 	data["wires"] = wires_list
-	if(skill_level < SKILL_LEVEL_BEGINNER)
+	if((skill_level < SKILL_LEVEL_BEGINNER && !ignore_skillcheck) || HAS_TRAIT(user, TRAIT_WIRE_BLIND))
 		shuffle(wires_list)
 
 	// Get the information shown at the bottom of wire TGUI window, such as "The red light is blinking", etc.
 	// If the user is colorblind, we need to replace these colors as well.
 	var/list/status
-	if(skill_level < SKILL_LEVEL_BASIC)
+	if(skill_level < SKILL_LEVEL_BASIC && !ignore_skillcheck)
 		status = list()
 	else
 		status = get_status()
@@ -267,17 +276,15 @@
 /datum/wires/proc/can_see_wire_info(mob/user)
 	if(user.can_admin_interact())
 		return TRUE
+	if(HAS_TRAIT(user, TRAIT_WIRE_BLIND))
+		return FALSE
 	GET_SKILL_LEVEL(user, skill_type, skill_level)
 	if(skill_level >= SKILL_LEVEL_PROFESSIONAL)
 		return TRUE
 
-	if(ismultitool(user.get_active_hand()))
-		var/obj/item/multitool/M = user.get_active_hand()
-		if(M.shows_wire_information)
-			return TRUE
-	if(HAS_TRAIT(user, TRAIT_CAN_SEE_WIRES))
-		return TRUE
-	return FALSE
+	var/obj/item/held_item = user.get_active_hand()
+	var/obj/item/offhand = user.get_inactive_hand()
+	return HAS_TRAIT(held_item, TRAIT_SHOW_WIRE_INFO) || HAS_TRAIT(offhand, TRAIT_SHOW_WIRE_INFO) || HAS_TRAIT(user, TRAIT_SHOW_WIRE_INFO)
 
 /**
  * Base proc, intended to be overwritten. Put wire information you'll see at the botton of the TGUI window here, such as "The red light is blinking".

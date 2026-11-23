@@ -1,6 +1,6 @@
 /datum/gear/racial
+	abstract_type = /datum/gear/racial
 	sort_category = "Расовое"
-	subtype_path = /datum/gear/racial
 	var/list/whitelisted_species
 
 /datum/gear/racial/can_select(client/cl, job_name, species_name, silent = FALSE)
@@ -34,7 +34,7 @@
 	whitelisted_species = list(SPECIES_TAJARAN)
 
 /datum/gear/racial/taj/job
-	subtype_path = /datum/gear/racial/taj/job
+	abstract_type = /datum/gear/racial/taj/job
 	subtype_cost_overlap = FALSE
 	cost = 2
 

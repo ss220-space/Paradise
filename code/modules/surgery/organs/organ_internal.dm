@@ -7,6 +7,11 @@ GLOBAL_LIST_EMPTY(organ_rott_overlay_icons)
 	origin_tech = "biotech=3"
 	force = 1
 	w_class = WEIGHT_CLASS_SMALL
+	light_system = OVERLAY_LIGHT
+	light_on = FALSE
+
+	lefthand_file = 'icons/mob/inhands/organ_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/organ_righthand.dmi'
 	/// Unique slot this organ occupies. See [combat.dm] for defines. DO NOT add slots with matching names to different zones - it will break internal_organs_slot list!
 	var/slot = NONE
 	/// Whether it shows up as an option to remove during surgery.
@@ -14,11 +19,12 @@ GLOBAL_LIST_EMPTY(organ_rott_overlay_icons)
 	var/can_see_food = FALSE
 	/// Empty list == all species allowed
 	var/list/species_restrictions
-	light_system = OVERLAY_LIGHT
-	light_on = FALSE
-
-	lefthand_file = 'icons/mob/inhands/organ_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/organ_righthand.dmi'
+	/// The icon file for the augment that shows outside the mob, if any.
+	var/augment_icon = null
+	/// The icon state for the augment that shows outside the mob, if any.
+	var/augment_state = null
+	/// Does this organ have a extra render mechanic?
+	var/do_extra_render = FALSE
 
 /obj/item/organ/internal/Initialize(mapload)
 	. = ..()
@@ -211,7 +217,24 @@ GLOBAL_LIST_EMPTY(organ_rott_overlay_icons)
 
 // Rendering!
 /obj/item/organ/internal/proc/render()
-	return
+	if(!augment_state || !augment_icon || !owner)
+		return FALSE
+	var/obj/item/organ/external/our_parent = owner.get_organ(parent_organ_zone)
+	if(!our_parent) // I don't know how you pulled that off, let us be safe.
+		return FALSE
+	var/mutable_appearance/default_appearance = mutable_appearance(augment_icon, augment_state, layer = -INTORGAN_LAYER)
+	return default_appearance
+
+// An extra render used in certain situations.
+/obj/item/organ/internal/proc/extra_render()
+	if(!augment_state || !augment_icon || !owner || !do_extra_render)
+		return FALSE
+	var/obj/item/organ/external/our_parent = owner.get_organ(parent_organ_zone)
+	if(!our_parent) // I don't know how you pulled that off, let us be safe.
+		return FALSE
+
+	var/mutable_appearance/default_appearance = mutable_appearance(augment_icon, augment_state, layer = -INTORGAN_LAYER)
+	return default_appearance
 
 /****************************************************
 				INTERNAL ORGANS DEFINES

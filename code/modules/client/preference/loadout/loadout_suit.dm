@@ -1,18 +1,18 @@
 /datum/gear/suit
-	subtype_path = /datum/gear/suit
+	abstract_type = /datum/gear/suit
 	slot = ITEM_SLOT_CLOTH_OUTER
 	sort_category = "Верхняя одежда"
 
 //WINTER COATS
 /datum/gear/suit/coat
-	subtype_path = /datum/gear/suit/coat
+	abstract_type = /datum/gear/suit/coat
 
 /datum/gear/suit/coat/grey
 	index_name = "winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat
 
 /datum/gear/suit/coat/job
-	subtype_path = /datum/gear/suit/coat/job
+	abstract_type = /datum/gear/suit/coat/job
 	subtype_cost_overlap = FALSE
 
 /datum/gear/suit/coat/job/sec
@@ -156,7 +156,7 @@
 
 //SURAGI JACKET
 /datum/gear/suit/suragi_jacket
-	subtype_path = /datum/gear/suit/suragi_jacket
+	abstract_type = /datum/gear/suit/suragi_jacket
 
 /datum/gear/suit/suragi_jacket/civ
 	index_name = "Suragi Jacket"

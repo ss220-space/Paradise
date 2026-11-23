@@ -109,13 +109,16 @@
 	updateUsrDialog()
 	to_chat(user, span_notice("Вы загрузили данные из буфера [multitool.declent_ru(GENITIVE)]."))
 
-/obj/machinery/computer/telescience/emag_act(mob/user)
-	if(!emagged)
+/obj/machinery/computer/telescience/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
 		if(user)
-			to_chat(user, span_notice("Вы шифруете ключ аутентификации телепортации с неизвестным сигналом. Теперь у вас есть возможность перемещаться в ещё больше мест!"))
-		emagged = 1
-	else if(user)
-		to_chat(user, span_warning("Машина никак не реагирует на проведение картой..."))
+			to_chat(user, span_warning("Машина никак не реагирует на проведение картой..."))
+		return FALSE
+	obj_flags |= EMAGGED
+	if(user)
+		to_chat(user, span_notice("Вы шифруете ключ аутентификации телепортации с неизвестным сигналом. Теперь у вас есть возможность перемещаться в ещё больше мест!"))
+	return TRUE
 
 /obj/machinery/computer/telescience/attack_ai(mob/user)
 	src.attack_hand(user)

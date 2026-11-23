@@ -43,16 +43,18 @@
 		PREPOSITIONAL = "авто-мендере",
 	)
 
-/obj/item/reagent_containers/applicator/emag_act(mob/user)
-	if(!emagged)
-		add_attack_logs(user, src, "emagged")
-		emagged = TRUE
-		ignore_flags = TRUE
-		if(user)
-			balloon_alert(user, "протоколы безопасности взломаны")
+/obj/item/reagent_containers/applicator/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
+	ignore_flags = TRUE
+	if(user)
+		balloon_alert(user, "протоколы безопасности взломаны")
+	return TRUE
 
 /obj/item/reagent_containers/applicator/on_reagent_change()
-	if(!emagged)
+	if(!(obj_flags & EMAGGED))
 		var/found_forbidden_reagent = FALSE
 		for(var/datum/reagent/chem in reagents.reagent_list)
 			if(!GLOB.safe_chem_applicator_list.Find(chem.type))
@@ -136,7 +138,7 @@
 	applying = TRUE
 	update_appearance(UPDATE_OVERLAYS)
 	apply_to(target, user, APPLICATOR_PRE_LOOP_RATIO * reacting_to_applied_ratio, TRUE, def_zone) // We apply a very weak application up front, then loop.
-	add_attack_logs(user, target, "Started mending with [src] containing ([reagents.log_list()])", (emagged && !(reagents.harmless_helper())) ? null : ATKLOG_ALMOSTALL)
+	add_attack_logs(user, target, "Started mending with [src] containing ([reagents.log_list()])", ((obj_flags & EMAGGED) && !(reagents.harmless_helper())) ? null : ATKLOG_ALMOSTALL)
 	var/cycle_count = 0
 
 	var/measured_health = 0
@@ -153,7 +155,7 @@
 			break
 		cycle_count++
 
-	add_attack_logs(user, target, "Stopped mending after [cycle_count] cycles with [src] containing ([reagents.log_list()])", (emagged && !(reagents.harmless_helper())) ? null : ATKLOG_ALMOSTALL)
+	add_attack_logs(user, target, "Stopped mending after [cycle_count] cycles with [src] containing ([reagents.log_list()])", ((obj_flags & EMAGGED) && !(reagents.harmless_helper())) ? null : ATKLOG_ALMOSTALL)
 	applying = FALSE
 	update_appearance(UPDATE_OVERLAYS)
 

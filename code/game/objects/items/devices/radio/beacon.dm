@@ -24,12 +24,18 @@
 	GLOB.beacons -= src
 	return ..()
 
-/obj/item/beacon/emag_act(mob/user)
-	if(!emagged)
-		emagged = TRUE
-		syndicate = TRUE
-		if(user)
-			to_chat(user, span_notice("The This beacon now only be locked on to by emagged teleporters!"))
+/obj/item/beacon/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
+	syndicate = TRUE
+	if(user)
+		to_chat(user, span_notice("The This beacon now only be locked on to by emagged teleporters!"))
+	return TRUE
+
+/obj/item/beacon/pre_emagged
+	obj_flags = parent_type::obj_flags|EMAGGED
 
 /// Probably a better way of doing this, I'm lazy.
 /obj/item/beacon/bacon
@@ -173,14 +179,14 @@
 
 			"Hacker" = list("Name" = "'Hacker' bundle",	// 242.6-249.6 TK
 								"Desc" = "A kit with everything you need to hack into and disrupt the Station, AI, its cyborgs and the Security team.",
-								/obj/item/melee/energy/sword/saber = 1,										// 40 TK
+								/obj/item/autoimplanter/oneuse/razorwire = 1,										// 40 TK
 								/obj/item/card/id/syndicate = 1,											// 10 TK
 								/obj/item/storage/box/syndie_kit/emp = 1,									// 10 TK
 								/obj/item/camera_bug/syndicate = 1,													// 5 TK
 								/obj/item/door_remote/omni/access_tuner = 1,								// 30 TK
 								/obj/item/implanter/freedom/prototype = 1,									// 6.6 TK
 								/obj/item/ai_module/syndicate = 1,											// 40 TK
-								/obj/item/card/emag = 1,													// 50 TK
+								/obj/item/autoimplanter/oneuse/hackerman_deck = 1,													// 50 TK
 								/obj/item/encryptionkey/syndicate = 1,										// 0-2 TK
 								/obj/item/encryptionkey/binary = 1,											// 21 TK
 								/obj/item/ai_module/toy_ai = 1,												// 0 TK

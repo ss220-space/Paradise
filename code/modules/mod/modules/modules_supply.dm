@@ -530,9 +530,11 @@
 	var/safe = TRUE
 
 
-/obj/item/mod/module/sphere_transform/emag_act(mob/user)
+/obj/item/mod/module/sphere_transform/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
 	safe = !safe
 	balloon_alert(user, "протоколы безопасности [safe ? "восстановлены" : "сняты"]!")
+	return TRUE
 
 /obj/item/mod/module/sphere_transform/get_ru_names()
 	return alist(
