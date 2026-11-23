@@ -151,7 +151,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 /mob/dead/observer/proc/cleanup_observe()
 	client?.perspective = initial(client.perspective)
-	set_sight(SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF)
+	set_sight(sightchanged ? NONE : (SEE_TURFS|SEE_MOBS|SEE_OBJS|SEE_SELF))
 	if(do_observe_target)
 		hide_other_mob_action_buttons(do_observe_target)
 
@@ -505,10 +505,12 @@ GAME_VERB_DESC(/mob/dead/observer, toggle_sight_view, "Видимость сте
 
 	sightchanged = !sightchanged
 
+	if(do_observe_target)
+		return
 	if(sightchanged)
 		if(orbiting && ismob(orbiting))
 			var/mob/living/new_sight = orbiting
-			set_sight(new_sight.client? new_sight.sight : set_sight(NONE))
+			set_sight(new_sight.client ? new_sight.sight : NONE)
 		else
 			set_sight(null)
 	else
@@ -685,31 +687,32 @@ GAME_VERB(/mob/dead/observer, view_manifest, "Манифест экипажа", 
 
 	// Проверка типа и существования моба для наблюдения
 	if(!client || !mob_eye || !istype(mob_eye) || isobserver(mob_eye))
-		cleanup_observe()
+		if(do_observe_target)
+			handle_when_autoobserve_move()
 		return
-
-	// Ограничение видимости для админских зон
-	if(is_admin_level(mob_eye.z) && !client?.holder)
-		set_sight(NONE)
 
 	// Проверка наличия HUD у моба
 	if(!mob_eye.hud_used)
 		return
 
+	if(do_observe_target == mob_eye)
+		return
+	if(orbiting && orbiting != mob_eye)
+		stop_orbit()
+
 	// Регистрация сигналов и установка параметров наблюдения
 	RegisterSignal(src, COMSIG_ORBITER_ORBIT_STOP, PROC_REF(handle_when_autoobserve_move), TRUE)
-	RegisterSignal(mob_eye, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(handle_when_autoobserve_sight_updated), TRUE)
+	RegisterSignals(mob_eye, list(COMSIG_MOB_UPDATE_SIGHT, COMSIG_MOVABLE_Z_CHANGED), PROC_REF(handle_when_autoobserve_sight_updated), TRUE)
 
-	client.set_eye(mob_eye)
-	sight = mob_eye.sight
-	lighting_alpha = mob_eye.lighting_alpha
-	update_sight()
+	do_observe_target = mob_eye
+	client.perspective = EYE_PERSPECTIVE
+	handle_when_autoobserve_sight_updated()
+	client.set_eye(mob_eye.client?.eye || mob_eye)
 
 	client.clear_screen()
 	LAZYOR(mob_eye.inventory_observers, src)
 	mob_eye.hud_used.show_hud(mob_eye.hud_used.hud_version, src)
 
-	do_observe_target = mob_eye
 	ADD_TRAIT(src, TRAIT_OBSERVING_INVENTORY, UNIQUE_TRAIT_SOURCE(src))
 
 /mob/dead/observer/proc/handle_when_autoobserve_move()
@@ -719,32 +722,30 @@ GAME_VERB(/mob/dead/observer, view_manifest, "Манифест экипажа", 
 	cleanup_observe()
 
 	hud_used?.plane_master_controllers[PLANE_MASTERS_GAME].remove_filter("eye_blur")
-	lighting_alpha = client?.prefs.ghost_darkness_level
-	update_sight()
-
 	if(do_observe_target)
 		LAZYREMOVE(do_observe_target.inventory_observers, src)
 
 	clear_fullscreens()
 
-	if(client)
-		UnregisterSignal(src, COMSIG_ORBITER_ORBIT_STOP)
-		if(do_observe_target)
-			UnregisterSignal(do_observe_target, COMSIG_MOB_UPDATE_SIGHT)
+	UnregisterSignal(src, COMSIG_ORBITER_ORBIT_STOP)
+	if(do_observe_target)
+		UnregisterSignal(do_observe_target, list(COMSIG_MOB_UPDATE_SIGHT, COMSIG_MOVABLE_Z_CHANGED))
 
 	do_observe_target = null
+	lighting_alpha = client?.prefs.ghost_darkness_level
+	update_sight()
 	REMOVE_TRAIT(src, TRAIT_OBSERVING_INVENTORY, UNIQUE_TRAIT_SOURCE(src))
 	hud_used?.show_hud(hud_used?.hud_version, src)
 
 /mob/dead/observer/proc/handle_when_autoobserve_sight_updated()
 	SIGNAL_HANDLER
 
-	if(!orbiting || !client)
+	if(!do_observe_target || !client)
 		return
 
-	// idk why, but we need to hold '?' here, else this runtimes sometimes
-	sight = do_observe_target?.sight
-	lighting_alpha = do_observe_target?.lighting_alpha
+	var/turf/spot = get_turf(do_observe_target)
+	set_sight(!client.holder && spot && is_admin_level(spot.z) ? NONE : do_observe_target.sight)
+	lighting_alpha = do_observe_target.lighting_alpha
 	update_sight()
 
 GAME_VERB_DESC(/mob/dead/observer, toggle_ghostsee, "Видимость призраков", "Toggles your ability to see things only ghosts can see, like other ghosts", VERB_CATEGORY_GHOST)
@@ -788,7 +789,9 @@ GAME_VERB_DESC(/mob/dead/observer, pick_darkness, "Освещённость", "C
 	update_sight()
 
 /mob/dead/observer/update_sight()
-	if(!ghostvision)
+	if(do_observe_target)
+		set_invis_see(do_observe_target.see_invisible)
+	else if(!ghostvision)
 		set_invis_see(SEE_INVISIBLE_LIVING)
 	else
 		set_invis_see(SEE_INVISIBLE_OBSERVER)
@@ -813,7 +816,7 @@ GAME_VERB_DESC(/mob/dead/observer, pick_darkness, "Освещённость", "C
 /mob/dead/observer/proc/updateghostimages()
 	if(!client)
 		return
-	if(seedarkness || !ghostvision)
+	if(do_observe_target || seedarkness || !ghostvision)
 		client.images -= GLOB.ghost_images
 	else
 		//add images for the 60inv things ghosts can normally see when darkness is enabled so they can see them now

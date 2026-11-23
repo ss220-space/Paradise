@@ -118,7 +118,7 @@
 			var/list/old_cell = virtual_cells["[portal_x],[portal_y]"]
 			var/datum/overmap_virtual_model/old_model = old_cell?[3]
 			if(old_model)
-				model.visual.overlays += old_model.visual
+				model.visual = new(old_model.visual)
 			virtual_models["__relay_portal"] = model
 			virtual_cells["[portal_x],[portal_y]"] = list(portal_x, portal_y, model, model.health)
 			on_virtual_cell_loaded(model, portal_x, portal_y)

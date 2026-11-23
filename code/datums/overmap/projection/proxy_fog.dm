@@ -86,7 +86,7 @@
 /datum/fog_scene/proc/set_frame(turf/anchor, src_x, src_y, tgt_x, tgt_y, angle)
 	if(!frame)
 		frame = new /datum/fog_frame/proxy(anchor, angle)
-	if(frame.source_x != src_x || frame.source_y != src_y || frame.target_x != tgt_x || frame.target_y != tgt_y || frame.angle != angle)
+	if(frame.anchor_turf != anchor || frame.source_x != src_x || frame.source_y != src_y || frame.target_x != tgt_x || frame.target_y != tgt_y || frame.angle != angle)
 		mark_dirty()
 	frame.setup(anchor, src_x, src_y, tgt_x, tgt_y, angle)
 

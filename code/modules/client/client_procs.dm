@@ -1556,7 +1556,7 @@ GAME_VERB_DESC(/client, link_discord_account, "Привязка Discord", "Пр�
 			observe.handle_when_autoobserve_move()
 			LAZYREMOVE(mob.inventory_observers, observe)
 			continue
-		observe.client.eye = new_eye
+		observe.client.set_eye(new_eye || mob)
 
 	SEND_SIGNAL(src, COMSIG_CLIENT_SET_EYE, old_eye, new_eye)
 

@@ -34,19 +34,18 @@
 	if(!hull_turf || QDELETED(hull_turf))
 		return ..()
 
-	if(fog_hides_from(usr?.client, hull_turf))
-		return
-
-	var/atom/best_target = hull_turf
+	var/atom/best_target = fog_hides_from(usr?.client, hull_turf) ? null : hull_turf
 
 	var/best_layer = -INFINITY
 	for(var/atom/movable/target as anything in hull_turf)
 		if(target.mouse_opacity == MOUSE_OPACITY_TRANSPARENT || target.invisibility > usr?.see_invisible)
 			continue
-		if(target.layer < best_layer)
+		if(target.layer < best_layer || fog_hides_from(usr?.client, hull_turf, target))
 			continue
 		best_target = target
 		best_layer = target.layer
+	if(!best_target)
+		return
 	if(usr)
 		return usr.ClickOn(best_target, params, location)
 	return best_target.Click(location, control, params)

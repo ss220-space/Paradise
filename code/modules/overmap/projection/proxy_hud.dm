@@ -35,11 +35,9 @@
 			var/turf/anchor = get_turf(tile)
 			if(!anchor || anchor.z != eye.z || abs(anchor.x + tile.pixel_x / ICON_SIZE_X - eye.x) > view_size[1] / 2 + 1 || abs(anchor.y + tile.pixel_y / ICON_SIZE_Y - eye.y) > view_size[2] / 2 + 1)
 				continue
-			if(fog_hides_from(viewer, tile.source_turf()))
-				continue
 			var/list/images = list()
 			for(var/atom/target as anything in tile.hud_sources)
-				if(QDELETED(target) || target.invisibility > viewer.mob.see_invisible || !length(target.active_hud_list))
+				if(QDELETED(target) || target.invisibility > viewer.mob.see_invisible || !length(target.active_hud_list) || fog_hides_from(viewer, tile.source_turf(), target))
 					continue
 				for(var/datum/atom_hud/hud as anything in huds)
 					hud.collect_proxy_images(viewer.mob, target, images)

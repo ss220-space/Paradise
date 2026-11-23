@@ -298,39 +298,49 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 	var/dirty = TRUE
 	var/next_recast = 0
 
-	var/mob/watched_mob
+	var/atom/movable/watched_eye
+	var/proxy_sight = NONE
 
 /datum/fog_view/New(client/new_owner)
 	. = ..()
 	owner = new_owner
 	cast_data = new
-	watch_mob()
+	RegisterSignal(owner, COMSIG_CLIENT_SET_EYE, PROC_REF(on_eye_changed))
+	watch_eye()
 
 /datum/fog_view/Destroy(force)
 	clear()
 	QDEL_NULL(image_anchor)
 	QDEL_NULL(cast_data)
-	if(watched_mob)
-		UnregisterSignal(watched_mob, COMSIG_MOVABLE_MOVED)
-		watched_mob = null
+	if(watched_eye)
+		UnregisterSignal(watched_eye, COMSIG_MOVABLE_MOVED)
+		watched_eye = null
+	if(owner)
+		UnregisterSignal(owner, COMSIG_CLIENT_SET_EYE)
 	owner = null
 	scene = null
 	frame = null
 	return ..()
 
-/datum/fog_view/proc/watch_mob()
-	var/mob/current = owner?.mob
-	if(current == watched_mob)
+/datum/fog_view/proc/watch_eye()
+	var/atom/current = owner?.eye || owner?.mob
+	if(current == watched_eye)
 		return
-	if(watched_mob)
-		UnregisterSignal(watched_mob, COMSIG_MOVABLE_MOVED)
-	watched_mob = current
-	if(watched_mob)
-		RegisterSignal(watched_mob, COMSIG_MOVABLE_MOVED, PROC_REF(on_watched_mob_moved))
+	if(watched_eye)
+		UnregisterSignal(watched_eye, COMSIG_MOVABLE_MOVED)
+	watched_eye = ismovable(current) ? current : null
+	if(watched_eye)
+		RegisterSignal(watched_eye, COMSIG_MOVABLE_MOVED, PROC_REF(on_eye_moved))
 
-/datum/fog_view/proc/on_watched_mob_moved(datum/source)
+/datum/fog_view/proc/on_eye_changed()
 	SIGNAL_HANDLER
+	dirty = TRUE
 	update()
+
+/datum/fog_view/proc/on_eye_moved(datum/source, atom/old_loc)
+	SIGNAL_HANDLER
+	if(watched_eye?.loc != old_loc)
+		update()
 
 /datum/fog_view/proc/clear()
 	if(owner && length(tiles))
@@ -343,6 +353,8 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 
 /datum/fog_view/proc/cast_center()
 	if(scene)
+		if(proxy_sight == BLACKNESS_CUTTING)
+			return null
 		return scene.cast_center(src)
 	return get_turf(owner?.eye || owner?.mob)
 
@@ -360,7 +372,7 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 /datum/fog_view/proc/needs_update()
 	if(!owner)
 		return FALSE
-	if(dirty)
+	if(dirty || (scene && proxy_sight != fog_proxy_sight(owner.mob)))
 		return TRUE
 	var/turf/spot = cast_center()
 	if(!spot)
@@ -375,14 +387,20 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 /datum/fog_view/proc/update()
 	if(!owner)
 		return FALSE
-	watch_mob()
+	watch_eye()
+	if(scene)
+		var/new_sight = fog_proxy_sight(owner.mob)
+		if(proxy_sight != new_sight)
+			proxy_sight = new_sight
+			dirty = TRUE
 	var/turf/spot = cast_center()
 	if(!spot)
 		clear()
 		dirty = FALSE
 		return FALSE
 	var/new_radius = cast_radius()
-	if(dirty || spot != center || new_radius != radius || (SSfog_of_war?.max_age && world.time >= next_recast))
+	var/rebuild = dirty || spot != center || new_radius != radius || (SSfog_of_war?.max_age && world.time >= next_recast)
+	if(rebuild)
 		center = spot
 		radius = new_radius
 		recast()
@@ -394,12 +412,14 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 		if(signature != last_frame_signature)
 			last_frame_signature = signature
 			replace_frame_tiles()
-	render()
+	render(rebuild)
 	return TRUE
 
 /datum/fog_view/proc/recast()
 	if(scene)
 		hidden = scene.hidden_for(src)
+		if(proxy_sight && length(scene.drawn))
+			include_occluded_proxies()
 		visible = null
 		return
 	var/list/native = null
@@ -412,7 +432,7 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 		visible = fog_cast(center, radius)
 		hidden = fog_hidden_from_visible(visible, center, radius)
 
-/datum/fog_view/proc/render()
+/datum/fog_view/proc/render(rebuild)
 	if(!owner || !center)
 		return
 	var/plane = render_plane()
@@ -427,19 +447,33 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 		if(tile.z != center.z)
 			continue
 
-		if(tile == center)
+		var/turf/local_anchor = proxy_sight ? hidden[tile] : null
+		if(tile == center && !local_anchor)
+			continue
+		if(!local_anchor && proxy_sight && istype(tile, /obj/effect/abstract/hull_proxy_tile/scatter) && (proxy_sight & fog_sight_flag(tile)))
 			continue
 		wanted[tile] = TRUE
 		var/image/existing = tiles[tile]
 		if(existing)
 
-			var/atom/expected_anchor = visual_anchor(tile) || image_anchor || frame?.anchor() || tile
+			var/atom/expected_anchor = local_anchor || visual_anchor(tile) || image_anchor || frame?.anchor() || tile
 			if(!scene || (!QDELETED(existing.loc) && existing.loc == expected_anchor))
+				if(existing.plane != plane)
+					existing.plane = plane
+				if(rebuild && scene && (proxy_sight || length(existing.overlays)))
+					update_proxy_mask(existing, tile)
+				if(local_anchor)
+					position_occluded_mask(existing, tile, local_anchor)
 				continue
 			owner.images -= existing
 			tiles.Remove(tile)
-		tiles[tile] = make_fog_image(tile, plane)
-		owner.images += tiles[tile]
+		var/image/mask = make_fog_image(tile, plane)
+		if(scene && proxy_sight)
+			update_proxy_mask(mask, tile)
+		if(local_anchor)
+			position_occluded_mask(mask, tile, local_anchor)
+		tiles[tile] = mask
+		owner.images += mask
 	for(var/atom/tile as anything in tiles)
 		if(wanted[tile])
 			continue
