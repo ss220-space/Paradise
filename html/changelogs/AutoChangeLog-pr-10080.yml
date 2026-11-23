@@ -1,4 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - tweak: "Подскальзываение от статус эффекта мокрости теперь не работает при шаге. (PR #10080)"
