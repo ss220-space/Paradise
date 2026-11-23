@@ -2,7 +2,7 @@
 //AGENT VEST
 /obj/item/clothing/suit/armor/abductor/vest
 	name = "agent vest"
-	desc = "илет, оснащённый продвинутой технологией скрытности. Имеет два режима — боевой и скрытный."
+	desc = "Жилет, оснащённый продвинутой технологией скрытности. Имеет два режима — боевой и скрытный."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "vest_stealth"
 	item_state = "armor"
