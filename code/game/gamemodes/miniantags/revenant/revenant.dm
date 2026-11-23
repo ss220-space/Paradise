@@ -372,6 +372,7 @@
 		return ..()
 	if(!user.can_block_magic(MAGIC_RESISTANCE_HOLY, 0))
 		to_chat(user, span_revennotice("Для этого вам нужен святой предмет!"))
+		return
 	user.visible_message(
 		span_notice("[user] рассыпает [declent_ru(NOMINATIVE)] во всех направлениях."), \
 		span_notice("Вы рассыпаете [declent_ru(NOMINATIVE)] по области. Частицы медленно исчезают.")
