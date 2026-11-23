@@ -56,3 +56,27 @@
 	materials = list(MAT_METAL = 1500, MAT_SILVER = 150, MAT_GLASS = 6000, MAT_BLUESPACE = 300)
 	build_path = /obj/item/lightreplacer/bluespace
 	category = list(PROTOLATHE_CATEGORY_JANITORIAL)
+
+/datum/design/abductor_mop
+	id = "alien_mop"
+	req_tech = list(RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_ENGINEERING = 5, RESEARCH_TREE_ALIEN = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500, MAT_DIAMOND = 1000)
+	build_path = /obj/item/mop/advanced/abductor
+	category = list(PROTOLATHE_CATEGORY_JANITORIAL)
+
+/datum/design/abductor_light_replacer
+	id = "alien_light_replacer"
+	req_tech = list(RESEARCH_TREE_BLUESPACE = 7, RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_ENGINEERING = 5, RESEARCH_TREE_ALIEN = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500, MAT_DIAMOND = 1000)
+	build_path = /obj/item/lightreplacer/bluespace/abductor
+	category = list(PROTOLATHE_CATEGORY_JANITORIAL)
+
+/datum/design/abductor_flyswatter
+	id = "alien_flyswatter"
+	req_tech = list(RESEARCH_TREE_COMBAT = 5, RESEARCH_TREE_ALIEN = 1)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500, MAT_DIAMOND = 1000)
+	build_path = /obj/item/melee/flyswatter/abductor
+	category = list(PROTOLATHE_CATEGORY_JANITORIAL)

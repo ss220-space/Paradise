@@ -5,6 +5,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
+	scatter_distance = 8
 	var/blueprints = 0 // Does this have the blueprints?
 	var/icon/img	//Big photo image
 	var/scribble	//Scribble on the back.
