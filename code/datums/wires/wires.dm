@@ -284,7 +284,7 @@
 
 	var/obj/item/held_item = user.get_active_hand()
 	var/obj/item/offhand = user.get_inactive_hand()
-	return HAS_TRAIT(held_item, TRAIT_SHOW_WIRE_INFO) || HAS_TRAIT(offhand, TRAIT_SHOW_WIRE_INFO) || HAS_TRAIT(user, TRAIT_SHOW_WIRE_INFO)
+	return (held_item && HAS_TRAIT(held_item, TRAIT_SHOW_WIRE_INFO)) || (offhand && HAS_TRAIT(offhand, TRAIT_SHOW_WIRE_INFO)) || HAS_TRAIT(user, TRAIT_SHOW_WIRE_INFO)
 
 /**
  * Base proc, intended to be overwritten. Put wire information you'll see at the botton of the TGUI window here, such as "The red light is blinking".
