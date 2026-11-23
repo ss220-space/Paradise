@@ -1,3 +1,6 @@
+mod navigation;
+mod radar;
+
 use meowtonin::{byond_fn, ByondError, ByondResult, ByondValue};
 use rand::{rngs::SmallRng, RngExt, SeedableRng};
 use std::collections::BTreeMap;
@@ -54,9 +57,7 @@ impl Field {
         }
         let cx = (self.x * self.span + dx) as f32 / self.span as f32;
         let cy = (self.y * self.span + dy) as f32 / self.span as f32;
-        let noise = ((cx * 361.0 + cy * 173.0) as f64).to_radians().sin() as f32 * 0.08
-            + ((cx * 719.0 - cy * 431.0) as f64).to_radians().sin() as f32 * 0.05;
-        strength - 0.42 + noise > minimum + 0.002
+        strength - 0.42 + cloud_noise(cx, cy) > minimum + 0.002
     }
 
     fn generate(&self, seed: u64) -> Vec<[i32; 2]> {
@@ -147,6 +148,11 @@ impl Field {
         }
         points
     }
+}
+
+fn cloud_noise(x: f32, y: f32) -> f32 {
+    ((x * 361.0 + y * 173.0) as f64).to_radians().sin() as f32 * 0.08
+        + ((x * 719.0 - y * 431.0) as f64).to_radians().sin() as f32 * 0.05
 }
 
 #[byond_fn]

@@ -71,21 +71,27 @@
 		var/facing = relay.get_facing()
 		var/list/previous = relay.world_to_hull(from_x, from_y, origin_x, origin_y, facing)
 		var/list/current = relay.world_to_hull(to_x, to_y, origin_x, origin_y, facing)
-		var/delta_y = current[2] - previous[2]
-		if(delta_y <= 0)
+		if(current[2] <= previous[2])
 			continue
-		var/delta_x = current[1] - previous[1]
-		var/list/impact
-		for(var/obj/effect/overmap_warp_portal/portal as anything in relay.warp_portals)
-			var/threshold = portal.hull_y - portal.capture_depth
-			if(!portal.enabled || previous[2] > threshold || current[2] < threshold)
-				continue
-			var/fraction = (threshold - previous[2]) / delta_y
-			if(abs(previous[1] + delta_x * fraction - portal.hull_x) > portal.capture_radius)
-				continue
-			if(vessel && !impact)
-				impact = vessel.find_impact(relay)
-			if(!impact || impact[1] >= fraction)
+		if(length(region) == 3)
+			var/list/geometry = list()
+			var/list/portals = list()
+			for(var/obj/effect/overmap_warp_portal/portal as anything in relay.warp_portals)
+				if(!portal.enabled)
+					continue
+				geometry += portal.hull_x
+				geometry += portal.hull_y - portal.capture_depth
+				geometry += portal.capture_radius
+				portals += portal
+			region += list(geometry, portals)
+		var/list/crossings = RUSTLIB_CALL(overmap_portal_crossings, previous, current, region[4])
+		if(!length(crossings))
+			continue
+		var/list/portals = region[5]
+		var/list/impact = vessel?.find_impact(relay)
+		for(var/index = 1; index <= length(crossings); index += 2)
+			var/obj/effect/overmap_warp_portal/portal = portals[crossings[index]]
+			if(!QDELETED(portal) && portal.enabled && (!impact || impact[1] >= crossings[index + 1]))
 				return portal
 	return null
 

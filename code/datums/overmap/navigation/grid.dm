@@ -9,19 +9,19 @@
 	var/list/cached = snapshot[key]
 	if(cached)
 		return cached
-	var/low_x = max(bounds[1], chunk_x * OVERMAP_RADAR_CHUNK)
-	var/low_y = max(bounds[2], chunk_y * OVERMAP_RADAR_CHUNK)
-	var/width = min(bounds[3], (chunk_x + 1) * OVERMAP_RADAR_CHUNK - 1) - low_x + 1
-	var/height = min(bounds[4], (chunk_y + 1) * OVERMAP_RADAR_CHUNK - 1) - low_y + 1
-	var/stride = width + 1
-	var/list/prefix = new /list(stride * (height + 1))
-	for(var/row in 1 to height)
-		var/sum = 0
-		for(var/column in 1 to width)
-			var/turf/spot = locate(low_x + column - 1, low_y + row - 1, bubble_z)
-			sum += !!is_solid(spot)
-			prefix[row * stride + column + 1] = sum + (prefix[(row - 1) * stride + column + 1] || 0)
-	cached = list(width, height, low_x, low_y, prefix)
+	var/start_x = chunk_x * OVERMAP_RADAR_CHUNK
+	var/start_y = chunk_y * OVERMAP_RADAR_CHUNK
+	var/low_x = max(bounds[1], start_x)
+	var/high_x = min(bounds[3], start_x + OVERMAP_RADAR_CHUNK - 1)
+	cached = new /list(OVERMAP_RADAR_CHUNK)
+	for(var/row in 1 to OVERMAP_RADAR_CHUNK)
+		var/y = start_y + row - 1
+		var/bits = 0
+		if(y >= bounds[2] && y <= bounds[4])
+			for(var/x in low_x to high_x)
+				if(is_solid(locate(x, y, bubble_z)))
+					bits |= 1 << (x - start_x)
+		cached[row] = bits
 	snapshot[key] = cached
 	return cached
 
@@ -36,6 +36,8 @@
 	var/list/finish
 	var/step = 2
 	var/path_precision = 0.5
+	var/list/frame
+	var/frame_time
 
 /datum/overmap_navigation_grid/Destroy()
 	navigation = null
@@ -79,41 +81,34 @@
 	var/pad = 0.49 * (abs(cos(heading)) + abs(sin(heading))) + 0.49
 	footprint = list(min_x - pad, min_y - pad, max_x + pad, max_y + pad)
 
+/datum/overmap_navigation_grid/proc/terrain_rows(chunk_x, chunk_y)
+	return space.navigation_chunk(density, chunk_x, chunk_y)
+
+/datum/overmap_navigation_grid/proc/clear_segments(list/start, list/ends)
+	if(!density || QDELETED(space) || !overmap_nav_inside(start, limits))
+		return 0
+	var/has_candidate = FALSE
+	for(var/index in 1 to length(ends))
+		var/list/end = ends[index]
+		if(!end)
+			continue
+		if(overmap_nav_inside(end, limits) && overmap_nav_clear(start, end, boxes))
+			has_candidate = TRUE
+		else
+			ends[index] = null
+	if(!has_candidate)
+		return 0
+	if(!frame || frame_time != world.time)
+		var/list/region = space.ensure_region()
+		frame = region ? list(0, 0, region[1], region[2], space.region_z[1], space.region_z[2]) : list(space.center_x, space.center_y, space.origin_x, space.origin_y, -space.drift_x(), -space.drift_y())
+		frame_time = world.time
+	return RUSTLIB_CALL(overmap_grid_segments, src, start, ends, space.bounds, footprint, frame)
+
 /datum/overmap_navigation_grid/proc/point_clear(list/point)
-	if(!density || QDELETED(space))
-		return FALSE
-	if(!overmap_nav_inside(point, limits) || !overmap_nav_clear(point, point, boxes))
-		return FALSE
-	var/list/local = space.to_bubble(point[1], point[2])
-	var/low_x = max(space.bounds[1], CEILING(local[1] + footprint[1], 1))
-	var/low_y = max(space.bounds[2], CEILING(local[2] + footprint[2], 1))
-	var/high_x = min(space.bounds[3], FLOOR(local[1] + footprint[3], 1))
-	var/high_y = min(space.bounds[4], FLOOR(local[2] + footprint[4], 1))
-	if(low_x > high_x || low_y > high_y)
-		return TRUE
-	for(var/chunk_x in FLOOR(low_x / OVERMAP_RADAR_CHUNK, 1) to FLOOR(high_x / OVERMAP_RADAR_CHUNK, 1))
-		for(var/chunk_y in FLOOR(low_y / OVERMAP_RADAR_CHUNK, 1) to FLOOR(high_y / OVERMAP_RADAR_CHUNK, 1))
-			var/list/chunk = space.navigation_chunk(density, chunk_x, chunk_y)
-			var/x1 = max(1, low_x - chunk[3] + 1)
-			var/y1 = max(1, low_y - chunk[4] + 1)
-			var/x2 = min(chunk[1], high_x - chunk[3] + 1)
-			var/y2 = min(chunk[2], high_y - chunk[4] + 1)
-			var/list/prefix = chunk[5]
-			var/stride = chunk[1] + 1
-			if(prefix[y2 * stride + x2 + 1] - prefix[(y1 - 1) * stride + x2 + 1] - prefix[y2 * stride + x1] + prefix[(y1 - 1) * stride + x1])
-				return FALSE
-	return TRUE
+	return clear_segments(point, list(point))
 
 /datum/overmap_navigation_grid/proc/segment_clear(list/start, list/end)
-	if(!overmap_nav_clear(start, end, boxes))
-		return FALSE
-	var/dx = end[1] - start[1]
-	var/dy = end[2] - start[2]
-	var/count = max(1, CEILING(sqrt(dx ** 2 + dy ** 2) * 2, 1))
-	for(var/index in 0 to count)
-		if(!point_clear(list(start[1] + dx * index / count, start[2] + dy * index / count)))
-			return FALSE
-	return TRUE
+	return clear_segments(start, list(end))
 
 /datum/overmap_navigation_grid/proc/find_path(list/start)
 	if(!density || !point_clear(finish))
@@ -170,7 +165,10 @@
 				CHECK_TICK
 			result += list(finish)
 			return result
-		for(var/direction in GLOB.alldirs)
+		var/list/ends = new /list(length(GLOB.alldirs))
+		var/list/neighbors = new /list(length(GLOB.alldirs))
+		for(var/index in 1 to length(GLOB.alldirs))
+			var/direction = GLOB.alldirs[index]
 			var/dx = (direction & EAST) ? 1 : ((direction & WEST) ? -1 : 0)
 			var/dy = (direction & NORTH) ? 1 : ((direction & SOUTH) ? -1 : 0)
 			var/x = node[2] + dx
@@ -181,12 +179,16 @@
 			var/cost = node[5] + ((dx && dy) ? 1.414214 : 1)
 			if(!isnull(costs[next_key]) && costs[next_key] <= cost)
 				continue
-			var/list/point = list(finish[1] + x * step, finish[2] + y * step)
-			if(!segment_clear(from, point))
+			ends[index] = list(finish[1] + x * step, finish[2] + y * step)
+			neighbors[index] = list(next_key, x, y, cost + sqrt(x ** 2 + y ** 2), cost)
+		var/clear = clear_segments(from, ends)
+		for(var/index in 1 to length(neighbors))
+			if(!(clear & (1 << (index - 1))))
 				continue
-			costs[next_key] = cost
-			parents[next_key] = list(key, node[2], node[3])
-			overmap_nav_heap_push(heap, list(next_key, x, y, cost + sqrt(x ** 2 + y ** 2), cost))
+			var/list/neighbor = neighbors[index]
+			costs[neighbor[1]] = neighbor[5]
+			parents[neighbor[1]] = list(key, node[2], node[3])
+			overmap_nav_heap_push(heap, neighbor)
 		CHECK_TICK
 		if(QDELETED(navigation) || revision != navigation.revision || QDELETED(space))
 			return null

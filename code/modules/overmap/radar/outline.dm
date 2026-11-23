@@ -6,52 +6,44 @@
 
 /obj/overmap/entity/proc/build_radar_outline()
 	var/version = hull_version
-	var/list/occupied = list()
+	var/list/cells = list()
+	var/center_x = hull_center_x
+	var/center_y = hull_center_y
 	var/step = hull_radius > 32 || physical_space ? 2 : 1
 	if(istype(src, /obj/overmap/entity/virtual_structure))
 		var/obj/overmap/entity/virtual_structure/structure = src
 		for(var/key in structure.virtual_cells)
 			var/list/cell = structure.virtual_cells[key]
 			if(cell[4] > 0)
-				occupied["[FLOOR((cell[1] - hull_center_x) / step, 1)],[FLOOR((cell[2] - hull_center_y) / step, 1)]"] = TRUE
+				cells += cell[1]
+				cells += cell[2]
 	else if(length(hull_turfs))
 		for(var/turf/spot as anything in hull_turfs)
 			if(spot)
-				occupied["[FLOOR((spot.x - hull_center_x) / step, 1)],[FLOOR((spot.y - hull_center_y) / step, 1)]"] = TRUE
+				cells += spot.x
+				cells += spot.y
 	else if(physical_space)
 		var/datum/overmap_bubble/space = physical_space
+		center_x = space.center_x
+		center_y = space.center_y
 		for(var/turf/spot as anything in block(locate(space.bounds[1], space.bounds[2], space.bubble_z), locate(space.bounds[3], space.bounds[4], space.bubble_z)))
 			if(!isspaceturf(spot) || (locate(/obj/structure) in spot))
-				occupied["[FLOOR((spot.x - space.center_x) / step, 1)],[FLOOR((spot.y - space.center_y) / step, 1)]"] = TRUE
+				cells += spot.x
+				cells += spot.y
 			CHECK_TICK
 	else if(dock_host)
 		var/z_level = dock_host.pick_landing_z()
 		var/list/rect = z_level ? host_content_bounds(z_level) : null
 		if(rect)
-			var/center_x = (rect[1] + rect[3]) / 2
-			var/center_y = (rect[2] + rect[4]) / 2
+			center_x = (rect[1] + rect[3]) / 2
+			center_y = (rect[2] + rect[4]) / 2
 			for(var/turf/spot as anything in block(locate(rect[1], rect[2], z_level), locate(rect[3], rect[4], z_level)))
 				if(!isspaceturf(spot) || (locate(/obj/structure) in spot))
-					occupied["[FLOOR((spot.x - center_x) / step, 1)],[FLOOR((spot.y - center_y) / step, 1)]"] = TRUE
+					cells += spot.x
+					cells += spot.y
 				CHECK_TICK
-	var/list/path = list()
-	for(var/key in occupied)
-		var/list/coords = splittext(key, ",")
-		var/x = text2num(coords[1])
-		var/y = text2num(coords[2])
-		var/px = x * step - 0.5
-		var/py = y * step - 0.5
-		if(!occupied["[x - 1],[y]"])
-			path += "M[px] [py]v[step]"
-		if(!occupied["[x + 1],[y]"])
-			path += "M[px + step] [py]v[step]"
-		if(!occupied["[x],[y - 1]"])
-			path += "M[px] [py]h[step]"
-		if(!occupied["[x],[y + 1]"])
-			path += "M[px] [py + step]h[step]"
-		CHECK_TICK
 	if(!QDELETED(src) && version == hull_version)
-		radar_outline_cache = jointext(path, " ")
+		radar_outline_cache = length(cells) ? RUSTLIB_CALL(overmap_radar_outline, cells, center_x || 0, center_y || 0, step) : ""
 		radar_outline_version = version
 		radar_outline_until = world.time + (30 SECONDS)
 	radar_outline_busy = FALSE
