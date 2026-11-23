@@ -89,6 +89,10 @@
 	var/active = FALSE
 	var/interval = 0.8 SECONDS
 
+/atom/movable/screen/alert/status_effect/cursed_flame/Destroy()
+	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(attached_effect.id))
+	. = ..()
+
 /atom/movable/screen/alert/status_effect/cursed_flame/Click(location, control, params)
 	. = ..()
 	if(!.)
@@ -149,6 +153,7 @@
 	if(!QDELING(owner))
 		to_chat(owner, span_notice("Вы перестаёте кататься."))
 	UnregisterSignal(owner, list(COMSIG_MOVABLE_MOVED, COMSIG_LIVING_SET_BODY_POSITION))
+	REMOVE_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(attached_effect.id))
 	STOP_PROCESSING(SSprocessing, src)
 	active = FALSE
 
