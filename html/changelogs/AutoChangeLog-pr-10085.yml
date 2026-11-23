@@ -1,4 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - refactor: "Рефактор лодаута с помощью абстрактных типов. (PR #10085)"

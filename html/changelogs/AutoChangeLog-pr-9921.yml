@@ -1,4 +1,0 @@
-author: "broodjeh-lang"
-delete-after: True
-changes:
-  - refactor: "частичный рефактор кода радио (PR #9921)"

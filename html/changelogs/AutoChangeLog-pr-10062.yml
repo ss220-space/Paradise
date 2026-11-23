@@ -1,4 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - bugfix: "Фикс спавна миномета в ящиках со снарядами. (PR #10062)"
