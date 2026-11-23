@@ -199,13 +199,8 @@
 	desc = "Личная броня, выкованная её владельцем с помощью сил Лаваленда. Его происхождение известно лишь немногим."
 	icon_state = "hostile_env_mk2"
 	item_state = "hostile_env_mk2"
-	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	resistance_flags = FIRE_PROOF | LAVA_PROOF | ACID_PROOF
-	slowdown = 0
 	armor = list(MELEE = 80, BULLET = 55, LASER = 55, ENERGY = 55, BOMB = 90, BIO = 100, FIRE = 100, ACID = 100)
 	allowed = ALLOWED_MINING_SUIT_ITEMS
-	jetpack = /obj/item/tank/jetpack/suit
-	jetpack_upgradable = TRUE
 
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
@@ -261,9 +256,7 @@
 	icon_state = "hostile_env_mk2"
 	item_state = "hostile_env_mk2"
 	add_glass_overlay = FALSE
-	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	armor = list(MELEE = 80, BULLET = 55, LASER = 55, ENERGY = 55, BOMB = 90, BIO = 100, FIRE = 100, ACID = 100)
-	resistance_flags = FIRE_PROOF | LAVA_PROOF | ACID_PROOF
 
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',

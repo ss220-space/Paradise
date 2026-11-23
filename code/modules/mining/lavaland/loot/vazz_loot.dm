@@ -18,16 +18,16 @@
 	new /obj/item/gem/vazz(src)
 
 /obj/structure/closet/crate/necropolis/vazz/crusher
-	name = "Vazz chest"
+	name = "broken vazz chest"
 
 /obj/structure/closet/crate/necropolis/vazz/crusher/get_ru_names()
 	return alist(
-		NOMINATIVE = "сундук Вазза",
-		GENITIVE = "сундука Вазза",
-		DATIVE = "сундуку Вазза",
-		ACCUSATIVE = "сундук Вазза",
-		INSTRUMENTAL = "сундуком Вазза",
-		PREPOSITIONAL = "сундуке Вазза",
+		NOMINATIVE = "сломанный сундук Вазза",
+		GENITIVE = "сломанного сундука Вазза",
+		DATIVE = "сломанному сундуку Вазза",
+		ACCUSATIVE = "сломанный сундук Вазза",
+		INSTRUMENTAL = "сломанным сундуком Вазза",
+		PREPOSITIONAL = "сломанном сундуке Вазза",
 	)
 
 /obj/structure/closet/crate/necropolis/vazz/crusher/Initialize(mapload)

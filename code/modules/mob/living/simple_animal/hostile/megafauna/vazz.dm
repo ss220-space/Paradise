@@ -116,7 +116,6 @@ Difficulty: Insane
 /obj/effect/vazz_beam_anchor
 	name = "vazz beam anchor"
 	icon = null
-	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /// Череп-бластер. Он же является источником луча.
@@ -152,7 +151,6 @@ Difficulty: Insane
 /obj/effect/temp_visual/drakewall/vazz
 	name = "барьер"
 	desc = "Барьер из мерцающего света. Пока он стоит, выйти из круга не получится."
-	density = TRUE
 	duration = VAZZ_ARENA_WALL_DURATION
 	// TODO(спрайт): icon и icon_state барьера.
 
@@ -181,8 +179,6 @@ Difficulty: Insane
 	icon_state = "vazz"
 	icon_living = "vazz"
 	icon = 'icons/mob/lavaland/vazz.dmi'
-	pixel_x = 0
-	base_pixel_x = 0
 	crusher_loot = list(/obj/structure/closet/crate/necropolis/vazz/crusher)
 	loot = list(/obj/structure/closet/crate/necropolis/vazz)
 	enraged_loot = /obj/item/disk/fauna_research/vazz
@@ -205,7 +201,6 @@ Difficulty: Insane
 	achievement_type = /datum/award/achievement/boss/vazz_kill
 	crusher_achievement_type = /datum/award/achievement/boss/vazz_crusher
 	score_achievement_type = /datum/award/score/vazz_score
-	true_spawn = TRUE
 	attack_action_types = list(
 		/datum/action/innate/megafauna_attack/vazz_charge,
 		/datum/action/innate/megafauna_attack/vazz_cross,
@@ -300,7 +295,6 @@ Difficulty: Insane
 	return ..()
 
 /obj/effect/temp_visual/dir_setting/vazz
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "cultout"
 
 /mob/living/simple_animal/hostile/megafauna/vazz/Initialize(mapload)
