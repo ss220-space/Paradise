@@ -2,7 +2,6 @@
  * Crayons
  */
 #define SPRAYCAN_MODE_TEXT "text"
-#define SPRAYCAN_MODE_SYMBOLS "symbols"
 #define SPRAYCAN_MODE_GRAFFITI "graffiti"
 #define SPRAYCAN_MODE_RUNE "rune"
 #define SPRAYCAN_MODE_LETTERS "letters"
@@ -17,7 +16,7 @@
 #define SPRAYCAN_HALF_TILE 16
 #define SPRAYCAN_ALLOWED_CHARS "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюяABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,!?-+:;()/\"'№=*#&%$@^~<>"
 
-#define NORMAL_CRAYONS_USES 30
+#define NORMAL_CRAYONS_USES 42
 #define BETTER_CRAYONS_USES 60 //0 for unlimited uses
 #define SINGLEUSE_CRAYONS_USES 1
 /obj/item/toy/crayon
@@ -384,7 +383,7 @@
 	var/loop_text = TRUE
 	var/rotation = 0
 	var/scale = 1
-	var/max_uses = 30
+	var/max_uses = 42
 
 /obj/item/toy/crayon/spraycan/get_ru_names()
 	return alist(
@@ -575,7 +574,7 @@
 	if(!can_paint(target, user))
 		return
 
-	if(istype(target, /obj/effect/decal/cleanable/crayon) && (!length(modifiers) || !modifiers[RIGHT_CLICK]))
+	if(istype(target, /obj/effect/decal/cleanable/crayon) && !LAZYACCESS(modifiers, RIGHT_CLICK))
 		var/turf/underlying_turf = get_turf(target)
 		if(is_type_in_list(underlying_turf, validSurfaces))
 			spray_surface(underlying_turf, user, modifiers, target.pixel_x, target.pixel_y)
@@ -618,16 +617,16 @@
 
 	return ..()
 
-/obj/item/toy/crayon/spraycan/proc/spray_surface(turf/target, mob/user, list/modifiers, offset_x = 0, offset_y = 0)
-	var/click_x = offset_x
-	var/click_y = offset_y
-	if(length(modifiers))
-		if(modifiers[ICON_X])
-			click_x = clamp(text2num(modifiers[ICON_X]) - SPRAYCAN_HALF_TILE + offset_x, -SPRAYCAN_HALF_TILE, SPRAYCAN_HALF_TILE)
-		if(modifiers[ICON_Y])
-			click_y = clamp(text2num(modifiers[ICON_Y]) - SPRAYCAN_HALF_TILE + offset_y, -SPRAYCAN_HALF_TILE, SPRAYCAN_HALF_TILE)
+/obj/item/toy/crayon/spraycan/proc/spray_surface(turf/target, mob/user, list/modifiers)
+	var/click_x = 0
+	var/click_y = 0
+	if(LAZYACCESS(modifiers, ICON_X))
+		click_x = clamp(text2num(modifiers[ICON_X]) - SPRAYCAN_HALF_TILE, -SPRAYCAN_HALF_TILE, SPRAYCAN_HALF_TILE)
+	if(LAZYACCESS(modifiers, ICON_Y))
+		click_y = clamp(text2num(modifiers[ICON_Y]) - SPRAYCAN_HALF_TILE, -SPRAYCAN_HALF_TILE, SPRAYCAN_HALF_TILE)
 
-	var/half_extent = round(SPRAYCAN_HALF_TILE * scale)
+	var/base_half_extent = (spray_mode == SPRAYCAN_MODE_TEXT) ? (SPRAYCAN_HALF_TILE / 2) : SPRAYCAN_HALF_TILE
+	var/half_extent = round(base_half_extent * scale)
 	var/min_x = -SPRAYCAN_HALF_TILE
 	var/max_x = SPRAYCAN_HALF_TILE
 	var/min_y = -SPRAYCAN_HALF_TILE
@@ -638,13 +637,13 @@
 	var/turf/north_turf = get_step(target, NORTH)
 	var/turf/south_turf = get_step(target, SOUTH)
 
-	if(!east_turf || isspaceturf(east_turf) || isgroundlessturf(east_turf))
+	if(!east_turf || isgroundlessturf(east_turf))
 		max_x = SPRAYCAN_HALF_TILE - half_extent
-	if(!west_turf || isspaceturf(west_turf) || isgroundlessturf(west_turf))
+	if(!west_turf || isgroundlessturf(west_turf))
 		min_x = half_extent - SPRAYCAN_HALF_TILE
-	if(!north_turf || isspaceturf(north_turf) || isgroundlessturf(north_turf))
+	if(!north_turf || isgroundlessturf(north_turf))
 		max_y = SPRAYCAN_HALF_TILE - half_extent
-	if(!south_turf || isspaceturf(south_turf) || isgroundlessturf(south_turf))
+	if(!south_turf || isgroundlessturf(south_turf))
 		min_y = half_extent - SPRAYCAN_HALF_TILE
 
 	if(min_x > max_x || min_y > max_y)
@@ -726,17 +725,13 @@
 
 /obj/item/toy/crayon/spraycan/paintkit/bigbrother
 	name = "Paintkit «Big Brother»"
-	desc = "Баллончик с черно-золотым корпусом. В комплекте идет одноразовый трафарет для покраски сварочного шлема. К нему прикреплен небольшой стикер с надписью «Внимание к безопасности — залог выживания»."
-	icon_state = "spraycan_bigbrother"
-
-	name = "Paintkit «Big Brother»"
-	desc = "Баллончик с черно-золотым корпусом. В комплекте идет одноразовый трафарет для покраски сварочного шлема. К нему прикреплен небольшой стикер с надписью «Внимание к безопасности — залог выживания»."
+	desc = "Баллончик с черно-золотым корпусом. В комплекте идет одноразовый трафарет для покраски сварочного шлема. К нему прикреплена записка, на которой написано: «Eyes everywhere»."
 	icon_state = "spraycan_bigbrother"
 	weld_icons = list("Big Brother" = "welding_bigbrother")
 
 /obj/item/toy/crayon/spraycan/paintkit/slavic
 	name = "Paintkit «Slavic»"
-	desc = "Баллончик с корпусом цвета хаки. В комплекте идет одноразовый трафарет для покраски сварочного шлема. К нему прикреплен небольшой стикер с надписью «Внимание к безопасности — залог выживания»."
+	desc = "Баллончик с корпусом цвета хаки. В комплекте идет одноразовый трафарет для покраски сварочного шлема. К нему прикреплена записка, на которой написано: «Head, eyes, blyad»."
 	icon_state = "spraycan_slavic"
 	weld_icons = list("Slavic" = "welding_slavic")
 
@@ -745,7 +740,6 @@
 #undef SINGLEUSE_CRAYONS_USES
 #undef SPRAYCAN_MODE_TEXT
 #undef SPRAYCAN_MODE_LETTERS
-#undef SPRAYCAN_MODE_SYMBOLS
 #undef SPRAYCAN_MODE_GRAFFITI
 #undef SPRAYCAN_MODE_RUNE
 #undef SPRAYCAN_MAX_TEXT_LENGTH

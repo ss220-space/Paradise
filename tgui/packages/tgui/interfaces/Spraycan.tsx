@@ -270,7 +270,7 @@ export const Spraycan = () => {
                             textAlign: 'center',
                             fontFamily:
                               spray_font || '"Courier New", monospace',
-                            fontSize: '28px',
+                            fontSize: '14px',
                             fontWeight: 'bold',
                             color: colour,
                             textShadow: '1px 1px 0 #111, -1px -1px 0 #111',

@@ -19,9 +19,12 @@
 	if(text_char)
 		icon_state = null
 		color = null
+		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 		maptext_width = 32
 		maptext_height = 32
-		maptext = "<div style='width: 32px; height: 32px; line-height: 32px; text-align: center; font-family: [font_family]; font-size: 20px; font-weight: bold; color: [main]; -dm-text-outline: 1px #111111;'>[html_encode(text_char)]</div>"
+		maptext_y = 9
+		maptext = "<div style='width: 32px; text-align: center; font-family: [font_family]; font-size: 10px; font-weight: bold; color: [main]; -dm-text-outline: 1px #111111;'>[html_encode(text_char)]</div>"
+
 	else
 		icon_state = type
 		color = main
