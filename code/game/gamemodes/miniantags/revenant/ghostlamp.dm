@@ -126,6 +126,7 @@
 	melee_damage_type = STAMINA
 	obj_damage = 15
 	del_on_death = TRUE
+	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB | PASSGLASS | PASSSTRUCTURE | PASSFENCE
 
 /mob/living/simple_animal/hostile/wisp/Click(location, control, params)
 	. = ..()
