@@ -385,7 +385,7 @@
 
 /obj/item/paper/guides/hypertorus
 	name = "paper- 'Quick guide to safe handling of the HFR'"
-	info = "<b>How to safely(TM) operate the Hypertorus</b><br>\
+	default_raw_text = "<b>How to safely(TM) operate the Hypertorus</b><br>\
 	-Build the machine as it�s shown in the main guide.<br>\
 	-Make a 50/50 gasmix of tritium and hydrogen totalling around 2000 moles.<br>\
 	-Start the machine, fill up the cooling loop with plasma/hypernoblium and use space or freezers to cool it.<br>\

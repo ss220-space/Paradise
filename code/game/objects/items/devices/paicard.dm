@@ -500,7 +500,7 @@
 /obj/item/paper/pai_upgrade
 	name = "Инструкция по применению"
 	icon_state = "paper_words"
-	info = {"<center> <b>Инструкция по применению СпИИ</b> </center><br>
+	default_raw_text = {"<center> <b>Инструкция по применению СпИИ</b> </center><br>
 
 <b>В набор СпИИ входит:</b><br>
 1.Картридж СпИИ<br>

@@ -513,7 +513,7 @@ GLOBAL_LIST_EMPTY(safes)
 	name = "safe codes"
 	desc = "Надежный способ сохранить секретность важных цифр."
 	var/owner
-	info = "<div style='text-align:center;'><img src = ntlogo.png><center><h3>Коды от сейфа</h3></center>"
+	default_raw_text = "<div style='text-align:center;'><img src = ntlogo.png><center><h3>Коды от сейфа</h3></center>"
 
 /obj/item/paper/safe_code/get_ru_names()
 	return alist(

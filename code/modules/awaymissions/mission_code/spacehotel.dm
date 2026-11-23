@@ -25,40 +25,40 @@
 	icon_state = "undersea"
 
 /obj/item/paper/crumpled/hotel_scrap_1
-	info = "I can't believe this shitty hotel assigned me a purple-themed room. <i>Why does the shower dump grape drink everywhere??</i>"
+	default_raw_text = "I can't believe this shitty hotel assigned me a purple-themed room. <i>Why does the shower dump grape drink everywhere??</i>"
 
 /obj/item/paper/hotel_scrap_2
 	name = "Journal Entry #2"
-	info = "<h3>Day 7:</h3>Today, I stepped into my bathroom, only to discover that it had become a mountainside wilderness. I tried to wash my hands with snow, but it didn't particularly pan out.<br>I contacting the front desk regarding the issue, but the receptionist just stared at me with dead eyes and spouted unrepeatable curses at me. However, I convinced them to reassign me to an upgraded suite."
+	default_raw_text = "<h3>Day 7:</h3>Today, I stepped into my bathroom, only to discover that it had become a mountainside wilderness. I tried to wash my hands with snow, but it didn't particularly pan out.<br>I contacting the front desk regarding the issue, but the receptionist just stared at me with dead eyes and spouted unrepeatable curses at me. However, I convinced them to reassign me to an upgraded suite."
 
 /obj/item/paper/hotel_scrap_3
 	name = "Journal Entry #3"
-	info = "<h3>Day 26:</h3>Well, that sucked royally. The queen-sized bed was nice, but the hottub in my room was, well, my wife described it as \"a portal to hell\". I don't know, I guess the lava and weird blood gave it that impression, but it was pretty nicely warm.<br>However, <i>\"we\"</i> decided to get assigned to a new room. Whatever."
+	default_raw_text = "<h3>Day 26:</h3>Well, that sucked royally. The queen-sized bed was nice, but the hottub in my room was, well, my wife described it as \"a portal to hell\". I don't know, I guess the lava and weird blood gave it that impression, but it was pretty nicely warm.<br>However, <i>\"we\"</i> decided to get assigned to a new room. Whatever."
 
 /obj/item/paper/hotel_scrap_4
 	name = "Diary Page"
-	info = "<b>Day 7 of Bad Vacation</b><br>Thanks Qzxor this shit vacation is ending today. The novelty of the trashy pool wore off 2 days in and I'm not allowed in the bar. The tiny box they called a room that, we had to cram into, just had a poster and a couple of beds. Only one bedsheet to spare. Shower had brown water and sink just dumped its water back out the ceiling, somehow.<br><br>PS: The receptionist isn't paying attention to us when we try to check out. Apparently, we're staying another day."
+	default_raw_text = "<b>Day 7 of Bad Vacation</b><br>Thanks Qzxor this shit vacation is ending today. The novelty of the trashy pool wore off 2 days in and I'm not allowed in the bar. The tiny box they called a room that, we had to cram into, just had a poster and a couple of beds. Only one bedsheet to spare. Shower had brown water and sink just dumped its water back out the ceiling, somehow.<br><br>PS: The receptionist isn't paying attention to us when we try to check out. Apparently, we're staying another day."
 
 /obj/item/paper/hotel_scrap_5
 	name = "Journal Entry #5"
-	info = "<h3>Day 185:</h3>I feel like the restaurant's chef is just making random dishes to mess with me. I request something from the menu, and he throws out something nobody asked for on the counter. The bartender isn't much better. At least both of them can make some nice food and drinks. I would complain to the management... but they never seem to care."
+	default_raw_text = "<h3>Day 185:</h3>I feel like the restaurant's chef is just making random dishes to mess with me. I request something from the menu, and he throws out something nobody asked for on the counter. The bartender isn't much better. At least both of them can make some nice food and drinks. I would complain to the management... but they never seem to care."
 
 /obj/item/paper/crumpled/hotel_scrap_6
 	name = "Journal Entry #6"
-	info = "<h3>Day 386:</h3><span style='font-family: wingdings; color: red'>AMBGAT MEZLBNU</span>. Something wrong. Can't stop hugging plushies."
+	default_raw_text = "<h3>Day 386:</h3><span style='font-family: wingdings; color: red'>AMBGAT MEZLBNU</span>. Something wrong. Can't stop hugging plushies."
 
 /obj/item/paper/crumpled/hotel_scrap_7
 	name = "Journal Entry #8"
-	info = "<span style='font-family: wingdings; color: red'>ASGATDHU NAMSPA KER OKS O OKDOFLI OSDSFKO OASKDAFO AOSDKF OINAIS ISJDDEF OSKFEREAODIK OSI ODIFOSA OEKRRO ASODFKAO PSSDOF SDFK OSDKF OSDKFSASPODFIOSASD UHGU DFYG FPO ASDFOS DFOASSD FAPSO FSPDFOIER OPWASDSA PS DODIOF OSDI</span> pizza <span style='font-family: wingdings; color: red'>OKSDFO AL OKEWORK CVBUASO SDFO AOE RAOWEIK SODDFI</span>"
+	default_raw_text = "<span style='font-family: wingdings; color: red'>ASGATDHU NAMSPA KER OKS O OKDOFLI OSDSFKO OASKDAFO AOSDKF OINAIS ISJDDEF OSKFEREAODIK OSI ODIFOSA OEKRRO ASODFKAO PSSDOF SDFK OSDKF OSDKFSASPODFIOSASD UHGU DFYG FPO ASDFOS DFOASSD FAPSO FSPDFOIER OPWASDSA PS DODIOF OSDI</span> pizza <span style='font-family: wingdings; color: red'>OKSDFO AL OKEWORK CVBUASO SDFO AOE RAOWEIK SODDFI</span>"
 
 /obj/item/paper/hotel_scrap_8
 	name = "Mysterious Note"
 	icon_state = "paper_talisman"
-	info = "<div style='text-align: center; color: red; font: 24pt comic sans ms'>There is only one way to leave.</div>"
+	default_raw_text = "<div style='text-align: center; color: red; font: 24pt comic sans ms'>There is only one way to leave.</div>"
 
 /obj/item/paper/pamphlet/hotel
 	name = "space hotel pamphlet"
-	info = "<h3>Welcome to Deep Space Hotel 419!</h3>Thank you for choosing our hotel. Simply hand your credit or debit card to the concierge and get your room key! To check out, hand your credit card back.<small><h4>Conditions:</h4><ul><li>The hotel is not responsible for any losses due to time or space anomalies.<li>The hotel is not responsible for events that occur outside of the hotel station, including, but not limited to, events that occur inside of dimensional pockets.<li>The hotel is not responsible for overcharging your account.<li>The hotel is not responsible for missing persons.<li>The hotel is not responsible for mind-altering effects due to drugs, magic, demons, or space worms.</ul></small>"
+	default_raw_text = "<h3>Welcome to Deep Space Hotel 419!</h3>Thank you for choosing our hotel. Simply hand your credit or debit card to the concierge and get your room key! To check out, hand your credit card back.<small><h4>Conditions:</h4><ul><li>The hotel is not responsible for any losses due to time or space anomalies.<li>The hotel is not responsible for events that occur outside of the hotel station, including, but not limited to, events that occur inside of dimensional pockets.<li>The hotel is not responsible for overcharging your account.<li>The hotel is not responsible for missing persons.<li>The hotel is not responsible for mind-altering effects due to drugs, magic, demons, or space worms.</ul></small>"
 
 /obj/effect/landmark/map_loader/hotel_room
 	icon = 'icons/misc/Testing/turf_analysis.dmi'

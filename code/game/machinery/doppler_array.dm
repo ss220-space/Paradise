@@ -230,7 +230,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 
 /obj/item/paper/explosive_log
 	name = "explosive log"
-	info = "<h3>Explosive Log Report</h3>\
+	default_raw_text = "<h3>Explosive Log Report</h3>\
 	<table style='width:380px;text-align:left;'>\
 	<tr>\
 	<th>Time logged</th>\

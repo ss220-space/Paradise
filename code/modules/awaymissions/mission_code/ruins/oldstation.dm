@@ -75,29 +75,29 @@
 // Papers
 /obj/item/paper/fluff/ruins/oldstation
 	name = "Cryo Awakening Alert"
-	language = LANGUAGE_SOL_COMMON
-	info = "<b>**WARNING**</b><br><br>Catastrophic damage sustained to station. Powernet exhausted to reawaken crew.<br><br>Immediate Objectives<br><br>1: Activate emergency power generator<br>2: Lift station lockdown on the bridge<br><br>Please locate the 'Damage Report' on the bridge for a detailed situation report."
+	// language = LANGUAGE_SOL_COMMON
+	default_raw_text = "<b>**WARNING**</b><br><br>Catastrophic damage sustained to station. Powernet exhausted to reawaken crew.<br><br>Immediate Objectives<br><br>1: Activate emergency power generator<br>2: Lift station lockdown on the bridge<br><br>Please locate the 'Damage Report' on the bridge for a detailed situation report."
 
 /obj/item/paper/fluff/ruins/oldstation/damagereport
 	name = "Damage Report"
-	info = "<b>Damage Report</b><br><br><b>Omega Station</b> - Destroyed<br><br><b>Alpha Station</b> - Destroyed<br><br><b>Beta Station</b> - Catastrophic Damage. Medical, partially destroyed. Atmospherics, partially destroyed. Engine Core, destroyed.<br><br><b>Charlie Station</b> - Intact. Loss of oxygen to eastern side of main corridor.<br><br><b>Theta Station</b> - Intact. <b>WARNING</b>: Unknown force occupying Theta Station. Intent unknown. Species unknown. Numbers unknown.<br><br>Recommendation - Reestablish station powernet via solar array. Reestablish station atmospherics system to restore air."
+	default_raw_text = "<b>Damage Report</b><br><br><b>Omega Station</b> - Destroyed<br><br><b>Alpha Station</b> - Destroyed<br><br><b>Beta Station</b> - Catastrophic Damage. Medical, partially destroyed. Atmospherics, partially destroyed. Engine Core, destroyed.<br><br><b>Charlie Station</b> - Intact. Loss of oxygen to eastern side of main corridor.<br><br><b>Theta Station</b> - Intact. <b>WARNING</b>: Unknown force occupying Theta Station. Intent unknown. Species unknown. Numbers unknown.<br><br>Recommendation - Reestablish station powernet via solar array. Reestablish station atmospherics system to restore air."
 
 /obj/item/paper/fluff/ruins/oldstation/protosuit
 	name = "B01-RIG Hardsuit Report"
-	info = "<b>Prototype Hardsuit</b><br><br>The B01-RIG Hardsuit is a prototype powered exoskeleton. Based off of a recovered pre-void war era united Earth government powered military \
+	default_raw_text = "<b>Prototype Hardsuit</b><br><br>The B01-RIG Hardsuit is a prototype powered exoskeleton. Based off of a recovered pre-void war era united Earth government powered military \
 	exosuit, the RIG Hardsuit is a breakthrough in Hardsuit technology, and is the first post-void war era Hardsuit that can be safely used by an operator.<br><br>The B01 however suffers \
 	a myriad of constraints. It is slow and bulky to move around, it lacks any significant armor plating against direct attacks and its internal heads up display is unfinished,  \
 	resulting in the user being unable to see long distances.<br><br>The B01 is unlikely to see any form of mass production, but will serve as a base for future Hardsuit developments."
 
 /obj/item/paper/fluff/ruins/oldstation/protohealth
 	name = "Health Analyser Report"
-	info = "<b>Health Analyser</b><br><br>The portable Health Analyser is essentially a handheld variant of a health analyser. Years of research have concluded with this device which is \
+	default_raw_text = "<b>Health Analyser</b><br><br>The portable Health Analyser is essentially a handheld variant of a health analyser. Years of research have concluded with this device which is \
 	capable of diagnosing even the most critical, obscure or technical injuries any humanoid entity is suffering in an easy to understand format that even a non-trained health professional \
 	can understand.<br><br>The health analyser is expected to go into full production as standard issue medical kit."
 
 /obj/item/paper/fluff/ruins/oldstation/protogun
 	name = "K14 Energy Gun Report"
-	info = "<b>K14-Multiphase Energy Gun</b><br><br>The K14 Prototype Energy Gun is the first Energy Rifle that has been successfully been able to not only hold a larger ammo charge \
+	default_raw_text = "<b>K14-Multiphase Energy Gun</b><br><br>The K14 Prototype Energy Gun is the first Energy Rifle that has been successfully been able to not only hold a larger ammo charge \
 	than other gun models, but is capable of swapping between different energy projectile types on command with no incidents.<br><br>The weapon still suffers several drawbacks, its alternative, \
 	non laser fire mode, can only fire one round before exhausting the energy cell, the weapon also remains prohibitively expensive, nonetheless NT Market Research fully believe this weapon \
 	will form the backbone of our Energy weapon catalogue.<br><br>The K14 is expected to undergo revision to fix the ammo issues, the K15 is expected to replace the 'stun' setting with a \
@@ -105,34 +105,34 @@
 
 /obj/item/paper/fluff/ruins/oldstation/protosing
 	name = "Singularity Generator"
-	info = "<b>Singularity Generator</b><br><br>Modern power generation typically comes in two forms, a Fusion Generator or a Fission Generator. Fusion provides the best space to power \
+	default_raw_text = "<b>Singularity Generator</b><br><br>Modern power generation typically comes in two forms, a Fusion Generator or a Fission Generator. Fusion provides the best space to power \
 	ratio, and is typically seen on military or high security ships and stations, however Fission reactors require the usage of expensive, and rare, materials in its construction.. Fission generators are massive and bulky, and require a large reserve of uranium to power, however they are extremely cheap to operate and oft need little maintenance once \
 	operational.<br><br>The Singularity aims to alter this, a functional Singularity is essentially a controlled Black Hole, a Black Hole that generates far more power than Fusion or Fission \
 	generators can ever hope to produce."
 
 /obj/item/paper/fluff/ruins/oldstation/report
 	name = "Crew Reawakening Report"
-	info = "Artificial Program's report to surviving crewmembers.<br><br>Crew were placed into cryostasis on March 10th, 2445.<br><br>Crew were awoken from cryostasis around June, 2557.<br><br> \
+	default_raw_text = "Artificial Program's report to surviving crewmembers.<br><br>Crew were placed into cryostasis on March 10th, 2445.<br><br>Crew were awoken from cryostasis around June, 2557.<br><br> \
 	<b>SIGNIFICANT EVENTS OF NOTE</b><br>1: The primary radiation detectors were taken offline after 112 years due to power failure, secondary radiation detectors showed no residual \
 	radiation on station. Deduction, primarily detector was malfunctioning and was producing a radiation signal when there was none.<br><br>2: A data burst from a nearby Nanotrasen Space \
 	Station was received, this data burst contained research data that has been uploaded to our RnD labs.<br><br>3: Unknown invasion force has occupied Theta station."
 
 /obj/item/paper/fluff/ruins/oldstation/generator_manual
 	name = "S.U.P.E.R.P.A.C.M.A.N.-type portable generator manual"
-	info = "You can barely make out a faded sentence... <br><br> Wrench down the generator on top of a wire node connected to either a SMES input terminal or the power grid. \
+	default_raw_text = "You can barely make out a faded sentence... <br><br> Wrench down the generator on top of a wire node connected to either a SMES input terminal or the power grid. \
 	*eep th* *e**l of **m..<br><br> The last words completly faded." // yep, the temperature overheat, some players set power to 5 and make the gen to blow up, rip oldstation.
 
 /obj/item/paper/ruins/oldstation
-	language = LANGUAGE_SOL_COMMON
+	// language = LANGUAGE_SOL_COMMON
 
 /obj/item/paper/ruins/oldstation/protoinventory
 	name = "Theta RnD Prototype Inventory Secure Storage"
-	info = "<b>Inventory</b><br><br>(1) Prototype Hardsuit<br><br>(1)Health Analyser<br><br>(1)Prototype Energy Rifle<br><br>(1)Tesla Generation Rod<br><br><b>DO NOT REMOVE WITHOUT \
+	default_raw_text = "<b>Inventory</b><br><br>(1) Prototype Hardsuit<br><br>(1)Health Analyser<br><br>(1)Prototype Energy Rifle<br><br>(1)Tesla Generation Rod<br><br><b>DO NOT REMOVE WITHOUT \
 	THE CAPTAIN AND RESEARCH DIRECTOR'S AUTHORISATION</b>"
 
 /obj/item/paper/ruins/oldstation/prototesla // eh, im bad in eng anyway but i tried. mb somebody will fix it later
 	name = "Tesla Generator Report"
-	info = "<b>Tesla Generator</b><br><br>New prototype of engine made in purpose to product energy has been created in walls of Theta Research and Development department!  \
+	default_raw_text = "<b>Tesla Generator</b><br><br>New prototype of engine made in purpose to product energy has been created in walls of Theta Research and Development department!  \
 	After horrible accident that happened on Alpha the new RnD command got fax from CC about perspective energy production researches of the next generation. As result,  \
 	from the data aquired from CC and relentless work, our brave RnD staff managed to represent a new hope for every station, for an old dream - to curb the lightnings! \
 	By our prognoses, this 'engine' have great potential for powering up small, meduim or even large stations. Its quite flexible in setting up, and also can become the \
@@ -140,7 +140,7 @@
 
 /obj/item/paper/ruins/oldstation/singwarn // the engine is bugged, at least on ss220, so ic warning may prevent people to use it, at least untill it will be fixed, then this note will gone
 	name = "Old note"
-	info = "<b>I warned you!</b><br /><br /><b>In memory of Alfred</b><br /><br />DON'T USE IT!!! I - won't EVER AGAIN engage the station power on that cursed thing!  \
+	default_raw_text = "<b>I warned you!</b><br /><br /><b>In memory of Alfred</b><br /><br />DON'T USE IT!!! I - won't EVER AGAIN engage the station power on that cursed thing!  \
 	I see the same nightmare every month, if not every week right now... The darkness, the silence, blood.. DOOM! Our brave RnD created a hell engine.  \
 	On its born in CZ, I swear, I heard our names whispered from the void! This thing WAS THE VOID, THE BLACK HOLE ITSELF!  \
 	First - a 10 cm lead container appears in Alpha Engineering Foyer, next - executive man and head of our department Chief Engineer Jakob T. -  \
@@ -166,7 +166,7 @@
 
 /obj/item/paper/ruins/oldstation/slimesexperiments //many people asked about slimes xeno, i tried to make it possible with the special report note
 	name = "Xeno Core Research Report"
-	info = "<b>Observation records of biological xeno core</b><br /><br />Data: The biological sample of unknown xeno form acquired from extraction of dead adult xeno specimen  \
+	default_raw_text = "<b>Observation records of biological xeno core</b><br /><br />Data: The biological sample of unknown xeno form acquired from extraction of dead adult xeno specimen  \
 	our miners found in one of asteroids of local clusters during mining regular expeditions. We assume it still can be useful for researches since after the specimen death which happen  \
 	20-25 years ago perfectly saved its internal organs under the half transperent elastic skin, like if its death happened couple minutes ago. Inside we traced low electrical activity in  \
 	body and the center of it was this core. The Research Director searched any data about the xeno form in all available xeno databases he requested from CC Science Data Centers.  \

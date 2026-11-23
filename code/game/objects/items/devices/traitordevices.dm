@@ -413,7 +413,7 @@ effective or pretty fucking useless.
 
 /obj/item/paper/teleporter
 	name = "Teleporter Guide"
-	info = {"<b>Instructions on your new prototype syndicate teleporter</b><br>
+	default_raw_text = {"<b>Instructions on your new prototype syndicate teleporter</b><br>
 	<br>
 	This teleporter will teleport the user 4-8 meters in the direction they are facing. Unlike the cult veil shifter, you can not drag people with you.<br>
 	<br>

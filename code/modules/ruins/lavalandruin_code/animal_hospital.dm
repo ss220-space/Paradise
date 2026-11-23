@@ -1,6 +1,6 @@
 /obj/item/paper/fluff/henderson_report
 	name = "Важное уведомление — Миссис Хендерсон"
-	info = "Ничего интересного."
+	default_raw_text = "Ничего интересного."
 
 /obj/effect/mob_spawn/human/doctor/alive/lavaland
 	name = "broken rejuvenation pod"

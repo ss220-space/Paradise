@@ -1269,7 +1269,7 @@ GAME_VERB_SRC(/obj/item/paper, rename, usr, "Rename paper", null)
 // 	else
 // 		info += input_element // Oh, he wants to edit to the end of the file, let him.
 
-// 	populatefields()
+// // 	populatefields()
 // 	updateinfolinks()
 // 	item_write.on_write(src, user)
 // 	show_content(user, forceshow = TRUE, infolinks = TRUE)
