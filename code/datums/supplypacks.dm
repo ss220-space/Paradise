@@ -6805,7 +6805,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	manifest += "Содержит [num_contained] люб[DECL_OJ_YH_YH(num_contained)] предмет[DECL_0_A_OV(num_contained)] из списка:"
 	..()
 
-/datum/supply_packs/contraband/foamforce/bonus
+/datum/supply_packs/contraband/foamforce
 	name = "Игрушечные пистолеты"
 	contains = list(
 		/obj/item/gun/projectile/automatic/toy/pistol,
