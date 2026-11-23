@@ -832,7 +832,7 @@
 /// Если метка не легла сама (штатно она ложится только на крупных существ), накладываем её принудительно.
 /obj/item/crusher_trophy/vazz_shard/on_mark_application(mob/living/target, datum/status_effect/crusher_mark/mark, had_mark)
 	. = ..()
-	if(mark || QDELETED(target) || target.stat == DEAD || !istype(loc, /obj/item))
+	if(mark || QDELETED(target) || target.stat == DEAD || !istype(loc))
 		return
 	var/old_size = target.mob_size
 	target.mob_size = MOB_SIZE_LARGE
