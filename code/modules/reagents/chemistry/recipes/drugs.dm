@@ -132,3 +132,18 @@
 	result = /datum/reagent/pervitin
 	required_reagents = list(/datum/reagent/methamphetamine = 1, /datum/reagent/medicine/epinephrine = 1, /datum/reagent/medicine/ephedrine = 1)
 	result_amount = 2
+
+/datum/chemical_reaction/mephedrone
+	name = "Mephedrone"
+	id = "mephedrone"
+	result = /datum/reagent/mephedrone
+	required_reagents = list(/datum/reagent/bath_salts = 5, /datum/reagent/carpotoxin = 5, /datum/reagent/teslium = 5)
+	result_amount = 10
+	min_temp = T0C + 100
+	mix_message = "The mixture fizzes into a vibrant red solution that doesn't stay still."
+	mix_sound = 'sound/goonstation/misc/fuse.ogg'
+
+/datum/chemical_reaction/mephedrone/on_reaction(datum/reagents/holder) //Will make it harder for botany, need a chem heater or will suffer, and mixing in plants wont work
+	var/turf/location = get_turf(holder.my_atom)
+	fireflash(holder.my_atom, 3, 500)
+	explosion(location, 0, 0, 2, 2, flame_range = 2, cause = "Mephedrone reaction")

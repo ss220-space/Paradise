@@ -123,6 +123,8 @@
 
 	/// Last location of the atom for demo recording purposes
 	var/atom/demo_last_loc
+	/// How far (in pixels) should this atom scatter when created/dropped/etc. Does not apply to mapped-in items.
+	var/scatter_distance = 0
 
 /mutable_appearance/emissive_blocker
 
@@ -1727,3 +1729,8 @@
 /// Called when a mob resists while inside a container that is itself inside something.
 /atom/movable/proc/relay_container_resist_act(mob/living/user, obj/container)
 	return
+
+/// Used to scatter atoms so that multiple copies aren't all at the exact same spot.
+/atom/movable/proc/scatter_atom(x_offset = 0, y_offset = 0)
+	pixel_x = base_pixel_x + x_offset + rand(-scatter_distance, scatter_distance)
+	pixel_y = base_pixel_y + y_offset + rand(-scatter_distance, scatter_distance)

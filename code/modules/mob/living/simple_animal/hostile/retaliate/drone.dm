@@ -184,9 +184,12 @@
 	. = ..()
 	update_icon()
 
-/mob/living/simple_animal/bot/ed209/combat_drone/emag_act(mob/user)
+/mob/living/simple_animal/bot/ed209/combat_drone/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
+	if(!.)
+		return .
 	update_icon()
+	return TRUE
 
 /mob/living/simple_animal/bot/ed209/combat_drone/start_cuffing(mob/living/carbon/C)
 	shootAt(C)

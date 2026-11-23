@@ -123,11 +123,13 @@
 
 	return ..()
 
-/mob/living/simple_animal/bot/floorbot/emag_act(mob/user)
-	..()
-	if(emagged == 2)
-		if(user)
-			to_chat(user, span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] жужжит и пищит."))
+/mob/living/simple_animal/bot/floorbot/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(!. || emagged != 2)
+		return .
+	if(user)
+		to_chat(user, span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] жужжит и пищит."))
+	return TRUE
 
 /mob/living/simple_animal/bot/floorbot/Topic(href, href_list)
 	if(..())

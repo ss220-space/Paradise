@@ -309,6 +309,15 @@
 	build_path = /obj/item/v1_arm_shell
 	category = list(PROTOLATHE_CATEGORY_WEAPON)
 
+/datum/design/muscle_implant
+	id = "muscle_implant"
+	req_tech = list(RESEARCH_TREE_COMBAT = 7, RESEARCH_TREE_ILLEGAL = 4, RESEARCH_TREE_BIOTECH = 7)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_GOLD = 5000, MAT_METAL = 10000, MAT_TITANIUM = 3000, MAT_BLUESPACE = 2000)
+	construction_time = 200
+	build_path = /obj/item/organ/internal/cyberimp/arm/muscle
+	category = list(PROTOLATHE_CATEGORY_MEDICAL, PROTOLATHE_CATEGORY_WEAPON)
+
 /datum/design/compound_bow
 	id = "compound_bow"
 	req_tech = list(RESEARCH_TREE_COMBAT = 5, RESEARCH_TREE_ENGINEERING = 5, RESEARCH_TREE_MATERIALS = 5)

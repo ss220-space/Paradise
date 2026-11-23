@@ -17,8 +17,7 @@
 
 /obj/item/stack/ore/bluespace_crystal/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
-	pixel_x = base_pixel_x + rand(-5, 5)
-	pixel_y = base_pixel_y + rand(-5, 5)
+	scatter_atom()
 
 /obj/item/stack/ore/bluespace_crystal/attack_self(mob/user)
 	if(do_after(user, 1 SECONDS, user))

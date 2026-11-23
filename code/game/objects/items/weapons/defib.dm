@@ -166,11 +166,12 @@
 	update_icon(UPDATE_OVERLAYS)
 	..()
 
-/obj/item/defibrillator/emag_act(mob/user)
+/obj/item/defibrillator/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
 	add_attack_logs(user, src, "[safety ? "" : "un-"]emagged")
 	safety = !safety
-	..()
 	update_icon(UPDATE_OVERLAYS)
+	return TRUE
 
 /obj/item/defibrillator/proc/toggle_paddles(mob/living/carbon/human/user = usr)
 	if(!paddles)

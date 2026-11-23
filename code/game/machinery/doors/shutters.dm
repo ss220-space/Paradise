@@ -10,7 +10,7 @@
 
 /obj/machinery/door/poddoor/shutters/invincible
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	hackable = FALSE
+	obj_flags = parent_type::obj_flags|NO_EMAG
 
 /obj/machinery/door/poddoor/shutters/preopen
 	icon_state = "open"
@@ -19,7 +19,7 @@
 
 /obj/machinery/door/poddoor/shutters/preopen/invincible
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	hackable = FALSE
+	obj_flags = parent_type::obj_flags|NO_EMAG
 
 /obj/machinery/door/poddoor/shutters/invincible/fake_r_wall
 	name = "reinforced wall"

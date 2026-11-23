@@ -1,5 +1,5 @@
 /datum/gear/shoes
-	subtype_path = /datum/gear/shoes
+	abstract_type = /datum/gear/shoes
 	slot = ITEM_SLOT_FEET
 	sort_category = "Обувь"
 

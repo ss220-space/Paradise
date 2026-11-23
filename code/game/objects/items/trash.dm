@@ -120,6 +120,7 @@
 	name = "bullet casing"
 	desc = "A spent bullet casing. Smells like cordite."
 	icon_state = "buckshotshell"
+	scatter_distance = 10
 
 /obj/item/trash/tapetrash
 	name = "old duct tape"
@@ -174,11 +175,11 @@
 	throwforce = 1
 	w_class = WEIGHT_CLASS_TINY
 	materials = list(MAT_METAL = 100)
+	scatter_distance = 10
 
 /obj/item/spentcasing/Initialize(mapload)
 	. = ..()
-	pixel_x = base_pixel_x + rand(-5, 5)
-	pixel_y = base_pixel_y + rand(-5, 5)
+	scatter_atom()
 	dir = pick(GLOB.alldirs)
 
 /obj/effect/spawner/lootdrop/spentcasing
