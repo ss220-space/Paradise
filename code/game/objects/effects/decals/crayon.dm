@@ -34,14 +34,5 @@
 			transform_matrix.Scale(scale)
 		transform = transform_matrix
 
-	if(isturf(loc))
-		RegisterSignal(loc, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(on_turf_cleaned))
-
-/obj/effect/decal/cleanable/crayon/proc/on_turf_cleaned(datum/source, clean_types)
-	SIGNAL_HANDLER
-	if(clean_types & clean_type)
-		qdel(src)
-		return COMPONENT_CLEANED
-
 /obj/effect/decal/cleanable/crayon/never_should_have_come_here(turf/here_turf)
 	return isgroundlessturf(here_turf)

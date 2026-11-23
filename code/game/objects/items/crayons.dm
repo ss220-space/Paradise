@@ -15,7 +15,7 @@
 #define SPRAYCAN_SCALE_STEP 0.25
 #define SPRAYCAN_TILE_SIZE 32
 #define SPRAYCAN_HALF_TILE 16
-#define SPRAYCAN_ALLOWED_CHARS "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюяABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,!?-+:;()/\"'№=*#&%$@^~<>[]"
+#define SPRAYCAN_ALLOWED_CHARS "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюяABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,!?-+:;()/\"'№=*#&%$@^~<>"
 
 #define NORMAL_CRAYONS_USES 30
 #define BETTER_CRAYONS_USES 60 //0 for unlimited uses
@@ -354,17 +354,8 @@
 
 /obj/item/toy/crayon/spraycan
 	name = "Nanotrasen-brand Rapid Paint Applicator"
-	ru_names = alist(
-		NOMINATIVE = "баллончик с краской «Нанотрейзен»",
-		GENITIVE = "баллончика с краской «Нанотрейзен»",
-		DATIVE = "баллончику с краской «Нанотрейзен»",
-		ACCUSATIVE = "баллончик с краской «Нанотрейзен»",
-		INSTRUMENTAL = "баллончиком с краской «Нанотрейзен»",
-		PREPOSITIONAL = "баллончике с краской «Нанотрейзен»",
-	)
 	icon_state = "spraycan"
-	desc = "Металлический аэрозольный баллончик с быстрой краской производства «Нанотрейзен»."
-	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
+	desc = "Металлический аэрозольный баллончик с быстрой краской производства \"Нанотрейзен\"."
 	/// Current state of the cap
 	var/capped = TRUE
 	/// List of icon_state and names for paint welding mask
@@ -395,6 +386,15 @@
 	var/scale = 1
 	var/max_uses = 30
 
+/obj/item/toy/crayon/spraycan/get_ru_names()
+	return alist(
+		NOMINATIVE = "баллончик с краской \"Нанотрейзен\"",
+		GENITIVE = "баллончика с краской \"Нанотрейзен\"",
+		DATIVE = "баллончику с краской \"Нанотрейзен\"",
+		ACCUSATIVE = "баллончик с краской \"Нанотрейзен\"",
+		INSTRUMENTAL = "баллончиком с краской \"Нанотрейзен\"",
+		PREPOSITIONAL = "баллончике с краской \"Нанотрейзен\"",
+	)
 
 /obj/item/toy/crayon/spraycan/Initialize(mapload)
 	. = ..()
@@ -738,6 +738,7 @@
 #undef BETTER_CRAYONS_USES
 #undef SINGLEUSE_CRAYONS_USES
 #undef SPRAYCAN_MODE_TEXT
+#undef SPRAYCAN_MODE_LETTERS
 #undef SPRAYCAN_MODE_SYMBOLS
 #undef SPRAYCAN_MODE_GRAFFITI
 #undef SPRAYCAN_MODE_RUNE
