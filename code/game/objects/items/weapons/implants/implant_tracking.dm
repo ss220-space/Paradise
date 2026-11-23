@@ -21,6 +21,13 @@
 	return ..()
 
 /obj/item/implant/tracking/implant(mob/target)
+	if(ishuman(target))
+		var/mob/living/carbon/human/human_target = target
+		var/obj/item/organ/internal/anchor = human_target.get_int_organ(/obj/item/organ/internal/cyberimp/chest/bluespace_anchor)
+		if(anchor)
+			target.visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] искр[PLUR_IT_YAT(src)] и уничтожа[PLUR_ET_YUT(src)]ся [anchor.declent_ru(INSTRUMENTAL)] внутри [human_target.declent_ru(GENITIVE)]!"))
+			qdel(src)
+			return FALSE
 	. = ..()
 	if(. && ispath(internal_gps, /obj/item/gps))
 		internal_gps = new internal_gps(src)

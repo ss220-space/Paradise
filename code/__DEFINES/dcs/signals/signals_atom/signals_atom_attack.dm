@@ -55,3 +55,8 @@
 
 /// Called on the atom being hit, from /datum/component/anti_magic/on_attack() : (obj/item/weapon, mob/user, antimagic_flags)
 #define COMSIG_ATOM_HOLYATTACK "atom_holyattacked"
+
+///from base of atom/atom_prehit(obj/projectile/P):
+#define COMSIG_ATOM_PREHIT "atom_prehit"
+	#define ATOM_PREHIT_SUCCESS (1<<0)
+	#define ATOM_PREHIT_FAILURE (1<<1)

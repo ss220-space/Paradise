@@ -1,7 +1,8 @@
+#define COMBAT_COOLDOWN 10 SECONDS
 //AGENT VEST
 /obj/item/clothing/suit/armor/abductor/vest
 	name = "agent vest"
-	desc = "A vest outfitted with advanced stealth technology. It has two modes - combat and stealth."
+	desc = "Жилет, оснащённый продвинутой технологией скрытности. Имеет два режима — боевой и скрытный."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "vest_stealth"
 	item_state = "armor"
@@ -10,13 +11,23 @@
 	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 15, FIRE = 70, ACID = 70)
 	actions_types = list(/datum/action/item_action/hands_free/activate)
 	allowed = list(/obj/item/abductor, /obj/item/melee/baton, /obj/item/gun/energy, /obj/item/restraints/handcuffs)
+	sprite_sheets = null
 	var/mode = VEST_STEALTH
 	var/stealth_active = 0
-	var/combat_cooldown = 10
+	COOLDOWN_DECLARE(combat_cooldown)
 	var/datum/icon_snapshot/disguise
 	var/stealth_armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 15, FIRE = 70, ACID = 70)
 	var/combat_armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 50, FIRE = 90, ACID = 90)
-	sprite_sheets = null
+
+/obj/item/clothing/suit/armor/abductor/vest/get_ru_names()
+	return alist(
+		NOMINATIVE = "жилет агента",
+		GENITIVE = "жилета агента",
+		DATIVE = "жилету агента",
+		ACCUSATIVE = "жилет агента",
+		INSTRUMENTAL = "жилетом агента",
+		PREPOSITIONAL = "жилете агента",
+	)
 
 /obj/item/clothing/suit/armor/abductor/vest/Initialize(mapload)
 	. = ..()
@@ -35,7 +46,7 @@
 	else
 		ADD_TRAIT(src, TRAIT_NODROP, ABDUCTOR_VEST_TRAIT)
 	if(ismob(loc))
-		to_chat(loc, span_notice("Your vest is now [prev_has ? "unlocked" : "locked"]."))
+		to_chat(loc, span_notice("Ваш жилет теперь [prev_has ? "разблокирован" : "заблокирован"]."))
 
 /obj/item/clothing/suit/armor/abductor/vest/update_icon_state()
 	switch(mode)
@@ -71,7 +82,7 @@
 /obj/item/clothing/suit/armor/abductor/vest/proc/ActivateStealth()
 	if(disguise == null)
 		return
-	stealth_active = 1
+	stealth_active = TRUE
 	if(ishuman(loc))
 		var/mob/living/carbon/human/M = loc
 		new /obj/effect/temp_visual/dir_setting/ninja/cloak(get_turf(M), M.dir)
@@ -85,7 +96,7 @@
 /obj/item/clothing/suit/armor/abductor/vest/proc/DeactivateStealth()
 	if(!stealth_active)
 		return
-	stealth_active = 0
+	stealth_active = FALSE
 	if(ishuman(loc))
 		var/mob/living/carbon/human/M = loc
 		new /obj/effect/temp_visual/dir_setting/ninja(get_turf(M), M.dir)
@@ -111,8 +122,8 @@
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/Adrenaline()
 	if(ishuman(loc))
-		if(combat_cooldown != initial(combat_cooldown))
-			to_chat(loc, span_warning("Combat injection is still recharging."))
+		if(!COOLDOWN_FINISHED(src, combat_cooldown))
+			to_chat(loc, span_warning("Боевой инъектор всё ещё перезаряжаются."))
 			return
 		var/mob/living/carbon/human/M = loc
 		M.adjustStaminaLoss(-75)
@@ -120,21 +131,16 @@
 		M.SetStunned(0)
 		M.SetWeakened(0)
 		M.SetKnockdown(0)
-		combat_cooldown = 0
-		START_PROCESSING(SSobj, src)
-
-/obj/item/clothing/suit/armor/abductor/vest/process()
-	combat_cooldown++
-	if(combat_cooldown==initial(combat_cooldown))
-		STOP_PROCESSING(SSobj, src)
+		COOLDOWN_START(src, combat_cooldown, COMBAT_COOLDOWN)
 
 /obj/item/clothing/suit/armor/abductor/Destroy()
-	STOP_PROCESSING(SSobj, src)
 	for(var/obj/machinery/abductor/console/C in SSmachines.get_by_type(/obj/machinery/abductor/console))
 		if(C.vest == src)
 			C.vest = null
 			break
 	return ..()
+
+#undef COMBAT_COOLDOWN
 
 /obj/item/abductor
 	icon = 'icons/obj/abductor.dmi'
@@ -143,7 +149,7 @@
 /obj/item/proc/AbductorCheck(user)
 	if(isabductor(user))
 		return TRUE
-	to_chat(user, span_warning("You can't figure how this works!"))
+	to_chat(user, span_warning("Вы не можете понять, как это работает!"))
 	return FALSE
 
 /obj/item/abductor/proc/ScientistCheck(user)
@@ -154,18 +160,28 @@
 	var/datum/species/abductor/S = H.dna.species
 	if(S.scientist)
 		return TRUE
-	to_chat(user, span_warning("You're not trained to use this!"))
+	to_chat(user, span_warning("Вы не обучены пользоваться этим!"))
 	return FALSE
 
 /obj/item/abductor/gizmo
 	name = "science tool"
-	desc = "A dual-mode tool for retrieving specimens and scanning appearances. Scanning can be done through cameras."
+	desc = "Двухрежимный инструмент для извлечения образцов и сканирования внешности. Сканирование можно проводить через камеры."
 	icon_state = "gizmo_scan"
 	item_state = "gizmo"
 	origin_tech = "engineering=7;magnets=4;bluespace=4;abductor=3"
 	var/mode = GIZMO_SCAN
 	var/mob/living/marked = null
 	var/obj/machinery/abductor/console/console
+
+/obj/item/abductor/gizmo/get_ru_names()
+	return alist(
+		NOMINATIVE = "инструмент учёного",
+		GENITIVE = "инструмента учёного",
+		DATIVE = "инструменту учёного",
+		ACCUSATIVE = "инструмент учёного",
+		INSTRUMENTAL = "инструментом учёного",
+		PREPOSITIONAL = "инструменте учёного",
+	)
 
 /obj/item/abductor/gizmo/update_icon_state()
 	switch(mode)
@@ -178,7 +194,7 @@
 	if(!ScientistCheck(user))
 		return
 	if(!console)
-		to_chat(user, span_warning("The device is not linked to a console!"))
+		to_chat(user, span_warning("Устройство не подключено к консоли!"))
 		return
 
 	if(mode == GIZMO_SCAN)
@@ -186,13 +202,13 @@
 	else
 		mode = GIZMO_SCAN
 	update_icon(UPDATE_ICON_STATE)
-	to_chat(user, span_notice("You switch the device to [mode==GIZMO_SCAN? "SCAN": "MARK"] MODE"))
+	to_chat(user, span_notice("Вы переключаете устройство в режим [mode == GIZMO_SCAN ? "СКАНИРОВАНИЯ" : "МЕТКИ"]"))
 
 /obj/item/abductor/gizmo/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!ScientistCheck(user))
 		return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 	if(!console)
-		to_chat(user, span_warning("The device is not linked to console!"))
+		to_chat(user, span_warning("Устройство не подключено к консоли!"))
 		return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
@@ -209,7 +225,7 @@
 	if(!ScientistCheck(user))
 		return
 	if(!console)
-		to_chat(user, span_warning("The device is not linked to console!"))
+		to_chat(user, span_warning("Устройство не подключено к консоли!"))
 		return
 
 	switch(mode)
@@ -221,29 +237,29 @@
 /obj/item/abductor/gizmo/proc/scan(atom/target, mob/living/user)
 	if(ishuman(target))
 		console.AddSnapshot(target)
-		to_chat(user, span_notice("You scan [target] and add [target.p_them()] to the database."))
+		to_chat(user, span_notice("Вы сканируете [target.declent_ru(ACCUSATIVE)] и добавляете [target.declent_ru(ACCUSATIVE)] в базу данных."))
 
 /obj/item/abductor/gizmo/proc/mark(atom/target, mob/living/user)
 	if(marked == target)
-		to_chat(user, span_warning("This specimen is already marked!"))
+		to_chat(user, span_warning("Этот образец уже помечен!"))
 		return
 	if(ishuman(target))
 		if(isabductor(target))
 			marked = target
-			to_chat(user, span_notice("You mark [target] for future retrieval."))
+			to_chat(user, span_notice("Вы помечаете [target.declent_ru(ACCUSATIVE)] для последующего извлечения."))
 		else
 			prepare(target,user)
 	else
 		prepare(target,user)
 
 /obj/item/abductor/gizmo/proc/prepare(atom/target, mob/living/user)
-	if(get_dist(target,user)>1)
-		to_chat(user, span_warning("You need to be next to the specimen to prepare it for transport!"))
+	if(get_dist(target,user) > 1)
+		to_chat(user, span_warning("Вам нужно находиться рядом с образцом, чтобы подготовить его к транспортировке!"))
 		return
-	to_chat(user, span_notice("You begin preparing [target] for transport..."))
+	to_chat(user, span_notice("Вы начинаете готовить [target.declent_ru(ACCUSATIVE)] к транспортировке..."))
 	if(do_after(user, 10 SECONDS, target))
 		marked = target
-		to_chat(user, span_notice("You finish preparing [target] for transport."))
+		to_chat(user, span_notice("Вы завершаете подготовку [target.declent_ru(GENITIVE)] к транспортировке."))
 
 /obj/item/abductor/gizmo/Destroy()
 	if(console)
@@ -252,10 +268,20 @@
 
 /obj/item/abductor/silencer
 	name = "abductor silencer"
-	desc = "A compact device used to shut down communications equipment."
+	desc = "Компактное устройство для отключения средств связи."
 	icon_state = "silencer"
 	item_state = "silencer"
 	origin_tech = "materials=4;programming=7;abductor=3"
+
+/obj/item/abductor/silencer/get_ru_names()
+	return alist(
+		NOMINATIVE = "инопланетная глушилка",
+		GENITIVE = "инопланетной глушилки",
+		DATIVE = "инопланетной глушилке",
+		ACCUSATIVE = "инопланетную глушилку",
+		INSTRUMENTAL = "инопланетной глушилкой",
+		PREPOSITIONAL = "инопланетной глушилке",
+	)
 
 /obj/item/abductor/silencer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!isgrey(user) && !AbductorCheck(user))
@@ -277,10 +303,10 @@
 	var/turf/targloc = get_turf(target)
 
 	var/mob/living/carbon/human/M
-	for(M in view(2,targloc))
+	for(M in view(2, targloc))
 		if(M == user)
 			continue
-		to_chat(user, span_notice("You silence [M]'s radio devices."))
+		to_chat(user, span_notice("Вы глушите устройства связи [M.declent_ru(GENITIVE)]."))
 		radio_off_mob(M)
 
 /obj/item/abductor/silencer/proc/radio_off_mob(mob/living/carbon/human/M)
@@ -292,10 +318,20 @@
 
 /obj/item/abductor/mind_device
 	name = "mental interface device"
-	desc = "A dual-mode tool for directly communicating with sentient brains. It can be used to send a direct message to a target, or to send a command to a test subject with a charged gland."
+	desc = "Двухрежимный инструмент для прямого общения с разумными организмами. Позволяет отправить сообщение напрямую цели или отдать команду подопытному с имплантированной железой."
 	icon_state = "mind_device_message"
 	item_state = "silencer"
 	var/mode = MIND_DEVICE_MESSAGE
+
+/obj/item/abductor/mind_device/get_ru_names()
+	return alist(
+		NOMINATIVE = "устройство интерфейса мыслей",
+		GENITIVE = "устройства интерфейса мыслей",
+		DATIVE = "устройству интерфейса мыслей",
+		ACCUSATIVE = "устройство интерфейса мыслей",
+		INSTRUMENTAL = "устройством интерфейса мыслей",
+		PREPOSITIONAL = "устройстве интерфейса мыслей",
+	)
 
 /obj/item/abductor/mind_device/update_icon_state()
 	switch(mode)
@@ -313,7 +349,7 @@
 	else
 		mode = MIND_DEVICE_MESSAGE
 	update_icon(UPDATE_ICON_STATE)
-	to_chat(user, span_notice("You switch the device to [mode == MIND_DEVICE_MESSAGE ? "TRANSMISSION" : "COMMAND"] MODE"))
+	to_chat(user, span_notice("Вы переключаете устройство в режим [mode == MIND_DEVICE_MESSAGE ? "СООБЩЕНИЯ" : "КОМАНДЫ"]"))
 
 /obj/item/abductor/mind_device/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!ScientistCheck(user))
@@ -330,16 +366,16 @@
 		var/mob/living/carbon/C = target
 		var/obj/item/organ/internal/heart/gland/G = C.get_organ_slot(INTERNAL_ORGAN_HEART)
 		if(!istype(G))
-			to_chat(user, span_warning("Your target does not have an experimental gland!"))
+			to_chat(user, span_warning("У вашей цели нет экспериментальной железы!"))
 			return
 		if(!G.mind_control_uses)
-			to_chat(user, span_warning("Your target's gland is spent!"))
+			to_chat(user, span_warning("Железа вашей цели истощена!"))
 			return
 		if(G.active_mind_control)
-			to_chat(user, span_warning("Your target is already under a mind-controlling influence!"))
+			to_chat(user, span_warning("Ваша цель уже находится под влиянием контроля мыслей!"))
 			return
 
-		var/command = tgui_input_text(user, "Enter the command for your target to follow. Uses Left: [G.mind_control_uses], Duration: [DisplayTimeText(G.mind_control_duration)]", "Enter command")
+		var/command = tgui_input_text(user, "Введите команду, которую должна выполнить цель. Осталось использований: [G.mind_control_uses], длительность: [DisplayTimeText(G.mind_control_duration)]", "Введите команду")
 
 		if(!command)
 			return
@@ -351,27 +387,27 @@
 			return
 
 		G.mind_control(command, user)
-		to_chat(user, span_notice("You send the command to your target."))
+		to_chat(user, span_notice("Вы отправляете команду своей цели."))
 
 /obj/item/abductor/mind_device/proc/mind_message(atom/target, mob/living/user)
 	if(isliving(target))
 		var/mob/living/L = target
 		if(L.stat == DEAD)
-			to_chat(user, span_warning("Your target is dead!"))
+			to_chat(user, span_warning("Ваша цель мертва!"))
 			return
-		var/message = tgui_input_text(user, "Write a message to send to your target's brain.", "Enter message")
+		var/message = tgui_input_text(user, "Напишите сообщение для отправки в мозг цели.", "Введите сообщение")
 		if(!message)
 			return
 		if(QDELETED(L) || L.stat == DEAD)
 			return
 
-		to_chat(L, "[span_italics("You hear a voice in your head saying:")] [span_abductor(message)]")
-		to_chat(user, span_notice("You send the message to your target."))
+		to_chat(L, "[span_italics("Вы слышите голос в своей голове:")] [span_abductor(message)]")
+		to_chat(user, span_notice("Вы отправляете сообщение своей цели."))
 		add_say_logs(user, message, L, "Mind device")
 
 /obj/item/gun/energy/alien
 	name = "alien pistol"
-	desc = "A complicated gun that fires bursts of high-intensity radiation."
+	desc = "Сложное оружие, стреляющее лучами высокоинтенсивной радиации."
 	ammo_type = list(/obj/item/ammo_casing/energy/declone)
 	restricted_species = list(/datum/species/abductor, /datum/species/grey)
 	icon_state = "alienpistol"
@@ -380,31 +416,50 @@
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 	selfcharge = TRUE
 
+/obj/item/gun/energy/alien/get_ru_names()
+	return alist(
+		NOMINATIVE = "инопланетный пистолет",
+		GENITIVE = "инопланетного пистолета",
+		DATIVE = "инопланетному пистолету",
+		ACCUSATIVE = "инопланетный пистолет",
+		INSTRUMENTAL = "инопланетным пистолетом",
+		PREPOSITIONAL = "инопланетном пистолете",
+	)
+
 /obj/item/paper/abductor
 	name = "Dissection Guide"
-	icon_state = "alienpaper_words"
-	info = {"<b>Dissection for Dummies</b><br>
+	info = {"<b>Вскрытие для чайников</b><br>
 <br>
-1.Acquire fresh specimen.<br>
-2.Put the specimen on operating table.<br>
-3.Apply scalpel to the chest, preparing for experimental dissection.<br>
-4.Apply scalpel to specimen's torso.<br>
-5.Clamp bleeders on specimen's torso with a hemostat.<br>
-6.Retract skin of specimen's torso with a retractor.<br>
-7.Saw through the specimen's torso with a saw.<br>
-8.Apply retractor again to specimen's torso.<br>
-9.Search through the specimen's torso with your hands to remove any superfluous organs.<br>
-10.Insert replacement gland (Retrieve one from gland storage).<br>
-11.Apply bone gel to mend the ribcage.<br>
-12.Use the bone setter to finish mending the ribcage.<br>
-13.Apply bone gel to mend the ribcage once more.<br>
-14.Cauterize the patient's torso with a cautery.<br>
-15.Consider dressing the specimen back to not disturb the habitat.<br>
-16.Put the specimen in the experiment machinery.<br>
-17.Choose one of the machine options. The target will be analyzed and teleported to the selected drop-off point.<br>
-18.You will receive one supply credit, and the subject will be counted towards your quota.<br>
+1. Добудьте свежий образец.<br>
+2. Положите образец на операционный стол.<br>
+3. Приложите скальпель к груди, готовясь к экспериментальному вскрытию.<br>
+4. Приложите скальпель к торсу образца.<br>
+5. Зажмите кровотечения на торсе образца гемостатом.<br>
+6. Оттяните кожу торса образца ретрактором.<br>
+7. Пропилите торс образца пилой.<br>
+8. Снова приложите ретрактор к торсу образца.<br>
+9. Поищите руками в торсе образца, чтобы удалить лишние органы.<br>
+10. Вставьте заменяющую железу (возьмите одну из хранилища желёз).<br>
+11. Нанесите костяной гель, чтобы восстановить грудную клетку.<br>
+12. Используйте костоправ, чтобы завершить восстановление грудной клетки.<br>
+13. Ещё раз нанесите костяной гель, чтобы восстановить грудную клетку.<br>
+14. Прижгите торс пациента.<br>
+15. Подумайте о том, чтобы одеть образец обратно, чтобы не нарушать среду обитания.<br>
+16. Поместите образец в аппарат для экспериментов.<br>
+17. Выберите один из вариантов эксперимента. Цель будет проанализирована и телепортирована в выбранную точку сброса.<br>
+18. Вы получите один кредит снабжения, а субъект будет засчитан в вашу квоту.<br>
 <br>
-Congratulations! You are now trained for invasive xenobiology research!"}
+Поздравляем! Теперь вы обучены инвазивным ксенобиологическим исследованиям!"}
+
+/obj/item/paper/abductor/get_ru_names()
+	return alist(
+		NOMINATIVE = "руководство по вскрытию",
+		GENITIVE = "руководства по вскрытию",
+		DATIVE = "руководству по вскрытию",
+		ACCUSATIVE = "руководство по вскрытию",
+		INSTRUMENTAL = "руководством по вскрытию",
+		PREPOSITIONAL = "руководстве по вскрытию",
+	)
 
 /obj/item/paper/abductor/update_icon_state()
 	return
@@ -420,7 +475,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/melee/baton/abductor
 	name = "advanced baton"
-	desc = "A quad-mode baton used for incapacitation and restraining of specimens."
+	desc = "Дубинка с четырьмя режимами для обезвреживания и сдерживания образцов."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "wonderprodStun"
 	item_state = "wonderprod"
@@ -435,6 +490,16 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	on_stun_sound = 'sound/weapons/egloves.ogg'
 	actions_types = list(/datum/action/item_action/toggle_mode)
 	var/mode = BATON_STUN
+
+/obj/item/melee/baton/abductor/get_ru_names()
+	return alist(
+		NOMINATIVE = "продвинутая дубинка",
+		GENITIVE = "продвинутой дубинки",
+		DATIVE = "продвинутой дубинке",
+		ACCUSATIVE = "продвинутую дубинку",
+		INSTRUMENTAL = "продвинутой дубинкой",
+		PREPOSITIONAL = "продвинутой дубинке",
+	)
 
 /obj/item/melee/baton/abductor/get_stun_description(mob/living/target, mob/living/user)
 	return // chat messages are handled in their own procs.
@@ -453,13 +518,13 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	var/txt
 	switch(mode)
 		if(BATON_STUN)
-			txt = "stunning"
+			txt = "оглушение"
 		if(BATON_SLEEP)
-			txt = "sleep inducement"
+			txt = "усыпление"
 		if(BATON_CUFF)
-			txt = "restraining"
+			txt = "связывание"
 		if(BATON_PROBE)
-			txt = "probing"
+			txt = "зондирование"
 
 	var/is_stun_mode = (mode == BATON_STUN)
 	var/is_stun_or_sleep = (mode == BATON_STUN) || (mode == BATON_SLEEP)
@@ -471,7 +536,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	stun_animation = is_stun_or_sleep
 	on_stun_sound = is_stun_or_sleep ? 'sound/weapons/egloves.ogg' : null
 
-	to_chat(user, span_notice("You switch the baton to [txt] mode."))
+	to_chat(user, span_notice("Вы переключаете дубинку в режим: [txt]."))
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/melee/baton/abductor/update_icon_state()
@@ -496,13 +561,13 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		return .
 	switch(mode)
 		if(BATON_STUN)
-			. += span_warning("The baton is in stun mode.")
+			. += span_warning("Дубинка находится в режиме оглушения.")
 		if(BATON_SLEEP)
-			. += span_warning("The baton is in sleep inducement mode.")
+			. += span_warning("Дубинка находится в режиме усыпления.")
 		if(BATON_CUFF)
-			. += span_warning("The baton is in restraining mode.")
+			. += span_warning("Дубинка находится в режиме связывания.")
 		if(BATON_PROBE)
-			. += span_warning("The baton is in probing mode.")
+			. += span_warning("Дубинка находится в режиме зондирования.")
 
 /obj/item/melee/baton/abductor/baton_attack(mob/target, mob/living/user)
 	if(!isgrey(user) && !AbductorCheck(user))
@@ -522,8 +587,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/melee/baton/abductor/proc/StunAttack(mob/living/carbon/target, mob/living/user)
 	target.visible_message(
-		span_danger("[user] stuns [target] with [src]!"),
-		span_userdanger("[user] stuns you with [src]!"),
+		span_danger("[DECLENT_RU_CAP(user, NOMINATIVE)] оглуша[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)] с помощью [declent_ru(GENITIVE)]!"),
+		span_userdanger("[DECLENT_RU_CAP(user, NOMINATIVE)] оглуша[PLUR_ET_YUT(user)] вас с помощью [declent_ru(GENITIVE)]!"),
 	)
 	target.AdjustJitter(40 SECONDS, bound_upper = 40 SECONDS)
 	target.AdjustStuttering(16 SECONDS, bound_upper = 16 SECONDS)
@@ -536,8 +601,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /obj/item/melee/baton/abductor/proc/SleepAttack(mob/living/target, mob/living/user)
 	if(INCAPACITATED_IGNORING(target, INCAPABLE_RESTRAINTS|INCAPABLE_GRAB))
 		target.visible_message(
-			span_danger("[user] induces sleep in [target] with [src]!"),
-			span_userdanger("You suddenly feel very drowsy!"),
+			span_danger("[DECLENT_RU_CAP(user, NOMINATIVE)] усыпля[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)] с помощью [declent_ru(GENITIVE)]!"),
+			span_userdanger("Вас внезапно одолевает сильная сонливость!"),
 		)
 		playsound(src, on_stun_sound, 50, TRUE, -1)
 		target.Sleeping(2 MINUTES)
@@ -545,57 +610,56 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		return
 
 	target.AdjustDrowsy(2 SECONDS)
-	to_chat(user, span_warning("Sleep inducement works fully only on stunned specimens! "))
+	to_chat(user, span_warning("Усыпление полностью работает только на оглушённых образцах!"))
 	target.visible_message(
-		span_danger("[user] tried to induce sleep in [target] with [src]!"),
-		span_userdanger("You suddenly feel drowsy!"),
+		span_danger("[DECLENT_RU_CAP(user, NOMINATIVE)] пыта[PLUR_ET_YUT(user)]ся усыпить [target.declent_ru(ACCUSATIVE)] с помощью [declent_ru(GENITIVE)]!"),
+		span_userdanger("Вас внезапно одолевает сонливость!"),
 	)
-
 /obj/item/melee/baton/abductor/proc/CuffAttack(mob/living/carbon/target, mob/living/user)
 	if(!iscarbon(target))
 		return
 	if(!target.has_organ_for_slot(ITEM_SLOT_HANDCUFFED))
-		to_chat(user, span_warning("[target] has no hands!"))
+		to_chat(user, span_warning("У [target.declent_ru(GENITIVE)] нет рук!"))
 		return
 	if(target.handcuffed)
-		to_chat(user, span_warning("[target] is already handcuffed!"))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(user, NOMINATIVE)] уже в наручниках!"))
 		return
 	playsound(src, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
 	target.visible_message(
-		span_danger("[user] begins restraining [target] with [src]!"),
-		span_userdanger("[user] begins shaping an energy field around your hands!"),
+		span_danger("[DECLENT_RU_CAP(user, NOMINATIVE)] начина[PLUR_ET_YUT(user)] сковывать [target.declent_ru(ACCUSATIVE)] с помощью [declent_ru(GENITIVE)]!"),
+		span_userdanger("[DECLENT_RU_CAP(user, NOMINATIVE)] начина[PLUR_ET_YUT(user)] формировать энергетическое поле вокруг ваших рук!"),
 	)
 	if(do_after(user, 3 SECONDS, target, NONE))
 		if(target.handcuffed || !target.has_organ_for_slot(ITEM_SLOT_HANDCUFFED))
 			return
 		target.apply_restraints(new /obj/item/restraints/handcuffs/cable/zipties/used(null), ITEM_SLOT_HANDCUFFED, TRUE)
-		to_chat(user, span_notice("You restrain [target]."))
+		to_chat(user, span_notice("Вы сковываете [target.declent_ru(ACCUSATIVE)]."))
 		add_attack_logs(user, target, "handcuffed ([src])")
 	else
-		to_chat(user, span_warning("You fail to restrain [target]!"))
+		to_chat(user, span_warning("Вам не удалось сковать [target.declent_ru(ACCUSATIVE)]!"))
 
 /obj/item/melee/baton/abductor/proc/ProbeAttack(mob/living/carbon/human/target, mob/living/user)
 	target.visible_message(
-		span_danger("[user] probes [target] with [src]!"),
-		span_userdanger("[user] probes you!"),
+		span_danger("[DECLENT_RU_CAP(user, NOMINATIVE)] зондиру[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)] с помощью [declent_ru(GENITIVE)]!"),
+		span_userdanger("[DECLENT_RU_CAP(user, NOMINATIVE)] зондиру[PLUR_ET_YUT(user)] вас!"),
 	)
 
-	var/species = span_warning("Unknown species")
-	var/helptext = span_warning("Species unsuitable for experiments.")
+	var/species = span_warning("Неизвестный вид")
+	var/helptext = span_warning("Вид непригоден для экспериментов.")
 
 	if(ishuman(target))
 		species = span_notice("<b>[target.dna.species.name]</b>")
 		if(ischangeling(target))
-			species = span_warning("Changeling lifeform")
+			species = span_warning("Генокрад")
 		if(target.get_int_organ(/obj/item/organ/internal/heart/gland))
-			helptext = span_warning("Experimental gland detected!")
+			helptext = span_warning("Обнаружена экспериментальная железа!")
 		else
 			if(target.get_organ_slot(INTERNAL_ORGAN_HEART))
-				helptext = span_notice("Subject suitable for experiments.")
+				helptext = span_notice("Субъект пригоден для экспериментов.")
 			else
-				helptext = span_warning("Subject unsuitable for experiments.")
+				helptext = span_warning("Субъект непригоден для экспериментов.")
 
-	to_chat(user, "[span_notice("Probing result:")] [species]")
+	to_chat(user, "[span_notice("Результат зондирования:")] [species]")
 	to_chat(user, "[helptext]")
 
 #undef BATON_STUN
@@ -606,31 +670,51 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/restraints/handcuffs/energy
 	name = "hard-light energy field"
-	desc = "A hard-light field restraining the hands."
+	desc = "Поле твёрдого света, сковывающее руки."
 	icon_state = "cuff_white" // Needs sprite
 	breakout_time = 450
 	trashtype = /obj/item/restraints/handcuffs/energy/used
 	origin_tech = "materials=4;magnets=5;abductor=2"
 
+/obj/item/restraints/handcuffs/energy/get_ru_names()
+	return alist(
+		NOMINATIVE = "энергетическое поле твёрдого света",
+		GENITIVE = "энергетического поля твёрдого света",
+		DATIVE = "энергетическому полю твёрдого света",
+		ACCUSATIVE = "энергетическое поле твёрдого света",
+		INSTRUMENTAL = "энергетическим полем твёрдого света",
+		PREPOSITIONAL = "энергетическом поле твёрдого света",
+	)
+
 /obj/item/restraints/handcuffs/energy/used
-	desc = "energy discharge"
+	desc = "энергетический разряд"
 	item_flags = DROPDEL
 
 /obj/item/restraints/handcuffs/energy/used/dropped(mob/user, slot, silent = FALSE)
-	user.visible_message(span_danger("[src] restraining [user] breaks in a discharge of energy!"), \
-							span_userdanger("[src] restraining [user] breaks in a discharge of energy!"))
+	user.visible_message(span_danger("[DECLENT_RU_CAP(user, NOMINATIVE)], сковывающее [user.declent_ru(ACCUSATIVE)], разрывается с энергетическим разрядом!"), \
+							span_userdanger("[DECLENT_RU_CAP(user, NOMINATIVE)], сковывающее [user.declent_ru(ACCUSATIVE)], разрывается с энергетическим разрядом!"))
 	do_sparks(4, FALSE, user.loc)
-	. = ..()
+	return ..()
 
 /obj/item/radio/headset/abductor
 	name = "alien headset"
-	desc = "An advanced alien headset designed to monitor communications of human space stations. Why does it have a microphone? No one knows."
+	desc = "Продвинутая инопланетная гарнитура для прослушивания связи человеческих космических станций. Зачем у неё микрофон? Никто не знает."
 	item_flags = BANGPROTECT_MINOR
 	origin_tech = "magnets=2;abductor=3"
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "abductor_headset"
 	item_state = "abductor_headset"
 	ks2type = /obj/item/encryptionkey/heads/captain
+
+/obj/item/radio/headset/abductor/get_ru_names()
+	return alist(
+		NOMINATIVE = "инопланетная гарнитура",
+		GENITIVE = "инопланетной гарнитуры",
+		DATIVE = "инопланетной гарнитуре",
+		ACCUSATIVE = "инопланетную гарнитуру",
+		INSTRUMENTAL = "инопланетной гарнитурой",
+		PREPOSITIONAL = "инопланетной гарнитуре",
+	)
 
 /obj/item/radio/headset/abductor/Initialize(mapload)
 	. = ..()
@@ -641,71 +725,161 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/scalpel/alien
 	name = "alien scalpel"
-	desc = "It's a gleaming sharp knife made out of silvery-green metal."
+	desc = "Сияющий острый нож из серебристо-зелёного металла."
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
+
+/obj/item/scalpel/alien/get_ru_names()
+	return alist(
+		NOMINATIVE = "инопланетный скальпель",
+		GENITIVE = "инопланетного скальпеля",
+		DATIVE = "инопланетному скальпелю",
+		ACCUSATIVE = "инопланетный скальпель",
+		INSTRUMENTAL = "инопланетным скальпелем",
+		PREPOSITIONAL = "инопланетном скальпеле",
+	)
 
 /obj/item/hemostat/alien
 	name = "alien hemostat"
-	desc = "You've never seen this before."
+	desc = "Вы такого раньше не видели."
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
+
+/obj/item/hemostat/alien/get_ru_names()
+	return alist(
+		NOMINATIVE = "инопланетный гемостат",
+		GENITIVE = "инопланетного гемостата",
+		DATIVE = "инопланетному гемостату",
+		ACCUSATIVE = "инопланетный гемостат",
+		INSTRUMENTAL = "инопланетным гемостатом",
+		PREPOSITIONAL = "инопланетном гемостате",
+	)
 
 /obj/item/retractor/alien
 	name = "alien retractor"
-	desc = "You're not sure if you want the veil pulled back."
+	desc = "Вы не уверены, что хотите, чтобы завеса была приоткрыта."
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
 
+/obj/item/retractor/alien/get_ru_names()
+	return alist(
+		NOMINATIVE = "инопланетный ретрактор",
+		GENITIVE = "инопланетного ретрактора",
+		DATIVE = "инопланетному ретрактору",
+		ACCUSATIVE = "инопланетный ретрактор",
+		INSTRUMENTAL = "инопланетным ретрактором",
+		PREPOSITIONAL = "инопланетном ретракторе",
+	)
+
 /obj/item/circular_saw/alien
 	name = "alien saw"
-	desc = "Do the aliens also lose this, and need to find an alien hatchet?"
+	desc = "Неужели инопланетяне тоже теряют это и им приходится искать инопланетный топорик?"
 	icon = 'icons/obj/abductor.dmi'
 	item_state = "alien_saw"
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
 
+/obj/item/circular_saw/alien/get_ru_names()
+	return alist(
+		NOMINATIVE = "инопланетная пила",
+		GENITIVE = "инопланетной пилы",
+		DATIVE = "инопланетной пиле",
+		ACCUSATIVE = "инопланетную пилу",
+		INSTRUMENTAL = "инопланетной пилой",
+		PREPOSITIONAL = "инопланетной пиле",
+	)
+
 /obj/item/surgicaldrill/alien
 	name = "alien drill"
-	desc = "Maybe alien surgeons have finally found a use for the drill."
+	desc = "Возможно, инопланетные хирурги наконец нашли применение дрели."
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
+
+/obj/item/surgicaldrill/alien/get_ru_names()
+	return alist(
+		NOMINATIVE = "инопланетная дрель",
+		GENITIVE = "инопланетной дрели",
+		DATIVE = "инопланетной дрели",
+		ACCUSATIVE = "инопланетную дрель",
+		INSTRUMENTAL = "инопланетной дрелью",
+		PREPOSITIONAL = "инопланетной дрели",
+	)
 
 /obj/item/cautery/alien
 	name = "alien cautery"
-	desc = "Why would bloodless aliens have a tool to stop bleeding? Unless..."
+	desc = "Зачем бескровным инопланетянам инструмент для остановки кровотечения? Если только..."
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
+
+/obj/item/cautery/alien/get_ru_names()
+	return alist(
+		NOMINATIVE = "инопланетный прижигатель",
+		GENITIVE = "инопланетного прижигателя",
+		DATIVE = "инопланетному прижигателю",
+		ACCUSATIVE = "инопланетный прижигатель",
+		INSTRUMENTAL = "инопланетным прижигателем",
+		PREPOSITIONAL = "инопланетном прижигателе",
+	)
 
 /obj/item/bonegel/alien
 	name = "alien bone gel"
-	desc = "It smells like duct tape."
+	desc = "Пахнет скотчем."
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
+
+/obj/item/bonegel/alien/get_ru_names()
+	return alist(
+		NOMINATIVE = "инопланетный костяной гель",
+		GENITIVE = "инопланетного костяного геля",
+		DATIVE = "инопланетному костяному гелю",
+		ACCUSATIVE = "инопланетный костяной гель",
+		INSTRUMENTAL = "инопланетным костяным гелем",
+		PREPOSITIONAL = "инопланетном костяном геле",
+	)
 
 /obj/item/FixOVein/alien
 	name = "alien FixOVein"
-	desc = "Bloodless aliens would totally know how to stop internal bleeding...right?"
+	desc = "Бескровные инопланетяне точно знают, как остановить внутреннее кровотечение... правда?"
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
+
+/obj/item/FixOVein/alien/get_ru_names()
+	return alist(
+		NOMINATIVE = "инопланетный гель для сосудов",
+		GENITIVE = "инопланетного геля для сосудов",
+		DATIVE = "инопланетному гелю для сосудов",
+		ACCUSATIVE = "инопланетный гель для сосудов",
+		INSTRUMENTAL = "инопланетным гелем для сосудов",
+		PREPOSITIONAL = "инопланетном геле для сосудов",
+	)
 
 /obj/item/bonesetter/alien
 	name = "alien bone setter"
-	desc = "You're not sure you want to know whether or not aliens have bones."
+	desc = "Вы не уверены, хотите ли знать, есть ли у инопланетян кости."
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
 
+/obj/item/bonesetter/alien/get_ru_names()
+	return alist(
+		NOMINATIVE = "инопланетный костоправ",
+		GENITIVE = "инопланетного костоправа",
+		DATIVE = "инопланетному костоправу",
+		ACCUSATIVE = "инопланетный костоправ",
+		INSTRUMENTAL = "инопланетным костоправом",
+		PREPOSITIONAL = "инопланетном костоправе",
+	)
+
 /obj/item/clothing/head/helmet/abductor
 	name = "agent headgear"
-	desc = "Abduct with style - spiky style. Prevents digital tracking."
+	desc = "Похищай со стилем — шипастым стилем. Предотвращает цифровое отслеживание."
 	icon_state = "alienhelmet"
 	item_state = "alienhelmet"
 	blockTracking = 1
@@ -713,21 +887,51 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 
+/obj/item/clothing/head/helmet/abductor/get_ru_names()
+	return alist(
+		NOMINATIVE = "шлем агента",
+		GENITIVE = "шлема агента",
+		DATIVE = "шлему агента",
+		ACCUSATIVE = "шлем агента",
+		INSTRUMENTAL = "шлемом агента",
+		PREPOSITIONAL = "шлеме агента",
+	)
+
 // Operating Table / Beds / Lockers
 
 /obj/structure/bed/abductor
 	name = "resting contraption"
-	desc = "This looks similar to contraptions from earth. Could aliens be stealing our technology?"
+	desc = "Выглядит похоже на земные устройства. Неужели инопланетяне крадут наши технологии?"
 	icon = 'icons/obj/abductor.dmi'
 	buildstacktype = /obj/item/stack/sheet/mineral/abductor
 
+/obj/structure/bed/abductor/get_ru_names()
+	return alist(
+		NOMINATIVE = "устройство для отдыха",
+		GENITIVE = "устройства для отдыха",
+		DATIVE = "устройству для отдыха",
+		ACCUSATIVE = "устройство для отдыха",
+		INSTRUMENTAL = "устройством для отдыха",
+		PREPOSITIONAL = "устройстве для отдыха",
+	)
+
 /obj/structure/table_frame/abductor
 	name = "alien table frame"
-	desc = "A sturdy table frame made from alien alloy."
+	desc = "Прочный каркас стола из инопланетного сплава."
 	icon_state = "alien_frame"
 	framestack = /obj/item/stack/sheet/mineral/abductor
 	framestackamount = 1
 	density = TRUE
+
+/obj/structure/table_frame/abductor/get_ru_names()
+	return alist(
+		NOMINATIVE = "инопланетный каркас стола",
+		GENITIVE = "инопланетного каркаса стола",
+		DATIVE = "инопланетному каркасу стола",
+		ACCUSATIVE = "инопланетный каркас стола",
+		INSTRUMENTAL = "инопланетным каркасом стола",
+		PREPOSITIONAL = "инопланетном каркасе стола",
+	)
 
 /obj/structure/table_frame/abductor/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -738,9 +942,9 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		add_fingerprint(user)
 		var/obj/item/stack/sheet/mineral/mineral = I
 		if(mineral.get_amount() < 1)
-			to_chat(user, span_warning("You need one sheet of [mineral] to do this!"))
+			to_chat(user, span_warning("Вам нужен один лист [mineral.declent_ru(GENITIVE)], чтобы сделать это!"))
 			return ATTACK_CHAIN_PROCEED
-		to_chat(user, span_notice("You start adding [mineral] to [src]..."))
+		to_chat(user, span_notice("Вы начинаете добавлять [mineral.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]..."))
 		if(!do_after(user, 5 SECONDS * mineral.toolspeed, src, category = DA_CAT_TOOL) || QDELETED(mineral) || !mineral.use(1))
 			return ATTACK_CHAIN_PROCEED
 		var/obj/new_table
@@ -748,7 +952,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			new_table = new /obj/structure/table/abductor(loc)
 		else
 			new_table = new /obj/machinery/optable/abductor(loc)
-		to_chat(user, span_notice("You have completed the construction of [new_table]."))
+		to_chat(user, span_notice("Вы завершили строительство [new_table.declent_ru(GENITIVE)]."))
 		transfer_fingerprints_to(new_table)
 		new_table.add_fingerprint(user)
 		qdel(src)
@@ -758,7 +962,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/structure/table/abductor
 	name = "alien table"
-	desc = "Advanced flat surface technology at work!"
+	desc = "Продвинутая технология плоских поверхностей в действии!"
 	icon = 'icons/obj/smooth_structures/alien_table.dmi'
 	icon_state = "alien_table"
 	can_be_flipped = FALSE
@@ -770,6 +974,16 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	canSmoothWith = SMOOTH_GROUP_ABDUCTOR_TABLES
 	frame = /obj/structure/table_frame/abductor
 
+/obj/structure/table/abductor/get_ru_names()
+	return alist(
+		NOMINATIVE = "инопланетный стол",
+		GENITIVE = "инопланетного стола",
+		DATIVE = "инопланетному столу",
+		ACCUSATIVE = "инопланетный стол",
+		INSTRUMENTAL = "инопланетным столом",
+		PREPOSITIONAL = "инопланетном столе",
+	)
+
 /obj/machinery/optable/abductor
 	name = "alien operating table"
 	icon = 'icons/obj/abductor.dmi'
@@ -779,12 +993,32 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	reagent_target_amount = 31 //the patient needs at least 30u of spaceacillin to prevent necrotization.
 	inject_amount = 10
 
+/obj/machinery/optable/abductor/get_ru_names()
+	return alist(
+		NOMINATIVE = "инопланетный операционный стол",
+		GENITIVE = "инопланетного операционного стола",
+		DATIVE = "инопланетному операционному столу",
+		ACCUSATIVE = "инопланетный операционный стол",
+		INSTRUMENTAL = "инопланетным операционным столом",
+		PREPOSITIONAL = "инопланетном операционном столе",
+	)
+
 /obj/structure/closet/abductor
 	name = "alien locker"
-	desc = "Contains secrets of the universe."
+	desc = "Содержит секреты вселенной."
 	icon_state = "abductor"
 	material_drop = /obj/item/stack/sheet/mineral/abductor
 	material_drop_amount = 1
+
+/obj/structure/closet/abductor/get_ru_names()
+	return alist(
+		NOMINATIVE = "инопланетный шкафчик",
+		GENITIVE = "инопланетного шкафчика",
+		DATIVE = "инопланетному шкафчику",
+		ACCUSATIVE = "инопланетный шкафчик",
+		INSTRUMENTAL = "инопланетным шкафчиком",
+		PREPOSITIONAL = "инопланетном шкафчике",
+	)
 
 /obj/structure/door_assembly/door_assembly_abductor
 	name = "alien airlock assembly"
@@ -794,6 +1028,16 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	airlock_type = /obj/machinery/door/airlock/abductor
 	material_type = /obj/item/stack/sheet/mineral/abductor
 	noglass = TRUE
+
+/obj/structure/door_assembly/door_assembly_abductor/get_ru_names()
+	return alist(
+		NOMINATIVE = "инопланетный незавершенный шлюз",
+		GENITIVE = "инопланетного незавершенного шлюза",
+		DATIVE = "инопланетному незавершенному шлюзу",
+		ACCUSATIVE = "инопланетный незавершенный шлюз",
+		INSTRUMENTAL = "инопланетным незавершенным шлюзом",
+		PREPOSITIONAL = "инопланетном незавершенном шлюзе",
+	)
 
 /obj/item/reagent_containers/applicator/abductor
 	name = "alien mender"
@@ -807,8 +1051,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
 	greyscale_config_belt = null
-	emagged = TRUE
 	ignore_flags = TRUE
+	obj_flags = parent_type::obj_flags|EMAGGED
 	var/base_icon = "alien_mender_brute"
 
 /obj/item/reagent_containers/applicator/abductor/get_ru_names()
@@ -871,8 +1115,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon_state = "mender2_empty"
 	item_state = "mender2"
 	base_icon = "mender2"
-
-	emagged = FALSE
+	obj_flags = parent_type::obj_flags & ~EMAGGED
 
 /obj/item/reagent_containers/applicator/abductor/industrial/get_ru_names()
 	return alist(
@@ -995,11 +1238,21 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/storage/firstaid_abductor
 	name = "alien medkit"
-	desc = "Kit that contains some advanced alien medicine. Keep it away from alien-kids"
+	desc = "Набор с продвинутыми инопланетными лекарствами. Держите подальше от инопланетных детей."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "alien_medkit"
 	item_state = "alien_medkit"
 	throw_range = 8
+
+/obj/item/storage/firstaid_abductor/get_ru_names()
+	return alist(
+		NOMINATIVE = "инопланетная аптечка",
+		GENITIVE = "инопланетной аптечки",
+		DATIVE = "инопланетной аптечке",
+		ACCUSATIVE = "инопланетную аптечку",
+		INSTRUMENTAL = "инопланетной аптечкой",
+		PREPOSITIONAL = "инопланетной аптечке",
+	)
 
 /obj/item/storage/firstaid_abductor/populate_contents()
 	new /obj/item/reagent_containers/applicator/abductor/brute(src)
@@ -1011,8 +1264,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	new /obj/item/reagent_containers/cup/bottle/abductor/pen_acid(src)
 
 /obj/item/clothing/gloves/abductor_agent
-	desc = "These gloves seems to protect the wearer from electric shock."
 	name = "high-tech insulated gloves"
+	desc = "Похоже, эти перчатки защищают владельца от удара током."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "gloves_agent"
 	item_state = "abductor_gloves_agent"
@@ -1020,12 +1273,165 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	permeability_coefficient = 0.05
 	resistance_flags = NONE
 
+/obj/item/clothing/gloves/abductor_agent/get_ru_names()
+	return alist(
+		NOMINATIVE = "высокотехнологичные изолированные перчатки",
+		GENITIVE = "высокотехнологичных изолированных перчаток",
+		DATIVE = "высокотехнологичным изолированным перчаткам",
+		ACCUSATIVE = "высокотехнологичные изолированные перчатки",
+		INSTRUMENTAL = "высокотехнологичными изолированными перчатками",
+		PREPOSITIONAL = "высокотехнологичных изолированных перчатках",
+	)
+
 /obj/item/clothing/gloves/abductor_science
 	name = "high-tech science gloves"
-	desc = "High-tech sterile gloves that are stronger than latex."
+	desc = "Высокотехнологичные стерильные перчатки, прочнее латекса."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "gloves_science"
 	item_state = "abductor_gloves_science"
 	siemens_coefficient = 0.30
 	permeability_coefficient = 0.01
 	resistance_flags = NONE
+
+/obj/item/clothing/gloves/abductor_science/get_ru_names()
+	return alist(
+		NOMINATIVE = "высокотехнологичные научные перчатки",
+		GENITIVE = "высокотехнологичных научных перчаток",
+		DATIVE = "высокотехнологичным научным перчаткам",
+		ACCUSATIVE = "высокотехнологичные научные перчатки",
+		INSTRUMENTAL = "высокотехнологичными научными перчатками",
+		PREPOSITIONAL = "высокотехнологичных научных перчатках",
+	)
+
+/obj/item/mop/advanced/abductor
+	name = "alien mop"
+	desc = "Складная швабра, явно используемая инопланетянами для зачистки любых следов близкого контакта. Головка постоянно выделяет воду при проведении по поверхности, словно из ниоткуда."
+	icon = 'icons/obj/abductor.dmi'
+	icon_state = "mop_abductor"
+	mopcap = 100
+	origin_tech = "materials=3;engineering=3;abductor=2"
+	refill_rate = 50
+	mopspeed = 10
+	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500, MAT_DIAMOND = 1000)
+
+/obj/item/mop/advanced/abductor/get_ru_names()
+	return alist(
+		NOMINATIVE = "инопланетная швабра",
+		GENITIVE = "инопланетной швабры",
+		DATIVE = "инопланетной швабре",
+		ACCUSATIVE = "инопланетную швабру",
+		INSTRUMENTAL = "инопланетной шваброй",
+		PREPOSITIONAL = "инопланетной швабре",
+	)
+
+/obj/item/soap/syndie/abductor
+	name = "alien soap"
+	desc = "Даже бескровным инопланетянам нужно смывать грязь. Пахнет порохом."
+	icon = 'icons/obj/abductor.dmi'
+	icon_state = "soap_abductor"
+
+/obj/item/soap/syndie/abductor/get_ru_names()
+	return alist(
+		NOMINATIVE = "инопланетное мыло",
+		GENITIVE = "инопланетного мыла",
+		DATIVE = "инопланетному мылу",
+		ACCUSATIVE = "инопланетное мыло",
+		INSTRUMENTAL = "инопланетным мылом",
+		PREPOSITIONAL = "инопланетном мыле",
+	)
+
+/obj/item/lightreplacer/bluespace/abductor
+	name = "alien light replacer"
+	desc = "Важно поддерживать работу всех загадочных огней на НЛО во время полёта над глухой провинцией."
+	icon = 'icons/obj/abductor.dmi'
+	icon_state = "lightreplacer_abductor"
+	origin_tech = "magnets=3;engineering=4;abductor=2"
+	max_uses = 40
+	uses = 20
+	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500, MAT_DIAMOND = 1000)
+
+/obj/item/lightreplacer/bluespace/abductor/get_ru_names()
+	return alist(
+		NOMINATIVE = "инопланетный заменитель ламп",
+		GENITIVE = "инопланетного заменителя ламп",
+		DATIVE = "инопланетному заменителю ламп",
+		ACCUSATIVE = "инопланетный заменитель ламп",
+		INSTRUMENTAL = "инопланетным заменителем ламп",
+		PREPOSITIONAL = "инопланетном заменителе ламп",
+	)
+
+/obj/item/melee/flyswatter/abductor
+	name = "alien flyswatter"
+	desc = "Для убийства инопланетных насекомых, очевидно."
+	icon = 'icons/obj/abductor.dmi'
+	icon_state = "flyswatter_abductor"
+	origin_tech = "abductor=1"
+	force = 2 // Twice as powerful thanks to alien technology!
+	throwforce = 2
+	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500, MAT_DIAMOND = 1000)
+
+/obj/item/melee/flyswatter/abductor/get_ru_names()
+	return alist(
+		NOMINATIVE = "инопланетная мухобойка",
+		GENITIVE = "инопланетной мухобойки",
+		DATIVE = "инопланетной мухобойке",
+		ACCUSATIVE = "инопланетную мухобойку",
+		INSTRUMENTAL = "инопланетной мухобойкой",
+		PREPOSITIONAL = "инопланетной мухобойке",
+	)
+
+/obj/item/reagent_containers/spray/cleaner/safety/abductor	// Essentially an Advanced Space Cleaner, but abductor-themed. For the implant.
+	name = "alien space cleaner"
+	desc = "Инопланетный флакон-распылитель с не пенящимся космическим очистителем инопланетного бренда! Принимает только космический очиститель."
+	icon = 'icons/obj/abductor.dmi'
+	icon_state = "cleaner_abductor"
+	volume = 500
+	list_reagents = list(/datum/reagent/space_cleaner = 500)
+
+/obj/item/reagent_containers/spray/cleaner/safety/abductor/get_ru_names()
+	return alist(
+		NOMINATIVE = "инопланетный космический очиститель",
+		GENITIVE = "инопланетного космического очистителя",
+		DATIVE = "инопланетному космическому очистителю",
+		ACCUSATIVE = "инопланетный космический очиститель",
+		INSTRUMENTAL = "инопланетным космическим очистителем",
+		PREPOSITIONAL = "инопланетном космическом очистителе",
+	)
+
+/obj/item/storage/belt/janitor/abductor
+	name = "alien janibelt"
+	desc = "Пояс для хранения чистящих средств не от мира сего! Используется абдукторами для поддержания чистоты на своих кораблях."
+	icon_state = "janibelt_abductor"
+	item_state = "security"
+	storage_slots = 7
+	can_hold = list(
+		/obj/item/grenade/chem_grenade/cleaner,
+		/obj/item/lightreplacer,
+		/obj/item/flashlight,
+		/obj/item/reagent_containers/spray,
+		/obj/item/soap,
+		/obj/item/holosign_creator/janitor,
+		/obj/item/melee/flyswatter,
+		/obj/item/storage/bag/trash,
+		/obj/item/door_remote/janikeyring,
+		/obj/item/mop/advanced/abductor,
+	)
+
+/obj/item/storage/belt/janitor/abductor/get_ru_names()
+	return alist(
+		NOMINATIVE = "инопланетный пояс уборщика",
+		GENITIVE = "инопланетного пояса уборщика",
+		DATIVE = "инопланетному поясу уборщика",
+		ACCUSATIVE = "инопланетный пояс уборщика",
+		INSTRUMENTAL = "инопланетным поясом уборщика",
+		PREPOSITIONAL = "инопланетном поясе уборщика",
+	)
+
+/obj/item/storage/belt/janitor/abductor/full/populate_contents()
+	new /obj/item/mop/advanced/abductor(src)
+	new /obj/item/soap/syndie/abductor(src)
+	new /obj/item/lightreplacer/bluespace/abductor(src)
+	new /obj/item/storage/bag/trash/bluespace(src)
+	new /obj/item/melee/flyswatter/abductor(src)
+	new /obj/item/reagent_containers/spray/cleaner/safety/abductor(src)
+	new /obj/item/holosign_creator/janitor(src)

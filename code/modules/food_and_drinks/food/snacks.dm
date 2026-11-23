@@ -259,6 +259,7 @@
 	for(var/i = 1 to (slices_num - slices_lost))
 		var/obj/slice = new slice_path(loc)
 		reagents.trans_to(slice, reagents_per_slice)
+		slice.scatter_atom()
 	qdel(src)
 
 ////////////////////////////////////////////////////////////////////////////////

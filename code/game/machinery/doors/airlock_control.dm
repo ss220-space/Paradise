@@ -21,7 +21,7 @@
 		execute_current_command()
 
 /obj/machinery/door/airlock/proc/execute_current_command()
-	if(operating || emagged)
+	if(operating || (obj_flags & EMAGGED))
 		return //emagged or busy doing something else
 
 	if(!cur_command)

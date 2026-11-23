@@ -70,7 +70,7 @@
 	sound = 'sound/items/jaws_cut.ogg'
 
 /datum/holotool_mode/knife/can_be_used(obj/item/holotool/tool)
-	return tool.emagged
+	return tool.obj_flags & EMAGGED
 
 /datum/holotool_mode/knife/on_set(obj/item/holotool/tool)
 	. = ..()

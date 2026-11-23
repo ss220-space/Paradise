@@ -113,7 +113,7 @@
 
 	if(I.GetID() || is_pda(I))
 		add_fingerprint(user)
-		if(emagged)
+		if(obj_flags & EMAGGED)
 			to_chat(user, span_warning("The turret control is unresponsive."))
 			return ATTACK_CHAIN_PROCEED
 		if(!allowed(user))
@@ -125,13 +125,16 @@
 
 	return ..()
 
-/obj/machinery/turretid/emag_act(mob/user)
-	if(!emagged)
-		if(user)
-			to_chat(user, span_danger("You short out the turret controls' access analysis module."))
-		emagged = TRUE
-		locked = FALSE
-		ailock = FALSE
+/obj/machinery/turretid/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
+	locked = FALSE
+	ailock = FALSE
+	if(user)
+		to_chat(user, span_danger("You short out the turret controls' access analysis module."))
+	return TRUE
 
 /obj/machinery/turretid/attack_ai(mob/user as mob)
 	ui_interact(user)

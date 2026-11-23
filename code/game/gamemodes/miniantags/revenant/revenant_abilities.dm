@@ -216,7 +216,7 @@
 	var/cast_amount = 50
 	var/cast_increase_per_level = 0
 	var/max_cast_amount = 10000 // just random big numbers for max numbers
-	var/max_radius = 100 SECONDS
+	var/max_radius = 100
 	var/radius_increase_per_level = 0
 	var/stun_increase_per_level = 0
 	var/max_stun = 100 SECONDS
@@ -257,7 +257,7 @@
 	cast_increase_per_level = 15
 	button_icon_state = "r_overload_lights"
 	aoe_radius = 3
-	radius_increase_per_level = 3
+	radius_increase_per_level = 1
 	targeting_type = /datum/aoe_targeting/light
 	var/shock_range = 2
 	var/shock_damage = 10
@@ -313,9 +313,8 @@
 	cast_amount = 20
 	cast_increase_per_level = 10
 	button_icon_state = "r_defile"
-	aoe_radius = 5
+	aoe_radius = 2
 	radius_increase_per_level = 1
-	max_radius = 6
 	stun_increase_per_level = 1 SECONDS
 	targeting_type = /datum/aoe_targeting/turfs
 
@@ -345,7 +344,7 @@
 	cast_amount = 30
 	cast_increase_per_level = 15
 	button_icon_state = "r_malfunction"
-	aoe_radius = 3
+	aoe_radius = 2
 	radius_increase_per_level = 1
 	stun = 0.5 SECONDS
 	stun_increase_per_level = 0.5 SECONDS
@@ -485,7 +484,8 @@
 	stun_increase_per_level = 1 SECONDS
 	max_stun = 1 SECONDS
 	reveal = 3 SECONDS
-	aoe_radius = 7
+	aoe_radius = 3
+	radius_increase_per_level = 1
 	reveal_increase_per_level = 4 SECONDS
 	targeting_type = /datum/aoe_targeting/living
 
@@ -530,8 +530,8 @@
 	name = "призрачный мираж"
 	desc = "Создайте свою призрачную копию чтобы обмануть смертных. Нажатие ПКМ по способности при достаточной прокачке позволяет один раз поменяться местами с копией."
 	button_icon_state = "revenantcopy"
-	cast_amount = 15
-	cast_increase_per_level = 15
+	cast_amount = 20
+	cast_increase_per_level = 20
 	cooldown_time = 5 SECONDS
 	cooldown_increase_per_level = 5 SECONDS
 	stun_increase_per_level = 0.5 SECONDS
@@ -748,7 +748,7 @@
 
 /datum/action/cooldown/spell/pointed/revenant/reflect/cast(atom/cast_on)
 	. = ..()
-	var/reflectpercent = 0.3*spell_level
+	var/reflectpercent = 0.2*spell_level
 	if(reflectpercent >= 0.9)
 		reflectpercent = 1 // round to 100%
 	var/mob/living/carbon/human/target = cast_on
@@ -759,8 +759,8 @@
 	name = "взор"
 	desc = "Направьте пламя вашей лампы в смертного, ослепляя и оглушая его."
 	button_icon_state = "laterngaze"
-	cast_amount = 10
-	cast_increase_per_level = 10
+	cast_amount = 15
+	cast_increase_per_level = 15
 	cooldown_time = 15 SECONDS
 	cooldown_increase_per_level = 5 SECONDS
 	stun = 0
@@ -796,7 +796,7 @@
 	button_icon_state = "laterntear"
 	cast_amount = 20
 	cast_increase_per_level = 20
-	cooldown_time = 20 SECONDS
+	cooldown_time = 30 SECONDS
 	cooldown_increase_per_level = -10 SECONDS
 	stun = 0.5 SECONDS
 	stun_increase_per_level = 0.5 SECONDS
@@ -971,18 +971,12 @@
 	return
 
 /obj/machinery/power/apc/rev_malfunction(cause_emp = TRUE, malfunction_level = 1)
-	if(malfunction_level < 3)
-		return
-	emp_act(EMP_HEAVY)
+	return
 
 /obj/machinery/power/smes/rev_malfunction(cause_emp = TRUE, malfunction_level = 1)
-	if(malfunction_level < 3)
-		return
-	emp_act(EMP_HEAVY)
+	return
 
 /obj/item/gun/energy/rev_malfunction(cause_emp = TRUE, malfunction_level = 1)
-	if(malfunction_level < 3)
-		return
-	emp_act(EMP_HEAVY)
+	return
 
 #undef INVISIBILITY_REVENANT

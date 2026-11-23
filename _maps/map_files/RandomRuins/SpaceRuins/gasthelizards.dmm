@@ -6,10 +6,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/gasthelizards/viewzone)
 "aL" = (
-/obj/machinery/gibber{
-	desc = "The name isn't descriptive enough? Safety lamp doesn't light!";
-	emagged = 1
-	},
+/obj/machinery/gibber/pre_emagged,
 /obj/effect/decal/cleanable/blood{
 	pixel_x = -31
 	},
@@ -978,9 +975,7 @@
 /area/ruin/space/gasthelizards/jail)
 "NE" = (
 /obj/structure/cable,
-/obj/item/beacon{
-	emagged = 1
-	},
+/obj/item/beacon/pre_emagged,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
