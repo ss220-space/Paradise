@@ -827,7 +827,7 @@
 	)
 
 /obj/item/crusher_trophy/vazz_shard/effect_desc()
-	return "метку, которая ложится на любое существо, и дополнительный ожог в [bonus_value] при её детонации (на уровне станции - в десять раз слабее)"
+	return "метку, которая ложится на любое существо, и дополнительный ожог в [bonus_value] при её детонации (на уровне станции — в десять раз слабее)"
 
 /// Если метка не легла сама (штатно она ложится только на крупных существ), накладываем её принудительно.
 /obj/item/crusher_trophy/vazz_shard/on_mark_application(mob/living/target, datum/status_effect/crusher_mark/mark, had_mark)

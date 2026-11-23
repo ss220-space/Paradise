@@ -1,21 +1,18 @@
 /*
 
-
 VAZZ
 
-
-Одинокая фигура в личной броне H.E.C.K. Mk II. Кем он был и чем стал - остаётся неясным.
+Одинокая фигура в личной броне H.E.C.K. Mk II. Кем он был и чем стал — остаётся неясным.
 Он не рычит и не бросается в бой слепо: говорит редко, действует выверенно.
 
-
-Основной цикл: рывок -> бластеры-черепа -> крестовой разряд -> выстрел с телепортом.
+Основной цикл: рывок —> бластеры черепа —> крестовой разряд —> выстрел с телепортом.
 После каждой атаки у Vazz есть окно ближнего боя: пока цель рядом, он дерётся, а не запускает следующую атаку.
 Вне очереди:
-- Рывок           - если цель далеко и рывок готов.
-- Выстрел с телепортом - если игрок слишком долго стоит вплотную (Vazz уходит и стреляет).
-- Арена           - ниже 50% здоровья, затем раз в ~40 секунд. Vazz встаёт перед ареной, на время арены неуязвим.
+— Рывок           — если цель далеко и рывок готов.
+— Выстрел с телепортом — если игрок слишком долго стоит вплотную (Vazz уходит и стреляет).
+— Арена           — ниже 50% здоровья, затем раз в ~40 секунд. Vazz встаёт перед ареной, на время арены неуязвим.
                     Волны: лучи черепов, веера снарядов и "заградительный огонь" с безопасными полосами.
-- Ближний бой     - обычные удары.
+— Ближний бой     — обычные удары.
 
 Урон от каждого луча наносится ОДИН раз в момент разряда по клеткам, зафиксированным в начале телеграфа.
 Постоянных таймеров урона нет, поэтому повторных попаданий одним лучом быть не может.
@@ -32,7 +29,7 @@ Difficulty: Insane
 #define VAZZ_ATTACK_BLASTERS 4
 #define VAZZ_ATTACK_ARENA 5
 
-/// Столько попыток ближнего боя подряд - и следующей атакой будет выстрел с телепортом
+/// Столько попыток ближнего боя подряд — и следующей атакой будет выстрел с телепортом
 #define VAZZ_MELEE_STREAK_LIMIT 3
 /// Окно ближнего боя после каждой атаки
 #define VAZZ_MELEE_WINDOW (3 SECONDS)
@@ -53,7 +50,7 @@ Difficulty: Insane
 #define VAZZ_CHARGE_LENGTH 6
 #define VAZZ_CHARGE_WINDUP (0.9 SECONDS)
 #define VAZZ_CHARGE_FOLLOWUP_WINDUP (0.7 SECONDS)
-/// Сколько деци-секунд на одну клетку рывка
+/// Сколько деци—секунд на одну клетку рывка
 #define VAZZ_CHARGE_STEP_TIME 0.5
 #define VAZZ_CHARGE_RECOVERY (1.5 SECONDS)
 #define VAZZ_CHARGE_COOLDOWN (6 SECONDS)
@@ -70,7 +67,7 @@ Difficulty: Insane
 #define VAZZ_SHOT_BLINK_MIN_DISTANCE 5
 #define VAZZ_SHOT_BLINK_MAX_DISTANCE 7
 
-// Бластеры-черепа
+// Бластеры черепа
 #define VAZZ_BLASTER_COUNT 3
 #define VAZZ_BLASTER_RANGE 12
 #define VAZZ_BLASTER_MIN_DISTANCE 4
@@ -109,7 +106,7 @@ Difficulty: Insane
 
 // Общие тайминги лучей
 #define VAZZ_FIRE_TIME (0.5 SECONDS)
-/// Сколько живёт невидимая точка-источник лучей (больше самой долгой подготовки + разряда)
+/// Сколько живёт невидимая точка—источник лучей (больше самой долгой подготовки + разряда)
 #define VAZZ_ANCHOR_LIFETIME (6 SECONDS)
 
 /// Невидимая точка, из которой рисуются лучи. Фиксирует начало луча, даже если Vazz сдвинется.
@@ -118,8 +115,8 @@ Difficulty: Insane
 	icon = null
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
-/// Череп-бластер. Он же является источником луча.
-/// Спрайт - череп мегафауны Legion (96x96). Смещения такие же, как у самого Legion, чтобы череп стоял по центру клетки.
+/// Череп бластер. Он же является источником луча.
+/// Спрайт — череп мегафауны Legion (96x96). Смещения такие же, как у самого Legion, чтобы череп стоял по центру клетки.
 /obj/effect/vazz_beam_anchor/skull
 	name = "череп"
 	icon = 'icons/mob/lavaland/96x96megafauna.dmi'
@@ -129,7 +126,7 @@ Difficulty: Insane
 	layer = LARGE_MOB_LAYER
 	alpha = 0
 	/// На сколько градусов довернуть спрайт, чтобы при угле 0 череп смотрел на север.
-	/// 180 - если спрайт по умолчанию смотрит на юг (вниз). Если череп повёрнут не туда, меняем это значение.
+	/// 180 — если спрайт по умолчанию смотрит на юг (вниз). Если череп повёрнут не туда, меняем это значение.
 	var/sprite_angle_offset = 180
 
 /obj/effect/vazz_beam_anchor/skull/proc/appear(angle)
@@ -143,11 +140,11 @@ Difficulty: Insane
 /obj/effect/vazz_beam_anchor/skull/proc/leave()
 	animate(src, alpha = 0, pixel_y = pixel_y + 16, time = VAZZ_SKULL_LEAVE_TIME)
 
-/// Предупреждение о рывке. Основа - телеграф рывка Легионера, но с нужной длительностью.
+/// Предупреждение о рывке. Основа — телеграф рывка Легионера, но с нужной длительностью.
 /obj/effect/temp_visual/dragon_swoop/legionnaire/vazz
 	duration = VAZZ_CHARGE_WINDUP
 
-/// Барьер арены. Основа - существующий drakewall, пока нет собственного спрайта.
+/// Барьер арены. Основа — существующий drakewall, пока нет собственного спрайта.
 /obj/effect/temp_visual/drakewall/vazz
 	name = "барьер"
 	desc = "Барьер из мерцающего света. Пока он стоит, выйти из круга не получится."
@@ -173,7 +170,7 @@ Difficulty: Insane
 
 /mob/living/simple_animal/hostile/megafauna/vazz
 	name = "Vazz"
-	desc = "Одинокая фигура в личной броне. Кем он был и чем стал - неизвестно."
+	desc = "Одинокая фигура в личной броне. Кем он был и чем стал — неизвестно."
 	health = 5000
 	maxHealth = 5000
 	icon_state = "vazz"
@@ -184,8 +181,6 @@ Difficulty: Insane
 	enraged_loot = /obj/item/disk/fauna_research/vazz
 	light_color = "#A5603A"
 	speak_emote = list("говорит")
-	// TODO(озвучка): в базе стоит "Mannoroth" - слишком демонический для этого персонажа.
-	// "Chen" взят из blood_drunk_miner как заведомо существующий. Заменить на подходящий.
 	tts_seed = "Chen"
 	speed = 3
 	melee_damage_lower = 28
@@ -350,7 +345,7 @@ Difficulty: Insane
 	chosen_attack_num = 3
 
 /datum/action/innate/megafauna_attack/vazz_blasters
-	name = "Бластеры-черепа"
+	name = "Бластеры черепа"
 	button_icon = 'icons/obj/weapons/projectile.dmi'
 	button_icon_state = "pistol"
 	chosen_message = span_colossus_alt("Вы призываете черепа.")
@@ -370,7 +365,7 @@ Difficulty: Insane
 /mob/living/simple_animal/hostile/megafauna/vazz/AttackingTarget()
 	if(recovery_time >= world.time)
 		return
-	// Если цель - труп, а рядом есть живые, переключаемся на них
+	// Если цель — труп, а рядом есть живые, переключаемся на них
 	if(isliving(target))
 		var/mob/living/current_target = target
 		if(current_target.stat == DEAD)
@@ -402,7 +397,7 @@ Difficulty: Insane
 		if(aim_living.stat == DEAD)
 			aim_target = vazz_find_living_target() || aim_target
 	var/turf/aim_turf = get_turf(aim_target)
-	// Цель на другом Z-уровне или вне карты - не атакуем
+	// Цель на другом Z—уровне или вне карты — не атакуем
 	if(!aim_turf || aim_turf.z != z)
 		return
 	// Окно ближнего боя: пока цель рядом, Vazz дерётся, а не запускает следующую атаку
@@ -573,8 +568,8 @@ Difficulty: Insane
 
 // --------------------------------------------------------------------------
 // Построение фигур. Все клетки и точки считаются ОДИН раз в начале телеграфа.
-// figures - ассоциативный список: якорь -> список конечных клеток лучей.
-// danger - список клеток, по которым будет нанесён урон.
+// figures — ассоциативный список: якорь —> список конечных клеток лучей.
+// danger — список клеток, по которым будет нанесён урон.
 // --------------------------------------------------------------------------
 
 /mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_new_anchor(turf/where, lifetime = VAZZ_ANCHOR_LIFETIME, anchor_type = /obj/effect/vazz_beam_anchor)
@@ -607,7 +602,7 @@ Difficulty: Insane
 			ends += arm_end
 	figures[vazz_new_anchor(center)] = ends
 
-/// Клетка на расстоянии range от start под углом beam_angle (как у Legion: 0 - север, по часовой стрелке).
+/// Клетка на расстоянии range от start под углом beam_angle (как у Legion: 0 — север, по часовой стрелке).
 /// clamp не даёт вылезти за карту.
 /mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_turf_at_angle(turf/start, beam_angle, range)
 	var/dir_x = sin(beam_angle)
@@ -620,7 +615,7 @@ Difficulty: Insane
 /mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_far_turf(turf/start, turf/aim, range)
 	return vazz_turf_at_angle(start, get_angle(start, aim), range)
 
-/// Прямой луч от start в сторону aim. Клетки луча - через существующий get_line().
+/// Прямой луч от start в сторону aim. Клетки луча — через существующий get_line().
 /// Возвращает созданный источник луча или null, если луч упёрся в стену сразу.
 /mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_add_lance(list/figures, list/danger, turf/start, turf/aim, range, anchor_type = /obj/effect/vazz_beam_anchor, anchor_lifetime = VAZZ_ANCHOR_LIFETIME)
 	if(!start || !aim)
@@ -691,7 +686,7 @@ Difficulty: Insane
 		for(var/mob/living/victim in danger_turf)
 			vazz_hit(victim, damage, BURN, already_hit, "Луч обжигает вас.")
 
-/// Телеграф -> ожидание -> разряд. Возвращает TRUE, если Vazz пережил подготовку.
+/// Телеграф —> ожидание —> разряд. Возвращает TRUE, если Vazz пережил подготовку.
 /// SLEEP_CHECK_DEATH при смерти делает return, и разряд не происходит.
 /mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_telegraph_and_fire(list/figures, list/danger, windup, damage)
 	vazz_draw(figures, windup, /obj/effect/ebeam/disintegration_telegraph)
@@ -761,7 +756,7 @@ Difficulty: Insane
 		SLEEP_CHECK_DEATH(src, VAZZ_CHARGE_STEP_TIME)
 	return TRUE
 
-/// Рывок. Ниже 50% здоровья или в enraged - два рывка подряд, второй быстрее и заново нацелен.
+/// Рывок. Ниже 50% здоровья или в enraged — два рывка подряд, второй быстрее и заново нацелен.
 /mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_charge_attack(atom/aim_target)
 	var/charge_count = (enraged || vazz_is_wounded()) ? 2 : 1
 	var/windup = vazz_time(VAZZ_CHARGE_WINDUP)
@@ -843,7 +838,7 @@ Difficulty: Insane
 		vazz_shoot_projectile(src, aim_turf, base_angle + angle_offset)
 	return TRUE
 
-/// Телепорт на дистанцию 5-7 клеток от цели и выстрел. Ниже 50% здоровья или в enraged - два выстрела подряд.
+/// Телепорт на дистанцию 5—7 клеток от цели и выстрел. Ниже 50% здоровья или в enraged — два выстрела подряд.
 /// Заодно служит ответом на игрока, который стоит вплотную.
 /mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_shot_attack(atom/aim_target)
 	var/shot_count = (enraged || vazz_is_wounded()) ? 2 : 1
@@ -860,7 +855,7 @@ Difficulty: Insane
 			return
 
 // --------------------------------------------------------------------------
-// Бластеры-черепа (в духе Gaster Blaster)
+// Бластеры—черепа (в духе Gaster Blaster)
 // --------------------------------------------------------------------------
 
 /// Один череп: появляется, поворачивается к цели, показывает линию и по завершении подготовки стреляет лучом.
@@ -952,7 +947,7 @@ Difficulty: Insane
 		skull.leave()
 
 /// Череп, стреляющий снарядами. Центральная линия показывается заранее, снаряды медленные.
-/// angles - смещения углов веера, shots - сколько залпов подряд (с интервалом shot_delay).
+/// angles — смещения углов веера, shots — сколько залпов подряд (с интервалом shot_delay).
 /mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_skull_bolts(turf/skull_turf, turf/aim_turf, charge, list/angles, shots = 1, shot_delay = 0, range = VAZZ_BLASTER_RANGE)
 	var/list/figures = list()
 	var/list/danger = list()
@@ -1010,7 +1005,7 @@ Difficulty: Insane
 		vazz_skull_bolts(from_turf, to_turf, charge, list(0), VAZZ_ARENA_BARRAGE_BURST, VAZZ_ARENA_BARRAGE_DELAY, VAZZ_ARENA_BARRAGE_RANGE)
 
 /// Арена: Vazz встаёт перед кольцом барьеров вокруг цели, на время арены становится неуязвимым (щит) и пускает волны
-/// по кругу: лучи черепов -> веера снарядов -> заградительный огонь. Барьеры и щит всегда убираются в конце,
+/// по кругу: лучи черепов —> веера снарядов —> заградительный огонь. Барьеры и щит всегда убираются в конце,
 /// при смерти/удалении Vazz, а также по таймеру.
 /mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_arena_attack(atom/aim_target)
 	var/turf/center = get_turf(aim_target)

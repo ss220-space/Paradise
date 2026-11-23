@@ -180,9 +180,9 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/clothing/head/helmet/space/hostile_environment/update_overlays()
-    . = ..()
-    if(add_glass_overlay)
-        . += mutable_appearance(icon, "hostile_env_glass", appearance_flags = RESET_COLOR)
+	. = ..()
+	if(add_glass_overlay)
+		. += mutable_appearance(icon, "hostile_env_glass", appearance_flags = RESET_COLOR)
 
 /obj/item/clothing/head/helmet/space/hostile_environment/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
 	. = ..()
