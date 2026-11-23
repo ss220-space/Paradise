@@ -12,7 +12,7 @@
 /obj/item/pen
 	name = "pen"
 	desc = "Простая ручка с чёрными чернилами."
-	icon = 'icons/obj/bureaucracy.dmi'
+	icon = 'icons/obj/service/bureaucracy.dmi'
 	icon_state = "pen"
 	item_state = "pen"
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_EARS

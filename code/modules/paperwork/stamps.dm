@@ -1,7 +1,7 @@
 /obj/item/stamp
 	name = "rubber stamp"
 	desc = "A rubber stamp for stamping important documents."
-	icon = 'icons/obj/bureaucracy.dmi'
+	icon = 'icons/obj/service/bureaucracy.dmi'
 	icon_state = "stamp-ok"
 	item_state = "stamp"
 	w_class = WEIGHT_CLASS_TINY

@@ -46,7 +46,7 @@
 /obj/item/form_printer
 	//name = "paperwork printer"
 	name = "paper dispenser"
-	icon = 'icons/obj/bureaucracy.dmi'
+	icon = 'icons/obj/service/bureaucracy.dmi'
 	icon_state = "paper_bin"
 	item_state = "sheet-metal"
 

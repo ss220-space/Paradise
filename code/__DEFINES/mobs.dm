@@ -628,3 +628,7 @@ GLOBAL_LIST_INIT(ru_species, list(
 #define EMP_PROTECTION_NONE 0
 #define EMP_PROTECTION_MODERATE 1
 #define EMP_PROTECTION_HIGH 2
+
+/// Checking flags for [/mob/proc/can_read()]
+#define READING_CHECK_LITERACY (1<<0)
+#define READING_CHECK_LIGHT (1<<1)

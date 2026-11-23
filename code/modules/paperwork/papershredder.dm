@@ -1,7 +1,7 @@
 /obj/machinery/papershredder
 	name = "paper shredder"
 	desc = "Устройство для тех документов, которых вы не хотите видеть."
-	icon = 'icons/obj/bureaucracy.dmi'
+	icon = 'icons/obj/service/bureaucracy.dmi'
 	icon_state = "papershredder0"
 	density = TRUE
 	anchored = TRUE
@@ -156,7 +156,7 @@ GAME_VERB_SRC(/obj/machinery/papershredder, empty_contents, range(1), "Опус�
 	name = "shredded paper"
 	desc = "Куча разорванной бумаги."
 	gender = MALE
-	icon = 'icons/obj/bureaucracy.dmi'
+	icon = 'icons/obj/service/bureaucracy.dmi'
 	icon_state = "shredded_paper"
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE

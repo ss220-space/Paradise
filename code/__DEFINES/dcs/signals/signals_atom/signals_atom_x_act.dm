@@ -95,3 +95,6 @@
 #define COMSIG_ATOM_ANALYSER_ACT "atom_analyser_act"
 /// Called when an atom is sharpened or dulled.
 #define COMSIG_ATOM_UPDATE_SHARPNESS "atom_update_sharpness"
+
+/// Sent from [/datum/element/burn_on_item_ignition] to an atom being ignited by something: (mob/living/user, obj/item/burning_thing)
+#define COMSIG_ATOM_IGNITED_BY_ITEM "atom_ignited_by_item"

@@ -1,6 +1,6 @@
 /obj/item/paper_bin
 	name = "paper bin"
-	icon = 'icons/obj/bureaucracy.dmi'
+	icon = 'icons/obj/service/bureaucracy.dmi'
 	icon_state = "paper_bin"
 	righthand_file = 'icons/mob/inhands/storage_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/storage_lefthand.dmi'

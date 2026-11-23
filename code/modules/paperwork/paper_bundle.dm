@@ -1,7 +1,7 @@
 /obj/item/paper_bundle
 	name = "paper bundle"
 	gender = PLURAL
-	icon = 'icons/obj/bureaucracy.dmi'
+	icon = 'icons/obj/service/bureaucracy.dmi'
 	icon_state = "paper"
 	item_state = "paper"
 	w_class = WEIGHT_CLASS_TINY
@@ -318,7 +318,7 @@ GAME_VERB_SRC(/obj/item/paper_bundle, remove_all, usr, "Распустить п�
 		if(istype(thing, /obj/item/paper))
 			if(length(underlays) >= 3)
 				continue
-			var/image/sheet = image('icons/obj/bureaucracy.dmi', thing.icon_state)
+			var/image/sheet = image('icons/obj/service/bureaucracy.dmi', thing.icon_state)
 			sheet.pixel_w -= min(1 * counter, 2)
 			sheet.pixel_z -= min(1 * counter, 2)
 			pixel_w = min(0.5 * counter, 1)

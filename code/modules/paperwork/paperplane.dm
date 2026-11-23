@@ -2,7 +2,7 @@
 /obj/item/paperplane
 	name = "paper plane"
 	desc = "Paper, folded in the shape of a plane."
-	icon = 'icons/obj/bureaucracy.dmi'
+	icon = 'icons/obj/service/bureaucracy.dmi'
 	icon_state = "paperplane"
 	throw_speed = 1
 	w_class = WEIGHT_CLASS_TINY

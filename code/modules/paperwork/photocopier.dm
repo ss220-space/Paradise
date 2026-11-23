@@ -182,13 +182,13 @@
 		for(var/mutable_appearance/overlay as anything in copy.stamp_overlays)	//gray overlay onto the copy
 			var/mutable_appearance/new_mutable
 			if(findtext(overlay.icon_state, "cap") || findtext(overlay.icon_state, "cent") || findtext(overlay.icon_state, "rep") || findtext(overlay.icon_state, "magistrate") || findtext(overlay.icon_state, "navcom"))
-				new_mutable = mutable_appearance('icons/obj/bureaucracy.dmi', "paper_stamp-circle")
+				new_mutable = mutable_appearance('icons/obj/service/bureaucracy.dmi', "paper_stamp-circle")
 			else if(findtext(overlay.icon_state, "deny"))
-				new_mutable = mutable_appearance('icons/obj/bureaucracy.dmi', "paper_stamp-x")
+				new_mutable = mutable_appearance('icons/obj/service/bureaucracy.dmi', "paper_stamp-x")
 			else if(findtext(overlay.icon_state, "ok"))
-				new_mutable = mutable_appearance('icons/obj/bureaucracy.dmi', "paper_stamp-check")
+				new_mutable = mutable_appearance('icons/obj/service/bureaucracy.dmi', "paper_stamp-check")
 			else
-				new_mutable = mutable_appearance('icons/obj/bureaucracy.dmi', "paper_stamp-dots")
+				new_mutable = mutable_appearance('icons/obj/service/bureaucracy.dmi', "paper_stamp-dots")
 			new_mutable.pixel_w = overlay.pixel_w
 			new_mutable.pixel_z = overlay.pixel_z
 			LAZYADD(c.stamp_overlays, new_mutable)

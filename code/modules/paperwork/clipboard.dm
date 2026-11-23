@@ -4,7 +4,7 @@
 /obj/item/clipboard
 	name = "clipboard"
 	desc = "It looks like you're writing a letter. Want some help?"
-	icon = 'icons/obj/bureaucracy.dmi'
+	icon = 'icons/obj/service/bureaucracy.dmi'
 	icon_state = "clipboard"
 	item_state = "clipboard"
 	w_class = WEIGHT_CLASS_SMALL
@@ -94,7 +94,7 @@ GAME_VERB_SRC(/obj/item/clipboard, removePen, usr, "Открепить ручк�
 		. += "clipboard_pen"
 	for(var/obj/O in src)
 		if(istype(O, /obj/item/photo))
-			var/image/img = image('icons/obj/bureaucracy.dmi')
+			var/image/img = image('icons/obj/service/bureaucracy.dmi')
 			var/obj/item/photo/Ph = O
 			img = Ph.tiny
 			. += img
