@@ -524,7 +524,7 @@
 	. = ..()
 	var/mob/living/user = owner
 	if(get_dist(user, cast_on) > 5) //fucking cameras holy shit
-		to_chat(user, span_warning(span_warning("Ваш имплант недостаточно мощён, чтобы взламывать на таком расстоянии!")))
+		to_chat(user, span_warning("Ваш имплант недостаточно мощён, чтобы взламывать на таком расстоянии!"))
 		StartCooldown(cooldown_time * 0.3)
 		return
 	if(istype(user.loc, /obj/machinery/atmospherics)) //Come now, no emaging all the doors on station from a pipe

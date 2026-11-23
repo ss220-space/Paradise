@@ -65,7 +65,7 @@ emp_act
 				T.bullet_act(P)
 				visible_message(span_danger("[src] отбива[PLUR_ET_YUT(src)] [P.declent_ru(ACCUSATIVE)] в сторону!"), \
 								span_userdanger("Вы отбиваете [P.declent_ru(ACCUSATIVE)] в сторону!"))
-				playsound(src, SFX_BULLET_MISS, 75, TRUE)
+				playsound(src, SFX_BULLET_MISS_ALT, 75, TRUE)
 			if(mind.martial_art.reroute_deflection)
 				P.firer = src
 				P.set_angle(rand(0, 360))

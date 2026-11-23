@@ -1342,7 +1342,7 @@
 		span_danger("[DECLENT_RU_CAP(source, NOMINATIVE)] без усилий уклоня[PLUR_ET_YUT(source)]ся от [hitting_projectile.declent_ru(GENITIVE)]!"),
 		span_userdanger("Вы без усилий уклоняетесь от [hitting_projectile.declent_ru(GENITIVE)]!"),
 	)
-	playsound(source, SFX_BULLET_MISS, 75, TRUE)
+	playsound(source, SFX_BULLET_MISS_ALT, 75, TRUE)
 	source.add_filter(MEPHEDRONE_BLUR_EFFECT, 2, gauss_blur_filter(5))
 	addtimer(CALLBACK(source, TYPE_PROC_REF(/datum, remove_filter), MEPHEDRONE_BLUR_EFFECT), 0.5 SECONDS)
 	return ATOM_PREHIT_FAILURE

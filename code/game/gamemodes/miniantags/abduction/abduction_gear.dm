@@ -1386,8 +1386,6 @@
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "cleaner_abductor"
 	volume = 500
-	spray_maxrange = 3
-	spray_currentrange = 3
 	list_reagents = list(/datum/reagent/space_cleaner = 500)
 
 /obj/item/reagent_containers/spray/cleaner/safety/abductor/get_ru_names()

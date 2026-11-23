@@ -79,7 +79,7 @@
 		target = locate() in get_turf(target)
 	if(!istype(target))
 		return
-	if(istype(target, /obj/machinery/door/airlock))
+	if(is_airlock(target))
 		access_airlock(target, user)
 		return ITEM_INTERACT_SUCCESS
 	if(istype(target, /obj/machinery/door/window))
@@ -91,7 +91,7 @@
 		target = locate() in get_turf(target)
 	if(!istype(target))
 		return
-	if(istype(target, /obj/machinery/door/airlock))
+	if(is_airlock(target))
 		access_airlock(target, user)
 		return ITEM_INTERACT_SUCCESS
 	if(istype(target, /obj/machinery/door/window))
@@ -309,7 +309,7 @@
 
 /obj/item/door_remote/centcomm
 	name = "centcomm door remote"
-	desc = "Только для высокопоставленных чиновников Нанотрейзен."
+	desc = "Только для высокопоставленных чиновников \"Нанотрейзен\"."
 	icon_state = "gangtool-blue"
 	region_access = list(REGION_CENTCOMM)
 
@@ -439,7 +439,7 @@
 	return NONE
 
 /obj/item/door_remote/janikeyring/proc/unlock(obj/machinery/door/target, mob/living/user)
-	if(!istype(target, /obj/machinery/door/airlock) && !istype(target, /obj/machinery/door/window))
+	if(!is_airlock(target) && !istype(target, /obj/machinery/door/window))
 		return
 	if(busy)
 		to_chat(user, span_warning("Вы уже используете [declent_ru(ACCUSATIVE)] на панели доступа [target.declent_ru(GENITIVE)]!"))

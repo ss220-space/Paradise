@@ -522,8 +522,6 @@
 		)
 	origin_tech = "materials=4;biotech=3;abductor=2"
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "surgerykit_alien")
-	augment_state = "toolkit_med"
-	do_extra_render = TRUE
 
 /obj/item/organ/internal/cyberimp/arm/surgery/alien/get_ru_names()
 	return alist(
@@ -1024,8 +1022,6 @@
 	icon_state = "shell_cannon"
 	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/implants_lefthand.dmi'
-	inhand_x_dimension = 32
-	inhand_y_dimension = 32
 	weapon_weight = WEAPON_LIGHT
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/shell_cannon
 	can_reskin = FALSE

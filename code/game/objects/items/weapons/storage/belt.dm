@@ -802,7 +802,7 @@
 		/obj/item/holosign_creator/janitor,
 		/obj/item/melee/flyswatter,
 		/obj/item/radio,
-		/obj/item/door_remote/janikeyring
+		/obj/item/door_remote/janikeyring,
 	)
 
 /obj/item/storage/belt/janitor/full/populate_contents()
