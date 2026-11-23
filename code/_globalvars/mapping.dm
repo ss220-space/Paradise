@@ -106,6 +106,6 @@ GLOBAL_LIST_EMPTY(bridge_horizontal_templates)
 GLOBAL_LIST_EMPTY(bridge_vertical_templates)
 
 /// Global list of megafauna spawns on cave gen
-GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/megafauna/dragon = 4, /mob/living/simple_animal/hostile/megafauna/colossus = 2, /mob/living/simple_animal/hostile/megafauna/bubblegum = 6, /mob/living/simple_animal/hostile/megafauna/ancient_robot = 6, /mob/living/simple_animal/hostile/megafauna/vazz = 6))
+GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/megafauna/dragon = 4, /mob/living/simple_animal/hostile/megafauna/colossus = 2, /mob/living/simple_animal/hostile/megafauna/bubblegum = 6, /mob/living/simple_animal/hostile/megafauna/ancient_robot = 6))
 
 GLOBAL_VAR(start_override_outfit)
