@@ -594,6 +594,8 @@
 	recoil = GUN_RECOIL_HIGH
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 	can_air_shoot = FALSE
+	var/can_reskin = TRUE
+	can_sawoff = TRUE
 
 /obj/item/gun/projectile/revolver/doublebarrel/get_ru_names()
 	return alist(
@@ -607,6 +609,8 @@
 
 /obj/item/gun/projectile/revolver/doublebarrel/ComponentInitialize()
 	. = ..()
+	if(!can_reskin)
+		return
 	AddElement(/datum/element/item_skins)
 
 /obj/item/gun/projectile/revolver/doublebarrel/attackby(obj/item/I, mob/user, params)

@@ -602,7 +602,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	for(var/print_index in 1 to amount)
 		var/obj/new_item = new being_built.build_path(!user ? src : machine.loc)
-
+		new_item.scatter_atom()
 		if(istype(new_item, /obj/item/storage/backpack/holding) && user)
 			new_item.investigate_log("built by [key_name_log(user)]", INVESTIGATE_ENGINE)
 
