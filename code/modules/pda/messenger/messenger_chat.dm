@@ -8,7 +8,6 @@ GLOBAL_LIST_EMPTY(increw_public_groups)
 	var/is_group = FALSE
 	var/is_public = FALSE
 	var/datum/increw_call/active_call
-	/// Account UID -> profile.
 	var/list/members = list()
 	/// TGUI reuses these rows on refresh.
 	var/list/messages = list()
@@ -23,16 +22,16 @@ GLOBAL_LIST_EMPTY(increw_public_groups)
 /datum/messenger_chat/Destroy()
 	QDEL_NULL(active_call)
 	if(is_public)
-		GLOB.increw_public_groups -= UID()
+		GLOB.increw_public_groups -= src
 
 	if(!is_group && length(members) == 2)
-		var/datum/messenger_account/first = members[members[1]]
-		var/datum/messenger_account/second = members[members[2]]
+		var/datum/messenger_account/first = members[1]
+		var/datum/messenger_account/second = members[2]
 		LAZYREMOVE(first.private_chats, second)
 		LAZYREMOVE(second.private_chats, first)
 
-	for(var/member_id in members.Copy())
-		remove_member(members[member_id])
+	for(var/datum/messenger_account/member as anything in members)
+		remove_member(member)
 	messages = null
 	owner = null
 	return ..()
@@ -43,24 +42,23 @@ GLOBAL_LIST_EMPTY(increw_public_groups)
 
 	is_public = public
 	if(is_public)
-		GLOB.increw_public_groups[UID()] = src
+		GLOB.increw_public_groups += src
 	else
-		GLOB.increw_public_groups -= UID()
+		GLOB.increw_public_groups -= src
 	return TRUE
 
 /datum/messenger_chat/proc/add_member(datum/messenger_account/member)
-	var/member_id = member.owner.UID()
-	if(members[member_id])
+	if(member in members)
 		return FALSE
-	members[member_id] = member
-	member.chats[UID()] = src
+	members += member
+	member.chats += src
 	return TRUE
 
 /datum/messenger_chat/proc/remove_member(datum/messenger_account/member)
 	active_call?.remove_member(member)
-	members -= member.owner.UID()
-	member.chats -= UID()
-	LAZYREMOVE(member.unread_chats, UID())
+	members -= member
+	member.chats -= src
+	LAZYREMOVE(member.unread_chats, src)
 
 /datum/messenger_chat/proc/add_message(message, datum/messenger_account/sender, datum/messenger_account/event_actor)
 	var/datum/messenger_account/recipient
@@ -77,17 +75,18 @@ GLOBAL_LIST_EMPTY(increw_public_groups)
 		"sender_name" = sender ? sender.owner.owner_name : "InCrew",
 		"actor_id" = event_actor?.owner.UID(),
 	))
-	recipient?.notify_direct_message(UID(), sender, message)
+	recipient?.notify_direct_message(src, sender, message)
 	return TRUE
 
 /datum/messenger_chat/proc/get_private_partner(datum/messenger_account/viewer)
-	for(var/member_id in members)
-		var/datum/messenger_account/member = members[member_id]
+	for(var/datum/messenger_account/member as anything in members)
 		if(member != viewer)
 			return member
 	return null
 
 /datum/messenger_chat/proc/is_visible_to(datum/messenger_account/viewer)
+	if(!(viewer in members))
+		return FALSE
 	if(is_group)
 		return TRUE
 	var/datum/messenger_account/partner = get_private_partner(viewer)
@@ -111,15 +110,14 @@ GLOBAL_LIST_EMPTY(increw_public_groups)
 		"is_public" = is_public,
 		"owner_id" = owner?.owner.UID(),
 		"member_count" = length(members),
-		"unread_count" = viewer.unread_chats?[UID()] || 0,
+		"unread_count" = viewer.unread_chats?[src] || 0,
 	)
 
 /datum/messenger_chat/proc/get_details(datum/messenger_account/viewer, before)
 	var/list/member_rows = list()
-	for(var/member_id in members)
-		if(viewer.blocks(member_id))
+	for(var/datum/messenger_account/member as anything in members)
+		if(viewer.blocks(member.owner))
 			continue
-		var/datum/messenger_account/member = members[member_id]
 		member_rows += list(member.get_ui_data())
 
 	var/last_index = before ? before - 1 : length(messages)
@@ -128,7 +126,7 @@ GLOBAL_LIST_EMPTY(increw_public_groups)
 	if(is_group && length(viewer.blocked_accounts))
 		for(var/index = last_index; index >= 1; index--)
 			var/list/message = messages[index]
-			if(viewer.blocks(message["sender_id"]) || viewer.blocks(message["actor_id"]))
+			if((message["sender_id"] in viewer.blocked_accounts) || (message["actor_id"] in viewer.blocked_accounts))
 				continue
 			if(length(history) == INCREW_HISTORY_SIZE)
 				var/list/oldest = history[length(history)]

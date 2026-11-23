@@ -1,11 +1,11 @@
 /datum/messenger_account
 	var/datum/money_account/owner
-	/// Chat UID -> chat.
 	var/list/chats = list()
 	/// Other profile -> private chat.
 	var/list/private_chats
+	/// Chat -> unread count.
 	var/list/unread_chats
-	/// Account UID -> name.
+	/// Account UID -> name. Kept for chat history.
 	var/list/blocked_accounts
 	var/datum/increw_call/active_call
 	COOLDOWN_DECLARE(call_cooldown)
@@ -17,8 +17,7 @@
 
 /datum/messenger_account/Destroy()
 	active_call?.remove_member(src)
-	for(var/chat_id in chats.Copy())
-		var/datum/messenger_chat/chat = chats[chat_id]
+	for(var/datum/messenger_chat/chat as anything in chats)
 		if(!chat.is_group || chat.owner == src)
 			qdel(chat)
 		else
@@ -37,17 +36,17 @@
 		"photo" = owner.photo,
 	)
 
-/datum/messenger_account/proc/blocks(account_id)
-	return account_id && !!blocked_accounts?[account_id]
+/datum/messenger_account/proc/blocks(datum/money_account/account)
+	return length(blocked_accounts) && (account?.UID() in blocked_accounts)
 
 /datum/messenger_account/proc/can_contact(datum/messenger_account/other)
-	return !blocks(other.owner.UID()) && !other.blocks(owner.UID())
+	return !blocks(other.owner) && !other.blocks(owner)
 
 /datum/messenger_account/proc/matches_card(obj/item/card/id/card)
 	return card && card.associated_account_number == owner.account_number && card.registered_name == owner.owner_name
 
-/datum/messenger_account/proc/notify_direct_message(chat_id, datum/messenger_account/sender, message)
-	LAZYSET(unread_chats, chat_id, (unread_chats?[chat_id] || 0) + 1)
+/datum/messenger_account/proc/notify_direct_message(datum/messenger_chat/chat, datum/messenger_account/sender, message)
+	LAZYSET(unread_chats, chat, (unread_chats?[chat] || 0) + 1)
 	var/notice = "[span_bold("InCrew · [html_encode(sender.owner.owner_name)]")]<br>[html_encode(message)]"
 	for(var/obj/item/pda/pda as anything in GLOB.PDAs)
 		if(!isliving(pda.loc))

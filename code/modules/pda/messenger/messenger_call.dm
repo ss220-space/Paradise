@@ -2,8 +2,8 @@ GLOBAL_LIST_EMPTY(increw_call_frequencies)
 
 /proc/get_increw_call_frequency()
 	var/list/reserved = list(ATMOS_TANKS_FREQ, ATMOS_DISTRO_FREQ, BOT_BEACON_FREQ, BOT_FREQ, AIRLOCK_FREQ, IMPL_FREQ, RSD_FREQ)
-	for(var/channel in SSradio.radiochannels)
-		reserved += SSradio.radiochannels[channel]
+	for(var/channel, channel_frequency in SSradio.radiochannels)
+		reserved += channel_frequency
 
 	var/list/available = list()
 	for(var/frequency in PUBLIC_LOW_FREQ to PUBLIC_HIGH_FREQ step 2)
@@ -36,7 +36,7 @@ GLOBAL_LIST_EMPTY(increw_call_frequencies)
 	if(ring_timer)
 		deltimer(ring_timer)
 		ring_timer = null
-	for(var/datum/messenger_account/profile as anything in members.Copy())
+	for(var/datum/messenger_account/profile as anything in members)
 		remove_member(profile, check_quorum = FALSE)
 	GLOB.increw_call_frequencies -= "[frequency]"
 	if(chat?.active_call == src)
@@ -70,8 +70,8 @@ GLOBAL_LIST_EMPTY(increw_call_frequencies)
 
 /datum/increw_call/proc/count_connected()
 	var/count = 0
-	for(var/datum/messenger_account/profile as anything in members)
-		var/datum/increw_call_member/member = members[profile]
+	for(var/profile, value in members)
+		var/datum/increw_call_member/member = value
 		if(member.accepted && member.is_available())
 			count++
 	return count
@@ -87,8 +87,8 @@ GLOBAL_LIST_EMPTY(increw_call_frequencies)
 		member.connect_radio()
 	else if(count_connected() >= 2)
 		active = TRUE
-		for(var/datum/messenger_account/profile as anything in members)
-			var/datum/increw_call_member/participant = members[profile]
+		for(var/profile, value in members)
+			var/datum/increw_call_member/participant = value
 			if(participant.accepted && participant.is_available())
 				participant.connect_radio()
 	return TRUE
@@ -107,8 +107,8 @@ GLOBAL_LIST_EMPTY(increw_call_frequencies)
 
 /datum/increw_call/proc/ring()
 	ring_timer = null
-	for(var/datum/messenger_account/profile as anything in members.Copy())
-		var/datum/increw_call_member/member = members[profile]
+	for(var/datum/messenger_account/profile, value in members)
+		var/datum/increw_call_member/member = value
 		if(!member.is_available() || (!member.accepted && world.time >= ring_until))
 			remove_member(profile)
 			if(QDELETED(src))
