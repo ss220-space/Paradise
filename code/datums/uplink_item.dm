@@ -2442,6 +2442,15 @@
 	item = /obj/item/storage/box/cyber_implants/reviver_hardened
 	cost = 40
 
+/datum/uplink_item/cyber_implants/razorwire
+	name = "Автоимплантер ручного импланта с моноструной"
+	desc = "Длинный отрезок мономолекулярной нити, встроенный в тыльную сторону вашей руки. \
+		Невероятно тонкая и безупречно острая, она без труда прорежет органические материалы; \
+		даже с нескольких шагов. Однако результат против чего-либо более прочного будет сильно различаться."
+	item = /obj/item/autoimplanter/oneuse/razorwire
+	cost = 20
+	excludefrom = list()
+
 /datum/uplink_item/cyber_implants/scope_eyes
 	name = "Автоимплантер с укреплёнными глазными имплантами \"Калейдо Оптикс\""
 	desc = "Эти кибернетические глазные импланты позволят вам приближать далёкие объекты. \
@@ -2450,6 +2459,25 @@
 	item = /obj/item/autoimplanter/oneuse/scope_eyes
 	cost = 10
 	excludefrom = list()
+
+/datum/uplink_item/cyber_implants/hackerman_deck
+	name = "Автоимплантер беспроводной системы взлома \"Бинят\""
+	desc = "Этот имплант позволит вам удалённо применять ЕМАГ на расстоянии. Однако при использовании он будет слегка обжигать вас \
+	и будет довольно заметен в момент применения ЕМАГа на объекте. \
+	Не отображается на неулучшенных сканерах тела. Несовместим с сенсорным компьютером \"Кани-Лаака\"."
+	item = /obj/item/autoimplanter/oneuse/hackerman_deck
+	cost = 30 // Probably slightly less useful than an emag with heat / cooldown, but I am not going to make it cheaper or everyone picks it over emag
+
+/datum/uplink_item/cyber_implants/sensory_enhancer
+	name = "Автоимплантер сенсорного компьютера \"Кани-Лаака\""
+	desc = "Предупреждение об эпилепсии: наркотик имеет яркие визуальные эффекты! \
+	Этот спинной имплант будет вводить в ваш организм мефедрон — мощный стимулятор, наносящий лёгкий урон сердцу.\
+	Этот стимулятор обеспечит более высокую скорость передвижения, лёгкую устойчивость к боли, иммунитет к замедлению от ползания и более быстрые атаки, но не защитит от оглушения.\
+	Передозировка нанесёт огромный урон сердцу, но позволит пользователю уклоняться от пуль в течение минуты и атаковать ещё быстрее.\
+	Две минуты нормальной работы, пять минут перезарядки, неограниченное использование. Несовместим с беспроводной системой взлома \"Бинят\"."
+	item = /obj/item/autoimplanter/oneuse/sensory_enhancer
+	cost = 40
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) //No, nukies do not get to dodge bullets.
 
 /datum/uplink_item/cyber_implants/mantisblade
 	name = "Клинки богомола"

@@ -405,7 +405,10 @@
 
 #define TRAIT_FAKE_FIRE "fake_fire"
 
-#define TRAIT_CAN_SEE_WIRES "can_see_wires"
+/// Show what machine/door wires do when held.
+#define TRAIT_SHOW_WIRE_INFO "show_wire_info"
+
+#define TRAIT_WIRE_BLIND "wire_blind" // This doesn't block someone from seeing wires or recalling their position, but randomizes name / function to the user
 
 #define TRAIT_DECOY_BRAIN "decoy_brain"
 
