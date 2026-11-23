@@ -113,6 +113,9 @@
 /obj/effect/portal/jaunt_tunnel/can_teleport(atom/movable/movable, silent = FALSE)
 	if(!emagged && ismegafauna(movable))
 		return FALSE
+
+	if(isashwalker(movable) || isdraconid(movable))
+		return FALSE
 	return ..()
 
 /obj/effect/portal/jaunt_tunnel/teleport(atom/movable/movable)
