@@ -58,21 +58,6 @@ jobs:
     uses: ./.github/workflows/ci_suite.yml # use the callable tests job to run tests
     if: ${{ inputs.ci_required }}
 
-  update-isp-lists:
-    name: Update ISP Lists
-    runs-on: ubuntu-24.04
-    needs: [check]
-
-    steps:
-      - name: Update ISP Lists
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.PRODUCTION_HOST }}
-          username: ${{ secrets.PRODUCTION_USERNAME }}
-          key: ${{ secrets.PRODUCTION_SSH_KEY }}
-          passphrase: ${{ secrets.PRODUCTION_SSH_KEY_PASS }}
-          script: /var/lib/byond/update_isp_lists.sh
-
   set-matrix:
     name: Set Deployment Matrix
     runs-on: ubuntu-24.04
@@ -114,7 +99,7 @@ jobs:
       fail-fast: false
       matrix: ${{fromJson(needs.set-matrix.outputs.matrix)}}
     environment: ${{ matrix.environment }}
-    needs: [check, update-isp-lists, CI, set-matrix]
+    needs: [check, CI, set-matrix]
     if: always() && !cancelled() && !failure()
 
     steps:
