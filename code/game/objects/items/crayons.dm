@@ -6,6 +6,11 @@
 #define SPRAYCAN_MODE_RUNE "rune"
 #define SPRAYCAN_MODE_LETTERS "letters"
 
+#define SPRAYCAN_OUTLINE_DARK "dark"
+#define SPRAYCAN_OUTLINE_LIGHT "light"
+#define SPRAYCAN_OUTLINE_NONE "none"
+#define SPRAYCAN_OUTLINE_CUSTOM "custom"
+
 #define SPRAYCAN_MAX_TEXT_LENGTH 64
 #define SPRAYCAN_MIN_ANGLE -180
 #define SPRAYCAN_MAX_ANGLE 180
@@ -365,19 +370,21 @@
 	validSurfaces = list(/turf/simulated/floor, /turf/simulated/wall)
 	var/spray_mode = SPRAYCAN_MODE_GRAFFITI
 	var/spray_text = "nt"
-	var/spray_font = "Small Fonts, Fixedsys, monospace"
+	var/spray_font = "Small Fonts"
+	var/outline_mode = SPRAYCAN_OUTLINE_NONE
+	var/outline_color = "#111111"
 	var/static/list/spray_fonts = list(
-		"Минималистичный" = "Small Fonts, Fixedsys, monospace",
-		"Verdana" = "Verdana, sans-serif",
-		"Arial" = "Arial, sans-serif",
-		"Arial Black" = "Arial Black, sans-serif",
-		"Comic Sans MS" = "Comic Sans MS, cursive",
-		"Impact" = "Impact, sans-serif",
-		"Lucida Sans" = "Lucida Sans Unicode, sans-serif",
-		"Tahoma" = "Tahoma, sans-serif",
-		"Trebuchet MS" = "Trebuchet MS, sans-serif",
-		"Courier New" = "Courier New, monospace",
-		"Lucida Console" = "Lucida Console, monospace",
+		"Минималистичный" = "Small Fonts",
+		"Verdana" = "Verdana",
+		"Arial" = "Arial",
+		"Arial Black" = "Arial Black",
+		"Comic Sans MS" = "Comic Sans MS",
+		"Impact" = "Impact",
+		"Lucida Sans" = "Lucida Sans Unicode",
+		"Tahoma" = "Tahoma",
+		"Trebuchet MS" = "Trebuchet MS",
+		"Courier New" = "Courier New",
+		"Lucida Console" = "Lucida Console",
 	)
 	var/text_index = 1
 	var/loop_text = TRUE
@@ -435,6 +442,8 @@
 
 /obj/item/toy/crayon/spraycan/ui_data(mob/user)
 	var/list/data = list()
+	data["outline_mode"] = outline_mode
+	data["outline_color"] = outline_color
 	data["spray_font"] = spray_font
 	data["capped"] = capped
 	data["colour"] = colour
@@ -536,6 +545,17 @@
 						spray_font = picked_font
 						break
 			return TRUE
+		if("set_outline_mode")
+			var/new_outline_mode = params["mode"]
+			if(new_outline_mode in list(SPRAYCAN_OUTLINE_DARK, SPRAYCAN_OUTLINE_LIGHT, SPRAYCAN_OUTLINE_NONE))
+				outline_mode = new_outline_mode
+			else if(new_outline_mode == SPRAYCAN_OUTLINE_CUSTOM)
+				var/picked_outline = input(usr, "Выберите цвет обводки текста:", "Цвет обводки", outline_color) as color|null
+				if(picked_outline)
+					outline_color = picked_outline
+					outline_mode = SPRAYCAN_OUTLINE_CUSTOM
+			return TRUE
+
 
 
 /obj/item/toy/crayon/spraycan/proc/advance_to_drawable_char()
@@ -683,9 +703,26 @@
 			text_char = char
 			step_next_char()
 
-	var/obj/effect/decal/cleanable/crayon/decal = new(target, colour, chosen_state, decal_name, rotation, scale, text_char, spray_font)
+	var/resolved_outline_color = null
+	if(text_char)
+		switch(outline_mode)
+			if(SPRAYCAN_OUTLINE_DARK)
+				resolved_outline_color = (lowertext(colour) == "#282828") ? "#555555" : BlendRGB(colour, "#000000", 0.65)
+			if(SPRAYCAN_OUTLINE_LIGHT)
+				resolved_outline_color = (lowertext(colour) == "#ffffff") ? "#bbbbbb" : BlendRGB(colour, "#ffffff", 0.65)
+			if(SPRAYCAN_OUTLINE_CUSTOM)
+				resolved_outline_color = outline_color
+
+	var/final_rotation = rotation
+	var/vertical_stretch = 1
+	if(text_char)
+		final_rotation += rand(-10, 10)
+		vertical_stretch = 1.25
+
+	var/obj/effect/decal/cleanable/crayon/decal = new(target, colour, chosen_state, decal_name, final_rotation, scale, text_char, spray_font, resolved_outline_color, vertical_stretch)
 	decal.pixel_x = click_x
 	decal.pixel_y = click_y
+
 	decal.add_hiddenprint(user)
 	draw_paint(user)
 	SStgui.update_uis(src)
@@ -751,3 +788,8 @@
 #undef SPRAYCAN_TILE_SIZE
 #undef SPRAYCAN_HALF_TILE
 #undef SPRAYCAN_ALLOWED_CHARS
+#undef SPRAYCAN_OUTLINE_DARK
+#undef SPRAYCAN_OUTLINE_LIGHT
+#undef SPRAYCAN_OUTLINE_NONE
+#undef SPRAYCAN_OUTLINE_CUSTOM
+

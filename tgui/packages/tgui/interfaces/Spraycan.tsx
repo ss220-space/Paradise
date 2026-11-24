@@ -27,6 +27,7 @@ const PRESET_COLORS = [
 ];
 
 type SprayMode = 'text' | 'letters' | 'graffiti' | 'rune';
+type OutlineMode = 'dark' | 'light' | 'none' | 'custom';
 
 type SpraycanData = {
   capped: boolean;
@@ -45,6 +46,8 @@ type SpraycanData = {
   graffiti_list: string[];
   rune_list: string[];
   valid_letters: string[];
+  outline_mode: OutlineMode;
+  outline_color: string;
 };
 
 export const Spraycan = () => {
@@ -66,6 +69,8 @@ export const Spraycan = () => {
     graffiti_list = [],
     rune_list = [],
     valid_letters = [],
+	outline_mode = 'none',
+    outline_color = '#111111',
   } = data;
 
   const [draftText, setDraftText] = useState(spray_text);
@@ -80,8 +85,17 @@ export const Spraycan = () => {
       ? textChars[text_index - 1]
       : '';
 
+  const previewOutline =
+    outline_mode === 'none'
+      ? '0px transparent'
+      : outline_mode === 'light'
+        ? '1px rgba(255, 255, 255, 0.55)'
+        : outline_mode === 'custom'
+          ? `1px ${outline_color}`
+          : '1px rgba(0, 0, 0, 0.6)';
+
   return (
-    <Window width={520} height={580}>
+    <Window width={520} height={600}>
       <Window.Content>
         <Stack vertical fill>
           <Stack.Item>
@@ -165,7 +179,9 @@ export const Spraycan = () => {
                         </Stack.Item>
                         <Stack.Item>
                           <Button
-                            onClick={() => act('set_rotation', { rotation: 0 })}
+                            onClick={() =>
+                              act('set_rotation', { rotation: 0 })
+                            }
                           >
                             0°
                           </Button>
@@ -226,6 +242,14 @@ export const Spraycan = () => {
                         </Stack.Item>
                         <Stack.Item>
                           <Button
+                            selected={scale === 1.25}
+                            onClick={() => act('set_scale', { scale: 1.25 })}
+                          >
+                            1.25x
+                          </Button>
+                        </Stack.Item>
+                        <Stack.Item>
+                          <Button
                             selected={scale === 1.5}
                             onClick={() => act('set_scale', { scale: 1.5 })}
                           >
@@ -261,19 +285,17 @@ export const Spraycan = () => {
                           position="absolute"
                           top="50%"
                           left="50%"
-                          width="44px"
-                          height="44px"
+                          width="52px"
+                          height="52px"
                           style={{
-                            marginLeft: '-22px',
-                            marginTop: '-22px',
-                            lineHeight: '44px',
+                            marginLeft: '-26px',
+                            marginTop: '-26px',
+                            lineHeight: '52px',
                             textAlign: 'center',
-                            fontFamily:
-                              spray_font || '"Courier New", monospace',
-                            fontSize: '14px',
-                            fontWeight: 'bold',
+                            fontFamily: spray_font || '"Small Fonts"',
+                            fontSize: '24px',
                             color: colour,
-                            textShadow: '1px 1px 0 #111, -1px -1px 0 #111',
+                            WebkitTextStroke: previewOutline,
                             transformOrigin: 'center center',
                             transform: `rotate(${rotation}deg) scale(${scale})`,
                           }}
@@ -320,7 +342,6 @@ export const Spraycan = () => {
               </Stack>
             </Section>
           </Stack.Item>
-
           <Stack.Item grow>
             <Section
               fill
@@ -371,8 +392,7 @@ export const Spraycan = () => {
                 <Stack vertical>
                   <Stack.Item>
                     <Box color="label" mb={0.5}>
-                      Кириллица, латиница, цифры и знаки. Каждый клик ставит
-                      выделенный символ и сдвигает указатель:
+                      Кириллица, латиница, цифры и знаки. Каждый клик ставит выделенный символ и сдвигает указатель:
                     </Box>
                     <Stack>
                       <Stack.Item grow>
@@ -382,14 +402,18 @@ export const Spraycan = () => {
                           maxLength={64}
                           placeholder="Например: ПРИВЕТ СБ!"
                           onChange={(value) => setDraftText(value)}
-                          onEnter={() => act('set_text', { text: draftText })}
+                          onEnter={() =>
+                            act('set_text', { text: draftText })
+                          }
                         />
                       </Stack.Item>
                       <Stack.Item>
                         <Button
                           icon="check"
                           color="good"
-                          onClick={() => act('set_text', { text: draftText })}
+                          onClick={() =>
+                            act('set_text', { text: draftText })
+                          }
                         >
                           Применить
                         </Button>
@@ -405,12 +429,62 @@ export const Spraycan = () => {
                         <Stack.Item key={family}>
                           <Button
                             selected={spray_font === family}
-                            onClick={() => act('set_font', { font: family })}
+                            onClick={() =>
+                              act('set_font', { font: family })
+                            }
                           >
                             <span style={{ fontFamily: family }}>{label}</span>
                           </Button>
                         </Stack.Item>
                       ))}
+                    </Stack>
+                  </Stack.Item>
+                  <Stack.Item>
+                    <Stack align="center" wrap>
+                      <Stack.Item>
+                        <Box color="label">Обводка:</Box>
+                      </Stack.Item>
+                      <Stack.Item>
+                        <Button
+                          selected={outline_mode === 'dark'}
+                          onClick={() =>
+                            act('set_outline_mode', { mode: 'dark' })
+                          }
+                        >
+                          Тёмная
+                        </Button>
+                      </Stack.Item>
+                      <Stack.Item>
+                        <Button
+                          selected={outline_mode === 'light'}
+                          onClick={() =>
+                            act('set_outline_mode', { mode: 'light' })
+                          }
+                        >
+                          Светлая
+                        </Button>
+                      </Stack.Item>
+                      <Stack.Item>
+                        <Button
+                          selected={outline_mode === 'none'}
+                          onClick={() =>
+                            act('set_outline_mode', { mode: 'none' })
+                          }
+                        >
+                          Без обводки
+                        </Button>
+                      </Stack.Item>
+                      <Stack.Item>
+                        <Button
+                          icon="palette"
+                          selected={outline_mode === 'custom'}
+                          onClick={() =>
+                            act('set_outline_mode', { mode: 'custom' })
+                          }
+                        >
+                          Цвет...
+                        </Button>
+                      </Stack.Item>
                     </Stack>
                   </Stack.Item>
                   <Stack.Item>
@@ -474,7 +548,9 @@ export const Spraycan = () => {
                             <Button
                               selected={isCurrent}
                               color={isCurrent ? 'good' : undefined}
-                              onClick={() => act('set_index', { index: pos })}
+                              onClick={() =>
+                                act('set_index', { index: pos })
+                              }
                             >
                               {ch === ' ' ? '␣' : ch}
                             </Button>
