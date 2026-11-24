@@ -476,42 +476,25 @@ GAME_VERB_SRC(/obj/machinery/photocopier/faxmachine, eject_id, oview(1), "Дос
 		payload.webhook_content = "**\[FAX\]** [sender.client.ckey]/([sender.name]) sent a Photo at [get_area(src)]"
 		GLOB.discord_manager.send2discord_complex(DISCORD_WEBHOOK_REQUESTS, payload)
 
-/obj/machinery/photocopier/faxmachine/proc/sanitize_paper(obj/item/paper/paper) // html to discord markdown-101
-	var/text = "[paper.header][paper.info][paper.footer]"
-	text = replacetext(text, "<br>", "\n")
-	text = replacetext(text, "</u>", "__")
-	text = replacetext(text, "<b>", "**")
-	text = replacetext(text, "</b>", "**")
-	text = replacetext(text, "<i>", "*")
-	text = replacetext(text, "</i>", "*")
-	text = replacetext(text, "<u>", "__")
-	text = replacetext(text, "</u>", "__")
-	text = replacetext(text, "<span class=\"paper_field\"></span>", "`_FIELD_`")
+/obj/machinery/photocopier/faxmachine/proc/sanitize_paper(obj/item/paper/paper)
+	var/text = ""
+	for(var/datum/paper_input/entry as anything in paper.raw_text_inputs)
+		text += entry.raw_text
 
-	text = replacetext(text, "<h1>", "# ")
-	text = replacetext(text, "<h2>", "## ")
-	text = replacetext(text, "<h3>", "### ")
+	if(LAZYLEN(paper.raw_field_input_data))
+		text += "\n\n**Заполненные поля:**\n"
+		for(var/datum/paper_field/field as anything in paper.raw_field_input_data)
+			text += "- [field.field_data.raw_text]\n"
 
-	text = replacetext(text, "<li>", "- ")
-	text = replacetext(text, "<hr>", "\n`----- Horizontal Rule -----`\n")
-	text = replacetext(text, "<table border=1 cellspacing=0 cellpadding=3 style='border: 1px solid black;'>", "`_TABLE START_`\n")
-	text = replacetext(text, "<table>", "`_GRID START_`\n")
-	text = replacetext(text, "<tr>", "\n") // starts table, \ns it when splits every cell with |
-	text = replacetext(text, "<td>", " | ")
-	text = replacetext(text, "<table>", "`_TABLE END_`\n")
-	text = replacetext(text, "<img src = ntlogo.png>", "` NT LOGO `\n")
-	text = replacetext(text, "<img src = syndielogo.png>", "` SYNDIE LOGO `\n")
-	text = replacetextEx(text, "<img src = syndielogo.png>", "` SYNDIE LOGO `\n")
-	var/textstamps = paper.stamps
-	for(var/obj/item/stamp/stamp_path as anything in paper.stamped)
-		if(ispath(stamp_path, /obj/item/stamp/chameleon))
-			var/text_stamp = replacetext(textstamps, regex(".*?<img src=large_stamp-(.*?).png>.*"), "$1") // pops from textstamps.
-			textstamps = replacetext(textstamps, regex("<img src=large_stamp-.*?.png>"), "")
-			text += "` [text_stamp] (CHAMELEON) stamp `"
-		else
-			text += "` [replacetext(replacetext(initial(stamp_path.name), "rubber", ""), "'s", "")] `"
+	if(LAZYLEN(paper.stamp_cache))
+		text += "\n**Печати:** "
+		for(var/stamp_name in paper.stamp_cache)
+			text += "` [stamp_name] ` "
 
-	return strip_html_properly(text, MAX_PAPER_MESSAGE_LEN, TRUE) //So satisfying that max paper length equals max description disorcd
+	if(!length(trim(text)))
+		text = "*Пустой лист*"
+
+	return strip_html_properly(text, MAX_PAPER_MESSAGE_LEN, TRUE)
 
 /obj/machinery/photocopier/faxmachine/proc/become_mimic()
 	if(scan)

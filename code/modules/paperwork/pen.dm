@@ -26,6 +26,8 @@
 	var/degrees
 	/// Is the pen clicked out (extended) to allow writing
 	var/can_write = TRUE
+	/// Most pen require gravity for work
+	var/requires_gravity = TRUE
 
 /obj/item/pen/get_ru_names()
 	return alist(

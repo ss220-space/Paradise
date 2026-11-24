@@ -584,7 +584,7 @@ GAME_VERB_SRC(/obj/item/paper, rename, usr, "Rename paper", null)
 
 /obj/item/paper/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/simple/stamps),
+		get_asset_datum(/datum/asset/spritesheet_batched/stamps),
 		get_asset_datum(/datum/asset/simple/logos),
 	)
 
@@ -1492,3 +1492,21 @@ GAME_VERB_SRC(/obj/item/paper, rename, usr, "Rename paper", null)
 // 	stampoverlay.pixel_z = stamp_offset_z
 // 	LAZYADD(stamp_overlays, stampoverlay)
 // 	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/paper/proc/stamp(obj/item/stamp/stamp_target)
+	var/stamp_state
+	var/stamp_icon = 'icons/obj/service/bureaucracy.dmi'
+	if(ispath(stamp_target, /obj/item/stamp))
+		stamp_state = initial(stamp_target.icon_state)
+		stamp_icon = initial(stamp_target.icon)
+	else if(istype(stamp_target, /obj/item/stamp))
+		stamp_state = stamp_target.icon_state
+		stamp_icon = stamp_target.icon
+	else if(istext(stamp_target))
+		stamp_state = stamp_target
+	else
+		return FALSE
+
+	var/datum/asset/spritesheet_batched/sheet = get_asset_datum(/datum/asset/spritesheet_batched/stamps)
+	var/stamp_class = sheet ? sheet.icon_class_name(stamp_state) : "stamps [stamp_state]"
+	return add_stamp(stamp_class, rand(30, 220), rand(30, 300), rand(-15, 15), stamp_state, stamp_icon)

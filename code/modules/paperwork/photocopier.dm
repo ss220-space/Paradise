@@ -165,35 +165,15 @@
 			visible_message(span_notice("На корпусе [declent_ru(GENITIVE)] загорается жёлтая лампочка, обозначая недостаток чернил для завершения операции."))
 			return null
 		total_copies++
-	var/obj/item/paper/c = new /obj/item/paper (loc)
+
+	var/atom/destination = loc
 	if(scanning || bundled)
-		c.forceMove(src)
+		destination = src
 	else if(folder)
-		c.forceMove(folder)
-	c.header = copy.header
-	c.info = copy.info
-	c.footer = copy.footer
-	c.name = copy.name // -- Doohl
-	c.fields = copy.fields
-	c.stamps = copy.stamps
-	c.language = copy.language
-	c.stamped = LAZYLISTDUPLICATE(copy.stamped)
-	if(LAZYLEN(copy.stamp_overlays))
-		for(var/mutable_appearance/overlay as anything in copy.stamp_overlays)	//gray overlay onto the copy
-			var/mutable_appearance/new_mutable
-			if(findtext(overlay.icon_state, "cap") || findtext(overlay.icon_state, "cent") || findtext(overlay.icon_state, "rep") || findtext(overlay.icon_state, "magistrate") || findtext(overlay.icon_state, "navcom"))
-				new_mutable = mutable_appearance('icons/obj/service/bureaucracy.dmi', "paper_stamp-circle")
-			else if(findtext(overlay.icon_state, "deny"))
-				new_mutable = mutable_appearance('icons/obj/service/bureaucracy.dmi', "paper_stamp-x")
-			else if(findtext(overlay.icon_state, "ok"))
-				new_mutable = mutable_appearance('icons/obj/service/bureaucracy.dmi', "paper_stamp-check")
-			else
-				new_mutable = mutable_appearance('icons/obj/service/bureaucracy.dmi', "paper_stamp-dots")
-			new_mutable.pixel_w = overlay.pixel_w
-			new_mutable.pixel_z = overlay.pixel_z
-			LAZYADD(c.stamp_overlays, new_mutable)
-	c.updateinfolinks()
-	c.update_icon()
+		destination = folder
+
+	var/obj/item/paper/c = copy.copy(/obj/item/paper, destination, colored = FALSE)
+	c.name = copy.name
 	return c
 
 /**
@@ -606,7 +586,6 @@
 
 	update_appearance(UPDATE_ICON)
 
-
 /obj/machinery/photocopier/proc/ai_text(mob/user)
 	if(!issilicon(user))
 		return
@@ -619,10 +598,9 @@
 	if(toner_cartridge.charges < 1 || !user)
 		return
 	playsound(loc, pick(print_sounds), 50, TRUE)
-	var/obj/item/paper/p = new (loc)
-	text = p.parsepencode(text, null, user)
-	p.info = text
-	p.populatefields()
+	var/obj/item/paper/p = new(loc)
+	p.add_raw_text(text)
+	p.update_appearance()
 	use_toner(1)
 	use_power(active_power_usage)
 	COOLDOWN_START(src, copying_cooldown, time_to_print)

@@ -100,7 +100,7 @@
 		else if(href_list["read"])
 			var/obj/item/paper/P = locateUID(href_list["read"])
 			if(P && (P.loc == src) && istype(P))
-				P.show_content(usr)
+				P.ui_interact(usr)
 		else if(href_list["look"])
 			var/obj/item/photo/P = locateUID(href_list["look"])
 			if(P && (P.loc == src) && istype(P))

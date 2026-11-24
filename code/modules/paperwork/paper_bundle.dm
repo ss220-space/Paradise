@@ -66,20 +66,19 @@
 		if(!user.is_literate())
 			to_chat(user, span_warning("You don't know how to write!"))
 			return ATTACK_CHAIN_PROCEED
-		close_window(user, "PaperBundle[UID()]") //Closes the dialog
-		paper.show_content(user, infolinks = TRUE)
+		close_window(user, "PaperBundle[UID()]")
+		paper.ui_interact(user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/paper))
 		add_fingerprint(user)
-		var/obj/item/paper/paper = I
 		if(istype(I, /obj/item/paper/carbon))
 			var/obj/item/paper/carbon/carbon_paper = I
 			if(!carbon_paper.iscopy && !carbon_paper.copied)
 				to_chat(user, span_notice("Take off the carbon copy first."))
 				return .
 
-		if(!paper.joinable)
+		if(istype(I, /obj/item/paper/contract))
 			return ..()
 
 		if(!user.drop_transfer_item_to_loc(I, src))
@@ -139,7 +138,9 @@
 	..()
 	if(!(resistance_flags & FIRE_PROOF))
 		for(var/obj/item/paper/paper in papers)
-			paper.info = "<i>Heat-curled corners and sooty words offer little insight. Whatever was once written on this page has been rendered illegible through fire.</i>"
+			paper.clear_paper()
+			paper.add_raw_text("*Heat-curled corners and sooty words offer little insight. Whatever was once written on this page has been rendered illegible through fire.*")
+			paper.update_appearance()
 
 /obj/item/paper_bundle/proc/burnpaper(obj/item/lighter/P, mob/user)
 	var/class = "<span class='warning'>"
@@ -196,9 +197,9 @@
 			dat+= "<div style='float;left; text-align:right; with:33.33333%'></div>"
 	if(istype(papers[page], /obj/item/paper))
 		var/obj/item/paper/P = W
-		dat += P.show_content(usr, view = 0)
-		var/datum/browser/popup = new(usr, "PaperBundle[UID()]", "", P.paper_width, P.paper_height)
-		popup.include_default_stylesheet = FALSE
+		P.ui_interact(usr)
+		dat += "<center><b>[P.name]</b><br><br><a href='byond://?src=[UID()];read_page=1'>Открыть лист</a></center>"
+		var/datum/browser/popup = new(usr, "PaperBundle[UID()]", name, 350, 180)
 		popup.set_content(dat)
 		popup.open(FALSE)
 	else if(istype(papers[page], /obj/item/photo))
@@ -262,6 +263,10 @@
 
 			amount--
 			update_appearance(UPDATE_ICON|UPDATE_DESC)
+		if(href_list["read_page"])
+			var/obj/item/paper/P = papers[page]
+			if(istype(P))
+				P.ui_interact(usr)
 	else
 		to_chat(usr, span_notice("You need to hold it in your hands to change pages."))
 	if(!QDELETED(src) && ismob(loc))

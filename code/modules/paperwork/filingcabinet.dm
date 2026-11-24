@@ -140,14 +140,14 @@
 					S = R
 					break
 			var/obj/item/paper/P = new /obj/item/paper(src)
-			P.info = "<center><b>Security Record</b></center><br>"
-			P.info += "Name: [G.fields["name"]] ID: [G.fields["id"]]<br>\nSex: [G.fields["sex"]]<br>\nAge: [G.fields["age"]]<br>\nFingerprint: [G.fields["fingerprint"]]<br>\nPhysical Status: [G.fields["p_stat"]]<br>\nMental Status: [G.fields["m_stat"]]<br>"
-			P.info += "<br>\n<center><b>Security Data</b></center><br>\nCriminal Status: [S.fields["criminal"]]<br>\n<br>\nMinor Crimes: [S.fields["mi_crim"]]<br>\nDetails: [S.fields["mi_crim_d"]]<br>\n<br>\nMajor Crimes: [S.fields["ma_crim"]]<br>\nDetails: [S.fields["ma_crim_d"]]<br>\n<br>\nImportant Notes:<br>\n\t[S.fields["notes"]]<br>\n<br>\n<center><b>Comments/Log</b></center><br>"
+			var/record_text = "<center>**Security Record**</center>\n"
+			record_text += "Name: [G.fields["name"]] ID: [G.fields["id"]]\nSex: [G.fields["sex"]]\nAge: [G.fields["age"]]\nFingerprint: [G.fields["fingerprint"]]\nPhysical Status: [G.fields["p_stat"]]\nMental Status: [G.fields["m_stat"]]\n"
+			record_text += "\n<center>**Security Data**</center>\nCriminal Status: [S.fields["criminal"]]\n\nMinor Crimes: [S.fields["mi_crim"]]\nDetails: [S.fields["mi_crim_d"]]\n\nMajor Crimes: [S.fields["ma_crim"]]\nDetails: [S.fields["ma_crim_d"]]\n\nImportant Notes:\n\t[S.fields["notes"]]\n\n<center>**Comments/Log**</center>\n"
 			for(var/c in S.fields["comments"])
-				P.info += "[c]<br>"
+				record_text += "[c]\n"
+			P.add_raw_text(record_text)
+			P.update_appearance()
 			P.name = "paper - '[G.fields["name"]]'"
-			populated = TRUE	//tabbing here is correct- it's possible for people to try and use it
-						//before the records have been generated, so we do this inside the loop.
 
 /obj/structure/filingcabinet/security/attack_hand()
 	populate()
@@ -172,14 +172,14 @@
 					M = R
 					break
 			var/obj/item/paper/P = new /obj/item/paper(src)
-			P.info = "<center><b>Medical Record</b></center><br>"
-			P.info += "Name: [G.fields["name"]] ID: [G.fields["id"]]<br>\nSex: [G.fields["sex"]]<br>\nAge: [G.fields["age"]]<br>\nFingerprint: [G.fields["fingerprint"]]<br>\nPhysical Status: [G.fields["p_stat"]]<br>\nMental Status: [G.fields["m_stat"]]<br>"
-			P.info += "<br>\n<center><b>Medical Data</b></center><br>\nBlood Type: [M.fields["b_type"]]<br>\nDNA: [M.fields["b_dna"]]<br>\n<br>\nMinor Disabilities: [M.fields["mi_dis"]]<br>\nDetails: [M.fields["mi_dis_d"]]<br>\n<br>\nMajor Disabilities: [M.fields["ma_dis"]]<br>\nDetails: [M.fields["ma_dis_d"]]<br>\n<br>\nAllergies: [M.fields["alg"]]<br>\nDetails: [M.fields["alg_d"]]<br>\n<br>\nCurrent Diseases: [M.fields["cdi"]] (per disease info placed in log/comment section)<br>\nDetails: [M.fields["cdi_d"]]<br>\n<br>\nImportant Notes:<br>\n\t[M.fields["notes"]]<br>\n<br>\n<center><b>Comments/Log</b></center><br>"
+			var/record_text = "<center>**Medical Record**</center>\n"
+			record_text += "Name: [G.fields["name"]] ID: [G.fields["id"]]\nSex: [G.fields["sex"]]\nAge: [G.fields["age"]]\nFingerprint: [G.fields["fingerprint"]]\nPhysical Status: [G.fields["p_stat"]]\nMental Status: [G.fields["m_stat"]]\n"
+			record_text += "\n<center>**Medical Data**</center>\nBlood Type: [M.fields["b_type"]]\nDNA: [M.fields["b_dna"]]\n\nMinor Disabilities: [M.fields["mi_dis"]]\nDetails: [M.fields["mi_dis_d"]]\n\nMajor Disabilities: [M.fields["ma_dis"]]\nDetails: [M.fields["ma_dis_d"]]\n\nAllergies: [M.fields["alg"]]\nDetails: [M.fields["alg_d"]]\n\nCurrent Diseases: [M.fields["cdi"]] (per disease info placed in log/comment section)\nDetails: [M.fields["cdi_d"]]\n\nImportant Notes:\n\t[M.fields["notes"]]\n\n<center>**Comments/Log**</center>\n"
 			for(var/c in M.fields["comments"])
-				P.info += "[c]<br>"
+				record_text += "[c]\n"
+			P.add_raw_text(record_text)
+			P.update_appearance()
 			P.name = "paper - '[G.fields["name"]]'"
-			populated = TRUE	//tabbing here is correct- it's possible for people to try and use it
-						//before the records have been generated, so we do this inside the loop.
 
 /obj/structure/filingcabinet/medical/attack_hand()
 	populate()

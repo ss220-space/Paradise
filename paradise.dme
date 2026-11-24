@@ -2631,7 +2631,6 @@
 #include "code\modules\asset_cache\assets\common.dm"
 #include "code\modules\asset_cache\assets\contracts.dm"
 #include "code\modules\asset_cache\assets\emojipedia.dm"
-#include "code\modules\asset_cache\assets\paper.dm"
 #include "code\modules\asset_cache\assets\particle_editor.dm"
 #include "code\modules\asset_cache\assets\plane_debug.dm"
 #include "code\modules\asset_cache\assets\portraits.dm"

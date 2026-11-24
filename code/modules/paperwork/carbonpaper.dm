@@ -1,45 +1,34 @@
 /obj/item/paper/carbon
 	icon_state = "paper_stack"
-	var/copied = 0
-	var/iscopy = 0
+	var/copied = FALSE
+	var/iscopy = FALSE
 
 /obj/item/paper/carbon/update_icon_state()
+	. = ..()
+	var/has_text = LAZYLEN(raw_text_inputs) && show_written_words
 	if(iscopy)
-		if(info)
-			icon_state = "cpaper_words"
-			return
-		icon_state = "cpaper"
+		icon_state = has_text ? "cpaper_words" : "cpaper"
 	else if(copied)
-		if(info)
-			icon_state = "paper_words"
-			return
-		icon_state = "paper"
+		icon_state = has_text ? "paper_words" : "paper"
 	else
-		if(info)
-			icon_state = "paper_stack_words"
-			return
-		icon_state = "paper_stack"
+		icon_state = has_text ? "paper_stack_words" : "paper_stack"
 
 GAME_VERB_SRC(/obj/item/paper/carbon, removecopy, usr, "Удалить копию", VERB_CATEGORY_HIDDEN)
-
 	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
-	if(copied == 0)
-		var/obj/item/paper/carbon/c = src
-		var/copycontents = html_decode(c.info)
-		var/obj/item/paper/carbon/copy = new /obj/item/paper/carbon (usr.loc)
-		copycontents = replacetext(copycontents, "<font face=\"[c.deffont]\" color=", "<font face=\"[c.deffont]\" nocolor=")	//state of the art techniques in action
-		copycontents = replacetext(copycontents, "<font face=\"[c.crayonfont]\" color=", "<font face=\"[c.crayonfont]\" nocolor=")	//This basically just breaks the existing color tag, which we need to do because the innermost tag takes priority.
-		copy.info += copycontents
-		copy.info += "</font>"
-		copy.name = "Copy - " + c.name
-		copy.fields = c.fields
-		copy.updateinfolinks()
+	if(!copied)
+		var/obj/item/paper/carbon/copy = copy(/obj/item/paper/carbon, usr.loc, colored = FALSE)
+		copy.name = "Copy - [name]"
+		copy.iscopy = TRUE
+		copy.copied = TRUE
+		LAZYNULL(copy.raw_stamp_data)
+		LAZYNULL(copy.stamp_cache)
+		copy.cut_overlays()
+		copy.update_appearance()
+
+		copied = TRUE
+		update_appearance()
 		to_chat(usr, span_notice("You tear off the carbon-copy!"))
-		c.copied = 1
-		copy.iscopy = 1
-		copy.update_icon()
-		c.update_icon()
 	else
-		to_chat(usr, "There are no more carbon copies attached to this paper!")
+		to_chat(usr, span_warning("There are no more carbon copies attached to this paper!"))

@@ -3,7 +3,7 @@
 	icon_state = "scrap"
 
 /obj/item/paper/crumpled/update_icon_state()
-	if(info)
+	if(!is_empty())
 		icon_state = "scrap_words"
 
 /obj/item/paper/crumpled/bloody
@@ -17,8 +17,8 @@
 /obj/item/paper/fortune/Initialize(mapload)
 	. = ..()
 	var/fortunemessage = pick(GLOB.fortune_cookie_messages)
-	default_raw_text = "<p style='text-align:center;font-family:[deffont];font-size:120%;font-weight:bold;'>[fortunemessage]</p>"
-	info += "<p style='text-align:center;'><strong>Lucky numbers</strong>: [rand(1,49)], [rand(1,49)], [rand(1,49)], [rand(1,49)], [rand(1,49)]</p>"
+	add_raw_text("<p style='text-align:center;font-family:[deffont];font-size:120%;font-weight:bold;'>[fortunemessage]</p>")
+	add_raw_text("<center>**Lucky numbers**: [rand(1,49)], [rand(1,49)], [rand(1,49)], [rand(1,49)], [rand(1,49)]</center>")
 
 /obj/item/paper/fortune/update_icon_state()
 	icon_state = initial(icon_state)
@@ -204,7 +204,7 @@
 	var/activate_on_timeout = FALSE
 	var/faxmachineid = null
 
-/obj/item/paper/evilfax/show_content(mob/user, forceshow = FALSE, forcestars = FALSE, infolinks, view = TRUE)
+/obj/item/paper/evilfax/ui_interact(mob/user, datum/tgui/ui)
 	if(user == mytarget)
 		if(iscarbon(user))
 			var/mob/living/carbon/C = user
@@ -356,7 +356,7 @@
 /obj/item/paper/form/Initialize(mapload)
 	. = ..()
 	from = "Научная станция \"Нанотрейзен\" &#34;[SSmapping.map_datum.station_name]&#34;"
-	if(is_header_needed)
+	// if(is_header_needed)
 		// header = "<font face=\"Verdana\" color=black><table></td><tr><td><img src = ntlogo.png><td><table></td><tr><td><font size = \"1\">[name][confidential ? " \[КОНФИДЕНЦИАЛЬНО\]" : ""]</font></td><tr><td></td><tr><td><b><font size=\"4\">[altername]</font></b></td><tr><td><table></td><tr><td>[from]<td>[category]</td></tr></table></td></tr></table></td></tr></table><center><font size = \"1\">[notice]</font></center><br><hr><br></font>"
 	// populatefields()
 
@@ -891,7 +891,7 @@
 
 /obj/item/paper/form/syndieform/Initialize(mapload)
 	. = ..()
-	if(is_header_needed)
+	// if(is_header_needed)
 		// header = "	<font face=\"Verdana\" color=black>\
 					<table cellspacing=0 cellpadding=3  align=\"right\">\
 					<tr><td><img src= syndielogo.png></td></tr>\

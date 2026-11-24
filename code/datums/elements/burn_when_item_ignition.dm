@@ -38,7 +38,7 @@
 		var/firestacks = tool.get_temperature() / 200
 		user.adjust_fire_stacks(clamp(firestacks, 1, 10))
 		user.apply_damage(clamp(firestacks, 4, 12), BURN, user.get_active_hand(), used_weapon = tool)
-		user.igniteMob()
+		user.IgniteMob()
 		if(user.on_fire)
 			user.visible_message(
 				span_warning("[user] accidentally ignites [user.p_them()]self!"),

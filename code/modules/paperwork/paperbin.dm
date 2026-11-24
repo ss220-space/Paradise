@@ -64,9 +64,8 @@
 				P = new /obj/item/paper(drop_location())
 			if(SSholiday.holidays && SSholiday.holidays[APRIL_FOOLS])
 				if(prob(30))
-					P.info = "<font face=\"[P.crayonfont]\" color=\"red\"><b>HONK HONK HONK HONK HONK HONK HONK<br>HOOOOOOOOOOOOOOOOOOOOOONK<br>APRIL FOOLS</b></font>"
-					P.rigged = 1
-					P.updateinfolinks()
+					P.add_raw_text("HONK HONK HONK HONK HONK HONK HONK\nHOOOOOOOOOOOOOOOOOOOOOONK\nAPRIL FOOLS", CRAYON_FONT, COLOR_RED, TRUE)
+					P.update_appearance()
 		if(in_range(user, src))
 			user.put_in_hands(P, ignore_anim = FALSE)
 			P.add_fingerprint(user)
