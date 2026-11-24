@@ -8,10 +8,6 @@
 	blackboard = list(
 		BB_LIZARD_TARGET = null,
 		BB_LIZARD_FOOD_TARGET = null,
-		BB_LIZARD_IS_RETREATING = FALSE,
-		BB_LIZARD_AGGRESSION = 0,
-		BB_LIZARD_RETREAT_ATTEMPTS = 0,
-		BB_LIZARD_PACK_ALERT_COOLDOWN = 0,
 	)
 
 	ai_movement = /datum/ai_movement/jps
@@ -28,9 +24,10 @@
 	RegisterSignal(new_pawn, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_attack_hand))
 	RegisterSignal(new_pawn, COMSIG_MOB_DEATH, PROC_REF(on_death))
 	RegisterSignal(new_pawn, COMSIG_LIVING_IGNITED, PROC_REF(on_burn_start))
+	RegisterSignal(new_pawn, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(on_hurt))
 
 /datum/ai_controller/giant_lizard/Destroy(force, ...)
-	UnregisterSignal(pawn, list(COMSIG_ATOM_ATTACK_HAND, COMSIG_MOB_DEATH, COMSIG_LIVING_IGNITED))
+	UnregisterSignal(pawn, list(COMSIG_ATOM_ATTACK_HAND, COMSIG_MOB_DEATH, COMSIG_LIVING_IGNITED, COMSIG_MOB_APPLY_DAMAGE))
 	return ..()
 
 /datum/ai_controller/giant_lizard/TryPossessPawn(atom/new_pawn)
@@ -49,13 +46,24 @@
 	SIGNAL_HANDLER
 	if(user.a_intent == INTENT_HARM && !is_dead())
 		adjust_aggression(5)
+		blackboard[BB_LIZARD_TARGET] = WEAKREF(user)
+		var/mob/living/simple_animal/hostile/giant_lizard/lizard = pawn
+		if(isliving(lizard))
+			lizard.GiveTarget(user)
 		queue_behavior(/datum/ai_behavior/lizard_growl)
-		queue_behavior(/datum/ai_behavior/lizard_retaliate)
+		queue_behavior(/datum/ai_behavior/lizard_attack)
+		alert_pack()
 
 /// Called when this lizard takes damage
 /datum/ai_controller/giant_lizard/proc/on_hurt(datum/source, damage_amount, damage_type, damage_flag, attacked_by)
 	SIGNAL_HANDLER
 	adjust_aggression(3)
+	if(attacked_by && istype(attacked_by, /mob/living) && !is_dead())
+		blackboard[BB_LIZARD_TARGET] = WEAKREF(attacked_by)
+		var/mob/living/simple_animal/hostile/giant_lizard/lizard = pawn
+		if(isliving(lizard))
+			lizard.GiveTarget(attacked_by)
+	alert_pack()
 
 /// Called when this lizard catches fire
 /datum/ai_controller/giant_lizard/proc/on_burn_start(datum/source)
@@ -68,15 +76,17 @@
 /// Called when this lizard dies
 /datum/ai_controller/giant_lizard/proc/on_death(mob/living/dead_lizard)
 	SIGNAL_HANDLER
+	CancelActions()
 	blackboard[BB_LIZARD_TARGET] = null
 	blackboard[BB_LIZARD_FOOD_TARGET] = null
-	blackboard[BB_LIZARD_IS_RETREATING] = FALSE
-	blackboard[BB_LIZARD_AGGRESSION] = 0
-	blackboard[BB_LIZARD_RETREAT_ATTEMPTS] = 0
+	var/mob/living/simple_animal/hostile/giant_lizard/lizard = pawn
+	if(isliving(lizard))
+		lizard.GiveTarget(null)
+	ai_movement.stop_moving_towards(src)
 
-/// Increase aggression level in blackboard
-/datum/ai_controller/giant_lizard/proc/adjust_aggression(amount)
-	blackboard[BB_LIZARD_AGGRESSION] = clamp(blackboard[BB_LIZARD_AGGRESSION] + amount, 0, 30)
+/// Aggression handled on the mob side (lizard.aggression_value); blackboard key removed.
+/datum/ai_controller/giant_lizard/adjust_aggression(amount)
+	return
 
 /// Returns TRUE if the pawn is alive and conscious
 /datum/ai_controller/giant_lizard/proc/is_dead()
@@ -85,13 +95,21 @@
 	var/mob/living/living_pawn = pawn
 	return living_pawn.stat == DEAD
 
+/// Returns TRUE if the AI controller can actually run at the moment.
+/datum/ai_controller/giant_lizard/able_to_run()
+	var/mob/living/living_pawn = pawn
+	if(IS_DEAD_OR_INCAP(living_pawn))
+		return FALSE
+	return ..()
+
 /// Alert nearby pack members to join combat
-/datum/ai_controller/giant_lizard/proc/alert_pack()
+/datum/ai_controller/giant_lizard/alert_pack()
 	if(COOLDOWN_FINISHED(src, pack_alert_cooldown))
-		COOLDOWN_START(src, pack_alert_cooldown, PACK_ALERT_COOLDOWN_TIME)
+		COOLDOWN_START(src, pack_alert_cooldown, GIANT_LIZARD_PACK_ALERT_COOLDOWN_TIME)
 		var/list/all_alive = GLOB.giant_lizards_alive
+		var/mob/living/simple_animal/hostile/giant_lizard/pawn_lizard = pawn
 		for(var/mob/living/simple_animal/hostile/giant_lizard/pack_member as anything in all_alive)
-			if(pack_member == src || pack_member.client || pack_member.stat == DEAD)
+			if(pack_member == pawn_lizard || pack_member.client || pack_member.stat == DEAD)
 				continue
-			if(get_dist(src, pack_member) <= 7 && !pack_member.is_retreating)
+			if(get_dist(pawn_lizard, pack_member) <= 7 && !pack_member.is_retreating)
 				pack_member.ai_controller?.queue_behavior(/datum/ai_behavior/lizard_pack_alert)

@@ -62,6 +62,7 @@
 	obj_damage = 10
 	vision_range = 16
 	aggro_vision_range = 16
+	ai_controller = /datum/ai_controller/giant_lizard
 
 	var/obj/effect/abstract/giant_lizard_icon_holder/tongue_icon_holder
 	var/obj/effect/abstract/giant_lizard_icon_holder/wound_icon_holder
@@ -75,8 +76,7 @@
 	///Aggression value. At 0, the lizard calms down and enters standby mode.
 	var/aggression_value = 0
 
-	var/list/pet_emotes = list("довольно рычит.", "виляет хвостом.")
-	COOLDOWN_DECLARE(emote_cooldown)
+
 	COOLDOWN_DECLARE(calm_cooldown)
 	COOLDOWN_DECLARE(growl_message)
 
@@ -125,6 +125,13 @@
 	vis_contents += tongue_icon_holder
 
 	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, PROC_REF(change_tongue_offset))
+
+	GLOB.giant_lizards_alive += src
+	var/name_suffix = " ([rand(1, 999)])"
+	name += name_suffix
+	real_name = name
+	set_ru_names_suffix(name_suffix)
+	toggle_ai(AI_OFF)
 
 /mob/living/simple_animal/hostile/giant_lizard/proc/change_tongue_offset(datum/source, olddir, newdir)
 	SIGNAL_HANDLER
@@ -287,6 +294,7 @@
 	GiveTarget(null)
 	food_target = null
 	is_eating = FALSE
+	MoveTo(null, 9, TRUE, 4 SECONDS, FALSE)
 	playsound(src, 'sound/effects/giant_lizard_hiss2.ogg', 40)
 	COOLDOWN_START(src, calm_cooldown, 8 SECONDS)
 
@@ -307,147 +315,51 @@
 	if(aggression_value > 0)
 		aggression_value--
 
-	//Without this the lizard can keep a target while idle forever and never act again.
-	var/mob/living/target_mob = isliving(target) ? target : null
-	if(!client && stance == LIZARD_STANCE_ALERT && target_mob && !is_retreating && !on_fire)
-		GiveTarget(FindTarget())
-		MoveToTarget()
+	// Rest healing: restore 2% brute per tick while sleeping
+	if(resting && stat != DEAD && getBruteLoss() > 0)
+		heal_damage_type(min(maxHealth * 0.02, getBruteLoss()), BRUTE)
+		update_wounds()
 
-	if(resting && stat != DEAD)
-		if(getBruteLoss() > 0)
-			heal_damage_type(min(maxHealth * 0.02, getBruteLoss()), BRUTE)
-			update_wounds()
-
-	if(stat != DEAD && !HAS_TRAIT(src, TRAIT_INCAPACITATED) && !HAS_TRAIT(src, TRAIT_FLOORED) && prob(25))
+	// Tongue flick cosmetics
+	if(!HAS_TRAIT(src, TRAIT_INCAPACITATED) && !HAS_TRAIT(src, TRAIT_FLOORED) && prob(25))
 		flick("Giant Lizard Tongue", tongue_icon_holder)
 
+	// Blood pooling from bleeding
 	if(bleed_ticks)
 		var/is_small_pool = bleed_ticks < 10
 		bleed_ticks--
 		add_splatter_floor(loc, is_small_pool)
 
-	if(stance == LIZARD_STANCE_IDLE)
-		stop_automated_movement = FALSE
-
-	if(stance == LIZARD_STANCE_IDLE && !client)
-		var/mob/living/carbon/friend = locate(/mob/living/carbon) in get_turf(src)
-		if(friend && faction_check_mob(friend) && resting)
-			chance_to_rest = 0
-
-		if(prob(chance_to_rest))
-			set_resting(!resting)
-			chance_to_rest = 0
-
-		chance_to_rest += rand(1, 2)
-
 	. = ..()
 
+	// Client-controlled: stop all AI-driven movement
 	if(client)
 		stop_moving()
-		if(stance != LIZARD_STANCE_IDLE)
-			enemies = list()
-			lose_target()
-			stance = LIZARD_STANCE_IDLE
-		return .
-
-	if(aggression_value == 0 && stance == LIZARD_STANCE_ATTACKING)
 		enemies = list()
 		lose_target()
-		stance = LIZARD_STANCE_IDLE
-		if(COOLDOWN_FINISHED(src, emote_cooldown))
-			COOLDOWN_START(src, calm_cooldown, 4 SECONDS)
-			COOLDOWN_START(src, emote_cooldown, 3 SECONDS)
-
-	if(stance > LIZARD_STANCE_ALERT)
-		is_eating = FALSE
-
-	if(stance != LIZARD_STANCE_IDLE && resting)
-		set_resting(FALSE)
-
-	if(target_mob && !is_retreating && target_mob.stat == CONSCIOUS && stance == LIZARD_STANCE_ATTACKING && COOLDOWN_FINISHED(src, pounce_cooldown) && (prob(75) || get_dist(src, target_mob) <= 5) && (target_mob in view(5, src)))
-		pounce(target_mob)
-
-	if(target_mob && is_retreating && stance >= LIZARD_STANCE_ALERT && environment_smash)
-		INVOKE_ASYNC(src, PROC_REF(DestroySurroundings))
-
-	if(target_mob || on_fire)
+		ai_controller?.blackboard[BB_LIZARD_TARGET] = null
+		ai_controller?.blackboard[BB_LIZARD_FOOD_TARGET] = null
 		return .
 
-	if(is_retreating)
+	// Aggression dropped to zero — lose target so AI controller resumes idle
+	if(aggression_value <= 0 && target)
+		enemies = list()
+		lose_target()
+
+	// Wake up if resting and there is an active threat or target in blackboard
+	if(resting && (target || on_fire || is_retreating || ai_controller?.blackboard[BB_LIZARD_TARGET]))
+		set_resting(FALSE)
+
+	// Destroy obstacles while retreating
+	if(target && is_retreating && environment_smash)
+		INVOKE_ASYNC(src, PROC_REF(DestroySurroundings))
+
+	// Stop moving and reset retreat flag when there is no reason to continue fleeing
+	if(is_retreating && !target && !on_fire)
 		stop_moving()
-		stance = LIZARD_STANCE_IDLE
-
-	if(tameable && !food_target && COOLDOWN_FINISHED(src, food_cooldown))
-		for(var/obj/item/reagent_containers/food/snacks/food in view(6, src))
-			var/is_meat = locate(/datum/reagent/consumable/nutriment/protein) in food.reagents.reagent_list
-
-			if(is_meat || is_type_in_list(food, food_type))
-				food_target = food
-				if(QDELETED(food_target))
-					food_target = null
-					continue
-				stance = LIZARD_STANCE_ALERT
-				stop_automated_movement = TRUE
-				MoveTo(food_target)
-				break
-
-	if(stance <= LIZARD_STANCE_ALERT && !food_target && COOLDOWN_FINISHED(src, calm_cooldown))
-		var/intruder_in_sight = FALSE
-		for(var/mob/living/carbon/intruder in view(max_growl_distance + 2, src))
-			if(faction_check_mob(intruder) || intruder.stat != CONSCIOUS || ismonkey(intruder) || intruder.alpha <= 200)
-				continue
-
-			intruder_in_sight = TRUE
-			face_atom(intruder)
-			stance = LIZARD_STANCE_ALERT
-			stop_automated_movement = TRUE
-			var/intruder_distance = get_dist(src, intruder)
-			if(intruder_distance <= max_retaliate_distance)
-				Retaliate()
-				COOLDOWN_START(src, pounce_cooldown, 1 SECONDS)
-				break
-			if(intruder_distance <= max_growl_distance)
-				growl(intruder)
-
-		if(!intruder_in_sight && stance == LIZARD_STANCE_ALERT)
-			stance = LIZARD_STANCE_IDLE
-
-	var/obj/item/reagent_containers/food/snacks/wanted_food = food_target
-	if(wanted_food && !is_eating)
-		if(!(wanted_food in view(5, src)))
-			stop_moving()
-			lose_food()
-		else if(!check_food_loc(wanted_food) && Adjacent(wanted_food))
-			INVOKE_ASYNC(src, PROC_REF(handle_food), wanted_food)
 
 	return .
-/mob/living/simple_animal/hostile/giant_lizard/handle_automated_action()
-	if(AIStatus == AI_OFF || QDELETED(src))
-		return FALSE
-	if(stat == DEAD)
-		return TRUE
-	if(client)
-		stop_moving()
-		return TRUE
-	if(is_retreating || is_eating)
-		return TRUE
-	if(stance != LIZARD_STANCE_ATTACKING)
-		return TRUE
 
-	var/mob/living/target_mob = isliving(target) ? target : null
-	if(!target_mob || !can_keep_target(target_mob))
-		GiveTarget(null)
-		stance = LIZARD_STANCE_IDLE
-		return TRUE
-	if(get_dist(src, target_mob) > max_attack_distance)
-		GiveTarget(null)
-		stance = LIZARD_STANCE_IDLE
-		return TRUE
-	if(in_range(src, target_mob))
-		MeleeAction()
-		return TRUE
-	MoveToTarget()
-	return TRUE
 
 ///Can the lizard continue to consider this mob a target?
 ///Replaces CM's SA_attackable() and evaluate_target().
@@ -523,24 +435,25 @@
 	addtimer(CALLBACK(src, PROC_REF(stop_retreat), return_to_combat), time)
 	return TRUE
 
-/mob/living/simple_animal/hostile/giant_lizard/proc/stop_retreat(return_to_combat = FALSE)
+/mob/living/simple_animal/hostile/giant_lizard/proc/stop_retreat(return_to_combat = FALSE, atom/return_target = null)
 	is_retreating = FALSE
 	if(on_fire)
 		flee_from_fire()
 		return
-	if(return_to_combat)
-		GiveTarget(FindTarget())
-		MoveToTarget()
-		return
+	// No combat recovery for skirmish retreat — lizard calms down regardless
 	if(retreat_attempts >= 2)
-		GiveTarget(FindTarget())
-		MoveToTarget()
+		// Repeated failed retreats — abandon and try to find a new distant target
+		var/mob/living/found_target = FindTarget()
+		if(isliving(found_target))
+			GiveTarget(found_target)
+			ai_controller?.blackboard[BB_LIZARD_TARGET] = WEAKREF(found_target)
 		retreat_attempts = 0
 		COOLDOWN_START(src, retreat_cooldown, 20 SECONDS)
 		return
 	for(var/mob/living/carbon/hostile_mob in view(7, src))
 		if(faction_check_mob(hostile_mob))
 			continue
+		// Retreat from nearest hostile mob found near current position
 		MoveTo(hostile_mob, 10, TRUE, 2 SECONDS, FALSE)
 		retreat_attempts++
 		return
@@ -580,7 +493,8 @@
 				addtimer(VARSET_CALLBACK(src, speed, LIZARD_SPEED_NORMAL_CLIENT), 2 SECONDS)
 				addtimer(VARSET_CALLBACK(src, is_retreating, FALSE), 2 SECONDS)
 			else
-				MoveTo(target_living, 8, TRUE, 2 SECONDS, TRUE)
+				// After skirmish retreat, lizard does NOT return to combat — it calms down
+				MoveTo(target_living, 8, TRUE, 2 SECONDS, FALSE)
 		return target_living
 
 	if(client && !is_eating && istype(inherited_target, /obj/item/reagent_containers/food/snacks))
