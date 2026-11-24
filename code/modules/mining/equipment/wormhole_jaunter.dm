@@ -114,7 +114,8 @@
 	if(!emagged && ismegafauna(movable))
 		return FALSE
 
-	if(isashwalker(movable) || isdraconid(movable))
+	var/mob/living/carbon/living_target = movable
+	if("ashwalker" in living_target.faction)
 		return FALSE
 	return ..()
 
