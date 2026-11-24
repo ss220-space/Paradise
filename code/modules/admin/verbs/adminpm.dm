@@ -108,6 +108,7 @@ ADMIN_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM b
 		set_typing(C, TRUE)
 		tickets_system.refresh_tickets(tickets)
 		msg = tgui_input_text(src, "Message:", "Private message to [holder ? key_name(C, FALSE) : key_name_hidden(C, FALSE)]", multiline = TRUE, encode = FALSE)
+		msg = STRIP_HTML_FULL(msg, INFINITY)
 		msg = handle_emojis(msg)
 		set_typing(C, FALSE)
 
@@ -159,6 +160,7 @@ ADMIN_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM b
 				var/sender = src
 				var/sendername = key
 				var/reply = tgui_input_text(C, msg, "[receive_pm_type] [type] от — [sendername]", multiline = TRUE, encode = FALSE) //show message and await a reply
+				reply = STRIP_HTML_FULL(reply, INFINITY)
 				if(C && reply)
 					if(sender)
 						C.cmd_admin_pm(sender, reply) //sender is still about, let's reply to them
@@ -251,10 +253,9 @@ ADMIN_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM b
 	last_discord_pm_time = world.time + 10 SECONDS
 
 	var/msg = tgui_input_text(src, "Message:", "Private message to admins on Discord / 400 character limit", multiline = TRUE, encode = FALSE)
-
 	if(!msg)
 		return
-
+	msg = STRIP_HTML_FULL(msg, INFINITY)
 	sanitize(msg)
 
 	if(length(msg) > 400) // Dont want them super spamming
