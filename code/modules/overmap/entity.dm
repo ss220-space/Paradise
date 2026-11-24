@@ -125,7 +125,6 @@
 	var/turf/relay_jump_origin
 	var/list/scatter_proxies = list()
 	var/datum/fog_scene/scatter/scatter_fog
-	var/list/scatter_candidates = list()
 	var/list/radar_scatter = list()
 	var/scatter_radar_key
 	var/obj/overmap/entity/station_docking_zone/undock_zone

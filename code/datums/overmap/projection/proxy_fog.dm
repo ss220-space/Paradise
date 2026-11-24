@@ -45,12 +45,14 @@
 /datum/fog_cast_data
 	var/turf/center
 	var/list/blockers
-	var/list/source_keys
+	var/turf/origin
+	var/source_x
+	var/source_y
 
 /datum/fog_cast_data/Destroy()
 	center = null
 	blockers = null
-	source_keys = null
+	origin = null
 	return ..()
 
 /datum/fog_scene
@@ -117,13 +119,12 @@
 		mine[viewer] = TRUE
 
 /datum/fog_scene/proc/hidden_for(datum/fog_view/view)
-	. = list()
 	if(!view.center || !length(drawn))
-		return
+		return list()
 	var/datum/fog_cast_data/data = prepare_cast(view)
 	if(!data.center)
-		return
-	var/list/square
+		return list()
+	var/list/runs
 	if(fog_rust_usable() && SSfog_of_war && (!isnull(data.blockers) || SSfog_of_war.native_ready(data.center.z)))
 		var/packed
 		if(!isnull(data.blockers))
@@ -131,26 +132,23 @@
 			for(var/turf/tile as anything in data.blockers)
 				entries += "[tile.x],[tile.y]"
 			packed = "virtual;[jointext(entries, ";")]"
-		square = fog_hidden_native(data.center, view.radius, extra_blockers = packed)
-	if(isnull(square))
-		var/list/visible = fog_cast(data.center, view.radius, blockers = data.blockers)
-		square = fog_hidden_from_visible(visible, data.center, view.radius)
+		runs = fog_native_runs(data.center, view.radius, extra_blockers = packed)
+	var/list/visible
+	if(isnull(runs))
+		visible = fog_cast(data.center, view.radius, blockers = data.blockers)
+	return hidden_sources(data, view.radius, runs, visible)
+
+/datum/fog_scene/proc/hidden_sources(datum/fog_cast_data/data, radius, list/runs, list/visible)
+	. = list()
+	var/list/square = isnull(runs) ? fog_hidden_from_visible(visible, data.center, radius) : fog_expand_runs(data.center, runs)
 	for(var/turf/tile as anything in square)
-		square[tile] = TRUE
-	if(isnull(data.source_keys))
-		for(var/turf/tile as anything in square)
-			if(drawn[tile])
-				. += tile
-		return
-	for(var/atom/source, key_entry in data.source_keys)
-		if(square[key_entry])
-			. += source
+		if(drawn[tile])
+			. += tile
 
 /datum/fog_scene/proc/prepare_cast(datum/fog_view/view)
 	var/datum/fog_cast_data/data = view.cast_data
 	data.center = view.center
 	data.blockers = null
-	data.source_keys = null
 	return data
 
 /datum/fog_scene/proc/mark_dirty()
@@ -202,7 +200,7 @@
 	var/datum/fog_cast_data/data = ..()
 	data.center = locate(round(world.maxx / 2), round(world.maxy / 2), view.center.z)
 	data.blockers = list()
-	data.source_keys = list()
+	data.origin = data.center
 	var/delta_x = view.center.x - frame.target_x
 	var/delta_y = view.center.y - frame.target_y
 	var/source_x = FLOOR(frame.source_x + delta_x * cos(frame.angle) + delta_y * sin(frame.angle) + 0.5, 1)
@@ -219,15 +217,37 @@
 				var/turf/tile = locate(data.center.x + point[1] - source_x, data.center.y + point[2] - source_y, data.center.z)
 				if(tile)
 					data.blockers[tile] = TRUE
+	data.source_x = source_x
+	data.source_y = source_y
+	data.center = overmap_probe_stepped(data.origin, data.blockers)
+	return data
+
+/datum/fog_scene/projected/hidden_sources(datum/fog_cast_data/data, radius, list/runs, list/visible)
+	. = list()
+	var/side = 2 * radius + 1
+	var/list/mask
+	if(!isnull(runs))
+		mask = new/list(side * side)
+		for(var/i in 1 to length(runs) step 3)
+			var/start = (runs[i + 1] + radius) * side + runs[i] + radius + 1
+			for(var/index in start to start + runs[i + 2] - 1)
+				mask[index] = TRUE
+	var/offset_x = data.origin.x - data.source_x
+	var/offset_y = data.origin.y - data.source_y
+	var/mask_x = data.center.x - offset_x - radius
+	var/mask_y = data.center.y - offset_y - radius
+	var/min_x = max(data.source_x - radius, mask_x, 1 - offset_x)
+	var/min_y = max(data.source_y - radius, mask_y, 1 - offset_y)
+	var/max_x = min(data.source_x + radius, mask_x + side - 1, world.maxx - offset_x)
+	var/max_y = min(data.source_y + radius, mask_y + side - 1, world.maxy - offset_y)
 	for(var/atom/source, point_entry in source_positions)
 		var/list/point = point_entry
-		if(abs(point[1] - source_x) > view.radius || abs(point[2] - source_y) > view.radius)
+		var/x = point[1]
+		var/y = point[2]
+		if(x < min_x || x > max_x || y < min_y || y > max_y)
 			continue
-		var/turf/tile = locate(data.center.x + point[1] - source_x, data.center.y + point[2] - source_y, data.center.z)
-		if(tile)
-			data.source_keys[source] = tile
-	data.center = overmap_probe_stepped(data.center, data.blockers)
-	return data
+		if(mask ? mask[(y - mask_y) * side + (x - mask_x) + 1] : !visible[locate(x + offset_x, y + offset_y, data.center.z)])
+			. += source
 
 /datum/fog_scene/station
 	label = "station mirror"

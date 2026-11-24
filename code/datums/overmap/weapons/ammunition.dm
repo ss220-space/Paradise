@@ -6,7 +6,7 @@
 		return FALSE
 	if(istype(payload, /obj/projectile/ship_round))
 		var/obj/projectile/ship_round/round = payload
-		var/list/result = round.abstract_hit(key, field.scatter_points[index + 2])
+		var/list/result = round.abstract_hit(key, field.scatter_health(index))
 		field.damage_scatter(index, result[1])
 		if(!result[2])
 			round.sector_impact(sector, x, y)

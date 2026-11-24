@@ -15,6 +15,8 @@
 	var/list/obj/machinery/ship_engine/virtual_engines = list()
 	var/list/collision_edge
 	var/collision_edge_version = -1
+	var/native_collision_version = -1
+	var/list/collision_targets
 
 /obj/overmap/entity/virtual_structure/add_overmap_components()
 	AddComponent(/datum/component/overmap_sensors)
@@ -29,6 +31,9 @@
 	QDEL_LIST(virtual_engines)
 	QDEL_LIST_ASSOC_VAL(virtual_models)
 	virtual_cells = null
+	if(native_collision_version >= 0)
+		RUSTLIB_CALL(overmap_hull_drop, src)
+	collision_targets = null
 	collision_edge = null
 	return ..()
 

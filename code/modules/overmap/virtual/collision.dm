@@ -19,10 +19,40 @@
 				break
 	return collision_edge
 
+/obj/overmap/entity/virtual_structure/proc/cache_collision_hull()
+	if(native_collision_version == hull_version)
+		return TRUE
+	var/list/edges = list()
+	for(var/list/cell as anything in collision_cells())
+		edges += cell[1] - hull_center_x
+		edges += cell[2] - hull_center_y
+	var/list/solid = list()
+	var/list/targets = list()
+	for(var/key, cell_entry in virtual_cells)
+		var/list/cell = cell_entry
+		var/datum/overmap_virtual_model/model = cell[3]
+		if(cell[4] > 0 && model.solid)
+			solid += cell[1]
+			solid += cell[2]
+			targets += list(cell)
+	if(!RUSTLIB_CALL(overmap_hull_upload, src, edges, solid))
+		return FALSE
+	collision_targets = targets
+	native_collision_version = hull_version
+	return TRUE
+
 /obj/overmap/entity/virtual_structure/contacts_at(fraction, obj/overmap/entity/other)
 	. = list()
 	var/list/pose = pose_at(fraction)
 	var/list/other_pose = other?.pose_at(fraction)
+	if(istype(other, /obj/overmap/entity/virtual_structure))
+		var/obj/overmap/entity/virtual_structure/structure = other
+		if(cache_collision_hull() && structure.cache_collision_hull())
+			var/list/frame = list(pose[1], pose[2], cos(pose[3]), sin(pose[3]), other_pose[1], other_pose[2], cos(other_pose[3]), sin(other_pose[3]), structure.hull_center_x, structure.hull_center_y)
+			var/list/hits = RUSTLIB_CALL(overmap_hull_contacts, src, structure, frame)
+			for(var/i in 1 to length(hits) step 4)
+				. += list(list(collision_edge[hits[i]], structure.collision_targets[hits[i + 1]], list(hits[i + 2], hits[i + 3])))
+			return
 	var/datum/overmap_bubble/space = collision_space()
 	if(!other && !space)
 		return

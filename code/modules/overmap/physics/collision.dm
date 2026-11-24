@@ -183,12 +183,15 @@
 	if(navigation_collision_disabled() || other?.navigation_collision_disabled())
 		return
 	for(var/attempt in 1 to 8)
-		if(!collide_once(other, attempt < 8))
+		var/continuing = collide_once(other, attempt < 8)
+		if(!isnull(continuing))
+			. = TRUE
+		if(!continuing)
 			return
 
 /obj/overmap/entity/proc/collide_once(obj/overmap/entity/other, continue_movement = TRUE)
 	if(QDELETED(src) || !flight || (other && QDELETED(other)))
-		return FALSE
+		return
 	var/list/impact = find_impact(other)
 	if(!impact)
 		return
@@ -226,7 +229,7 @@
 		normal_y = body.get_world_y() - point_y
 	var/normal_length = sqrt(normal_x ** 2 + normal_y ** 2)
 	if(!normal_length)
-		return
+		return FALSE
 	normal_x /= normal_length
 	normal_y /= normal_length
 	if(overlapping)
@@ -355,26 +358,52 @@
 			vessel.collide()
 			collision_revision++
 			update_collision_index(vessel)
+	if(length(flying) < 2)
+		return
+	var/list/snapshot = list()
 	for(var/index in 1 to length(flying))
+		var/obj/overmap/entity/vessel = flying[index]
+		if(!flight_index.member_sectors[vessel] || vessel.formation_transfer || vessel.formation_pad)
+			continue
+		snapshot += list(index, vessel.sector, vessel.get_world_x(), vessel.get_world_y(), vessel.hull_radius, vessel.pose_travel())
+	var/list/pairs = RUSTLIB_CALL(overmap_collision_pairs, snapshot)
+	if(isnull(pairs))
+		process_remaining_collisions(flying, 1, 1)
+		return
+	for(var/i in 1 to length(pairs) step 2)
+		var/index = pairs[i]
+		var/other_index = pairs[i + 1]
+		if(process_collision_pair(flying[index], flying[other_index]))
+			process_remaining_collisions(flying, index, other_index)
+			return
+
+/datum/controller/subsystem/overmap/proc/process_collision_pair(obj/overmap/entity/vessel, obj/overmap/entity/other)
+	if((other.docked_ship || other) == (vessel.docked_ship || vessel) || vessel.docking_approach?.aligning || other.docking_approach?.aligning || vessel.navigation_collision_disabled() || other.navigation_collision_disabled())
+		return FALSE
+	var/hit = vessel.collide(other)
+	collision_revision++
+	update_collision_index(vessel)
+	update_collision_index(other)
+	return hit
+
+/datum/controller/subsystem/overmap/proc/process_remaining_collisions(list/flying, start_index, last_other)
+	for(var/index in start_index to length(flying))
 		var/obj/overmap/entity/vessel = flying[index]
 		if(vessel.atmosphere || vessel.formation_transfer || vessel.formation_pad)
 			continue
-		var/obj/overmap/entity/body = vessel.docked_ship || vessel
 		var/list/candidates = flight_index.nearby(vessel.sector, vessel.get_world_x(), vessel.get_world_y(), vessel.hull_radius + vessel.pose_travel())
-		for(var/other_index in index + 1 to length(flying))
+		var/first_other = index == start_index ? last_other + 1 : index + 1
+		for(var/other_index in first_other to length(flying))
 			var/obj/overmap/entity/other = flying[other_index]
 			if(!candidates[other])
 				continue
-			if(other.formation_transfer || other.formation_pad || other.sector != vessel.sector || (other.docked_ship || other) == body || vessel.docking_approach?.aligning || other.docking_approach?.aligning || vessel.navigation_collision_disabled() || other.navigation_collision_disabled())
+			if(other.formation_transfer || other.formation_pad || other.sector != vessel.sector)
 				continue
 			var/reach = vessel.hull_radius + other.hull_radius + vessel.pose_travel() + other.pose_travel()
 			if(sqrt((vessel.get_world_x() - other.get_world_x()) ** 2 + (vessel.get_world_y() - other.get_world_y()) ** 2) > reach)
 				continue
-			vessel.collide(other)
-			collision_revision++
-			update_collision_index(vessel)
-			update_collision_index(other)
-			candidates = flight_index.nearby(vessel.sector, vessel.get_world_x(), vessel.get_world_y(), vessel.hull_radius + vessel.pose_travel())
+			if(process_collision_pair(vessel, other))
+				candidates = flight_index.nearby(vessel.sector, vessel.get_world_x(), vessel.get_world_y(), vessel.hull_radius + vessel.pose_travel())
 
 /datum/controller/subsystem/overmap/proc/update_collision_index(obj/overmap/entity/vessel)
 	var/obj/overmap/entity/body = vessel.docked_ship || vessel

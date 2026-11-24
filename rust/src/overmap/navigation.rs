@@ -4,7 +4,7 @@ use std::collections::HashMap;
 type Point = [f32; 2];
 type Bounds = [f32; 4];
 
-fn numbers<const N: usize>(list: &ByondValue) -> ByondResult<[f32; N]> {
+pub(super) fn numbers<const N: usize>(list: &ByondValue) -> ByondResult<[f32; N]> {
     let values = list.read_list()?;
     if values.len() != N {
         return Err(ByondError::boxed(std::io::Error::other(

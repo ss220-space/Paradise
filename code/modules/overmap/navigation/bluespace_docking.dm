@@ -76,7 +76,7 @@
 			if(!clear)
 				continue
 			for(var/obj/overmap/feature/hazard/field as anything in scatter_fields_at(sector, world_x, world_y, zone_radius + 48))
-				if(length(field.nearby_scatter(world_x, world_y, zone_radius + 48)))
+				if(field.has_scatter_chunks(world_x, world_y, zone_radius + 48))
 					clear = FALSE
 					break
 			if(!clear)

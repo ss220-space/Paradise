@@ -1,8 +1,6 @@
 /obj/overmap/feature/hazard/proc/generate_scatter()
-	if(scatter_points || !sector || istype(src, /obj/overmap/feature/hazard/emp))
+	if(scatter_radar_chunks || !sector || istype(src, /obj/overmap/feature/hazard/emp))
 		return
-	scatter_points = list()
-	scatter_chunks = list()
 	var/span = OVERMAP_TILE_SPAN * (sector.tile_travel || 1)
 	var/list/peers = list()
 	var/flavour = hazard_flavour(src)
@@ -12,45 +10,33 @@
 			for(var/obj/overmap/feature/hazard/other in cell)
 				if(hazard_flavour(other) == flavour)
 					peers += list(list((other.x - x) * span, (other.y - y) * span, other.x < x || (other.x == x && other.y < y)))
-	var/list/generated = RUSTLIB_CALL(overmap_scatter, x, y, span, clamp(hazard_density, 1, 8), istype(src, /obj/overmap/feature/hazard/carp), peers, rand(1, 1000000000))
-	scatter_points = generated[1]
-	scatter_chunks = generated[2]
-	scatter_radar_chunks = generated[3]
+	scatter_radar_chunks = RUSTLIB_CALL(overmap_scatter_create, src, x, y, span, clamp(hazard_density, 1, 8), istype(src, /obj/overmap/feature/hazard/carp), peers, rand(1, 1000000000))
 
 /obj/overmap/feature/hazard/asteroid/taipan_cover/generate_scatter()
-	scatter_points = list()
-	scatter_chunks = list()
-	scatter_radar_chunks = list()
+	LAZYINITLIST(scatter_radar_chunks)
 
-/obj/overmap/feature/hazard/proc/nearby_scatter(world_x, world_y, reach)
+/obj/overmap/feature/hazard/proc/nearby_scatter(world_x, world_y, reach, circle = FALSE)
 	generate_scatter()
-	. = list()
-	for(var/chunk_x in FLOOR((world_x - reach) / 16, 1) to FLOOR((world_x + reach) / 16, 1))
-		for(var/chunk_y in FLOOR((world_y - reach) / 16, 1) to FLOOR((world_y + reach) / 16, 1))
-			var/list/indices = scatter_chunks?["[chunk_x],[chunk_y]"]
-			if(indices)
-				. += indices
+	if(!length(scatter_radar_chunks))
+		return list()
+	return RUSTLIB_CALL(overmap_scatter_near, src, world_x, world_y, reach, circle)
+
+/obj/overmap/feature/hazard/proc/has_scatter_chunks(world_x, world_y, reach)
+	generate_scatter()
+	for(var/x in FLOOR((world_x - reach) / 16, 1) to FLOOR((world_x + reach) / 16, 1))
+		for(var/y in FLOOR((world_y - reach) / 16, 1) to FLOOR((world_y + reach) / 16, 1))
+			if(scatter_radar_chunks?["[x],[y]"])
+				return TRUE
+	return FALSE
 
 /obj/overmap/feature/hazard/proc/scatter_at(world_x, world_y)
 	generate_scatter()
-	var/x = FLOOR(world_x + 0.5, 1)
-	var/y = FLOOR(world_y + 0.5, 1)
-	var/chunk_x = FLOOR(x / 16, 1)
-	var/chunk_y = FLOOR(y / 16, 1)
-	var/key = "[chunk_x],[chunk_y]"
-	var/list/indices = scatter_chunks?[key]
-	if(!length(indices))
+	if(!length(scatter_radar_chunks))
 		return null
-	var/list/chunk = scatter_hit_chunks?[key]
-	if(!chunk)
-		chunk = new /list(256)
-		for(var/index in indices)
-			var/local_x = scatter_points[index] - chunk_x * 16
-			var/local_y = scatter_points[index + 1] - chunk_y * 16
-			chunk[local_y * 16 + local_x + 1] = index
-		LAZYSET(scatter_hit_chunks, key, chunk)
-	var/index = chunk[(y - chunk_y * 16) * 16 + x - chunk_x * 16 + 1]
-	return index && scatter_points[index + 2] > 0 ? index : null
+	return RUSTLIB_CALL(overmap_scatter_at, src, FLOOR(world_x + 0.5, 1), FLOOR(world_y + 0.5, 1))
+
+/obj/overmap/feature/hazard/proc/scatter_health(index)
+	return RUSTLIB_CALL(overmap_scatter_health, src, index)
 
 /obj/effect/abstract/hull_proxy_tile/scatter
 	name = "астероид"
@@ -61,12 +47,16 @@
 	obj_flags = NONE
 	reanchor_distance = 0
 	var/obj/overmap/feature/hazard/field
+	var/point_x
+	var/point_y
 	var/point_index
 	var/blocks_sight = TRUE
 
-/obj/effect/abstract/hull_proxy_tile/scatter/Initialize(mapload, obj/overmap/feature/hazard/new_field, index)
+/obj/effect/abstract/hull_proxy_tile/scatter/Initialize(mapload, obj/overmap/feature/hazard/new_field, index, world_x, world_y)
 	field = new_field
 	point_index = index
+	point_x = world_x
+	point_y = world_y
 	if(istype(field, /obj/overmap/feature/hazard/carp))
 		name = "карп"
 		icon = 'icons/mob/carp.dmi'
@@ -100,23 +90,21 @@
 
 /obj/effect/abstract/hull_proxy_tile/scatter/proc/on_entered(datum/source, atom/movable/arrived)
 	SIGNAL_HANDLER
-	if(isliving(arrived) && istype(field, /obj/overmap/feature/hazard/carp) && field.scatter_points?[point_index + 2] > 0)
+	if(isliving(arrived) && istype(field, /obj/overmap/feature/hazard/carp) && !QDELETED(field) && field.scatter_health(point_index) > 0)
 		field.damage_scatter(point_index, 40)
 		new /mob/living/simple_animal/hostile/carp(get_turf(src))
 		qdel(src)
 
 /obj/overmap/feature/hazard/proc/damage_scatter(index, damage)
-	if(!scatter_points || index < 1 || index + 2 > length(scatter_points) || scatter_points[index + 2] <= 0 || damage <= 0)
+	if(damage <= 0)
 		return
-	scatter_points[index + 2] = max(0, scatter_points[index + 2] - max(damage, 0))
-	if(scatter_points[index + 2] <= 0)
-		if(scatter_radar_chunks)
-			scatter_radar_chunks["[FLOOR(scatter_points[index] / 16, 1)],[FLOOR(scatter_points[index + 1] / 16, 1)]"] = null
+	var/chunk_key = RUSTLIB_CALL(overmap_scatter_damage, src, index, damage)
+	if(chunk_key)
+		scatter_radar_chunks[chunk_key] = TRUE
 		SSovermap.scatter_revision++
 
 /obj/overmap/entity/proc/process_scatter(elapsed)
 	if(!sector || !free_flight_view)
-		scatter_candidates = list()
 		QDEL_LIST_ASSOC_VAL(scatter_proxies)
 		QDEL_NULL(scatter_fog)
 		return
@@ -135,17 +123,13 @@
 					next_overmap_hazard_hit = world.time + OVERMAP_HAZARD_HIT_COOLDOWN
 					field.try_affect(src)
 				continue
-			var/list/indices = field.nearby_scatter(self_x, self_y, reach)
-			if(length(indices))
-				candidates[field] = indices
+			var/list/points = field.nearby_scatter(self_x, self_y, reach, TRUE)
+			if(length(points))
+				candidates[field] = points
 	if(length(candidates) && !navigation_collision_disabled())
 		collide_scatter(candidates, travel)
-	scatter_candidates = candidates
 
 /obj/overmap/entity/proc/collide_scatter(list/candidates, travel)
-	var/self_x = get_world_x()
-	var/self_y = get_world_y()
-	var/reach_squared = (hull_radius + travel + 1) ** 2
 	var/steps = max(1, CEILING(travel / 0.4, 1))
 	var/list/poses = list()
 	for(var/step in 0 to steps)
@@ -155,17 +139,17 @@
 		poses += list(pose)
 	var/first_step = steps + 1
 	var/obj/overmap/feature/hazard/struck
+	var/struck_x
+	var/struck_y
 	var/struck_index
 	var/struck_hull
 	var/list/carp_hits = list()
 	for(var/obj/overmap/feature/hazard/field as anything in candidates)
-		for(var/index in candidates[field])
-			if(field.scatter_points[index + 2] <= 0)
-				continue
-			var/world_x = field.scatter_points[index]
-			var/world_y = field.scatter_points[index + 1]
-			if((self_x - world_x) ** 2 + (self_y - world_y) ** 2 > reach_squared)
-				continue
+		var/list/points = candidates[field]
+		for(var/i in 1 to length(points) step 3)
+			var/index = points[i]
+			var/world_x = points[i + 1]
+			var/world_y = points[i + 2]
 			for(var/step in 1 to min(steps, first_step))
 				var/list/pose = poses[step + 1]
 				var/dx = world_x - pose[1]
@@ -176,18 +160,20 @@
 				if(!hit)
 					continue
 				if(istype(field, /obj/overmap/feature/hazard/carp))
-					carp_hits += list(list(field, index, step, hit))
+					carp_hits += list(list(field, index, step, hit, world_x, world_y))
 				else if(step < first_step)
 					first_step = step
 					struck = field
 					struck_index = index
+					struck_x = world_x
+					struck_y = world_y
 					struck_hull = hit
 				break
 	for(var/list/contact as anything in carp_hits)
 		if(contact[3] > first_step)
 			continue
 		var/obj/overmap/feature/hazard/field = contact[1]
-		var/turf/impact = scatter_carp_turf(contact[4], field.scatter_points[contact[2]], field.scatter_points[contact[2] + 1])
+		var/turf/impact = scatter_carp_turf(contact[4], contact[5], contact[6])
 		if(impact?.is_blocked_turf(exclude_mobs = TRUE))
 			for(var/direction in GLOB.cardinal)
 				var/turf/outside = get_step(impact, direction)
@@ -202,7 +188,7 @@
 	var/severity = get_speed() * OVERMAP_TILE_SPAN * (1 SECONDS)
 	var/damage = mass_impact_damage(severity)
 	var/own_health = overmap_contact_health(struck_hull, src)
-	var/target_health = struck.scatter_points[struck_index + 2]
+	var/target_health = struck.scatter_health(struck_index)
 	var/target_damage = damage
 	var/own_damage = overmap_contact_damage(damage, own_health, target_health)
 	struck.damage_scatter(struck_index, target_damage)
@@ -210,10 +196,10 @@
 		next_ram_damage = world.time + OVERMAP_FLIGHT_TICK
 		overmap_damage_contact(struck_hull, own_damage, src)
 	set_pose(poses[first_step])
-	var/retained = struck.scatter_points[struck_index + 2] > 0 ? 0 : 1 - overmap_impact_loss(target_health, target_damage)
+	var/retained = struck.scatter_health(struck_index) > 0 ? 0 : 1 - overmap_impact_loss(target_health, target_damage)
 	speed[1] *= retained
 	speed[2] *= retained
-	feel_impact(severity, severity, get_world_x() - struck.scatter_points[struck_index], get_world_y() - struck.scatter_points[struck_index + 1])
+	feel_impact(severity, severity, get_world_x() - struck_x, get_world_y() - struck_y)
 
 /obj/overmap/entity/proc/scatter_contact_at(hull_x, hull_y)
 	var/turf/spot = locate(FLOOR(hull_x + 0.5, 1), FLOOR(hull_y + 0.5, 1), hull_z)
@@ -222,7 +208,7 @@
 /obj/overmap/entity/proc/scatter_carp_turf(contact, world_x, world_y)
 	return contact
 
-/obj/overmap/entity/proc/draw_scatter(list/candidates, elapsed, draw)
+/obj/overmap/entity/proc/draw_scatter(elapsed, draw)
 	var/list/wanted = list()
 	var/self_x = get_world_x()
 	var/self_y = get_world_y()
@@ -237,14 +223,14 @@
 			var/list/point = hull_to_world(eye.x, eye.y)
 			var/reach = viewport[2] * 1.42 + 1
 			for(var/obj/overmap/feature/hazard/field as anything in SSovermap.scatter_fields_at(sector, point[1], point[2], reach))
-				for(var/index in field.nearby_scatter(point[1], point[2], reach))
-					if(field.scatter_points[index + 2] <= 0)
-						continue
+				var/list/points = field.nearby_scatter(point[1], point[2], reach)
+				for(var/i in 1 to length(points) step 3)
+					var/index = points[i]
 					var/key = "[field.UID()]_[index]"
 					if(wanted[key])
 						continue
-					var/dx = field.scatter_points[index] - self_x
-					var/dy = field.scatter_points[index + 1] - self_y
+					var/dx = points[i + 1] - self_x
+					var/dy = points[i + 2] - self_y
 					var/hull_x = hull_center_x + dx * cos_facing - dy * sin_facing
 					var/hull_y = hull_center_y + dy * cos_facing + dx * sin_facing
 					if(abs(hull_x - eye.x) > viewport[2] || abs(hull_y - eye.y) > viewport[2])
@@ -256,7 +242,7 @@
 					var/obj/effect/abstract/hull_proxy_tile/scatter/proxy = scatter_proxies[key]
 					var/fresh = !proxy
 					if(fresh)
-						proxy = new(spot, field, index)
+						proxy = new(spot, field, index, points[i + 1], points[i + 2])
 						scatter_proxies[key] = proxy
 					proxy.glide(hull_x, hull_y, hull_z, turned, flight_bounds, fresh ? 0 : elapsed)
 	for(var/key in scatter_proxies)
@@ -299,11 +285,12 @@
 		for(var/x in chunk_x - CEILING(reach / 16, 1) - 1 to chunk_x + CEILING(reach / 16, 1) + 1)
 			for(var/y in chunk_y - CEILING(reach / 16, 1) - 1 to chunk_y + CEILING(reach / 16, 1) + 1)
 				var/chunk_key = "[x],[y]"
-				if(!field.scatter_chunks?[chunk_key])
-					continue
-				var/list/chunk = field.scatter_radar_chunks?[chunk_key]
+				var/chunk = field.scatter_radar_chunks?[chunk_key]
 				if(!chunk)
-					chunk = field.rebuild_scatter_radar_chunk(x, y)
+					continue
+				if(chunk == TRUE)
+					chunk = list("x" = x * 16, "y" = y * 16, "carp" = istype(field, /obj/overmap/feature/hazard/carp), "runs" = RUSTLIB_CALL(overmap_scatter_runs, field, x, y))
+					field.scatter_radar_chunks[chunk_key] = chunk
 				geometry += list(chunk)
 	scatter_radar_key = key
 	radar_scatter = geometry
@@ -320,35 +307,10 @@
 	var/center_y = (region[2] + region[4]) / 2
 	var/reach = max(region[3] - region[1], region[4] - region[2]) / 2 + 4
 	for(var/obj/overmap/feature/hazard/field as anything in scatter_fields_at(host.sector, center_x, center_y, reach))
-		field.generate_scatter()
-		for(var/index in field.nearby_scatter(center_x, center_y, reach))
-			var/x = field.scatter_points[index]
-			var/y = field.scatter_points[index + 1]
+		var/list/points = field.nearby_scatter(center_x, center_y, reach)
+		for(var/i in 1 to length(points) step 3)
+			var/index = points[i]
+			var/x = points[i + 1]
+			var/y = points[i + 2]
 			if(x >= region[1] - 4 && x <= region[3] + 4 && y >= region[2] - 4 && y <= region[4] + 4)
-				field.damage_scatter(index, field.scatter_points[index + 2])
-
-/obj/overmap/feature/hazard/proc/rebuild_scatter_radar_chunk(chunk_x, chunk_y)
-	LAZYINITLIST(scatter_radar_chunks)
-	var/key = "[chunk_x],[chunk_y]"
-	var/list/cells = new/list(256)
-	for(var/index in scatter_chunks[key])
-		if(scatter_points[index + 2] > 0)
-			var/x = scatter_points[index] - chunk_x * 16
-			var/y = scatter_points[index + 1] - chunk_y * 16
-			cells[y * 16 + x + 1] = TRUE
-	var/list/runs = list()
-	for(var/y in 0 to 15)
-		var/x = 0
-		while(x < 16)
-			if(!cells[y * 16 + x + 1])
-				x++
-				continue
-			var/start = x
-			while(x < 16 && cells[y * 16 + x + 1])
-				x++
-			runs += start
-			runs += y
-			runs += x - start
-	var/list/chunk = list("x" = chunk_x * 16, "y" = chunk_y * 16, "carp" = istype(src, /obj/overmap/feature/hazard/carp), "runs" = runs)
-	scatter_radar_chunks[key] = chunk
-	return chunk
+				field.damage_scatter(index, INFINITY)

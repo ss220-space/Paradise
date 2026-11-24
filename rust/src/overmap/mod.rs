@@ -1,9 +1,11 @@
+mod collision;
 mod navigation;
 mod radar;
 
-use meowtonin::{byond_fn, ByondError, ByondResult, ByondValue};
+use meowtonin::{byond_fn, ByondError, ByondResult, ByondValue, ByondValueType};
 use rand::{rngs::SmallRng, RngExt, SeedableRng};
-use std::collections::BTreeMap;
+use std::cell::RefCell;
+use std::collections::{BTreeMap, HashMap};
 
 struct Field {
     x: i32,
@@ -16,7 +18,8 @@ struct Field {
 
 #[derive(Default)]
 struct Chunk {
-    indices: Vec<ByondValue>,
+    indices: Vec<u32>,
+    hit_index: Option<Box<[u32; 256]>>,
     rows: [u16; 16],
 }
 
@@ -156,7 +159,8 @@ fn cloud_noise(x: f32, y: f32) -> f32 {
 }
 
 #[byond_fn]
-fn overmap_scatter(
+fn overmap_scatter_create(
+    owner: ByondValue,
     x: ByondValue,
     y: ByondValue,
     span: ByondValue,
@@ -193,41 +197,192 @@ fn overmap_scatter(
         carp: carp.get_number()? != 0.0,
         peers: neighbors,
     };
+    let owner = object_id(&owner)?;
+    let mut scatter = Scatter::default();
+    let health = if field.carp { 40.0 } else { 100.0 };
     let points = field.generate(seed.get_number()? as u64);
-    let mut chunks: BTreeMap<(i32, i32), Chunk> = BTreeMap::new();
-    let mut flat = Vec::with_capacity(points.len() * 3);
-    for [px, py] in points {
-        let chunk = chunks
-            .entry((px.div_euclid(16), py.div_euclid(16)))
+    scatter.points.reserve_exact(points.len());
+    for [x, y] in points {
+        let chunk = scatter
+            .chunks
+            .entry((x.div_euclid(16), y.div_euclid(16)))
             .or_default();
-        chunk
-            .indices
-            .push(ByondValue::new_num((flat.len() + 1) as f32));
-        chunk.rows[py.rem_euclid(16) as usize] |= 1 << px.rem_euclid(16);
-        flat.extend([
-            ByondValue::new_num(px as f32),
-            ByondValue::new_num(py as f32),
-            ByondValue::new_num(if field.carp { 40.0_f32 } else { 100.0_f32 }),
-        ]);
+        chunk.indices.push(scatter.points.len() as u32);
+        chunk.rows[y.rem_euclid(16) as usize] |= 1 << x.rem_euclid(16);
+        scatter.points.push(Point { x, y, health });
     }
-    let mut positions = ByondValue::new_list()?;
-    positions.write_list(flat)?;
-    let mut lookup = ByondValue::new_list()?;
     let mut radar = ByondValue::new_list()?;
-    for ((cx, cy), chunk) in chunks {
-        let mut entries = ByondValue::new_list()?;
-        entries.write_list(chunk.indices)?;
-        lookup.write_list_index(format!("{cx},{cy}"), entries)?;
-        let mut runs = ByondValue::new_list()?;
-        runs.write_list(row_runs(&chunk.rows))?;
+    for (&(cx, cy), chunk) in &scatter.chunks {
         let mut geometry = ByondValue::new_list()?;
-        geometry.write_list_index("x", cx as f32 * 16.0)?;
-        geometry.write_list_index("y", cy as f32 * 16.0)?;
+        geometry.write_list_index("x", (cx * 16) as f32)?;
+        geometry.write_list_index("y", (cy * 16) as f32)?;
         geometry.write_list_index("carp", field.carp)?;
-        geometry.write_list_index("runs", runs)?;
+        geometry.write_list_index("runs", chunk.radar_runs()?)?;
         radar.write_list_index(format!("{cx},{cy}"), geometry)?;
     }
-    let mut out = ByondValue::new_list()?;
-    out.write_list([positions, lookup, radar])?;
-    Ok(out)
+    FIELDS.with_borrow_mut(|fields| fields.insert(owner, scatter));
+    Ok(radar)
+}
+
+fn object_id(value: &ByondValue) -> ByondResult<u32> {
+    match value.get_type() {
+        ByondValueType::Obj | ByondValueType::Datum => Ok(value.ref_id().unwrap_or(0)),
+        _ => Err(ByondError::boxed(std::io::Error::other(
+            "overmap: invalid owner",
+        ))),
+    }
+}
+
+struct Point {
+    x: i32,
+    y: i32,
+    health: f32,
+}
+
+#[derive(Default)]
+struct Scatter {
+    points: Vec<Point>,
+    chunks: BTreeMap<(i32, i32), Chunk>,
+}
+
+thread_local! {
+    static FIELDS: RefCell<HashMap<u32, Scatter>> = RefCell::default();
+}
+
+impl Chunk {
+    fn radar_runs(&self) -> ByondResult<ByondValue> {
+        let mut result = ByondValue::new_list()?;
+        result.write_list(row_runs(&self.rows))?;
+        Ok(result)
+    }
+}
+
+fn point_id(index: u32) -> f32 {
+    (index * 3 + 1) as f32
+}
+
+fn point_index(id: &ByondValue) -> ByondResult<Option<usize>> {
+    let id = id.get_number()?;
+    Ok((id >= 1.0 && (id - 1.0) % 3.0 == 0.0).then(|| ((id - 1.0) / 3.0) as usize))
+}
+
+#[byond_fn]
+fn overmap_scatter_drop(owner: ByondValue) -> ByondResult<ByondValue> {
+    let id = object_id(&owner)?;
+    FIELDS.with_borrow_mut(|fields| fields.remove(&id));
+    Ok(ByondValue::NULL)
+}
+
+#[byond_fn]
+fn overmap_scatter_near(
+    owner: ByondValue,
+    x: ByondValue,
+    y: ByondValue,
+    reach: ByondValue,
+    circle: ByondValue,
+) -> ByondResult<ByondValue> {
+    let id = object_id(&owner)?;
+    let (x, y, reach) = (x.get_number()?, y.get_number()?, reach.get_number()?);
+    let circle = circle.get_number()? != 0.0;
+    let mut values = Vec::new();
+    FIELDS.with_borrow(|fields| {
+        let Some(field) = fields.get(&id) else { return };
+        for cx in ((x - reach) / 16.0).floor() as i32..=((x + reach) / 16.0).floor() as i32 {
+            for cy in ((y - reach) / 16.0).floor() as i32..=((y + reach) / 16.0).floor() as i32 {
+                let Some(chunk) = field.chunks.get(&(cx, cy)) else {
+                    continue;
+                };
+                for &i in &chunk.indices {
+                    let p = &field.points[i as usize];
+                    let (px, py) = (p.x as f32, p.y as f32);
+                    if p.health > 0.0
+                        && (!circle || (px - x).powi(2) + (py - y).powi(2) <= reach * reach)
+                    {
+                        values.extend([point_id(i), px, py].map(ByondValue::new_num));
+                    }
+                }
+            }
+        }
+    });
+    let mut result = ByondValue::new_list()?;
+    result.write_list(values)?;
+    Ok(result)
+}
+
+#[byond_fn]
+fn overmap_scatter_at(owner: ByondValue, x: ByondValue, y: ByondValue) -> ByondResult<ByondValue> {
+    let id = object_id(&owner)?;
+    let (x, y) = (x.get_number()? as i32, y.get_number()? as i32);
+    let hit = FIELDS.with_borrow_mut(|fields| {
+        let field = fields.get_mut(&id)?;
+        let chunk = field
+            .chunks
+            .get_mut(&(x.div_euclid(16), y.div_euclid(16)))?;
+        let row = y.rem_euclid(16) as usize;
+        let col = x.rem_euclid(16) as usize;
+        if chunk.rows[row] & (1 << col) == 0 {
+            return None;
+        }
+        let indices = chunk.hit_index.get_or_insert_with(|| {
+            let mut slots = Box::new([0; 256]);
+            for &i in &chunk.indices {
+                let point = &field.points[i as usize];
+                slots[(point.y.rem_euclid(16) * 16 + point.x.rem_euclid(16)) as usize] = i;
+            }
+            slots
+        });
+        Some(point_id(indices[row * 16 + col]))
+    });
+    Ok(hit.map_or(ByondValue::NULL, ByondValue::new_num))
+}
+
+#[byond_fn]
+fn overmap_scatter_health(owner: ByondValue, index: ByondValue) -> ByondResult<ByondValue> {
+    let owner = object_id(&owner)?;
+    let index = point_index(&index)?;
+    let health =
+        FIELDS.with_borrow(|fields| fields.get(&owner)?.points.get(index?).map(|p| p.health));
+    Ok(ByondValue::new_num(health.unwrap_or(0.0)))
+}
+
+#[byond_fn]
+fn overmap_scatter_damage(
+    owner: ByondValue,
+    index: ByondValue,
+    damage: ByondValue,
+) -> ByondResult<ByondValue> {
+    let owner = object_id(&owner)?;
+    let index = point_index(&index)?;
+    let damage = damage.get_number()?;
+    let destroyed = FIELDS.with_borrow_mut(|fields| {
+        let field = fields.get_mut(&owner)?;
+        let p = field.points.get_mut(index?)?;
+        if p.health <= 0.0 || damage <= 0.0 {
+            return None;
+        }
+        p.health = (p.health - damage).max(0.0);
+        if p.health > 0.0 {
+            return None;
+        }
+        let key = (p.x.div_euclid(16), p.y.div_euclid(16));
+        field.chunks.get_mut(&key)?.rows[p.y.rem_euclid(16) as usize] &= !(1 << p.x.rem_euclid(16));
+        Some(format!("{},{}", key.0, key.1))
+    });
+    Ok(destroyed.map_or(ByondValue::NULL, ByondValue::new_string))
+}
+
+#[byond_fn]
+fn overmap_scatter_runs(
+    owner: ByondValue,
+    x: ByondValue,
+    y: ByondValue,
+) -> ByondResult<ByondValue> {
+    let owner = object_id(&owner)?;
+    let key = (x.get_number()? as i32, y.get_number()? as i32);
+    FIELDS.with_borrow(
+        |fields| match fields.get(&owner).and_then(|field| field.chunks.get(&key)) {
+            Some(chunk) => chunk.radar_runs(),
+            None => ByondValue::new_list(),
+        },
+    )
 }

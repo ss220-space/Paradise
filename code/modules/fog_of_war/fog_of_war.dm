@@ -246,6 +246,11 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 #define FOG_NATIVE_MAX_RADIUS 32
 
 /proc/fog_hidden_native(turf/center, radius, model = null, extra_blockers = null)
+	var/list/runs = fog_native_runs(center, radius, model, extra_blockers)
+	if(!isnull(runs))
+		return fog_expand_runs(center, runs)
+
+/proc/fog_native_runs(turf/center, radius, model = null, extra_blockers = null)
 	if(!center)
 		return null
 	if((isnull(model) ? GLOB.fog_model : model) != FOG_MODEL_UNION)
@@ -257,6 +262,9 @@ GLOBAL_LIST_EMPTY(fog_attached_views)
 	if(!islist(runs) || length(runs) % 3)
 		GLOB.fog_rust_error = "fog_hidden_runs returned an invalid mask"
 		return null
+	return runs
+
+/proc/fog_expand_runs(turf/center, list/runs)
 	. = list()
 	for(var/index = 1, index <= length(runs), index += 3)
 		var/y = center.y + runs[index + 1]

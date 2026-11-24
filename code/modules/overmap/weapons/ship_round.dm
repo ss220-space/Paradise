@@ -213,8 +213,10 @@
 			if(round.emp_light && distance <= round.emp_light)
 				gun.emp_act(distance <= round.emp_heavy ? EMP_HEAVY : EMP_LIGHT)
 	for(var/obj/overmap/feature/hazard/field as anything in scatter_fields_at(sector, x, y, reach))
-		for(var/index in field.nearby_scatter(x, y, reach))
-			var/severity = overmap_explosion_severity(field.scatter_points[index] - x, field.scatter_points[index + 1] - y, round.blast_devastation, round.blast_heavy, round.blast_light, FALSE, 0, 360)
+		var/list/points = field.nearby_scatter(x, y, reach)
+		for(var/i in 1 to length(points) step 3)
+			var/index = points[i]
+			var/severity = overmap_explosion_severity(points[i + 1] - x, points[i + 2] - y, round.blast_devastation, round.blast_heavy, round.blast_light, FALSE, 0, 360)
 			if(severity)
 				field.damage_scatter(index, overmap_explosion_damage(severity))
 	add_game_logs("Ship weapon impact in [sector.id] at ([x], [y]), blast [round.blast_devastation]/[round.blast_heavy]/[round.blast_light], EMP [round.emp_heavy]/[round.emp_light].")

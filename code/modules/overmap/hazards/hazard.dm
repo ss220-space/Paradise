@@ -29,10 +29,7 @@
 	var/moving_hazard = FALSE
 
 	var/hazard_density = 3
-	var/list/scatter_points
-	var/list/scatter_chunks
 	var/list/scatter_radar_chunks
-	var/list/scatter_hit_chunks
 
 /obj/overmap/feature/hazard/proc/roll_density()
 	return rand(2, 4)
@@ -42,6 +39,9 @@
 	SSovermap?.hazards |= src
 
 /obj/overmap/feature/hazard/Destroy()
+	if(scatter_radar_chunks)
+		RUSTLIB_CALL(overmap_scatter_drop, src)
+		scatter_radar_chunks = null
 	SSovermap?.hazards -= src
 	return ..()
 

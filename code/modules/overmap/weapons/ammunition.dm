@@ -113,7 +113,9 @@
 				if(severity)
 					structure.damage_cell(cell, overmap_explosion_damage(severity))
 	for(var/obj/overmap/feature/hazard/field as anything in scatter_fields_at(sector, x, y, reach))
-		for(var/index in field.nearby_scatter(x, y, reach))
-			var/severity = overmap_explosion_severity(field.scatter_points[index] - x, field.scatter_points[index + 1] - y, devastation_range, heavy_impact_range, light_impact_range, protect_epicenter, direction, arc)
+		var/list/points = field.nearby_scatter(x, y, reach)
+		for(var/i in 1 to length(points) step 3)
+			var/index = points[i]
+			var/severity = overmap_explosion_severity(points[i + 1] - x, points[i + 2] - y, devastation_range, heavy_impact_range, light_impact_range, protect_epicenter, direction, arc)
 			if(severity)
 				field.damage_scatter(index, overmap_explosion_damage(severity))

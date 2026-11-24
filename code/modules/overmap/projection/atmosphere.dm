@@ -21,7 +21,6 @@
 	QDEL_LIST_ASSOC_VAL(neighbor_proxies)
 	QDEL_LIST_ASSOC_VAL(scatter_proxies)
 	QDEL_NULL(scatter_fog)
-	scatter_candidates = list()
 	nearby_ships.Cut()
 	local_space = surface
 	atmosphere = new(src, surface, departing ? 1 : OVERMAP_ATMOSPHERE_ORBIT_SCALE)

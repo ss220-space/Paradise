@@ -15,10 +15,10 @@
 				for(var/obj/overmap/feature/hazard/field in cell)
 					if(istype(field, /obj/overmap/feature/hazard/emp))
 						continue
-					for(var/index in field.nearby_scatter(point[1], point[2], draw_reach))
-						if(field.scatter_points[index + 2] <= 0)
-							continue
-						var/list/spot = to_bubble(field.scatter_points[index], field.scatter_points[index + 1])
+					var/list/points = field.nearby_scatter(point[1], point[2], draw_reach)
+					for(var/i in 1 to length(points) step 3)
+						var/index = points[i]
+						var/list/spot = to_bubble(points[i + 1], points[i + 2])
 						if(!covers(spot, 0) || abs(spot[1] - eye.x) > draw_reach || abs(spot[2] - eye.y) > draw_reach)
 							continue
 						var/turf/tile = locate(round(spot[1]), round(spot[2]), bubble_z)
@@ -29,7 +29,7 @@
 						var/obj/effect/abstract/hull_proxy_tile/scatter/proxy = scatter_proxies[key]
 						var/fresh = !proxy
 						if(fresh)
-							proxy = new(tile, field, index)
+							proxy = new(tile, field, index, points[i + 1], points[i + 2])
 							scatter_proxies[key] = proxy
 						proxy.glide(spot[1], spot[2], bubble_z, null, bounds, fresh ? 0 : elapsed)
 	for(var/key in scatter_proxies)
@@ -64,7 +64,7 @@
 	var/changed = length(proxies) != length(previous)
 	for(var/key, tile_entry in proxies)
 		var/obj/effect/abstract/hull_proxy_tile/scatter/tile = tile_entry
-		var/list/point = list(tile.field.scatter_points[tile.point_index], tile.field.scatter_points[tile.point_index + 1])
+		var/list/point = list(tile.point_x, tile.point_y)
 		drawn[tile] = tile
 		source_positions[tile] = point
 		if(tile.blocks_sight)

@@ -106,7 +106,6 @@
 
 /obj/overmap/entity/proc/clear_encounter_visuals()
 	SSovermap_visuals.remove(src)
-	scatter_candidates = list()
 	QDEL_LIST_ASSOC_VAL(scatter_proxies)
 	QDEL_NULL(scatter_fog)
 	QDEL_NULL(docking_approach)
@@ -401,7 +400,7 @@
 		else
 			QDEL_NULL(terrain_view)
 		return
-	draw_scatter(scatter_candidates, elapsed, is_watched)
+	draw_scatter(elapsed, is_watched)
 	show_neighbors(elapsed, is_watched)
 	if(is_watched)
 		show_drifters(SSovermap.bubbles, elapsed)
