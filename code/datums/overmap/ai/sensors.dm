@@ -59,10 +59,11 @@
 			life = list()
 			fleet_life[key] = life
 		var/reach = OVERMAP_SENSOR_SHORT_VIEW * OVERMAP_TILE_SPAN * (brain.owner.sector.tile_travel || 1)
-		for(var/list/contact as anything in SSovermap.ship_weapon_targets(brain.owner.sector))
-			var/mob/living/carbon/human/person = contact[1]
-			if(!istype(person) || QDELETED(person) || person.stat == DEAD || person.invisibility > SEE_INVISIBLE_LIVING)
+		var/list/contacts = SSovermap.ship_weapon_targets(brain.owner.sector)
+		for(var/mob/living/carbon/human/person in contacts)
+			if(QDELETED(person) || person.stat == DEAD || person.invisibility > SEE_INVISIBLE_LIVING)
 				continue
-			if((contact[2] - x) ** 2 + (contact[3] - y) ** 2 > reach ** 2)
+			var/list/point = contacts[person]
+			if((point[1] - x) ** 2 + (point[2] - y) ** 2 > reach ** 2)
 				continue
-			life[person.UID()] = list(contact[2], contact[3])
+			life[person.UID()] = point.Copy()

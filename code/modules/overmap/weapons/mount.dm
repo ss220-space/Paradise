@@ -10,13 +10,41 @@
 			var/datum/overmap_sector/where = frame_sector(owner)
 			if(!where)
 				continue
-			var/list/point = frame_to_world(owner, spot)
 			var/list/entries = weapon_targets[where.id]
 			if(!entries)
 				entries = list()
 				weapon_targets[where.id] = entries
-			entries += list(list(target, point[1], point[2]))
+			entries[target] = frame_to_world(owner, spot)
 	return weapon_targets[sector.id]
+
+/datum/controller/subsystem/overmap/proc/nearby_turret_targets(datum/overmap_sector/sector, list/point, reach)
+	var/list/contacts = ship_weapon_targets(sector)
+	if(!length(contacts) || !SSspatial_grid.initialized)
+		return contacts
+	var/list/nearby = list()
+	for(var/datum/overmap_bubble/space as anything in bubbles)
+		if(space.sector == sector && space.bubble_z)
+			var/list/origin = space.to_bubble(point[1], point[2])
+			if(space.covers(origin, reach + 1))
+				collect_turret_targets(nearby, origin, space.bubble_z, reach)
+	for(var/datum/turf_reservation/reservation as anything in flight_reservations)
+		var/obj/overmap/entity/vessel = flight_reservations[reservation]
+		if(vessel.sector != sector || vessel.atmosphere)
+			continue
+		var/list/origin = vessel.world_to_hull(point[1], point[2])
+		for(var/turf/corner as anything in reservation.bottom_left_turfs)
+			collect_turret_targets(nearby, origin, corner.z, reach)
+	return contacts & nearby
+
+/datum/controller/subsystem/overmap/proc/collect_turret_targets(list/nearby, list/origin, level, reach)
+	var/radius = reach + 1
+	if(origin[1] < 1 - radius || origin[1] > world.maxx + radius || origin[2] < 1 - radius || origin[2] > world.maxy + radius)
+		return
+	var/turf/center = locate(clamp(round(origin[1], 1), 1, world.maxx), clamp(round(origin[2], 1), 1, world.maxy), level)
+	for(var/mob/living/target in SSspatial_grid.orthogonal_range_search(center, SPATIAL_GRID_CONTENTS_TYPE_HEARING, radius))
+		var/turf/spot = get_turf(target)
+		if(spot && abs(spot.x - origin[1]) <= radius && abs(spot.y - origin[2]) <= radius)
+			nearby[target] = TRUE
 
 /obj/machinery/porta_turret/shuttleRotate(rotation, params)
 	. = ..()

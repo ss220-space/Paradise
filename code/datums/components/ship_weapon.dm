@@ -248,8 +248,7 @@
 		return TRUE
 	var/mob/living/best
 	var/best_distance = turret.scan_range ** 2
-	for(var/list/entry as anything in SSovermap.ship_weapon_targets(vessel.sector))
-		var/mob/living/target = entry[1]
+	for(var/mob/living/target as anything in SSovermap.nearby_turret_targets(vessel.sector, point, turret.scan_range))
 		var/list/aim = target_position(vessel, target)
 		if(!aim)
 			continue
