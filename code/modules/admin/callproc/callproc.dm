@@ -103,7 +103,7 @@ ADMIN_VERB(advanced_proc_call, R_DEBUG|R_PROCCALL, "Advanced ProcCall", "Call a 
 	var/targetselected = FALSE
 	var/returnval
 
-	switch(tgui_alert(usr,"Proc owned by something?",,list("Yes","No")))
+	switch(alert(usr, "Proc owned by something?", "", "Yes", "No"))
 		if("Yes")
 			targetselected = TRUE
 			var/list/value = vv_get_value(default_class = VV_ATOM_REFERENCE, classes = list(VV_ATOM_REFERENCE, VV_DATUM_REFERENCE, VV_MOB_REFERENCE, VV_CLIENT, VV_MARKED_DATUM, VV_TEXT_LOCATE, VV_PROCCALL_RETVAL))
