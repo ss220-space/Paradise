@@ -8,6 +8,8 @@
 #define SHELLEO_OUT ".out"
 
 /world/proc/shelleo(command)
+	if(IsAdminAdvancedProcCall())
+		return
 	var/static/list/shelleo_ids = list()
 	var/stdout = ""
 	var/stderr = ""
