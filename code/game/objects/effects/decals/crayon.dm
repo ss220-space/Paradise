@@ -10,7 +10,7 @@
 	appearance_flags = PIXEL_SCALE | KEEP_TOGETHER
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 
-/obj/effect/decal/cleanable/crayon/Initialize(mapload, main = color, type = icon_state, e_name = name, rotation = 0, scale = 1, text_char = null, font_family = "Small Fonts", outline_color = null, vertical_stretch = 1)
+/obj/effect/decal/cleanable/crayon/Initialize(mapload, main = color, type = icon_state, e_name = name, rotation = 0, scale = 1, text_char = null, font_family = "Small Fonts", outline_color = null)
 	. = ..()
 
 	name = e_name
@@ -20,8 +20,8 @@
 		icon_state = null
 		color = null
 		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-		var/rendered_size = max(8, round(12.5 * scale * vertical_stretch))
-		var/box_size = max(32, round(32 * scale * vertical_stretch))
+		var/rendered_size = max(8, round(15 * scale))
+		var/box_size = max(32, round(40 * scale))
 		var/offset = round((box_size - 32) / 2)
 		maptext_width = box_size
 		maptext_height = box_size
@@ -29,12 +29,10 @@
 		maptext_y = round(9 * scale) - offset
 		var/outline_style = outline_color ? "-dm-text-outline: 1px [outline_color];" : ""
 		maptext = "<div style='width: [box_size]px; text-align: center; font-family: [font_family]; font-size: [rendered_size]px; color: [main]; [outline_style]'>[html_encode(text_char)]</div>"
-		var/shear_x = rand(-18, 18) / 100
-		var/matrix/transform_matrix = matrix(1, shear_x, 0, 0, 1, 0)
 		if(rotation != 0)
+			var/matrix/transform_matrix = matrix()
 			transform_matrix.Turn(rotation)
-		transform = transform_matrix
-
+			transform = transform_matrix
 	else
 		icon_state = type
 		color = main

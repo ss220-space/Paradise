@@ -713,14 +713,14 @@
 				resolved_outline_color = outline_color
 
 	var/final_rotation = rotation
-	var/vertical_stretch = 1
+	var/final_click_y = click_y
 	if(text_char)
-		final_rotation += rand(-10, 10)
-		vertical_stretch = 1.25
+		final_rotation += pick(-1, 1) * rand(5, 13)
+		final_click_y = clamp(click_y + rand(-2, 2), min_y, max_y)
 
-	var/obj/effect/decal/cleanable/crayon/decal = new(target, colour, chosen_state, decal_name, final_rotation, scale, text_char, spray_font, resolved_outline_color, vertical_stretch)
+	var/obj/effect/decal/cleanable/crayon/decal = new(target, colour, chosen_state, decal_name, final_rotation, scale, text_char, spray_font, resolved_outline_color)
 	decal.pixel_x = click_x
-	decal.pixel_y = click_y
+	decal.pixel_y = final_click_y
 
 	decal.add_hiddenprint(user)
 	draw_paint(user)
