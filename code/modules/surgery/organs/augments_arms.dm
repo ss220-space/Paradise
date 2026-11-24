@@ -1012,7 +1012,7 @@
 /obj/item/organ/internal/cyberimp/arm/razorwire/examine_more(mob/user)
 	. = ..()
 	for(var/obj/item in contents)
-		return item.examine_more()
+		return item.examine_more(user)
 
 // Shell launch system, an arm mounted single-shot shotgun that comes out of your arm
 
@@ -1131,4 +1131,4 @@
 /obj/item/organ/internal/cyberimp/arm/shell_launcher/examine_more(mob/user)
 	. = ..()
 	for(var/obj/item in contents)
-		return item.examine_more()
+		return item.examine_more(user)
