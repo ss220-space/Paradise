@@ -855,7 +855,7 @@
 	return TRUE
 
 /mob/living/carbon/proc/forceFed(obj/item/reagent_containers/food/toEat, mob/user, fullness)
-	if(!ispill(toEat) && fullness <= (600 * (1 + overeatduration / 1000)))
+	if(!ispill(toEat) && fullness > (600 * (1 + overeatduration / 1000)))
 		visible_message(span_warning("[user] не мо[PLUR_JET_GUT(user)]ся заставить [src] [toEat.apply_method]ть [toEat.declent_ru(ACCUSATIVE)]!"))
 		return FALSE
 
