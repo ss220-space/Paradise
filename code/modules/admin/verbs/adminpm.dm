@@ -91,6 +91,8 @@ ADMIN_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM b
 		message_type = MESSAGE_TYPE_ADMINPM
 		tickets_system = SStickets
 
+	type = sanitize(type)
+
 	//Check if the mob being PM'd has any open tickets.
 	var/list/tickets = tickets_system.checkForTicket(C, ticket_id)
 	if(!length(tickets))
@@ -107,8 +109,7 @@ ADMIN_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM b
 	if(!msg)
 		set_typing(C, TRUE)
 		tickets_system.refresh_tickets(tickets)
-		msg = tgui_input_text(src, "Message:", "Private message to [holder ? key_name(C, FALSE) : key_name_hidden(C, FALSE)]", multiline = TRUE, encode = FALSE)
-		msg = STRIP_HTML_FULL(msg, INFINITY)
+		msg = tgui_input_text(src, "Message:", "Private message to [holder ? key_name(C, FALSE) : key_name_hidden(C, FALSE)]", multiline = TRUE)
 		msg = handle_emojis(msg)
 		set_typing(C, FALSE)
 
@@ -159,8 +160,7 @@ ADMIN_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM b
 			spawn(0) //so we don't hold the caller proc up
 				var/sender = src
 				var/sendername = key
-				var/reply = tgui_input_text(C, msg, "[receive_pm_type] [type] от — [sendername]", multiline = TRUE, encode = FALSE) //show message and await a reply
-				reply = STRIP_HTML_FULL(reply, INFINITY)
+				var/reply = tgui_input_text(C, msg, "[receive_pm_type] [type] от — [sendername]", multiline = TRUE) //show message and await a reply
 				if(C && reply)
 					if(sender)
 						C.cmd_admin_pm(sender, reply) //sender is still about, let's reply to them
@@ -255,8 +255,8 @@ ADMIN_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM b
 	var/msg = tgui_input_text(src, "Message:", "Private message to admins on Discord / 400 character limit", multiline = TRUE, encode = FALSE)
 	if(!msg)
 		return
-	msg = STRIP_HTML_FULL(msg, INFINITY)
-	sanitize(msg)
+
+	msg = sanitize(msg)
 
 	if(length(msg) > 400) // Dont want them super spamming
 		to_chat(src, span_warning("Your message was not sent because it was more then 400 characters find your message below for ease of copy/pasting"), confidential = TRUE)
