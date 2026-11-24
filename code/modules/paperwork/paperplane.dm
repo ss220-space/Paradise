@@ -9,13 +9,13 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
 	no_spin_thrown = TRUE
+	scatter_distance = 8
 
 	var/obj/item/paper/internal_paper
 
 /obj/item/paperplane/Initialize(mapload, obj/item/paper/new_paper)
 	. = ..()
-	pixel_x = base_pixel_x + rand(-8, 8)
-	pixel_y = base_pixel_y + rand(-8, 8)
+	scatter_atom()
 	if(new_paper)
 		internal_paper = new_paper
 		flags = new_paper.flags

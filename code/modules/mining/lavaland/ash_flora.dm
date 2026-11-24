@@ -292,8 +292,7 @@
 
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(-4, 4)
-	pixel_y = rand(-4, 4)
+	scatter_atom()
 
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/shavings //for actual crafting
 

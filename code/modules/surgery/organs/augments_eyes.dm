@@ -59,6 +59,7 @@
 	desc = "These cybernetic eyes will allow you to see the structural layout of the station, and, well, everything else."
 	eye_colour = "#199900"
 	icon_state = "mesonhud_implant"
+	implant_overlay = null
 	origin_tech = "materials=4;engineering=4;biotech=4;magnets=4"
 	vision_flags = SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
@@ -76,6 +77,7 @@
 	name = "X-ray implant"
 	desc = "These cybernetic eye implants will give you X-ray vision. Blinking is futile."
 	icon_state = "eyes-c-xray"
+	implant_overlay = null
 	origin_tech = "materials=4;programming=4;biotech=7;magnets=4"
 	vision_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 	see_in_dark = 8
@@ -85,6 +87,7 @@
 	name = "Thermals implant"
 	desc = "These cybernetic eye implants will give you Thermal vision. Vertical slit pupil included."
 	icon_state = "thermal_implant"
+	implant_overlay = null
 	eye_colour = "#FFCC00"
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
@@ -174,6 +177,7 @@
 	name = "Medical HUD implant"
 	desc = "These cybernetic eye implants will display a medical HUD over everything you see."
 	icon_state = "medhud_implant"
+	implant_overlay = null
 	eye_colour = "#0000D0"
 	origin_tech = "materials=4;programming=4;biotech=4"
 	aug_message = "You suddenly see health bars floating above people's heads..."
@@ -184,6 +188,7 @@
 	name = "Diagnostic HUD implant"
 	desc = "These cybernetic eye implants will display a diagnostic HUD over everything you see."
 	icon_state = "diagnosticalhud_implant"
+	implant_overlay = null
 	eye_colour = "#723E02"
 	origin_tech = "materials=4;engineering=4;biotech=4"
 	aug_message = "You see the diagnostic information of the synthetics around you..."
@@ -193,11 +198,22 @@
 	name = "Security HUD implant"
 	desc = "These cybernetic eye implants will display a security HUD over everything you see."
 	icon_state = "sechud_implant"
+	implant_overlay = null
 	eye_colour = "#D00000"
 	origin_tech = "materials=4;programming=4;biotech=3;combat=3"
 	aug_message = "Job indicator icons pop up in your vision. That is not a certified surgeon..."
 	HUDType = DATA_HUD_SECURITY_ADVANCED
 	examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE
+
+/obj/item/organ/internal/cyberimp/eyes/hud/hydroponic
+	name = "Hydroponic HUD implant"
+	desc = "These cybernetic eye implants will display a botanical HUD over everything you see."
+	icon_state = "eye_implant_hydro"
+	implant_overlay = null
+	origin_tech = "materials=4;magnets=4;biotech=4"
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 700, MAT_GOLD = 500)
+	aug_message = "You scan for non-plastic plants around you..."
+	HUDType = DATA_HUD_HYDROPONIC
 
 /obj/item/organ/internal/cyberimp/eyes/hud/science
 	name = "Science HUD implant"
@@ -216,6 +232,7 @@
 	name = "welding shield implant"
 	desc = "These reactive micro-shields will protect you from welders and flashes without obscuring your vision."
 	icon_state = "welding_implant"
+	implant_overlay = null
 	slot = INTERNAL_ORGAN_EYE_SHIELD_DEVICE
 	origin_tech = "materials=4;biotech=3;engineering=4;plasmatech=3"
 	flash_protect = FLASH_PROTECTION_WELDER
@@ -226,6 +243,7 @@
 	name = "universal HUD implant"
 	desc = "Устанавливает подходящий вашей должности ИЛС имплант. Менее приоритетный, чем выбранные вручную импланты."
 	icon_state = "universal_implant"
+	implant_overlay = null
 	aug_message = "Этот имплант не имеет смысла..."
 
 /obj/item/organ/internal/cyberimp/eyes/hud/universal/get_ru_names()
@@ -243,6 +261,7 @@
 	name = "citizen map implant"
 	desc = "Имплант для постоянного отображения мини-карты в правом верхнем углу поля зрения пользователя с помощью технологии дополненной реальности."
 	icon_state = "citizen_map_implant"
+	implant_overlay = null
 	eye_colour = "#4255e6"
 	slot = INTERNAL_ORGAN_EYE_HUD_DEVICE
 	origin_tech = "materials=4;biotech=3;engineering=4;plasmatech=3"

@@ -83,6 +83,7 @@
 	remove_language(LANGUAGE_GALACTIC_COMMON)
 	add_language(LANGUAGE_DRONE_BINARY, TRUE)
 	add_language(LANGUAGE_DRONE, TRUE)
+	ADD_TRAIT(src, TRAIT_SHOW_WIRE_INFO, ROUNDSTART_TRAIT) // Drones are linked to the station
 
 	// Disable the microphone wire on Drones
 	if(radio)
