@@ -190,15 +190,24 @@
 			new /obj/effect/temp_visual/kinetic_blast(get_turf(L))
 			var/backstab_dir = get_dir(user, L)
 			var/def_check = L.getarmor(attack_flag = BOMB)
+			// Снижение урона на станции при наличии осколка Vazz
+			var/detonation = detonation_damage
+			var/backstab_damage = backstab_bonus
+			if(is_station_level(L.z))
+				for(var/t in trophies)
+					if(istype(t, /obj/item/crusher_trophy/vazz_shard))
+						detonation = round(detonation_damage * 0.3)
+						backstab_damage = round(backstab_bonus * 0.5)
+						break
 			if((user.dir & backstab_dir) && (L.dir & backstab_dir))
 				if(!QDELETED(C))
-					C.total_damage += detonation_damage + backstab_bonus //cheat a little and add the total before killing it, so certain mobs don't have much lower chances of giving an item
-				L.apply_damage(detonation_damage + backstab_bonus, BRUTE, blocked = def_check)
+					C.total_damage += detonation + backstab_damage //cheat a little and add the total before killing it, so certain mobs don't have much lower chances of giving an item
+				L.apply_damage(detonation + backstab_damage, BRUTE, blocked = def_check)
 				playsound(user, 'sound/weapons/crusher_backstab.ogg', 130) //Seriously who spelled it wrong
 			else
 				if(!QDELETED(C))
-					C.total_damage += detonation_damage
-				L.apply_damage(detonation_damage, BRUTE, blocked = def_check)
+					C.total_damage += detonation
+				L.apply_damage(detonation, BRUTE, blocked = def_check)
 
 /obj/item/twohanded/kinetic_crusher/interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
 	if(!HAS_TRAIT(src, TRAIT_WIELDED))
