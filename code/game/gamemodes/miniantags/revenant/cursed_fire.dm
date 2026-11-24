@@ -33,7 +33,7 @@
 /datum/status_effect/cursed_flame/tick(seconds_between_ticks)
 	update_overlay()
 	var/holywater = owner.reagents.has_reagent(/datum/reagent/holywater, 1)
-	if(holywater)
+	if(holywater || owner.can_block_magic(MAGIC_RESISTANCE_HOLY, 0))
 		duration -= 2 SECONDS
 		owner.reagents.remove_reagent(/datum/reagent/holywater, 1)
 		if(COOLDOWN_FINISHED(src, message_cooldown))
