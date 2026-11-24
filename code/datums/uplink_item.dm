@@ -2449,6 +2449,7 @@
 		даже с нескольких шагов. Однако результат против чего-либо более прочного будет сильно различаться."
 	item = /obj/item/autoimplanter/oneuse/razorwire
 	cost = 20
+	uplinktypes = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	excludefrom = list()
 
 /datum/uplink_item/cyber_implants/scope_eyes
@@ -2458,6 +2459,7 @@
 	Эта пара была усилена для персонала специальных операций."
 	item = /obj/item/autoimplanter/oneuse/scope_eyes
 	cost = 10
+	uplinktypes = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	excludefrom = list()
 
 /datum/uplink_item/cyber_implants/hackerman_deck
@@ -2466,6 +2468,7 @@
 	и будет довольно заметен в момент применения ЕМАГа на объекте. \
 	Не отображается на неулучшенных сканерах тела. Несовместим с сенсорным компьютером \"Кани-Лаака\"."
 	item = /obj/item/autoimplanter/oneuse/hackerman_deck
+	uplinktypes = list(UPLINK_TYPE_TRAITOR, UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	cost = 30 // Probably slightly less useful than an emag with heat / cooldown, but I am not going to make it cheaper or everyone picks it over emag
 
 /datum/uplink_item/cyber_implants/sensory_enhancer
@@ -2477,6 +2480,7 @@
 	Две минуты нормальной работы, пять минут перезарядки, неограниченное использование. Несовместим с беспроводной системой взлома \"Бинят\"."
 	item = /obj/item/autoimplanter/oneuse/sensory_enhancer
 	cost = 40
+	uplinktypes = list(UPLINK_TYPE_TRAITOR)
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST) //No, nukies do not get to dodge bullets.
 
 /datum/uplink_item/cyber_implants/mantisblade
