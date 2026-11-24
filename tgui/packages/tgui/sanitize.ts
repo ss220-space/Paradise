@@ -32,6 +32,7 @@ const defTag = [
   'ol',
   'p',
   'pre',
+  'small',
   'span',
   'strong',
   'table',

@@ -3,7 +3,7 @@ import { baseUrl } from 'marked-base-url';
 import { markedSmartypants } from 'marked-smartypants';
 import { Component, type RefObject } from 'react';
 import { Box, Section } from 'tgui-core/components';
-
+import { resolveAsset } from '../../assets';
 import { useBackend, useLocalState } from '../../backend';
 import { sanitizeText } from '../../sanitize';
 import { tokenizer, walkTokens } from './helpers';
@@ -321,7 +321,13 @@ export class PreviewView extends Component<PreviewViewProps> {
     const parsedText = this.runMarkedDefault(rawText);
 
     // Third, we sanitize the text of html
-    const sanitizedText = sanitizeText(parsedText, advanced_html);
+    let sanitizedText = sanitizeText(parsedText, advanced_html);
+
+    sanitizedText = sanitizedText.replace(
+      /\[logo:([^\]]+)\]/g,
+      (_, logoName) =>
+        `<img src="${resolveAsset(logoName)}" style="width:150px;height:95px;" />`,
+    );
 
     // Fourth we replace the [__] with fields
     const fieldedText = this.createFields(

@@ -164,21 +164,6 @@
 // /obj/item/paper/update_overlays()
 // 	return LAZYCOPY(stamp_overlays)
 
-/obj/item/paper/examine(mob/user)
-	. = ..()
-	. += span_notice("Alt-click [src] to fold it into a paper plane.")
-	if(!in_range(user, src) && !isobserver(user))
-		. += span_warning("You're too far away to read it!")
-		return
-
-	if(user.is_blind())
-		to_chat(user, span_warning("You are blind and can't read anything!"))
-		return
-
-	if(user.can_write(src))
-		ui_interact(user)
-		return
-	. += span_warning("You cannot read it!")
 
 /// Determines whether this paper has been written or stamped to.
 /obj/item/paper/proc/is_empty()
@@ -860,7 +845,7 @@ GAME_VERB_SRC(/obj/item/paper, rename, usr, "Rename paper", null)
 				return TRUE
 
 			// Safe to assume there are writing implement details as user.can_write(...) fails with an invalid writing implement.
-			// var/writing_implement_data = holding.get_writing_implement_details()
+			var/writing_implement_data = holding.get_writing_implement_details()
 			var/list/field_data = params["field_data"]
 
 			for(var/field_key in field_data)
@@ -875,6 +860,8 @@ GAME_VERB_SRC(/obj/item/paper, rename, usr, "Rename paper", null)
 
 				// if(!add_field_input(field_key, field_text, writing_implement_data["font"], writing_implement_data["color"], writing_implement_data["use_bold"], user.real_name))
 					// log_paper("[key_name(user)] tried to write to field [field_key] when it already has data, with the following text: [field_text]")
+
+				add_field_input(field_key, field_text, writing_implement_data["font"], writing_implement_data["color"], writing_implement_data["use_bold"], user.real_name)
 
 			update_static_data_for_all_viewers()
 			return TRUE
