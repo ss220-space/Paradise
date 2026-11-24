@@ -3,7 +3,7 @@
 	desc = "You shouldn't see this! Adminhelp and report this as an issue on github!"
 	parent_organ_zone = BODY_ZONE_R_ARM
 	slot = INTERNAL_ORGAN_R_ARM_DEVICE
-	icon_state = "implant-toolkit"
+	icon_state = "toolkit_generic"
 	w_class = WEIGHT_CLASS_NORMAL
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
 	abstract_type = /obj/item/organ/internal/cyberimp/arm
@@ -85,6 +85,26 @@
 		to_chat(owner, span_warning("[declent_ru(NOMINATIVE)] поражён ЭМИ импульсом!"))
 		// give the owner an idea about why his implant is glitching
 		Retract()
+
+/obj/item/organ/internal/cyberimp/arm/proc/get_overlay_state()
+	return "[augment_state][parent_organ_zone == BODY_ZONE_L_ARM ? "_left" : "_right"]"
+
+/obj/item/organ/internal/cyberimp/arm/render()
+	var/mutable_appearance/custom_appearance = ..()
+	if(!custom_appearance)
+		return FALSE
+
+	custom_appearance.icon_state = get_overlay_state()
+	return custom_appearance
+
+/obj/item/organ/internal/cyberimp/arm/extra_render()
+	var/mutable_appearance/custom_appearance = ..()
+	if(!custom_appearance)
+		return FALSE
+
+	custom_appearance.icon_state = "[get_overlay_state()]_hand"
+	custom_appearance.layer = -HAND_INTORGAN_LAYER
+	return custom_appearance
 
 /**
  * Called when the mob uses the "drop item" hotkey
@@ -231,11 +251,14 @@
 /obj/item/organ/internal/cyberimp/arm/toolset
 	name = "integrated toolset implant"
 	desc = "A stripped-down version of engineering cyborg toolset, designed to be installed on subject's arm. Contains all neccessary tools."
+	icon_state = "toolkit_engineering"
 	origin_tech = "materials=3;engineering=4;biotech=3;powerstorage=4"
 	contents = newlist(/obj/item/screwdriver/cyborg, /obj/item/wrench/cyborg, /obj/item/weldingtool/largetank/cyborg,
 		/obj/item/crowbar/cyborg, /obj/item/wirecutters/cyborg, /obj/item/multitool/cyborg)
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/clothing/belts.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "utilitybelt")
+	augment_state = "toolkit_engi"
+	do_extra_render = TRUE
 
 /obj/item/organ/internal/cyberimp/arm/toolset/l
 	parent_organ_zone = BODY_ZONE_L_ARM
@@ -258,6 +281,8 @@
 		/obj/item/pipe_painter, /obj/item/wrench/cyborg, /obj/item/weldingtool/largetank/cyborg)
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/tools.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "rpd")
+	augment_state = "toolkit_engi"
+	do_extra_render = TRUE
 
 /obj/item/organ/internal/cyberimp/arm/atmostoolset/l
 	parent_organ_zone = BODY_ZONE_L_ARM
@@ -269,6 +294,7 @@
 	contents = newlist(/obj/item/screwdriver/cyborg, /obj/item/wirecutters/cyborg, /obj/item/multitool/abductor)
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/device.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "hacktool")
+	augment_state = "toolkit_engi"
 
 /obj/item/organ/internal/cyberimp/arm/hacking/l
 	parent_organ_zone = BODY_ZONE_L_ARM
@@ -286,6 +312,8 @@
 	origin_tech = "materials=5;combat=2;biotech=5;powerstorage=4;syndicate=1"
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/chronos.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "chronogun")
+	augment_state = "toolkit_med"
+	do_extra_render = TRUE
 
 /obj/item/organ/internal/cyberimp/arm/flash
 	name = "integrated high-intensity photon projector" //Why not
@@ -294,6 +322,8 @@
 	origin_tech = "materials=4;combat=3;biotech=4;magnets=4;powerstorage=3"
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/device.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "flash")
+	augment_state = "toolkit"
+	do_extra_render = TRUE
 
 /obj/item/organ/internal/cyberimp/arm/flash/Initialize(mapload)
 	. = ..()
@@ -317,6 +347,8 @@
 	desc = "An illegal combat implant that allows the user to administer disabling shocks from their arm."
 	contents = newlist(/obj/item/borg/stun)
 	origin_tech = "materials=3;combat=5;biotech=4;powerstorage=4;syndicate=3"
+	augment_state = "toolkit"
+	do_extra_render = TRUE
 
 /obj/item/organ/internal/cyberimp/arm/combat
 	name = "combat cybernetics implant"
@@ -401,10 +433,12 @@
 		/obj/item/bonegel/augment,
 		/obj/item/FixOVein/augment,
 		/obj/item/surgicaldrill/augment,
-		)
+	)
 	origin_tech = "materials=3;engineering=3;biotech=3;programming=2;magnets=3"
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/storage.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "duffel-med")
+	augment_state = "toolkit_med"
+	do_extra_render = TRUE
 
 /obj/item/organ/internal/cyberimp/arm/surgery/get_ru_names()
 	return alist(
@@ -499,14 +533,76 @@
 		PREPOSITIONAL = "инородном импланте",
 	)
 
+/datum/action/item_action/organ_action/toggle/abductor_belt
+	button_icon = 'icons/obj/abductor.dmi'
+	button_icon_state = "belt"
+
+/obj/item/organ/internal/cyberimp/arm/toolset_abductor
+	name = "alien toolset implant"
+	desc = "Инопланетный набор инструментов, предназначенный для установки в руку субъекта."
+	icon_state = "toolkit_engineering"
+	origin_tech = "materials=5;engineering=5;plasmatech=5;powerstorage=4;abductor=3"
+	materials = list(MAT_METAL = 20000, MAT_SILVER = 10000, MAT_PLASMA = 9000, MAT_TITANIUM = 8000, MAT_DIAMOND = 8000)
+	contents = newlist(/obj/item/screwdriver/abductor, /obj/item/wirecutters/abductor, /obj/item/crowbar/abductor, /obj/item/wrench/abductor, /obj/item/weldingtool/abductor, /obj/item/multitool/abductor)
+	actions_types = list(/datum/action/item_action/organ_action/toggle/abductor_belt)
+	augment_state = "toolkit_engi"
+	do_extra_render = TRUE
+
+/obj/item/organ/internal/cyberimp/arm/toolset_abductor/get_ru_names()
+	return alist(
+		NOMINATIVE = "инопланетный имплант с инструментами",
+		GENITIVE = "инопланетного импланта с инструментами",
+		DATIVE = "инопланетному импланту с инструментами",
+		ACCUSATIVE = "инопланетный имплант с инструментами",
+		INSTRUMENTAL = "инопланетным имплантом с инструментами",
+		PREPOSITIONAL = "инопланетном импланте с инструментами",
+	)
+
+/obj/item/organ/internal/cyberimp/arm/toolset_abductor/l
+	parent_organ_zone = BODY_ZONE_L_ARM
+	slot = INTERNAL_ORGAN_L_ARM_DEVICE
+
+/datum/action/item_action/organ_action/toggle/abductor_janibelt
+	button_icon = 'icons/obj/clothing/belts.dmi'
+	button_icon_state = "janibelt_abductor"
+
+/obj/item/organ/internal/cyberimp/arm/janitorial_abductor
+	name = "alien janitorial toolset implant"
+	desc = "Набор инопланетных инструментов для уборки, предназначенный для установки в руку субъекта."
+	icon_state = "toolkit_janitor"
+	item_state = "janitor_arm_implant"
+	origin_tech = "materials=5;engineering=5;biotech=5;powerstorage=4;abductor=2"
+	materials = list(MAT_METAL = 20000, MAT_SILVER = 10000, MAT_PLASMA = 9000, MAT_TITANIUM = 8000, MAT_DIAMOND = 8000)
+	contents = newlist(/obj/item/mop/advanced/abductor, /obj/item/soap/syndie/abductor, /obj/item/lightreplacer/bluespace/abductor, /obj/item/holosign_creator/janitor, /obj/item/melee/flyswatter/abductor, /obj/item/reagent_containers/spray/cleaner/safety/abductor)
+	actions_types = list(/datum/action/item_action/organ_action/toggle/abductor_janibelt)
+	augment_state = "toolkit_jani"
+	do_extra_render = TRUE
+
+/obj/item/organ/internal/cyberimp/arm/janitorial_abductor/get_ru_names()
+	return alist(
+		NOMINATIVE = "инопланетный имплант с инструментами для уборки",
+		GENITIVE = "инопланетного импланта с инструментами для уборки",
+		DATIVE = "инопланетному импланту с инструментами для уборки",
+		ACCUSATIVE = "инопланетный имплант с инструментами для уборки",
+		INSTRUMENTAL = "инопланетным имплантом с инструментами для уборки",
+		PREPOSITIONAL = "инопланетном импланте с инструментами для уборки",
+	)
+
+/obj/item/organ/internal/cyberimp/arm/janitorial_abductor/l
+	parent_organ_zone = BODY_ZONE_L_ARM
+	slot = INTERNAL_ORGAN_L_ARM_DEVICE
+
 /obj/item/organ/internal/cyberimp/arm/janitorial
 	name = "janitorial toolset implant"
 	desc = "A set of janitorial tools hidden behind a concealed panel on the user's arm"
-	icon_state = "janitor_arm_implant"
+	icon_state = "toolkit_janitor"
+	item_state = "janitor_arm_implant"
 	contents = newlist(/obj/item/mop/advanced, /obj/item/soap, /obj/item/lightreplacer, /obj/item/holosign_creator/janitor, /obj/item/melee/flyswatter, /obj/item/reagent_containers/spray/cleaner/safety)
 	origin_tech = "materials=3;engineering=4;biotech=3"
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/clothing/belts.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "janibelt")
+	augment_state = "toolkit_jani"
+	do_extra_render = TRUE
 
 /obj/item/organ/internal/cyberimp/arm/janitorial/l
 	parent_organ_zone = BODY_ZONE_L_ARM
@@ -515,11 +611,14 @@
 /obj/item/organ/internal/cyberimp/arm/botanical
 	name = "botanical toolset implant"
 	desc = "A set of botanical tools hidden behind a concealed panel on the user's arm"
-	icon_state = "botanical_arm_implant"
+	icon_state = "toolkit_hydro"
+	item_state = "botanical_arm_implant"
 	contents = newlist(/obj/item/plant_analyzer, /obj/item/cultivator, /obj/item/hatchet, /obj/item/shovel/spade, /obj/item/wirecutters, /obj/item/wrench)
 	origin_tech = "materials=3;engineering=4;biotech=3"
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/clothing/belts.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "botanybelt")
+	augment_state = "toolkit_hydro"
+	do_extra_render = TRUE
 
 /obj/item/organ/internal/cyberimp/arm/botanical/l
 	parent_organ_zone = BODY_ZONE_L_ARM
@@ -527,9 +626,10 @@
 
 // lets make IPCs even *more* vulnerable to EMPs!
 /obj/item/organ/internal/cyberimp/arm/power_cord
-	species_type = /datum/species/machine
 	name = "APC-compatible power adapter implant"
 	desc = "An implant commonly installed inside IPCs in order to allow them to easily collect energy from their environment"
+	icon_state = "toolkit_ipc"
+	species_type = /datum/species/machine
 	origin_tech = "materials=3;biotech=2;powerstorage=3"
 	contents = newlist(/obj/item/apc_powercord)
 
@@ -612,6 +712,8 @@
 	contents = newlist(/obj/item/melee/baton)
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/items.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "baton")
+	augment_state = "toolkit"
+	do_extra_render = TRUE
 
 /obj/item/organ/internal/cyberimp/arm/advmop
 	name = "advanced mop implant"
@@ -620,6 +722,26 @@
 	contents = newlist(/obj/item/mop/advanced)
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/janitor.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "advmop")
+	augment_state = "toolkit_jani"
+	do_extra_render = TRUE
+
+/obj/item/organ/internal/cyberimp/arm/cargo
+	name = "integrated cargo implant"
+	desc = "Everything you need to run the cargo bay, except a Forklift."
+	origin_tech = "materials=3;engineering=4;biotech=3;powerstorage=4"
+	icon_state = "toolkit_cargo"
+	contents = newlist(
+		/obj/item/stamp/granted,
+		/obj/item/stamp/denied,
+		/obj/item/hand_labeler,
+		/obj/item/clipboard,
+		/obj/item/pen/multi,
+	)
+	actions_types = list(/datum/action/item_action/organ_action/toggle/stamp)
+
+/datum/action/item_action/organ_action/toggle/stamp
+	button_icon = 'icons/obj/bureaucracy.dmi'
+	button_icon_state = "stamp-ok"
 
 /datum/action/item_action/organ_action/toggle/v1_arm
 	button_icon = 'icons/obj/items.dmi'
@@ -636,6 +758,8 @@
 	slot = INTERNAL_ORGAN_L_ARM_DEVICE
 	contents = newlist(/obj/item/shield/v1_arm)
 	actions_types = list(/datum/action/item_action/organ_action/toggle/v1_arm)
+	augment_state = "v1_arm"
+	do_extra_render = TRUE
 	var/disabled = FALSE
 
 /obj/item/organ/internal/cyberimp/arm/v1_arm/emp_act(severity)
@@ -758,3 +882,253 @@
 		qdel(src)
 		qdel(item)
 	return ..()
+
+/obj/item/organ/internal/cyberimp/arm/muscle
+	name = "strong-arm empowered musculature implant"
+	desc = "При установке этот кибернетический имплант усиливает мышцы руки, обеспечивая увеличивающуюся с каждым ударом силу. Достаточно установить только в одну руку."
+	icon_state = "muscle_imp"
+	parent_organ_zone = BODY_ZONE_L_ARM //Left arm by default
+	slot = INTERNAL_ORGAN_L_ARM_DEVICE
+	actions_types = list()
+	augment_state = "strongarm"
+	materials = list(MAT_GOLD = 5000, MAT_METAL = 10000, MAT_TITANIUM = 3000, MAT_BLUESPACE = 2000)
+	var/datum/martial_art/muscle_implant/muscle_implant
+
+/obj/item/organ/internal/cyberimp/arm/muscle/get_ru_names()
+	return alist(
+		NOMINATIVE = "имплант усиленной мускулатуры \"Сильная рука\"",
+		GENITIVE = "импланта усиленной мускулатуры \"Сильная рука\"",
+		DATIVE = "импланту усиленной мускулатуры \"Сильная рука\"",
+		ACCUSATIVE = "имплант усиленной мускулатуры \"Сильная рука\"",
+		INSTRUMENTAL = "имплантом усиленной мускулатуры \"Сильная рука\"",
+		PREPOSITIONAL = "импланте усиленной мускулатуры \"Сильная рука\"",
+	)
+
+/obj/item/organ/internal/cyberimp/arm/muscle/Initialize(mapload)
+	. = ..()
+	muscle_implant = new()
+
+/obj/item/organ/internal/cyberimp/arm/muscle/Destroy()
+	QDEL_NULL(muscle_implant)
+	return ..()
+
+/obj/item/organ/internal/cyberimp/arm/muscle/insert(mob/living/carbon/arm_owner, special, dont_remove_slot)
+	. = ..()
+	muscle_implant.teach(arm_owner, TRUE)
+
+/obj/item/organ/internal/cyberimp/arm/muscle/remove(mob/living/carbon/arm_owner, special)
+	. = ..()
+	muscle_implant.remove(arm_owner)
+
+/obj/item/organ/internal/cyberimp/arm/muscle/emp_act(severity)
+	. = ..()
+	if(emp_proof)
+		return
+	muscle_implant.emp_act(severity, owner)
+
+// Razorwire implant, long reach whip made of extremely thin wire, ouch!
+
+/obj/item/melee/razorwire
+	name = "implanted razorwire"
+	desc = "Длинный отрезок мономолекулярной нити, встроенный в тыльную сторону вашей руки. \
+		Невероятно тонкая и безупречно острая, она без труда прорежет органические материалы; \
+		даже с нескольких шагов. Однако результат против чего-либо более прочного будет сильно различаться."
+	icon = 'icons/obj/weapons/energy_melee.dmi'
+	icon_state = "razorwire"
+	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/implants_lefthand.dmi'
+	w_class = WEIGHT_CLASS_BULKY
+	sharp = TRUE
+	force = 30
+	armour_penetration = -10
+	reach = 2
+	hitsound = 'sound/weapons/whip.ogg'
+	attack_verb = list("полосует", "хлещет", "стегает", "рассекает")
+
+/obj/item/melee/razorwire/get_ru_names()
+	return alist(
+		NOMINATIVE = "имплантированная моноструна",
+		GENITIVE = "имплантированной моноструны",
+		DATIVE = "имплантированной моноструне",
+		ACCUSATIVE = "имплантированную моноструну",
+		INSTRUMENTAL = "имплантированной моноструной",
+		PREPOSITIONAL = "имплантированной моноструне",
+	)
+
+/obj/item/melee/razorwire/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		afterswing_slowdown = 0, \
+		swing_sound = SFX_ENERGY_SWORD_SWING \
+	)
+	AddElement(/datum/element/item_skins)
+
+/obj/item/melee/razorwire/Initialize(mapload)
+	. = ..()
+	var/random_colour = pick("razorwire", "razorwire_teal", "razorwire_yellow", "razorwire_purple", "razorwire_green")
+	icon_state = random_colour
+	update_icon()
+
+/obj/item/melee/razorwire/examine_more(mob/user)
+	. = ..()
+	. += "<i>Побочный продукт ошибок корпорации \"Киберсан\", превратившихся в концепцию, — катушка моноструны сама по себе является примечательной случайностью. \
+	Она состоит из тонкого нитевидного лазера, которым можно манипулировать и размахивать, как хлыстом. Разработанная для простоты развёртывания, нить выходит из запястья, \
+	позволяя пользователям с имплантом совершать широкие взмахи и точные порезы по мягким целям. Это та же энергия, что и в других распространённых энергетических оружиях, таких как мечи и кинжалы.</i>"
+	. += "<i>Инвестиции \"Киберсан\" в разработку энергетического оружия непреднамеренно привели к созданию катушки моноструны. Изначально пытаясь создать энергетический меч, \
+	они получили материал, который, хотя и был перегрет и правильно скомпонован, не смог сохранить форму твёрдого клинка. Заинтригованная этой ошибкой, \
+	\"Киберсан\" повторила процесс, получив энергию толщиной с проволоку. После нескольких прототипов они достигли длинной энергоподобной нити. \
+	Дальнейшие инновации позволили им спрятать это в контейнере размером с предплечье, \
+	с заменой кисти и запястья из того же прочного материала, что используется для сдерживания энергетического оружия. Они назвали это моноструной.</i>"
+	. += "<i>Пользуясь популярностью у убийц за скрытность и эффективность, \"Киберсан\" проявляет осторожность в распространении, отдавая предпочтение клиентам в своей милости. \
+	Она уступает другим энергетическим оружиям из-за более тонкого и свободного давления, однако ценится больше как вспомогательное оружие для незащищённых мягких целей.</i>"
+
+/datum/action/item_action/organ_action/toggle/razorwire
+	button_icon = 'icons/obj/surgery.dmi'
+	button_icon_state = "razorwire"
+
+/obj/item/organ/internal/cyberimp/arm/razorwire
+	name = "razorwire spool implant"
+	desc = "Встроенная катушка моноструны, которую можно использовать как оружие, хлеща ею по врагам. \
+		Встроена в тыльную сторону вашей руки — постарайтесь не запутаться."
+	contents = newlist(/obj/item/melee/razorwire)
+	icon_state = "razorwire"
+	actions_types = list(/datum/action/item_action/organ_action/toggle/razorwire)
+	origin_tech = "combat=5;biotech=5;syndicate=2"
+	materials = list(MAT_METAL = 5000, MAT_SILVER = 2000, MAT_DIAMOND = 2000, MAT_BLUESPACE = 2000)
+	augment_state = "razor" // Note: By default the autosurgeons apply the highest level of cover plating.
+	do_extra_render = TRUE
+
+/obj/item/organ/internal/cyberimp/arm/razorwire/get_ru_names()
+	return alist(
+		NOMINATIVE = "имплант катушки моноструны",
+		GENITIVE = "импланта катушки моноструны",
+		DATIVE = "импланту катушки моноструны",
+		ACCUSATIVE = "имплант катушки моноструны",
+		INSTRUMENTAL = "имплантом катушки моноструны",
+		PREPOSITIONAL = "импланте катушки моноструны",
+	)
+
+/obj/item/organ/internal/cyberimp/arm/razorwire/examine_more(mob/user)
+	. = ..()
+	for(var/obj/item in contents)
+		return item.examine_more(user)
+
+// Shell launch system, an arm mounted single-shot shotgun that comes out of your arm
+
+/obj/item/gun/projectile/revolver/doublebarrel/shell_launcher
+	name = "shell launch system"
+	desc = "Пушка, удобно размещённая в отсеке предплечья. Это устройство способно стрелять практически любым патроном для дробовика."
+	icon_state = "shell_cannon"
+	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/implants_lefthand.dmi'
+	weapon_weight = WEAPON_LIGHT
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/shell_cannon
+	can_reskin = FALSE
+	can_sawoff = FALSE
+
+/obj/item/gun/projectile/revolver/doublebarrel/shell_launcher/get_ru_names()
+	return alist(
+		NOMINATIVE = "система запуска снарядов",
+		GENITIVE = "системы запуска снарядов",
+		DATIVE = "системе запуска снарядов",
+		ACCUSATIVE = "систему запуска снарядов",
+		INSTRUMENTAL = "системой запуска снарядов",
+		PREPOSITIONAL = "системе запуска снарядов",
+	)
+
+/obj/item/gun/projectile/revolver/doublebarrel/shell_launcher/proc/missfire(mob/living/carbon/human/human, our_organ)
+	to_chat(human, span_warning("Ваша [declent_ru(NOMINATIVE)] да[PLUR_YOT_YUT(src)] осечку!"))
+	fast_fire(human, human, zone_override = our_organ)
+
+/obj/item/gun/projectile/revolver/doublebarrel/shell_launcher/examine_more(mob/user)
+	. = ..()
+	. += "<i>Классика \"Шеллгард\", система запуска снарядов (SLS) изначально была тяжёлым оружейным аксессуаром для МОД-костюма, \
+	позже разработанным в тактический дробовик-имплант для предплечья. Хотя компактная конструкция исключает использование крупных боеприпасов, таких как ракеты или горящая плазма, \
+	она превосходно стреляет различными мелкими снарядами, как энергетическими, так и кинетическими, благодаря своему продвинутому стволу из плазменного сплава.</i>"
+	. += "<i>Адаптация аксессуара, предназначенного для рукавицы механического костюма, создала значительные трудности, \
+	прежде всего в миниатюризации ствола и компонентов без ущерба для производительности. Ограничения изначально повредили её восприятию на рынке. \
+	Однако руководители позже переориентировали свою нишу на скрытое ношение и универсальные снаряды, \
+	сосредоточившись на развёртываемости и скрытности через нейронную активацию. \
+	Смена подхода привела к тому, что SLS стала рекламироваться как мощное и компактное оружие скрытого ношения, легко скрываемое и надёжно смертоносное.</i>"
+	. += "<i>Несмотря на первоначальные проблемы, сегодня SLS пользуется большой популярностью на рынке имплантов, высоко ценится среди убийц, \
+	наёмников и любителей огнестрельного оружия. Её привлекательность заключается не только в скрытности, но и в совместимости с ассортиментом модульных продуктов \"Шеллгард\", \
+	а также в потенциале, выходящем за рамки заявленных возможностей.</i>"
+
+/obj/item/ammo_box/magazine/internal/shot/shell_cannon
+	name = "shell launch system internal magazine"
+	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
+	max_ammo = 1
+
+/obj/item/ammo_box/magazine/internal/shot/shell_cannon/get_ru_names()
+	return alist(
+		NOMINATIVE = "внутренний магазин системы запуска снарядов",
+		GENITIVE = "внутреннего магазина системы запуска снарядов",
+		DATIVE = "внутреннему магазину системы запуска снарядов",
+		ACCUSATIVE = "внутренний магазин системы запуска снарядов",
+		INSTRUMENTAL = "внутренним магазином системы запуска снарядов",
+		PREPOSITIONAL = "внутреннем магазине системы запуска снарядов",
+	)
+
+/datum/action/item_action/organ_action/toggle/shell_cannon
+	button_icon = 'icons/obj/surgery.dmi'
+	button_icon_state = "shell_cannon"
+
+/obj/item/organ/internal/cyberimp/arm/shell_launcher
+	name = "shell launch system implant"
+	desc = "Установленный однозарядный корпус для пушки запуска снарядов; способен стрелять патронами двенадцатого калибра."
+	contents = newlist(/obj/item/gun/projectile/revolver/doublebarrel/shell_launcher)
+	icon_state = "shell_cannon"
+	actions_types = list(/datum/action/item_action/organ_action/toggle/shell_cannon)
+	augment_state = "razor"
+	do_extra_render = TRUE
+
+/obj/item/organ/internal/cyberimp/arm/shell_launcher/get_ru_names()
+	return alist(
+		NOMINATIVE = "имплант системы запуска снарядов",
+		GENITIVE = "импланта системы запуска снарядов",
+		DATIVE = "импланту системы запуска снарядов",
+		ACCUSATIVE = "имплант системы запуска снарядов",
+		INSTRUMENTAL = "имплантом системы запуска снарядов",
+		PREPOSITIONAL = "импланте системы запуска снарядов",
+	)
+
+/obj/item/organ/internal/cyberimp/arm/shell_launcher/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
+	if(!owner)
+		return
+	if(emp_proof)
+		return
+	Retract()
+	for(var/obj/item/gun/projectile/revolver/doublebarrel/shell_launcher/gun in contents)
+		if(!gun?.chambered?.BB)//found a spent ammo
+			return
+
+		if(istype(gun.chambered, /obj/item/ammo_casing/shotgun/ion))
+			emp_proof = TRUE //This kills the server without it. Do not remove this.
+			gun.missfire(owner, parent_organ_zone)
+			emp_proof = FALSE
+			to_chat(owner, span_warning("Осечка [gun.chambered.declent_ru(GENITIVE)] приводит к поломке вашего [declent_ru(GENITIVE)]!"))
+			necrotize()
+			return
+		if(istype(gun.chambered, /obj/item/ammo_casing/shotgun/frag12))
+			gun.missfire(owner, parent_organ_zone)
+			var/obj/item/organ/external/probable_organ = owner.get_bodypart(parent_organ_zone)
+			if(probable_organ) //In case it gets popped off by the damage
+				probable_organ.droplimb(FALSE, DROPLIMB_BLUNT)
+			return
+		if(istype(gun.chambered, /obj/item/ammo_casing/shotgun/pulseslug))
+			gun.missfire(owner, parent_organ_zone)
+			var/obj/item/organ/external/probable_organ = owner.get_bodypart(parent_organ_zone)
+			if(probable_organ) //In case it gets popped off by the damage
+				probable_organ.droplimb(FALSE, DROPLIMB_BURN)
+			return
+		gun.chambered.BB.damage *= 2 //Stronger since it is inside you
+		gun.missfire(owner, parent_organ_zone)
+
+/obj/item/organ/internal/cyberimp/arm/shell_launcher/examine_more(mob/user)
+	. = ..()
+	for(var/obj/item in contents)
+		return item.examine_more(user)

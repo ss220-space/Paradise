@@ -74,6 +74,7 @@
 	context[SCREENTIP_CONTEXT_ALT_LMB] = "Turn [on ? "off" : "on"]"
 	if(!held_item)
 		return CONTEXTUAL_SCREENTIP_SET
+
 	switch(held_item.tool_behaviour)
 		if(TOOL_SCREWDRIVER)
 			context[SCREENTIP_CONTEXT_LMB] = "[panel_open ? "Close" : "Open"] panel"
