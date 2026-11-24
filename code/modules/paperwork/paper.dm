@@ -1,59 +1,3 @@
-/*
- * MARK: Paper
- * also scraps of paper
- */
-
-/*
-/obj/item/paper
-	name = "paper"
-	desc = "Пустой листок бумаги."
-	gender = FEMALE
-	icon = 'icons/obj/service/bureaucracy.dmi'
-	icon_state = "paper"
-	item_state = "paper"
-	w_class = WEIGHT_CLASS_TINY
-	throw_range = 1
-	throw_speed = 1
-	layer = 4
-	pressure_resistance = 0
-	slot_flags = ITEM_SLOT_HEAD
-	body_parts_covered = HEAD
-	resistance_flags = FLAMMABLE
-	max_integrity = 50
-	attack_verb = list("стукнул")
-	permeability_coefficient = 0.01
-	dog_fashion = /datum/dog_fashion/head
-	drop_sound = 'sound/items/handling/drop/paper_drop.ogg'
-	pickup_sound =  'sound/items/handling/pickup/paper_pickup.ogg'
-	custom_price = PAYCHECK_MIN * 0.05
-	var/header //Above the main body, displayed at the top
-	var/info		//What's actually written on the paper.
-	var/footer	//The bottom stuff before the stamp but after the body
-	var/info_links	//A different version of the paper which includes html links at fields and EOF
-	var/stamps		//The (text for the) stamps on the paper.
-	var/fields = 0		//Amount of user created fields
-	var/language = LANGUAGE_GALACTIC_COMMON //The language of paper. For now using only in case of Thetta
-	var/list/stamped
-	///Prevents stamp overflow
-	var/stamp_limit = 20
-	var/list/stamp_overlays
-	var/rigged = 0
-	var/spam_flag = 0
-	var/contact_poison // Reagent ID to transfer on contact
-	var/contact_poison_volume = 0
-	var/contact_poison_poisoner = null
-	var/paper_width = 400 //Width of the window that opens
-	var/paper_width_big = 600
-	var/paper_height = 400 //Height of the window that opens
-	var/paper_height_big = 700
-	var/joinable = TRUE
-
-	var/const/deffont = "Verdana"
-	var/const/signfont = "Times New Roman"
-	var/const/crayonfont = "Comic Sans MS"
-	var/time = "00:00"
-*/
-
 /**
  * Paper is now using markdown (like in github pull notes) for ALL rendering
  * so we do loose a bit of functionality but we gain in easy of use of
@@ -161,10 +105,6 @@
 	SIGNAL_HANDLER
 	SStgui.close_uis(src)
 
-// /obj/item/paper/update_overlays()
-// 	return LAZYCOPY(stamp_overlays)
-
-
 /// Determines whether this paper has been written or stamped to.
 /obj/item/paper/proc/is_empty()
 	return !(LAZYLEN(raw_text_inputs) || LAZYLEN(raw_stamp_data))
@@ -255,7 +195,7 @@
  * * font - The font to use.
  * * color - The font color to use.
  * * bold - Whether this text should be rendered completely bold.
- * * advanced_html - Boolean that is true when the writer has R_FUN permission, which sanitizes less HTML (such as images) from the new paper_input
+ * * advanced_html - Boolean that is true when the writer has R_EVENT permission, which sanitizes less HTML (such as images) from the new paper_input
  */
 /obj/item/paper/proc/add_raw_text(text, font, color, bold, advanced_html)
 	var/new_input_datum = new /datum/paper_input(
@@ -450,11 +390,6 @@ GAME_VERB_SRC(/obj/item/paper, rename, usr, "Rename paper", null)
 	if(ismovable(loc) && loc.IsContainedAtomAccessible(src, user))
 		return UI_INTERACTIVE
 	return ..()
-
-// /obj/item/paper/can_interact(mob/user)
-// 	if(ismovable(loc) && loc.IsContainedAtomAccessible(src, user))
-// 		return TRUE
-// 	return ..()
 
 /obj/item/paper/click_alt(mob/living/user)
 	// if(HAS_TRAIT(user, TRAIT_PAPER_MASTER))
@@ -770,18 +705,6 @@ GAME_VERB_SRC(/obj/item/paper, rename, usr, "Rename paper", null)
 		if("add_text")
 			var/paper_input = params["text"]
 
-			paper_input = replacetext(paper_input, "\[sign\]", "*[user.real_name]*")
-			paper_input = replacetext(paper_input, "\[time\]", station_time_timestamp())
-			paper_input = replacetext(paper_input, "\[date\]", GLOB.current_date_string)
-			paper_input = replacetext(paper_input, "\[station\]", station_name())
-			paper_input = replacetext(paper_input, "\[field\]", "\[____\]")
-
-			var/this_input_length = length_char(paper_input)
-
-			if(this_input_length == 0)
-				to_chat(user, pick("Writing block strikes again!", "You forgot to write anything!"))
-				return TRUE
-
 			// If the paper is on an unwritable noticeboard, this usually shouldn't be possible.
 			if(istype(loc, /obj/structure/noticeboard))
 				var/obj/structure/noticeboard/noticeboard = loc
@@ -802,6 +725,14 @@ GAME_VERB_SRC(/obj/item/paper, rename, usr, "Rename paper", null)
 			if(!user.can_write(holding))
 				return TRUE
 
+			paper_input = pencode_to_tgui(paper_input, user, holding)
+
+			var/this_input_length = length_char(paper_input)
+
+			if(this_input_length == 0)
+				to_chat(user, pick("Writing block strikes again!", "You forgot to write anything!"))
+				return TRUE
+
 			var/current_length = get_total_length()
 			var/new_length = current_length + this_input_length
 
@@ -818,7 +749,7 @@ GAME_VERB_SRC(/obj/item/paper, rename, usr, "Rename paper", null)
 			add_raw_text(paper_input, writing_implement_data["font"], writing_implement_data["color"], writing_implement_data["use_bold"], check_rights_for(user?.client, R_EVENT))
 
 			// log_paper("[key_name(user)] wrote to [name]: \"[paper_input]\"")
-			to_chat(user, "You have added to your paper masterpiece!");
+			to_chat(user, "You have added to your paper masterpiece!")
 
 			update_static_data_for_all_viewers()
 			update_appearance()
@@ -988,224 +919,6 @@ GAME_VERB_SRC(/obj/item/paper, rename, usr, "Rename paper", null)
 		LIST_PAPER_IS_SIGNATURE = is_signature,
 	)
 
-// /obj/item/paper/proc/show_content(mob/user, forceshow = FALSE, forcestars = FALSE, infolinks, view = TRUE, window_options, special_text = null)
-// 	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/paper)
-// 	assets.send(user)
-
-// 	var/data
-// 	var/stars = (!user.say_understands(null, GLOB.all_languages[language]) && !forceshow) || forcestars
-// 	if(stars) //assuming all paper is written in common is better than hardcoded type checks
-// 		data = "[header][stars(info)][footer][stamps]"
-// 	else
-// 		data = "[header]<div id='markdown'>[infolinks ? info_links : info]</div>[footer][stamps]"
-// 	if(CONFIG_GET(flag/twitch_censor))
-// 		for(var/char in GLOB.twitch_censor_list)
-// 			data = replacetext(data, char, GLOB.twitch_censor_list[char])
-// 	if(view)
-// 		if(!istype(src, /obj/item/paper/form) && length(info) > 1024)
-// 			paper_width = paper_width_big
-// 			paper_height = paper_height_big
-// 		var/datum/browser/popup = new(user, "Paper[UID()]", , paper_width, paper_height)
-// 		popup.include_default_stylesheet = FALSE
-// 		popup.set_content(special_text || data)
-// 		if(window_options)
-// 			popup.set_window_options(window_options)
-// 		if(!stars)
-// 			popup.add_script("marked.js", 'html/browser/marked.js')
-// 			popup.add_script("marked-paradise.js", 'html/browser/marked-paradise.js')
-// 		popup.add_head_content("<title>[name]</title>")
-// 		popup.open()
-// 	return data
-
-// /obj/item/paper/click_alt(mob/living/carbon/human/user)
-// 	if(is_pen(user.get_active_hand()))
-// 		rename(user)
-// 		return CLICK_ACTION_SUCCESS
-// 	if(user.is_in_hands(src))
-// 		ProcFoldPlane(user, src)
-// 		return CLICK_ACTION_SUCCESS
-
-// /obj/item/paper/proc/rename(mob/user)
-// 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-// 		to_chat(user, span_warning("You cut yourself on the paper."))
-// 		return
-// 	if(!user.is_literate())
-// 		to_chat(user, span_notice("You don't know how to read."))
-// 		return
-// 	var/n_name = rename_interactive(user)
-// 	if(isnull(n_name))
-// 		return
-// 	if(n_name != "")
-// 		desc = "This is a paper titled '" + name + "'."
-// 	else
-// 		desc = initial(desc)
-// 	add_fingerprint(user)
-
-// /obj/item/paper/attack_self(mob/living/user as mob)
-// 	user.examinate(src)
-// 	if(rigged && !spam_flag && (SSholiday.holidays && SSholiday.holidays[APRIL_FOOLS]))
-// 		spam_flag = TRUE
-// 		addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), 3 SECONDS)
-// 		playsound(loc, 'sound/items/bikehorn.ogg', 50, TRUE)
-
-// /obj/item/paper/attack_ai(mob/living/silicon/ai/user)
-// 	var/dist
-// 	if(isAI(user) && user.current) //is AI
-// 		dist = get_dist(src, user.current)
-// 	else //cyborg or AI not seeing through a camera
-// 		dist = get_dist(src, user)
-// 	if(dist < 2)
-// 		show_content(user, forceshow = TRUE)
-// 	else
-// 		show_content(user, forcestars = TRUE)
-
-// /obj/item/paper/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-// 	. = ..()
-// 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !ishuman(target))
-// 		return .
-
-// 	switch(user.zone_selected)
-// 		if(BODY_ZONE_PRECISE_EYES)
-// 			user.visible_message(
-// 				span_warning("[user] is trying to show the paper to [target]."),
-// 				span_notice("You hold up a paper and try to show it to [target]."),
-// 			)
-// 			if(!do_after(user, 0.7 SECONDS, target, NONE))
-// 				to_chat(user, span_warning("You fail to show the paper to [target]."))
-// 				return .
-// 			user.visible_message(
-// 				span_notice("[user] shows the paper to [target]."),
-// 				span_notice("You hold up a paper and show it to [target]."),
-// 			)
-// 			target.examinate(src)
-
-// 		if(BODY_ZONE_PRECISE_MOUTH)
-// 			if(target == user)
-// 				to_chat(user, span_notice("You wipe off your face with [src]."))
-// 			else
-// 				user.visible_message(
-// 					span_warning("[user] starts to wipe [target]'s face clean with [src]."),
-// 					span_notice("You start to wipe off [target]'s face."),
-// 				)
-// 				if(!do_after(user, 1 SECONDS, target))
-// 					return .
-// 				user.visible_message(
-// 					span_notice("[user] wipes [target]'s face clean with [src]."),
-// 					span_notice("You wipe off [target]'s face."),
-// 				)
-// 			target.lip_style = null
-// 			target.lip_color = null
-// 			target.update_body()
-
-// /obj/item/paper/attack_animal(mob/living/simple_animal/pet/dog/doggo)
-// 	if(!isdog(doggo)) // Only dogs can eat homework.
-// 		return
-// 	doggo.changeNext_move(CLICK_CD_MELEE)
-// 	if(world.time < doggo.last_eaten + 30 SECONDS)
-// 		to_chat(doggo, span_warning("You are too full to try eating [src] now."))
-// 		return
-
-// 	doggo.visible_message(
-// 		span_warning("[doggo] starts chewing the corner of [src]!"),
-// 		span_notice("You start chewing the corner of [src]."),
-// 		span_warning("You hear a quiet gnawing, and the sound of paper rustling.")
-// 	)
-// 	playsound(src, 'sound/effects/pageturn2.ogg', 100, TRUE)
-// 	if(!do_after(doggo, 10 SECONDS, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
-// 		return
-
-// 	if(world.time < doggo.last_eaten + 30 SECONDS) // Check again to prevent eating multiple papers at once.
-// 		to_chat(doggo, span_warning("You are too full to try eating [src] now."))
-// 		return
-// 	doggo.last_eaten = world.time
-
-// 	// 90% chance of a crumpled paper with illegible text.
-// 	if(prob(90))
-// 		var/message_ending = "."
-// 		var/obj/item/paper/crumpled/crumped = new(loc)
-// 		crumped.name = name
-// 		if(info) // Something written on the paper.
-// 			crumped.info = "<i>Whatever was once written here has been made completely illegible by a combination of chew marks and saliva.</i>"
-// 			message_ending = ", the drool making it an unreadable mess!"
-// 		crumped.update_icon()
-// 		qdel(src)
-
-// 		doggo.visible_message(
-// 			span_warning("[doggo] finishes eating [src][message_ending]"),
-// 			span_notice("You finish eating [src][message_ending]")
-// 		)
-// 		doggo.emote("bark")
-
-// 	// 10% chance of the paper just being eaten entirely.
-// 	else
-// 		doggo.visible_message(
-// 			span_warning("[doggo] swallows [src] whole!"),
-// 			span_notice("You swallow [src] whole. Tasty!")
-// 		)
-// 		playsound(doggo, 'sound/items/eatfood.ogg', 50, TRUE)
-// 		qdel(src)
-
-// /obj/item/paper/proc/addtofield(id, text, links = 0)
-// 	if(id > MAX_PAPER_FIELDS)
-// 		return
-
-// 	var/locid = 0
-// 	var/laststart = 1
-// 	var/textindex = 1
-// 	while(locid <= MAX_PAPER_FIELDS)
-// 		var/istart = 0
-// 		if(links)
-// 			istart = findtext_char(info_links, "<span class=\"paper_field\">", laststart)
-// 		else
-// 			istart = findtext_char(info, "<span class=\"paper_field\">", laststart)
-
-// 		if(!istart)
-// 			return // No field found with matching id
-
-// 		laststart = istart+1
-// 		locid++
-// 		if(locid == id)
-// 			var/iend = 1
-// 			if(links)
-// 				iend = findtext_char(info_links, "</span>", istart)
-// 			else
-// 				iend = findtext_char(info, "</span>", istart)
-
-// 			textindex = iend
-// 			break
-
-// 	if(links)
-// 		var/before = copytext_char(info_links, 1, textindex)
-// 		var/after = copytext_char(info_links, textindex)
-// 		info_links = before + text + after
-// 	else
-// 		var/before = copytext_char(info, 1, textindex)
-// 		var/after = copytext_char(info, textindex)
-// 		info = before + text + after
-// 		updateinfolinks()
-
-// /obj/item/paper/proc/updateinfolinks()
-// 	info_links = info
-// 	for(var/i in 1 to fields)
-// 		var/write_1 = "<font face=\"[deffont]\"><a href='byond://?src=[UID()];write=[i]'>write</a></font>"
-// 		var/write_2 = "<font face=\"[deffont]\"><a href='byond://?src=[UID()];auto_write=[i]'><span style=\"color: #409F47; font-size: 10px\">\[a\]</span></a></font>"
-// 		addtofield(i, "[write_1][write_2]", 1)
-// 	info_links = info_links + "<font face=\"[deffont]\"><a href='byond://?src=[UID()];write=end'>write</a></font>" + "<font face=\"[deffont]\"><a href='byond://?src=[UID()];auto_write=end'><span style=\"color: #409F47; font-size: 10px\">\[A\]</span></a></font>"
-
-// /obj/item/paper/proc/parsepencode(t, obj/item/pen/P, mob/user as mob)
-// 	t = pencode_to_html(html_encode(t), usr, P, TRUE, TRUE, TRUE, deffont, signfont, crayonfont)
-// 	return t
-
-// /obj/item/paper/proc/populatefields()
-// 	//Count the fields
-// 	var/laststart = 1
-// 	while(fields < MAX_PAPER_FIELDS)
-// 		var/i = findtext_char(info, "<span class=\"paper_field\">", laststart)
-// 		if(!i)
-// 			break
-// 		laststart = i+1
-// 		fields++
-
 /obj/item/paper/proc/openhelp(mob/user)
 	var/datum/browser/popup = new(user, "paper_help", "Pen Help")
 	popup.set_content({"
@@ -1231,254 +944,10 @@ GAME_VERB_SRC(/obj/item/paper, rename, usr, "Rename paper", null)
 		\[time\] : Inserts the current station time in HH:MM:SS.<br>"})
 	popup.open(FALSE)
 
-// /obj/item/paper/proc/topic_href_write(mob/user, id, input_element)
-// 	var/obj/item/item_write = user.get_active_hand() // Check to see if he still got that darn pen, also check if he's using a crayon or pen.
-// 	add_hiddenprint(user) // No more forging nasty documents as someone else, you jerks
-// 	if(!is_pen(item_write) && !iscrayon(item_write))
-// 		return
-
-// 	if(is_pen(item_write)) // Can't use TRAIT_TRANSFORM_ACTIVE cause you can click multipen or fountain pen
-// 		var/obj/item/pen/writing_pen = item_write
-// 		if(!writing_pen.can_write)
-// 			balloon_alert(user, "защёлкнуто!")
-// 			return
-
-// 	if(loc != user && !Adjacent(user, recurse = 2) && !loc.Adjacent(user))
-// 		return // If paper is not in usr, then it must be near them
-
-// 	input_element = parsepencode(input_element, item_write, user) // Encode everything from pencode to html
-
-// 	if(QDELETED(src) || !loc || (loc != user && !Adjacent(user, recurse = 2) && !loc.Adjacent(user)))
-// 		return
-
-// 	if(id != "end")
-// 		addtofield(text2num(id), input_element) // He wants to edit a field, let him.
-// 	else
-// 		info += input_element // Oh, he wants to edit to the end of the file, let him.
-
-// // 	populatefields()
-// 	updateinfolinks()
-// 	item_write.on_write(src, user)
-// 	show_content(user, forceshow = TRUE, infolinks = TRUE)
-// 	update_icon()
-
-// /obj/item/paper/Topic(href, href_list)
-// 	..()
-// 	if(!usr || usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-// 		return
-
-// 	if(href_list["auto_write"])
-// 		var/id = href_list["auto_write"]
-
-// 		var/const/sign_text = "\[Поставить подпись\]"
-// 		var/const/account_text = "\[Написать номер аккаунта\]"
-// 		var/const/pin_text = "\[Написать пин-код\]"
-// 		var/const/time_text = "\[Написать текущее время\]"
-// 		var/const/date_text = "\[Написать текущую дату\]"
-// 		var/const/station_text = "\[Написать название станции\]"
-// 		var/const/gender_text = "\[Указать пол\]"
-// 		var/const/species_text = "\[Указать расу\]"
-
-// 		var/list/menu_list = list()	// text items in the menu
-
-// 		menu_list.Add(usr.real_name)	// the real name of the character, even if it is hidden
-
-// 		if(usr.real_name != usr.name && lowertext(usr.name) != lowertext(UNKNOWN_NAME_RUS))	// if the player is masked or the name is different a new answer option is added
-// 			menu_list.Add(usr.name)
-
-// 		if(usr.job)
-// 			menu_list.Add(get_job_title_ru(usr.job))	// job
-
-// 		menu_list.Add(sign_text)	//signature
-
-// 		if(usr.mind?.initial_account?.account_number)
-// 			menu_list.Add(account_text)	// account number
-
-// 		if(usr.mind?.initial_account?.remote_access_pin)
-// 			menu_list.Add(pin_text)	// account pin-code
-
-// 		menu_list.Add(
-// 			time_text,		// time
-// 			date_text,		// date
-// 			station_text,	// station name
-// 			gender_text,	// gender
-// 		)
-
-// 		if(usr.dna?.species)
-// 			menu_list.Add(species_text)	//current
-
-// 		var/input_element = tgui_input_list(usr, "Выберите текст который хотите добавить:", "Выбор пункта", menu_list)
-// 		if(!input_element)
-// 			return
-
-// 		switch(input_element)	//format selected menu items in pencode and internal data
-// 			if(sign_text)
-// 				input_element = "\[sign\]"
-// 			if(time_text)
-// 				input_element = "\[time\]"
-// 			if(date_text)
-// 				input_element = "\[date\]"
-// 			if(station_text)
-// 				input_element = "\[station\]"
-// 			if(account_text)
-// 				input_element = usr.mind.initial_account.account_number
-// 			if(pin_text)
-// 				input_element = usr.mind.initial_account.remote_access_pin
-// 			if(gender_text)
-// 				input_element = usr.gender
-// 			if(species_text)
-// 				input_element = usr.dna.species
-
-// 		topic_href_write(usr, id, input_element)
-
-// 	if(href_list["write"])
-// 		var/id = href_list["write"]																			/* Becаuse HTML */
-// 		var/input_element = tgui_input_text(usr, "Enter what you want to write:", "Write", multiline = TRUE, max_length = 3000, encode = FALSE)
-
-// 		topic_href_write(usr, id, input_element)
-
-// /obj/item/paper/attackby(obj/item/I, mob/living/user, params)
-// 	if(resistance_flags & ON_FIRE)
-// 		return ATTACK_CHAIN_BLOCKED_ALL
-
-// 	if(I.get_temperature())
-// 		if(!Adjacent(user)) //to prevent issues as a result of telepathically lighting a paper
-// 			return ATTACK_CHAIN_BLOCKED_ALL
-
-// 		add_fingerprint(user)
-// 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
-// 			user.visible_message(
-// 				span_warning("[user] accidentally ignites [user.p_them()]self!"),
-// 				span_userdanger("You miss the paper and accidentally light yourself on fire!"),
-// 			)
-// 			user.drop_item_ground(I)
-// 			user.adjust_fire_stacks(1)
-// 			user.IgniteMob()
-// 			return ATTACK_CHAIN_BLOCKED_ALL
-
-// 		user.drop_item_ground(src)
-// 		user.visible_message(
-// 			span_danger("[user] lights [src] ablaze with [I]!"),
-// 			span_danger("You light [src] on fire!"),
-// 		)
-// 		fire_act()
-// 		return ATTACK_CHAIN_BLOCKED_ALL
-
-// 	if(is_pen(I) || iscrayon(I))
-// 		add_fingerprint(user)
-// 		if(!user.is_literate())
-// 			to_chat(user, span_warning("You don't know how to write!"))
-// 			return ATTACK_CHAIN_PROCEED
-// 		var/obj/item/pen/multi/robopen/robopen = I
-// 		if(istype(I, /obj/item/pen/multi/robopen) && robopen.mode == 2)
-// 			robopen.RenamePaper(user,src)
-// 		else
-// 			show_content(user, infolinks = TRUE)
-// 		return ATTACK_CHAIN_BLOCKED_ALL
-
-// 	if(istype(I, /obj/item/stamp))
-// 		if(!Adjacent(user, recurse = 2))
-// 			return ATTACK_CHAIN_PROCEED
-// 		add_fingerprint(user)
-// 		if(istype(I, /obj/item/stamp/clown) && (user.mind && (user.mind.assigned_role != JOB_TITLE_CLOWN)))
-// 			to_chat(user, span_userdanger("You are totally unable to use the stamp. HONK!"))
-// 			return ATTACK_CHAIN_PROCEED
-// 		stamp(I)
-// 		to_chat(user, span_notice("You have stamped the paper with [I]."))
-// 		playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, TRUE)
-// 		return ATTACK_CHAIN_PROCEED
-
-// 	if(!istype(I, /obj/item/paper) && !istype(I, /obj/item/photo))
-// 		return ..()
-
-// 	add_fingerprint(user)
-
-// 	if(istype(I, /obj/item/paper/carbon))
-// 		var/obj/item/paper/carbon/carbon_paper = I
-// 		if(!carbon_paper.iscopy && !carbon_paper.copied)
-// 			to_chat(user, span_notice("Take off the carbon copy first."))
-// 			return .
-
-// 	if(!joinable)
-// 		return ATTACK_CHAIN_PROCEED
-
-// 	if(loc == user && !user.can_unEquip(src))
-// 		return ATTACK_CHAIN_PROCEED
-
-// 	if(!user.drop_transfer_item_to_loc(I, src))
-// 		return ATTACK_CHAIN_PROCEED
-
-// 	. = ATTACK_CHAIN_BLOCKED_ALL
-
-// 	var/obj/item/paper_bundle/bundle = new(drop_location(), FALSE)
-// 	transfer_fingerprints_to(bundle)
-// 	bundle.add_fingerprint(user)
-
-// 	if(name != "paper")
-// 		bundle.name = name
-// 	else if(I.name != "paper" && I.name != "photo")
-// 		bundle.name = I.name
-
-// 	to_chat(user, span_notice("You clip the [I.name] to [(name == "paper") ? "the paper" : name]."))
-
-// 	if(loc == user)
-// 		user.transfer_item_to_loc(src, bundle, silent = TRUE)
-// 		user.put_in_hands(bundle)
-// 	else
-// 		bundle.pixel_x = pixel_x
-// 		bundle.pixel_y = pixel_y
-// 		forceMove(bundle)
-
-// 	close_window(user, "[istype(I, /obj/item/paper) ? "Paper" : "Photo"][I.UID()]")
-// 	close_window(user, "Paper[UID()]")
-// 	bundle.papers += src
-// 	bundle.papers += I
-// 	bundle.amount++
-// 	bundle.update_appearance(UPDATE_ICON|UPDATE_DESC)
-
 /obj/item/paper/fire_act(exposed_temperature, exposed_volume)
 	..()
 	if(!(resistance_flags & FIRE_PROOF))
 		default_raw_text = "<i>Heat-curled corners and sooty words offer little insight. Whatever was once written on this page has been rendered illegible through fire.</i>"
-
-// /obj/item/paper/proc/stamp(obj/item/stamp/stamp, no_pixel_shift = FALSE, special_stamped, special_icon_state)
-// 	var/obj/item/stamp/stamp_path
-// 	if(!ispath(stamp, /obj/item/stamp))
-// 		if(istype(stamp, /obj/item/stamp))
-// 			stamp_path = stamp.type
-// 		else
-// 			CRASH("Wrong argument passed as a stamp value ([stamp]).")
-// 	else
-// 		stamp_path = stamp
-
-// 	var/stamp_count = LAZYLEN(stamped)
-// 	if(stamp_count >= stamp_limit)
-// 		return //can't fret over every stamp
-
-// 	LAZYADD(stamped, stamp_path)
-
-// 	var/new_icon_state = istype(stamp, /obj/item/stamp/chameleon) ? stamp.icon_state : special_icon_state ? special_icon_state : initial(stamp_path.icon_state)
-
-// 	if(!stamps)
-// 		stamps = "<hr>"
-// 	stamps += special_stamped ? special_stamped : "<img src=large_[new_icon_state].png>"
-
-// 	var/mutable_appearance/stampoverlay = mutable_appearance('icons/obj/service/bureaucracy.dmi', "paper_[new_icon_state]")
-// 	var/stamp_offset_w
-// 	var/stamp_offset_z
-// 	if(no_pixel_shift)
-// 		stamp_offset_w = 0
-// 		stamp_offset_z = 0
-// 	else if(ispath(stamp_path, /obj/item/stamp/captain) || ispath(stamp_path, /obj/item/stamp/centcom))
-// 		stamp_offset_w = rand(-2, 0)
-// 		stamp_offset_z = rand(-1, 2)
-// 	else
-// 		stamp_offset_w = rand(-2, 2)
-// 		stamp_offset_z = rand(-3, 2)
-// 	stampoverlay.pixel_w = stamp_offset_w
-// 	stampoverlay.pixel_z = stamp_offset_z
-// 	LAZYADD(stamp_overlays, stampoverlay)
-// 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/paper/proc/stamp(obj/item/stamp/stamp_target)
 	var/stamp_state
