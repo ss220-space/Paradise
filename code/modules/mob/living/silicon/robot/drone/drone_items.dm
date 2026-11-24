@@ -41,6 +41,7 @@
 
 	//Item currently being held.
 	var/obj/item/gripped_item = null
+	var/selection_revision = 0
 
 /obj/item/gripper/get_ru_names()
 	return alist(
@@ -234,32 +235,14 @@
 		PREPOSITIONAL = "ядерном захвате",
 	)
 
-/obj/item/gripper/construction
-	name = "construction gripper"
-	desc = "Магнитный захват для работы со строительными материалами."
-	can_hold = list(
-		/obj/item/stack/sheet/plasteel,
-		/obj/item/stack/sheet/plasmaglass,
-		/obj/item/stack/sheet/plasmarglass,
-	)
-	var/selection_revision = 0
-
-/obj/item/gripper/construction/get_ru_names()
-	return alist(
-		NOMINATIVE = "строительный захват",
-		GENITIVE = "строительного захвата",
-		DATIVE = "строительному захвату",
-		ACCUSATIVE = "строительный захват",
-		INSTRUMENTAL = "строительным захватом",
-		PREPOSITIONAL = "строительном захвате",
-	)
-
+/obj/item/gripper/proc/can_craft_with_sheet(obj/item/stack/material)
+	return type == /obj/item/gripper && (istype(material, /obj/item/stack/sheet/plasteel) || istype(material, /obj/item/stack/sheet/plasmaglass) || istype(material, /obj/item/stack/sheet/plasmarglass))
 
 /obj/item/stack/sheet/ui_host(mob/user)
-	var/obj/item/gripper/construction/gripper = loc
+	var/obj/item/gripper/gripper = loc
 	if(!istype(gripper) || QDELETED(gripper) || !isrobot(user) || QDELETED(src))
 		return ..()
-	if(!istype(src, /obj/item/stack/sheet/plasteel) && !istype(src, /obj/item/stack/sheet/plasmaglass) && !istype(src, /obj/item/stack/sheet/plasmarglass))
+	if(!gripper.can_craft_with_sheet(src))
 		return ..()
 	var/mob/living/silicon/robot/robot = user
 	if(QDELETED(robot) || robot.module_active != gripper || !robot.activated(gripper) || gripper.loc != robot || gripper.gripped_item != src)
@@ -268,6 +251,11 @@
 
 /obj/item/gripper/Initialize(mapload)
 	. = ..()
+	if(type == /obj/item/gripper)
+		can_hold = can_hold + list(
+			/obj/item/stack/sheet/plasmaglass,
+			/obj/item/stack/sheet/plasmarglass,
+		)
 	can_hold = typecacheof(can_hold)
 
 /obj/item/gripper/attack_self(mob/user)

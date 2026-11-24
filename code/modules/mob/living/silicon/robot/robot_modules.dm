@@ -432,7 +432,6 @@
 	modules += new /obj/item/holosign_creator/engineering(src)
 	modules += new /obj/item/holosign_creator/atmos(src)
 	modules += new /obj/item/gripper(src)
-	modules += new /obj/item/gripper/construction(src)
 	modules += new /obj/item/matter_decompiler(src)
 	modules += new /obj/item/floor_painter(src)
 	modules += new /obj/item/airlock_painter(src)
@@ -454,8 +453,9 @@
 	return
 
 /obj/item/robot_module/engineering/handle_death(mob/living/silicon/robot/R, gibbed)
-	for(var/obj/item/gripper/gripper in modules)
-		gripper.drop_gripped_item(silent = TRUE)
+	var/obj/item/gripper/G = locate(/obj/item/gripper) in modules
+	if(G)
+		G.drop_gripped_item(silent = TRUE)
 
 /obj/item/robot_module/engineering/ert
 	name = "Combat Engineering"

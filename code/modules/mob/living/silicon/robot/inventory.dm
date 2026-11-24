@@ -26,8 +26,8 @@
 		return 0
 
 
-	if(module_active == O && istype(O, /obj/item/gripper/construction))
-		var/obj/item/gripper/construction/gripper = O
+	if(module_active == O && O.type == /obj/item/gripper)
+		var/obj/item/gripper/gripper = O
 		gripper.selection_revision++
 
 	O.dropped(src)
@@ -236,9 +236,10 @@
 	if(module < 1 || module > 3)
 		return
 
-	if(module_selected(module) && istype(module_active, /obj/item/gripper/construction))
-		var/obj/item/gripper/construction/gripper = module_active
-		gripper.selection_revision++
+	if(module_selected(module) && istype(module_active, /obj/item/gripper))
+		var/obj/item/gripper/gripper = module_active
+		if(gripper.type == /obj/item/gripper)
+			gripper.selection_revision++
 
 	if(iscyborgmobilitymodule(module_active))
 		remove_movespeed_modifier(/datum/movespeed_modifier/destroyer_mobility)

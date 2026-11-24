@@ -141,22 +141,24 @@
 	return TRUE
 
 /// Check that the construction material remains in the selected gripper and its UI is still usable.
-/datum/stack_recipe/proc/can_build_with_construction_gripper(mob/living/silicon/robot/robot, obj/item/stack/material, obj/item/gripper/construction/gripper, selection_revision)
+/datum/stack_recipe/proc/can_build_with_magnetic_gripper(mob/living/silicon/robot/robot, obj/item/stack/material, obj/item/gripper/gripper, selection_revision)
 	if(QDELETED(robot) || QDELETED(material) || QDELETED(gripper))
 		return FALSE
-	return robot.module_active == gripper && gripper.selection_revision == selection_revision && gripper.gripped_item == material && material.loc == gripper && material.ui_status(robot, GLOB.hands_state) == UI_INTERACTIVE
+	return gripper.can_craft_with_sheet(material) && robot.module_active == gripper && gripper.selection_revision == selection_revision && gripper.gripped_item == material && material.loc == gripper && material.ui_status(robot, GLOB.hands_state) == UI_INTERACTIVE
 
 /// Creates the atom defined by the recipe. Should always return the object it creates or FALSE. This proc assumes that the construction is already possible; for checking whether a recipe *can* be built before construction, use try_build()
 /datum/stack_recipe/proc/do_build(mob/user, obj/item/stack/material, multiplier, atom/result)
 	var/action_target = material.loc
 	var/datum/callback/gripper_check
-	if(isrobot(user) && istype(material.loc, /obj/item/gripper/construction))
-		var/obj/item/gripper/construction/gripper = material.loc
-		gripper_check = CALLBACK(src, PROC_REF(can_build_with_construction_gripper), user, material, gripper, gripper.selection_revision)
-		if(!gripper_check.Invoke())
-			return FALSE
-		// Monitor both the gripper and the stack so dropping the stack cancels construction.
-		action_target = list(gripper, material)
+	if(isrobot(user) && istype(material.loc, /obj/item/gripper))
+		var/obj/item/gripper/gripper = material.loc
+		if(gripper.can_craft_with_sheet(material))
+			gripper_check = CALLBACK(src, PROC_REF(can_build_with_magnetic_gripper), user, material, gripper, gripper.selection_revision)
+			if(!gripper_check.Invoke())
+				return FALSE
+			// Monitor both the gripper and the stack so dropping the stack cancels construction.
+			action_target = list(gripper, material)
+
 	if(time)
 		to_chat(user, span_notice("Building [title]..."))
 		var/calculated_time = time
