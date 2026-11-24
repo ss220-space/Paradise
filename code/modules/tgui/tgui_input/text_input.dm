@@ -33,14 +33,10 @@
 	if(user.client?.prefs?.toggles2 & PREFTOGGLE_2_DISABLE_TGUI_INPUT)
 		if(encode)
 			max_length = max_length ? max_length : MAX_MESSAGE_LEN
-			var/result
 			if(multiline)
-				result = stripped_multiline_input(user, message, title, default, PREVENT_CHARACTER_TRIM_LOSS(max_length))
+				return stripped_multiline_input(user, message, title, default, PREVENT_CHARACTER_TRIM_LOSS(max_length))
 			else
-				result = stripped_input(user, message, title, default, PREVENT_CHARACTER_TRIM_LOSS(max_length))
-			result = replacetext(result, "&#34;", "\"")
-			result = replacetext(result, "&#39;", "'")
-			return result
+				return stripped_input(user, message, title, default, PREVENT_CHARACTER_TRIM_LOSS(max_length))
 		else
 			if(multiline)
 				return input(user, message, title, default) as message|null
@@ -168,6 +164,4 @@
 		return
 
 	var/converted_entry = encode ? html_encode(entry) : entry
-	converted_entry = replacetext(converted_entry, "&#34;", "\"")
-	converted_entry = replacetext(converted_entry, "&#39;", "'")
 	src.entry = max_length ? trim(converted_entry, PREVENT_CHARACTER_TRIM_LOSS(max_length)) : converted_entry
