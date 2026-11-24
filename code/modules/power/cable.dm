@@ -75,6 +75,9 @@ GLOBAL_LIST_INIT(wire_node_generating_types, typecacheof(list(
 
 /obj/structure/cable/add_context(atom/source, list/context, obj/item/held_item, mob/user)
 	. = NONE
+	if(!held_item)
+		return
+
 	switch(held_item.tool_behaviour)
 		if(TOOL_WIRECUTTER)
 			context[SCREENTIP_CONTEXT_LMB] = "Разобрать"
