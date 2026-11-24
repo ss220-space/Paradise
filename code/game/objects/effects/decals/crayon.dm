@@ -29,10 +29,12 @@
 		maptext_y = round(9 * scale) - offset
 		var/outline_style = outline_color ? "-dm-text-outline: 1px [outline_color];" : ""
 		maptext = "<div style='width: [box_size]px; text-align: center; font-family: [font_family]; font-size: [rendered_size]px; color: [main]; [outline_style]'>[html_encode(text_char)]</div>"
+		var/shear_x = rand(-18, 18) / 100
+		var/matrix/transform_matrix = matrix(1, shear_x, 0, 0, 1, 0)
 		if(rotation != 0)
-			var/matrix/transform_matrix = matrix()
 			transform_matrix.Turn(rotation)
-			transform = transform_matrix
+		transform = transform_matrix
+
 	else
 		icon_state = type
 		color = main
