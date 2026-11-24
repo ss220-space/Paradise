@@ -106,9 +106,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	real_name = name
 
 	//starts ghosts off with all HUDs.
-	show_me_the_hud(THOUGHTS_HUD)
-	if(ismob(body))
-		toggle_all_huds_on(body)
+	toggle_all_huds_on(body)
 	RegisterSignal(src, COMSIG_MOB_HUD_CREATED, PROC_REF(set_ghost_darkness_level)) //something something don't call this until we have a HUD
 	ADD_TRAIT(src, TRAIT_HEAR_THROUGH_DARKNESS, UNIQUE_TRAIT_SOURCE(src))
 
@@ -411,7 +409,8 @@ GAME_VERB(/mob/dead/observer, open_hud_panel, "HUD призраков", VERB_CAT
 	GLOB.ghost_hud_panel.ui_interact(src)
 
 /mob/dead/observer/proc/toggle_all_huds_on(mob/user)
-	show_me_the_hud(DATA_HUD_DIAGNOSTIC)
+	show_me_the_hud(THOUGHTS_HUD)
+	show_me_the_hud(DATA_HUD_DIAGNOSTIC_ADVANCED)
 	show_me_the_hud(DATA_HUD_SECURITY_ADVANCED)
 	show_me_the_hud(DATA_HUD_MEDICAL_ADVANCED)
 	if(!check_rights((R_ADMIN | R_MOD), FALSE, user))
@@ -424,7 +423,7 @@ GAME_VERB(/mob/dead/observer, open_hud_panel, "HUD призраков", VERB_CAT
  * Toggles off all HUDs for the ghost player.
  */
 /mob/dead/observer/proc/toggle_all_huds_off()
-	remove_the_hud(DATA_HUD_DIAGNOSTIC)
+	remove_the_hud(THOUGHTS_HUD)
 	remove_the_hud(DATA_HUD_DIAGNOSTIC_ADVANCED)
 	remove_the_hud(DATA_HUD_SECURITY_ADVANCED)
 	remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
