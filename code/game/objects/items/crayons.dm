@@ -540,8 +540,8 @@
 		if("set_font")
 			var/picked_font = params["font"]
 			if(istext(picked_font))
-				for(var/font_name in spray_fonts)
-					if(spray_fonts[font_name] == picked_font)
+				for(var/font_name, font_family in spray_fonts)
+					if(font_family == picked_font)
 						spray_font = picked_font
 						break
 			return TRUE
@@ -557,14 +557,15 @@
 			return TRUE
 
 /obj/item/toy/crayon/spraycan/proc/advance_to_drawable_char()
-	var/text_len = length_char(spray_text)
+	var/cached_text = spray_text
+	var/text_len = length_char(cached_text)
 	if(!text_len)
 		text_index = 1
 		return
 	var/checked = 0
 	while(checked < text_len)
-		var/ch = copytext_char(spray_text, text_index, text_index + 1)
-		if(ch != " ")
+		var/current_char = copytext_char(cached_text, text_index, text_index + 1)
+		if(current_char != " ")
 			return
 		text_index++
 		checked++
