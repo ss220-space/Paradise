@@ -556,8 +556,6 @@
 					outline_mode = SPRAYCAN_OUTLINE_CUSTOM
 			return TRUE
 
-
-
 /obj/item/toy/crayon/spraycan/proc/advance_to_drawable_char()
 	var/text_len = length_char(spray_text)
 	if(!text_len)
