@@ -19,6 +19,7 @@ import './styles/themes/securestorage.scss';
 import './styles/themes/security.scss';
 import './styles/themes/spider_clan.scss';
 import './styles/themes/nologo.scss';
+import './styles/themes/paper.scss';
 import './styles/themes/spider_clan.scss';
 import './styles/themes/brg.scss';
 

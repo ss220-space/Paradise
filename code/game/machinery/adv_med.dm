@@ -414,10 +414,10 @@ GAME_VERB_SRC(/obj/machinery/bodyscanner, eject, oview(1), "Извлечь па�
 			sleep(3 SECONDS)
 			var/obj/item/paper/P = new /obj/item/paper(loc)
 			var/name = occupant ? occupant.name : UNKNOWN_NAME_RUS
-			P.info = "<center><b>Отчёт по сканированию пациента — [name]</b></center><br>"
-			P.info += "<b>Время сканирования</b> [station_time_timestamp()]<br><br>"
-			P.info += "[generate_printing_text()]"
-			P.info += "<br><br><b>Заметки:</b><br>"
+			P.add_raw_text("<center>**Отчёт по сканированию пациента — [name]**</center>\n")
+			P.add_raw_text("**Время сканирования** [station_time_timestamp()]\n\n")
+			P.add_raw_text("[generate_printing_text()]")
+			P.add_raw_text("\n\n**Заметки:**\n")
 			P.name = "Отчёт по сканированию пациента — [name]"
 			isPrinting = FALSE
 		if("insurance")

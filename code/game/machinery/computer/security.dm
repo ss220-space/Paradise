@@ -445,7 +445,7 @@
 						return
 					is_printing = TRUE
 					playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
-					addtimer(CALLBACK(src, PROC_REF(print_cell_log_finish), T.name, T.info), 5 SECONDS)
+					addtimer(CALLBACK(src, PROC_REF(print_cell_log_finish), T.name, T.get_raw_text()), 5 SECONDS)
 				else
 					return FALSE
 		else
@@ -456,14 +456,15 @@
  */
 /obj/machinery/computer/secure_data/proc/print_record_finish()
 	var/obj/item/paper/P = new(loc)
-	P.info = "<center><b>Security Record</b></center><br>"
+	P.add_raw_text("<center>**Security Record**</center>\n")
 	if(record_general && GLOB.data_core.general.Find(record_general))
-		P.info += {"Name: [record_general.fields["name"]] ID: [record_general.fields["id"]]
+		P.add_raw_text({"Name: [record_general.fields["name"]] ID: [record_general.fields["id"]])
 				<br>\nSex: [record_general.fields["sex"]]
 				<br>\nAge: [record_general.fields["age"]]
 				<br>\nFingerprint: [record_general.fields["fingerprint"]]
 				<br>\nPhysical Status: [record_general.fields["p_stat"]]
 				<br>\nMental Status: [record_general.fields["m_stat"]]<br>"}
+		)
 		P.name = "paper - 'Security Record: [record_general.fields["name"]]'"
 		var/obj/item/photo/photo = new(loc)
 		//photo.img = record_general.fields["photo"]
@@ -474,9 +475,9 @@
 		photo.img = new_photo
 		photo.name = "photo - 'Security Record: [record_general.fields["name"]]'"
 	else
-		P.info += "<b>General Record Lost!</b><br>"
+		P.add_raw_text("**General Record Lost!**\n")
 	if(record_security && GLOB.data_core.security.Find(record_security))
-		P.info += {"<br>\n<center><b>Security Data</b></center>
+		P.add_raw_text({"\n\n<center>**Security Data**</center>)
 		<br>\nCriminal Status: [record_security.fields["criminal"]]<br>\n
 		<br>\nMinor Crimes: [record_security.fields["mi_crim"]]
 		<br>\nDetails: [record_security.fields["mi_crim_d"]]<br>\n
@@ -484,10 +485,11 @@
 		<br>\nDetails: [record_security.fields["ma_crim_d"]]<br>\n
 		<br>\nImportant Notes:
 		<br>\n\t[record_security.fields["notes"]]<br>\n<br>\n<center><b>Comments/Log</b></center><br>"}
+		)
 		for(var/c in record_security.fields["comments"])
-			P.info += "[c]<br>"
+			P.add_raw_text("[c]\n")
 	else
-		P.info += "<b>Security Record Lost!</b><br>"
+		P.add_raw_text("**Security Record Lost!**\n")
 	is_printing = FALSE
 	SStgui.update_uis(src)
 
@@ -497,7 +499,7 @@
 /obj/machinery/computer/secure_data/proc/print_cell_log_finish(name, info)
 	var/obj/item/paper/P = new(loc)
 	P.name = name
-	P.info = info
+	P.add_raw_text(info)
 	is_printing = FALSE
 	SStgui.update_uis(src)
 

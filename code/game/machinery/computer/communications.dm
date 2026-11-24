@@ -407,16 +407,16 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 	var/obj/item/paper/P = new /obj/item/paper(get_turf(src))
 	P.name = "'КОНФИДЕНЦИАЛЬНО' - [station_name()] Коды от ядерной боеголовки"
-	P.info = "<center>&ZeroWidthSpace;<img src='ntlogo.png'><br><b>КОНФИДЕНЦИАЛЬНО</b></center><br><hr>"
+	P.add_raw_text("<center>&ZeroWidthSpace;<img src='ntlogo.png'>\n**КОНФИДЕНЦИАЛЬНО**</center>\n\n---\n")
 
-	P.info += "Коды от ядерной боеголовки станции [station_name()] - [get_nuke_code()].<br>"
+	P.add_raw_text("Коды от ядерной боеголовки станции [station_name()] - [get_nuke_code()].\n")
 	switch(get_nuke_status())
 		if(NUKE_MISSING)
-			P.info += "Сканеры дальнего действия не могут обнаружить боеголовку на станции."
+			P.add_raw_text("Сканеры дальнего действия не могут обнаружить боеголовку на станции.")
 		if(NUKE_CORE_MISSING)
-			P.info += "Сканеры дальнего действия не обнаруживают радиоактивных сигнатур внутри устройства."
+			P.add_raw_text("Сканеры дальнего действия не обнаруживают радиоактивных сигнатур внутри устройства.")
 
-	P.info += span_fontsize1("<br><hr>Несоблюдение нормативных требований компании по конфиденциальности может привести к немедленному увольнению по приказу сотрудников Центрального командования.")
+	P.add_raw_text(span_fontsize1("\n\n---\nНесоблюдение нормативных требований компании по конфиденциальности может привести к немедленному увольнению по приказу сотрудников Центрального командования."))
 
 /proc/directive_7_12()
 	var/nukecode = GLOB.nuke_codes[/obj/machinery/nuclearbomb]
@@ -682,7 +682,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 		if(!(C.stat & (BROKEN|NOPOWER)) && is_station_contact(C.z))
 			var/obj/item/paper/P = new (C.loc)
 			P.name = "paper- '[title]'"
-			P.info = text
+			P.add_raw_text(text)
 			if(add_to_records)
 				C.messagetitle.Add("[title]")
 				C.messagetext.Add(text)
@@ -695,7 +695,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 		if(!(C.stat & (BROKEN|NOPOWER)) && is_admin_level(C.z))
 			var/obj/item/paper/P = new /obj/item/paper(C.loc)
 			P.name = "paper- '[title]'"
-			P.info = text
+			P.add_raw_text(text)
 			P.update_icon()
 			C.messagetitle.Add("[title]")
 			C.messagetext.Add(text)

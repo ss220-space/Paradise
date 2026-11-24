@@ -61,43 +61,43 @@
 		var/obj/item/forensics/swab/swab = sample
 
 		report.name = ("Криминалистический отчет №[++report_num]: [swab.name]")
-		report.info = "<b>Анализируемый объект:</b><br>[swab.name]<br><br>"
+		report.add_raw_text("**Анализируемый объект:**\n[swab.name]\n\n")
 
 		if(swab.gsr)
-			report.info += "Определен остаток от пули [swab.gsr] калибра."
+			report.add_raw_text("Определен остаток от пули [swab.gsr] калибра.")
 		else
-			report.info += "Пороховой остаток от пули не найден."
+			report.add_raw_text("Пороховой остаток от пули не найден.")
 
 	else if(istype(sample, /obj/item/sample/fibers))
 		var/obj/item/sample/fibers/fibers = sample
 		report.name = ("Отчет по фрагменту ткани №[++report_num]: [fibers.name]")
-		report.info = "<b>Анализируемый объект:</b><br>[fibers.name]<br><br>"
+		report.add_raw_text("**Анализируемый объект:**\n[fibers.name]\n\n")
 		if(fibers.evidence)
-			report.info = "Молекулярный анализ на предоставленном образце определил наличие уникальных волоконных струн.<br><br>"
+			report.add_raw_text("Молекулярный анализ на предоставленном образце определил наличие уникальных волоконных струн.\n\n")
 			for(var/fiber in fibers.evidence)
-				report.info += "[span_notice("Наиболее вероятное совпадение: [fiber]")]<br><br>"
+				report.add_raw_text("[span_notice("Наиболее вероятное совпадение: [fiber]")]\n\n")
 		else
-			report.info += "Волокна не найдены."
+			report.add_raw_text("Волокна не найдены.")
 	else if(istype(sample, /obj/item/sample/print))
 		report.name = ("Отчет по анализу отпечатков пальцев №[report_num]: [sample.name]")
-		report.info = "<b>Отчет об анализе отпечатков пальцев №[report_num]</b>: [sample.name]<br>"
+		report.add_raw_text("**Отчет об анализе отпечатков пальцев №[report_num]**: [sample.name]\n")
 		var/obj/item/sample/print/card = sample
 		if(card.evidence && length(card.evidence))
-			report.info += "<br>Поверхностный анализ определил следующие уникальные строки отпечатков пальцев:<br><br>"
+			report.add_raw_text("\nПоверхностный анализ определил следующие уникальные строки отпечатков пальцев:\n\n")
 			for(var/prints in card.evidence)
-				report.info += span_notice("Строка отпечатков пальцев: ")
+				report.add_raw_text(span_notice("Строка отпечатков пальцев: "))
 				if(!is_complete_print(prints))
-					report.info += "НЕПОЛНЫЙ ОТПЕЧАТОК"
+					report.add_raw_text("НЕПОЛНЫЙ ОТПЕЧАТОК")
 				else
-					report.info += "[prints]"
-				report.info += "<br>"
+					report.add_raw_text("[prints]")
+				report.add_raw_text("\n")
 		else
-			report.info += "Информация по анализу отсутствует."
+			report.add_raw_text("Информация по анализу отсутствует.")
 
 	if(report)
 		report.update_icon()
-		if(report.info)
-			to_chat(user, report.info)
+		if(!report.is_empty())
+			to_chat(user, report.get_raw_text())
 	return
 
 /obj/machinery/microscope/proc/remove_sample(mob/living/remover)

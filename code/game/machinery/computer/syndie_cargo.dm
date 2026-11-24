@@ -20,7 +20,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 	playsound(_loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 	reqform.name = "Requisition Form - [crates] '[object.name]' for [orderedby]"
 
-	reqform.info = {"<h3>Syndicate RaMSS 'Taipan' Supply Requisition Form</h3><hr>
+	reqform.add_raw_text({"\n### Syndicate RaMSS 'Taipan' Supply Requisition Form\n\n---\n)
 					INDEX: #[ordernum]<br>
 					REQUESTED BY: [orderedby]<br>
 					RANK: [orderedbyRank]<br>
@@ -31,7 +31,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 					[object.manifest]
 					<hr>
 					STAMP BELOW TO APPROVE THIS REQUISITION:<br>"}
-
+	)
 	reqform.update_icon()	//Fix for appearing blank when printed.
 
 /datum/syndie_supply_order/proc/createObject(atom/_loc, errors=0, datum/syndie_data_storage/data_storage) // тут код создающий ящики
@@ -56,7 +56,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 
 	slip.name = "Shipping Manifest - '[object.name]' for [orderedby]"
 
-	slip.info = {"<h3>Syndicate RaMSS 'Taipan' Shipping Manifest</h3><hr><br>
+	slip.add_raw_text({"\n### Syndicate RaMSS 'Taipan' Shipping Manifest\n\n---\n\n)
 				Order: #[ordernum]<br>
 				Destination: [stationName]<br>
 				Requested By: [orderedby]<br>
@@ -65,7 +65,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 				Supply Crate Type: [object.name]<br>
 				[packagesAmt] PACKAGES IN THIS SHIPMENT<br>
 				CONTENTS:<br><ul>"}
-
+	)
 	//we now create the actual contents
 	var/list/contains
 	if(istype(object, /datum/syndie_supply_packs/misc/randomised)) // тут выбирается рандомный контент для всяких шляп
@@ -83,13 +83,13 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 		var/obj/item/stack/AO = get_obj_in_atom_without_warning(A)
 		if(object.amount && A.vars.Find("amount") && AO?.amount)
 			AO.amount = object.amount
-		slip.info += "<li>[A.name]</li>"	//add the item to the manifest (even if it was misplaced)
+		slip.add_raw_text("- [A.name]\n")	//add the item to the manifest (even if it was misplaced))
 
 	if(istype(crate, /obj/structure/closet/crate/critter)) // critter crates do not actually spawn mobs yet and have no contains var, but the manifest still needs to list them
 		var/obj/structure/closet/crate/critter/CritCrate = crate
 		if(CritCrate.content_mob)
 			var/mob/crittername = CritCrate.content_mob
-			slip.info += "<li>[initial(crittername.name)]</li>"
+			slip.add_raw_text("- [initial(crittername.name)]\n")
 
 	if(errors & MANIFEST_ERROR_ITEM)
 		//secure and large crates cannot lose items
@@ -102,8 +102,8 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 				qdel(pick(crate.contents))
 
 	//manifest finalisation
-	slip.info += "</ul><br>"
-	slip.info += "CHECK CONTENTS AND STAMP BELOW THE LINE TO CONFIRM RECEIPT OF GOODS<hr>" // And now this is actually meaningful.
+	slip.add_raw_text("\n")
+	slip.add_raw_text("CHECK CONTENTS AND STAMP BELOW THE LINE TO CONFIRM RECEIPT OF GOODS\n---\n") // And now this is actually meaningful.)
 	slip.loc = crate
 	if(is_crate(crate))
 		var/obj/structure/closet/crate/CR = crate

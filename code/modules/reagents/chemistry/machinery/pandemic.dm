@@ -382,20 +382,20 @@
 		visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] дребезжит, после чего из окна печати выпадает лист бумаги."))
 		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 
-		form.info = span_fontsize4("<u><b><center> Выпуск вируса </b></center></u>")
-		form.info += "<hr>"
-		form.info += "<u>Название вируса:</u> [disease.name] <br>"
-		form.info += "<u>Симптомы:</u> [symtoms]<br>"
-		form.info += "<u>Путь передачи:</u> [disease.additional_info]<br>"
-		form.info += "<u>Лекарство от вируса:</u> [disease.cure_text]<br>"
-		form.info += "<br>"
-		form.info += "<u>Причина выпуска:</u> [reason]"
-		form.info += "<hr>"
-		form.info += "Вирусолог, ответственный за любые биологические угрозы, возникшие вследствие выпуска вируса.<br>"
-		form.info += "<u>Подпись вирусолога:</u> [signature]<br>"
-		form.info += "Печать ответственного лица, разрешившего выпуск вируса:"
-		form.populatefields()
-		form.updateinfolinks()
+		form.add_raw_text(span_fontsize4("<u>**<center> Выпуск вируса **</center></u>"))
+		form.add_raw_text("\n---\n")
+		form.add_raw_text("<u>Название вируса:</u> [disease.name] \n")
+		form.add_raw_text("<u>Симптомы:</u> [symtoms]\n")
+		form.add_raw_text("<u>Путь передачи:</u> [disease.additional_info]\n")
+		form.add_raw_text("<u>Лекарство от вируса:</u> [disease.cure_text]\n")
+		form.add_raw_text("\n")
+		form.add_raw_text("<u>Причина выпуска:</u> [reason]")
+		form.add_raw_text("\n---\n")
+		form.add_raw_text("Вирусолог, ответственный за любые биологические угрозы, возникшие вследствие выпуска вируса.\n")
+		form.add_raw_text("<u>Подпись вирусолога:</u> [signature]\n")
+		form.add_raw_text("Печать ответственного лица, разрешившего выпуск вируса:")
+		form.update_appearance()
+		form.update_appearance()
 		form.name = "Выпуск вируса «[disease.name]»"
 		form.update_icon()
 		printing = null

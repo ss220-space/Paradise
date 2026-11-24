@@ -117,7 +117,7 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 		var/datum/ui_login/L = source_db.ui_login_get()
 		if(L.id)
 			overseer = L.id.registered_name
-		R.info = {"<b>Account details (confidential)</b><br><hr><br>
+		R.add_raw_text({"**Account details (confidential)**\n\n---\n\n)
 			<i>Account holder:</i> [M.owner_name]<br>
 			<i>Account number:</i> [M.account_number]<br>
 			<i>Account pin:</i> [M.remote_access_pin]<br>
@@ -125,6 +125,7 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 			<i>Date and time:</i> [station_time_timestamp()], [GLOB.current_date_string]<br><br>
 			<i>Creation terminal ID:</i> [source_db.machine_id]<br>
 			<i>Authorised NT officer overseeing creation:</i> [overseer]<br>"}
+		)
 
 		//stamp the paper
 		R.stamp(/obj/item/stamp, TRUE, "<i>This paper has been stamped by the Accounts Database.</i>", "stamp-cent")

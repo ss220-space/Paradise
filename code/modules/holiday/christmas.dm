@@ -94,7 +94,7 @@
 	var/turf/user_turf = get_turf(user)
 	var/obj/item/paper/Joke = new(user_turf)
 	Joke.name = "[pick("awful","terrible","unfunny")] joke"
-	Joke.info = pick("What did one snowman say to the other?\n\n<i>'Is it me or can you smell carrots?'</i>",
+	Joke.add_raw_text(pick("What did one snowman say to the other?\n\n*'Is it me or can you smell carrots?'*",
 		"Why couldn't the snowman get laid?\n\n<i>He was frigid!</i>",
 		"Where are santa's helpers educated?\n\n<i>Nowhere, they're ELF-taught.</i>",
 		"What happened to the man who stole advent calanders?\n\n<i>He got 25 days.</i>",
@@ -103,7 +103,8 @@
 		"What do you get from eating tree decorations?\n\n<i>Tinsilitis!</i>",
 		"What do snowmen wear on their heads?\n\n<i>Ice caps!</i>",
 		"Why is Christmas just like life on ss13?\n\n<i>You do all the work and the fat guy gets all the credit.</i>",
-		"Why doesn�t Santa have any children?\n\n<i>Because he only comes down the chimney.</i>")
+		"Why doesnt Santa have any children?\n\n<i>Because he only comes down the chimney.</i>")
+	)
 
 	var/obj/item/clothing/head/festive/hat = new(user_turf)
 	user.equip_to_slot_if_possible(hat, ITEM_SLOT_HEAD)

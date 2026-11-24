@@ -340,7 +340,7 @@
 	var/obj/item/paper/P = new /obj/item/paper(src)
 	P.name = "Prototype nanite repair guide" // The instructions need to be revised.
 	P.desc = "For when you want to safely get off Mr Bones' Wild Ride."
-	P.info = {"
+	P.add_raw_text({"
 <font face="Verdana" color=black></font><font face="Verdana" color=black><center><b>Prototype Emergency Repair Nanites</b><hr></center><br><br>
 
 <b>Usage:</b> <br><br><br>
@@ -349,6 +349,7 @@
 
 To apply, hold the injector a short distance away from the outer thigh before applying firmly to the skin surface. The process of repairing should begin repair after a short time, during which you are advised to remain still. <br><br><br><br>After use you are advised to see a doctor at the next available opportunity. Mild scarring and tissue damage may occur after use. This is a prototype. We are not liable for any bone spurs, cancers, extra limbs, or creation of new viruses from use of the product.</font><br><hr></font>
 	"}
+	)
 
 /obj/item/storage/box/syndie_kit/chameleon
 	name = "chameleon kit"
@@ -536,7 +537,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/robotanalyzer(src)
 	var/obj/item/paper/P = new (src)
 	P.name = "Cyborg Repair Instruction" // The instructions need to be revised.
-	P.info = {"
+	P.add_raw_text({"
 <font face="Verdana" color=black></font><font face="Verdana" color=black><center><b>Краткая инструкция по пончинке роботов</b><hr></center><br><br>
 
 <font size = "4">1. Возьмите Cyborg Analyzer, проведите им по роботу.<br>
@@ -552,6 +553,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 11. Готово. робот снова функционирует.<br>
 <br><br><br>
 	"}
+	)
 
 /obj/item/storage/box/syndie_kit/chameleon_counter
 	name = "chameleon counterfeiter kit"

@@ -73,7 +73,7 @@
 		var/obj/item/paper/monitorkey/monitor_key = new(get_turf(src))
 		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 		// Will help make emagging the console not so easy to get away with.
-		monitor_key.info += "<br><br><span style='color: red;'>�%@%(*$%&(�&?*(%&�/{}</span>"
+		monitor_key.add_raw_text("\n\n<span style='color: red;'>�%@%(*$%&(�&?*(%&�/{}</span>")
 		update_icon()
 		addtimer(CALLBACK(src, PROC_REF(timed_unemag_console)), (length(linkedServer.decryptkey) SECONDS))
 		message = rebootmsg
@@ -511,7 +511,7 @@
 	for(var/obj/machinery/message_server/server as anything in GLOB.message_servers)
 		if(!isnull(server.decryptkey))
 			default_raw_text = "<center><h2>Daily Key Reset</h2></center>\n\t<br>The new message monitor key is '[server.decryptkey]'.<br>Please keep this a secret and away from the clown.<br>If necessary, change the password to a more secure one."
-			info_links = info
+			// info_links = info
 			update_icon()
 			break
 
@@ -528,6 +528,6 @@
 		return
 	var/decryption_key = located_server.logs_decryption_key
 	default_raw_text = "<center><h2>RnD logs Access key</h2></center>\n\t<br>The new RnD logs access key is \"[decryption_key]\"."
-	info_links = info
+	// info_links = info
 	update_icon()
 

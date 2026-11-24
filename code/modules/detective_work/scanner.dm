@@ -81,10 +81,10 @@
 /obj/item/detective_scanner/proc/make_paper(log) // Moved to a proc because 'spawn()' is evil
 	var/obj/item/paper/P = new(drop_location())
 	P.name = "paper- 'Scanner Report'"
-	P.info = "<center><font size='6'><b>Scanner Report</b></font></center><hr><br>"
-	P.info += jointext(log, "<br>")
-	P.info += "<hr><b>Notes:</b><br>"
-	P.info_links = P.info
+	P.add_raw_text("<center><font size='6'>**Scanner Report**</font></center>\n---\n\n")
+	P.add_raw_text(jointext(log, "\n"))
+	P.add_raw_text("\n---\n**Notes:**\n")
+	// P.info_links = P.info
 
 	if(ismob(loc))
 		var/mob/M = loc

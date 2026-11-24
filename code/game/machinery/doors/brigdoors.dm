@@ -83,8 +83,8 @@
 	for(var/obj/machinery/computer/prisoner/C in GLOB.prisoncomputer_list)
 		var/obj/item/paper/P = new /obj/item/paper(C.loc)
 		P.name = "[id] log - [occupant] [station_time_timestamp()]"
-		P.info =  "<center><b>[id] - Brig record</b></center><br><hr><br>"
-		P.info += {"<center>[station_name()] - Security Department</center><br>
+		P.add_raw_text("<center>**[id] - Brig record**</center>\n\n---\n\n")
+		P.add_raw_text({"<center>[station_name()] - Security Department</center>\n)
 						<center><small><b>Admission data:</b></small></center><br>
 						<small><b>Log generated at:</b>		[station_time_timestamp()]<br>
 						<b>Detainee:</b>		[occupant]<br>
@@ -92,7 +92,7 @@
 						<b>Charge(s):</b>	[crimes]<br>
 						<b>Arresting Officer:</b>		[usr.name]<br><hr><br>
 						<small>This log file was generated automatically upon activation of a cell timer.</small>"}
-
+		)
 		playsound(C.loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 		GLOB.cell_logs += P
 

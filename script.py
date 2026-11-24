@@ -2,67 +2,74 @@ import os
 import re
 
 TARGET_DIR = r"E:\GitHub\Parashiza\code"
+PAPER_VARS = r'(?:P|p|paper|slip|reqform|form|report|ch|ref|transcript|printout|Joke|pinned_paper|monitor_key|R|T|paperaffected)'
 
-REPLACEMENTS = [
-    (r'\[b\](.*?)\[/b\]', r'**\1**'),
-    (r'\[i\](.*?)\[/i\]', r'*\1*'),
-    (r'\[u\](.*?)\[/u\]', r'<u>\1</u>'),
-    (r'\[h1\](.*?)\[/h1\]', r'\n# \1\n'),
-    (r'\[h2\](.*?)\[/h2\]', r'\n## \1\n'),
-    (r'\[h3\](.*?)\[/h3\]', r'\n### \1\n'),
-    (r'\[center\](.*?)\[/center\]', r'<center>\1</center>'),
-    (r'\[br\]', r'\n'),
-    (r'\[hr\]', r'\n---\n'),
-    (r'\[list\]', r''),
-    (r'\[/list\]', r''),
-    (r'\[\*\]', r'- '),
-    (r'\[field\]', r'[____]'),
-    (r'\[large\](.*?)\[/large\]', r'**\1**'),
-    (r'\[small\](.*?)\[/small\]', r'\1'),
-    (r'\[logo\]', r''),
+HTML_TO_MD = [
+    (r'<br\s*/?>', r'\\n'),
+    (r'<hr\s*/?>', r'\\n---\\n'),
+    (r'</?(?:b|strong)>', r'**'),
+    (r'</?(?:i|em)>', r'*'),
+    (r'<h1>(.*?)</h1>', r'\\n# \1\\n'),
+    (r'<h2>(.*?)</h2>', r'\\n## \1\\n'),
+    (r'<h3>(.*?)</h3>', r'\\n### \1\\n'),
+    (r'<li>', r'- '),
+    (r'</li>', r'\\n'),
+    (r'</?ul>', r''),
+    (r'<div[^>]*>', r''),
+    (r'</div>', r'\\n'),
+    (r'&emsp;', r'    '),
+    (r'&deg;', r'°'),
 ]
 
-def convert_pencode(text):
-    for pattern, repl in REPLACEMENTS:
-        text = re.sub(pattern, repl, text, flags=re.IGNORECASE | re.DOTALL)
-    return text
+def convert_string_html(line):
+    for pattern, repl in HTML_TO_MD:
+        line = re.sub(pattern, repl, line, flags=re.IGNORECASE)
+    return line
 
 def process_file(filepath):
-    with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
-        content = f.read()
-
-    if '/obj/item/paper' not in content and 'info =' not in content:
+    if filepath.endswith(r'paperwork\paper.dm'):
         return False
 
-    lines = content.splitlines(keepends=True)
+    with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
+        lines = f.readlines()
+
     new_lines = []
-    in_paper_block = False
     modified = False
 
     for line in lines:
-        stripped = line.strip()
-        if stripped.startswith('/obj/item/paper'):
-            in_paper_block = True
-        elif stripped.startswith('/') and not stripped.startswith('//') and not stripped.startswith('/*'):
-            in_paper_block = False
+        orig_line = line
 
-        if in_paper_block:
-            if re.match(r'^\s*info\s*=', line):
-                line = re.sub(r'^(\s*)info(\s*=)', r'\1default_raw_text\2', line)
-                line = convert_pencode(line)
-                modified = True
-            elif re.match(r'^\s*(header|footer|language|time|signfont|deffont|paper_width|paper_height)\s*=', line):
-                line = re.sub(r'^(\s*)', r'\1// ', line)
-                modified = True
-            elif 'populatefields()' in line:
-                line = re.sub(r'^(\s*)', r'\1// ', line)
-                modified = True
-            elif 'default_raw_text' in line or ']' in line:
-                converted = convert_pencode(line)
-                if converted != line:
-                    line = converted
-                    modified = True
+        # 1. Замена var.header/info/footer = или += на var.add_raw_text(...)
+        m = re.match(rf'^(\s*)({PAPER_VARS})\.(?:header|info|footer)\s*\+?=\s*(.+)$', line)
+        if m:
+            indent, var_name, expr = m.groups()
+            expr = convert_string_html(expr)
+            line = f"{indent}{var_name}.add_raw_text({expr})\n"
 
+        # 2. Замена оставшихся info = / info_links = в дефайнах объектов (руины, сейфы, компы)
+        elif re.match(r'^\s*info\s*\+?=\s*.+$', line):
+            line = re.sub(r'^(\s*)info\s*\+?=\s*(.+)$', lambda x: f"{x.group(1)}default_raw_text = {convert_string_html(x.group(2))}", line)
+        elif re.match(r'^\s*info_links\s*\+?=\s*.+$', line):
+            line = re.sub(r'^(\s*)', r'\1// ', line)
+
+        # 3. Замена .info_links у переменных
+        elif re.search(rf'\b({PAPER_VARS})\.info_links\b', line):
+            line = re.sub(r'^(\s*)', r'\1// ', line)
+
+        # 4. Замена .show_content(...) -> .ui_interact(...)
+        elif re.search(rf'\b({PAPER_VARS})\.show_content\(', line):
+            line = re.sub(rf'\b({PAPER_VARS})\.show_content\(([^,)]+).*?\)', r'\1.ui_interact(\2)', line)
+
+        # 5. Замена .clearpaper() -> .clear_paper()
+        elif re.search(rf'\b({PAPER_VARS})\.clearpaper\(\)', line):
+            line = re.sub(rf'\b({PAPER_VARS})\.clearpaper\(\)', r'\1.clear_paper()', line)
+
+        # 6. Устаревшие вызовы populatefields / updateinfolinks
+        elif re.search(rf'\b({PAPER_VARS})\.(?:populatefields|updateinfolinks)\(\)', line):
+            line = re.sub(rf'\b({PAPER_VARS})\.(?:populatefields|updateinfolinks)\(\)', r'\1.update_appearance()', line)
+
+        if line != orig_line:
+            modified = True
         new_lines.append(line)
 
     if modified:

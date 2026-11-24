@@ -338,13 +338,13 @@ log transactions
 				playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 				var/obj/item/paper/R = new(loc)
 				R.name = "Account balance: [authenticated_account.owner_name]"
-				R.info = {"<b>NT Automated Teller Account Statement</b><br><br>
+				R.add_raw_text({"**NT Automated Teller Account Statement**\n\n)
 					<i>Account holder:</i> [authenticated_account.owner_name]<br>
 					<i>Account number:</i> [authenticated_account.account_number]<br>
 					<i>Balance:</i> $[authenticated_account.money]<br>
 					<i>Date and time:</i> [station_time_timestamp()], [GLOB.current_date_string]<br><br>
 					<i>Service terminal ID:</i> [machine_id]<br>"}
-
+				)
 				//stamp the paper
 				R.stamp(/obj/item/stamp, TRUE, "<i>This paper has been stamped by the Automatic Teller Machine.</i>", "stamp-cent")
 

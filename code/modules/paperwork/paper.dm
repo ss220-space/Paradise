@@ -860,7 +860,7 @@ GAME_VERB_SRC(/obj/item/paper, rename, usr, "Rename paper", null)
 				return TRUE
 
 			// Safe to assume there are writing implement details as user.can_write(...) fails with an invalid writing implement.
-			var/writing_implement_data = holding.get_writing_implement_details()
+			// var/writing_implement_data = holding.get_writing_implement_details()
 			var/list/field_data = params["field_data"]
 
 			for(var/field_key in field_data)

@@ -2312,7 +2312,7 @@
 		var/obj/machinery/photocopier/faxmachine/fax = locateUID(href_list["originfax"])
 
 		P.name = "Central Command - [customname]"
-		P.info = "<b>You <i>really</i> should've known better.</b>"
+		P.add_raw_text("**You *really* should've known better.**")
 		P.myeffect = eviltype
 		P.mytarget = H
 		if(tgui_alert(usr, "Do you want the Evil Fax to activate automatically if [H] tries to ignore it?",, list("Yes", "No")) == "Yes")
@@ -2394,7 +2394,7 @@
 		else
 			return
 		tmsg += "</span>"
-		P.info = tmsg
+		P.add_raw_text(tmsg)
 		P.stamp(/obj/item/stamp/centcom)
 		fax.receivefax(P)
 		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
@@ -2462,7 +2462,7 @@
 		var/obj/item/fax = locateUID(href_list["AdminFaxView"])
 		if(istype(fax, /obj/item/paper))
 			var/obj/item/paper/P = fax
-			P.show_content(usr,1)
+			P.ui_interact(usr)
 		else if(istype(fax, /obj/item/photo))
 			var/obj/item/photo/H = fax
 			H.show(usr)
@@ -2494,7 +2494,7 @@
 
 		if(istype(bundle.papers[page], /obj/item/paper))
 			var/obj/item/paper/P = bundle.papers[page]
-			P.show_content(usr, 1)
+			P.ui_interact(usr)
 		else if(istype(bundle.papers[page], /obj/item/photo))
 			var/obj/item/photo/H = bundle.papers[page]
 			H.show(usr)
@@ -2601,7 +2601,7 @@
 			P.name = "[sendername]- [customname]"
 		else
 			P.name = "[customname]"
-		P.info = input
+		P.add_raw_text(input)
 		P.update_icon(UPDATE_ICON_STATE)
 		if(stamptype == "icon")
 			P.stamp(/obj/item/stamp/centcom, special_stamped = "<img src=large_stamp-[stampvalue].png>", special_icon_state = "stamp-[stampvalue]")

@@ -87,9 +87,10 @@
 	var/obj/item/paper/paper = new (location)
 	var/number = "[request_number]-[rand(1000, 9999)]"
 	paper.name = "Приказ о заключении под стражу №[number]"
-	paper.info = {"<center><b>Приказ о заключении [number]</b></center><br>
+	paper.add_raw_text({"<center>**Приказ о заключении [number]**</center>\n)
 		Настоящим подтверждается, что гражданин [prisoner.real_name] подлежит тюремному заключению сроком в [data.duration] минут в камере брига.<br>
 		<b>Вменяемые статьи:</b> [data.crimes]."}
+	)
 
 /datum/addition_goal/prisoners/proc/register_complete_signal_handler(mob/living/prisoner)
 	RegisterSignal(prisoner, COMSIG_DOOR_TIMER_FINISH, PROC_REF(on_prisoner_timer_finish))

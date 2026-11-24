@@ -85,17 +85,17 @@
 		if(istype(paper) && paper.loc == src) //ifthe paper's on the board
 			if(is_pen(usr.r_hand)) //and you're holding a pen
 				add_fingerprint(usr)
-				paper.show_content(usr, infolinks = TRUE)
+				paper.ui_interact(usr)
 			else if(is_pen(usr.l_hand)) //check other hand for pen
 				add_fingerprint(usr)
-				paper.show_content(usr, infolinks = TRUE)
+				paper.ui_interact(usr)
 			else
 				to_chat(usr, span_notice("You'll need something to write with!"))
 
 	if(href_list["read"])
 		var/obj/item/paper/paper = locateUID(href_list["read"])
 		if(istype(paper) && paper.loc == src)
-			paper.show_content(usr)
+			paper.ui_interact(usr)
 	return
 
 /obj/item/noticeboard

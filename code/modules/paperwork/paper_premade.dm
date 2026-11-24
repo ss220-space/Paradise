@@ -17,7 +17,7 @@
 /obj/item/paper/fortune/Initialize(mapload)
 	. = ..()
 	var/fortunemessage = pick(GLOB.fortune_cookie_messages)
-	add_raw_text("<p style='text-align:center;font-family:[deffont];font-size:120%;font-weight:bold;'>[fortunemessage]</p>")
+	add_raw_text("<center>**[fortunemessage]**</center>\n<center>**Lucky numbers**: [rand(1,49)], [rand(1,49)], [rand(1,49)], [rand(1,49)], [rand(1,49)]</center>")
 	add_raw_text("<center>**Lucky numbers**: [rand(1,49)], [rand(1,49)], [rand(1,49)], [rand(1,49)], [rand(1,49)]</center>")
 
 /obj/item/paper/fortune/update_icon_state()

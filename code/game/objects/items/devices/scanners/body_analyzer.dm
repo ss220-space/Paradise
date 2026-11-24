@@ -111,7 +111,7 @@
 		user.visible_message("[user] begins scanning [M] with [src].", "You begin scanning [M].")
 		if(do_after(user, scan_time, M))
 			var/obj/item/paper/printout = new(drop_location())
-			printout.info = report
+			printout.add_raw_text(report)
 			printout.name = "Scan report - [M.name]"
 			playsound(user.loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 			user.put_in_hands(printout, ignore_anim = FALSE)

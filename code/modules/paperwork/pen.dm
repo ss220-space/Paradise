@@ -28,6 +28,8 @@
 	var/can_write = TRUE
 	/// Most pen require gravity for work
 	var/requires_gravity = TRUE
+	/// Used font
+	var/font = PEN_FONT
 
 /obj/item/pen/get_ru_names()
 	return alist(
@@ -90,6 +92,16 @@
 
 /obj/item/proc/on_write(obj/item/paper/P, mob/user)
 	return
+
+/obj/item/pen/get_writing_implement_details()
+	if (HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
+		return null
+	return list(
+		interaction_mode = MODE_WRITING,
+		font = font,
+		color = colour,
+		use_bold = FALSE,
+	)
 
 /obj/item/pen/blue
 	name = "blue-ink pen"
@@ -170,6 +182,8 @@
 	name = "fountain pen"
 	desc = "Дорого выглядящая ручка. Для самых богатых."
 	icon_state = "pen-fountain"
+	font = FOUNTAIN_PEN_FONT
+	requires_gravity = FALSE
 
 /obj/item/pen/fountain/get_ru_names()
 	return alist(

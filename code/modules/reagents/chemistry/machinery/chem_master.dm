@@ -240,15 +240,15 @@
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 
 			var/obj/item/paper/P = new /obj/item/paper(loc)
-			P.info = "<center><b>Химический анализ</b></center><br>"
-			P.info += "<b>Время анализа:</b> [station_time_timestamp()]<br><br>"
-			P.info += "<b>Название реагента:</b> [R.name]<br>"
+			P.add_raw_text("<center>**Химический анализ**</center>\n")
+			P.add_raw_text("**Время анализа:** [station_time_timestamp()]\n\n")
+			P.add_raw_text("**Название реагента:** [R.name]\n")
 			if(istype(R, /datum/reagent/blood))
 				var/datum/reagent/blood/B = R
-				P.info += "<b>Описание:</b> Н/Д<br><b>Группа крови:</b> [B.data["blood_type"]]<br><b>ДНК:</b> [B.data["blood_species"]]"
+				P.add_raw_text("**Описание:** Н/Д\n**Группа крови:** [B.data["blood_type"]]\n**ДНК:** [B.data["blood_species"]]")
 			else
-				P.info += "<b>Описание:</b> [R.description]"
-			P.info += "<br><br><b>Заметки:</b><br>"
+				P.add_raw_text("**Описание:** [R.description]")
+			P.add_raw_text("\n\n**Заметки:**\n")
 			P.name = "Химический анализ — [R.name]"
 			spawn(50)
 				printing = FALSE

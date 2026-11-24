@@ -79,12 +79,12 @@
 /obj/item/dna_notepad/proc/create_report_paper()
 	var/obj/item/paper/paper = new(drop_location())
 	paper.name = "Блоки генов"
-	paper.header += "<center><b>Блоки генов</b></center><br>"
-	paper.header += "<b>Время печати:</b> [station_time_timestamp()]<br><br>"
-	paper.header += "<hr>"
+	paper.add_raw_text("<center>**Блоки генов**</center>\n")
+	paper.add_raw_text("**Время печати:** [station_time_timestamp()]\n\n")
+	paper.add_raw_text("\n---\n")
 	for(var/list/block as anything in dna_data)
-		paper.header += "[block["num"]]: <span style='color: [block["color"]];'>[block["name"]]</span><br>"
-	paper.header += "<hr>"
+		paper.add_raw_text("[block["num"]]: <span style='color: [block["color"]];'>[block["name"]]</span>\n")
+	paper.add_raw_text("\n---\n")
 	if(in_range(usr, src))
 		usr.put_in_hands(paper, ignore_anim = FALSE)
 		usr.visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] дребезжит, после чего из окна печати выпадает лист бумаги."))

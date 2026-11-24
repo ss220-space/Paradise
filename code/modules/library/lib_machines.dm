@@ -261,7 +261,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	if(QDELETED(paper) || paper.loc != src)
 		return
 	var/obj/item/book/new_book = new(loc)
-	new_book.dat = paper.info
+	new_book.dat = paper.get_raw_text()
 	new_book.name = "Print Job #[rand(100, 999)]"
 	new_book.ru_names = alist(
 		NOMINATIVE = "печатное издание №[rand(100, 999)]",

@@ -206,7 +206,7 @@ GLOBAL_VAR(current_date_string)
 				</table>
 			"}
 
-			P.info = text
+			P.add_raw_text(text)
 			visible_message(span_notice("[src] prints out a report."))
 			next_print = world.time + 30 SECONDS
 
@@ -255,7 +255,7 @@ GLOBAL_VAR(current_date_string)
 				</table>
 				"}
 
-			P.info = text
+			P.add_raw_text(text)
 			visible_message(span_notice("[src] prints out a report."))
 			next_print = world.time + 30 SECONDS
 

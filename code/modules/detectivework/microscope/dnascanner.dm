@@ -71,8 +71,8 @@
 				data += "[span_notice("Группа крови: [bloodswab.dna[blood]]<br>\nДНК: [blood]")]<br><br>"
 		else
 			data += "\nДНК не найдено.<br>"
-		report.info = "<b>Отчет №[report_num] по \n[src]</b><br>"
-		report.info += "<b>\nАнализируемый объект:</b><br>[bloodswab.name]<br>[bloodswab.desc]<br><br>" + data
+		report.add_raw_text("**Отчет №[report_num] по \n[src]**\n")
+		report.add_raw_text("**\nАнализируемый объект:**\n[bloodswab.name]\n[bloodswab.desc]\n\n" + data)
 		report.forceMove(src.loc)
 		report.update_icon()
 		scanning = FALSE

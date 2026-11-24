@@ -68,7 +68,7 @@
 
 		var/obj/item/paper/P = new(drop_location())
 		P.name = "Reagent Scanner Report: [station_time_timestamp()]"
-		P.info = "<center><b>Reagent Scanner</b></center><br><center>Data Analysis:</center><br><hr><br><b>Chemical agents detected:</b><br> [datatoprint]<br><hr>"
+		P.add_raw_text("<center>**Reagent Scanner**</center>\n<center>Data Analysis:</center>\n\n---\n\n**Chemical agents detected:**\n [datatoprint]\n\n---\n")
 
 		if(ismob(loc))
 			var/mob/M = loc

@@ -349,7 +349,7 @@
 		else
 			paper_info += "[replace_characters(piece.message, list("+"))]<br>"
 
-	transcript.info = paper_info.Join("")
+	transcript.add_raw_text(paper_info.Join(""))
 	transcript.name = "paper- 'Transcript'"
 	cooldown = world.time + 3 SECONDS
 

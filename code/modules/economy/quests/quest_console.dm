@@ -216,16 +216,16 @@
 /obj/machinery/computer/supplyquest/proc/print_order(datum/cargo_quests_storage/quest)
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 	var/obj/item/paper/paper = new(get_turf(src))
-	paper.info = "<div id=\"output\"><center> <h3> Форма запроса на поставку </h3> </center><br><hr><br>"
-	paper.info += "Заказчик: [quest.customer.departament_name]<br>"
-	paper.info += "Запрос одобрил: [quest.idname] – [quest.idrank]<br>"
-	paper.info += "Время приёма запроса: [quest.order_date] [quest.order_time]<br>"
-	paper.info += "<ul> <h3> Позиции запроса:</h3>"
+	paper.add_raw_text("<center> \n###  Форма запроса на поставку \n </center>\n\n---\n\n")
+	paper.add_raw_text("Заказчик: [quest.customer.departament_name]\n")
+	paper.add_raw_text("Запрос одобрил: [quest.idname] – [quest.idrank]\n")
+	paper.add_raw_text("Время приёма запроса: [quest.order_date] [quest.order_time]\n")
+	paper.add_raw_text(" \n###  Позиции запроса:\n")
 	for(var/datum/cargo_quest/cargo_quest in quest.current_quests)
-		paper.info += "<li>[cargo_quest.desc.Join("")]</li>"
+		paper.add_raw_text("- [cargo_quest.desc.Join("")]\n")
 
-	paper.info += "</ul><br><span class=\"large-text\"> Ориентировочная награда: [quest.reward]</span><br>"
-	paper.info += "<br><hr><br><span class=\"small-text\">Этот документ имеет автоматическую печать [station_name()] </span><br></div>"
+	paper.add_raw_text("\n<span class=\"large-text\"> Ориентировочная награда: [quest.reward]</span>\n")
+	paper.add_raw_text("\n\n---\n\n<span class=\"small-text\">Этот документ имеет автоматическую печать [station_name()] </span>\n\n")
 	paper.stamp(/obj/item/stamp/navcom)
 	var/request_desc = "запроса о поставке"
 	paper.name = "форма [request_desc]"
@@ -275,48 +275,48 @@
 	var/list/phrases = list()
 	var/obj/item/paper/paper = new(get_turf(src))
 
-	paper.info = "<div id=\"output\"><center> <h3> Отчёт о поставке </h3> </center><br><hr><br>"
-	paper.info += "Заказчик: [quest.customer.departament_name]<br>"
-	paper.info += "Запрос одобрил: [quest.idname] – [quest.idrank]<br>"
-	paper.info += "Время приёма запроса: [GLOB.current_date_string]  [station_time_timestamp()]<br>"
-	paper.info += "<ul> <h3> Позиции запроса:</h3>"
+	paper.add_raw_text("<center> \n###  Отчёт о поставке \n </center>\n\n---\n\n")
+	paper.add_raw_text("Заказчик: [quest.customer.departament_name]\n")
+	paper.add_raw_text("Запрос одобрил: [quest.idname] – [quest.idrank]\n")
+	paper.add_raw_text("Время приёма запроса: [GLOB.current_date_string]  [station_time_timestamp()]\n")
+	paper.add_raw_text(" \n###  Позиции запроса:\n")
 	for(var/datum/cargo_quest/cargo_quest in quest.current_quests)
-		paper.info += "<li>[cargo_quest.desc.Join("")]</li>"
+		paper.add_raw_text("- [cargo_quest.desc.Join("")]\n")
 
-	paper.info += "</ul><br><span class=\"large-text\"> Ориентировочная награда: [quest.reward]</span><br>"
-	paper.info += "Штрафы: <br><i>"
+	paper.add_raw_text("\n<span class=\"large-text\"> Ориентировочная награда: [quest.reward]</span>\n")
+	paper.add_raw_text("Штрафы: \n*")
 	if(modificators["departure_mismatch"])
-		paper.info += "Неверно отмечен заказчик (-20%)<br>"
+		paper.add_raw_text("Неверно отмечен заказчик (-20%)\n")
 		phrases += pick_list(QUEST_NOTES_STRINGS, "departure_mismatch_phrases")
 	if(modificators["content_mismatch"])
-		paper.info += "Несоответствие в объёме содержимого (-30%) x[modificators["content_mismatch"]]<br>"
+		paper.add_raw_text("Несоответствие в объёме содержимого (-30%) x[modificators["content_mismatch"]]\n")
 		phrases += pick_list(QUEST_NOTES_STRINGS, "content_mismatch_phrases")
 	if(modificators["content_missing"])
-		paper.info += "Недостача содержимого (-[round(modificators["content_missing"] * 100/modificators["quest_len"])]%)<br>"
+		paper.add_raw_text("Недостача содержимого (-[round(modificators["content_missing"] * 100/modificators["quest_len"])]%)\n")
 		phrases += pick_list(QUEST_NOTES_STRINGS, "content_missing_phrases")
 	if(!complete)
-		paper.info += "Запрос просрочен (-100%)<br>"
+		paper.add_raw_text("Запрос просрочен (-100%)\n")
 		phrases += pick_list(QUEST_NOTES_STRINGS, "not_complete_phrases")
 	else if(quest.time_add_count > 0)
-		paper.info += "Задержка поставки (-[10 * quest.time_add_count]%)<br>"
+		paper.add_raw_text("Задержка поставки (-[10 * quest.time_add_count]%)\n")
 
 	else if(!length(modificators))
-		paper.info += "- отсутствует <br>"
-	paper.info += "</i><br>Бонус:<br><i>"
+		paper.add_raw_text("- отсутствует \n")
+	paper.add_raw_text("*\nБонус:\n*")
 	if(modificators["quick_shipment"])
-		paper.info += "Быстрая отправка(+40%)<br>"
+		paper.add_raw_text("Быстрая отправка(+40%)\n")
 		phrases += pick_list(QUEST_NOTES_STRINGS, "fast_complete_phrases")
 	else
-		paper.info += "- отсутствует <br>"
+		paper.add_raw_text("- отсутствует \n")
 		if(complete && !length(phrases))
 			phrases += pick_list(QUEST_NOTES_STRINGS, "good_complete_phrases")
-	paper.info += "</i><br><span class=\"large-text\"> Суммарная награда: [complete ? new_reward : "0"]</span><br>"
+	paper.add_raw_text("*\n<span class=\"large-text\"> Суммарная награда: [complete ? new_reward : "0"]</span>\n")
 	if(!modificators["content_missing"] && !modificators["departure_mismatch"] && !modificators["content_mismatch"])
-		paper.info += "<hr><br>"
+		paper.add_raw_text("\n---\n\n")
 		for(var/sale_category in quest.customer.cargo_sale)
-			paper.info += "<span class=\"small-text\">Вы получили скидку в <b>[quest.customer.cargo_sale[sale_category] * quest.customer.modificator * 100]%</b> в категории <b>[sale_category]</b> в перечне грузов для заказа. </span><br>"
-	paper.info += "<hr><br><span class=\"small-text\">[pick(phrases)] </span><br>"
-	paper.info += "<br><hr><br><span class=\"small-text\">Этот документ имеет автоматическую печать [station_name()] </span><br></div>"
+			paper.add_raw_text("<span class=\"small-text\">Вы получили скидку в **[quest.customer.cargo_sale[sale_category] * quest.customer.modificator * 100]%** в категории **[sale_category]** в перечне грузов для заказа. </span>\n")
+	paper.add_raw_text("\n---\n\n<span class=\"small-text\">[pick(phrases)] </span>\n")
+	paper.add_raw_text("\n\n---\n\n<span class=\"small-text\">Этот документ имеет автоматическую печать [station_name()] </span>\n\n")
 	paper.stamp(/obj/item/stamp/navcom)
 	var/report_desc = "о поставке"
 	paper.name = "отчёт [report_desc]"
