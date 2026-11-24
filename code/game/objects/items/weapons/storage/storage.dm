@@ -622,18 +622,18 @@
 
 /// This proc returns TRUE if the item can be picked up and FALSE if it can't.
 /// Set the stop_messages to stop it from printing messages
-/obj/item/storage/proc/can_be_inserted(obj/item/W, stop_messages = FALSE)
-	if(!istype(W) || (W.item_flags & ABSTRACT)) //Not an item
+/obj/item/storage/proc/can_be_inserted(obj/item/item, stop_messages = FALSE)
+	if(!istype(item) || (item.item_flags & ABSTRACT)) //Not an item
 		return FALSE
 
-	if(loc == W)
+	if(loc == item)
 		return FALSE //Means the item is already in the storage item
 
-	if(!W.can_enter_storage(src, usr))
+	if(!item.can_enter_storage(src, usr))
 		return FALSE
 
 	if(usr)
-		var/turf/item_turf = get_turf(W)
+		var/turf/item_turf = get_turf(item)
 		var/turf/storage_turf = get_turf(src)
 		var/turf/user_turf = get_turf(usr)
 		// Its ok to move items to/from nullspace, since its not a player action
@@ -651,33 +651,33 @@
 		return FALSE //Storage item is full
 
 	if(length(can_hold))
-		if(!is_type_in_typecache(W, can_hold))
+		if(!is_type_in_typecache(item, can_hold))
 			if(!stop_messages)
-				to_chat(usr, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] не подход[PLUR_IT_YAT(src)] для [W.declent_ru(GENITIVE)]!"))
+				to_chat(usr, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] не подход[PLUR_IT_YAT(src)] для [item.declent_ru(GENITIVE)]!"))
 			return FALSE
 
-	if(is_type_in_typecache(W, cant_hold)) //Check for specific items which this container can't hold.
+	if(is_type_in_typecache(item, cant_hold)) //Check for specific items which this container can't hold.
 		if(!stop_messages)
-			to_chat(usr, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] не подход[PLUR_IT_YAT(src)] для [W.declent_ru(GENITIVE)]!"))
+			to_chat(usr, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] не подход[PLUR_IT_YAT(src)] для [item.declent_ru(GENITIVE)]!"))
 		return FALSE
 
-	if(W.w_class > max_w_class)
-		if(length(w_class_override) && is_type_in_list(W, w_class_override))
+	if(item.w_class > max_w_class)
+		if(length(w_class_override) && is_type_in_list(item, w_class_override))
 			return TRUE
 
 		if(!stop_messages)
 			usr.balloon_alert(usr, "слишком большой объект!")
 		return FALSE
 
-	if(W.w_class < min_w_class)
-		if(length(w_class_override) && is_type_in_list(W, w_class_override))
+	if(item.w_class < min_w_class)
+		if(length(w_class_override) && is_type_in_list(item, w_class_override))
 			return TRUE
 
 		if(!stop_messages)
 			usr.balloon_alert(usr, "слишком маленький объект!")
 		return FALSE
 
-	var/sum_w_class = W.w_class
+	var/sum_w_class = item.w_class
 	for(var/obj/item/I in contents)
 		sum_w_class += I.w_class //Adds up the combined w_classes which will be in the storage item if the item is added to it.
 
@@ -687,27 +687,27 @@
 		return FALSE
 
 	var/using_differentiant_size_component = SEND_SIGNAL(src, COMSIG_CHECK_DIFFERENTIATE_SIZE_COMPONENT) & HAS_DIFFERENTIATE_SIZE_COMPONENT
-	if(W.w_class >= w_class && (isstorage(W)) && !using_differentiant_size_component)
+	if(item.w_class >= w_class && (isstorage(item)) && !using_differentiant_size_component)
 		if(!istype(src, /obj/item/storage/backpack/holding))	//bohs should be able to hold backpacks again. The override for putting a boh in a boh is in backpack.dm.
 			if(!stop_messages)
 				usr.balloon_alert(usr, "слишком большой объект!")
 			return FALSE //To prevent the stacking of same sized storage items.
 
-	if(HAS_TRAIT(W, TRAIT_NODROP)) //SHOULD be handled in unEquip, but better safe than sorry.
+	if(HAS_TRAIT(item, TRAIT_NODROP)) //SHOULD be handled in unEquip, but better safe than sorry.
 		usr.balloon_alert(usr, "не получается выпустить!")
 		return FALSE
 
 	// item unequip delay
-	if(usr && W.equip_delay_self > 0 && W.loc == usr && !usr.is_general_slot(usr.get_slot_by_item(W)))
+	if(usr && item.equip_delay_self > 0 && item.loc == usr && !usr.is_general_slot(usr.get_slot_by_item(item)))
 		usr.visible_message(
-			span_notice("[usr] начина[PLUR_ET_YUT(usr)] снимать [W.declent_ru(ACCUSATIVE)]."),
-			span_notice("Вы начинаете снимать [W.declent_ru(ACCUSATIVE)]."),
+			span_notice("[usr] начина[PLUR_ET_YUT(usr)] снимать [item.declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы начинаете снимать [item.declent_ru(ACCUSATIVE)]."),
 		)
-		if(!do_after(usr, W.equip_delay_self, usr, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_USER_LOC_CHANGE), max_interact_count = 1, cancel_on_max = TRUE))
+		if(!do_after(usr, item.equip_delay_self, usr, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_USER_LOC_CHANGE), max_interact_count = 1, cancel_on_max = TRUE))
 			usr.balloon_alert(usr, "снятие прервано!")
 			return FALSE
 
-		if(!usr.can_unEquip(W))
+		if(!usr.can_unEquip(item))
 			return FALSE
 
 	return TRUE
@@ -715,102 +715,102 @@
 /// This proc handles items being inserted. It does not perform any checks of whether an item can or can't be inserted. That's done by can_be_inserted()
 /// The stop_warning parameter will stop the insertion message from being displayed. It is intended for cases where you are inserting multiple items at once,
 /// such as when picking up all the items on a tile with one click.
-/obj/item/storage/proc/handle_item_insertion(obj/item/W, prevent_warning = FALSE)
-	if(!istype(W))
+/obj/item/storage/proc/handle_item_insertion(obj/item/item, prevent_warning = FALSE)
+	if(!istype(item))
 		return FALSE
 	if(usr)
-		if(W.loc == usr && !usr.drop_item_ground(W))
+		if(item.loc == usr && !usr.drop_item_ground(item))
 			return FALSE
 		usr.update_icons()	//update our overlays
 	if(silent)
 		prevent_warning = TRUE
 
 	if(usr)
-		W.do_pickup_animation(src)
+		item.do_pickup_animation(src)
 
-	W.forceMove(src)
-	if(QDELING(W))
+	item.forceMove(src)
+	if(QDELING(item))
 		return FALSE
-	W.on_enter_storage(src)
-	if(QDELING(W))
+	item.on_enter_storage(src)
+	if(QDELING(item))
 		return FALSE
 
 	for(var/_M in mobs_viewing)
 		var/mob/M = _M
 		if((M.s_active == src) && M.client)
-			M.client.screen += W
+			M.client.screen += item
 
 	if(usr)
 		if(usr.client && usr.s_active != src)
-			usr.client.screen -= W
+			usr.client.screen -= item
 
 		for(var/mob/dead/observer/observe in usr.inventory_observers)
 			if(!observe.client)
 				observe.handle_when_autoobserve_move()
 				LAZYREMOVE(usr.inventory_observers, observe)
 				continue
-			observe.client.screen -= W
+			observe.client.screen -= item
 
 		add_fingerprint(usr)
 
-		if(!prevent_warning && !istype(W, /obj/item/gun/energy/kinetic_accelerator/crossbow))
+		if(!prevent_warning && !istype(item, /obj/item/gun/energy/kinetic_accelerator/crossbow))
 			for(var/mob/M in viewers(usr, null))
 				if(M == usr)
-					to_chat(usr, span_notice("Вы помещаете [W.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
+					to_chat(usr, span_notice("Вы помещаете [item.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 				else if(M in range(1)) //If someone is standing close enough, they can tell what it is...
-					M.show_message(span_notice("[usr] помеща[PLUR_ET_YUT(usr)] [W.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
-				else if(W && W.w_class >= WEIGHT_CLASS_NORMAL) //Otherwise they can only see large or normal items from a distance...
-					M.show_message(span_notice("[usr] помеща[PLUR_ET_YUT(usr)] [W.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
+					M.show_message(span_notice("[usr] помеща[PLUR_ET_YUT(usr)] [item.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
+				else if(item && item.w_class >= WEIGHT_CLASS_NORMAL) //Otherwise they can only see large or normal items from a distance...
+					M.show_message(span_notice("[usr] помеща[PLUR_ET_YUT(usr)] [item.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 
 		orient2hud(usr)
 		if(usr.s_active)
 			usr.s_active.show_to(usr)
 
-	W.pixel_y = initial(W.pixel_y)
-	W.pixel_x = initial(W.pixel_x)
-	W.mouse_opacity = MOUSE_OPACITY_OPAQUE //So you can click on the area around the item to equip it, instead of having to pixel hunt
+	item.pixel_y = initial(item.pixel_y)
+	item.pixel_x = initial(item.pixel_x)
+	item.mouse_opacity = MOUSE_OPACITY_OPAQUE //So you can click on the area around the item to equip it, instead of having to pixel hunt
 	update_icon()
 	SEND_SIGNAL(src, COMSIG_ITEM_INSERTED_INTO_STORAGE)
 	return TRUE
 
 /// Call this proc to handle the removal of an item from the storage item. The item will be moved to the atom sent as new_target
-/obj/item/storage/proc/remove_from_storage(obj/item/W, atom/new_location)
-	if(!istype(W))
+/obj/item/storage/proc/remove_from_storage(obj/item/item, atom/new_location)
+	if(!istype(item))
 		return FALSE
 
-	W.item_flags &= ~IN_STORAGE
+	item.item_flags &= ~IN_STORAGE
 
 	for(var/mob/M as anything in mobs_viewing)
 		if((M.s_active == src) && M.client)
-			M.client.screen -= W
+			M.client.screen -= item
 
 	if(new_location)
 		if(ismob(new_location) || get(new_location, /mob))
 			if(usr && !get(loc, /mob) && CONFIG_GET(flag/item_animations_enabled))
-				W.loc = get_turf(src)	// This bullshit is required since /image/ registered in turf contents only
-				W.pixel_x = pixel_x
-				W.pixel_y = pixel_y
-				W.do_pickup_animation(usr)
-			W.layer = ABOVE_HUD_LAYER
-			SET_PLANE_EXPLICIT(W, ABOVE_HUD_PLANE, src)
-			W.pixel_y = initial(W.pixel_y)
-			W.pixel_x = initial(W.pixel_x)
+				item.loc = get_turf(src)	// This bullshit is required since /image/ registered in turf contents only
+				item.pixel_x = pixel_x
+				item.pixel_y = pixel_y
+				item.do_pickup_animation(usr)
+			item.layer = ABOVE_HUD_LAYER
+			SET_PLANE_EXPLICIT(item, ABOVE_HUD_PLANE, src)
+			item.pixel_y = initial(item.pixel_y)
+			item.pixel_x = initial(item.pixel_x)
 		else
-			W.layer = initial(W.layer)
-			SET_PLANE_IMPLICIT(W, initial(W.plane))
-			W.mouse_opacity = initial(W.mouse_opacity)
-			W.remove_outline()
+			item.layer = initial(item.layer)
+			SET_PLANE_IMPLICIT(item, initial(item.plane))
+			item.mouse_opacity = initial(item.mouse_opacity)
+			item.remove_outline()
 
-		W.forceMove(new_location)
+		item.forceMove(new_location)
 
 	if(usr)
-		W.add_fingerprint(usr)
+		item.add_fingerprint(usr)
 		orient2hud(usr)
 		if(usr.s_active && !QDELETED(src))
 			usr.s_active.show_to(usr)
-	if(W.maptext)
-		W.maptext = ""
-	W.on_exit_storage(src)
+	if(item.maptext)
+		item.maptext = ""
+	item.on_exit_storage(src)
 	update_icon()
 	SEND_SIGNAL(src, COMSIG_ITEM_REMOVED_FROM_STORAGE)
 	return TRUE
