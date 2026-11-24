@@ -92,6 +92,9 @@
 
 	. += applicator_bar
 
+/obj/item/reagent_containers/applicator/attack_self(mob/user)
+	attack(user, user, null, user.zone_selected)
+
 /obj/item/reagent_containers/applicator/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
 

@@ -460,6 +460,9 @@
 		return FALSE
 	return TRUE
 
+/obj/item/reagent_containers/hypospray/autoinjector/attack_self(mob/user)
+	attack(user, user, null, user.zone_selected)
+
 /obj/item/reagent_containers/hypospray/autoinjector/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!reagents.total_volume || spent)
 		balloon_alert(user, "инъектор пуст!")
