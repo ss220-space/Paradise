@@ -51,6 +51,8 @@
 
 /turf/simulated/mineral/Initialize(mapload)
 	. = ..()
+	if(!ismineralturf(src))
+		return
 	if(should_reset_color)
 		color = null
 	if(mineralType && mineralAmt && spread && spreadChance)
@@ -221,6 +223,8 @@
 	if(display_icon_state)
 		icon_state = display_icon_state
 	. = ..()
+	if(!istype(src, /turf/simulated/mineral/random))
+		return
 	if(prob(mineralChance))
 		var/path = pickweight(mineralSpawnChanceList)
 		var/turf/T = ChangeTurf(path, FALSE, TRUE)
