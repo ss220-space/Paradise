@@ -521,3 +521,4 @@
 
 			stack.add(1)
 			decompiler.stored_comms[type]--
+
