@@ -95,7 +95,7 @@
 	closer.master_ref = WEAKREF(src)
 
 	orient2hud()
-
+	RegisterSignal(src, COMSIG_MOUSEDROP_ONTO, PROC_REF(on_mouse_drop_dragged))
 
 /obj/item/storage/ComponentInitialize()
 	. = ..()
@@ -131,7 +131,8 @@
 		playsound(loc, SFX_RUSTLE, 50, TRUE, -5)
 		target.handle_item_insertion(thing, user)
 
-/obj/item/storage/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
+/obj/item/storage/proc/on_mouse_drop_dragged(atom/source, atom/over_object, mob/user)
+	SIGNAL_HANDLER
 	if(!isliving(user))
 		return
 
@@ -172,6 +173,7 @@
 		remove_from_storage(item, object_turf)
 
 	update_appearance() // For content-sensitive icons
+	return COMPONENT_CANCEL_MOUSEDROP_ONTO
 
 /obj/item/storage/click_alt(mob/user)
 	if(isobserver(user))

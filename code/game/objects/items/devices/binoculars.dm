@@ -94,9 +94,9 @@
 	)
 
 /obj/item/binoculars/range/ranged_interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
-	if(istype(interacting_with, /atom/movable/screen/fullscreen/cursor_catcher/scope))
-		var/atom/movable/screen/fullscreen/cursor_catcher/scope/scope = interacting_with
-		calculate_target(scope.given_turf, user)
+	var/turf/target_overrite = interacting_with.get_get_click_overrite_turf(real = FALSE)
+	if(target_overrite)
+		calculate_target(target_overrite, user)
 		return ITEM_INTERACT_SUCCESS
 	return ..()
 

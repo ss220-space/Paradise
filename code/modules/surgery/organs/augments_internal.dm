@@ -531,16 +531,17 @@
 		to_chat(user, span_warning("Ваш имплант не может захватить цель в трубах!"))
 		return
 	var/beam
-	if(!isturf(user.loc)) //Using it inside a locker or stealth box is fine! Let us make sure the beam can be seen though.
-		beam = user.loc.Beam(cast_on, icon_state = "sm_arc_supercharged", time = 3 SECONDS)
-	else
-		beam = user.Beam(cast_on, icon_state = "sm_arc_supercharged", time = 3 SECONDS)
+	if(isturf(cast_on.loc))
+		if(!isturf(user.loc)) //Using it inside a locker or stealth box is fine! Let us make sure the beam can be seen though.
+			beam = user.loc.Beam(cast_on, icon_state = "sm_arc_supercharged", time = 3 SECONDS)
+		else
+			beam = user.Beam(cast_on, icon_state = "sm_arc_supercharged", time = 3 SECONDS)
 
 	user.visible_message(span_warning("[DECLENT_RU_CAP(user, NOMINATIVE)] издаёт необычный жужжащий звук, когда воздух между [GEND_NIM_NEI_NIMI(user)] и [cast_on.declent_ru(INSTRUMENTAL)] потрескивает."), \
 			span_warning("Воздух между вами и [cast_on.declent_ru(INSTRUMENTAL)] начинает слышно потрескивать, когда \"Бинят\" принимается за работу и нагревается в вашей голове!"))
 
 	if(!do_after(user, 3 SECONDS, cast_on))
-		qdel(beam)
+		QDEL_NULL(beam)
 		StartCooldown(cooldown_time* 0.3)
 		return
 
