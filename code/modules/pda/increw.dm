@@ -1,3 +1,16 @@
+GLOBAL_LIST_INIT(increw_call_ringtones, list(
+	INCREW_DEFAULT_CALL_RINGTONE = 'sound/machines/twobeep_high.ogg',
+	"Гитара скелета" = 'sound/misc/guitar_rifs/skeleton_guitar_riff.ogg',
+	"Гитарный рифф №2" = 'sound/misc/guitar_rifs/guitar_riff_2.ogg',
+	"Гитарный рифф №4" = 'sound/misc/guitar_rifs/guitar_riff_4.ogg',
+	"Ретро-джингл" = 'sound/effects/achievement/beeps_jingle.ogg',
+	"Колокольчики" = 'sound/effects/achievement/glockenspiel_ping.ogg',
+	"Фанфара" = 'sound/effects/achievement/tada_fanfare.ogg',
+	"Пианино" = 'sound/effects/piano_hit.ogg',
+	"Терминал" = 'sound/machines/terminal_processing.ogg',
+	"Аркада" = 'sound/items/PDA/mario_1up.ogg',
+))
+
 /datum/data/pda/app/increw
 	name = "InCrew"
 	icon = "comments"
@@ -12,6 +25,8 @@
 	var/datum/increw_call_member/call_member
 	var/datum/weakref/login_profile
 	var/login_paused = FALSE
+	/// Stored on this PDA's InCrew app.
+	var/call_ringtone = INCREW_DEFAULT_CALL_RINGTONE
 
 /datum/data/pda/app/increw/Destroy()
 	if(call_member)
@@ -87,6 +102,8 @@
 			chats += list(chat.get_summary(profile))
 
 	data["owner_messenger_account"] = profile.get_ui_data()
+	data["ringtone"] = call_ringtone
+	data["ringtone_options"] = assoc_to_keys(GLOB.increw_call_ringtones)
 	var/datum/economy_process/subscription/increw_plus/plan = get_increw_plus_subscription()
 	var/has_plus = profile.has_increw_plus()
 	data["plus"] = list(
@@ -133,6 +150,12 @@
 		return FALSE
 
 	switch(action)
+		if("set_increw_ringtone")
+			var/ringtone = params["ringtone"]
+			if(!pda.can_use(ui.user) || !istext(ringtone) || !(ringtone in GLOB.increw_call_ringtones))
+				return FALSE
+			call_ringtone = ringtone
+			return TRUE
 		if("subscribe_plus")
 			if(!pda.can_use(ui.user))
 				return FALSE
@@ -364,6 +387,10 @@
 			pda.update_icon(UPDATE_OVERLAYS)
 	else
 		unnotify()
+
+/datum/data/pda/app/increw/proc/get_call_ringtone_sound()
+	var/sound_file = GLOB.increw_call_ringtones[call_ringtone] || GLOB.increw_call_ringtones[INCREW_DEFAULT_CALL_RINGTONE]
+	return pda.get_ringtone_sound(sound_file)
 
 /datum/data/pda/app/increw/proc/start_call(datum/messenger_account/profile, datum/messenger_chat/chat, mob/user)
 	if(!isliving(user) || user.stat == DEAD || !pda.can_use(user) || !user.client)

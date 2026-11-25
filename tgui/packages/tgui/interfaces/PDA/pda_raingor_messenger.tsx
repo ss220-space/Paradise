@@ -9,6 +9,7 @@ import {
 import {
 	Box,
 	Button,
+	Dropdown,
 	Icon,
 	Input,
 	Section,
@@ -65,6 +66,8 @@ type InCrewData =
 	| {
 			can_login: true;
 			owner_messenger_account: Profile;
+			ringtone: string;
+			ringtone_options: string[];
 			chats: Chat[];
 			contact_search: {
 				query: string;
@@ -268,7 +271,7 @@ const tabs = [
 function InCrew({ data }: { data: Extract<InCrewData, { can_login: true }> }) {
 	const { act } = useBackend();
 	const [page, setPage] = useState<
-		'home' | 'contacts' | 'create' | 'about' | 'blocked'
+		'home' | 'contacts' | 'create' | 'about' | 'blocked' | 'ringtone'
 	>('home');
 	const [tab, setTab] = useState<(typeof tabs)[number]['id']>('chats');
 	const {
@@ -319,6 +322,25 @@ function InCrew({ data }: { data: Extract<InCrewData, { can_login: true }> }) {
 		return <AboutInCrew onClose={() => setPage('home')} />;
 	}
 
+	if (page === 'ringtone') {
+		return (
+			<InCrewPage
+				icon="bell"
+				title="Рингтон звонка"
+				onClose={() => setPage('home')}
+			>
+				<Dropdown
+					fluid
+					selected={data.ringtone}
+					options={data.ringtone_options}
+					onSelected={(ringtone) =>
+						act('set_increw_ringtone', { ringtone })
+					}
+				/>
+			</InCrewPage>
+		);
+	}
+
 	if (page === 'blocked') {
 		return (
 			<BlockedContacts
@@ -347,6 +369,12 @@ function InCrew({ data }: { data: Extract<InCrewData, { can_login: true }> }) {
 					icon="ban"
 					tooltip="Чёрный список"
 					onClick={() => setPage('blocked')}
+				/>
+				<Button
+					icon="bell"
+					aria-label="Рингтон звонка"
+					tooltip="Рингтон звонка"
+					onClick={() => setPage('ringtone')}
 				/>
 				<Button
 					icon="sign-out-alt"

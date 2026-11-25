@@ -114,7 +114,7 @@ GLOBAL_LIST_EMPTY(increw_call_frequencies)
 			if(QDELETED(src))
 				return
 		else if(!member.accepted && !member.quiet)
-			member.play_tone('sound/machines/twobeep_high.ogg')
+			member.play_tone(member.device.get_call_ringtone_sound(), audible_nearby = TRUE)
 		else if(member.accepted && !active)
 			member.play_tone('sound/machines/twobeep.ogg')
 	ring_timer = addtimer(CALLBACK(src, PROC_REF(ring)), INCREW_CALL_RING_INTERVAL, TIMER_STOPPABLE)
@@ -178,9 +178,20 @@ GLOBAL_LIST_EMPTY(increw_call_frequencies)
 	to_chat(user, span_notice("InCrew: [caller_name] вызывает вас в «[chat_name]». Откройте InCrew, чтобы ответить."))
 	device.refresh_alert(profile)
 
-/datum/increw_call_member/proc/play_tone(sound_file)
-	if(is_available() && !device.pda.silent)
-		user.playsound_local(get_turf(user), sound_file, 45, FALSE, pressure_affected = FALSE)
+/datum/increw_call_member/proc/play_tone(sound_file, audible_nearby = FALSE)
+	if(!is_available() || device.pda.silent)
+		return
+	if(audible_nearby)
+		playsound(
+			device.pda,
+			sound_file,
+			45,
+			FALSE,
+			extrarange = INCREW_CALL_RING_RANGE - SOUND_RANGE,
+			ignore_walls = FALSE,
+		)
+		return
+	user.playsound_local(get_turf(user), sound_file, 45, FALSE, pressure_affected = FALSE)
 
 /datum/increw_call_member/proc/connect_radio()
 	radio = new(device.pda, src, call_session.frequency)

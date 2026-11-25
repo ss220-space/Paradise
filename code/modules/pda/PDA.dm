@@ -535,11 +535,13 @@ GAME_VERB_SRC(/obj/item/pda, verb_remove_pen, usr, "Извлечь ручку", 
 	for(var/atom/A in src)
 		A.emp_act(severity)
 
-/obj/item/pda/proc/play_ringtone(list/balloon_alertees)
-	var/sound_file = ttone_sound[ttone] ? ttone_sound[ttone] : 'sound/machines/twobeep_high.ogg'
+/obj/item/pda/proc/get_ringtone_sound(sound_file)
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_PDA_GLITCHED))
-		sound_file = SFX_GLITCHED_PDA_RINGTONE
-	playsound(loc, sound_file, 50, TRUE)
+		return SFX_GLITCHED_PDA_RINGTONE
+	return sound_file || ttone_sound[ttone] || 'sound/machines/twobeep_high.ogg'
+
+/obj/item/pda/proc/play_ringtone(list/balloon_alertees)
+	playsound(loc, get_ringtone_sound(), 50, TRUE)
 	var/ring_message = "*[ttone]*"
 	audible_message(ring_message)
 	for(var/mob/living/alertee in balloon_alertees)
