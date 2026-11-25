@@ -28,6 +28,10 @@
 	desc = "A small cabinet with drawers. This one has wheels!"
 	anchored = FALSE
 
+/obj/structure/filingcabinet/chestdrawer/autopsy
+	name = "autopsy reports drawer"
+	desc = "A large drawer for holding autopsy reports."
+
 /obj/structure/filingcabinet/white
 	icon_state = "tall_cabinet"
 

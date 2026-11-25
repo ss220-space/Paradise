@@ -1701,7 +1701,7 @@
 /obj/item/paper{
 	name = "Dented note";
 	desc = "Dented paper list with curve letters";
-	info = "Have you seen my fiancee? <br />Someone or something hit me on the head and then I lost her. Maybe it was the derpy idiot who was watching us that day. Ah, I hope I can find her... Her shape is something, she's just like a nut.<br />If I meet that jerk, I'll shoot him with my revolver."
+	default_raw_text = "Have you seen my fiancee? <br />Someone or something hit me on the head and then I lost her. Maybe it was the derpy idiot who was watching us that day. Ah, I hope I can find her... Her shape is something, she's just like a nut.<br />If I meet that jerk, I'll shoot him with my revolver."
 	},
 /turf/simulated/floor/grass,
 /area/ruin/space/crashedipcship/asteroid)
@@ -2727,7 +2727,7 @@
 	},
 /obj/item/paper{
 	name = "Dented note 2";
-	info = "Have you seen my fiance?<br />It seems I was kidnapped... I remember how we walked, and then... Then I woke up here. It's good that I always have a lady's pistol in my purse. That strange derpy fellow, seeing my gun, curled up in a corner and didn't show up anymore.<br />Ah, I hope my fiance finds me. He is as solid and hard as flint."
+	default_raw_text = "Have you seen my fiance?<br />It seems I was kidnapped... I remember how we walked, and then... Then I woke up here. It's good that I always have a lady's pistol in my purse. That strange derpy fellow, seeing my gun, curled up in a corner and didn't show up anymore.<br />Ah, I hope my fiance finds me. He is as solid and hard as flint."
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/crashedipcship/asteroid)

@@ -276,7 +276,7 @@
 /obj/structure/table/wood,
 /obj/item/paper{
 	name = "Credo";
-	info = "<br>Requiem<br><br>Requiem aeternam dona eis, Domine, et lux perpetua luceat eis. <br>Requiestcant in pace. <br>Amen.<br><br><br><br>Gloria<br><br>Gloria Patri, et Filio, et Spiritui Sancto. <br>Sicut erat in principio, et nunc et semper, et in saecula saeculorum. <br>Amen.<br><br><br>In nomine Patris, et Filii, et Spiritus Sancti. <br>Amen."
+	default_raw_text = "<br>Requiem<br><br>Requiem aeternam dona eis, Domine, et lux perpetua luceat eis. <br>Requiestcant in pace. <br>Amen.<br><br><br><br>Gloria<br><br>Gloria Patri, et Filio, et Spiritui Sancto. <br>Sicut erat in principio, et nunc et semper, et in saecula saeculorum. <br>Amen.<br><br><br>In nomine Patris, et Filii, et Spiritus Sancti. <br>Amen."
 	},
 /turf/simulated/floor/carpet,
 /area/ruin/space/graveyard/church)
@@ -408,8 +408,8 @@
 /obj/item/flashlight/lantern,
 /obj/item/flashlight/lantern,
 /obj/item/paper/crumpled{
-	info = "Дебилы! Как вы меня уже достали! Хватит пытаться заменить лампочку! Если кто-нибудь еще сунет свои рученки — отправится к господу богу...";
-	desc = "Старая помятая бумажка"
+	desc = "Старая помятая бумажка";
+	default_raw_text = "Дебилы! Как вы меня уже достали! Хватит пытаться заменить лампочку! Если кто-нибудь еще сунет свои рученки — отправится к господу богу..."
 	},
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
@@ -1740,7 +1740,7 @@
 /obj/structure/table/wood,
 /obj/item/paper{
 	name = "Pater noster";
-	info = "<br>Pater noster, qui ts in caelis,<br>Sanctrticetur nomen Tuum.<br>Adveniat regnum Tuum.<br>Fiat voluntas Tua, sicut in caelo et in terra.<br>Panem nostrum quotidianum da nobis hodie.<br>Et dimitte nobis debita nostra, sicut et nos dimittimus debitoribus nostris.<br>Et ne nos inducas in tentationem,<br>Sed libera nos malo.<br>Amen."
+	default_raw_text = "<br>Pater noster, qui ts in caelis,<br>Sanctrticetur nomen Tuum.<br>Adveniat regnum Tuum.<br>Fiat voluntas Tua, sicut in caelo et in terra.<br>Panem nostrum quotidianum da nobis hodie.<br>Et dimitte nobis debita nostra, sicut et nos dimittimus debitoribus nostris.<br>Et ne nos inducas in tentationem,<br>Sed libera nos malo.<br>Amen."
 	},
 /turf/simulated/floor/carpet,
 /area/ruin/space/graveyard/church)

@@ -583,7 +583,7 @@
 /obj/structure/table,
 /obj/machinery/light/small,
 /obj/item/paper{
-	info = "X X O<br>X O X<br>O X"
+	default_raw_text = "X X O<br>X O X<br>O X"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -650,8 +650,8 @@
 "cb" = (
 /obj/structure/filingcabinet,
 /obj/item/paper{
-	info = "Todo: write up a lawsuit for Ted, fuck what the pamphlets say, nothing good is gonna come out of that gate. Ted'll thank me later, I'll bet.";
-	name = "documents"
+	name = "documents";
+	default_raw_text = "Todo: write up a lawsuit for Ted, fuck what the pamphlets say, nothing good is gonna come out of that gate. Ted'll thank me later, I'll bet."
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
@@ -697,8 +697,8 @@
 /area/awaymission/example)
 "cj" = (
 /obj/item/paper{
-	info = "Hey Ted, remind me to take Angeline out some time before I ship out. You know how bad my memory is, so don't get all high and mighty with me. READ THIS.";
-	name = "note"
+	name = "note";
+	default_raw_text = "Hey Ted, remind me to take Angeline out some time before I ship out. You know how bad my memory is, so don't get all high and mighty with me. READ THIS."
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
@@ -711,8 +711,8 @@
 	pixel_y = 32
 	},
 /obj/item/paper{
-	info = "Remember, friday is David Bowie night! You guys had better fucking <i>be there!</i>";
-	name = "friday night"
+	name = "friday night";
+	default_raw_text = "Remember, friday is David Bowie night! You guys had better fucking <i>be there!</i>"
 	},
 /obj/item/cigbutt,
 /turf/simulated/floor/plasteel{
