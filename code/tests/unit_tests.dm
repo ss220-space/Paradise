@@ -46,6 +46,7 @@
 
 #ifdef REFERENCE_TRACKING_DEBUG //Don't try and parse this file if ref tracking isn't turned on. IE: don't parse ref tracking please mr linter
 #include "test_find_reference_sanity.dm"
+#include "test_gc_failures.dm"
 #endif
 
 #ifdef MAP_TESTS
