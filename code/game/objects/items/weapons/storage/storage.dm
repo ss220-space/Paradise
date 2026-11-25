@@ -148,7 +148,7 @@
 	if(isstorage(over_object))
 		var/obj/item/storage = over_object
 		if(!(storage.item_flags & IN_STORAGE))
-			dump_storage(user, over_object)
+			INVOKE_ASYNC(src, PROC_REF(dump_storage), user, over_object)
 			return
 
 	if(istype(src, /obj/item/storage/lockbox) || (!istable(over_object) && !isfloorturf(over_object)) \
