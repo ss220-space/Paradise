@@ -18,7 +18,7 @@
 // I'm using this for mechs giving MMIs HUDs now
 
 	var/obj/item/radio/radio = null // For use with the radio MMI upgrade
-	var/datum/action/generic/configure_mmi_radio/radio_action = null
+	var/datum/action/configure_mmi_radio/radio_action = null
 
 	// Used for cases when mmi or one of it's children commits suicide.
 	// Needed to fix a rather insane bug when a posibrain/robotic brain commits suicide
@@ -318,3 +318,28 @@
 	if((src_object in view(user.client)) && get_dist(src_object, src) <= user.client.maxview())
 		return UI_INTERACTIVE	// interactive (green visibility)
 	return user.shared_living_ui_distance()
+
+/datum/action/configure_mmi_radio
+	name = "Настроить радио MMI"
+	desc = "Настроить радио, установленное в вашем MMI."
+	check_flags = AB_CHECK_CONSCIOUS
+	var/obj/item/mmi = null
+
+/datum/action/configure_mmi_radio/New(Target, obj/item/mmi/M)
+	. = ..()
+	mmi = M
+
+/datum/action/configure_mmi_radio/Trigger(mob/clicker, trigger_flags)
+	if(!..())
+		return FALSE
+	target.ui_interact(clicker)
+	return TRUE
+
+/datum/action/configure_mmi_radio/Destroy()
+	mmi = null
+	return ..()
+
+/datum/action/configure_mmi_radio/UpdateButtonIcon()
+	if(!mmi)
+		return
+	return ..()
