@@ -629,7 +629,7 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 				port.set_input(marker.marked_atom)
 				return TRUE
 
-			var/user_input = port.handle_manual_input(usr, params["input"])
+			var/user_input = sanitize(port.handle_manual_input(usr, params["input"]))
 			if(isnull(user_input))
 				return TRUE
 			log_circuit("[key_name_log(usr)] set [user_input] as [port.name] value.")
