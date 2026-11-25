@@ -11889,7 +11889,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/xenobiology)
 "bXt" = (
-/obj/structure/filingcabinet/filingcabinet,
+/obj/structure/filingcabinet/white,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -16439,7 +16439,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/livingcomplex)
 "cLL" = (
-/obj/structure/filingcabinet/filingcabinet,
+/obj/structure/filingcabinet/white,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/cargo/sorting)
@@ -26100,7 +26100,7 @@
 "ezm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_construct,
-/obj/structure/filingcabinet/filingcabinet,
+/obj/structure/filingcabinet/white,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -91361,7 +91361,7 @@
 "pHS" = (
 /obj/machinery/power/apc/directional/north,
 /obj/structure/cable,
-/obj/structure/filingcabinet/filingcabinet,
+/obj/structure/filingcabinet/white,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

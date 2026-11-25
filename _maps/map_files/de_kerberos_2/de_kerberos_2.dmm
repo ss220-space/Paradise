@@ -6320,7 +6320,7 @@
 	},
 /area/station/command/vault)
 "bqE" = (
-/obj/structure/filingcabinet/filingcabinet,
+/obj/structure/filingcabinet/white,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -34016,7 +34016,7 @@
 	},
 /area/station/engineering/mechanic_workshop/hangar)
 "hpH" = (
-/obj/structure/filingcabinet/filingcabinet,
+/obj/structure/filingcabinet/white,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},

@@ -1,193 +1,244 @@
 #define PAPERWORK 1
 #define PHOTO 2
 
+// /obj/item/clipboard
+// 	name = "clipboard"
+// 	desc = "It looks like you're writing a letter. Want some help?"
+// 	icon = 'icons/obj/service/bureaucracy.dmi'
+// 	icon_state = "clipboard"
+// 	item_state = "clipboard"
+// 	w_class = WEIGHT_CLASS_SMALL
+// 	throw_speed = 3
+// 	var/obj/item/pen/containedpen
+// 	var/obj/item/toppaper
+// 	slot_flags = ITEM_SLOT_BELT
+// 	resistance_flags = FLAMMABLE
+
+/**
+ * Clipboard
+ */
 /obj/item/clipboard
 	name = "clipboard"
 	desc = "It looks like you're writing a letter. Want some help?"
 	icon = 'icons/obj/service/bureaucracy.dmi'
 	icon_state = "clipboard"
 	item_state = "clipboard"
+	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
-	var/obj/item/pen/containedpen
-	var/obj/item/toppaper
+	throw_range = 7
 	slot_flags = ITEM_SLOT_BELT
 	resistance_flags = FLAMMABLE
 
+	//custom_materials = list(/datum/material/wood = SHEET_MATERIAL_AMOUNT, /datum/material/iron = HALF_SHEET_MATERIAL_AMOUNT)
+
+	/// The stored pen
+	var/obj/item/pen/containedpen
+	/// Is the pen integrated?
+	var/integrated_pen = FALSE
+	/**
+	 * Topmost piece of paper
+	 * This is used for the paper displayed on the clipboard's icon
+	 * and it is the one attacked, when attacking the clipboard.
+	 */
+	var/obj/item/paper/top_paper
+
+/obj/item/clipboard/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_skins, item_path = /obj/item/clipboard)
+
+/obj/item/clipboard/suicide_act(mob/living/user)
+	user.visible_message(span_suicide("[user] begins putting [user.p_their()] head into the clip of \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
+	return BRUTELOSS //The clipboard's clip is very strong. Industrial duty. Can kill a man easily.
+
 /obj/item/clipboard/Initialize(mapload)
+	update_appearance()
 	. = ..()
-	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/clipboard/click_alt(mob/user)
-	if(is_pen(user.get_active_hand()))
-		penPlacement(user, user.get_active_hand(), TRUE)
-	else
-		removePen(user)
-	return CLICK_ACTION_SUCCESS
+/obj/item/clipboard/Destroy()
+	QDEL_NULL(containedpen)
+	QDEL_NULL(top_paper)
+	return ..()
 
-GAME_VERB_SRC(/obj/item/clipboard, removePen, usr, "Открепить ручку", VERB_CATEGORY_HIDDEN)
-	if(!ishuman(usr) || usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+/obj/item/clipboard/examine()
+	. = ..()
+	if(!integrated_pen && containedpen)
+		. += span_notice("Right-click to remove [containedpen].")
+	else if(top_paper)
+		. += span_notice("Right-click to remove [top_paper].")
+
+/// Take out the topmost paper
+/obj/item/clipboard/proc/remove_paper(obj/item/paper/paper, mob/user)
+	if(!istype(paper))
 		return
-	penPlacement(usr, containedpen, FALSE)
+	paper.forceMove(user.loc)
+	user.put_in_hands(paper)
+	to_chat(user, span_notice("You remove [paper] from [src]."))
 
-/obj/item/clipboard/proc/isPaperwork(obj/item/W) //This could probably do with being somewhere else but for now it's fine here.
-	if(istype(W, /obj/item/paper) || istype(W, /obj/item/paper_bundle))
-		return PAPERWORK
-	if(istype(W, /obj/item/photo))
-		return PHOTO
+/obj/item/clipboard/proc/remove_pen(mob/user)
+	var/obj/item/pen/pen = containedpen
+	pen.forceMove(user.loc)
+	user.put_in_hands(pen)
+	to_chat(user, span_notice("You remove [pen] from [src]."))
 
-/obj/item/clipboard/proc/checkTopPaper()
-	if(toppaper.loc != src) //Oh no! We're missing a top sheet! Better get another one to be at the top.
-		toppaper = locate(/obj/item/paper) in src
-		if(!toppaper) //In case there's no paper, try find a paper bundle instead (why is paper_bundle not a subtype of paper?)
-			toppaper = locate(/obj/item/paper_bundle) in src
-
-/obj/item/clipboard/examine(mob/user)
+/obj/item/clipboard/Exited(atom/movable/gone, direction)
 	. = ..()
-	. += span_notice("<b>Alt-Click</b> to remove its pen.")
-	if(in_range(user, src) && toppaper)
-		. += toppaper.examine(user)
+	if(gone == containedpen)
+		containedpen = null
+		update_icon()
+		return
 
-/obj/item/clipboard/proc/penPlacement(mob/user, obj/item/pen/pen, placing)
-	if(placing)
-		if(!is_pen(pen))
-			return FALSE
-		if(containedpen)
-			to_chat(user, span_warning("There's already a pen in [src]!"))
-			return FALSE
-		if(!user.drop_transfer_item_to_loc(pen, src))
-			return FALSE
-		to_chat(user, span_notice("You have slided [pen] into [src]."))
-		containedpen = pen
-		update_icon(UPDATE_OVERLAYS)
-		return TRUE
-	if(!containedpen)
-		to_chat(user, span_warning("There is no pen in [src] for you to remove!"))
-		return FALSE
-	to_chat(user, span_notice("You have removed [containedpen] from [src]."))
-	containedpen.forceMove_turf()
-	user.put_in_hands(containedpen, ignore_anim = FALSE)
-	containedpen = null
-	update_icon(UPDATE_OVERLAYS)
-	return TRUE
+	if(gone != top_paper)
+		return
 
-/obj/item/clipboard/proc/showClipboard(mob/user) //Show them what's on the clipboard
-	var/dat = {"<meta charset="UTF-8"><title>[src]</title>"}
-	dat += "<a href='byond://?src=[UID()];doPenThings=[containedpen ? "Remove" : "Add"]'>[containedpen ? "Remove pen" : "Add pen"]</a><br><hr>"
-	if(toppaper)
-		dat += "<a href='byond://?src=[UID()];remove=[toppaper.UID()]'>Remove</a><a href='byond://?src=[UID()];viewOrWrite=[toppaper.UID()]'>[toppaper.name]</a><br><hr>"
-	for(var/obj/item/P in src)
-		if(isPaperwork(P) == PAPERWORK && P != toppaper)
-			dat += "<a href='byond://?src=[UID()];remove=[P.UID()]'>Remove</a><a href='byond://?src=[UID()];topPaper=[P.UID()]'>Put on top</a><a href='byond://?src=[UID()];viewOrWrite=[P.UID()]'>[P.name]</a><br>"
-		if(isPaperwork(P) == PHOTO)
-			dat += "<a href='byond://?src=[UID()];remove=[P.UID()]'>Remove</a><a href='byond://?src=[UID()];viewOrWrite=[P.UID()]'>[P.name]</a><br>"
-	var/datum/browser/popup = new(user, "clipboard", "[src]", 400, 400)
-	popup.set_content(dat)
-	popup.open()
+	UnregisterSignal(top_paper, COMSIG_ATOM_UPDATED_ICON)
+	top_paper = locate(/obj/item/paper) in src
+	update_icon()
 
 /obj/item/clipboard/update_overlays()
 	. = ..()
-	if(toppaper)
-		. += toppaper.icon_state
-		. += toppaper.overlays
+	var/paper_to_add = get_paper_overlay()
+	if(paper_to_add)
+		. += paper_to_add
 	if(containedpen)
 		. += "clipboard_pen"
-	for(var/obj/O in src)
-		if(istype(O, /obj/item/photo))
-			var/image/img = image('icons/obj/service/bureaucracy.dmi')
-			var/obj/item/photo/Ph = O
-			img = Ph.tiny
-			. += img
-			break
 	. += "clipboard_over"
 
-/obj/item/clipboard/attackby(obj/item/I, mob/user, params)
-	var/paperwork = isPaperwork(I)
-	if(paperwork) //If it's a photo, paper bundle, or piece of paper, place it on the clipboard.
-		add_fingerprint(user)
-		if(!user.drop_transfer_item_to_loc(I, src))
-			return ..()
-		to_chat(user, span_notice("You have clipped [I] onto [src]."))
-		playsound(loc, SFX_PAGE_TURN, 50, TRUE)
-		if(paperwork == PAPERWORK)
-			toppaper = I
-		update_icon(UPDATE_OVERLAYS)
-		return ATTACK_CHAIN_BLOCKED_ALL
+/obj/item/clipboard/proc/get_paper_overlay()
+	if(isnull(top_paper))
+		return
 
-	if(is_pen(I))
-		add_fingerprint(user)
-		if(!toppaper) //If there's no paper we can write on, just stick the pen into the clipboard
-			if(penPlacement(user, I, TRUE))
-				return ATTACK_CHAIN_BLOCKED_ALL
-			return ATTACK_CHAIN_PROCEED
-		if(containedpen) //If there's a pen in the clipboard, let's just let them write and not bother asking about the pen
-			toppaper.attackby(I, user, params)
-			return ATTACK_CHAIN_BLOCKED_ALL
-		var/writeonwhat = tgui_alert(user, "Write on [toppaper.name], or place your pen in [src]?", "Pick one!", list("Write", "Place pen"))
-		if(!writeonwhat || !Adjacent(user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-			return ATTACK_CHAIN_PROCEED
-		switch(writeonwhat)
-			if("Write")
-				toppaper.attackby(I, user, params)
-				return ATTACK_CHAIN_BLOCKED_ALL
-			if("Place pen")
-				if(penPlacement(user, I, TRUE))
-					return ATTACK_CHAIN_BLOCKED_ALL
-				return ATTACK_CHAIN_PROCEED
+	var/mutable_appearance/paper_overlay = mutable_appearance(icon, top_paper.icon_state, offset_spokesman = src, appearance_flags = KEEP_APART)
+	paper_overlay = top_paper.color_atom_overlay(paper_overlay)
+	paper_overlay.overlays += top_paper.overlays
+	return paper_overlay
 
-	if(istype(I, /obj/item/stamp)) //We can stamp the topmost piece of paper
-		if(!toppaper)
-			to_chat(user, span_warning("The [name] has no paperwork."))
-			return ATTACK_CHAIN_PROCEED
-		toppaper.attackby(I, user, params)
-		update_icon(UPDATE_OVERLAYS)
-		return ATTACK_CHAIN_BLOCKED_ALL
+/obj/item/clipboard/attack_hand(mob/user, list/modifiers)
+	if(LAZYACCESS(modifiers, RIGHT_CLICK))
+		if(!integrated_pen && containedpen)
+			remove_pen(user)
+		else
+			remove_paper(top_paper, user)
+		return TRUE
+	. = ..()
 
-	return ..()
+/obj/item/clipboard/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(istype(tool, /obj/item/paper))
+		//Add paper into the clipboard
+		if(!user.drop_transfer_item_to_loc(tool, src))
+			return ITEM_INTERACT_BLOCKING
+		if(top_paper)
+			UnregisterSignal(top_paper, COMSIG_ATOM_UPDATED_ICON)
+		RegisterSignal(tool, COMSIG_ATOM_UPDATED_ICON, PROC_REF(on_top_paper_change))
+		top_paper = tool
+		to_chat(user, span_notice("You clip [tool] onto [src]."))
+		update_appearance()
+		return ITEM_INTERACT_SUCCESS
+
+	if(istype(tool, /obj/item/pen) && !containedpen)
+		//Add a pen into the clipboard, attack (write) if there is already one
+		if(!user.drop_transfer_item_to_loc(tool, src))
+			return ITEM_INTERACT_BLOCKING
+		containedpen = tool
+		to_chat(user, span_notice("You slot [tool] into [src]."))
+		update_appearance()
+		return ITEM_INTERACT_SUCCESS
+
+	// Always label the clipboard so all of the papers don't have to be taken out.
+	if(istype(tool, /obj/item/hand_labeler))
+		return tool.interact_with_atom(src, user)
+
+	if(top_paper)
+		top_paper.item_interaction(user, user.get_active_hand())
+		update_appearance()
+		return ITEM_INTERACT_SUCCESS
+
+	return NONE
 
 /obj/item/clipboard/attack_self(mob/user)
-	showClipboard(user)
+	add_fingerprint(user)
+	ui_interact(user)
+	return
 
-/obj/item/clipboard/Topic(href, href_list)
-	..()
-	if(!Adjacent(usr) || usr.incapacitated)
+/obj/item/clipboard/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Clipboard")
+		ui.open()
+
+/obj/item/clipboard/ui_data(mob/user)
+	// prepare data for TGUI
+	var/list/data = list()
+	data["pen"] = "[containedpen]"
+	data["integrated_pen"] = integrated_pen
+
+	data["top_paper"] = "[top_paper]"
+	data["top_paper_ref"] = "[top_paper?.UID()]"
+
+	data["paper"] = list()
+	data["paper_ref"] = list()
+	for(var/obj/item/paper/paper in src)
+		if(paper == top_paper)
+			continue
+		data["paper"] += "[paper]"
+		data["paper_ref"] += "[paper?.UID()]"
+
+	return data
+
+/obj/item/clipboard/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
+	if(.)
 		return
-	var/obj/item/I = usr.get_active_hand()
-	if(href_list["doPenThings"])
-		if(href_list["doPenThings"] == "Add")
-			penPlacement(usr, I, TRUE)
-		else
-			penPlacement(usr, containedpen, FALSE)
-	else if(href_list["remove"])
-		var/obj/item/P = locateUID(href_list["remove"])
-		if(isPaperwork(P))
-			P.forceMove_turf()
-			usr.put_in_hands(P, ignore_anim = FALSE)
-			to_chat(usr, span_notice("You remove [P] from [src]."))
-			checkTopPaper() //So we don't accidentally make the top sheet not be on the clipboard
-	else if(href_list["viewOrWrite"])
-		var/obj/item/P = locateUID(href_list["viewOrWrite"])
-		if(!isPaperwork(P))
-			return
-		if(is_pen(I) && isPaperwork(P) != PHOTO) //Because you can't write on photos that aren't in your hand
-			P.attackby(I, usr)
-		else if(isPaperwork(P) == PAPERWORK) //Why can't these be subtypes of paper
-			P.examine(usr)
-		else if(isPaperwork(P) == PHOTO)
-			var/obj/item/photo/Ph = P
-			Ph.show(usr)
-	else if(href_list["topPaper"])
-		var/obj/item/P = locateUID(href_list["topPaper"])
-		if(P == toppaper)
-			return
-		to_chat(usr, span_notice("You flick the pages so that [P] is on top."))
-		playsound(loc, SFX_PAGE_TURN, 50, TRUE)
-		toppaper = P
-	update_icon(UPDATE_OVERLAYS)
-	showClipboard(usr)
 
-#undef PAPERWORK
-#undef PHOTO
+	var/mob/user = ui.user
+
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+
+	switch(action)
+		// Take the pen out
+		if("remove_pen")
+			if(containedpen)
+				if(!integrated_pen)
+					remove_pen(user)
+				else
+					to_chat(user, span_warning("You can't seem to find a way to remove [src]'s [containedpen]."))
+				. = TRUE
+		// Take paper out
+		if("remove_paper")
+			var/obj/item/paper/paper = locateUID(params["ref"])
+			if(istype(paper) && paper.loc == src)
+				remove_paper(paper, user)
+				. = TRUE
+		// Look at (or edit) the paper
+		if("edit_paper")
+			var/obj/item/paper/paper = locateUID(params["ref"])
+			if(istype(paper) && paper.loc == src)
+				paper.ui_interact(user)
+				update_icon()
+				. = TRUE
+		// Move paper to the top
+		if("move_top_paper")
+			var/obj/item/paper/paper = locateUID(params["ref"])
+			if(istype(paper) && paper.loc == src)
+				top_paper = paper
+				to_chat(user, span_notice("You move [paper] to the top."))
+				update_icon()
+				. = TRUE
+		// Rename the paper (it's a verb)
+		if("rename_paper")
+			var/obj/item/paper/paper = locateUID(params["ref"])
+			if(istype(paper) && paper.loc == src)
+				paper.rename()
+				update_icon()
+				. = TRUE
+
+/**
+ * This is a simple proc to handle calling update_icon() upon receiving the top paper's `COMSIG_ATOM_UPDATE_APPEARANCE`.
+ */
+/obj/item/clipboard/proc/on_top_paper_change()
+	SIGNAL_HANDLER
+	update_appearance()
 
 /obj/item/clipboard/IsContainedAtomAccessible(atom/contained, atom/movable/user)
-	return ..() || (contained == toppaper)
+	return ..() || (contained == top_paper)

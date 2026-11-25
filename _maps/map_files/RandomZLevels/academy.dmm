@@ -5302,7 +5302,7 @@
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/academy/academyaft)
 "MH" = (
-/obj/structure/filingcabinet/filingcabinet,
+/obj/structure/filingcabinet/white,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"

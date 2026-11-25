@@ -526,9 +526,7 @@
 		// Apply font styling unless disabled
 		if(!disable_font)
 			if(pen_item)
-				input_text = "<font face=\"[pen_item.fake_signing ? signature_font : default_font]\" color=[pen_item ? pen_item.colour : "black"]>[input_text]</font>"
-				if(pen_item.fake_signing)
-					input_text = "<i>[input_text]</i>"
+				input_text = "<font face=\"[default_font]\" color=[pen_item ? pen_item.colour : "black"]>[input_text]</font>"
 			else
 				input_text = "<font face=\"[default_font]\">[input_text]</font>"
 

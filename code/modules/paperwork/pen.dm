@@ -21,7 +21,6 @@
 	materials = list(MAT_METAL=10)
 	var/colour = COLOR_BLACK	//what colour the ink is!
 	pressure_resistance = 2
-	var/fake_signing = FALSE //do we always write like [sign]?
 	/// At what angle head of pen now
 	var/degrees
 	/// Is the pen clicked out (extended) to allow writing
@@ -244,7 +243,7 @@
  * MARK: Fake sign pen
  */
 /obj/item/pen/fakesign
-	fake_signing = TRUE
+	font = SIGNATURE_FONT
 	//desc = "It's a normal black ink pen with constantly moving tip. Wait what?" //documented bcs its should be stealthy item, like edagger and poison
 
 /*

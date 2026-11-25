@@ -348,7 +348,7 @@ GAME_VERB_SRC(/obj/item/paper, rename, usr, "Rename paper", null)
 	var/n_name = tgui_input_text(usr, "Enter a paper label", "Paper Labelling", max_length = MAX_NAME_LEN)
 	if(isnull(n_name) || n_name == "")
 		return
-	if(((loc == usr || istype(loc, /obj/item/clipboard))) && !usr.stat)
+	if(((loc == usr || istype(loc, /obj/item/clipboard))) && !usr.incapacitated)
 		name = "paper[(n_name ? "- '[n_name]'" : null)]"
 	add_fingerprint(usr)
 	update_static_data()

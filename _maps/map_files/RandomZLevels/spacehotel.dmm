@@ -2789,14 +2789,14 @@
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/spacehotel/reception)
 "ko" = (
-/obj/structure/filingcabinet/filingcabinet,
+/obj/structure/filingcabinet/white,
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/spacehotel/reception)
 "kp" = (
-/obj/structure/filingcabinet/filingcabinet,
+/obj/structure/filingcabinet/white,
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/spacehotel/reception)
 "kq" = (

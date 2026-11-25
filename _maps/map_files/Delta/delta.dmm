@@ -62774,7 +62774,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "nme" = (
-/obj/structure/filingcabinet/filingcabinet,
+/obj/structure/filingcabinet/white,
 /obj/structure/sign/poster/official/cargotech{
 	pixel_y = 32
 	},
@@ -62881,7 +62881,7 @@
 	},
 /area/station/engineering/atmos)
 "nnk" = (
-/obj/structure/filingcabinet/filingcabinet,
+/obj/structure/filingcabinet/white,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},

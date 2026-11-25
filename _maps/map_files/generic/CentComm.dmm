@@ -11653,7 +11653,7 @@
 	},
 /area/centcom/central_command_areas/special_operations)
 "fJC" = (
-/obj/structure/filingcabinet/filingcabinet,
+/obj/structure/filingcabinet/white,
 /obj/machinery/door_control/secure{
 	id = "CC_Players_In";
 	name = "Civilian Access";
@@ -17397,7 +17397,7 @@
 	layer = 4;
 	pixel_y = 32
 	},
-/obj/structure/filingcabinet/filingcabinet,
+/obj/structure/filingcabinet/white,
 /turf/simulated/floor/carpet/black,
 /area/centcom/central_command_areas/zone/two)
 "iCo" = (
@@ -27456,7 +27456,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced,
-/obj/structure/filingcabinet/filingcabinet,
+/obj/structure/filingcabinet/white,
 /turf/simulated/floor/carpet/black,
 /area/centcom/central_command_areas/zone/two)
 "mOA" = (
@@ -27566,7 +27566,7 @@
 	},
 /area/centcom/central_command_areas/prison)
 "mQQ" = (
-/obj/structure/filingcabinet/filingcabinet,
+/obj/structure/filingcabinet/white,
 /obj/machinery/light_construct/small{
 	dir = 8
 	},
@@ -31712,7 +31712,7 @@
 	},
 /area/centcom/central_command_areas/special_operations)
 "oGU" = (
-/obj/structure/filingcabinet/filingcabinet,
+/obj/structure/filingcabinet/white,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/wood,
 /area/centcom/central_command_areas/zone/two)
@@ -48028,7 +48028,7 @@
 	},
 /area/centcom/central_command_areas/evacuation)
 "vOq" = (
-/obj/structure/filingcabinet/filingcabinet,
+/obj/structure/filingcabinet/white,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},

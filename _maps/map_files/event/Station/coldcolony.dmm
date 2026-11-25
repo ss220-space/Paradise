@@ -24803,7 +24803,7 @@
 	},
 /area/coldcolony/malta/hallway/bridge)
 "jRT" = (
-/obj/structure/filingcabinet/filingcabinet,
+/obj/structure/filingcabinet/white,
 /turf/simulated/floor/plating,
 /area/coldcolony/ruin/sm_lab)
 "jSd" = (
@@ -52013,7 +52013,7 @@
 	},
 /area/coldcolony/malta/engineering/break_room)
 "uPm" = (
-/obj/structure/filingcabinet/filingcabinet,
+/obj/structure/filingcabinet/white,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 6;

@@ -10823,7 +10823,7 @@
 	},
 /area/hydroponics)
 "bxO" = (
-/obj/structure/filingcabinet/filingcabinet,
+/obj/structure/filingcabinet/white,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "blue"
