@@ -1,4 +1,5 @@
 import { logger } from 'common/logging';
+import { backendStateAtom, store } from 'tgui/events/store';
 import { createQueue } from './handlers/chunking';
 
 /**
@@ -9,6 +10,7 @@ export function sendAct(
   action: string,
   payload: Record<string, unknown> = {},
 ): void {
+  const state = store.get(backendStateAtom);
   // Validate that payload is an object
   const isObject =
     typeof payload === 'object' && payload !== null && !Array.isArray(payload);
@@ -29,6 +31,8 @@ export function sendAct(
       `${i > 0 ? '&' : '?'}${encodeURIComponent(key)}=${encodeURIComponent(value)}`,
     '',
   ).length;
+
+  payload = { ...payload, _secret_code: state.config.secret };
 
   if (urlSize > 2048) {
     const chunks: string[] = stringifiedPayload.split(chunkSplitter);

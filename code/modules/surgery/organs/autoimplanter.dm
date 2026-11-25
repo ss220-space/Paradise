@@ -140,7 +140,7 @@
 /obj/item/autoimplanter/oneuse/razorwire/examine_more(mob/user)
 	. = ..()
 	if(storedorgan)
-		return storedorgan.examine_more()
+		return storedorgan.examine_more(user)
 
 /obj/item/autoimplanter/oneuse/hackerman_deck
 	desc = "Одноразовый автоимплантер, содержащий в себе беспроводную систему взлома \"Бинят\". Имплант можно достать отверткой, но вставить назад уже нельзя."

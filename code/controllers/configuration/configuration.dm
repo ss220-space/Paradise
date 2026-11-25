@@ -227,8 +227,11 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 	return (var_name != NAMEOF(src, entries_by_type) || !hiding_entries_by_type) && ..()
 
 /datum/controller/configuration/vv_edit_var(var_name, var_value)
-	var/list/banned_edits = list(NAMEOF(src, entries_by_type), NAMEOF(src, entries), NAMEOF(src, directory))
+	var/list/banned_edits = list(NAMEOF(src, entries_by_type), NAMEOF(src, entries), NAMEOF(src, directory), NAMEOF(src, loaded))
 	return !(var_name in banned_edits) && ..()
+
+/datum/controller/configuration/CanProcCall(procname)
+	return FALSE
 
 /datum/controller/configuration/stat_entry(msg)
 	msg = "Edit"
@@ -242,7 +245,7 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 	E = entries_by_type[entry_type]
 	if(!E)
 		CRASH("Missing config entry for [entry_type]!")
-	if((E.protection & CONFIG_ENTRY_HIDDEN) && IsAdminAdvancedProcCall() && GLOB.LastAdminCalledProc == "Get" && GLOB.LastAdminCalledTargetUID == "[UID()]")
+	if((E.protection & CONFIG_ENTRY_HIDDEN) && IsAdminAdvancedProcCall())
 		log_admin_private("Config access of [entry_type] attempted by [key_name(usr)]")
 		return
 	return E.config_entry_value
