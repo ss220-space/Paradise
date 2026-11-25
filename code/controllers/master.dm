@@ -1048,3 +1048,14 @@ ADMIN_VERB(cmd_controller_view_ui, R_ADMIN|R_DEBUG|R_VIEWRUNTIMES, "Controller O
 		if(100 to INFINITY) // >100 = bold red
 			. = "<font color='#eb4034'><b>[cpu_var]</b></font>"
 
+/datum/controller/master/proc/format_memory(memory_var)
+	switch(memory_var)
+		if(0 to 2000)
+			. = "<font color='#32a852'>[memory_var]</font>"
+		if(2000 to 2900)
+			. = "<font color='#fcba03'>[memory_var]</font>"
+		if(2900 to 3500) // 90-100 = red
+			. = "<font color='#eb4034'>[memory_var]</font>"
+		if(3500 to INFINITY) // >100 = bold red
+			. = "<font color='#eb4034'><b>[memory_var]</b></font>"
+

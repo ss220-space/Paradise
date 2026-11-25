@@ -9,7 +9,9 @@
 
 /world/proc/shelleo(command)
 	if(IsAdminAdvancedProcCall())
-		return
+		message_admins("[key_name_admin(usr)] tried to run a shell command through an admin proc call; blocked.")
+		log_admin("[key_name(usr)] blocked shelleo from admin proc call: [command]")
+		return list(1, "", "blocked")
 	var/static/list/shelleo_ids = list()
 	var/stdout = ""
 	var/stderr = ""
