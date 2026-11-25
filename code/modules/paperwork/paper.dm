@@ -25,12 +25,11 @@
 	permeability_coefficient = 0.01
 	custom_price = PAYCHECK_MIN * 0.05
 	interaction_flags_click = NEED_DEXTERITY|NEED_HANDS|ALLOW_RESTING
-	color = COLOR_CARP_PURPLE
+	color = COLOR_WHITE
 	//scatter_distance = 8
 /*
 	item_flags = SKIP_FANTASY_ON_SPAWN
 	custom_materials = list(/datum/material/paper = HALF_SHEET_MATERIAL_AMOUNT / 2)
-	color = COLOR_WHITE
 */
 	/// Lazylist of raw, unsanitised, unparsed text inputs that have been made to the paper.
 	var/list/datum/paper_input/raw_text_inputs
