@@ -440,12 +440,51 @@
 		return
 	if(!(friend in Friends))
 		Friends[friend] = 0
-		RegisterSignal(friend, COMSIG_QDELETING, PROC_REF(clear_friend))
+		track_mob(friend)
 	Friends[friend] += amount
 
-/mob/living/simple_animal/slime/proc/clear_friend(mob/living/friend)
-	UnregisterSignal(friend, COMSIG_QDELETING)
-	Friends -= friend
+/// Sets the mob this slime hunts. The slime forgets it when it is deleted.
+/mob/living/simple_animal/slime/proc/set_target(mob/living/new_target)
+	if(QDELETED(new_target))
+		new_target = null
+	if(Target == new_target)
+		return
+	var/mob/living/old_target = Target
+	Target = new_target
+	untrack_mob(old_target)
+	track_mob(new_target)
+
+/// Sets the mob this slime follows. The slime forgets it when it is deleted.
+/mob/living/simple_animal/slime/proc/set_leader(mob/living/new_leader)
+	if(QDELETED(new_leader))
+		new_leader = null
+	if(Leader == new_leader)
+		return
+	var/mob/living/old_leader = Leader
+	Leader = new_leader
+	untrack_mob(old_leader)
+	track_mob(new_leader)
+
+/// Listens for the deletion of a friend, the target or the leader. One handler covers all three, since a mob can be several at once.
+/mob/living/simple_animal/slime/proc/track_mob(mob/living/tracked)
+	if(tracked)
+		RegisterSignal(tracked, COMSIG_QDELETING, PROC_REF(on_tracked_mob_deleted), override = TRUE)
+
+/// Stops listening once `tracked` is no longer a friend, the target or the leader.
+/mob/living/simple_animal/slime/proc/untrack_mob(mob/living/tracked)
+	if(tracked && tracked != Target && tracked != Leader && !(tracked in Friends))
+		UnregisterSignal(tracked, COMSIG_QDELETING)
+
+/mob/living/simple_animal/slime/proc/on_tracked_mob_deleted(mob/living/gone)
+	SIGNAL_HANDLER
+	UnregisterSignal(gone, COMSIG_QDELETING)
+	Friends -= gone
+	if(length(speech_buffer) && speech_buffer[1] == gone)
+		speech_buffer = list()
+	if(Target == gone)
+		Target = null
+	if(Leader == gone)
+		Leader = null
 
 /mob/living/simple_animal/slime/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
@@ -453,7 +492,7 @@
 
 	adjustBruteLoss(water_damage)
 	if(!client && Target && volume >= 3) // Like cats
-		Target = null
+		set_target(null)
 		++Discipline
 
 /mob/living/simple_animal/slime/examine(mob/user)
@@ -499,7 +538,7 @@
 				attacked = 0
 
 	if(Target)
-		Target = null
+		set_target(null)
 	if(buckled)
 		Feedstop(silent = TRUE) //we unbuckle the slime from the mob it latched onto.
 
