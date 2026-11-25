@@ -62,7 +62,7 @@ EFFECTS = {
     ),
     "old_vocoder": (
         "rubberband=pitch=0.8, highpass=f=1000, lowpass=f=3000, equalizer=f=1500:t=q:w=3:g=10, equalizer=f=2200:t=q:w=4:g=12, equalizer=f=2800:t=q:w=5:g=9, acompressor=threshold=-22dB:ratio=5:attack=3:release=90, acrusher=1:1:50:0:log, volume=2.2, aresample=8000, aresample=22050",
-        ["-ar", "8000", "-ac", "1", "-c:a", "libmp3lame", "-b:a", "32k"],
+        ["-ar", "8000", "-ac", "1", "-c:a", "libvorbis", "-b:a", "32k"],
     ),
 }
 
