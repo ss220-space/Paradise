@@ -5,14 +5,32 @@ VAZZ
 Одинокая фигура в личной броне H.E.C.K. Mk II. Кем он был и чем стал — остаётся неясным.
 Он не рычит и не бросается в бой слепо: говорит редко, действует выверенно.
 
+Странник: пока цели нет, Vazz ходит по маршруту из нескольких точек вокруг места появления. Его GPS—сигнал движется,
+земля отдаётся глухой дрожью, и только потом появляется он сам. Если контакт потерян, Vazz доходит до последней
+известной позиции цели и возвращается на маршрут. В обычном режиме он не ищет игроков сам; в хардмоде (enraged) иногда
+идёт прямо к ближайшему.
+Пока Vazz бродит, у него есть собственные дела, не связанные с игроками:
+— Крашер по фауне: иногда подходит к обычной фауне Лаваленда (фракция mining, не boss) и добивает её крашером (поза vazz_crusher).
+— Крашер по породе: если маршрут перекрыт разрушаемой породой, пробивает проход штатным способом (дестабилизатор —> attempt_drill).
+— Питание: раненый Vazz доедает трупы обычной фауны и восстанавливает немного здоровья (см. VAZZ_FEED_*).
+Любая эта задача мгновенно обрывается, как только Vazz замечает цель: бой всегда важнее.
+
 Основной цикл: рывок —> бластеры черепа —> крестовой разряд —> выстрел с телепортом.
 После каждой атаки у Vazz есть окно ближнего боя: пока цель рядом, он дерётся, а не запускает следующую атаку.
 Вне очереди:
 — Рывок           — если цель далеко и рывок готов.
 — Выстрел с телепортом — если игрок слишком долго стоит вплотную (Vazz уходит и стреляет).
-— Арена           — ниже 50% здоровья, затем раз в ~40 секунд. Vazz встаёт перед ареной, на время арены неуязвим.
+— Арена           — ниже 50% здоровья, ОДИН раз и коротко (3 волны). Vazz встаёт перед ареной, на время арены неуязвим.
+					В хардмоде арена полная (8 волн) и повторяется по кулдауну, как раньше.
 					Волны: лучи черепов, веера снарядов и "заградительный огонь" с безопасными полосами.
 — Ближний бой     — обычные удары.
+
+Вторая фаза (после арены): Vazz перестаёт отступать от "прилипших" игроков (выстрел при затяжном ближнем бое не
+вызывается), дольше держит окно ближнего боя, использует рывок как сближение с меньшей дистанции, а выстрел с
+телепортом делает коротким отскоком (2—3 клетки). Порядок основного цикла атак не меняется.
+
+Спрайты поз лежат в основном icons/mob/lavaland/vazz.dmi отдельными icon_state (список — перед vazz_pose()).
+Нет нужного состояния в файле — Vazz остаётся в основном спрайте.
 
 Урон от каждого луча наносится ОДИН раз в момент разряда по клеткам, зафиксированным в начале телеграфа.
 Постоянных таймеров урона нет, поэтому повторных попаданий одним лучом быть не может.
@@ -38,6 +56,71 @@ Difficulty: Insane
 /// Отмашка: пока Vazz занят атакой, он бьёт всех, кто стоит вплотную (раз в VAZZ_SWAT_INTERVAL)
 #define VAZZ_SWAT_DAMAGE 20
 #define VAZZ_SWAT_INTERVAL (1 SECONDS)
+/// TRUE — отмашка работает и во время восстановления после атаки (как в исходной версии).
+/// FALSE — восстановление становится честным окном для удара: игрок, прочитавший замах и подошедший, не получает отмашку.
+#define VAZZ_SWAT_DURING_RECOVERY TRUE
+
+// Патруль
+#define VAZZ_PATROL_TICK (2 SECONDS)
+#define VAZZ_PATROL_POINTS 4
+/// Радиус вокруг места появления, в котором выбираются точки маршрута
+#define VAZZ_PATROL_RADIUS 30
+#define VAZZ_PATROL_PAUSE_MIN (3 SECONDS)
+#define VAZZ_PATROL_PAUSE_MAX (7 SECONDS)
+/// Сколько тиков подряд без движения считается "застрял"
+#define VAZZ_PATROL_STUCK_LIMIT 3
+/// Сколько раз подряд Vazz бросает цель, прежде чем маршрут перестраивается
+#define VAZZ_PATROL_GIVEUP_LIMIT 3
+#define VAZZ_PATROL_ARRIVE_DISTANCE 1
+/// Хардмод: шанс, что следующей точкой маршрута станет ближайший игрок, и максимальная дальность такой "охоты"
+#define VAZZ_PATROL_HUNT_CHANCE 40
+#define VAZZ_PATROL_HUNT_RANGE 45
+/// Дрожь земли при шагах: дальность сообщения и дальность тряски камеры
+#define VAZZ_TREMOR_RANGE 14
+#define VAZZ_TREMOR_CAMERA_RANGE 7
+
+// Задачи патруля (крашер по фауне, питание)
+#define VAZZ_TASK_CRUSH 1
+#define VAZZ_TASK_FEED 2
+#define VAZZ_TASK_SCAN_INTERVAL (5 SECONDS)
+#define VAZZ_TASK_SCAN_RANGE 7
+/// За это время Vazz должен дойти до цели задачи, иначе бросает её
+#define VAZZ_TASK_TIMEOUT (15 SECONDS)
+
+// Крашер
+/// Шанс на каждом сканировании (раз в VAZZ_TASK_SCAN_INTERVAL), что Vazz пойдёт добивать замеченную фауну
+#define VAZZ_CRUSHER_CHANCE 35
+#define VAZZ_CRUSHER_COOLDOWN (25 SECONDS)
+#define VAZZ_CRUSHER_WINDUP (1.2 SECONDS)
+#define VAZZ_CRUSHER_STRIKE_TIME (0.6 SECONDS)
+/// Урон по фауне (не меньше её maxHealth: тяжёлый удар убивает)
+#define VAZZ_CRUSHER_FAUNA_DAMAGE 600
+/// Сколько ударов Vazz тратит на одну породу, прежде чем решит, что её не пробить
+#define VAZZ_CRUSHER_ROCK_ATTEMPTS 3
+
+// Питание трупами (единственный источник самолечения; пассивной регенерации нет)
+/// Ищет труп, только если здоровье не выше этой доли
+#define VAZZ_FEED_HEALTH_THRESHOLD 0.9
+/// Доля maxHealth, восстанавливаемая одним трупом
+#define VAZZ_FEED_HEAL_FRACTION 0.04
+/// Потолок суммарного лечения за всю жизнь Vazz (доля maxHealth)
+#define VAZZ_FEED_TOTAL_CAP_FRACTION 0.25
+#define VAZZ_FEED_TIME (4 SECONDS)
+#define VAZZ_FEED_COOLDOWN (60 SECONDS)
+/// Размер клетки "места" для защиты от фарма: в одной клетке лечение не чаще VAZZ_FEED_SITE_COOLDOWN
+#define VAZZ_FEED_SITE_GRID 12
+#define VAZZ_FEED_SITE_COOLDOWN (10 MINUTES)
+
+// Вторая фаза (после арены)
+#define VAZZ_PHASE2_MELEE_WINDOW (4.5 SECONDS)
+#define VAZZ_PHASE2_CHARGE_FAR_DISTANCE 4
+#define VAZZ_PHASE2_CHARGE_COOLDOWN (4 SECONDS)
+#define VAZZ_PHASE2_SHOT_BLINK_MIN_DISTANCE 2
+#define VAZZ_PHASE2_SHOT_BLINK_MAX_DISTANCE 3
+
+// Позы (только визуал, на тайминги боя не влияют)
+#define VAZZ_POSE_SHOT_HOP (0.4 SECONDS)
+#define VAZZ_POSE_SHOT_FIRE (0.3 SECONDS)
 
 // Крестовой разряд
 #define VAZZ_CROSS_ARM_LENGTH 9
@@ -83,6 +166,8 @@ Difficulty: Insane
 // Арена
 #define VAZZ_ARENA_RADIUS 4
 #define VAZZ_ARENA_WAVES 6
+/// Обычный режим: одна короткая арена (по одной волне каждого типа)
+#define VAZZ_ARENA_WAVES_SHORT 3
 #define VAZZ_ARENA_SETUP (1.5 SECONDS)
 #define VAZZ_ARENA_WAVE_PERIOD (2.6 SECONDS)
 #define VAZZ_ARENA_RECOVERY (3.0 SECONDS)
@@ -179,6 +264,10 @@ Difficulty: Insane
 	crusher_loot = list(/obj/structure/closet/crate/necropolis/vazz/crusher)
 	loot = list(/obj/structure/closet/crate/necropolis/vazz)
 	enraged_loot = /obj/item/disk/fauna_research/vazz
+	enraged_unique_loot = /obj/item/melee/spellblade/other/random
+	// Мегафауна: обычная фауна (mining) его не трогает, а он не трогает её. Boss — чтобы не путать его с обычной фауной и
+	// не устраивать бои с другой мегафауной (см. vazz_valid_prey). Совпадает с MINING_FACTIONS.
+	faction = list("mining", "boss")
 	light_color = "#A5603A"
 	speak_emote = list("говорит")
 	tts_seed = "Wrathion_Deathwing"
@@ -225,6 +314,41 @@ Difficulty: Insane
 	var/mutable_appearance/arena_shield_overlay
 	/// Барьеры текущей арены
 	var/list/arena_walls = list()
+	/// До какого момента работает отмашка (см. VAZZ_SWAT_DURING_RECOVERY)
+	var/swat_until = 0
+	/// Арена уже была: Vazz перешёл во вторую фазу
+	var/phase_two = FALSE
+	/// До какого момента держится поза атаки (см. vazz_pose)
+	var/pose_until = 0
+	/// Патруль включён
+	var/patrol_enabled = TRUE
+	/// Место появления: вокруг него строится маршрут
+	var/turf/patrol_home
+	/// Точки маршрута
+	var/list/patrol_route = list()
+	var/patrol_index = 0
+	/// Куда Vazz идёт сейчас (точка маршрута, последняя известная позиция цели или игрок в хардмоде)
+	var/turf/patrol_destination
+	var/turf/patrol_last_pos
+	var/patrol_stuck = 0
+	var/patrol_giveups = 0
+	var/patrol_pause_until = 0
+	/// Текущая задача (VAZZ_TASK_*) и её цель. Ссылка живёт недолго: чистится по таймауту и при удалении цели.
+	var/patrol_task = 0
+	var/mob/living/patrol_task_target
+	var/patrol_task_until = 0
+	var/next_task_scan = 0
+	/// До какого момента Vazz занят крашером или едой (патруль в это время его не двигает)
+	var/task_busy_until = 0
+	var/crusher_ready_at = 0
+	/// Сколько ударов уже ушло в породу (ключ "x:y:z") и какие породы пробить не вышло
+	var/list/crusher_rock_attempts = list()
+	var/list/crusher_failed_rocks = list()
+	var/feed_ready_at = 0
+	/// Сколько здоровья уже восстановлено питанием
+	var/feed_total = 0
+	/// Защита от фарма: ключ клетки места —> когда там снова можно лечиться
+	var/list/feed_sites = list()
 	/// Редкие сдержанные реплики. TODO: заменить на утверждённые тексты.
 	var/list/quiet_lines = list(
 		"...Не спеши.",
@@ -275,12 +399,31 @@ Difficulty: Insane
 
 /mob/living/simple_animal/hostile/megafauna/vazz/Initialize(mapload)
 	. = ..()
+	if(true_spawn)
+		for(var/mob/living/simple_animal/hostile/megafauna/vazz/B in GLOB.alive_mob_list)
+			if(B != src)
+				return INITIALIZE_HINT_QDEL // There can be only one
+	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
+	AddElement(/datum/element/simple_flying)
 	AddComponent(/datum/component/boss_music, 'sound/music/boss/boundless_boss.ogg', COMSIG_HOSTILE_FOUND_TARGET)
 	addtimer(CALLBACK(src, PROC_REF(vazz_guard_tick)), 2)
+	patrol_home = get_turf(src)
+	if(patrol_enabled)
+		addtimer(CALLBACK(src, PROC_REF(vazz_patrol_tick)), VAZZ_PATROL_TICK)
 
 /mob/living/simple_animal/hostile/megafauna/vazz/Destroy()
 	vazz_clear_arena()
 	vazz_shield_off()
+	// Таймеры (guard, patrol, позы) сами обрываются на проверке QDELETED. Здесь только отпускаем ссылки.
+	patrol_enabled = FALSE
+	patrol_home = null
+	patrol_destination = null
+	patrol_last_pos = null
+	patrol_task_target = null
+	patrol_route = null
+	crusher_rock_attempts = null
+	crusher_failed_rocks = null
+	feed_sites = null
 	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/vazz/death(gibbed)
@@ -291,16 +434,6 @@ Difficulty: Insane
 
 /obj/effect/temp_visual/dir_setting/vazz
 	icon_state = "cultout"
-
-/mob/living/simple_animal/hostile/megafauna/vazz/Initialize(mapload)
-	. = ..()
-	if(true_spawn)
-		for(var/mob/living/simple_animal/hostile/megafauna/vazz/B in GLOB.alive_mob_list)
-			if(B != src)
-				qdel(src) //There can be only one
-				return
-	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
-	AddElement(/datum/element/simple_flying)
 
 /// Пока активен щит арены, урон по Vazz не проходит. Лечение и принудительный урон (forced) работают.
 /mob/living/simple_animal/hostile/megafauna/vazz/adjustHealth(
@@ -424,13 +557,17 @@ Difficulty: Insane
 			vazz_arena_attack(aim_target)
 
 /// Выбор следующей атаки для ИИ. Приоритет: арена, выстрел с телепортом (против "прилипших"), рывок (сближение), основной цикл.
+/// Арена в обычном режиме одна: после неё начинается вторая фаза. В хардмоде арена повторяется по кулдауну.
+/// Вторая фаза: Vazz не отступает от "прилипших" игроков и использует рывок как сближение с меньшей дистанции.
+/// Основной цикл (attack_sequence) от этого не меняется.
 /mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_choose_attack(turf/aim_turf)
-	if(vazz_is_wounded() && world.time >= arena_ready_at)
+	if(vazz_is_wounded() && world.time >= arena_ready_at && (enraged || !phase_two))
 		return VAZZ_ATTACK_ARENA
-	if(melee_streak >= VAZZ_MELEE_STREAK_LIMIT)
+	if(!phase_two && melee_streak >= VAZZ_MELEE_STREAK_LIMIT)
 		// Цель слишком долго стоит вплотную — уходим и стреляем, цикл не сдвигаем
 		return VAZZ_ATTACK_SHOT
-	if(world.time >= charge_ready_at && get_dist(src, aim_turf) >= VAZZ_CHARGE_FAR_DISTANCE)
+	var/charge_distance = phase_two ? VAZZ_PHASE2_CHARGE_FAR_DISTANCE : VAZZ_CHARGE_FAR_DISTANCE
+	if(world.time >= charge_ready_at && get_dist(src, aim_turf) >= charge_distance)
 		return VAZZ_ATTACK_CHARGE
 	var/next_attack = attack_sequence[combo_step]
 	combo_step = (combo_step % length(attack_sequence)) + 1
@@ -488,10 +625,12 @@ Difficulty: Insane
 	return round(base_damage * (enraged ? 1.25 : 1))
 
 /// Блокирует новые атаки и ближний бой на время всей атаки (подготовка + восстановление),
-/// после чего открывается окно ближнего боя.
-/mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_lock_state(duration)
+/// после чего открывается окно ближнего боя (во второй фазе оно дольше).
+/// recovery — последняя часть duration, которая является восстановлением (см. VAZZ_SWAT_DURING_RECOVERY).
+/mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_lock_state(duration, recovery = 0)
 	busy_until = world.time + duration
-	melee_until = busy_until + VAZZ_MELEE_WINDOW
+	swat_until = busy_until - (VAZZ_SWAT_DURING_RECOVERY ? 0 : recovery)
+	melee_until = busy_until + (phase_two ? VAZZ_PHASE2_MELEE_WINDOW : VAZZ_MELEE_WINDOW)
 	SetRecoveryTime(duration)
 	walk(src, 0)
 
@@ -502,14 +641,14 @@ Difficulty: Insane
 
 /// Страж Vazz, срабатывает каждые 0.2 секунды, пока он жив:
 /// 1) не даёт трофеям вроде крыла наблюдателя откладывать его атаки (они двигают ranged_cooldown);
-/// 2) отмахивается от тех, кто стоит вплотную, пока он занят атакой.
+/// 2) отмахивается от тех, кто стоит вплотную, пока он занят атакой (подробнее — VAZZ_SWAT_DURING_RECOVERY).
 /mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_guard_tick()
 	if(QDELETED(src) || stat == DEAD)
 		return
 	var/cooldown_cap = max(world.time, busy_until)
 	if(ranged_cooldown > cooldown_cap)
 		ranged_cooldown = cooldown_cap
-	if(world.time < busy_until && world.time >= next_swat_at)
+	if(world.time < swat_until && world.time >= next_swat_at)
 		vazz_swat()
 	addtimer(CALLBACK(src, PROC_REF(vazz_guard_tick)), 2)
 
@@ -565,6 +704,432 @@ Difficulty: Insane
 	forceMove(destination)
 	new /obj/effect/temp_visual/small_smoke/halfsecond(destination)
 	playsound(destination, 'sound/weapons/punchmiss.ogg', 40, TRUE, -1)
+
+// --------------------------------------------------------------------------
+// Позы. Все спрайты лежат в основном icons/mob/lavaland/vazz.dmi отдельными icon_state:
+//   vazz_crusher       — крашер (уже есть): удар по фауне и по породе
+//   vazz_feed          — питание: склонился над трупом
+//   vazz_charge_windup — рывок: подготовка
+//   vazz_charge        — сам рывок
+//   vazz_cross         — крестовой разряд
+//   vazz_blasters      — бластеры черепов
+//   vazz_shot_hop      — выстрел: отскок
+//   vazz_shot_aim      — выстрел: показывает веер
+//   vazz_shot_fire     — выстрел: сам выстрел
+//   vazz_shot_reload   — выстрел: перезарядка
+//   vazz_arena         — арена
+// Нет нужного состояния в файле — Vazz остаётся в основном спрайте, ничего не ломается.
+// --------------------------------------------------------------------------
+
+/// Показывает позу на duration, затем возвращает основной спрайт (icon_living).
+/mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_pose(state, duration)
+	var/static/list/known_states
+	if(!known_states)
+		known_states = icon_states(icon)
+	if(!(state in known_states) || duration <= 0)
+		return
+	icon_state = state
+	pose_until = world.time + duration
+	addtimer(CALLBACK(src, PROC_REF(vazz_pose_expire)), duration)
+
+/mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_pose_expire()
+	if(QDELETED(src) || stat == DEAD || world.time < pose_until)
+		return
+	icon_state = icon_living
+
+/// Сбрасывает позу сразу
+/mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_pose_clear()
+	pose_until = 0
+	if(stat != DEAD)
+		icon_state = icon_living
+
+/// Сбрасывает позу задачи, но не трогает позу боевой атаки, если бой уже начался
+/mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_task_pose_clear()
+	if(!target && world.time >= busy_until)
+		vazz_pose_clear()
+
+// --------------------------------------------------------------------------
+// Патруль. Пока цели нет, Vazz ходит по маршруту. GPS-сигнал при этом движется (внутренний GPS следует за мобом),
+// земля дрожит, а потом появляется он сам. Идёт бой — патруль молчит и только запоминает, где цель:
+// если контакт потерян, Vazz доходит до этой точки и возвращается на маршрут.
+// --------------------------------------------------------------------------
+
+/// Точка маршрута вокруг места появления. Проходимая клетка в той же зоне (area), что и место появления,
+/// чтобы Vazz не уходил в посторонние помещения. Над лавой и пропастями ему можно: он летает.
+/mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_pick_patrol_turf()
+	var/turf/home = patrol_home
+	if(!home)
+		return null
+	var/area/home_area = get_area(home)
+	for(var/attempt in 1 to 15)
+		var/turf/candidate = locate(clamp(home.x + rand(-VAZZ_PATROL_RADIUS, VAZZ_PATROL_RADIUS), 2, world.maxx - 1), clamp(home.y + rand(-VAZZ_PATROL_RADIUS, VAZZ_PATROL_RADIUS), 2, world.maxy - 1), home.z)
+		if(!candidate || candidate.density || candidate.is_blocked_turf(exclude_mobs = TRUE))
+			continue
+		if(get_area(candidate) != home_area)
+			continue
+		return candidate
+	return null
+
+/// Хардмод: ближайший живой игрок на этом уровне в пределах VAZZ_PATROL_HUNT_RANGE
+/mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_nearest_player_turf()
+	var/turf/best_turf
+	var/best_dist = VAZZ_PATROL_HUNT_RANGE
+	for(var/mob/living/L in GLOB.player_list)
+		if(L.stat == DEAD || length(faction & L.faction))
+			continue
+		var/turf/L_turf = get_turf(L)
+		if(!L_turf || L_turf.z != z)
+			continue
+		var/dist = get_dist(src, L_turf)
+		if(dist <= best_dist)
+			best_dist = dist
+			best_turf = L_turf
+	return best_turf
+
+/// Следующая точка: по кругу из VAZZ_PATROL_POINTS точек (маршрут строится при первом вызове).
+/// В хардмоде иногда вместо точки маршрута — ближайший игрок.
+/mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_next_patrol_destination()
+	if(enraged && prob(VAZZ_PATROL_HUNT_CHANCE))
+		var/turf/hunt_turf = vazz_nearest_player_turf()
+		if(hunt_turf)
+			return hunt_turf
+	if(!length(patrol_route))
+		for(var/i in 1 to VAZZ_PATROL_POINTS)
+			var/turf/point = vazz_pick_patrol_turf()
+			if(point)
+				patrol_route += point
+		if(!length(patrol_route))
+			return null
+	patrol_index = (patrol_index % length(patrol_route)) + 1
+	return patrol_route[patrol_index]
+
+/// Тяжёлый шаг: звук, тряска камеры рядом и редкое сообщение подальше
+/mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_tremor()
+	playsound(src, 'sound/effects/bang.ogg', 25, TRUE, 12) // TODO(звук): тяжёлые шаги
+	for(var/mob/M in range(VAZZ_TREMOR_RANGE, src))
+		if(!M.client)
+			continue
+		if(get_dist(src, M) <= VAZZ_TREMOR_CAMERA_RANGE)
+			shake_camera(M, 2, 1)
+		else if(prob(10))
+			to_chat(M, span_notice("Земля под ногами отдаётся глухой дрожью."))
+
+/mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_task_clear()
+	patrol_task = 0
+	patrol_task_target = null
+	patrol_task_until = 0
+
+/mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_patrol_tick()
+	if(QDELETED(src) || stat == DEAD)
+		return
+	addtimer(CALLBACK(src, PROC_REF(vazz_patrol_tick)), VAZZ_PATROL_TICK)
+	// Патруль никогда не мешает бою, атакам, арене и телепортам: в любом из этих состояний он просто молчит
+	if(!patrol_enabled || client || world.time < busy_until || world.time < arena_shield_until || world.time < task_busy_until)
+		return
+	if(target)
+		// Идёт бой: запоминаем, где цель. Потеряет её — дойдёт до этой точки и вернётся на маршрут.
+		var/turf/seen_turf = get_turf(target)
+		if(seen_turf)
+			patrol_destination = seen_turf
+		patrol_last_pos = null
+		patrol_stuck = 0
+		vazz_task_clear()
+		return
+	if(world.time < patrol_pause_until)
+		return
+	var/turf/here = get_turf(src)
+	if(!here)
+		return
+
+	// Задача с целью: крашер по фауне или питание
+	if(patrol_task_target && (!vazz_task_target_valid() || world.time > patrol_task_until))
+		vazz_task_clear()
+	if(!patrol_task_target && world.time >= next_task_scan)
+		next_task_scan = world.time + VAZZ_TASK_SCAN_INTERVAL
+		vazz_pick_task()
+	if(patrol_task_target)
+		var/turf/task_turf = get_turf(patrol_task_target)
+		if(!task_turf)
+			vazz_task_clear()
+			return
+		if(get_dist(here, task_turf) <= 1)
+			var/mob/living/task_mob = patrol_task_target
+			var/finished_task = patrol_task
+			vazz_task_clear()
+			walk(src, 0)
+			if(finished_task == VAZZ_TASK_FEED)
+				INVOKE_ASYNC(src, PROC_REF(vazz_feed), task_mob)
+			else
+				INVOKE_ASYNC(src, PROC_REF(vazz_crush_fauna), task_mob)
+			return
+		// К цели задачи идём, но породу ради неё не пробиваем: это только для маршрута
+		vazz_patrol_step(here, task_turf, 1, FALSE)
+		return
+
+	// Маршрут
+	if(patrol_destination && get_dist(here, patrol_destination) <= VAZZ_PATROL_ARRIVE_DISTANCE)
+		patrol_destination = null
+		patrol_last_pos = null
+		patrol_stuck = 0
+		patrol_giveups = 0
+		patrol_pause_until = world.time + rand(VAZZ_PATROL_PAUSE_MIN, VAZZ_PATROL_PAUSE_MAX)
+		walk(src, 0)
+		vazz_speak(10)
+		return
+	if(!patrol_destination)
+		patrol_destination = vazz_next_patrol_destination()
+		patrol_last_pos = null
+		patrol_stuck = 0
+		if(!patrol_destination)
+			return
+	vazz_patrol_step(here, patrol_destination, 0, TRUE)
+
+/// Один шаг патруля к goal. Если Vazz застрял: при allow_dig пробует пробить породу на пути, иначе или если не вышло —
+/// бросает цель (после нескольких неудач подряд маршрут перестраивается).
+/mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_patrol_step(turf/here, turf/goal, min_dist, allow_dig)
+	if(patrol_last_pos && here == patrol_last_pos)
+		patrol_stuck++
+	else
+		patrol_stuck = 0
+		if(patrol_last_pos)
+			vazz_tremor() // сдвинулись с прошлого тика
+	patrol_last_pos = here
+	if(patrol_stuck >= VAZZ_PATROL_STUCK_LIMIT)
+		patrol_stuck = 0
+		if(allow_dig && vazz_clear_path(here, goal))
+			return
+		vazz_patrol_give_up()
+		return
+	walk_to(src, goal, min_dist, move_to_delay)
+
+/mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_patrol_give_up()
+	walk(src, 0)
+	vazz_task_clear()
+	patrol_destination = null
+	patrol_last_pos = null
+	patrol_stuck = 0
+	patrol_giveups++
+	if(patrol_giveups >= VAZZ_PATROL_GIVEUP_LIMIT)
+		// Маршрут негодный: строим новый и немного отдыхаем. Так Vazz не мечется между недостижимыми точками бесконечно.
+		patrol_route = list()
+		patrol_index = 0
+		patrol_giveups = 0
+		patrol_pause_until = world.time + VAZZ_PATROL_PAUSE_MAX * 2
+
+// --------------------------------------------------------------------------
+// Крашер: порода на пути
+// --------------------------------------------------------------------------
+
+/mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_rock_key(turf/T)
+	return "[T.x]:[T.y]:[T.z]"
+
+/// Можно ли пробить эту клетку. Только разрушаемая порода (mineral turf) в зоне Vazz, без структур на клетке
+/// (спавнеры, постройки), без газибтонита (он взрывается) и без пород, которые уже не поддались.
+/mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_can_crush_rock(turf/T)
+	if(!T || !ismineralturf(T) || istype(T, /turf/simulated/mineral/gibtonite))
+		return FALSE
+	if(!patrol_home || get_area(T) != get_area(patrol_home))
+		return FALSE
+	if(vazz_rock_key(T) in crusher_failed_rocks)
+		return FALSE
+	for(var/obj/O in T)
+		if(O.density || istype(O, /obj/structure))
+			return FALSE
+	return TRUE
+
+/// Пробует найти породу, блокирующую путь к goal, и запускает удар. Возвращает TRUE, если удар запущен.
+/// Смотрим на клетку по прямой; в стороны — только если прямая клетка непроходима.
+/mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_clear_path(turf/here, turf/goal)
+	var/dir_to = get_dir(here, goal)
+	if(!dir_to)
+		return FALSE
+	var/turf/straight = get_step(here, dir_to)
+	if(!straight || !straight.density)
+		return FALSE
+	var/list/candidates = list(straight, get_step(here, turn(dir_to, 45)), get_step(here, turn(dir_to, -45)))
+	for(var/turf/candidate in candidates)
+		if(vazz_can_crush_rock(candidate))
+			INVOKE_ASYNC(src, PROC_REF(vazz_crush_rock), candidate)
+			return TRUE
+	return FALSE
+
+/// Выстрел дестабилизатора в соседнюю породу. Порода разрушается штатно: снаряд сам вызывает attempt_drill().
+/mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_fire_crusher(turf/rock)
+	var/turf/startloc = get_turf(src)
+	if(!startloc || !rock)
+		return
+	var/obj/projectile/destabilizer/shot = new(startloc)
+	shot.firer = src
+	shot.preparePixelProjectile(rock, src)
+	shot.fire(get_angle(startloc, rock))
+
+/// Если крашер прерван (появилась цель): снимаем занятость и позу
+/mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_crusher_abort()
+	task_busy_until = 0
+	vazz_task_pose_clear()
+
+/// Удар крашером по породе. Прерывается, как только у Vazz появляется цель. Не больше VAZZ_CRUSHER_ROCK_ATTEMPTS ударов
+/// на одну породу: если она не поддалась, помечается как непроходимая, и Vazz выбирает другой путь.
+/mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_crush_rock(turf/rock)
+	if(!vazz_can_crush_rock(rock))
+		return
+	// Турф после разрушения заменяется новым объектом, поэтому запоминаем координаты, а не ссылку
+	var/rock_x = rock.x
+	var/rock_y = rock.y
+	var/rock_z = rock.z
+	var/rock_key = vazz_rock_key(rock)
+	task_busy_until = world.time + VAZZ_CRUSHER_WINDUP + VAZZ_CRUSHER_STRIKE_TIME + 10
+	walk(src, 0)
+	face_atom(rock)
+	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] замахивается крашером на каменную породу."))
+	vazz_pose("vazz_crusher", VAZZ_CRUSHER_WINDUP + VAZZ_CRUSHER_STRIKE_TIME)
+	SLEEP_CHECK_DEATH(src, VAZZ_CRUSHER_WINDUP)
+	if(target || client)
+		vazz_crusher_abort() // появилась цель: бой важнее
+		return
+	vazz_fire_crusher(rock)
+	SLEEP_CHECK_DEATH(src, VAZZ_CRUSHER_STRIKE_TIME)
+	var/turf/after = locate(rock_x, rock_y, rock_z)
+	if(after && ismineralturf(after))
+		var/attempts = (crusher_rock_attempts[rock_key] || 0) + 1
+		if(attempts >= VAZZ_CRUSHER_ROCK_ATTEMPTS)
+			crusher_failed_rocks += rock_key
+			crusher_rock_attempts -= rock_key
+			if(length(crusher_failed_rocks) > 40)
+				crusher_failed_rocks.Cut(1, 11)
+		else
+			crusher_rock_attempts[rock_key] = attempts
+	else
+		crusher_rock_attempts -= rock_key
+	if(length(crusher_rock_attempts) > 40)
+		crusher_rock_attempts.Cut()
+	patrol_last_pos = null
+	patrol_stuck = 0
+	task_busy_until = 0
+	vazz_task_pose_clear()
+
+// --------------------------------------------------------------------------
+// Крашер: обычная фауна Лаваленда
+// --------------------------------------------------------------------------
+
+/// Подходящая добыча: живая обычная фауна Лаваленда (фракция mining, но не boss). Исключены игроки и всё с разумом,
+/// другая мегафауна, союзные и прирученные существа (у них фракция другая) и всё, что не стоит на полу.
+/mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_valid_prey(mob/living/L)
+	if(QDELETED(L) || L == src || L.stat == DEAD || L.client || L.mind)
+		return FALSE
+	if(istype(L, /mob/living/simple_animal/hostile/megafauna) || ishuman(L))
+		return FALSE
+	if(!("mining" in L.faction) || ("boss" in L.faction))
+		return FALSE
+	return isturf(L.loc)
+
+/// Подходящий труп для питания: мёртвая обычная фауна по тем же правилам, в месте, где Vazz недавно не лечился.
+/// Тела игроков не подходят намеренно: они нужны для спасения и воскрешения, а питание ими награждало бы убийство игроков.
+/mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_valid_corpse(mob/living/L)
+	if(QDELETED(L) || L == src || L.stat != DEAD || L.client || L.mind)
+		return FALSE
+	if(istype(L, /mob/living/simple_animal/hostile/megafauna) || ishuman(L))
+		return FALSE
+	if(!("mining" in L.faction) || ("boss" in L.faction))
+		return FALSE
+	var/turf/T = get_turf(L)
+	if(!T || !isturf(L.loc))
+		return FALSE
+	var/expires = feed_sites[vazz_feed_site_key(T)]
+	return !(expires > world.time)
+
+/mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_feed_site_key(turf/T)
+	return "[T.z]:[round(T.x / VAZZ_FEED_SITE_GRID)]:[round(T.y / VAZZ_FEED_SITE_GRID)]"
+
+/mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_task_target_valid()
+	if(patrol_task == VAZZ_TASK_FEED)
+		return vazz_valid_corpse(patrol_task_target)
+	return vazz_valid_prey(patrol_task_target)
+
+/// Ближайшая подходящая цель рядом (труп или живая добыча)
+/mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_find_nearest(find_corpse)
+	var/mob/living/best
+	var/best_dist = VAZZ_TASK_SCAN_RANGE + 1
+	for(var/mob/living/L in range(VAZZ_TASK_SCAN_RANGE, src))
+		if(find_corpse ? !vazz_valid_corpse(L) : !vazz_valid_prey(L))
+			continue
+		var/dist = get_dist(src, L)
+		if(dist < best_dist)
+			best_dist = dist
+			best = L
+	return best
+
+/// Выбор задачи: сначала питание (если ранен), потом иногда крашер по фауне
+/mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_pick_task()
+	if(health <= maxHealth * VAZZ_FEED_HEALTH_THRESHOLD && world.time >= feed_ready_at && feed_total < maxHealth * VAZZ_FEED_TOTAL_CAP_FRACTION)
+		var/mob/living/corpse = vazz_find_nearest(TRUE)
+		if(corpse)
+			patrol_task = VAZZ_TASK_FEED
+			patrol_task_target = corpse
+			patrol_task_until = world.time + VAZZ_TASK_TIMEOUT
+			return
+	if(world.time >= crusher_ready_at && prob(VAZZ_CRUSHER_CHANCE))
+		var/mob/living/prey = vazz_find_nearest(FALSE)
+		if(prey)
+			patrol_task = VAZZ_TASK_CRUSH
+			patrol_task_target = prey
+			patrol_task_until = world.time + VAZZ_TASK_TIMEOUT
+
+/// Тяжёлый удар крашером по фауне. Прерывается, если у Vazz появилась цель или добыча ушла/умерла.
+/mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_crush_fauna(mob/living/victim)
+	if(!vazz_valid_prey(victim) || get_dist(src, victim) > 1)
+		return
+	task_busy_until = world.time + VAZZ_CRUSHER_WINDUP + VAZZ_CRUSHER_STRIKE_TIME + 10
+	walk(src, 0)
+	face_atom(victim)
+	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] поднимает крашер над [victim]."))
+	vazz_pose("vazz_crusher", VAZZ_CRUSHER_WINDUP + VAZZ_CRUSHER_STRIKE_TIME)
+	SLEEP_CHECK_DEATH(src, VAZZ_CRUSHER_WINDUP)
+	if(target || client || !vazz_valid_prey(victim) || get_dist(src, victim) > 2)
+		vazz_crusher_abort()
+		return
+	new /obj/effect/temp_visual/kinetic_blast(get_turf(victim))
+	playsound(victim, 'sound/effects/bang.ogg', 70, TRUE)
+	victim.adjustBruteLoss(max(VAZZ_CRUSHER_FAUNA_DAMAGE, victim.maxHealth))
+	SLEEP_CHECK_DEATH(src, VAZZ_CRUSHER_STRIKE_TIME)
+	crusher_ready_at = world.time + VAZZ_CRUSHER_COOLDOWN
+	task_busy_until = 0
+	vazz_task_pose_clear()
+
+// --------------------------------------------------------------------------
+// Питание трупами. Единственный источник самолечения.
+// Защита от бесконечного лечения: труп съедается целиком (повторно не используется), между кормлениями кулдаун,
+// в одном месте (клетка VAZZ_FEED_SITE_GRID) нельзя лечиться чаще VAZZ_FEED_SITE_COOLDOWN, и есть потолок суммарного
+// лечения за жизнь. Прервать кормление можно уроном: оно сбрасывается, труп не тратится.
+// --------------------------------------------------------------------------
+
+/mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_feed(mob/living/corpse)
+	if(!vazz_valid_corpse(corpse) || get_dist(src, corpse) > 1)
+		return
+	task_busy_until = world.time + VAZZ_FEED_TIME + 10
+	walk(src, 0)
+	face_atom(corpse)
+	var/start_health = health
+	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] склоняется над [corpse]."))
+	vazz_pose("vazz_feed", VAZZ_FEED_TIME)
+	playsound(src, 'sound/weapons/punchmiss.ogg', 40, TRUE, -1) // TODO(звук): поедание
+	SLEEP_CHECK_DEATH(src, VAZZ_FEED_TIME)
+	if(target || client || health < start_health || !vazz_valid_corpse(corpse) || get_dist(src, corpse) > 1)
+		vazz_crusher_abort()
+		return
+	var/heal = min(round(maxHealth * VAZZ_FEED_HEAL_FRACTION), round(maxHealth * VAZZ_FEED_TOTAL_CAP_FRACTION) - feed_total, maxHealth - health)
+	if(heal <= 0)
+		vazz_crusher_abort()
+		return
+	var/turf/corpse_turf = get_turf(corpse)
+	feed_sites[vazz_feed_site_key(corpse_turf)] = world.time + VAZZ_FEED_SITE_COOLDOWN
+	adjustHealth(-heal)
+	feed_total += heal
+	feed_ready_at = world.time + VAZZ_FEED_COOLDOWN
+	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] поглощает останки [corpse]."))
+	qdel(corpse)
+	task_busy_until = 0
+	vazz_task_pose_clear()
 
 // --------------------------------------------------------------------------
 // Построение фигур. Все клетки и точки считаются ОДИН раз в начале телеграфа.
@@ -730,7 +1295,9 @@ Difficulty: Insane
 	setDir(move_dir)
 	playsound(src, 'sound/misc/demon_attack1.ogg', 200, TRUE)
 	visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] подаётся вперёд, готовясь к рывку!"))
+	vazz_pose("vazz_charge_windup", windup)
 	SLEEP_CHECK_DEATH(src, windup)
+	vazz_pose("vazz_charge", VAZZ_CHARGE_LENGTH * (VAZZ_CHARGE_STEP_TIME + 1))
 
 	var/list/hit_targets = list()
 	for(var/i in 1 to VAZZ_CHARGE_LENGTH)
@@ -754,6 +1321,7 @@ Difficulty: Insane
 			victim.Slowed(3 SECONDS)
 			victim.Weaken(0.1 SECONDS)
 		SLEEP_CHECK_DEATH(src, VAZZ_CHARGE_STEP_TIME)
+	vazz_pose_clear()
 	return TRUE
 
 /// Рывок. Ниже 50% здоровья или в enraged — два рывка подряд, второй быстрее и заново нацелен.
@@ -764,8 +1332,8 @@ Difficulty: Insane
 	var/total_time = vazz_time(VAZZ_CHARGE_RECOVERY) + windup + VAZZ_CHARGE_LENGTH * VAZZ_CHARGE_STEP_TIME
 	if(charge_count > 1)
 		total_time += followup_windup + VAZZ_CHARGE_LENGTH * VAZZ_CHARGE_STEP_TIME
-	vazz_lock_state(total_time)
-	charge_ready_at = world.time + VAZZ_CHARGE_COOLDOWN
+	vazz_lock_state(total_time, vazz_time(VAZZ_CHARGE_RECOVERY))
+	charge_ready_at = world.time + (phase_two ? VAZZ_PHASE2_CHARGE_COOLDOWN : VAZZ_CHARGE_COOLDOWN)
 	for(var/i in 1 to charge_count)
 		var/turf/aim_turf = get_turf(aim_target)
 		if(!aim_turf || aim_turf.z != z)
@@ -782,7 +1350,9 @@ Difficulty: Insane
 	var/windup = vazz_time(VAZZ_CROSS_WINDUP)
 	var/follow_up = enraged || vazz_is_wounded()
 	var/followup_windup = vazz_time(VAZZ_FOLLOWUP_WINDUP)
-	vazz_lock_state(windup + (follow_up ? followup_windup : 0) + vazz_time(VAZZ_CROSS_RECOVERY))
+	var/recovery = vazz_time(VAZZ_CROSS_RECOVERY)
+	vazz_lock_state(windup + (follow_up ? followup_windup : 0) + recovery, recovery)
+	vazz_pose("vazz_cross", windup + (follow_up ? followup_windup : 0))
 
 	var/list/figures = list()
 	var/list/danger = list()
@@ -829,30 +1399,37 @@ Difficulty: Insane
 	figures[vazz_new_anchor(origin)] = ends
 	face_atom(aim_turf)
 	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] вскидывает руку. Перед ним расходится конус света."))
+	vazz_pose("vazz_shot_aim", windup)
 	vazz_draw(figures, windup, /obj/effect/ebeam/disintegration_telegraph)
 	playsound(src, 'sound/magic/clockwork/invoke_general.ogg', 200, TRUE, 2)
 	SLEEP_CHECK_DEATH(src, windup)
 	playsound(src, 'sound/magic/clockwork/invoke_general.ogg', 200, TRUE, 2)
+	vazz_pose("vazz_shot_fire", VAZZ_POSE_SHOT_FIRE)
 	var/static/list/shot_angles = list(12.5, 7.5, 2.5, -2.5, -7.5, -12.5)
 	for(var/angle_offset in shot_angles)
 		vazz_shoot_projectile(src, aim_turf, base_angle + angle_offset)
 	return TRUE
 
-/// Телепорт на дистанцию 5—7 клеток от цели и выстрел. Ниже 50% здоровья или в enraged — два выстрела подряд.
-/// Заодно служит ответом на игрока, который стоит вплотную.
+/// Телепорт на дистанцию 5—7 клеток от цели (во второй фазе — 2—3) и выстрел. Ниже 50% здоровья или в enraged — два
+/// выстрела подряд. Заодно служит ответом на игрока, который стоит вплотную.
 /mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_shot_attack(atom/aim_target)
 	var/shot_count = (enraged || vazz_is_wounded()) ? 2 : 1
 	var/windup = vazz_time(VAZZ_SHOT_WINDUP)
-	vazz_lock_state(shot_count * windup + vazz_time(VAZZ_SHOT_RECOVERY))
+	var/recovery = vazz_time(VAZZ_SHOT_RECOVERY)
+	var/min_blink = phase_two ? VAZZ_PHASE2_SHOT_BLINK_MIN_DISTANCE : VAZZ_SHOT_BLINK_MIN_DISTANCE
+	var/max_blink = phase_two ? VAZZ_PHASE2_SHOT_BLINK_MAX_DISTANCE : VAZZ_SHOT_BLINK_MAX_DISTANCE
+	vazz_lock_state(shot_count * windup + recovery, recovery)
 	for(var/i in 1 to shot_count)
 		var/turf/aim_turf = get_turf(aim_target)
 		if(!aim_turf || aim_turf.z != z)
 			return
-		var/turf/blink_turf = vazz_pick_turf_around(aim_turf, VAZZ_SHOT_BLINK_MIN_DISTANCE, VAZZ_SHOT_BLINK_MAX_DISTANCE, TRUE)
+		var/turf/blink_turf = vazz_pick_turf_around(aim_turf, min_blink, max_blink, TRUE)
 		if(blink_turf)
+			vazz_pose("vazz_shot_hop", VAZZ_POSE_SHOT_HOP)
 			vazz_blink(blink_turf)
 		if(!vazz_shot_fire(aim_turf, windup))
 			return
+	vazz_pose("vazz_shot_reload", recovery)
 
 // --------------------------------------------------------------------------
 // Бластеры—черепа (в духе Gaster Blaster)
@@ -885,7 +1462,9 @@ Difficulty: Insane
 		skull_count++
 	if(enraged)
 		skull_count++
-	vazz_lock_state(windup + stagger * skull_count + vazz_time(VAZZ_BLASTER_RECOVERY))
+	var/recovery = vazz_time(VAZZ_BLASTER_RECOVERY)
+	vazz_lock_state(windup + stagger * skull_count + recovery, recovery)
+	vazz_pose("vazz_blasters", windup + stagger * skull_count)
 	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] сжимает кулак. Из пустоты проступают черепа."))
 	for(var/i in 1 to skull_count)
 		var/turf/aim_turf = get_turf(aim_target)
@@ -1011,10 +1590,16 @@ Difficulty: Insane
 	var/turf/center = get_turf(aim_target)
 	if(!center || center.z != z)
 		return
-	var/waves = VAZZ_ARENA_WAVES + (enraged ? 2 : 0)
+	// Обычный режим: одна короткая арена — перелом боя. Хардмод: полная арена, повторяется по кулдауну.
+	var/waves = enraged ? VAZZ_ARENA_WAVES + 2 : VAZZ_ARENA_WAVES_SHORT
 	var/wave_period = vazz_time(VAZZ_ARENA_WAVE_PERIOD)
-	var/total_time = VAZZ_ARENA_SETUP + waves * wave_period + vazz_time(VAZZ_ARENA_RECOVERY)
-	vazz_lock_state(total_time)
+	var/recovery = vazz_time(VAZZ_ARENA_RECOVERY)
+	var/total_time = VAZZ_ARENA_SETUP + waves * wave_period + recovery
+	vazz_lock_state(total_time, recovery)
+	// После арены начинается вторая фаза (см. vazz_choose_attack)
+	var/first_arena = !phase_two
+	phase_two = TRUE
+	vazz_pose("vazz_arena", total_time - recovery)
 	arena_ready_at = world.time + (enraged ? VAZZ_ARENA_COOLDOWN_ENRAGED : VAZZ_ARENA_COOLDOWN)
 
 	// Сначала встаём перед ареной (не внутри), потом строим кольцо
@@ -1036,6 +1621,8 @@ Difficulty: Insane
 	if(!length(skull_spots))
 		vazz_clear_arena()
 		vazz_shield_off()
+		vazz_pose_clear()
+		vazz_lock_state(0) // арены не будет — не держим Vazz занятым впустую
 		return
 
 	visible_message(span_boldwarning("[DECLENT_RU_CAP(src, NOMINATIVE)] поднимает руку. Свет вокруг смыкается в кольцо, а его самого окутывает щит."))
@@ -1060,7 +1647,11 @@ Difficulty: Insane
 
 	vazz_clear_arena()
 	vazz_shield_off()
-	vazz_lock_state(vazz_time(VAZZ_ARENA_RECOVERY))
+	vazz_pose_clear()
+	vazz_lock_state(recovery, recovery)
+	if(first_arena)
+		visible_message(span_boldwarning("[DECLENT_RU_CAP(src, NOMINATIVE)] опускает руку. Щит гаснет. Он больше не собирается отступать."))
+		vazz_speak(100)
 
 #undef VAZZ_ATTACK_CHARGE
 #undef VAZZ_ATTACK_CROSS
@@ -1124,3 +1715,42 @@ Difficulty: Insane
 #undef VAZZ_ANCHOR_LIFETIME
 #undef VAZZ_SWAT_DAMAGE
 #undef VAZZ_SWAT_INTERVAL
+#undef VAZZ_SWAT_DURING_RECOVERY
+#undef VAZZ_PATROL_TICK
+#undef VAZZ_PATROL_POINTS
+#undef VAZZ_PATROL_RADIUS
+#undef VAZZ_PATROL_PAUSE_MIN
+#undef VAZZ_PATROL_PAUSE_MAX
+#undef VAZZ_PATROL_STUCK_LIMIT
+#undef VAZZ_PATROL_GIVEUP_LIMIT
+#undef VAZZ_PATROL_ARRIVE_DISTANCE
+#undef VAZZ_PATROL_HUNT_CHANCE
+#undef VAZZ_PATROL_HUNT_RANGE
+#undef VAZZ_TREMOR_RANGE
+#undef VAZZ_TREMOR_CAMERA_RANGE
+#undef VAZZ_TASK_CRUSH
+#undef VAZZ_TASK_FEED
+#undef VAZZ_TASK_SCAN_INTERVAL
+#undef VAZZ_TASK_SCAN_RANGE
+#undef VAZZ_TASK_TIMEOUT
+#undef VAZZ_CRUSHER_CHANCE
+#undef VAZZ_CRUSHER_COOLDOWN
+#undef VAZZ_CRUSHER_WINDUP
+#undef VAZZ_CRUSHER_STRIKE_TIME
+#undef VAZZ_CRUSHER_FAUNA_DAMAGE
+#undef VAZZ_CRUSHER_ROCK_ATTEMPTS
+#undef VAZZ_FEED_HEALTH_THRESHOLD
+#undef VAZZ_FEED_HEAL_FRACTION
+#undef VAZZ_FEED_TOTAL_CAP_FRACTION
+#undef VAZZ_FEED_TIME
+#undef VAZZ_FEED_COOLDOWN
+#undef VAZZ_FEED_SITE_GRID
+#undef VAZZ_FEED_SITE_COOLDOWN
+#undef VAZZ_PHASE2_MELEE_WINDOW
+#undef VAZZ_PHASE2_CHARGE_FAR_DISTANCE
+#undef VAZZ_PHASE2_CHARGE_COOLDOWN
+#undef VAZZ_PHASE2_SHOT_BLINK_MIN_DISTANCE
+#undef VAZZ_PHASE2_SHOT_BLINK_MAX_DISTANCE
+#undef VAZZ_POSE_SHOT_HOP
+#undef VAZZ_POSE_SHOT_FIRE
+#undef VAZZ_ARENA_WAVES_SHORT

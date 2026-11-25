@@ -33,4 +33,3 @@
 /obj/structure/closet/crate/necropolis/vazz/crusher/Initialize(mapload)
 	. = ..()
 	new /obj/item/crusher_trophy/vazz_shard(src)
-	new /obj/item/melee/spellblade/other/random(src) // Если будут предложения подсобите поместить в хардмод
