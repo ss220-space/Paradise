@@ -16,8 +16,11 @@ export const radarChartOffset = (
   sectorSize: number,
   cellSpan: number,
   radius: number,
+  center?: [number, number],
 ): [number, number] => {
   if (!self) return [0, 0];
+  if (center)
+    return [center[0] - self[0] * cellSpan, center[1] - self[1] * cellSpan];
   const span = Math.max(cellSpan * sectorSize, cellSpan * 4);
   const drift = Math.max(
     0,
@@ -36,6 +39,7 @@ export const radarView = (
   height: number,
   sectorSize: number,
   follow: boolean,
+  center?: [number, number],
 ) => {
   const { world, self, cellSpan, facing } = frame;
   const index = indexRadarFrame(frame);
@@ -44,6 +48,7 @@ export const radarView = (
     sectorSize,
     cellSpan,
     radius,
+    center,
   );
   const rotation = follow ? facing : 0;
   const angle = (rotation * Math.PI) / 180;

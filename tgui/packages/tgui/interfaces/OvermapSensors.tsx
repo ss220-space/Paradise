@@ -344,6 +344,7 @@ export const OvermapSensors = () => {
                   <NoticeBox danger>Связь потеряна.</NoticeBox>
                 ) : (
                   <OvermapRadar
+                    panSector
                     outlines={data.radar_outlines}
                     locked={!!data.radar_locked}
                     docked={!!data.radar_docked}

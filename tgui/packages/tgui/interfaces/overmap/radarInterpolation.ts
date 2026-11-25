@@ -66,9 +66,16 @@ export const radarClickWorld = (
   world: number[],
   offset: number[],
 ): number[] => {
-  const [x, y] = rotate(screen[0] * radius, -screen[1] * radius, facing);
+  const [x, y] = radarScreenDelta(
+    screen[0] * radius,
+    screen[1] * radius,
+    facing,
+  );
   return [world[0] + offset[0] + x, world[1] + offset[1] + y];
 };
+
+export const radarScreenDelta = (x: number, y: number, facing: number) =>
+  rotate(x, -y, facing);
 
 export const radarToWorld = (point: number[], frame: RadarFrame): number[] => {
   const [x, y] = rotate(point[0], point[1], frame.facing);

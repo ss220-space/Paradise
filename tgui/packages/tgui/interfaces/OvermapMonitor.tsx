@@ -49,7 +49,7 @@ export const OvermapMonitor = () => {
           {map_jammed && !data.radar_locked ? (
             <NoticeBox danger>Связь потеряна.</NoticeBox>
           ) : (
-            <OvermapScope data={data} />
+            <OvermapScope data={data} panSector />
           )}
         </RadarViewport>
       </Section>

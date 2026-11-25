@@ -2109,6 +2109,14 @@
 .OvermapRadar__scene {
   position: absolute;
   inset: 0;
+  &--pannable {
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+    &:active {
+      cursor: grabbing;
+    }
+  }
 }
 
 .OvermapRadar__pick,

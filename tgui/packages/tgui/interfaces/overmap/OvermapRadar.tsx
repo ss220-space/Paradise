@@ -29,6 +29,7 @@ import {
   RadarLine,
   RadarMotion,
   RadarMotionContext,
+  type RadarView,
   radarChartOffset,
   radarView,
 } from './RadarMotion';
@@ -42,6 +43,7 @@ import {
 } from './radarInterpolation';
 import { GEOMETRY_FADE, GEOMETRY_FULL, radarWheelZoom } from './radarZoom';
 import { useRadarInterpolation } from './useRadarInterpolation';
+import { useSectorPan } from './useSectorPan';
 import { WeaponAimPreview } from './WeaponAimPreview';
 
 export type RadarPeel = {
@@ -939,6 +941,7 @@ const RadarZoom = (props: {
 };
 
 type OvermapRadarProps = {
+  panSector?: boolean;
   fillViewport?: boolean;
   onFacingChange?: (facing: number | null) => void;
   clickTarget?: { id?: string; x?: number; y?: number };
@@ -1008,14 +1011,13 @@ export const OvermapRadar = (props: OvermapRadarProps) => {
     radius: requestedRadius = 64,
     onZoom,
     onReach,
-    followHeading = true,
   } = props;
   const [galaxyEntry, setGalaxyEntry] = useState<'close' | 'overview'>(
     'overview',
   );
   const [galaxyReset, setGalaxyReset] = useState(0);
   const scope = useRef<HTMLDivElement>(null);
-  const displayed = useRef<RadarFrame | null>(null);
+  const displayed = useRef<RadarView | null>(null);
   const [viewport, setViewport] = useState({ side: 640, height: 640 });
   const { side: scopeSide } = viewport;
   useEffect(() => {
@@ -1038,6 +1040,13 @@ export const OvermapRadar = (props: OvermapRadarProps) => {
     ? galaxyBandFor(sectorSpan) * 1.15
     : requestedRadius;
   const galaxyBand = !!props.locked || radius > galaxyBandFor(sectorSpan);
+  const canPan =
+    !!props.panSector && !galaxyBand && radius > BAND_GEOMETRY_FULL;
+  const { center, resetCenter, handlers } = useSectorPan(
+    canPan,
+    sectorId,
+    displayed,
+  );
   useEffect(() => {
     if (!galaxyBand) return;
     Byond.sendMessage('radar/galaxy', { open: 1 });
@@ -1072,15 +1081,14 @@ export const OvermapRadar = (props: OvermapRadarProps) => {
     );
   };
   const selectPoint = (event: MouseEvent<HTMLDivElement>, firing: boolean) => {
-    const frame = displayed.current;
-    const world = frame?.world;
-    const self = frame?.self;
-    const facing = frame?.facing ?? props.facing;
-    const rotation = followHeading ? facing : 0;
-
-    const chartOffset = radarChartOffset(self, sectorSize, cellSpan, radius);
-
-    if (galaxyBand || props.overlay || !props.onSelectPoint || !world) return;
+    const view = displayed.current;
+    if (
+      galaxyBand ||
+      props.overlay ||
+      !props.onSelectPoint ||
+      !view?.frame.world
+    )
+      return;
     if (
       (event.target as Element).closest(
         firing
@@ -1100,7 +1108,13 @@ export const OvermapRadar = (props: OvermapRadarProps) => {
       ((event.clientY - bounds.top - bounds.height / 2) * 2) / side,
     ];
     if (!props.fillViewport && Math.hypot(...screen) > 1) return;
-    const point = radarClickWorld(screen, radius, rotation, world, chartOffset);
+    const point = radarClickWorld(
+      screen,
+      view.radius,
+      view.rotation,
+      view.frame.world,
+      [view.offsetX, view.offsetY],
+    );
     if (firing && props.onFirePoint) {
       props.onFirePoint(point[0], point[1]);
     } else {
@@ -1132,7 +1146,10 @@ export const OvermapRadar = (props: OvermapRadarProps) => {
             className={
               !galaxyBand && radius > BAND_GEOMETRY_FULL ? 'selected' : ''
             }
-            onClick={() => onZoom(Math.max(220, sectorSpan * 0.55))}
+            onClick={() => {
+              resetCenter();
+              onZoom(Math.max(220, sectorSpan * 0.55));
+            }}
           >
             Сектор
           </button>
@@ -1162,7 +1179,14 @@ export const OvermapRadar = (props: OvermapRadarProps) => {
           if (props.selectOnDoubleClick) selectPoint(event, false);
         }}
       >
-        <div className="OvermapRadar__scene" ref={scope}>
+        <div
+          className={classes([
+            'OvermapRadar__scene',
+            canPan && 'OvermapRadar__scene--pannable',
+          ])}
+          ref={scope}
+          {...handlers}
+        >
           {!galaxyBand && (
             <RadarScene
               data={props}
@@ -1171,6 +1195,7 @@ export const OvermapRadar = (props: OvermapRadarProps) => {
               side={scopeSide}
               height={viewport.height}
               displayed={displayed}
+              center={center}
             />
           )}
         </div>
@@ -1249,13 +1274,15 @@ const RadarScene = ({
   side,
   height,
   displayed,
+  center,
 }: {
   data: OvermapRadarProps;
   radius: number;
   scope: RefObject<HTMLDivElement | null>;
   side: number;
   height: number;
-  displayed: { current: RadarFrame | null };
+  displayed: { current: RadarView | null };
+  center?: [number, number];
 }) => {
   const {
     shapes,
@@ -1315,15 +1342,23 @@ const RadarScene = ({
   );
   const draw = useCallback(
     (frame: RadarFrame) => {
-      displayed.current = frame;
-      motion.draw(
-        radarView(frame, radius, side, height, sectorSize, followHeading),
+      const view = radarView(
+        frame,
+        radius,
+        side,
+        height,
+        sectorSize,
+        followHeading,
+        center,
       );
+      displayed.current = view;
+      motion.draw(view);
       onFacingChange?.(frame.facing);
     },
     [
       motion,
       displayed,
+      center,
       radius,
       side,
       height,
@@ -1355,7 +1390,13 @@ const RadarScene = ({
     [previewTiles],
   );
 
-  const chartOffset = radarChartOffset(self, sectorSize, cellSpan, radius);
+  const chartOffset = radarChartOffset(
+    self,
+    sectorSize,
+    cellSpan,
+    radius,
+    center,
+  );
 
   const clicked = props.clickTarget;
   const verticalRadius = (radius * height) / side;

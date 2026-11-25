@@ -42,11 +42,18 @@ export type OvermapScopeData = {
   radar_hazard_contours?: number[][][];
 };
 
-export const OvermapScope = ({ data }: { data: OvermapScopeData }) => {
+export const OvermapScope = ({
+  data,
+  panSector,
+}: {
+  data: OvermapScopeData;
+  panSector?: boolean;
+}) => {
   const [radius, setRadius] = useLocalState('scopeRadius', 1500);
   const [follow, setFollow] = useLocalState('scopeFollow', false);
   return (
     <OvermapRadar
+      panSector={panSector}
       outlines={data.radar_outlines}
       showSelf
       locked={!!data.radar_locked}
