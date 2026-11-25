@@ -21,7 +21,7 @@
 
 /datum/event/vent_clog/kill()
 	vents.Cut()
-	. = ..()
+	return ..()
 
 /datum/event/vent_clog/tick()
 	if(activeFor % interval == 0)
