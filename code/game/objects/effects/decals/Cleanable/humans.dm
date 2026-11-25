@@ -395,6 +395,7 @@
 	prev_loc = loc
 	if(splatter_strength)
 		src.splatter_strength = splatter_strength
+	return INITIALIZE_HINT_NORMAL
 
 /obj/effect/decal/cleanable/blood/hitsplatter/Destroy(force)
 	if(ismovable(loc))

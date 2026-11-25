@@ -12,7 +12,7 @@
 	canSmoothWith = SMOOTH_GROUP_MESH_FENCE
 
 /obj/structure/fence/meshfence/Initialize(mapload)
-	. = ..()
+	. = ..(mapload)
 	if(hole_size)
 		base_icon_state = "brokenfence"
 	QUEUE_SMOOTH(src)
