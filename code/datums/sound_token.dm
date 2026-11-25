@@ -8,6 +8,8 @@
 	VAR_PRIVATE/atom/source
 	/// k:v list of mob : sound status
 	VAR_PRIVATE/list/listeners = list()
+	/// k:v list of mob : the client that was listening through it.
+	VAR_PRIVATE/list/listener_clients = list()
 	///k:v list of mobs : bool. Used to quickly check whether a mob is allowed to hear this noise. This is null by default which means ANY MOB can hear this.
 	VAR_PRIVATE/list/allowed_listeners
 
@@ -92,6 +94,7 @@
 		remove_listener(listener)
 
 	listeners = null
+	listener_clients = null
 	source = null
 	cell_tracker = null
 	return ..()
@@ -134,6 +137,7 @@
 		return FALSE
 
 	listeners[listener_mob] = NONE
+	listener_clients[listener_mob] = listener_mob.client
 	listener_mob.client.sound_tokens += src
 	// The source already holds source_deleted on COMSIG_QDELETING (which qdels the whole token), so don't clobber it when the source hears its own sound.
 	if(listener_mob != source)
@@ -148,7 +152,11 @@
 
 	listeners -= listener_mob
 
-	if(listener_mob.client)
+	var/client/listener_client = listener_clients[listener_mob]
+	listener_clients -= listener_mob
+	if(listener_client)
+		listener_client.sound_tokens -= src
+	if(listener_mob.client && listener_mob.client != listener_client)
 		listener_mob.client.sound_tokens -= src
 
 	// Don't strip COMSIG_QDELETING from the source, or we'd wipe its source_deleted handler.

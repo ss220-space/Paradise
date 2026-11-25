@@ -78,6 +78,12 @@
 	window = null
 	. = ..()
 
+/datum/tgui/dump_harddel_info()
+	if(harddel_deets_dumped)
+		return
+	harddel_deets_dumped = TRUE
+	return "Interface: [interface], initialized: [initialized], closing: [closing], status: [status], opened at: [opened_at || "never"]"
+
 /**
  * public
  *
