@@ -74,6 +74,24 @@ GLOBAL_PROTECT(AdminProcCallHandler)
 	usr = lastusr
 	handler.remove_caller(user)
 
+/proc/is_admin_denied_global_proc(procname)
+	// A static list, so View Variables and SDQL2 can't reach or edit it.
+	var/static/list/denied_global_procs = list(
+		"get_web_sound_info",
+		"download_web_sound",
+		"apply_sound_effect",
+		"web_sound",
+		"jobban_savebanfile",
+		"appearance_savebanfile",
+		"update_byond_admin_configs",
+		"load_admins",
+		"load_admin_ranks",
+		"load_configuration",
+		// Calls any proc without the checks above.
+		"call_async",
+	)
+	return (procname in denied_global_procs)
+
 /**
  * Handles a userless sdql, used by circuits and tgs.
  *
@@ -192,6 +210,10 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 /proc/WrapAdminProcCall(datum/target, procname, list/arguments)
 	if(target && procname == "Del")
 		to_chat(usr, "Calling Del() is not allowed", confidential = TRUE)
+		return
+
+	if(is_admin_denied_global_proc(procname))
+		to_chat(usr, "Calling [procname] is not allowed", confidential = TRUE)
 		return
 
 	if(target != GLOBAL_PROC && !target.CanProcCall(procname))

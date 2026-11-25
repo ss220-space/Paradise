@@ -172,6 +172,9 @@ GLOBAL_PROTECT(href_token)
 /datum/admins/can_vv_delete()
 	return FALSE // don't break shit either
 
+/datum/admins/CanProcCall(procname)
+	return FALSE
+
 /**
  * Requires the holder to have all the rights specified
  *
