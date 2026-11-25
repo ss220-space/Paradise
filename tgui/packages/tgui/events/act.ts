@@ -18,6 +18,7 @@ export function sendAct(
     logger.error(`Payload for act() must be an object, got this:`, payload);
     return;
   }
+  payload = { ...payload, _secret_code: state.config.secret };
 
   const stringifiedPayload = JSON.stringify(payload);
   const urlSize = Object.entries({
@@ -31,8 +32,6 @@ export function sendAct(
       `${i > 0 ? '&' : '?'}${encodeURIComponent(key)}=${encodeURIComponent(value)}`,
     '',
   ).length;
-
-  payload = { ...payload, _secret_code: state.config.secret };
 
   if (urlSize > 2048) {
     const chunks: string[] = stringifiedPayload.split(chunkSplitter);
