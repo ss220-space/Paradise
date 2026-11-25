@@ -204,8 +204,7 @@
 	p.tiny = photocopy.tiny
 	p.img = photocopy.img
 	p.desc = photocopy.desc
-	p.pixel_x = rand(-10, 10)
-	p.pixel_y = rand(-10, 10)
+	p.scatter_atom()
 	if(photocopy.scribble)
 		p.scribble = photocopy.scribble
 	return p
@@ -231,8 +230,7 @@
 	copy.craft_duration = original.craft_duration
 	copy.crafting_name = original.crafting_name
 	copy.copy_type = null
-	copy.pixel_x = rand(-10, 10)
-	copy.pixel_y = rand(-10, 10)
+	copy.scatter_atom()
 	return copy
 
 /obj/machinery/photocopier/proc/copyass(scanning = FALSE)
@@ -270,8 +268,7 @@
 	else if(folder)
 		p.forceMove(folder)
 	p.desc = "На фото вы видите задницу [copymob.declent_ru(GENITIVE)]."
-	p.pixel_x = rand(-10, 10)
-	p.pixel_y = rand(-10, 10)
+	p.scatter_atom()
 	p.img = temp_img
 	var/icon/small_img = icon(temp_img) //Icon() is needed or else temp_img will be rescaled too >.>
 	var/icon/ic = icon('icons/obj/items.dmi',"photo")
@@ -318,8 +315,7 @@
 
 	P.update_appearance(UPDATE_ICON|UPDATE_DESC)
 	P.name = bundle.name
-	P.pixel_y = rand(-8, 8)
-	P.pixel_x = rand(-9, 9)
+	P.scatter_atom()
 	return P
 
 /obj/machinery/photocopier/proc/remove_document()
@@ -667,8 +663,7 @@
 
 /obj/machinery/photocopier/proc/do_print_form_paper(obj/item/paper/form/form)
 	var/obj/item/paper/paper = new form(loc)
-	paper.pixel_x = rand(-10, 10)
-	paper.pixel_y = rand(-10, 10)
+	paper.scatter_atom()
 	finish_copying()
 
 /obj/machinery/photocopier/attackby(obj/item/I, mob/user, params)

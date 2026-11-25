@@ -84,7 +84,7 @@
 
 	switch(action)
 		if("load_preset")
-			var/ckey = params["selected_ckey"]
+			var/ckey = sanitize_ckey_param(params["selected_ckey"])
 			var/preset = params["selected_preset"]
 			var/permissions = GLOB.admin_ranks[preset]
 			if(!update_permissions(ckey, permissions))
@@ -93,7 +93,7 @@
 			return TRUE
 
 		if("edit_rank")
-			var/ckey = params["ckey"]
+			var/ckey = sanitize_ckey_param(params["ckey"])
 			var/rank = params["rank"]
 
 			if(!istext(ckey) || !istext(rank))
@@ -114,7 +114,7 @@
 			return TRUE
 
 		if("add_flag")
-			var/ckey = params["ckey"]
+			var/ckey = sanitize_ckey_param(params["ckey"])
 			var/flag = params["selected_flag"]
 			var/permissions = ranks[ckey]["rights"] | GLOB.permissions_name_to_flag[flag]
 			if(!update_permissions(ckey, permissions))
@@ -123,7 +123,7 @@
 			return TRUE
 
 		if("remove_flag")
-			var/ckey = params["ckey"]
+			var/ckey = sanitize_ckey_param(params["ckey"])
 			var/flag = params["selected_flag"]
 			var/permissions = ranks[ckey]["rights"] & ~GLOB.permissions_name_to_flag[flag]
 			if(!update_permissions(ckey, permissions))
@@ -132,17 +132,17 @@
 			return TRUE
 
 		if("force_re_admin")
-			var/ckey = params["ckey"]
+			var/ckey = sanitize_ckey_param(params["ckey"])
 			force_re_admin(ckey)
 			return TRUE
 
 		if("force_de_admin")
-			var/ckey = params["ckey"]
+			var/ckey = sanitize_ckey_param(params["ckey"])
 			force_de_admin(ckey)
 			return TRUE
 
 		if("remove_admin")
-			var/ckey = params["ckey"]
+			var/ckey = sanitize_ckey_param(params["ckey"])
 			var/result = tgui_alert(
 				usr,
 				"Вы действительно хотите это сделать? Это полностью удалит запись со всеми флагами и рангом. Если есть хотя бы шанс, что человек вернется на свой пост — просто выставьте ранг [DELETED_RANK]. Это заблокирует загрузку прав из БД, но не удалит запись полностью.",
@@ -155,7 +155,7 @@
 			return TRUE
 
 		if("create_new_admin")
-			var/ckey = params["ckey"]
+			var/ckey = sanitize_ckey_param(params["ckey"])
 			var/rank = params["rank"]
 			var/preset = params["preset"]
 			var/permissions = GLOB.admin_ranks[preset]
@@ -356,6 +356,11 @@
 
 	var/mob/dead/observer/observer = mob
 	observer.update_admin_actions()
+
+/datum/ui_module/permissions_edit/proc/sanitize_ckey_param(value)
+	if(!istext(value))
+		return null
+	return ckey(value)
 
 ADMIN_VERB(edit_admin_permissions_new, R_PERMISSIONS, "Permissions Panel (New)", "Edit admin permissions.", ADMIN_CATEGORY_MAIN)
 	if(!SSdbcore.IsConnected())

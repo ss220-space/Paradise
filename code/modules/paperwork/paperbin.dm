@@ -70,6 +70,7 @@
 			user.put_in_hands(P, ignore_anim = FALSE)
 			P.add_fingerprint(user)
 			to_chat(user, span_notice("You take [P] out of the [src]."))
+			P.scatter_atom()
 	else
 		to_chat(user, span_notice("[src] is empty!"))
 

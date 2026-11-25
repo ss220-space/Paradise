@@ -246,6 +246,7 @@
 /obj/item/areaeditor/blueprints/ce/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/high_value_item)
+	ADD_TRAIT(src, TRAIT_SHOW_WIRE_INFO, ROUNDSTART_TRAIT)
 
 /obj/item/areaeditor/blueprints/cyborg
 	name = "station schematics"

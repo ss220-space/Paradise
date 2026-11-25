@@ -405,7 +405,10 @@
 
 #define TRAIT_FAKE_FIRE "fake_fire"
 
-#define TRAIT_CAN_SEE_WIRES "can_see_wires"
+/// Show what machine/door wires do when held.
+#define TRAIT_SHOW_WIRE_INFO "show_wire_info"
+
+#define TRAIT_WIRE_BLIND "wire_blind" // This doesn't block someone from seeing wires or recalling their position, but randomizes name / function to the user
 
 #define TRAIT_DECOY_BRAIN "decoy_brain"
 
@@ -704,3 +707,6 @@
 
 /// Trait that allows an item to perform holy rites akin to a nullrod
 #define TRAIT_NULLROD_ITEM "nullrod_item"
+
+#define TRAIT_MEPHEDRONE_ADAPTED "mephedrone_adapted" // Trait that changes the ending effects of twitch leaving your system
+#define TRAIT_NOKNOCKDOWNSLOWDOWN "noknockdownslowdown" //If this person has this trait, they are not slowed via knockdown, but they can be hit by bullets like a self knockdown

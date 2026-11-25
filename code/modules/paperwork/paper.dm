@@ -25,6 +25,7 @@
 	permeability_coefficient = 0.01
 	custom_price = PAYCHECK_MIN * 0.05
 	interaction_flags_click = NEED_DEXTERITY|NEED_HANDS|ALLOW_RESTING
+	color = COLOR_CARP_PURPLE
 	//scatter_distance = 8
 /*
 	item_flags = SKIP_FANTASY_ON_SPAWN

@@ -1,4 +1,0 @@
-author: "komradios0"
-delete-after: True
-changes:
-  - bugfix: "Скрафченные из пластика занавески больше не появляются невидимыми. (PR #10069)"

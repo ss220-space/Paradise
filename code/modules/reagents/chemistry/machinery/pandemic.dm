@@ -289,8 +289,7 @@
 				return
 			var/obj/item/reagent_containers/cup/bottle/bottle = new(loc)
 			bottle.icon_state = "round_bottle"
-			bottle.pixel_x = rand(-3, 3)
-			bottle.pixel_y = rand(-3, 3)
+			bottle.scatter_atom()
 			replicator_cooldown(5 SECONDS)
 			var/list/data = list("diseases"=list(copy))
 			bottle.name = "культура [capitalize(name)]"
@@ -319,8 +318,7 @@
 			var/obj/item/reagent_containers/cup/bottle/bottle = new/obj/item/reagent_containers/cup/bottle(loc)
 			if(!bottle)
 				return
-			bottle.pixel_x = rand(-3, 3)
-			bottle.pixel_y = rand(-3, 3)
+			bottle.scatter_atom()
 			var/path = GetResistancesByIndex(text2num(params["index"]))
 			var/vaccine_type = path
 			var/vaccine_name = UNKNOWN_STATUS_RUS

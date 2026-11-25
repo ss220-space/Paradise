@@ -604,6 +604,7 @@
 	modules += new /obj/item/extinguisher/mini(src)
 	modules += new /obj/item/reagent_containers/spray/pestspray(src) //kill all kidans!
 	modules += new /obj/item/crowbar/cyborg(src)
+	modules += new /obj/item/melee/flyswatter(src)
 	emag = new /obj/item/reagent_containers/spray(src)
 
 	emag.reagents.add_reagent(/datum/reagent/lube, 250)

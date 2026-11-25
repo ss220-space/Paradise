@@ -794,6 +794,14 @@
 		'sound/weapons/gun_flamethrower3.ogg',
 	)
 
+/datum/sound_effect/bullet_miss_alt
+	key = SFX_BULLET_MISS_ALT
+	file_paths = list(
+		'sound/weapons/bulletflyby.ogg',
+		'sound/weapons/bulletflyby2.ogg',
+		'sound/weapons/bulletflyby3.ogg',
+	)
+
 /datum/sound_effect/writing_pen
 	key = SFX_WRITING_PEN
 	file_paths = list(
