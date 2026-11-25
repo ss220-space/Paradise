@@ -26,14 +26,17 @@
 	owner = null
 	return ..()
 
-/datum/messenger_account/proc/get_ui_data()
+/datum/messenger_account/proc/get_photo()
 	if(!owner.photo && COOLDOWN_FINISHED(src, photo_retry))
 		owner.set_photo()
 		COOLDOWN_START(src, photo_retry, INCREW_PHOTO_RETRY)
+	return owner.photo
+
+/datum/messenger_account/proc/get_ui_data()
 	return list(
 		"id" = owner.UID(),
 		"name" = owner.owner_name,
-		"photo" = owner.photo,
+		"photo" = get_photo(),
 	)
 
 /datum/messenger_account/proc/blocks(datum/money_account/account)

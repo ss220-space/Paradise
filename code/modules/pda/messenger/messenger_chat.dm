@@ -7,6 +7,7 @@ GLOBAL_LIST_EMPTY(increw_public_groups)
 	var/datum/messenger_account/owner
 	var/is_group = FALSE
 	var/is_public = FALSE
+	var/created_at
 	var/datum/increw_call/active_call
 	var/list/members = list()
 	/// TGUI reuses these rows on refresh.
@@ -17,6 +18,7 @@ GLOBAL_LIST_EMPTY(increw_public_groups)
 	src.description = description
 	src.owner = owner
 	is_group = !!owner
+	created_at = world.time
 	return ..()
 
 /datum/messenger_chat/Destroy()
@@ -71,6 +73,7 @@ GLOBAL_LIST_EMPTY(increw_public_groups)
 		"id" = length(messages) + 1,
 		"text_message" = message,
 		"timestamp" = station_time_timestamp(),
+		"activity" = world.time,
 		"sender_id" = sender?.owner.UID(),
 		"sender_name" = sender ? sender.owner.owner_name : "InCrew",
 		"actor_id" = event_actor?.owner.UID(),
@@ -101,14 +104,36 @@ GLOBAL_LIST_EMPTY(increw_public_groups)
 		return "Личная переписка с [partner.owner.owner_name]"
 	return "Личная переписка"
 
-/datum/messenger_chat/proc/get_summary(datum/messenger_account/viewer)
+/datum/messenger_chat/proc/can_read_message(datum/messenger_account/viewer, list/message)
+	if(!length(viewer.blocked_accounts))
+		return TRUE
+	return !((message["sender_id"] in viewer.blocked_accounts) || (message["actor_id"] in viewer.blocked_accounts))
+
+/datum/messenger_chat/proc/get_summary(datum/messenger_account/viewer, include_preview = TRUE)
+	var/datum/messenger_account/partner = is_group ? null : get_private_partner(viewer)
+	var/list/preview
+	var/activity = 0
+	if(include_preview && length(messages))
+		var/limit = max(1, length(messages) - INCREW_HISTORY_SIZE + 1)
+		for(var/index = length(messages); index >= limit; index--)
+			var/list/message = messages[index]
+			if(can_read_message(viewer, message))
+				preview = message
+				activity = message["activity"]
+				break
+	else if(include_preview)
+		activity = created_at
 	return list(
 		"chat_id" = UID(),
-		"name_chat" = get_display_name(viewer),
+		"name_chat" = partner ? partner.owner.owner_name : name,
 		"description_chat" = description,
 		"is_group" = is_group,
 		"is_public" = is_public,
 		"owner_id" = owner?.owner.UID(),
+		"photo" = partner?.get_photo(),
+		"preview" = preview ? copytext_char(preview["text_message"], 1, INCREW_PREVIEW_LENGTH + 1) : null,
+		"preview_time" = preview?["timestamp"],
+		"activity" = activity,
 		"member_count" = length(members),
 		"unread_count" = viewer.unread_chats?[src] || 0,
 	)
@@ -126,7 +151,7 @@ GLOBAL_LIST_EMPTY(increw_public_groups)
 	if(is_group && length(viewer.blocked_accounts))
 		for(var/index = last_index; index >= 1; index--)
 			var/list/message = messages[index]
-			if((message["sender_id"] in viewer.blocked_accounts) || (message["actor_id"] in viewer.blocked_accounts))
+			if(!can_read_message(viewer, message))
 				continue
 			if(length(history) == INCREW_HISTORY_SIZE)
 				var/list/oldest = history[length(history)]

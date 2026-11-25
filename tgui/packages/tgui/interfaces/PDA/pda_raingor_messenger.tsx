@@ -28,6 +28,10 @@ type Chat = {
 	owner_id?: string;
 	member_count: number;
 	unread_count: number;
+	photo?: string;
+	preview?: string;
+	preview_time?: string;
+	activity: number;
 };
 type Message = {
 	id: number;
@@ -57,7 +61,7 @@ type CrewCall = {
 };
 
 type InCrewData =
-	| { can_login: false }
+	| { can_login: false; can_sign_in: boolean }
 	| {
 			can_login: true;
 			owner_messenger_account: Profile;
@@ -76,22 +80,50 @@ type InCrewData =
 	  };
 
 export const pda_raingor_messenger = () => {
-	const { data } = useBackend<InCrewData>();
+	const { act, data } = useBackend<InCrewData>();
 
 	if (!data.can_login) {
 		return (
-			<InCrewCard icon="id-card">
-				<Box textAlign="center">
-					Вставьте ID-карту, привязанную к вашему личному счёту.
-				</Box>
-			</InCrewCard>
+			<div className="increw-app">
+				<InCrewCard icon="id-card">
+					{data.can_sign_in ? (
+						<Button
+							className="increw-primary"
+							icon="sign-in-alt"
+							onClick={() => act('sign_in')}
+						>
+							Войти в аккаунт
+						</Button>
+					) : (
+						<Box textAlign="center">
+							Вставьте ID-карту, привязанную к вашему личному
+							счёту.
+						</Box>
+					)}
+				</InCrewCard>
+			</div>
 		);
 	}
 
 	return (
-		<Stack key={data.owner_messenger_account.id} vertical fill>
+		<Stack
+			key={data.owner_messenger_account.id}
+			className="increw-app"
+			vertical
+			fill
+		>
+			<div className="increw-brand">
+				<Icon name="broadcast-tower" />
+				<strong>InCrew</strong>
+				<span>Black Rain Group</span>
+			</div>
 			{data.call && <CallPanel call={data.call} />}
-			<Stack.Item grow minHeight={0} overflowY="auto">
+			<Stack.Item
+				grow
+				minHeight={0}
+				overflowY="auto"
+				className="increw-body"
+			>
 				<InCrew data={data} />
 			</Stack.Item>
 		</Stack>
@@ -215,15 +247,24 @@ function Avatar({ photo }: { photo?: string }) {
 			<img src={photo} alt="" />
 		</span>
 	) : (
-		<Icon name="user-circle" className="text-gold" />
+		<span className="increw-avatar increw-avatar--fallback">
+			<Icon name="user" />
+		</span>
 	);
 }
+
+const tabs = [
+	{ id: 'chats', label: 'Чаты', icon: 'comments' },
+	{ id: 'groups', label: 'Группы', icon: 'users' },
+	{ id: 'calls', label: 'Звонки', icon: 'phone' },
+] as const;
 
 function InCrew({ data }: { data: Extract<InCrewData, { can_login: true }> }) {
 	const { act } = useBackend();
 	const [page, setPage] = useState<
 		'home' | 'contacts' | 'create' | 'about' | 'blocked'
 	>('home');
+	const [tab, setTab] = useState<(typeof tabs)[number]['id']>('chats');
 	const {
 		active_chat,
 		blocked_contacts,
@@ -234,6 +275,14 @@ function InCrew({ data }: { data: Extract<InCrewData, { can_login: true }> }) {
 		public_groups,
 	} = data;
 	const chat = chats.find((item) => item.chat_id === active_chat?.chat_id);
+	const catalogOpen = tab === 'groups' && page === 'home' && !active_chat;
+	const catalogLoaded = public_groups !== null;
+
+	useEffect(() => {
+		if (catalogOpen !== catalogLoaded) {
+			act(catalogOpen ? 'show_public_groups' : 'hide_public_groups');
+		}
+	}, [act, catalogOpen, catalogLoaded]);
 
 	if (chat && active_chat) {
 		return (
@@ -244,16 +293,6 @@ function InCrew({ data }: { data: Extract<InCrewData, { can_login: true }> }) {
 				profile={owner_messenger_account}
 				maxMembers={max_group_members}
 				callBusy={call_busy}
-			/>
-		);
-	}
-
-	if (public_groups) {
-		return (
-			<PublicGroups
-				groups={public_groups}
-				chats={chats}
-				maxMembers={max_group_members}
 			/>
 		);
 	}
@@ -281,122 +320,195 @@ function InCrew({ data }: { data: Extract<InCrewData, { can_login: true }> }) {
 	}
 
 	return (
-		<Stack vertical fill>
-			<InCrewCard icon="comments">
-				<Stack align="center" justify="center" wrap="wrap">
-					<Avatar photo={owner_messenger_account.photo} />
-					<Box bold>{owner_messenger_account.name}</Box>
-					<Button
-						className="btn-bank"
-						icon="info-circle"
-						onClick={() => setPage('about')}
-					>
-						О InCrew
-					</Button>
-					<Button
-						className="btn-bank"
-						icon="ban"
-						onClick={() => setPage('blocked')}
-					>
-						Чёрный список
-					</Button>
-				</Stack>
-			</InCrewCard>
-			<Box className="increw-actions">
-				<QuickAction
-					icon="comment"
-					label="Новый диалог"
-					selected={page === 'contacts'}
-					onClick={() =>
+		<div className="increw-screen">
+			<div className="increw-toolbar">
+				<Avatar photo={owner_messenger_account.photo} />
+				<span
+					className="increw-ellipsis"
+					title={owner_messenger_account.name}
+				>
+					{owner_messenger_account.name}
+				</span>
+				<Button
+					icon="info-circle"
+					tooltip="О InCrew"
+					onClick={() => setPage('about')}
+				/>
+				<Button
+					icon="ban"
+					tooltip="Чёрный список"
+					onClick={() => setPage('blocked')}
+				/>
+				<Button
+					icon="sign-out-alt"
+					tooltip="Выйти из аккаунта"
+					onClick={() => act('sign_out')}
+				>
+					Выйти
+				</Button>
+			</div>
+			{tab === 'groups' ? (
+				<GroupDirectory
+					groups={public_groups}
+					chats={chats}
+					maxMembers={max_group_members}
+					onCreate={() => setPage('create')}
+				/>
+			) : (
+				<ChatList
+					key={tab}
+					chats={chats}
+					calls={tab === 'calls'}
+					callBusy={call_busy}
+					showContacts={page === 'contacts'}
+					onNewChat={() =>
 						setPage(page === 'contacts' ? 'home' : 'contacts')
 					}
+					onContactSelected={() => setPage('home')}
 				/>
-				<QuickAction
-					icon="users"
-					label="Создать группу"
-					onClick={() => setPage('create')}
-				/>
-				<QuickAction
-					icon="globe"
-					label="Открытые группы"
-					onClick={() => {
-						setPage('home');
-						act('show_public_groups');
-					}}
-				/>
-			</Box>
-			{page === 'contacts' && (
-				<Section title="Собеседник">
-					<ContactPicker
-						privateOnly
-						onSelect={(contact) => {
-							act('create_private_chat', {
-								target: contact.value,
-							});
-							setPage('home');
-						}}
-					/>
-				</Section>
 			)}
-			<Section
-				title={
-					<Box className="text-gold">
-						<Icon name="inbox" mr={0.5} />
-						Чаты
-					</Box>
-				}
-				fill
-				scrollable
-			>
-				{!chats.length && (
-					<Box italic className="text-muted" textAlign="center" p={2}>
-						Нет активных диалогов
-					</Box>
-				)}
-				{chats.map((item) => (
+			<nav className="increw-tabs" aria-label="Разделы InCrew">
+				{tabs.map(({ id, label, icon }) => (
 					<Button
-						key={item.chat_id}
-						className="btn-bank"
-						fluid
-						mb={0.5}
-						p={1}
-						onClick={() =>
-							act('open_chat', { chatId: item.chat_id })
-						}
+						key={id}
+						selected={tab === id}
+						aria-pressed={tab === id}
+						onClick={() => {
+							setPage('home');
+							setTab(id);
+						}}
 					>
-						<Stack align="center">
-							<Icon
-								name={
-									item.is_public
-										? 'globe'
-										: item.is_group
-											? 'users'
-											: 'comment'
-								}
-								className="text-gold"
-							/>
-							<Stack.Item grow style={{ whiteSpace: 'normal' }}>
-								{item.name_chat}
-							</Stack.Item>
-							{!!item.is_group && (
-								<Box className="text-muted">
-									{item.member_count} уч.
-								</Box>
-							)}
-							{item.unread_count > 0 && (
-								<Box
-									className="increw-unread"
-									aria-label={`Непрочитанных сообщений: ${item.unread_count}`}
-								>
-									{item.unread_count}
-								</Box>
-							)}
-							<Icon name="chevron-right" className="text-gold" />
-						</Stack>
+						<Icon name={icon} />
+						{label}
 					</Button>
 				))}
-			</Section>
-		</Stack>
+			</nav>
+		</div>
+	);
+}
+
+function ChatList({
+	chats,
+	calls,
+	callBusy,
+	showContacts,
+	onNewChat,
+	onContactSelected,
+}: {
+	chats: Chat[];
+	calls: boolean;
+	callBusy: boolean;
+	showContacts: boolean;
+	onNewChat: () => void;
+	onContactSelected: () => void;
+}) {
+	const { act } = useBackend();
+	const [query, setQuery] = useState('');
+	const search = query.trim().toLowerCase();
+	const matches = chats
+		.filter((chat) => chat.name_chat.toLowerCase().includes(search))
+		.sort((a, b) => b.activity - a.activity);
+
+	return (
+		<>
+			<div className="increw-search">
+				<Input
+					fluid
+					aria-label="Поиск по чатам"
+					placeholder="Поиск по чатам…"
+					value={query}
+					onChange={setQuery}
+				/>
+				{!calls && (
+					<Button
+						icon="plus"
+						tooltip="Новый диалог"
+						selected={showContacts}
+						onClick={onNewChat}
+					/>
+				)}
+			</div>
+			<div className="increw-list">
+				{showContacts && (
+					<Section title="Новый диалог">
+						<ContactPicker
+							privateOnly
+							onSelect={(contact) => {
+								act('create_private_chat', {
+									target: contact.value,
+								});
+								onContactSelected();
+							}}
+						/>
+					</Section>
+				)}
+				{!matches.length && (
+					<div className="increw-empty">
+						{search
+							? 'Ничего не найдено'
+							: calls
+								? 'Начните диалог, чтобы позвонить'
+								: 'Нет активных диалогов'}
+					</div>
+				)}
+				{matches.map((item) => (
+					<div className="increw-list-entry" key={item.chat_id}>
+						<Button
+							className="increw-chat-row"
+							onClick={() =>
+								act('open_chat', { chatId: item.chat_id })
+							}
+						>
+							{item.is_group ? (
+								<Icon
+									name="users"
+									className="increw-group-avatar"
+								/>
+							) : (
+								<Avatar photo={item.photo} />
+							)}
+							<span className="increw-row-copy">
+								<strong className="increw-ellipsis">
+									{item.name_chat}
+								</strong>
+								{!calls && item.preview && (
+									<span className="increw-ellipsis">
+										{item.preview}
+									</span>
+								)}
+							</span>
+							{!calls && (
+								<span className="increw-row-meta">
+									{item.preview_time?.slice(0, 5)}
+									{item.unread_count > 0 && (
+										<span
+											className="increw-unread"
+											aria-label={`Непрочитанных сообщений: ${item.unread_count}`}
+										>
+											{item.unread_count}
+										</span>
+									)}
+								</span>
+							)}
+						</Button>
+						{calls && (
+							<Button
+								icon="phone"
+								tooltip={
+									item.is_group
+										? 'Начать конференцию'
+										: 'Позвонить'
+								}
+								disabled={callBusy}
+								onClick={() =>
+									act('start_call', { chatId: item.chat_id })
+								}
+							/>
+						)}
+					</div>
+				))}
+			</div>
+		</>
 	);
 }
 
@@ -482,99 +594,134 @@ function BlockedContacts({
 	);
 }
 
-function QuickAction({
-	icon,
-	label,
-	selected = false,
-	onClick,
-}: {
-	icon: string;
-	label: string;
-	selected?: boolean;
-	onClick: () => void;
-}) {
-	return (
-		<Button
-			className="btn-bank increw-action"
-			selected={selected}
-			fluid
-			onClick={onClick}
-		>
-			<Stack vertical align="center">
-				<Icon name={icon} className="text-gold" size={1.8} />
-				<Box>{label}</Box>
-			</Stack>
-		</Button>
-	);
-}
-
-function PublicGroups({
+function GroupDirectory({
 	groups,
 	chats,
 	maxMembers,
+	onCreate,
 }: {
-	groups: Chat[];
+	groups: Chat[] | null;
 	chats: Chat[];
 	maxMembers: number;
+	onCreate: () => void;
 }) {
 	const { act } = useBackend();
+	const [query, setQuery] = useState('');
+	const [onlyJoined, setOnlyJoined] = useState(false);
+	const search = query.trim().toLowerCase();
 	const joined = new Set(chats.map((chat) => chat.chat_id));
+	const directory = [
+		...(groups || []).filter((group) => !joined.has(group.chat_id)),
+		...chats.filter((chat) => chat.is_group),
+	].filter(
+		(group) =>
+			(!onlyJoined || joined.has(group.chat_id)) &&
+			group.name_chat.toLowerCase().includes(search),
+	);
 
 	return (
-		<InCrewPage
-			icon="globe"
-			title="Открытые группы"
-			onClose={() => act('hide_public_groups')}
-		>
-			{!groups.length && (
-				<Box italic className="text-muted" textAlign="center" p={2}>
-					Открытых групп пока нет
-				</Box>
-			)}
-			{groups.map((group) => {
-				const isMember = joined.has(group.chat_id);
-				const isFull = group.member_count >= maxMembers;
-				return (
-					<Box key={group.chat_id} className="card" p={1} mb={0.75}>
-						<Stack align="center" wrap="wrap">
-							<Stack.Item grow minWidth="0">
-								<Box bold className="text-gold increw-wrap">
-									{group.name_chat}
-								</Box>
-								<Box className="text-muted">
-									{group.member_count} / {maxMembers}{' '}
-									участников
-								</Box>
-							</Stack.Item>
-							<Button
-								className="btn-bank"
-								icon={isMember ? 'comment' : 'sign-in-alt'}
-								disabled={!isMember && isFull}
-								onClick={() =>
-									act(
-										isMember
-											? 'open_chat'
-											: 'join_public_group',
-										{ chatId: group.chat_id },
-									)
-								}
-							>
-								{isMember
-									? 'Открыть'
-									: isFull
-										? 'Мест нет'
-										: 'Вступить'}
-							</Button>
-						</Stack>
-						{group.description_chat && (
-							<Box mt={0.5} className="increw-wrap">
-								{group.description_chat}
-							</Box>
-						)}
-					</Box>
-				);
-			})}
-		</InCrewPage>
+		<>
+			<div className="increw-search">
+				<Input
+					fluid
+					aria-label="Поиск групп"
+					placeholder="Поиск по группам…"
+					value={query}
+					onChange={setQuery}
+				/>
+				<Button icon="plus" tooltip="Создать группу" onClick={onCreate}>
+					Создать
+				</Button>
+			</div>
+			<div className="increw-group-filters">
+				<Button
+					selected={!onlyJoined}
+					aria-pressed={!onlyJoined}
+					onClick={() => setOnlyJoined(false)}
+				>
+					Все группы
+				</Button>
+				<Button
+					selected={onlyJoined}
+					aria-pressed={onlyJoined}
+					onClick={() => setOnlyJoined(true)}
+				>
+					Мои группы
+				</Button>
+			</div>
+			<div className="increw-list">
+				{[
+					{ open: true, title: 'Открытые', icon: 'globe' },
+					{ open: false, title: 'Закрытые', icon: 'lock' },
+				].map(({ open, title, icon }) => {
+					const entries = directory.filter(
+						(group) => !!group.is_public === open,
+					);
+					return (
+						<details
+							className="increw-group-section"
+							key={title}
+							open
+						>
+							<summary>
+								<Icon name={icon} /> {title}{' '}
+								<span>{entries.length}</span>
+							</summary>
+							{!entries.length && (
+								<div className="increw-empty">
+									{open && !onlyJoined && groups === null
+										? 'Загрузка…'
+										: 'Нет групп'}
+								</div>
+							)}
+							{entries.map((group) => {
+								const isMember = joined.has(group.chat_id);
+								const isFull = group.member_count >= maxMembers;
+								return (
+									<div
+										className="increw-list-entry"
+										key={group.chat_id}
+									>
+										<Button
+											className="increw-channel-row"
+											tooltip={
+												group.description_chat ||
+												group.name_chat
+											}
+											disabled={!isMember && isFull}
+											onClick={() =>
+												act(
+													isMember
+														? 'open_chat'
+														: 'join_public_group',
+													{
+														chatId: group.chat_id,
+													},
+												)
+											}
+										>
+											<Icon
+												name={open ? 'hashtag' : 'lock'}
+											/>
+											<strong className="increw-ellipsis">
+												{group.name_chat}
+											</strong>
+											<span className="increw-row-meta">
+												{isMember
+													? `${group.member_count} уч.`
+													: isFull
+														? 'Мест нет'
+														: 'Вступить'}
+											</span>
+										</Button>
+									</div>
+								);
+							})}
+						</details>
+					);
+				})}
+			</div>
+		</>
 	);
 }
 
@@ -709,34 +856,28 @@ function Conversation({
 	};
 
 	return (
-		<Stack vertical fill>
+		<Stack className="increw-conversation" vertical fill>
 			<Section
 				className="increw-section"
 				title={
-					<Box className="text-gold increw-wrap">
-						<Icon
-							name={
-								chat.is_public
-									? 'globe'
-									: chat.is_group
-										? 'users'
-										: 'comment'
-							}
-							mr={0.5}
+					<Stack align="center">
+						<Button
+							icon="arrow-left"
+							tooltip="Назад"
+							onClick={() => act('close_chat')}
 						/>
-						{chat.name_chat}
-					</Box>
+						{chat.is_group ? (
+							<Icon name="hashtag" />
+						) : (
+							<Avatar photo={chat.photo} />
+						)}
+						<Box className="increw-wrap">{chat.name_chat}</Box>
+					</Stack>
 				}
 				buttons={
 					<>
 						<Button
-							className="btn-bank"
-							icon="arrow-left"
-							tooltip="К списку чатов"
-							onClick={() => act('close_chat')}
-						/>
-						<Button
-							className="btn-bank"
+							className="increw-primary"
 							icon="phone"
 							disabled={callBusy}
 							tooltip={
@@ -772,7 +913,7 @@ function Conversation({
 					</>
 				}
 			>
-				{chat.description_chat && (
+				{!!chat.is_group && !!chat.description_chat && (
 					<Box className="text-muted increw-wrap">
 						{chat.description_chat}
 					</Box>
@@ -883,7 +1024,7 @@ function Conversation({
 				<>
 					{(!!details.older_before || !details.showing_latest) && (
 						<Stack justify="space-between">
-							{details.older_before && (
+							{!!details.older_before && (
 								<Button
 									className="btn-bank"
 									icon="arrow-up"
@@ -914,10 +1055,9 @@ function Conversation({
 							)}
 						</Stack>
 					)}
-					<Section
+					<div
 						ref={history}
-						fill
-						scrollable
+						className="increw-history"
 						onScroll={() => {
 							const panel = history.current;
 							if (!panel) return;
@@ -943,25 +1083,29 @@ function Conversation({
 							const photo =
 								message.sender_id &&
 								members.get(message.sender_id)?.photo;
-							const outgoing = message.sender_id === profile.id;
+							const variant = !message.sender_id
+								? 'system'
+								: chat.is_group
+									? 'channel'
+									: message.sender_id === profile.id
+										? 'outgoing'
+										: 'incoming';
 							return (
 								<Box
 									key={message.id}
-									className={
-										outgoing
-											? 'increw-message increw-message--outgoing'
-											: 'increw-message'
-									}
+									className={`increw-message increw-message--${variant}`}
 									mb={0.5}
 									p={0.75}
 								>
 									<Stack align="center" wrap="wrap" mb={0.25}>
-										{message.sender_id && (
+										{variant === 'incoming' && (
 											<Avatar photo={photo} />
 										)}
-										<Box bold className="text-gold">
-											{message.sender_name}
-										</Box>
+										{variant === 'channel' && (
+											<Box bold>
+												{message.sender_name}
+											</Box>
+										)}
 										<Box
 											className="text-muted"
 											fontSize="0.85em"
@@ -973,7 +1117,7 @@ function Conversation({
 								</Box>
 							);
 						})}
-					</Section>
+					</div>
 					<Box className="increw-composer">
 						<Input
 							className="input-field"
@@ -985,13 +1129,13 @@ function Conversation({
 							onEnter={sendMessage}
 						/>
 						<Button
-							className="btn-bank increw-send"
+							className="increw-primary increw-send"
 							icon="paper-plane"
+							tooltip="Отправить"
+							aria-label="Отправить"
 							disabled={!draft.trim()}
 							onClick={sendMessage}
-						>
-							Отправить
-						</Button>
+						/>
 					</Box>
 				</>
 			)}

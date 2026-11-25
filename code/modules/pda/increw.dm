@@ -12,6 +12,7 @@
 	var/datum/increw_call_member/call_member
 	var/datum/weakref/login_holder
 	var/datum/weakref/login_profile
+	var/login_paused = FALSE
 
 /datum/data/pda/app/increw/Destroy()
 	if(call_member)
@@ -23,29 +24,33 @@
 	open_chat(null)
 	return ..()
 
-/datum/data/pda/app/increw/proc/get_profile(mob/user)
+/datum/data/pda/app/increw/proc/get_profile(mob/user, manual_login = FALSE)
 	if(!isliving(user) || pda.loc != user)
 		return null
 
 	var/datum/messenger_account/profile
 	if(login_holder?.resolve() == user)
+		if(login_paused && !manual_login)
+			return null
 		profile = login_profile?.resolve()
 
 	var/obj/item/card/id/card = pda.id
 	if(!card || card.loc != pda)
 		return profile
 	if(!card.associated_account_number || !card.registered_name)
-		clear_login()
+		if(!manual_login)
+			clear_login()
 		return null
 	if(profile?.matches_card(card))
 		return profile
 
-	clear_login()
-
 	var/datum/money_account/account = attempt_account_access_nosec(card.associated_account_number)
 	if(QDELETED(account) || account.owner_name != card.registered_name)
+		if(!manual_login)
+			clear_login()
 		return null
 
+	clear_login()
 	profile = account.get_messenger_profile()
 	login_holder = WEAKREF(user)
 	login_profile = WEAKREF(profile)
@@ -57,6 +62,7 @@
 		UnregisterSignal(pda, COMSIG_MOVABLE_MOVED)
 	login_holder = null
 	login_profile = null
+	login_paused = FALSE
 	open_chat(null)
 
 /datum/data/pda/app/increw/proc/is_signed_in_as(datum/messenger_account/profile, mob/user)
@@ -76,6 +82,8 @@
 	if(pda.loc == user)
 		refresh_alert(profile)
 	data["can_login"] = !!profile
+	var/obj/item/card/id/card = pda.id
+	data["can_sign_in"] = login_paused && pda.loc == user && login_holder?.resolve() == user && card?.loc == pda && card.associated_account_number && card.registered_name
 	data["active_chat"] = null
 	data["public_groups"] = null
 	data["call"] = null
@@ -106,7 +114,7 @@
 	if(show_public_groups)
 		var/list/public_groups = list()
 		for(var/datum/messenger_chat/chat as anything in GLOB.increw_public_groups)
-			public_groups += list(chat.get_summary(profile))
+			public_groups += list(chat.get_summary(profile, include_preview = FALSE))
 		data["public_groups"] = public_groups
 
 	var/datum/messenger_chat/selected_chat = selected_chat_ref?.resolve()
@@ -117,11 +125,27 @@
 	if(..())
 		return TRUE
 
+	if(action == "sign_in")
+		if(!login_paused || login_holder?.resolve() != ui.user)
+			return FALSE
+		if(!get_profile(ui.user, manual_login = TRUE))
+			to_chat(ui.user, span_warning("InCrew: вставьте ID-карту с привязанным личным счётом."))
+			return FALSE
+		return TRUE
+
 	var/datum/messenger_account/profile = get_profile(ui.user)
 	if(!profile)
 		return FALSE
 
 	switch(action)
+		if("sign_out")
+			login_paused = TRUE
+			login_profile = null
+			open_chat(null)
+			if(call_member?.profile == profile && call_member.user == ui.user)
+				call_member.call_session.remove_member(profile)
+			refresh_alert(null)
+			return TRUE
 		if("accept_call", "decline_call", "leave_call", "toggle_call_mic")
 			return handle_call_action(action, params["callId"], profile, ui.user)
 		if("search_contacts")
