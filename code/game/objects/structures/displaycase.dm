@@ -216,12 +216,12 @@
 		if(electronics)
 			to_chat(user, span_warning("There is already [electronics] installed."))
 			return ATTACK_CHAIN_PROCEED
-		if(control.emagged)
+		if(control.obj_flags & EMAGGED)
 			to_chat(user, span_warning("The [control.name] is broken."))
 			return ATTACK_CHAIN_PROCEED
 		control.play_tool_sound(src)
 		to_chat(user, span_notice("You start installing [control] into [src]..."))
-		if(!do_after(user, 3 SECONDS * control.toolspeed * construction_mod, src, category = DA_CAT_TOOL) || electronics || control.emagged)
+		if(!do_after(user, 3 SECONDS * control.toolspeed * construction_mod, src, category = DA_CAT_TOOL) || electronics || control.obj_flags & EMAGGED)
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(control, src))
 			return ..()

@@ -142,11 +142,11 @@ SUBSYSTEM_DEF(events)
 		to_chat(world, message)
 
 /datum/controller/subsystem/events/proc/GetInteractWindow()
-	var/html = "<a align='right' href='byond://?src=[UID()];refresh=1'>Refresh</a>"
+	var/html = "<a align='right' href='byond://?src=[UID()];[HrefToken()];refresh=1'>Refresh</a>"
 
 	if(selected_event_container)
 		var/event_time = max(0, selected_event_container.next_event_time - world.time)
-		html += "<a align='right' href='byond://?src=[UID()];back=1'>Back</a><br>"
+		html += "<a align='right' href='byond://?src=[UID()];[HrefToken()];back=1'>Back</a><br>"
 		html += "Time till start: [round(event_time / 600, 0.1)]<br>"
 		html += "<div class='block'>"
 		html += "<h2>Available [GLOB.severity_to_string[selected_event_container.severity]] Events (queued & running events will not be displayed)</h2>"
@@ -155,13 +155,13 @@ SUBSYSTEM_DEF(events)
 		for(var/datum/event_meta/EM in selected_event_container.available_events)
 			html += "<tr>"
 			html += "<td>[EM.name]</td>"
-			html += "<td><a align='right' href='byond://?src=[UID()];set_weight=[EM.UID()]'>[EM.weight]</a></td>"
+			html += "<td><a align='right' href='byond://?src=[UID()];[HrefToken()];set_weight=[EM.UID()]'>[EM.weight]</a></td>"
 			html += "<td>[EM.min_weight]</td>"
 			html += "<td>[EM.max_weight == INFINITY ? "No max" : EM.max_weight]</td>"
-			html += "<td><a align='right' href='byond://?src=[UID()];toggle_oneshot=[EM.UID()]'>[EM.one_shot]</a></td>"
-			html += "<td><a align='right' href='byond://?src=[UID()];toggle_enabled=[EM.UID()]'>[EM.enabled]</a></td>"
+			html += "<td><a align='right' href='byond://?src=[UID()];[HrefToken()];toggle_oneshot=[EM.UID()]'>[EM.one_shot]</a></td>"
+			html += "<td><a align='right' href='byond://?src=[UID()];[HrefToken()];toggle_enabled=[EM.UID()]'>[EM.enabled]</a></td>"
 			html += "<td>[span_alert("[EM.get_weight(number_active_with_role())]")]</td>"
-			html += "<td><a align='right' href='byond://?src=[UID()];remove=[EM.UID()];EC=[selected_event_container.UID()]'>Remove</a></td>"
+			html += "<td><a align='right' href='byond://?src=[UID()];[HrefToken()];remove=[EM.UID()];EC=[selected_event_container.UID()]'>Remove</a></td>"
 			html += "</tr>"
 		html += "</table>"
 		html += "</div>"
@@ -171,16 +171,16 @@ SUBSYSTEM_DEF(events)
 		html += "<table[table_options]>"
 		html += "<tr [head_options]><td[row_options2]>Name</td><td[row_options2]>Type</td><td[row_options1]>Weight</td><td[row_options1]>OneShot</td></tr>"
 		html += "<tr>"
-		html += "<td><a align='right' href='byond://?src=[UID()];set_name=[new_event.UID()]'>[new_event.name ? new_event.name : "Enter Event"]</a></td>"
-		html += "<td><a align='right' href='byond://?src=[UID()];set_type=[new_event.UID()]'>[new_event.event_type ? new_event.event_type : "Select Type"]</a></td>"
-		html += "<td><a align='right' href='byond://?src=[UID()];set_weight=[new_event.UID()]'>[new_event.weight ? new_event.weight : 0]</a></td>"
-		html += "<td><a align='right' href='byond://?src=[UID()];toggle_oneshot=[new_event.UID()]'>[new_event.one_shot]</a></td>"
+		html += "<td><a align='right' href='byond://?src=[UID()];[HrefToken()];set_name=[new_event.UID()]'>[new_event.name ? new_event.name : "Enter Event"]</a></td>"
+		html += "<td><a align='right' href='byond://?src=[UID()];[HrefToken()];set_type=[new_event.UID()]'>[new_event.event_type ? new_event.event_type : "Select Type"]</a></td>"
+		html += "<td><a align='right' href='byond://?src=[UID()];[HrefToken()];set_weight=[new_event.UID()]'>[new_event.weight ? new_event.weight : 0]</a></td>"
+		html += "<td><a align='right' href='byond://?src=[UID()];[HrefToken()];toggle_oneshot=[new_event.UID()]'>[new_event.one_shot]</a></td>"
 		html += "</tr>"
 		html += "</table>"
-		html += "<a align='right' href='byond://?src=[UID()];add=[selected_event_container.UID()]'>Add</a><br>"
+		html += "<a align='right' href='byond://?src=[UID()];[HrefToken()];add=[selected_event_container.UID()]'>Add</a><br>"
 		html += "</div>"
 	else
-		html += "<a align='right' href='byond://?src=[UID()];toggle_report=1'>Round End Report: [report_at_round_end ? "On": "Off"]</a><br>"
+		html += "<a align='right' href='byond://?src=[UID()];[HrefToken()];toggle_report=1'>Round End Report: [report_at_round_end ? "On": "Off"]</a><br>"
 		html += "<div class='block'>"
 		html += "<h2>Event Start</h2>"
 
@@ -194,16 +194,16 @@ SUBSYSTEM_DEF(events)
 			html += "<td>[station_time_timestamp("hh:mm:ss", max(EC.next_event_time, world.time))]</td>"
 			html += "<td>[round(next_event_at / 600, 0.1)]</td>"
 			html += "<td>"
-			html +=   "<a align='right' href='byond://?src=[UID()];dec_timer=2;event=[EC.UID()]'>--</a>"
-			html +=   "<a align='right' href='byond://?src=[UID()];dec_timer=1;event=[EC.UID()]'>-</a>"
-			html +=   "<a align='right' href='byond://?src=[UID()];inc_timer=1;event=[EC.UID()]'>+</a>"
-			html +=   "<a align='right' href='byond://?src=[UID()];inc_timer=2;event=[EC.UID()]'>++</a>"
+			html +=   "<a align='right' href='byond://?src=[UID()];[HrefToken()];dec_timer=2;event=[EC.UID()]'>--</a>"
+			html +=   "<a align='right' href='byond://?src=[UID()];[HrefToken()];dec_timer=1;event=[EC.UID()]'>-</a>"
+			html +=   "<a align='right' href='byond://?src=[UID()];[HrefToken()];inc_timer=1;event=[EC.UID()]'>+</a>"
+			html +=   "<a align='right' href='byond://?src=[UID()];[HrefToken()];inc_timer=2;event=[EC.UID()]'>++</a>"
 			html += "</td>"
 			html += "<td>"
-			html +=   "<a align='right' href='byond://?src=[UID()];pause=[EC.UID()]'>[EC.delayed ? "Resume" : "Pause"]</a>"
+			html +=   "<a align='right' href='byond://?src=[UID()];[HrefToken()];pause=[EC.UID()]'>[EC.delayed ? "Resume" : "Pause"]</a>"
 			html += "</td>"
 			html += "<td>"
-			html +=   "<a align='right' href='byond://?src=[UID()];interval=[EC.UID()]'>[EC.delay_modifier]</a>"
+			html +=   "<a align='right' href='byond://?src=[UID()];[HrefToken()];interval=[EC.UID()]'>[EC.delay_modifier]</a>"
 			html += "</td>"
 			html += "</tr>"
 		html += "</table>"
@@ -218,9 +218,9 @@ SUBSYSTEM_DEF(events)
 			var/datum/event_meta/EM = EC.next_event
 			html += "<tr>"
 			html += "<td>[GLOB.severity_to_string[severity]]</td>"
-			html += "<td><a align='right' href='byond://?src=[UID()];select_event=[EC.UID()]'>[EM ? EM.name : "Random"]</a></td>"
-			html += "<td><a align='right' href='byond://?src=[UID()];view_events=[EC.UID()]'>View</a></td>"
-			html += "<td><a align='right' href='byond://?src=[UID()];clear=[EC.UID()]'>Clear</a></td>"
+			html += "<td><a align='right' href='byond://?src=[UID()];[HrefToken()];select_event=[EC.UID()]'>[EM ? EM.name : "Random"]</a></td>"
+			html += "<td><a align='right' href='byond://?src=[UID()];[HrefToken()];view_events=[EC.UID()]'>View</a></td>"
+			html += "<td><a align='right' href='byond://?src=[UID()];[HrefToken()];clear=[EC.UID()]'>Clear</a></td>"
 			html += "</tr>"
 		html += "</table>"
 		html += "</div>"
@@ -242,7 +242,7 @@ SUBSYSTEM_DEF(events)
 			html += "<td>[EM.name]</td>"
 			html += "<td>[no_end ? "N/A" : station_time_timestamp("hh:mm:ss", ends_at)]</td>"
 			html += "<td>[no_end ? "N/A" : ends_in]</td>"
-			html += "<td><a align='right' href='byond://?src=[UID()];stop=[E.UID()]'>Stop</a></td>"
+			html += "<td><a align='right' href='byond://?src=[UID()];[HrefToken()];stop=[E.UID()]'>Stop</a></td>"
 			html += "</tr>"
 		html += "</table>"
 		html += "</div>"
@@ -253,7 +253,7 @@ SUBSYSTEM_DEF(events)
 	if(..())
 		return
 
-	if(!check_rights(R_EVENT))
+	if(!check_rights(R_EVENT) || !usr.client.holder.CheckAdminHref(href, href_list))
 		return
 
 	if(href_list["toggle_report"])

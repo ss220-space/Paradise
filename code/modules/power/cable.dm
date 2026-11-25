@@ -12,13 +12,13 @@ GLOBAL_LIST_INIT(wire_node_generating_types, typecacheof(list(
  * just lines, they have two endpoints (d1 and d2).
  */
 /obj/structure/cable
+	name = "power cable"
+	desc = "A flexible superconducting cable for heavy-duty power transfer"
 	level = 1
 	anchored = TRUE
 	on_blueprints = TRUE
-	name = "power cable"
-	desc = "A flexible superconducting cable for heavy-duty power transfer"
 	icon = 'icons/obj/engines_and_power/power_cond/layer_cable.dmi'
-	icon_state = "node_all" // icon for mappers
+	icon_state = "node_all2" // icon for mappers
 	layer = WIRE_LAYER //Just below unary stuff, which is at 2.45 and above pipes, which are at 2.4
 	color = CABLE_HEX_COLOR_RED
 	var/node = FALSE
@@ -66,7 +66,6 @@ GLOBAL_LIST_INIT(wire_node_generating_types, typecacheof(list(
 
 /obj/structure/cable/Initialize(mapload)
 	. = ..()
-	adjust_cable_layer()
 	connect_cable()
 	LAZYADD(GLOB.cable_list, src) //add it to the global cable list
 	AddElement(/datum/element/undertile)
@@ -76,6 +75,9 @@ GLOBAL_LIST_INIT(wire_node_generating_types, typecacheof(list(
 
 /obj/structure/cable/add_context(atom/source, list/context, obj/item/held_item, mob/user)
 	. = NONE
+	if(!held_item)
+		return
+
 	switch(held_item.tool_behaviour)
 		if(TOOL_WIRECUTTER)
 			context[SCREENTIP_CONTEXT_LMB] = "Разобрать"
@@ -86,11 +88,6 @@ GLOBAL_LIST_INIT(wire_node_generating_types, typecacheof(list(
 			context[SCREENTIP_CONTEXT_LMB] = "Проверить напряженние"
 			return CONTEXTUAL_SCREENTIP_SET
 
-/obj/structure/cable/proc/adjust_cable_layer()
-	if(cable_layer < CABLE_LAYER_2)
-		transform = TRANSLATE_MATRIX(4, 4)
-	else if(cable_layer > CABLE_LAYER_2)
-		transform = TRANSLATE_MATRIX(-4, -4)
 
 /obj/structure/cable/proc/check_nodeness()
 	node = !!banned_links
@@ -129,7 +126,7 @@ GLOBAL_LIST_INIT(wire_node_generating_types, typecacheof(list(
 ///////////////////////////////////
 
 /obj/structure/cable/update_icon_state()
-	icon_state = get_dir_string(linked_dirs)
+	icon_state = "[get_dir_string(linked_dirs)]_l[cable_layer]"
 
 /obj/structure/cable/update_overlays()
 	. = ..()

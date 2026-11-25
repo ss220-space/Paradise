@@ -105,17 +105,17 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(vuap_personal, R_ADMIN|R_MOD, "Open TGUI PP", /mob)
 			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/show_old_player_panel, selected_player)
 			return
 		if("playtime")
-			usr.client.holder.Topic(null, list("getplaytimewindow" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("getplaytimewindow" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("relatedbycid")
-			usr.client.holder.Topic(null, list("showrelatedacc" = "cid", "client" = selected_player.client?.UID()))
+			usr.client.holder.Topic(null, list("showrelatedacc" = "cid", "client" = selected_player.client?.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("relatedbyip")
-			usr.client.holder.Topic(null, list("showrelatedacc" = "ip", "client" = selected_player.client?.UID()))
+			usr.client.holder.Topic(null, list("showrelatedacc" = "ip", "client" = selected_player.client?.UID(), "admin_token" = RawHrefToken()))
 			return
 		// Punish Section
 		if("kick")
-			usr.client.holder.Topic(null, list("boot2" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("boot2" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("ban")
 			if(!ui.user.client.selectedPlayerCkey)
@@ -123,7 +123,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(vuap_personal, R_ADMIN|R_MOD, "Open TGUI PP", /mob)
 				return
 			if(!check_rights(R_BAN))
 				return
-			usr.client.holder.Topic(null, list("newban" = selected_player.UID(), "dbbanaddckey" = ui.user.client.selectedPlayerCkey))
+			usr.client.holder.Topic(null, list("newban" = selected_player.UID(), "dbbanaddckey" = ui.user.client.selectedPlayerCkey, "admin_token" = RawHrefToken()))
 			return
 		if("jobban")
 			if(!ui.user.client.selectedPlayerCkey)
@@ -131,7 +131,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(vuap_personal, R_ADMIN|R_MOD, "Open TGUI PP", /mob)
 				return
 			if(!check_rights(R_BAN))
 				return
-			usr.client.holder.Topic(null, list("jobban2" = selected_player.UID(), "dbbanaddckey" = ui.user.client.selectedPlayerCkey))
+			usr.client.holder.Topic(null, list("jobban2" = selected_player.UID(), "dbbanaddckey" = ui.user.client.selectedPlayerCkey, "admin_token" = RawHrefToken()))
 			return
 		if("appban")
 			if(!ui.user.client.selectedPlayerCkey)
@@ -139,7 +139,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(vuap_personal, R_ADMIN|R_MOD, "Open TGUI PP", /mob)
 				return
 			if(!check_rights(R_BAN))
 				return
-			usr.client.holder.Topic(null, list("appearanceban" = selected_player.UID(), "dbbanaddckey" = ui.user.client.selectedPlayerCkey))
+			usr.client.holder.Topic(null, list("appearanceban" = selected_player.UID(), "dbbanaddckey" = ui.user.client.selectedPlayerCkey, "admin_token" = RawHrefToken()))
 			return
 		if("watchlist")
 			if(!ui.user.client.selectedPlayerCkey)
@@ -148,10 +148,10 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(vuap_personal, R_ADMIN|R_MOD, "Open TGUI PP", /mob)
 			usr.client.watchlist_add(ui.user.client.selectedPlayerCkey)
 			return
 		if("bless")
-			usr.client.holder.Topic(null, list("Bless" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("Bless" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("smite")
-			usr.client.holder.Topic(null, list("Smite" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("Smite" = selected_mob.UID(), "admin_token" = RawHrefToken()))
 			to_chat(usr, "Smiting [selected_player.ckey].", confidential = TRUE)
 			return
 		// Message Section
@@ -160,10 +160,10 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(vuap_personal, R_ADMIN|R_MOD, "Open TGUI PP", /mob)
 			BLACKBOX_LOG_VUAP("PM")
 			return
 		if("sm")
-			usr.client.holder.Topic(null, list("subtlemessage" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("subtlemessage" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("narrate")
-			usr.client.holder.Topic(null, list("narrateto" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("narrateto" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("playsoundto")
 			if(!check_rights(R_SOUNDS))
@@ -173,29 +173,29 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(vuap_personal, R_ADMIN|R_MOD, "Open TGUI PP", /mob)
 				SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/play_direct_mob_sound, sound, selected_player)
 				return
 		if("sendalert")
-			usr.client.holder.Topic(null, list("adminalert" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("adminalert" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("manup")
-			usr.client.holder.Topic(null, list("man_up" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("man_up" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		// Movement Section
 		if("jumpto")
-			usr.client.holder.Topic(null, list("jumpto" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("jumpto" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("get")
 			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/get_mob, selected_mob)
 			return
 		if("send")
-			usr.client.holder.Topic(null, list("sendmob" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("sendmob" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("lobby")
-			usr.client.holder.Topic(null, list("sendbacktolobby" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("sendbacktolobby" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("flw")
-			usr.client.holder.Topic(null, list("adminplayerobservefollow" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("adminplayerobservefollow" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("cryo")
-			usr.client.holder.Topic(null, list("cryossd" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("cryossd" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		// Info Section
 		if("vv")
@@ -203,69 +203,73 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(vuap_personal, R_ADMIN|R_MOD, "Open TGUI PP", /mob)
 			BLACKBOX_LOG_VUAP("VV")
 			return
 		if("tp")
-			usr.client.holder.Topic(null, list("traitor" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("traitor" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("obs")
-			usr.client.holder.Topic(null, list("observeinventory" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("observeinventory" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("logs")
-			usr.client.holder.Topic(null, list("open_logging_view" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("open_logging_view" = selected_mob.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("notes")
-			usr.client.holder.Topic(null, list("shownoteckey" = selected_player.ckey))
+			usr.client.holder.Topic(null, list("shownoteckey" = selected_player.ckey, "admin_token" = RawHrefToken()))
 			return
 		if("playtime")
-			usr.client.holder.Topic(null, list("getplaytimewindow" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("getplaytimewindow" = selected_mob.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("geoip")
-			usr.client.holder.Topic(null, list("geoip" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("geoip" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("ccdb")
-			usr.client.holder.Topic(null, list("open_ccDB" = selected_player.ckey))
+			usr.client.holder.Topic(null, list("open_ccDB" = selected_player.ckey, "admin_token" = RawHrefToken()))
 			return
 		// Transformation Section
 		if("makeghost")
 			usr.client.holder.Topic(null, list(
 				"simplemake" = "observer",
-				"mob" = selected_player.UID()
+				"mob" = selected_player.UID(),
+				"admin_token" = RawHrefToken()
 			))
 			ui.send_update()
 			return
 		if("makehuman")
 			usr.client.holder.Topic(null, list(
 				"simplemake" = "human",
-				"mob" = selected_player.UID()
+				"mob" = selected_player.UID(),
+				"admin_token" = RawHrefToken()
 			))
 			ui.send_update()
 			return
 		if("makemonkey")
 			usr.client.holder.Topic(null, list(
 				"simplemake" = "monkey",
-				"mob" = selected_player.UID()
+				"mob" = selected_player.UID(),
+				"admin_token" = RawHrefToken()
 			))
 			ui.send_update()
 			return
 		if("makeborg")
 			usr.client.holder.Topic(null, list(
 				"simplemake" = "robot",
-				"mob" = selected_player.UID()
+				"mob" = selected_player.UID(),
+				"admin_token" = RawHrefToken()
 			))
 			ui.send_update()
 			return
 		if("makeanimal")
-			usr.client.holder.Topic(null, list("makeanimal" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("makeanimal" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			ui.send_update()
 			return
 		if("makeai")
-			usr.client.holder.Topic(null, list("makeai" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("makeai" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			ui.send_update()
 			return
 		//observer section
 		if("reviveghost")
-			usr.client.holder.Topic(null, list("incarn_ghost" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("incarn_ghost" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("respawnability")
-			usr.client.holder.Topic(null, list("togglerespawnability" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("togglerespawnability" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		//health section
 		if("healthscan")
@@ -275,7 +279,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(vuap_personal, R_ADMIN|R_MOD, "Open TGUI PP", /mob)
 			chemscan(usr, selected_player)
 			BLACKBOX_LOG_VUAP("ChemScan")
 		if("aheal")
-			usr.client.holder.Topic(null, list("revive" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("revive" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			to_chat(usr, "Adminhealed  [selected_player.ckey].", confidential = TRUE)
 			return
 		if("giveDisease")
@@ -298,72 +302,72 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(vuap_personal, R_ADMIN|R_MOD, "Open TGUI PP", /mob)
 			BLACKBOX_LOG_VUAP("CureAllDiseases")
 			return
 		if("mutate")
-			usr.client.holder.Topic(null, list("showdna" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("showdna" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		//mob manipulation section
 		if("randomizename")
-			usr.client.holder.Topic(null, list("randomizename" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("randomizename" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("userandomname")
-			usr.client.holder.Topic(null, list("userandomname" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("userandomname" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("eraseflavortext")
-			usr.client.holder.Topic(null, list("eraseflavortext" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("eraseflavortext" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("selectequip")
-			usr.client.holder.Topic(null, list("select_equip" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("select_equip" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("customquip")
-			usr.client.holder.Topic(null, list("custom_equip" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("custom_equip" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("changevoice")
-			usr.client.holder.Topic(null, list("change_voice" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("change_voice" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("checkcontents")
-			usr.client.holder.Topic(null, list("check_contents" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("check_contents" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("mirroradmin")
-			usr.client.holder.Topic(null, list("cma_admin" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("cma_admin" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("mirrorplayer")
-			usr.client.holder.Topic(null, list("cma_self" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("cma_self" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("editskills")
 			usr.client.skills_select_window.show(usr, selected_player, admin_interact = TRUE)
 			return
 		// Misc Section
 		if("forcesay")
-			usr.client.holder.Topic(null, list("forcespeech" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("forcespeech" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("adminroom")
-			usr.client.holder.Topic(null, list("aroomwarp" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("aroomwarp" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("thunderdome1")
-			usr.client.holder.Topic(null, list("tdome1" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("tdome1" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("thunderdome2")
-			usr.client.holder.Topic(null, list("tdome2" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("tdome2" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("thunderdomeadmin")
-			usr.client.holder.Topic(null, list("tdomeadmin" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("tdomeadmin" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("thunderdomeobserve")
-			usr.client.holder.Topic(null, list("tdomeobserve" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("tdomeobserve" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("contractor_stop")
-			usr.client.holder.Topic(null, list("contractor_stop" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("contractor_stop" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("contractor_start")
-			usr.client.holder.Topic(null, list("contractor_start" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("contractor_start" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("contractor_release")
-			usr.client.holder.Topic(null, list("contractor_release" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("contractor_release" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("prison")
-			usr.client.holder.Topic(null, list("sendtoprison" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("sendtoprison" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("spawncookie")
-			usr.client.holder.Topic(null, list("adminspawncookie" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("adminspawncookie" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		// Mute Controls
 		if("toggleMute")

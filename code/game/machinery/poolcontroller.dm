@@ -59,20 +59,22 @@
 	linked_area = get_area(src)
 	. = ..()
 
-/obj/machinery/poolcontroller/emag_act(user as mob) //Emag_act, this is called when it is hit with a cryptographic sequencer.
-	if(!emagged) //If it is not already emagged, emag it.
-		if(user)
-			to_chat(user, span_warning("You disable \the [src]'s temperature safeguards."))//Inform the mob of what emagging does.
-
-		emagged = 1 //Set the emag var to true.
+/obj/machinery/poolcontroller/emag_act(mob/user, obj/item/card/emag/emag_card) //Emag_act, this is called when it is hit with a cryptographic sequencer.
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
+	if(user)
+		to_chat(user, span_warning("You disable \the [src]'s temperature safeguards."))//Inform the mob of what emagging does.
+	return TRUE
 
 /obj/machinery/poolcontroller/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(emagged) //Check the emag status
+	if(obj_flags & EMAGGED) //Check the emag status
 		to_chat(user, span_warning("You re-enable [src]'s temperature safeguards."))//Inform the user that they have just fixed the safeguards.
-		emagged = FALSE //Set the emagged var to false.
+		obj_flags &= ~EMAGGED //Set the emagged var to false.
 	else
 		to_chat(user, span_warning("Nothing happens."))//If not emagged, don't do anything, and don't tell the user that it can be emagged.
 
@@ -181,7 +183,7 @@
 			return "scalding"
 
 /obj/machinery/poolcontroller/proc/set_temp(val)
-	if(val != WARM && val != NORMAL && val != COOL && !(emagged && (val == SCALDING || val == FRIGID)))
+	if(val != WARM && val != NORMAL && val != COOL && !((obj_flags & EMAGGED) && (val == SCALDING || val == FRIGID)))
 		return
 
 	if(val == SCALDING)
@@ -212,7 +214,7 @@
 /obj/machinery/poolcontroller/ui_data(mob/user)
 	var/list/data = list()
 	data["currentTemp"] = temp_to_str(temperature)
-	data["emagged"] = emagged
+	data["emagged"] = (obj_flags & EMAGGED)
 
 	return data
 

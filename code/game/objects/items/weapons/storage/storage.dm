@@ -906,6 +906,7 @@ GAME_PROC_SRC(/obj/item/storage, toggle_gathering_mode, usr, "Режим сбо�
 	var/turf/current_turf = get_turf(src)
 	for(var/obj/item/item in contents)
 		remove_from_storage(item, current_turf)
+		item.scatter_atom()
 		CHECK_TICK
 
 /**

@@ -360,8 +360,8 @@ SUBSYSTEM_DEF(title)
 	if(check_rights(R_EVENT, FALSE, player))
 		html += {"
 			<hr>
-			<a class="menu_button admin" href='byond://?src=[player.UID()];change_picture=1'>Изменить изображение</a>
-			<a class="menu_button admin" href='byond://?src=[player.UID()];leave_notice=1'>Оставить уведомление</a>
+			<a class="menu_button admin" href='byond://?src=[player.UID()];[HrefToken()];change_picture=1'>Изменить изображение</a>
+			<a class="menu_button admin" href='byond://?src=[player.UID()];[HrefToken()];leave_notice=1'>Оставить уведомление</a>
 		"}
 
 	html += {"</div>"}

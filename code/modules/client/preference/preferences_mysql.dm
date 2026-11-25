@@ -716,7 +716,7 @@
 		"f_style" = f_style,
 		"markingstyleslist" = markingstyleslist,
 		"ha_style" = ha_style,
-		"alt_head" = alt_head,
+		"alt_head" = (alt_head ? alt_head : ""),
 		"e_colour" = e_colour,
 		"underwear" = underwear,
 		"underwear_color" = underwear_color,

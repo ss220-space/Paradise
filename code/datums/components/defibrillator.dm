@@ -90,13 +90,15 @@
 		playsound(get_turf(unit), 'sound/machines/defib_saftyon.ogg', 50, FALSE)
 		unit.atom_say("Протоколы безопасности активированы!", FALSE)
 
-/datum/component/defib/proc/on_emag(obj/item/unit, mob/user)
+/datum/component/defib/proc/on_emag(obj/item/unit, mob/user, obj/item/card/emag/emag_card)
 	SIGNAL_HANDLER  // COMSIG_ATOM_EMAG_ACT
+
 	if(emag_proof)
-		return
+		return FALSE
 	safety = !safety
 	if(user && !robotic)
 		user.balloon_alert(user, "протоколы безопасности [safety ? "" : "де"]активированы!")
+	return ITEM_INTERACT_SUCCESS
 
 /datum/component/defib/proc/set_cooldown(how_short)
 	on_cooldown = TRUE

@@ -299,7 +299,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 					</td>
 					<td width='50%'>
 						<div align='center'>
-							<a id='refresh_link' href='byond://?_src_=vars;datumrefresh=[refid]'>Refresh</a>
+							<a id='refresh_link' href='byond://?_src_=vars;[HrefToken()];datumrefresh=[refid]'>Refresh</a>
 							<div class="dropdown-content">
 								<input type="text" placeholder="Select Action" id="vvDropdownInput" onkeyup="filterDropdown()" onselect="filterDropdown()" onfocus="filterDropdown()" onblur="delayHide()">
 								<div id="vvDropdownDiv" class="dropdown-options">

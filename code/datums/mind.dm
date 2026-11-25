@@ -296,10 +296,10 @@
 	for(var/datum/objective/objective in get_all_objectives())
 		. += "<b>Objective #[obj_count++]</b>: [objective.explanation_text]"
 		if(admin)
-			. += " <a href='byond://?src=[UID()];obj_edit=[objective.UID()]'>Edit</a> " // Edit
-			. += "<a href='byond://?src=[UID()];obj_delete=[objective.UID()]'>Delete</a> " // Delete
+			. += " <a href='byond://?src=[UID()];[HrefToken()];obj_edit=[objective.UID()]'>Edit</a> " // Edit
+			. += "<a href='byond://?src=[UID()];[HrefToken()];obj_delete=[objective.UID()]'>Delete</a> " // Delete
 
-			. += "<a href='byond://?src=[UID()];obj_completed=[objective.UID()]'>" // Mark Completed
+			. += "<a href='byond://?src=[UID()];[HrefToken()];obj_completed=[objective.UID()]'>" // Mark Completed
 			. += "<font color=[objective.completed ? "green" : "red"]>Toggle Completion</font>"
 			. += "</a>"
 		. += "<br>"
@@ -349,45 +349,45 @@
 
 /datum/mind/proc/memory_edit_implant(mob/living/carbon/human/H)
 	if(isertmindshielded(H))
-		. = "ERT Mindshield Implant:<a href='byond://?src=[UID()];implant=ertremove'>Remove</a>|<b><font color='green'>ERT Implanted</font></b></br>"
+		. = "ERT Mindshield Implant:<a href='byond://?src=[UID()];[HrefToken()];implant=ertremove'>Remove</a>|<b><font color='green'>ERT Implanted</font></b></br>"
 	else if(ismindshielded(H))
-		. = "Mindshield Implant:<a href='byond://?src=[UID()];implant=remove'>Remove</a>|<b><font color='green'>Implanted</font></b></br>"
+		. = "Mindshield Implant:<a href='byond://?src=[UID()];[HrefToken()];implant=remove'>Remove</a>|<b><font color='green'>Implanted</font></b></br>"
 	else
-		. = "Mindshield Implant:<b>No Implant</b>|<a href='byond://?src=[UID()];implant=add'>Implant [H.p_them()]!</a></br> or <a href='byond://?src=[UID()];implant=ertadd'>ERT implant [H.p_them()]!</a></br>"
+		. = "Mindshield Implant:<b>No Implant</b>|<a href='byond://?src=[UID()];[HrefToken()];implant=add'>Implant [H.p_them()]!</a></br> or <a href='byond://?src=[UID()];[HrefToken()];implant=ertadd'>ERT implant [H.p_them()]!</a></br>"
 
 /datum/mind/proc/memory_edit_revolution(mob/living/carbon/human/H)
 	. = _memory_edit_header("revolution")
 	if(src in SSticker.mode.head_revolutionaries)
-		. += "<a href='byond://?src=[UID()];revolution=clear'>no</a>|<b><font color='red'>HEADREV</font></b>|<a href='byond://?src=[UID()];revolution=rev'>rev</a>"
-		. += " <a href='byond://?src=[UID()];revolution=reequip'>Reequip</a> (gives security HUD and spray can)."
+		. += "<a href='byond://?src=[UID()];[HrefToken()];revolution=clear'>no</a>|<b><font color='red'>HEADREV</font></b>|<a href='byond://?src=[UID()];revolution=rev'>rev</a>"
+		. += " <a href='byond://?src=[UID()];[HrefToken()];revolution=reequip'>Reequip</a> (gives security HUD and spray can)."
 		if(!length(objectives))
-			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];revolution=autoobjectives'>Set to kill all heads</a>."
+			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];[HrefToken()];revolution=autoobjectives'>Set to kill all heads</a>."
 	else if(src in SSticker.mode.revolutionaries)
-		. += "<a href='byond://?src=[UID()];revolution=clear'>no</a>|<a href='byond://?src=[UID()];revolution=headrev'>headrev</a>|<b><font color='red'>REV</font></b>"
+		. += "<a href='byond://?src=[UID()];[HrefToken()];revolution=clear'>no</a>|<a href='byond://?src=[UID()];[HrefToken()];revolution=headrev'>headrev</a>|<b><font color='red'>REV</font></b>"
 	else if(ismindshielded(H))
 		. += "<b>NO</b>|headrev|rev"
 	else
-		. += "<b>NO</b>|<a href='byond://?src=[UID()];revolution=headrev'>headrev</a>|<a href='byond://?src=[UID()];revolution=rev'>rev</a>"
+		. += "<b>NO</b>|<a href='byond://?src=[UID()];[HrefToken()];revolution=headrev'>headrev</a>|<a href='byond://?src=[UID()];[HrefToken()];revolution=rev'>rev</a>"
 
 	. += _memory_edit_role_enabled(ROLE_REV)
 
 /datum/mind/proc/memory_edit_cult(mob/living/carbon/human/H)
 	. = _memory_edit_header("cult")
 	if(src in SSticker.mode.cult)
-		. += "<a href='byond://?src=[UID()];cult=clear'>no</a>|<b><font color='red'>CULTIST</font></b>"
-		. += "<br>Give <a href='byond://?src=[UID()];cult=dagger'>dagger</a>|<a href='byond://?src=[UID()];cult=runedmetal'>runedmetal</a>."
+		. += "<a href='byond://?src=[UID()];[HrefToken()];cult=clear'>no</a>|<b><font color='red'>CULTIST</font></b>"
+		. += "<br>Give <a href='byond://?src=[UID()];[HrefToken()];cult=dagger'>dagger</a>|<a href='byond://?src=[UID()];[HrefToken()];cult=runedmetal'>runedmetal</a>."
 	else
-		. += "<b>NO</b>|<a href='byond://?src=[UID()];cult=cultist'>cultist</a>"
+		. += "<b>NO</b>|<a href='byond://?src=[UID()];[HrefToken()];cult=cultist'>cultist</a>"
 
 	. += _memory_edit_role_enabled(ROLE_CULTIST)
 
 /datum/mind/proc/memory_edit_clockwork(mob/living/carbon/human/H)
 	. = _memory_edit_header("clockwork")
 	if(src in SSticker.mode.clockwork_cult)
-		. += "<a href='byond://?src=[UID()];clock=clear'>no</a>|<b><font color='red'>CLOCKER</font></b>"
-		. += "<br>Give <a href='byond://?src=[UID()];clock=clockslab'>clockslab</a>|<a href='byond://?src=[UID()];clock=brassmetal'>brassmetal</a>."
+		. += "<a href='byond://?src=[UID()];[HrefToken()];clock=clear'>no</a>|<b><font color='red'>CLOCKER</font></b>"
+		. += "<br>Give <a href='byond://?src=[UID()];[HrefToken()];clock=clockslab'>clockslab</a>|<a href='byond://?src=[UID()];[HrefToken()];clock=brassmetal'>brassmetal</a>."
 	else
-		. += "<b>NO</b>|<a href='byond://?src=[UID()];clock=clocker'>clocker</a>"
+		. += "<b>NO</b>|<a href='byond://?src=[UID()];[HrefToken()];clock=clocker'>clocker</a>"
 
 	. += _memory_edit_role_enabled(ROLE_CLOCKER)
 
@@ -395,51 +395,51 @@
 	. = _memory_edit_header("clockwork")
 	if(isrobot(current))
 		if(src in SSticker.mode.clockwork_cult)
-			. += "<a href='byond://?src=[UID()];siliclock=clearrobot'>no</a>|<b><font color='red'>CLOCKER</font></b>"
+			. += "<a href='byond://?src=[UID()];[HrefToken()];siliclock=clearrobot'>no</a>|<b><font color='red'>CLOCKER</font></b>"
 		else
-			. += "<b>NO</b>|<a href='byond://?src=[UID()];siliclock=clockrobot'>clocker</a>"
+			. += "<b>NO</b>|<a href='byond://?src=[UID()];[HrefToken()];siliclock=clockrobot'>clocker</a>"
 	else if(isAI(current))
 		if(src in SSticker.mode.clockwork_cult)
 			. += "no|<b><font color='red'>CLOCKER</font></b>"
 		else
-			. += "<b>NO</b>|<a href='byond://?src=[UID()];siliclock=clockai'>clocker</a>"
+			. += "<b>NO</b>|<a href='byond://?src=[UID()];[HrefToken()];siliclock=clockai'>clocker</a>"
 			. += "<b>By making AI clocker, all his slave cyborg will also become clockers! <font color='red'>The process cannot be undone!</font></b>"
 
 /*
-. += "<a href='byond://?src=[UID()];siliclock=clear'>no</a>|<b><font color='red'>CLOCKER</font></b>"
+. += "<a href='byond://?src=[UID()];[HrefToken()];siliclock=clear'>no</a>|<b><font color='red'>CLOCKER</font></b>"
 	else
-		. += "<b>NO</b>|<a href='byond://?src=[UID()];siliclock=clocker'>clocker</a>"
+		. += "<b>NO</b>|<a href='byond://?src=[UID()];[HrefToken()];siliclock=clocker'>clocker</a>"
 */
 
 /datum/mind/proc/memory_edit_wizard(mob/living/carbon/human/H)
 	. = _memory_edit_header("wizard")
 	if(src in SSticker.mode.wizards)
-		. += "<b><font color='red'>WIZARD</font></b>|<a href='byond://?src=[UID()];wizard=clear'>no</a>"
-		. += "<br><a href='byond://?src=[UID()];wizard=lair'>To lair</a>, <a href='byond://?src=[UID()];common=undress'>undress</a>, <a href='byond://?src=[UID()];wizard=dressup'>dress up</a>, <a href='byond://?src=[UID()];wizard=name'>let choose name</a>."
+		. += "<b><font color='red'>WIZARD</font></b>|<a href='byond://?src=[UID()];[HrefToken()];wizard=clear'>no</a>"
+		. += "<br><a href='byond://?src=[UID()];wizard=lair'>To lair</a>, <a href='byond://?src=[UID()];[HrefToken()];common=undress'>undress</a>, <a href='byond://?src=[UID()];[HrefToken()];wizard=dressup'>dress up</a>, <a href='byond://?src=[UID()];[HrefToken()];wizard=name'>let choose name</a>."
 		if(!length(objectives))
-			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];wizard=autoobjectives'>Randomize!</a>"
+			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];[HrefToken()];wizard=autoobjectives'>Randomize!</a>"
 	else if(src in SSticker.mode.apprentices)
-		. += "<b><font color='red'>WIZARD APPRENTICE</font></b>|<a href='byond://?src=[UID()];wizard=clear'>no</a>"
-		. += "<br><a href='byond://?src=[UID()];wizard=lair'>To lair</a>, <a href='byond://?src=[UID()];common=undress'>undress</a>, <a href='byond://?src=[UID()];wizard=dressup'>dress up</a>, <a href='byond://?src=[UID()];wizard=name'>let choose name</a>."
+		. += "<b><font color='red'>WIZARD APPRENTICE</font></b>|<a href='byond://?src=[UID()];[HrefToken()];wizard=clear'>no</a>"
+		. += "<br><a href='byond://?src=[UID()];wizard=lair'>To lair</a>, <a href='byond://?src=[UID()];[HrefToken()];common=undress'>undress</a>, <a href='byond://?src=[UID()];[HrefToken()];wizard=dressup'>dress up</a>, <a href='byond://?src=[UID()];[HrefToken()];wizard=name'>let choose name</a>."
 		if(!length(objectives))
-			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];wizard=autoobjectives'>Randomize!</a>"
+			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];[HrefToken()];wizard=autoobjectives'>Randomize!</a>"
 	else
-		. += "<b>NO</b>|<a href='byond://?src=[UID()];wizard=wizard'>wizard</a>|<a href='byond://?src=[UID()];wizard=apprentice'>apprentice</a>"
+		. += "<b>NO</b>|<a href='byond://?src=[UID()];wizard=wizard'>wizard</a>|<a href='byond://?src=[UID()];[HrefToken()];wizard=apprentice'>apprentice</a>"
 	. += _memory_edit_role_enabled(ROLE_WIZARD)
 
 /datum/mind/proc/memory_edit_changeling(mob/living/carbon/human/H)
 	. = _memory_edit_header("changeling", list("traitorchan", "traitorthiefchan", "thiefchan", "changelingthief"))
 	var/datum/antagonist/changeling/cling = has_antag_datum(/datum/antagonist/changeling)
 	if(cling)
-		. += "<b><font color='red'>CHANGELING</font></b>|<a href='byond://?src=[UID()];changeling=clear'>no</a>"
+		. += "<b><font color='red'>CHANGELING</font></b>|<a href='byond://?src=[UID()];[HrefToken()];changeling=clear'>no</a>"
 		if(!length(cling.objectives))
-			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];changeling=autoobjectives'>Randomize!</a>"
+			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];[HrefToken()];changeling=autoobjectives'>Randomize!</a>"
 		if(length(cling.absorbed_dna))
 			var/datum/dna/DNA = cling.absorbed_dna[1]
 			if(current.real_name != DNA.real_name)
-				. += "<br><a href='byond://?src=[UID()];changeling=initialdna'>Transform to initial appearance.</a>"
+				. += "<br><a href='byond://?src=[UID()];[HrefToken()];changeling=initialdna'>Transform to initial appearance.</a>"
 	else
-		. += "<a href='byond://?src=[UID()];changeling=changeling'>changeling</a>|<b>NO</b>"
+		. += "<a href='byond://?src=[UID()];[HrefToken()];changeling=changeling'>changeling</a>|<b>NO</b>"
 
 	. += _memory_edit_role_enabled(ROLE_CHANGELING)
 
@@ -447,71 +447,71 @@
 	. = _memory_edit_header("vampire", list("traitorvamp"))
 	var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
 	if(vamp)
-		. += "<b><font color='red'>[is_goon_vampire(src)? "GOON VAMPIRE" : "VAMPIRE" ]</font></b>|<a href='byond://?src=[UID()];vampire=clear'>no</a>"
-		. += "<br>Usable blood: <a href='byond://?src=[UID()];vampire=edit_usable_blood'>[vamp.bloodusable]</a>"
-		. += " | Total blood: <a href='byond://?src=[UID()];vampire=edit_total_blood'>[vamp.bloodtotal]</a>"
+		. += "<b><font color='red'>[is_goon_vampire(src)? "GOON VAMPIRE" : "VAMPIRE" ]</font></b>|<a href='byond://?src=[UID()];[HrefToken()];vampire=clear'>no</a>"
+		. += "<br>Usable blood: <a href='byond://?src=[UID()];[HrefToken()];vampire=edit_usable_blood'>[vamp.bloodusable]</a>"
+		. += " | Total blood: <a href='byond://?src=[UID()];[HrefToken()];vampire=edit_total_blood'>[vamp.bloodtotal]</a>"
 		var/has_subclass = !QDELETED(vamp.subclass)
-		. += "<br>Subclass: <a href='byond://?src=[UID()];vampire=change_subclass'>[has_subclass ? capitalize(vamp.subclass.name) : "None"]</a>"
-		. += "<br>Diablerie level: <a href='byond://?src=[UID()];vampire=diablerie_level'>[vamp.diablerie ? vamp.diablerie.diablerie_count : "Нет"]</a>"
+		. += "<br>Subclass: <a href='byond://?src=[UID()];[HrefToken()];vampire=change_subclass'>[has_subclass ? capitalize(vamp.subclass.name) : "None"]</a>"
+		. += "<br>Diablerie level: <a href='byond://?src=[UID()];[HrefToken()];vampire=diablerie_level'>[vamp.diablerie ? vamp.diablerie.diablerie_count : "Нет"]</a>"
 		if(has_subclass)
-			. += " | Force full power: <a href='byond://?src=[UID()];vampire=full_power_override'>[vamp.subclass.full_power_override ? "Yes" : "No"]</a>"
+			. += " | Force full power: <a href='byond://?src=[UID()];[HrefToken()];vampire=full_power_override'>[vamp.subclass.full_power_override ? "Yes" : "No"]</a>"
 			if(istype(vamp.subclass, /datum/vampire_subclass/bestia) || istype(vamp.subclass, /datum/vampire_subclass/ancient))
-				. += "<br><b>Trophies:</b><br>Hearts: <a href='byond://?src=[UID()];vampire=edit_hearts'>[vamp.subclass.trophies[INTERNAL_ORGAN_HEART]]</a>"
-				. += " | Lungs: <a href='byond://?src=[UID()];vampire=edit_lungs'>[vamp.subclass.trophies[INTERNAL_ORGAN_LUNGS]]</a>"
-				. += " | Livers: <a href='byond://?src=[UID()];vampire=edit_livers'>[vamp.subclass.trophies[INTERNAL_ORGAN_LIVER]]</a>"
-				. += "<br>Kidneys: <a href='byond://?src=[UID()];vampire=edit_kidneys'>[vamp.subclass.trophies[INTERNAL_ORGAN_KIDNEYS]]</a>"
-				. += " | Eyes: <a href='byond://?src=[UID()];vampire=edit_eyes'>[vamp.subclass.trophies[INTERNAL_ORGAN_EYES]]</a>"
-				. += " | Ears: <a href='byond://?src=[UID()];vampire=edit_ears'>[vamp.subclass.trophies[INTERNAL_ORGAN_EARS]]</a>"
+				. += "<br><b>Trophies:</b><br>Hearts: <a href='byond://?src=[UID()];[HrefToken()];vampire=edit_hearts'>[vamp.subclass.trophies[INTERNAL_ORGAN_HEART]]</a>"
+				. += " | Lungs: <a href='byond://?src=[UID()];[HrefToken()];vampire=edit_lungs'>[vamp.subclass.trophies[INTERNAL_ORGAN_LUNGS]]</a>"
+				. += " | Livers: <a href='byond://?src=[UID()];[HrefToken()];vampire=edit_livers'>[vamp.subclass.trophies[INTERNAL_ORGAN_LIVER]]</a>"
+				. += "<br>Kidneys: <a href='byond://?src=[UID()];[HrefToken()];vampire=edit_kidneys'>[vamp.subclass.trophies[INTERNAL_ORGAN_KIDNEYS]]</a>"
+				. += " | Eyes: <a href='byond://?src=[UID()];[HrefToken()];vampire=edit_eyes'>[vamp.subclass.trophies[INTERNAL_ORGAN_EYES]]</a>"
+				. += " | Ears: <a href='byond://?src=[UID()];[HrefToken()];vampire=edit_ears'>[vamp.subclass.trophies[INTERNAL_ORGAN_EARS]]</a>"
 		if(!length(vamp.objectives))
-			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];vampire=autoobjectives'>Randomize!</a>"
+			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];[HrefToken()];vampire=autoobjectives'>Randomize!</a>"
 	else
-		. += "<a href='byond://?src=[UID()];vampire=vampire'>vampire</a>|"
-		. += "<a href='byond://?src=[UID()];vampire=goonvampire'>goon vampire</a>|"
+		. += "<a href='byond://?src=[UID()];[HrefToken()];vampire=vampire'>vampire</a>|"
+		. += "<a href='byond://?src=[UID()];[HrefToken()];vampire=goonvampire'>goon vampire</a>|"
 		if(current.HasDisease(/datum/disease/virus/blood_plague))
-			. += "<b>NO</b>|<a href='byond://?src=[UID()];vampire=vampirevirusno'><font color='red'>dis-infect</font></a>"
+			. += "<b>NO</b>|<a href='byond://?src=[UID()];[HrefToken()];vampire=vampirevirusno'><font color='red'>dis-infect</font></a>"
 		else
-			. += "<b>NO</b>|<a href='byond://?src=[UID()];vampire=vampirevirus'>infect</a>"
+			. += "<b>NO</b>|<a href='byond://?src=[UID()];[HrefToken()];vampire=vampirevirus'>infect</a>"
 
 
 	. += _memory_edit_role_enabled(ROLE_VAMPIRE)
 	/** Enthralled ***/
 	. += "<br><b><i>enthralled</i></b>: "
 	if(has_antag_datum(/datum/antagonist/mindslave/thrall))
-		. += "<b><font color='red'>THRALL</font></b>|<a href='byond://?src=[UID()];vampthrall=clear'>no</a>"
+		. += "<b><font color='red'>THRALL</font></b>|<a href='byond://?src=[UID()];[HrefToken()];vampthrall=clear'>no</a>"
 	else
 		. += "thrall|<b>NO</b>"
 
 /datum/mind/proc/memory_edit_nuclear(mob/living/carbon/human/H)
 	. = _memory_edit_header("nuclear")
 	if(has_antag_datum(/datum/antagonist/nuclear_operative))
-		. += "<b>[span_red("OPERATIVE")]|<a href='byond://?src=[UID()];nuclear=clear'>no</a>"
-		. += "<br><a href='byond://?src=[UID()];nuclear=lair'>To shuttle</a>, <a href='byond://?src=[UID()];common=undress'>undress</a>, <a href='byond://?src=[UID()];nuclear=dressup'>dress up</a>."
+		. += "<b>[span_red("OPERATIVE")]|<a href='byond://?src=[UID()];[HrefToken()];nuclear=clear'>no</a>"
+		. += "<br><a href='byond://?src=[UID()];[HrefToken()];nuclear=lair'>To shuttle</a>, <a href='byond://?src=[UID()];[HrefToken()];common=undress'>undress</a>, <a href='byond://?src=[UID()];[HrefToken()];nuclear=dressup'>dress up</a>."
 		var/code = GLOB.nuke_codes[/obj/machinery/nuclearbomb/syndicate]
 		if(code)
 			. += "Syndicate Code is [code]."
 	else
-		. += "<a href='byond://?src=[UID()];nuclear=nuclear'>operative</a>|<b>NO</b>"
+		. += "<a href='byond://?src=[UID()];[HrefToken()];nuclear=nuclear'>operative</a>|<b>NO</b>"
 
 	. += _memory_edit_role_enabled(ROLE_OPERATIVE)
 
 /datum/mind/proc/memory_edit_shadowling(mob/living/carbon/human/H)
 	. = _memory_edit_header("shadowling")
 	if(src in SSticker.mode.shadows)
-		. += "<b><font color='red'>SHADOWLING</font></b>|thrall|<a href='byond://?src=[UID()];shadowling=clear'>no</a>"
+		. += "<b><font color='red'>SHADOWLING</font></b>|thrall|<a href='byond://?src=[UID()];[HrefToken()];shadowling=clear'>no</a>"
 	else if(src in SSticker.mode.shadowling_thralls)
-		. += "Shadowling|<b><font color='red'>THRALL</font></b>|<a href='byond://?src=[UID()];shadowling=clear'>no</a>"
+		. += "Shadowling|<b><font color='red'>THRALL</font></b>|<a href='byond://?src=[UID()];[HrefToken()];shadowling=clear'>no</a>"
 	else
-		. += "<a href='byond://?src=[UID()];shadowling=shadowling'>shadowling</a>|<a href='byond://?src=[UID()];shadowling=thrall'>thrall</a>|<b>NO</b>"
+		. += "<a href='byond://?src=[UID()];[HrefToken()];shadowling=shadowling'>shadowling</a>|<a href='byond://?src=[UID()];[HrefToken()];shadowling=thrall'>thrall</a>|<b>NO</b>"
 
 	. += _memory_edit_role_enabled(ROLE_SHADOWLING)
 
 /datum/mind/proc/memory_edit_abductor(mob/living/carbon/human/H)
 	. = _memory_edit_header("abductor")
 	if(src in SSticker.mode.abductors)
-		. += "<b><font color='red'>ABDUCTOR</font></b>|<a href='byond://?src=[UID()];abductor=clear'>no</a>"
-		. += "|<a href='byond://?src=[UID()];common=undress'>undress</a>|<a href='byond://?src=[UID()];abductor=equip'>equip</a>"
+		. += "<b><font color='red'>ABDUCTOR</font></b>|<a href='byond://?src=[UID()];[HrefToken()];abductor=clear'>no</a>"
+		. += "|<a href='byond://?src=[UID()];[HrefToken()];common=undress'>undress</a>|<a href='byond://?src=[UID()];[HrefToken()];abductor=equip'>equip</a>"
 	else
-		. += "<a href='byond://?src=[UID()];abductor=abductor'>abductor</a>|<b>NO</b>"
+		. += "<a href='byond://?src=[UID()];[HrefToken()];abductor=abductor'>abductor</a>|<b>NO</b>"
 
 	. += _memory_edit_role_enabled(ROLE_ABDUCTOR)
 
@@ -519,12 +519,12 @@
 	. = _memory_edit_header("ninja")
 	var/datum/antagonist/ninja/ninja_datum = has_antag_datum(/datum/antagonist/ninja)
 	if(ninja_datum)
-		. += "<b><font color='red'>Ninja</font></b>|<a href='byond://?src=[UID()];ninja=clear'>no</a>"
-		. += "<br><a href='byond://?src=[UID()];ninja=dojo'>To dojo</a>, <a href='byond://?src=[UID()];common=undress'>undress</a>, <a href='byond://?src=[UID()];ninja=dressup'>dress up</a>, <a href='byond://?src=[UID()];ninja=name'>let choose name</a>."
+		. += "<b><font color='red'>Ninja</font></b>|<a href='byond://?src=[UID()];[HrefToken()];ninja=clear'>no</a>"
+		. += "<br><a href='byond://?src=[UID()];[HrefToken()];ninja=dojo'>To dojo</a>, <a href='byond://?src=[UID()];[HrefToken()];common=undress'>undress</a>, <a href='byond://?src=[UID()];[HrefToken()];ninja=dressup'>dress up</a>, <a href='byond://?src=[UID()];[HrefToken()];ninja=name'>let choose name</a>."
 		if(!length(ninja_datum.objectives))
-			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];ninja=autoobjectives'>Randomize!</a>"
+			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];[HrefToken()];ninja=autoobjectives'>Randomize!</a>"
 	else
-		. += "<a href='byond://?src=[UID()];ninja=ninja'>ninja</a>|<b>NO</b>"
+		. += "<a href='byond://?src=[UID()];[HrefToken()];ninja=ninja'>ninja</a>|<b>NO</b>"
 
 	. += _memory_edit_role_enabled(ROLE_NINJA)
 
@@ -532,14 +532,14 @@
 	. = _memory_edit_header("devil", list("devilagents"))
 	var/datum/antagonist/devil/devilinfo = has_antag_datum(/datum/antagonist/devil)
 	if(devilinfo)
-		. += "<b>[span_red("DEVIL")]</b>|<a href='byond://?src=[UID()];devil=clear'>no</a>"
-		. += "<br><a href='byond://?src=[UID()];devil=panel'>Devil panel</a>"
-		. += "<br><a href='byond://?src=[UID()];devil=rank'>Increase rank</a>"
+		. += "<b>[span_red("DEVIL")]</b>|<a href='byond://?src=[UID()];[HrefToken()];devil=clear'>no</a>"
+		. += "<br><a href='byond://?src=[UID()];[HrefToken()];devil=panel'>Devil panel</a>"
+		. += "<br><a href='byond://?src=[UID()];[HrefToken()];devil=rank'>Increase rank</a>"
 
 	else if(has_antag_datum(/datum/antagonist/sintouched))
-		. += "<b>[span_red("SINTOUCHED")]</b>|<a href='byond://?src=[UID()];devil=clear'>no</a>"
+		. += "<b>[span_red("SINTOUCHED")]</b>|<a href='byond://?src=[UID()];[HrefToken()];devil=clear'>no</a>"
 	else
-		. += "<a href='byond://?src=[UID()];devil=devil'>devil</a>|<a href='byond://?src=[UID()];devil=sintouched'>sintouched</a>"
+		. += "<a href='byond://?src=[UID()];[HrefToken()];devil=devil'>devil</a>|<a href='byond://?src=[UID()];[HrefToken()];devil=sintouched'>sintouched</a>"
 
 	. += _memory_edit_role_enabled(ROLE_DEVIL)
 
@@ -547,33 +547,33 @@
 	. = _memory_edit_header("dragon")
 	var/datum/antagonist/space_dragon/dragon_datum = has_antag_datum(/datum/antagonist/space_dragon)
 	if(dragon_datum)
-		. += "<b><font color='red'>SPACE DRAGON</font></b>|<a href='byond://?src=[UID()];space_dragon=clear'>no</a>"
+		. += "<b><font color='red'>SPACE DRAGON</font></b>|<a href='byond://?src=[UID()];[HrefToken()];space_dragon=clear'>no</a>"
 	else
-		. += "<a href='byond://?src=[UID()];space_dragon=space_dragon'>space dragon</a>|<b>NO</b>"
+		. += "<a href='byond://?src=[UID()];[HrefToken()];space_dragon=space_dragon'>space dragon</a>|<b>NO</b>"
 
 /datum/mind/proc/memory_edit_eventmisc(mob/living/H)
 	. = _memory_edit_header("event", list())
 	if(src in SSticker.mode.eventmiscs)
-		. += "<b>YES</b>|<a href='byond://?src=[UID()];eventmisc=clear'>no</a>"
+		. += "<b>YES</b>|<a href='byond://?src=[UID()];[HrefToken()];eventmisc=clear'>no</a>"
 	else
-		. += "<a href='byond://?src=[UID()];eventmisc=eventmisc'>Event Role</a>|<b>NO</b>"
+		. += "<a href='byond://?src=[UID()];[HrefToken()];eventmisc=eventmisc'>Event Role</a>|<b>NO</b>"
 
 /datum/mind/proc/memory_edit_blob()
 	. = _memory_edit_header("blob")
 	if(isblobinfected(src))
-		. += "|<b><font color='red'>BLOB</font></b>|<a href='byond://?src=[UID()];blob=clear'>deblobize</a>"
-		. += "|<a href='byond://?src=[UID()];blob=burst'>burst blob</a>"
+		. += "|<b><font color='red'>BLOB</font></b>|<a href='byond://?src=[UID()];[HrefToken()];blob=clear'>deblobize</a>"
+		. += "|<a href='byond://?src=[UID()];[HrefToken()];blob=burst'>burst blob</a>"
 	else if(isblobovermind(src))
 		var/mob/camera/blob/blob_overmind = current
 		if(istype(blob_overmind))
 			. += "|<b><font color='red'>BLOB Overmind</font></b>|"
-			. += "<br/><b>Total points: <a href='byond://?src=[UID()];blob=set_points'>[blob_overmind.blob_points]</a>/[blob_overmind.max_blob_points]</b>"
-			. += "<br/><b>Infinity points: <a href='byond://?src=[UID()];blob=inf_points'>[(blob_overmind.is_infinity)? "ON" : "OFF"]</a></b>"
-			. += "<br/><b>Blob strain: <a href='byond://?src=[UID()];blob=select_strain'>[blob_overmind.blobstrain? "<font color=\"[blob_overmind.blobstrain.color]\">[blob_overmind?.blobstrain?.name]</font>" : "None"]</a></b>"
+			. += "<br/><b>Total points: <a href='byond://?src=[UID()];[HrefToken()];blob=set_points'>[blob_overmind.blob_points]</a>/[blob_overmind.max_blob_points]</b>"
+			. += "<br/><b>Infinity points: <a href='byond://?src=[UID()];[HrefToken()];blob=inf_points'>[(blob_overmind.is_infinity)? "ON" : "OFF"]</a></b>"
+			. += "<br/><b>Blob strain: <a href='byond://?src=[UID()];[HrefToken()];blob=select_strain'>[blob_overmind.blobstrain? "<font color=\"[blob_overmind.blobstrain.color]\">[blob_overmind?.blobstrain?.name]</font>" : "None"]</a></b>"
 	else if(isblobminion(src))
 		. += "|<b><font color='red'>BLOB Minion</font></b>|"
 	else if(current.can_be_blob())
-		. += "<a href='byond://?src=[UID()];blob=blob'>blobize</a>|<b>NO</b>"
+		. += "<a href='byond://?src=[UID()];[HrefToken()];blob=blob'>blobize</a>|<b>NO</b>"
 	. += _memory_edit_role_enabled(ROLE_BLOB)
 
 /datum/mind/proc/memory_edit_terrors()
@@ -582,7 +582,7 @@
 	if(spider_datum)
 		. += "|<b><font color='red'>[spider_datum.spider_category]</font></b>"
 	else
-		. += "<a href='byond://?src=[UID()];terror=datumise'>datumise</a>|<b>NO</b>"
+		. += "<a href='byond://?src=[UID()];[HrefToken()];terror=datumise'>datumise</a>|<b>NO</b>"
 	. += _memory_edit_role_enabled(ROLE_TERROR_SPIDER)
 
 /datum/mind/proc/memory_edit_swarmers()
@@ -591,7 +591,7 @@
 	if(swarmer_datum)
 		. += "|<b><font color='red'>Свармер</font></b>"
 	else
-		. += "<a href='byond://?src=[UID()];swarmer=datumise'>datumise</a>|<b>NO</b>"
+		. += "<a href='byond://?src=[UID()];[HrefToken()];swarmer=datumise'>datumise</a>|<b>NO</b>"
 	. += _memory_edit_role_enabled(ROLE_SWARMER)
 
 /datum/mind/proc/memory_edit_xenomorphs()
@@ -600,18 +600,18 @@
 	if(xeno_datum)
 		. += "|<b><font color='red'>[xeno_datum.antag_menu_name]</font></b>"
 	else
-		. += "<a href='byond://?src=[UID()];xenomorph=datumise'>datumise</a>|<b>NO</b>"
+		. += "<a href='byond://?src=[UID()];[HrefToken()];xenomorph=datumise'>datumise</a>|<b>NO</b>"
 	. += _memory_edit_role_enabled(ROLE_ALIEN)
 
 /datum/mind/proc/memory_edit_traitor()
 	. = _memory_edit_header("traitor", list("traitorchan", "traitorvamp", "traitorthief"))
 	var/datum/antagonist/traitor/traitor_datum = has_antag_datum(/datum/antagonist/traitor)
 	if(traitor_datum)
-		. += "<b><font color='red'>TRAITOR</font></b>|<a href='byond://?src=[UID()];traitor=clear'>no</a>"
+		. += "<b><font color='red'>TRAITOR</font></b>|<a href='byond://?src=[UID()];[HrefToken()];traitor=clear'>no</a>"
 		if(!length(traitor_datum.objectives))
-			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];traitor=autoobjectives'>Randomize!</a>"
+			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];[HrefToken()];traitor=autoobjectives'>Randomize!</a>"
 	else
-		. += "<a href='byond://?src=[UID()];traitor=traitor'>traitor</a>|<b>NO</b>"
+		. += "<a href='byond://?src=[UID()];[HrefToken()];traitor=traitor'>traitor</a>|<b>NO</b>"
 
 	. += _memory_edit_role_enabled(ROLE_TRAITOR)
 	// Contractor
@@ -626,7 +626,7 @@
 			status = "<b><font color='darkorange'>CONTRACTOR (EXPIRED)</font></b>"
 		else
 			status = "<b><font color='orange'>CONTRACTOR (PENDING)</font></b>"
-		. += "[status]|<a href='byond://?src=[UID()];contractor=clear'>no</a>"
+		. += "[status]|<a href='byond://?src=[UID()];[HrefToken()];contractor=clear'>no</a>"
 		// List all their contracts
 		if(contractor_uplink)
 			. += "<br><b>Contracts:</b>"
@@ -635,9 +635,9 @@
 				for(var/co in contractor_uplink.hub.contracts)
 					var/datum/syndicate_contract/CO = co
 					. += "<br><b>Contract #[count++]</b>: "
-					. += "<a href='byond://?src=[UID()];cuid=[CO.UID()];contractor=target'><b>[CO.contract.target?.name || "Invalid target!"]</b></a>|"
-					. += "<a href='byond://?src=[UID()];cuid=[CO.UID()];contractor=locations'>locations</a>|"
-					. += "<a href='byond://?src=[UID()];cuid=[CO.UID()];contractor=other'>more</a>|"
+					. += "<a href='byond://?src=[UID()];[HrefToken()];cuid=[CO.UID()];contractor=target'><b>[CO.contract.target?.name || "Invalid target!"]</b></a>|"
+					. += "<a href='byond://?src=[UID()];[HrefToken()];cuid=[CO.UID()];contractor=locations'>locations</a>|"
+					. += "<a href='byond://?src=[UID()];[HrefToken()];cuid=[CO.UID()];contractor=other'>more</a>|"
 					switch(CO.status)
 						if(CONTRACT_STATUS_INVALID)
 							. += "<b>INVALID</b>"
@@ -645,23 +645,23 @@
 							. += "inactive"
 						if(CONTRACT_STATUS_ACTIVE)
 							. += "<b><font color='orange'>ACTIVE</font></b>|"
-							. += "<a href='byond://?src=[UID()];cuid=[CO.UID()];contractor=interrupt'>interrupt</a>|"
-							. += "<a href='byond://?src=[UID()];cuid=[CO.UID()];contractor=fail'>fail</a>"
+							. += "<a href='byond://?src=[UID()];[HrefToken()];cuid=[CO.UID()];contractor=interrupt'>interrupt</a>|"
+							. += "<a href='byond://?src=[UID()];[HrefToken()];cuid=[CO.UID()];contractor=fail'>fail</a>"
 						if(CONTRACT_STATUS_COMPLETED)
 							. += "<font color='green'>COMPLETED</font>"
 						if(CONTRACT_STATUS_FAILED)
 							. += "<font color='red'>FAILED</font>"
 				. += "<br>"
-				. += "<a href='byond://?src=[UID()];contractor=add'>Add Contract</a><br>"
-				. += "Claimable TC: <a href='byond://?src=[UID()];contractor=tc'>[contractor_uplink.hub.reward_tc_available]</a><br>"
-				. += "Available Rep: <a href='byond://?src=[UID()];contractor=rep'>[contractor_uplink.hub.rep]</a><br>"
+				. += "<a href='byond://?src=[UID()];[HrefToken()];contractor=add'>Add Contract</a><br>"
+				. += "Claimable TC: <a href='byond://?src=[UID()];[HrefToken()];contractor=tc'>[contractor_uplink.hub.reward_tc_available]</a><br>"
+				. += "Available Rep: <a href='byond://?src=[UID()];[HrefToken()];contractor=rep'>[contractor_uplink.hub.rep]</a><br>"
 			else
 				. += "<br>"
 				. += "<i>Has not logged in to contractor uplink</i>"
 	else
 		if(traitor_datum)
 			if(find_syndicate_uplink())
-				. += "<a href='byond://?src=[UID()];contractor=contractor'>contractor</a>|<b>NO</b>"
+				. += "<a href='byond://?src=[UID()];[HrefToken()];contractor=contractor'>contractor</a>|<b>NO</b>"
 			else
 				. += "contractor|<b>NO</b>|No Uplink"
 		else
@@ -669,7 +669,7 @@
 	// Mindslave
 	. += "<br><b><i>mindslaved</i></b>: "
 	if(has_antag_datum(/datum/antagonist/mindslave, FALSE))
-		. += "<b><font color='red'>MINDSLAVE</font></b>|<a href='byond://?src=[UID()];mindslave=clear'>no</a>"
+		. += "<b><font color='red'>MINDSLAVE</font></b>|<a href='byond://?src=[UID()];[HrefToken()];mindslave=clear'>no</a>"
 	else
 		. += "mindslave|<b>NO</b>"
 
@@ -677,11 +677,11 @@
 	. = _memory_edit_header("traitor", list("traitorchan", "traitorvamp", "traitorthief"))
 	var/datum/antagonist/malf_ai/malf_datum = has_antag_datum(/datum/antagonist/malf_ai)
 	if(malf_datum)
-		. += "<b><font color='red'>MALF AI</font></b>|<a href='byond://?src=[UID()];malf_ai=clear'>no</a>"
+		. += "<b><font color='red'>MALF AI</font></b>|<a href='byond://?src=[UID()];[HrefToken()];malf_ai=clear'>no</a>"
 		if(!length(malf_datum.objectives))
-			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];malf_ai=autoobjectives'>Randomize!</a>"
+			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];[HrefToken()];malf_ai=autoobjectives'>Randomize!</a>"
 	else
-		. += "<a href='byond://?src=[UID()];malf_ai=malf_ai'>malf AI</a>|<b>NO</b>"
+		. += "<a href='byond://?src=[UID()];[HrefToken()];malf_ai=malf_ai'>malf AI</a>|<b>NO</b>"
 
 	. += _memory_edit_role_enabled(ROLE_MALF_AI)
 
@@ -689,25 +689,25 @@
 	. = _memory_edit_header("thief", list("traitorthief", "traitorthiefvamp", "traitorthiefchan", "thiefchan", "thiefvamp", "changelingthief", "vampirethief"))
 	var/datum/antagonist/thief/thief_datum = has_antag_datum(/datum/antagonist/thief)
 	if(thief_datum)
-		. += "<b><font color='red'>THIEF</font></b>|<a href='byond://?src=[UID()];thief=clear'>no</a>"
+		. += "<b><font color='red'>THIEF</font></b>|<a href='byond://?src=[UID()];[HrefToken()];thief=clear'>no</a>"
 		if(ishuman(current))
-			. += "|<a href='byond://?src=[UID()];thief=equip'>Equip</a>"
+			. += "|<a href='byond://?src=[UID()];[HrefToken()];thief=equip'>Equip</a>"
 		if(!length(thief_datum.objectives))
-			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];thief=autoobjectives'>Randomize!</a>"
+			. += "<br>Objectives are empty! <a href='byond://?src=[UID()];[HrefToken()];thief=autoobjectives'>Randomize!</a>"
 	else
-		. += "<a href='byond://?src=[UID()];thief=thief'>thief</a>|<b>NO</b>"
+		. += "<a href='byond://?src=[UID()];[HrefToken()];thief=thief'>thief</a>|<b>NO</b>"
 
 	. += _memory_edit_role_enabled(ROLE_THIEF)
 
 /datum/mind/proc/memory_edit_silicon()
 	. = "<i><b>Silicon</b></i>: "
 	var/mob/living/silicon/silicon = current
-	. = "<br>Current Laws: <b>[silicon.laws.name]</b> <a href='byond://?src=[UID()];silicon=lawmanager'>Law Manager</a>"
+	. = "<br>Current Laws: <b>[silicon.laws.name]</b> <a href='byond://?src=[UID()];[HrefToken()];silicon=lawmanager'>Law Manager</a>"
 	var/mob/living/silicon/robot/robot = current
 	if(istype(robot))
-		. += "<br><b>Cyborg Module: [robot.module ? robot.module : "None" ]</b> <a href='byond://?src=[UID()];silicon=borgpanel'>Borg Panel</a>"
+		. += "<br><b>Cyborg Module: [robot.module ? robot.module : "None" ]</b> <a href='byond://?src=[UID()];[HrefToken()];silicon=borgpanel'>Borg Panel</a>"
 		if(robot.emagged)
-			. += "<br>Cyborg: <b><font color='red'>Is emagged!</font></b> <a href='byond://?src=[UID()];silicon=unemag'>Unemag!</a>"
+			. += "<br>Cyborg: <b><font color='red'>Is emagged!</font></b> <a href='byond://?src=[UID()];[HrefToken()];silicon=unemag'>Unemag!</a>"
 		if(robot.laws.zeroth_law)
 			. += "<br>0th law: [robot.laws.zeroth_law?.law]"
 	var/mob/living/silicon/ai/ai = current
@@ -716,22 +716,22 @@
 		for(var/mob/living/silicon/robot/R in ai.connected_robots)
 			if(R.emagged)
 				n_e_robots++
-		. += "<br>[n_e_robots] of [length(ai.connected_robots)] slaved cyborgs are emagged. <a href='byond://?src=[UID()];silicon=unemagcyborgs'>Unemag</a>"
+		. += "<br>[n_e_robots] of [length(ai.connected_robots)] slaved cyborgs are emagged. <a href='byond://?src=[UID()];[HrefToken()];silicon=unemagcyborgs'>Unemag</a>"
 
 /datum/mind/proc/memory_edit_uplink()
 	. = ""
 	if(ishuman(current) && ((src in SSticker.mode.head_revolutionaries) || \
 		(has_antag_datum(/datum/antagonist/traitor)) || \
 		(has_antag_datum(/datum/antagonist/nuclear_operative))))
-		. = "Uplink: <a href='byond://?src=[UID()];common=uplink'>give</a>"
+		. = "Uplink: <a href='byond://?src=[UID()];[HrefToken()];common=uplink'>give</a>"
 		var/obj/item/uplink/hidden/suplink = find_syndicate_uplink()
 		var/crystals
 		if(suplink)
 			crystals = suplink.uses
 		if(suplink)
-			. += "|<a href='byond://?src=[UID()];common=takeuplink'>take</a>"
+			. += "|<a href='byond://?src=[UID()];[HrefToken()];common=takeuplink'>take</a>"
 			if(usr.client.holder.rights & (R_SERVER|R_EVENT))
-				. += ", <a href='byond://?src=[UID()];common=crystals'>[crystals]</a> crystals"
+				. += ", <a href='byond://?src=[UID()];[HrefToken()];common=crystals'>[crystals]</a> crystals"
 			else
 				. += ", [crystals] crystals"
 		. += "." //hiel grammar
@@ -740,24 +740,24 @@
 /datum/mind/proc/memory_edit_vox_raider()
 	. = _memory_edit_header("vox raider")
 	if(has_antag_datum(/datum/antagonist/vox_raider))
-		. += "<b>[span_color("VOX RAIDER", "red")]</b>|<a href='byond://?src=[UID()];vox_raider=clear'>Remove</a>"
-		. += "<br><a href='byond://?src=[UID()];vox_raider=landmark'>To Vox Base</a>."
-		. += "<br><a href='byond://?src=[UID()];vox_raider=equip'>Equip</a>."
-		. += "<br><a href='byond://?src=[UID()];vox_raider=body'>Transform body</a>."
+		. += "<b>[span_color("VOX RAIDER", "red")]</b>|<a href='byond://?src=[UID()];[HrefToken()];vox_raider=clear'>Remove</a>"
+		. += "<br><a href='byond://?src=[UID()];[HrefToken()];vox_raider=landmark'>To Vox Base</a>."
+		. += "<br><a href='byond://?src=[UID()];[HrefToken()];vox_raider=equip'>Equip</a>."
+		. += "<br><a href='byond://?src=[UID()];[HrefToken()];vox_raider=body'>Transform body</a>."
 	else
-		. += "<a href='byond://?src=[UID()];vox_raider=make'>Make Vox Raider</a>"
+		. += "<a href='byond://?src=[UID()];[HrefToken()];vox_raider=make'>Make Vox Raider</a>"
 
 	. += _memory_edit_role_enabled(ROLE_VOX_RAIDER)
 
 /datum/mind/proc/memory_edit_zombie(mob/living/human)
 	. = _memory_edit_header("zombie", list())
 	if(has_antag_datum(/datum/antagonist/zombie))
-		. += "<a href='byond://?src=[UID()];zombie=clear'>no</a>|<b><font color='red'>ZOMBIE</font></b>"
+		. += "<a href='byond://?src=[UID()];[HrefToken()];zombie=clear'>no</a>|<b><font color='red'>ZOMBIE</font></b>"
 		return
 	if(current.HasDisease(/datum/disease/virus/zombie))
-		. += "<b>NO</b>|<a href='byond://?src=[UID()];zombie=zombie'>zombie</a>|<a href='byond://?src=[UID()];zombie=zombievirusno'><font color='red'>dis-infect</font></a>"
+		. += "<b>NO</b>|<a href='byond://?src=[UID()];[HrefToken()];zombie=zombie'>zombie</a>|<a href='byond://?src=[UID()];[HrefToken()];zombie=zombievirusno'><font color='red'>dis-infect</font></a>"
 	else
-		. += "<b>NO</b>|<a href='byond://?src=[UID()];zombie=zombie'>zombie</a>|<a href='byond://?src=[UID()];zombie=zombievirus'>infect</a>"
+		. += "<b>NO</b>|<a href='byond://?src=[UID()];[HrefToken()];zombie=zombie'>zombie</a>|<a href='byond://?src=[UID()];[HrefToken()];zombie=zombievirus'>infect</a>"
 	. += _memory_edit_role_enabled(ROLE_ZOMBIE)
 
 /datum/mind/proc/edit_memory()
@@ -767,7 +767,7 @@
 
 	var/list/out = list("<body><b>[name]</b>[(current && (current.real_name != name))?" (as [current.real_name])" : ""]")
 	out.Add("Mind currently owned by key: [key] [active ? "(synced)" : "(not synced)"]")
-	out.Add("Assigned role: [assigned_role]. <a href='byond://?src=[UID()];role_edit=1'>Edit</a>")
+	out.Add("Assigned role: [assigned_role]. <a href='byond://?src=[UID()];[HrefToken()];role_edit=1'>Edit</a>")
 	out.Add("Special role: [special_role].") //better to change this through /datum/antagonist/, some code uses this var and can break if something goes wrong
 	out.Add("Factions and special roles:")
 
@@ -914,14 +914,14 @@
 
 	out.Add("<b>Memory:</b>")
 	out.Add(memory)
-	out.Add("<br><a href='byond://?src=[UID()];memory_edit=1'>Edit memory</a><br>")
+	out.Add("<br><a href='byond://?src=[UID()];[HrefToken()];memory_edit=1'>Edit memory</a><br>")
 	out.Add("Objectives:")
 	if(!length(get_all_objectives()))
 		out.Add("EMPTY<br>")
 	else
 		out.Add(gen_objective_text(admin = TRUE))
-	out.Add("<a href='byond://?src=[UID()];obj_add=1'>Add objective</a><br>")
-	out.Add("<a href='byond://?src=[UID()];obj_announce=1'>Announce objectives</a><br>")
+	out.Add("<a href='byond://?src=[UID()];[HrefToken()];obj_add=1'>Add objective</a><br>")
+	out.Add("<a href='byond://?src=[UID()];[HrefToken()];obj_announce=1'>Announce objectives</a><br>")
 	out.Add("</body></html>")
 
 	var/datum/browser/popup = new(usr, "edit_memory[src]", "<div align='center'>[name]</div>", 500, 500)
@@ -931,7 +931,7 @@
 	onclose(usr, "edit_memory[src]")
 
 /datum/mind/Topic(href, href_list)
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_ADMIN) || !usr.client.holder.CheckAdminHref(href, href_list))
 		return
 
 	if(href_list["role_edit"])

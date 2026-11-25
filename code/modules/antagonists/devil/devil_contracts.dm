@@ -243,7 +243,7 @@ GLOBAL_LIST_INIT(devil_guns, (GLOB.summoned_guns - NOT_DEVIL_GUNS + DEVIL_GUNS))
 
 /datum/devil_contract/etalent/fulfill_contract(mob/living/carbon/human/user)
 	user.add_actionspeed_modifier(/datum/actionspeed_modifier/devil_etalent)
-	ADD_TRAIT(user, TRAIT_CAN_SEE_WIRES, DEVIL_CONTRACT_TRAIT)
+	ADD_TRAIT(user, TRAIT_SHOW_WIRE_INFO, DEVIL_CONTRACT_TRAIT)
 
 /datum/devil_contract/return_dead
 	name = "контракт воскрешения мертвых"

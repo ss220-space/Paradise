@@ -138,10 +138,10 @@ SUBSYSTEM_DEF(tickets)
 	L += "<span class='[ticket_help_span]'>[ticket_help_type]: </span>[span_boldnotice("[key_and_name][one_line ? " " : "<br>"]")]"
 	if(M)
 		L += "([ADMIN_QUE(M,"?")]) ([ADMIN_PP(M,"PP")]) ([ADMIN_VV(M,"VV")]) ([ADMIN_TP(M,"TP")]) ([ADMIN_SM(M,"SM")]) ([admin_jump_link(M)]) "
-	L += "(<a href='byond://?_src_=holder;openticket=[ticketNum][anchor_link_extra]'>TICKET</a>)"
-	L += "[isAI(M) ? "(<a href='byond://?_src_=holder;adminchecklaws=[M.UID()]'>CL</a>)" : ""] (<a href='byond://?_src_=holder;take_question=[ticketNum][anchor_link_extra]'>TAKE</a>) "
-	L += "(<a href='byond://?_src_=holder;resolve=[ticketNum][anchor_link_extra]'>RESOLVE</a>) (<a href='byond://?_src_=holder;autorespond=[ticketNum][anchor_link_extra]'>AUTO</a>) "
-	L += "(<a href='byond://?_src_=holder;convert_ticket=[ticketNum][anchor_link_extra]'>CONVERT</a>) :</span> <span class='[ticket_help_span]'>[one_line ? " " : "<br><br>"][msg]</span>"
+	L += "(<a href='byond://?_src_=holder;[HrefToken()];openticket=[ticketNum][anchor_link_extra]'>TICKET</a>)"
+	L += "[isAI(M) ? "(<a href='byond://?_src_=holder;[HrefToken()];adminchecklaws=[M.UID()]'>CL</a>)" : ""] (<a href='byond://?_src_=holder;[HrefToken()];take_question=[ticketNum][anchor_link_extra]'>TAKE</a>) "
+	L += "(<a href='byond://?_src_=holder;[HrefToken()];resolve=[ticketNum][anchor_link_extra]'>RESOLVE</a>) (<a href='byond://?_src_=holder;[HrefToken()];autorespond=[ticketNum][anchor_link_extra]'>AUTO</a>) "
+	L += "(<a href='byond://?_src_=holder;[HrefToken()];convert_ticket=[ticketNum][anchor_link_extra]'>CONVERT</a>) :</span> <span class='[ticket_help_span]'>[one_line ? " " : "<br><br>"][msg]</span>"
 	return L.Join()
 
 //Open a new ticket and populate details then add to the list of open tickets
@@ -468,7 +468,7 @@ SUBSYSTEM_DEF(tickets)
 	dat += "<head><style>.adminticket{border:2px solid}</style></head>"
 	dat += "<body><h1>[ticket_system_name]</h1>"
 
-	dat +="<a href='byond://?src=[UID()];refresh=1'>Refresh</a><br /><a href='byond://?src=[UID()];showopen=1'>Open Tickets</a><a href='byond://?src=[UID()];showresolved=1'>Resolved Tickets</a><a href='byond://?src=[UID()];showclosed=1'>Closed Tickets</a>"
+	dat +="<a href='byond://?src=[UID()];[HrefToken()];refresh=1'>Refresh</a><br /><a href='byond://?src=[UID()];[HrefToken()];showopen=1'>Open Tickets</a><a href='byond://?src=[UID()];[HrefToken()];showresolved=1'>Resolved Tickets</a><a href='byond://?src=[UID()];[HrefToken()];showclosed=1'>Closed Tickets</a>"
 	if(tab == TICKET_OPEN)
 		dat += "<h2>Open Tickets</h2>"
 	dat += "<table style='width:100%; border: 3px solid;'>"
@@ -477,7 +477,7 @@ SUBSYSTEM_DEF(tickets)
 		for(var/T in allTickets)
 			ticket = T
 			if(ticket.ticketState == TICKET_OPEN || ticket.ticketState == TICKET_STALE)
-				dat += "<tr style='[trStyle]'><td style ='[tdStyleleft]'><a href='byond://?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='byond://?src=[UID()];details=[ticket.ticketNum]'>Details</a> <br /> #[ticket.ticketNum] ([ticket.ingame_time_opened]) [ticket.ticketState == TICKET_STALE ? "<font color='red'><b>STALE</b></font>" : ""] </td><td style='[tdStyle]'><b>[makeUrlMessage(ticket, one_line = TRUE)]</b></td></tr>"
+				dat += "<tr style='[trStyle]'><td style ='[tdStyleleft]'><a href='byond://?src=[UID()];[HrefToken()];resolve=[ticket.ticketNum]'>Resolve</a><a href='byond://?src=[UID()];[HrefToken()];details=[ticket.ticketNum]'>Details</a> <br /> #[ticket.ticketNum] ([ticket.ingame_time_opened]) [ticket.ticketState == TICKET_STALE ? "<font color='red'><b>STALE</b></font>" : ""] </td><td style='[tdStyle]'><b>[makeUrlMessage(ticket, one_line = TRUE)]</b></td></tr>"
 			else
 				continue
 	else  if(tab == TICKET_RESOLVED)
@@ -485,7 +485,7 @@ SUBSYSTEM_DEF(tickets)
 		for(var/T in allTickets)
 			ticket = T
 			if(ticket.ticketState == TICKET_RESOLVED)
-				dat += "<tr style='[trStyle]'><td style ='[tdStyleleft]'><a href='byond://?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='byond://?src=[UID()];details=[ticket.ticketNum]'>Details</a> <br /> #[ticket.ticketNum] ([ticket.ingame_time_opened]) </td><td style='[tdStyle]'><b>[makeUrlMessage(ticket, one_line = TRUE)]</b></td></tr>"
+				dat += "<tr style='[trStyle]'><td style ='[tdStyleleft]'><a href='byond://?src=[UID()];[HrefToken()];resolve=[ticket.ticketNum]'>Resolve</a><a href='byond://?src=[UID()];[HrefToken()];details=[ticket.ticketNum]'>Details</a> <br /> #[ticket.ticketNum] ([ticket.ingame_time_opened]) </td><td style='[tdStyle]'><b>[makeUrlMessage(ticket, one_line = TRUE)]</b></td></tr>"
 			else
 				continue
 	else if(tab == TICKET_CLOSED)
@@ -500,9 +500,9 @@ SUBSYSTEM_DEF(tickets)
 	dat += "</table>"
 	dat += "<h1>Resolve All</h1>"
 	if(ticket_system_name == MENTORHELP_SYSTEM_NAME)
-		dat += "<a href='byond://?src=[UID()];resolveall=1'>Resolve All Open Mentor Tickets</a></body>"
+		dat += "<a href='byond://?src=[UID()];[HrefToken()];resolveall=1'>Resolve All Open Mentor Tickets</a></body>"
 	else
-		dat += "<a href='byond://?src=[UID()];resolveall=1'>Resolve All Open Admin Tickets</a></body>"
+		dat += "<a href='byond://?src=[UID()];[HrefToken()];resolveall=1'>Resolve All Open Admin Tickets</a></body>"
 
 	return dat
 
@@ -521,7 +521,7 @@ SUBSYSTEM_DEF(tickets)
 
 	var/dat = {"<meta charset="UTF-8"><h1>[ticket_system_name]</h1>"}
 
-	dat +="<a href='byond://?src=[UID()];refresh=1'>Show All</a><a href='byond://?src=[UID()];refreshdetail=[T.ticketNum]'>Refresh</a>"
+	dat +="<a href='byond://?src=[UID()];[HrefToken()];refresh=1'>Show All</a><a href='byond://?src=[UID()];[HrefToken()];refreshdetail=[T.ticketNum]'>Refresh</a>"
 
 	dat += "<h2>Ticket #[T.ticketNum]</h2>"
 
@@ -561,12 +561,12 @@ SUBSYSTEM_DEF(tickets)
 			break
 
 	dat += "<br />"
-	dat += "<a href='byond://?src=[UID()];detailreopen=[T.ticketNum]'>Re-Open</a>[check_rights(rights_needed, FALSE) ? "<a href='byond://?src=[UID()];autorespond=[T.ticketNum]'>Auto</a>": ""]<a href='byond://?src=[UID()];detailresolve=[T.ticketNum]'>Resolve</a><br /><br />"
+	dat += "<a href='byond://?src=[UID()];[HrefToken()];detailreopen=[T.ticketNum]'>Re-Open</a>[check_rights(rights_needed, FALSE) ? "<a href='byond://?src=[UID()];autorespond=[T.ticketNum]'>Auto</a>": ""]<a href='byond://?src=[UID()];[HrefToken()];detailresolve=[T.ticketNum]'>Resolve</a><br /><br />"
 
 	if(!T.staffAssigned)
-		dat += "No staff member assigned to this [ticket_name] - <a href='byond://?src=[UID()];assignstaff=[T.ticketNum]'>Take Ticket</a><br />"
+		dat += "No staff member assigned to this [ticket_name] - <a href='byond://?src=[UID()];[HrefToken()];assignstaff=[T.ticketNum]'>Take Ticket</a><br />"
 	else
-		dat += "[T.staffAssigned] is assigned to this Ticket. - <a href='byond://?src=[UID()];assignstaff=[T.ticketNum]'>Take Ticket</a> - <a href='byond://?src=[UID()];unassignstaff=[T.ticketNum]'>Unassign Ticket</a><br />"
+		dat += "[T.staffAssigned] is assigned to this Ticket. - <a href='byond://?src=[UID()];[HrefToken()];assignstaff=[T.ticketNum]'>Take Ticket</a> - <a href='byond://?src=[UID()];[HrefToken()];unassignstaff=[T.ticketNum]'>Unassign Ticket</a><br />"
 
 	if(T.lastStaffResponse)
 		dat += "<b>Last Staff response Response:</b> [T.lastStaffResponse] at [T.lastResponseTime]"
@@ -575,8 +575,8 @@ SUBSYSTEM_DEF(tickets)
 
 	dat += "<br /><br />"
 
-	dat += "<a href='byond://?src=[UID()];detailclose=[T.ticketNum]'>Close Ticket</a>"
-	dat += "<a href='byond://?src=[UID()];convert_ticket=[T.ticketNum]'>Convert Ticket</a>"
+	dat += "<a href='byond://?src=[UID()];[HrefToken()];detailclose=[T.ticketNum]'>Close Ticket</a>"
+	dat += "<a href='byond://?src=[UID()];[HrefToken()];convert_ticket=[T.ticketNum]'>Convert Ticket</a>"
 
 	var/datum/browser/popup = new(user, "[ticket_system_name]detail", "[ticket_system_name] #[T.ticketNum]", 1000, 800, src)
 	popup.add_head_content(@{"<script type='text/javascript'>
@@ -639,7 +639,7 @@ SUBSYSTEM_DEF(tickets)
 	)
 
 /datum/controller/subsystem/tickets/Topic(href, href_list)
-	if(!check_rights(rights_needed))
+	if(!check_rights(rights_needed) || !usr.client.holder.CheckAdminHref(href, href_list))
 		return
 
 	if(href_list["refresh"])

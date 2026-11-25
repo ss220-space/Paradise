@@ -43,7 +43,7 @@ ADMIN_VERB(view_asays, R_ADMIN|R_MOD, "Asays", "View current round Asays.", ADMI
 			table-layout: fixed;
 		}
 	</style>
-	<a href='byond://?src=[holder.UID()];[title]s=1'>Refresh</a>
+	<a href='byond://?src=[holder.UID()];[HrefToken()];[title]s=1'>Refresh</a>
 	<table style='width: 100%; border-collapse: collapse; table-layout: auto; margin-top: 3px;'>
 	"})
 

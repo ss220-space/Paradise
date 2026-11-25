@@ -182,7 +182,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 				if(message_cooldown > world.time)
 					to_chat(ui.user, span_warning("Пожалуйста, подождите, прежде чем сделать новое объявление."))
 					return
-				var/input = tgui_input_text(ui.user, "Пожалуйста, напишите своё сообщение экипажу станции.", "Приоритетное объявление", multiline = TRUE, encode = FALSE)
+				var/input = tgui_input_text(ui.user, "Пожалуйста, напишите своё сообщение экипажу станции.", "Приоритетное объявление", multiline = TRUE)
 				if(!input || message_cooldown > world.time || ..() || !(is_authenticated(ui.user) >= COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_MSGLEN_MINIMUM)
@@ -192,7 +192,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 				message_cooldown = world.time + 600 //One minute
 
 		if("callshuttle")
-			var/input = tgui_input_text(ui.user, "Пожалуйста, укажите причину вызова шаттла", "Причина вызова шаттла.","", encode = FALSE)
+			var/input = tgui_input_text(ui.user, "Пожалуйста, укажите причину вызова шаттла", "Причина вызова шаттла.","")
 			if(!input || ..() || !is_authenticated(ui.user))
 				return
 			call_shuttle_proc(ui.user, input)
@@ -254,11 +254,11 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 			setMenuState(ui.user, COMM_SCREEN_STAT)
 
 		if("setmsg1")
-			stat_msg1 = tgui_input_text(ui.user, "Строка 1", stat_msg1, "Введите текст сообщения", encode = FALSE)
+			stat_msg1 = tgui_input_text(ui.user, "Строка 1", stat_msg1, "Введите текст сообщения")
 			setMenuState(ui.user, COMM_SCREEN_STAT)
 
 		if("setmsg2")
-			stat_msg2 = tgui_input_text(ui.user, "Строка 2", stat_msg2, "Введите текст сообщения", encode = FALSE)
+			stat_msg2 = tgui_input_text(ui.user, "Строка 2", stat_msg2, "Введите текст сообщения")
 			setMenuState(ui.user, COMM_SCREEN_STAT)
 
 		if("nukerequest")
@@ -266,7 +266,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 				if(centcomm_message_cooldown > world.time)
 					to_chat(ui.user, span_warning("Обработка массивов. Пожалуйста, подождите."))
 					return
-				var/input = tgui_input_text(ui.user, "Пожалуйста, укажите причину запроса кодов от устройства самоуничтожения. Злоупотребление системой запросов кодов недопустимо ни при каких обстоятельствах. Запрос не гарантирует ответа.", "Запрос кодов устройства самоуничтожения.", encode = FALSE)
+				var/input = tgui_input_text(ui.user, "Пожалуйста, укажите причину запроса кодов от устройства самоуничтожения. Злоупотребление системой запросов кодов недопустимо ни при каких обстоятельствах. Запрос не гарантирует ответа.", "Запрос кодов устройства самоуничтожения.")
 				if(isnull(input) || ..() || !(is_authenticated(ui.user) >= COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
@@ -288,7 +288,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 				if(centcomm_message_cooldown > world.time)
 					to_chat(ui.user, span_warning("Обработка массивов. Пожалуйста, подождите."))
 					return
-				var/input = tgui_input_text(ui.user, "Пожалуйста, выберите сообщение для передачи Центральному Командованию посредством квантовой запутанности. Имейте в виду, что этот процесс очень дорогостоящий, и злоупотребление этой системой крайне нежелательно. Передача не гарантирует ответа", "Сообщение на ЦК", encode = FALSE)
+				var/input = tgui_input_text(ui.user, "Пожалуйста, выберите сообщение для передачи Центральному Командованию посредством квантовой запутанности. Имейте в виду, что этот процесс очень дорогостоящий, и злоупотребление этой системой крайне нежелательно. Передача не гарантирует ответа", "Сообщение на ЦК")
 				if(!input || ..() || !(is_authenticated(ui.user) == COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
@@ -303,11 +303,11 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 
 		// OMG SYNDICATE ...LETTERHEAD
 		if("MessageSyndicate")
-			if((is_authenticated(ui.user) >= COMM_AUTHENTICATION_CAPT) && (src.emagged))
+			if((is_authenticated(ui.user) >= COMM_AUTHENTICATION_CAPT) && (obj_flags & EMAGGED))
 				if(centcomm_message_cooldown > world.time)
 					to_chat(ui.user, "Обработка массивов. Пожалуйста, подождите.")
 					return
-				var/input = tgui_input_text(ui.user, "Пожалуйста, выберите сообщение для передачи в \[АНОМАЛЬНЫЕ КОРДИНАТЫ МАРШРУТИЗАЦИИ\] посредством квантовой запутанности. Имейте в виду, что этот процесс очень дорогостоящий, и злоупотребление этой системой крайне нежелательно. Передача не гарантирует ответа.", "Отправить сообщение", encode = FALSE)
+				var/input = tgui_input_text(ui.user, "Пожалуйста, выберите сообщение для передачи в \[АНОМАЛЬНЫЕ КОРДИНАТЫ МАРШРУТИЗАЦИИ\] посредством квантовой запутанности. Имейте в виду, что этот процесс очень дорогостоящий, и злоупотребление этой системой крайне нежелательно. Передача не гарантирует ответа.", "Отправить сообщение")
 				if(!input || ..() || !(is_authenticated(ui.user) == COMM_AUTHENTICATION_CAPT))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
@@ -321,7 +321,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 
 		if("RestoreBackup")
 			to_chat(ui.user, "Данные маршрутизации восстановлены из резервной копии!")
-			src.emagged = 0
+			obj_flags &= ~EMAGGED
 			setMenuState(ui.user, COMM_SCREEN_MAIN)
 
 		// ADMIN CENTCOMM ONLY STUFF
@@ -447,13 +447,15 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 		new_sound = SSstation.announcer.get_rand_report_sound(),
 	)
 
-/obj/machinery/computer/communications/emag_act(user as mob)
-	if(!emagged)
-		add_attack_logs(user, src, "emagged")
-		src.emagged = 1
-		if(user)
-			to_chat(user, span_notice("Вы шифруете схемы маршрутизации связи!"))
-		SStgui.update_uis(src)
+/obj/machinery/computer/communications/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
+	SStgui.update_uis(src)
+	if(user)
+		to_chat(user, span_notice("Вы шифруете схемы маршрутизации связи!"))
+	return TRUE
 
 /obj/machinery/computer/communications/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
@@ -482,7 +484,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 	data["is_ai"]         = isAI(user) || isrobot(user)
 	data["noauthbutton"]  = !ishuman(user)
 	data["menu_state"]    = data["is_ai"] ? ai_menu_state : menu_state
-	data["emagged"]       = emagged
+	data["emagged"]       = (obj_flags & EMAGGED)
 	data["authenticated"] = is_authenticated(user, FALSE)
 	data["authhead"] = data["authenticated"] >= COMM_AUTHENTICATION_HEAD && (data["authenticated"] == COMM_AUTHENTICATION_AGHOST || !isobserver(user))
 	data["authcapt"] = data["authenticated"] >= COMM_AUTHENTICATION_CAPT && (data["authenticated"] == COMM_AUTHENTICATION_AGHOST || !isobserver(user))
