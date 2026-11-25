@@ -132,8 +132,8 @@
 		stickyban_show()
 
 /datum/admins/proc/stickyban_gethtml(ckey, ban)
-	. = "<a href='byond://?_src_=holder;stickyban=remove&ckey=[ckey]'>\[-\]</a><b>[ckey]</b><br />"
-	. += "[ban["message"]] <b><a href='byond://?_src_=holder;stickyban=edit&ckey=[ckey]'>\[Edit\]</a></b><br />"
+	. = "<a href='byond://?_src_=holder;[HrefToken()];stickyban=remove&ckey=[ckey]'>\[-\]</a><b>[ckey]</b><br />"
+	. += "[ban["message"]] <b><a href='byond://?_src_=holder;[HrefToken()];stickyban=edit&ckey=[ckey]'>\[Edit\]</a></b><br />"
 	if(ban["admin"])
 		. += "[ban["admin"]]<br />"
 	else
@@ -142,7 +142,7 @@
 	for(var/key in ban["keys"])
 		if(ckey(key) == ckey)
 			continue
-		. += "<li><a href='byond://?_src_=holder;stickyban=remove_alt&ckey=[ckey]&alt=[ckey(key)]'>\[-\]</a>[key]</li>"
+		. += "<li><a href='byond://?_src_=holder;[HrefToken()];stickyban=remove_alt&ckey=[ckey]&alt=[ckey(key)]'>\[-\]</a>[key]</li>"
 	. += "</ol>\n"
 
 /datum/admins/proc/stickyban_show()
@@ -158,7 +158,7 @@
 		banhtml += stickyban_gethtml(ckey,ban)
 
 	var/html = {"
-		<h2>All Sticky Bans:</h2> <a href='byond://?_src_=holder;stickyban=add'>\[+\]</a><br>
+		<h2>All Sticky Bans:</h2> <a href='byond://?_src_=holder;[HrefToken()];stickyban=add'>\[+\]</a><br>
 		[banhtml]
 	"}
 	var/datum/browser/popup = new(usr, "stickybans", "Sticky Bans", 700, 400)

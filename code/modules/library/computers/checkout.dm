@@ -134,8 +134,8 @@
 					var/controls =  "<a href='byond://?src=[UID()];id=[CB.id]'>\[Order\]</a>"
 					controls += {" <a href="byond://?src=[UID()];flag=[CB.id]">\[Flag[CB.flagged ? "ged" : ""]\]</a>"}
 					if(check_rights(R_ADMIN, FALSE, user = user))
-						controls +=  " <a style='color:red' href='byond://?src=[UID()];del=[CB.id]'>\[Delete\]</a>"
-						author += " (<a style='color:red' href='byond://?src=[UID()];delbyckey=[ckey(CB.ckey)]'>[ckey(CB.ckey)])</a>)"
+						controls +=  " <a style='color:red' href='byond://?src=[UID()];[HrefToken()];del=[CB.id]'>\[Delete\]</a>"
+						author += " (<a style='color:red' href='byond://?src=[UID()];[HrefToken()];delbyckey=[ckey(CB.ckey)]'>[ckey(CB.ckey)])</a>)"
 					dat += {"<tr>
 						<td>[author]</td>
 						<td>[CB.title]</td>
@@ -274,7 +274,7 @@
 
 		screenstate = 4
 	if(href_list["del"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_ADMIN) || !usr.client.holder.CheckAdminHref(href, href_list))
 			return
 		var/datum/cachedbook/target = getBookByID(href_list["del"]) // Sanitized in getBookByID
 		var/ans = alert(usr, "Are you sure you wish to delete \"[target.title]\", by [target.author]? This cannot be undone.", "Library System", "Yes", "No")
@@ -292,7 +292,7 @@
 			return
 
 	if(href_list["delbyckey"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_ADMIN) || !usr.client.holder.CheckAdminHref(href, href_list))
 			return
 		var/tckey = ckey(href_list["delbyckey"])
 		var/ans = alert(usr,"Are you sure you wish to delete all books by [tckey]? This cannot be undone.", "Library System", "Yes", "No")

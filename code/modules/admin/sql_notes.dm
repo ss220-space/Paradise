@@ -158,10 +158,11 @@
 	var/list/navbar = list()
 	var/ruler = "<hr style='background:#000000; border:0; height:3px'>"
 
-	navbar = "<a href='byond://?_src_=holder;nonalpha=1'>\[All\]</a>|<a href='byond://?_src_=holder;nonalpha=2'>\[#\]</a>"
+	navbar = "<a href='byond://?_src_=holder;[HrefToken()];nonalpha=1'>\[All\]</a>|<a href='byond://?_src_=holder;[HrefToken()];nonalpha=2'>\[#\]</a>"
 	for(var/letter in GLOB.alphabet)
-		navbar += "|<a href='byond://?_src_=holder;shownote=[letter]'>\[[letter]\]</a>"
+		navbar += "|<a href='byond://?_src_=holder;[HrefToken()];shownote=[letter]'>\[[letter]\]</a>"
 	navbar += "<br><form method='get' name='search' action='?'>\
+	[HrefTokenFormField()]\
 	<input type='hidden' name='_src_' value='holder'>\
 	<input type='text' name='notessearch' value='[index]'>\
 	<input style='margin-left: 5px;' type='submit' value='Search'></form>"
@@ -185,7 +186,7 @@
 	else if(index)
 		var/index_ckey
 		var/search
-		output += "<center><a href='byond://?_src_=holder;addnoteempty=1'>\[Add Note\]</a></center>"
+		output += "<center><a href='byond://?_src_=holder;[HrefToken()];addnoteempty=1'>\[Add Note\]</a></center>"
 		output += ruler
 		switch(index)
 			if(1)
@@ -204,7 +205,7 @@
 		message_admins("[usr.ckey] has started a note search with the following regex: [search] | CPU usage may be higher.")
 		while(query_list_notes.NextRow())
 			index_ckey = query_list_notes.item[1]
-			output += "<a href='byond://?_src_=holder;shownoteckey=[index_ckey]'>[index_ckey]</a><br>"
+			output += "<a href='byond://?_src_=holder;[HrefToken()];shownoteckey=[index_ckey]'>[index_ckey]</a><br>"
 			CHECK_TICK
 		qdel(query_list_notes)
 		message_admins("The note search started by [usr.ckey] has complete. CPU should return to normal.")
@@ -224,7 +225,7 @@
 			linkless = linkless\
 		)
 	else
-		output += "<center><a href='byond://?_src_=holder;addnoteempty=1'>\[Add Note\]</a></center>"
+		output += "<center><a href='byond://?_src_=holder;[HrefToken()];addnoteempty=1'>\[Add Note\]</a></center>"
 		output += ruler
 	var/datum/browser/popup = new(usr, "show_notes", "<div align='center'>Notes</div>", 900, 500)
 	popup.set_content(output.Join(""))
@@ -242,7 +243,7 @@
 	if(show_length)
 		output += "<center>Notes count: [length(query.rows)]</center>"
 	if(!linkless)
-		output += "<center><a href='byond://?_src_=holder;addnote=[ckey]'>\[Add Note\]</a></center>"
+		output += "<center><a href='byond://?_src_=holder;[HrefToken()];addnote=[ckey]'>\[Add Note\]</a></center>"
 	output += ruler
 	while(query.NextRow())
 		var/id = query.item[1]
@@ -260,7 +261,7 @@
 		output += "</b>"
 
 		if(!linkless)
-			output += " <a href='byond://?_src_=holder;removenote=[id]'>\[Remove Note\]</a> <a href='byond://?_src_=holder;editnote=[id]'>\[Edit Note\]</a>"
+			output += " <a href='byond://?_src_=holder;[HrefToken()];removenote=[id]'>\[Remove Note\]</a> <a href='byond://?_src_=holder;[HrefToken()];editnote=[id]'>\[Edit Note\]</a>"
 			if(last_editor)
 				output += span_fontsize2(" Last edit by [last_editor]")
 		output += "<br>[notetext]<hr style='background:#000000; border:0; height:1px'>"

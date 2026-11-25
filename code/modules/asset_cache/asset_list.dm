@@ -200,7 +200,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 /// Downloads the track through yt-dlp and registers it as an asset.
 /// item_filename stays null if the download fails, so callers can detect it.
 /datum/asset/music/New(ytdl, url, sound_id)
-	var/datum/web_sound_download/download = download_web_sound(ytdl, url, sound_id)
+	var/datum/web_sound_download/download = world.download_web_sound(ytdl, url, sound_id)
 	if(!download.success)
 		log_world("Could not download web sound [url]: [download.error_message]")
 		return

@@ -233,7 +233,7 @@
 	. = ..()
 
 	if(href_list["cancel"])
-		if(!check_rights(R_EVENT))
+		if(!check_rights(R_EVENT) || !usr.client.holder.CheckAdminHref(href, href_list))
 			return
 
 		if(!triggering)
