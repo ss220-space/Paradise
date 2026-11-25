@@ -109,7 +109,7 @@ Difficulty: Insane
 #define VAZZ_FEED_COOLDOWN (60 SECONDS)
 /// Размер клетки "места" для защиты от фарма: в одной клетке лечение не чаще VAZZ_FEED_SITE_COOLDOWN
 #define VAZZ_FEED_SITE_GRID 12
-#define VAZZ_FEED_SITE_COOLDOWN (10 MINUTES)
+#define VAZZ_FEED_SITE_COOLDOWN (5 MINUTES)
 
 // Вторая фаза (после арены)
 #define VAZZ_PHASE2_MELEE_WINDOW (4.5 SECONDS)
