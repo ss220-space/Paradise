@@ -636,13 +636,18 @@
 
 	return ..()
 
-/obj/item/toy/crayon/spraycan/proc/spray_surface(turf/target, mob/user, list/modifiers)
+/obj/item/toy/crayon/spraycan/proc/spray_surface(atom/target, mob/user, list/modifiers)
+	var/turf/target_turf = get_turf(target)
+	if(!target_turf)
+		return
 	var/click_x = 0
 	var/click_y = 0
+	var/offset_x = isturf(target) ? 0 : target.pixel_x
+	var/offset_y = isturf(target) ? 0 : target.pixel_y
 	if(LAZYACCESS(modifiers, ICON_X))
-		click_x = clamp(text2num(modifiers[ICON_X]) - SPRAYCAN_HALF_TILE, -SPRAYCAN_HALF_TILE, SPRAYCAN_HALF_TILE)
+		click_x = clamp(text2num(modifiers[ICON_X]) + offset_x - SPRAYCAN_HALF_TILE, -SPRAYCAN_HALF_TILE, SPRAYCAN_HALF_TILE)
 	if(LAZYACCESS(modifiers, ICON_Y))
-		click_y = clamp(text2num(modifiers[ICON_Y]) - SPRAYCAN_HALF_TILE, -SPRAYCAN_HALF_TILE, SPRAYCAN_HALF_TILE)
+		click_y = clamp(text2num(modifiers[ICON_Y]) + offset_y - SPRAYCAN_HALF_TILE, -SPRAYCAN_HALF_TILE, SPRAYCAN_HALF_TILE)
 
 	var/base_half_extent = (spray_mode == SPRAYCAN_MODE_TEXT) ? (SPRAYCAN_HALF_TILE / 2) : SPRAYCAN_HALF_TILE
 	var/half_extent = round(base_half_extent * scale)
@@ -651,10 +656,10 @@
 	var/min_y = -SPRAYCAN_HALF_TILE
 	var/max_y = SPRAYCAN_HALF_TILE
 
-	var/turf/east_turf = get_step(target, EAST)
-	var/turf/west_turf = get_step(target, WEST)
-	var/turf/north_turf = get_step(target, NORTH)
-	var/turf/south_turf = get_step(target, SOUTH)
+	var/turf/east_turf = get_step(target_turf, EAST)
+	var/turf/west_turf = get_step(target_turf, WEST)
+	var/turf/north_turf = get_step(target_turf, NORTH)
+	var/turf/south_turf = get_step(target_turf, SOUTH)
 
 	if(!east_turf || isgroundlessturf(east_turf))
 		max_x = SPRAYCAN_HALF_TILE - half_extent
@@ -716,9 +721,10 @@
 	var/final_click_y = click_y
 	if(text_char)
 		final_rotation += pick(-1, 1) * rand(5, 13)
-		final_click_y = clamp(click_y + rand(-2, 2), min_y, max_y)
+		var/y_jitter = round(2 * scale)
+		final_click_y = clamp(click_y + rand(-y_jitter, y_jitter), min_y, max_y)
 
-	var/obj/effect/decal/cleanable/crayon/decal = new(target, colour, chosen_state, decal_name, final_rotation, scale, text_char, spray_font, resolved_outline_color)
+	var/obj/effect/decal/cleanable/crayon/decal = new(target_turf, colour, chosen_state, decal_name, final_rotation, scale, text_char, spray_font, resolved_outline_color)
 	decal.pixel_x = click_x
 	decal.pixel_y = final_click_y
 

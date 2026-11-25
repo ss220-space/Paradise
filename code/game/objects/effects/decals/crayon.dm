@@ -8,10 +8,14 @@
 	plane = GAME_PLANE //makes the graffiti visible over a wall.
 	mergeable_decal = FALSE // Allows crayon drawings to overlap one another.
 	appearance_flags = PIXEL_SCALE | KEEP_TOGETHER
-	mouse_opacity = MOUSE_OPACITY_OPAQUE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /obj/effect/decal/cleanable/crayon/Initialize(mapload, main = color, type = icon_state, e_name = name, rotation = 0, scale = 1, text_char = null, font_family = "Small Fonts", outline_color = null)
 	. = ..()
+
+	var/static/next_layer_offset = 0
+	next_layer_offset = (next_layer_offset % 900) + 1
+	layer = ABOVE_NORMAL_TURF_LAYER + (next_layer_offset / 1000)
 
 	name = e_name
 	desc = "A [name] drawn in crayon."
@@ -19,7 +23,6 @@
 	if(text_char)
 		icon_state = null
 		color = null
-		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 		var/rendered_size = max(8, round(15 * scale))
 		var/box_size = max(32, round(40 * scale))
 		var/offset = round((box_size - 32) / 2)
