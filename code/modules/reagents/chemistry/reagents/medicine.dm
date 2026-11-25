@@ -98,11 +98,13 @@
 /datum/reagent/medicine/mitocholide/on_mob_life(mob/living/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-
+		var/heal_modifier = 0.4
+		if(M.reagents.has_reagent(/datum/reagent/mephedrone))
+			heal_modifier -= 0.3 //This lowers the healing to 0.1. As such, you need time off the drug to heal heart damage, but can be on the drug endlessly when not oding IF you keep your supply going.
 		//Mitocholide is hard enough to get, it's probably fair to make this all internal organs
 		for(var/obj/item/organ/internal/organ as anything in H.internal_organs)
 			organ.unnecrotize()
-			organ.heal_internal_damage(0.4)
+			organ.heal_internal_damage(heal_modifier)
 	return ..()
 
 /datum/reagent/medicine/mitocholide/reaction_obj(obj/O, volume)
@@ -1203,7 +1205,19 @@
 	color = "#FFDCFF"
 	taste_description = "стабильности и успокоения"
 	harmless = FALSE
-	var/list/drug_list = list(/datum/reagent/crank,/datum/reagent/methamphetamine,/datum/reagent/space_drugs,/datum/reagent/psilocybin,/datum/reagent/medicine/ephedrine,/datum/reagent/medicine/epinephrine,/datum/reagent/medicine/stimulants,/datum/reagent/bath_salts,/datum/reagent/lsd,/datum/reagent/thc)
+	var/list/drug_list = list(
+		/datum/reagent/crank,
+		/datum/reagent/methamphetamine,
+		/datum/reagent/space_drugs,
+		/datum/reagent/psilocybin,
+		/datum/reagent/medicine/ephedrine,
+		/datum/reagent/medicine/epinephrine,
+		/datum/reagent/medicine/stimulants,
+		/datum/reagent/bath_salts,
+		/datum/reagent/lsd,
+		/datum/reagent/thc,
+		/datum/reagent/mephedrone,
+	)
 
 /datum/reagent/medicine/haloperidol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1488,7 +1502,15 @@
 	can_synth = FALSE
 	harmless = FALSE
 	taste_description = "предстоящих страданий"
-	var/list/stimulant_list = list(/datum/reagent/methamphetamine, /datum/reagent/crank, /datum/reagent/bath_salts, /datum/reagent/medicine/stimulative_agent, /datum/reagent/medicine/stimulants, /datum/reagent/medicine/adrenaline)
+	var/list/stimulant_list = list(
+		/datum/reagent/methamphetamine,
+		/datum/reagent/crank,
+		/datum/reagent/bath_salts,
+		/datum/reagent/medicine/stimulative_agent,
+		/datum/reagent/medicine/stimulants,
+		/datum/reagent/medicine/adrenaline,
+		/datum/reagent/mephedrone,
+	)
 
 /datum/reagent/medicine/nanocalcium/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE

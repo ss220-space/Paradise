@@ -19,6 +19,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	suicidal_hands = TRUE
 
 	obj_flags = IGNORE_HITS
+	scatter_distance = 5
 
 	// Item flags
 	/// Flags only used with items.

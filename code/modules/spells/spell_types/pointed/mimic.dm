@@ -33,6 +33,8 @@
 	)
 
 /datum/action/cooldown/spell/pointed/mimic/is_valid_target(atom/cast_on)
+	if(isturf(cast_on))
+		return FALSE
 	if(is_type_in_list(cast_on, black_listed_form_types))
 		return FALSE
 	if(istype(cast_on, /atom/movable))

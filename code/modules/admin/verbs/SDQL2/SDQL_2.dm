@@ -195,7 +195,7 @@
 		CRASH("SDQL2 fatal error");};
 
 ADMIN_VERB(sdql2_query, R_PROCCALL, "SDQL2 Query", "Run a SDQL2 query.", ADMIN_CATEGORY_DEBUG)
-	var/prompt = tgui_alert(user, "Run SDQL2 Query?", "SDQL2", list("Yes", "Cancel"))
+	var/prompt = alert(user, "Run SDQL2 Query?", "SDQL2", "Yes", "Cancel")
 	if(prompt != "Yes")
 		return
 
@@ -341,7 +341,7 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 		qdel(src)
 		return
 	LAZYADD(GLOB.sdql2_queries, src)
-	superuser = SU
+	superuser = FALSE
 	allow_admin_interact = admin_interact
 	query_tree = tree
 	options = _options

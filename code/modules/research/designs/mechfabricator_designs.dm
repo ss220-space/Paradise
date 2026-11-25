@@ -1286,6 +1286,15 @@
 	construction_time = 12 SECONDS
 	category = list(MECH_FAB_CATEGORY_CYBORG_EQUIPMENT)
 
+/datum/design/borg_upgrade_abductor_jani
+	id = "borg_upgade_abductor_jani"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/abductor_jani
+	req_tech = list(RESEARCH_TREE_BIOTECH = 7, RESEARCH_TREE_MATERIALS = 7, RESEARCH_TREE_ALIEN = 3)
+	materials = list(MAT_METAL = 10000, MAT_SILVER = 7500, MAT_PLASMA = 2500, MAT_TITANIUM = 7500, MAT_DIAMOND = 5000) //Base abductor jani tools *5
+	construction_time = 12 SECONDS
+	category = list(MECH_FAB_CATEGORY_CYBORG_EQUIPMENT)
+
 /datum/design/borg_upgrade_hypospray
 	id = "borg_upgrade_hypospray"
 	build_type = MECHFAB

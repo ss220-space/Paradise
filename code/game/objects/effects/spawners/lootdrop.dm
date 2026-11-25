@@ -342,6 +342,11 @@
 		/obj/item/reagent_containers/cup/bottle/gbs = 50,
 		/obj/item/mod/construction/plating/rescue = 25,
 		/obj/item/bodyanalyzer/advanced = 50,
+		/obj/item/organ/internal/cyberimp/arm/surgery = 50,
+		/obj/item/organ/internal/cyberimp/arm/janitorial = 50,
+		/obj/item/organ/internal/cyberimp/arm/advmop = 50,
+		/obj/item/organ/internal/cyberimp/mouth/breathing_tube = 50,
+		/obj/item/organ/internal/cyberimp/arm/medibeam = 5,
 	)
 
 /obj/effect/spawner/lootdrop/trade_sol/sec
@@ -371,6 +376,15 @@
 		/obj/item/mod/construction/plating/safeguard_mk_two = 25,
 		/obj/item/mod/module/power_kick = 50,
 		/obj/item/grenade/clusterbuster/n2o = 50,
+		/obj/item/organ/internal/cyberimp/brain/anti_stun = 50,
+		/obj/item/organ/internal/cyberimp/brain/anti_sleep = 50,
+		/obj/item/organ/internal/cyberimp/brain/anti_drop = 50,
+		/obj/item/organ/internal/cyberimp/arm/razorwire = 30,
+		/obj/item/organ/internal/cyberimp/arm/shell_launcher = 30,
+		/obj/item/organ/internal/cyberimp/arm/telebaton = 25,
+		/obj/item/organ/internal/cyberimp/arm/flash = 50,
+		/obj/item/organ/internal/cyberimp/arm/esword = 10,
+		/obj/item/organ/internal/cyberimp/arm/gun/laser = 10,
 	)
 
 /obj/effect/spawner/lootdrop/trade_sol/eng
@@ -390,6 +404,8 @@
 		/obj/item/grenade/clusterbuster/metalfoam = 50,
 		/obj/item/crowbar/power = 50,
 		/obj/item/screwdriver/power = 50,
+		/obj/item/organ/internal/cyberimp/arm/toolset = 50,
+		/obj/item/organ/internal/cyberimp/arm/toolset_abductor = 30,
 		/obj/item/t_scanner/advanced = 50,
 		/obj/item/mod/construction/plating/advanced = 25,
 		/obj/item/borg/upgrade/abductor_engi = 50,

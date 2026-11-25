@@ -860,12 +860,16 @@
 		PREPOSITIONAL = "модуле встроенного сидения",
 	)
 
-/obj/item/borg/upgrade/mounted_seat/emag_act(mob/user)
-	if(!emagged)
-		emagged = TRUE
+/obj/item/borg/upgrade/mounted_seat/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		if(user)
+			balloon_alert(user, "нет эффекта!")
+		return FALSE
+	obj_flags |= EMAGGED
+	if(user)
 		balloon_alert(user, "регуляторы мощности взломаны!")
-	else
-		balloon_alert(user, "нет эффекта!")
+	return TRUE
 
 /obj/item/borg/upgrade/mounted_seat/action(mob/living/silicon/robot/robot)
 	if(!..())
@@ -873,7 +877,7 @@
 
 	robot.AddElement(/datum/element/ridable, /datum/component/riding/creature/cyborg)
 	toggle_action.Grant(robot, src)
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		launch_action.Grant(robot, src)
 	return TRUE
 
@@ -915,7 +919,50 @@
 
 /obj/item/borg/upgrade/mounted_seat/pre_emaged
 	name = "VERY STRANGE robotic mounted seat module"
-	emagged = TRUE
+	obj_flags = parent_type::obj_flags|EMAGGED
+
+/obj/item/borg/upgrade/abductor_jani
+	name = "janitorial cyborg abductor upgrade"
+	desc = "Экспериментальное улучшение, заменяющее инструменты уборочного киборга на инопланетные версии."
+	icon_state = "abductor_mod"
+	origin_tech = "biotech=6;materials=6;abductor=2"
+	materials = list(MAT_METAL = 10000, MAT_SILVER = 7500, MAT_PLASMA = 2500, MAT_TITANIUM = 7500, MAT_DIAMOND = 5000) //Base abductor jani tools *5
+	require_module = TRUE
+	module_type = /obj/item/robot_module/janitor
+
+/obj/item/borg/upgrade/abductor_jani/get_ru_names()
+	return alist(
+		NOMINATIVE = "инопланетное улучшение киборга-уборщика",
+		GENITIVE = "инопланетного улучшения киборга-уборщика",
+		DATIVE = "инопланетному улучшению киборга-уборщика",
+		ACCUSATIVE = "инопланетное улучшение киборга-уборщика",
+		INSTRUMENTAL = "инопланетным улучшением киборга-уборщика",
+		PREPOSITIONAL = "инопланетном улучшении киборга-уборщика",
+	)
+
+/obj/item/borg/upgrade/abductor_jani/action(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	for(var/obj/item/mop/advanced/cyborg/mop in robot.module.modules)
+		qdel(mop)
+	for(var/obj/item/soap/soap in robot.module.modules)
+		qdel(soap)
+	for(var/obj/item/lightreplacer/cyborg/lightreplacer in robot.module.modules)
+		qdel(lightreplacer)
+	for(var/obj/item/melee/flyswatter/flyswatter in robot.module.modules)
+		qdel(flyswatter)
+	for(var/obj/item/reagent_containers/spray/cleaner/spray in robot.module.modules)
+		qdel(spray)
+
+	robot.module.modules += new /obj/item/mop/advanced/abductor(robot.module)
+	robot.module.modules += new /obj/item/soap/syndie/abductor(robot.module)
+	robot.module.modules += new /obj/item/lightreplacer/bluespace/abductor(robot.module)
+	robot.module.modules += new /obj/item/melee/flyswatter/abductor(robot.module)
+	robot.module.modules += new /obj/item/reagent_containers/spray/cleaner/safety/abductor(robot.module)
+	robot.module.rebuild()
+	return TRUE
+
 
 /obj/item/borg/upgrade/ai
 	name = "B.O.R.I.S. module"

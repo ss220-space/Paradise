@@ -39,7 +39,7 @@
 	. = ..()
 	pods = list()
 	records = list()
-	set_scan_temp(emagged ? "Уничтожитель готов." : "Сканер готов.", "good")
+	set_scan_temp((obj_flags & EMAGGED) ? "Уничтожитель готов." : "Сканер готов.", "good")
 	updatemodules()
 
 /obj/machinery/computer/cloning/Destroy()
@@ -153,19 +153,20 @@
 	ui_interact(user)
 
 /obj/machinery/computer/cloning/deconstruct(disassembled = TRUE, mob/user)
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		circuit = /obj/item/circuitboard/broken
 	..()
 
-/obj/machinery/computer/cloning/emag_act(mob/user)
-	if(!emagged)
-		emagged = TRUE
-		add_attack_logs(user, src, "emagged")
-		set_scan_temp(emagged ? "Уничтожитель готов." : "Сканер готов.", "good")
-		emp_act(EMP_HEAVY)
-		SStgui.update_uis(src)
-	else
+/obj/machinery/computer/cloning/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
 		ui_interact(user)
+		return FALSE
+	obj_flags |= EMAGGED
+	set_scan_temp((obj_flags & EMAGGED) ? "Уничтожитель готов." : "Сканер готов.", "good")
+	emp_act(EMP_HEAVY)
+	SStgui.update_uis(src)
+	return TRUE
 
 /obj/machinery/computer/cloning/emp_act(severity)
 	. = ..()
@@ -281,7 +282,7 @@
 		if("scan")
 			if(!scanner || !scanner.occupant || loading)
 				return
-			set_scan_temp(emagged ? "Уничтожитель готов." : "Сканер готов.", "good")
+			set_scan_temp((obj_flags & EMAGGED) ? "Уничтожитель готов." : "Сканер готов.", "good")
 			loading = TRUE
 
 			spawn(20)
@@ -320,7 +321,7 @@
 					ui_modal_message(src, action, "", null, payload)
 			else
 				active_record = null
-				set_temp(emagged ? "Ошибка: жертва не обнаружена." : "Ошибка: запись не обнаружена.", "danger")
+				set_temp((obj_flags & EMAGGED) ? "Ошибка: жертва не обнаружена." : "Ошибка: запись не обнаружена.", "danger")
 		if("del_rec")
 			if(!active_record)
 				return
@@ -334,7 +335,7 @@
 						set_temp("Ошибка: не удалось считать данные с дискеты.", "danger")
 						return
 					else if(isnull(active_record))
-						set_temp(emagged ? "Ошибка: жертва не обнаружена." : "Ошибка: запись не обнаружена", "danger")
+						set_temp((obj_flags & EMAGGED) ? "Ошибка: жертва не обнаружена." : "Ошибка: запись не обнаружена", "danger")
 						menu = MENU_MAIN
 						return
 
@@ -384,31 +385,31 @@
 				ui_modal_clear(src)
 				//Can't clone without someone to clone.  Or a pod.  Or if the pod is busy. Or full of gibs.
 				if(!length(pods))
-					set_temp(emagged ? "Ошибка: капсула уничтожения не обнаружена." : "Ошибка: капсула клонирования не обнаружена.", "danger")
+					set_temp((obj_flags & EMAGGED) ? "Ошибка: капсула уничтожения не обнаружена." : "Ошибка: капсула клонирования не обнаружена.", "danger")
 				else
 					var/obj/machinery/clonepod/pod = selected_pod
 					var/cloneresult
 					if(!selected_pod)
-						set_temp(emagged ? "Ошибка: капсула уничтожения не выбрана." : "Ошибка: капсула клонирования не выбрана.", "danger")
+						set_temp((obj_flags & EMAGGED) ? "Ошибка: капсула уничтожения не выбрана." : "Ошибка: капсула клонирования не выбрана.", "danger")
 					else if(pod.occupant)
 						set_temp("Ошибка: капсула клонирования занята.", "danger")
 					else if(pod.biomass < CLONE_BIOMASS)
-						set_temp(emagged ? "Ошибка: недостаточно ПЛОТИ!" : "Ошибка: недостаточно биомассы", "danger")
+						set_temp((obj_flags & EMAGGED) ? "Ошибка: недостаточно ПЛОТИ!" : "Ошибка: недостаточно биомассы", "danger")
 					else if(pod.mess)
-						set_temp(emagged ? "Ошибка: капсула уничтожения в порядке." : "Ошибка: капсула клонирования неисправна.", emagged? "good" : "danger")
+						set_temp((obj_flags & EMAGGED) ? "Ошибка: капсула уничтожения в порядке." : "Ошибка: капсула клонирования неисправна.", (obj_flags & EMAGGED)? "good" : "danger")
 					else if(!CONFIG_GET(flag/revival_cloning))
-						set_temp(emagged ? "Ошибка: запуск процесса уничтожения невозможен." : "Ошибка: запуск процесса клонирования невозможен.", "danger")
+						set_temp((obj_flags & EMAGGED) ? "Ошибка: запуск процесса уничтожения невозможен." : "Ошибка: запуск процесса клонирования невозможен.", "danger")
 					else
 						cloneresult = pod.growclone(C)
 						if(cloneresult)
-							set_temp(emagged ? "Запуск процеса уничтожения... Субъект успешно уничтожен!" : "Запуск процеса клонирования...", "success")
+							set_temp((obj_flags & EMAGGED) ? "Запуск процеса уничтожения... Субъект успешно уничтожен!" : "Запуск процеса клонирования...", "success")
 							records.Remove(C)
 							qdel(C)
 							menu = MENU_MAIN
-							if(emagged)
+							if(obj_flags & EMAGGED)
 								emp_act()
 						else
-							set_temp(emagged ? "Успех: всё идёт хорошо!" : "Ошибка: сбой инициализации клонирования.", emagged ? "good" : "danger")
+							set_temp((obj_flags & EMAGGED) ? "Успех: всё идёт хорошо!" : "Ошибка: сбой инициализации клонирования.", (obj_flags & EMAGGED) ? "good" : "danger")
 			else
 				set_temp("Ошибка: данные повреждены.", "danger")
 		if("menu")
@@ -451,7 +452,7 @@
 			return
 	var/obj/item/organ/internal/brain/brain = subject.get_int_organ(/obj/item/organ/internal/brain)
 	if(!brain)
-		set_scan_temp("Мозг в теле субъекта не обнаружен.", emagged ? "good" : "bad")
+		set_scan_temp("Мозг в теле субъекта не обнаружен.", (obj_flags & EMAGGED) ? "good" : "bad")
 		SStgui.update_uis(src)
 		return
 	if(HAS_TRAIT(brain, TRAIT_NO_SCAN))
@@ -459,19 +460,19 @@
 		SStgui.update_uis(src)
 		return
 	if(subject.suiciding)
-		set_scan_temp(emagged ? "Жертва ушла в лучший мир. Да будет так." : "Субъект совершил самоубийство и не подлежит сканированию.", emagged ? "good" : "bad")
+		set_scan_temp((obj_flags & EMAGGED) ? "Жертва ушла в лучший мир. Да будет так." : "Субъект совершил самоубийство и не подлежит сканированию.", (obj_flags & EMAGGED) ? "good" : "bad")
 		SStgui.update_uis(src)
 		return
 	if((!subject.ckey) || (!subject.client))
-		set_scan_temp(emagged ? "Мозг жертвы в идеальном состоянии. Дальнейшие попытки сканирования не требуются." : "Мозг субъекта не подаёт сигналов. Дальнейшии попытки сканирования могут быть успешны.", emagged ? "good" : "bad")
+		set_scan_temp((obj_flags & EMAGGED) ? "Мозг жертвы в идеальном состоянии. Дальнейшие попытки сканирования не требуются." : "Мозг субъекта не подаёт сигналов. Дальнейшии попытки сканирования могут быть успешны.", (obj_flags & EMAGGED) ? "good" : "bad")
 		SStgui.update_uis(src)
 		return
 	if(HAS_TRAIT(subject, TRAIT_NO_CLONE) && scanner.scan_level < 2)
-		set_scan_temp(emagged ? "Тело жертвы слишком идеально. Поплачь об этом." : "Субъект подвергся генетическим мутациям, не совместимым со сканированием.", emagged ? "good" : "bad")
+		set_scan_temp((obj_flags & EMAGGED) ? "Тело жертвы слишком идеально. Поплачь об этом." : "Субъект подвергся генетическим мутациям, не совместимым со сканированием.", (obj_flags & EMAGGED) ? "good" : "bad")
 		SStgui.update_uis(src)
 		return
 	if(!isnull(find_record(subject.ckey)))
-		set_scan_temp(emagged ? "Баян." : "Данные о субъекте уже занесены в базу данных.")
+		set_scan_temp((obj_flags & EMAGGED) ? "Баян." : "Данные о субъекте уже занесены в базу данных.")
 		SStgui.update_uis(src)
 		return
 
@@ -509,7 +510,7 @@
 		R.mind = WEAKREF(subject.mind)
 
 	src.records += R
-	set_scan_temp(emagged ? "Жертва успешно отсканирована. [extra_info]" : "Субъект успешно отсканирован. [extra_info]", "good")
+	set_scan_temp((obj_flags & EMAGGED) ? "Жертва успешно отсканирована. [extra_info]" : "Субъект успешно отсканирован. [extra_info]", "good")
 	SStgui.update_uis(src)
 
 //Find a specific record by key.

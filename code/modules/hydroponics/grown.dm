@@ -29,6 +29,8 @@
 		seed = new seed()
 		seed.adjust_potency(50-seed.potency)
 
+	scatter_atom()
+
 	if(dried_type == -1)
 		dried_type = type
 
@@ -99,9 +101,10 @@
 			)
 
 		var/reagents_per_slice = reagents.total_volume / slices_num
-		for(var/i = 1 to (slices_num - slices_lost))
+		for(var/i in 1 to (slices_num - slices_lost))
 			var/obj/slice = new slice_path(loc)
 			reagents.trans_to(slice, reagents_per_slice)
+			slice.scatter_atom()
 		qdel(src)
 		return .|ATTACK_CHAIN_BLOCKED_ALL
 

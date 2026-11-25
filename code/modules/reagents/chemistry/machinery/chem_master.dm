@@ -627,8 +627,7 @@
 		if(!isnull(medicine_name))
 			P.name = "[name_suffix][medicine_name]"
 			P.chem_master_made = TRUE
-		P.pixel_x = rand(-7, 7) // Random position
-		P.pixel_y = rand(-7, 7)
+		P.scatter_atom()
 		configure_item(data, reagents, P)
 		reagents.trans_to(P, amount_per_item)
 
