@@ -933,7 +933,7 @@ Difficulty: Insane
 	if(vazz_rock_key(T) in crusher_failed_rocks)
 		return FALSE
 	for(var/obj/O in T)
-		if(O.density || istype(O, /obj/structure))
+		if(O.density || istype(O, isstructure(O)))
 			return FALSE
 	return TRUE
 
@@ -1017,7 +1017,7 @@ Difficulty: Insane
 /mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_valid_prey(mob/living/L)
 	if(QDELETED(L) || L == src || L.stat == DEAD || L.client || L.mind)
 		return FALSE
-	if(istype(L, /mob/living/simple_animal/hostile/megafauna) || ishuman(L))
+	if(istype(L, ismegafauna(L)) || ishuman(L))
 		return FALSE
 	if(!("mining" in L.faction) || ("boss" in L.faction))
 		return FALSE
@@ -1028,7 +1028,7 @@ Difficulty: Insane
 /mob/living/simple_animal/hostile/megafauna/vazz/proc/vazz_valid_corpse(mob/living/L)
 	if(QDELETED(L) || L == src || L.stat != DEAD || L.client || L.mind)
 		return FALSE
-	if(istype(L, /mob/living/simple_animal/hostile/megafauna) || ishuman(L))
+	if(istype(L, ismegafauna(L)) || ishuman(L))
 		return FALSE
 	if(!("mining" in L.faction) || ("boss" in L.faction))
 		return FALSE
