@@ -11,10 +11,7 @@
 	company_name = "\"Нанотрейзен\""
 	company_short = "НТ"
 	starsys_name = "Эпсилон Лукуста"
-
-	admin_only = TRUE
 	planetary = TRUE
-
 	traits = list(
 		list(MAIN_STATION, STATION_CONTACT, REACHABLE, AI_OK, STATION_LEVEL = "Surface", ZTRAIT_RAIN, ZTRAIT_BASETURF = /turf/simulated/floor/planetoid/desert),
 	)

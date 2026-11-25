@@ -12,7 +12,7 @@
 	canSmoothWith = SMOOTH_GROUP_MESH_FENCE
 
 /obj/structure/fence/meshfence/Initialize(mapload)
-	. = ..()
+	. = ..(mapload)
 	if(hole_size)
 		base_icon_state = "brokenfence"
 	QUEUE_SMOOTH(src)
@@ -20,15 +20,6 @@
 /obj/structure/fence/meshfence/bullet_act(obj/projectile/P, def_zone)
 	playsound(src, 'sound/effects/fencehit.ogg', 35, TRUE)
 	return TRUE
-
-/obj/structure/fence/meshfence/Destroy()
-	var/turf/our_turf = get_turf(src)
-	. = ..()
-	if(our_turf)
-		for(var/direction in GLOB.cardinal)
-			var/atom/A = locate() in get_step(our_turf, direction)
-			if(A && (istype(A, /obj/structure/fence/meshfence) || istype(A, /obj/structure/fence/door/mesh)))
-				QUEUE_SMOOTH(A)
 
 /obj/structure/fence/meshfence/set_smoothed_icon_state(new_junction)
 	icon_state = "[base_icon_state][new_junction]"
@@ -51,8 +42,8 @@
 
 	smoothing_groups = SMOOTH_GROUP_MESH_FENCE
 
-/obj/structure/fence/door/mesh/Initialize()
-	. = ..()
+/obj/structure/fence/door/mesh/Initialize(mapload)
+	. = ..(mapload)
 	QUEUE_SMOOTH(src)
 
 /obj/structure/fence/door/mesh/Destroy()
