@@ -236,16 +236,29 @@
 	)
 
 /obj/item/gripper/proc/can_craft_with_sheet(obj/item/stack/material)
-	return type == /obj/item/gripper && (istype(material, /obj/item/stack/sheet/plasteel) || istype(material, /obj/item/stack/sheet/plasmaglass) || istype(material, /obj/item/stack/sheet/plasmarglass))
+	if(type != /obj/item/gripper)
+		return FALSE
+	return istype(material, /obj/item/stack/sheet/plasteel) \
+		|| istype(material, /obj/item/stack/sheet/plasmaglass) \
+		|| istype(material, /obj/item/stack/sheet/plasmarglass)
+
+/obj/item/gripper/proc/can_use_recipes(mob/user, obj/item/stack/material, selection_revision)
+	if(!isrobot(user) || QDELETED(src))
+		return FALSE
+	var/mob/living/silicon/robot/robot = user
+	if(QDELETED(material))
+		return FALSE
+	if(!can_craft_with_sheet(material) || gripped_item != material || loc != robot)
+		return FALSE
+	if(robot.module_active != src)
+		return FALSE
+	if(!isnull(selection_revision) && selection_revision != src.selection_revision)
+		return FALSE
+	return TRUE
 
 /obj/item/stack/sheet/ui_host(mob/user)
 	var/obj/item/gripper/gripper = loc
-	if(!istype(gripper) || QDELETED(gripper) || !isrobot(user) || QDELETED(src))
-		return ..()
-	if(!gripper.can_craft_with_sheet(src))
-		return ..()
-	var/mob/living/silicon/robot/robot = user
-	if(QDELETED(robot) || robot.module_active != gripper || !robot.activated(gripper) || gripper.loc != robot || gripper.gripped_item != src)
+	if(!istype(gripper) || !gripper.can_use_recipes(user, src))
 		return ..()
 	return gripper
 
