@@ -3684,7 +3684,7 @@
 	else if(href_list["showdetails"])
 		if(!check_rights(R_ADMIN))
 			return
-		var/text = html_decode(href_list["showdetails"])
+		var/text = STRIP_HTML_FULL(href_list["showdetails"], INFINITY)
 		var/datum/browser/popup = new(usr, "show_details", "Details", 500, 200)
 		popup.set_content("<tt>[replacetext(text, "\n", "<br>")]</tt>")
 		popup.open(FALSE)

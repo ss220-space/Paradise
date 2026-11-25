@@ -135,6 +135,9 @@ ADMIN_VERB(advanced_proc_call, R_DEBUG|R_PROCCALL, "Advanced ProcCall", "Call a 
 			target = null
 			targetselected = FALSE
 
+		else
+			return
+
 	var/procpath = tgui_input_text(usr, "Proc path, eg: /proc/fake_blood", "Path:")
 	if(!procpath)
 		return
