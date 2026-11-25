@@ -635,7 +635,7 @@
 	if(!input_text)
 		return ""
 
-	input_text = html_encode(input_text)
+	input_text = sanitize(input_text)
 
 	if(pen_item && iscrayon(pen_item))
 		var/list/strip_tags = list(
@@ -657,10 +657,10 @@
 	input_text = replacetext(input_text, "\[u\]", "<u>")
 	input_text = replacetext(input_text, "\[/u\]", "</u>")
 
-	input_text = replacetext(input_text, "\[sign\]", "<i>[html_encode(user_mob ? user_mob.real_name : "Anonymous")]</i>")
+	input_text = replacetext(input_text, "\[sign\]", "<i>[sanitize(user_mob ? user_mob.real_name : "Anonymous")]</i>")
 	input_text = replacetext(input_text, "\[time\]", station_time_timestamp())
 	input_text = replacetext(input_text, "\[date\]", GLOB.current_date_string)
-	input_text = replacetext(input_text, "\[station\]", html_encode(station_name()))
+	input_text = replacetext(input_text, "\[station\]", sanitize(station_name()))
 	input_text = replacetext(input_text, "\[field\]", "\[__________\]")
 	input_text = replacetext(input_text, "\[gender\]", "[user_mob ? user_mob.gender : "neuter"]")
 	input_text = replacetext(input_text, "\[species\]", "[user_mob?.dna?.species ? user_mob.dna.species : UNKNOWN_STATUS_RUS]")

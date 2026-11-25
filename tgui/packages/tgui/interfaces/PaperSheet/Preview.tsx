@@ -118,7 +118,7 @@ export class PreviewView extends Component<PreviewViewProps> {
   onInputHandler = (ev: Event): void => {
     const input = ev.target as HTMLInputElement | HTMLTextAreaElement;
 
-    if (!input.id || !input.id.startsWith('paperfield_')) {
+    if (!input.id?.startsWith('paperfield_')) {
       this.parsedTextBoxCache = '';
       return;
     }
@@ -149,12 +149,32 @@ export class PreviewView extends Component<PreviewViewProps> {
     this.enabledInputFieldCache[input.id] = input;
   };
 
+  onContextMenuHandler = (ev: MouseEvent): void => {
+    const target = ev.target as HTMLInputElement | HTMLTextAreaElement;
+
+    if (
+      !this.props.canEdit ||
+      !target.id?.startsWith('paperfield_') ||
+      target.disabled
+    ) {
+      return;
+    }
+
+    ev.preventDefault();
+    const { act } = useBackend<PaperContext>();
+    act('auto_fill_field', {
+      field_id: this.getHeaderID(target.id),
+    });
+  };
+
   componentDidMount() {
     document.addEventListener('input', this.onInputHandler);
+    document.addEventListener('contextmenu', this.onContextMenuHandler);
   }
 
   componentWillUnmount() {
     document.removeEventListener('input', this.onInputHandler);
+    document.removeEventListener('contextmenu', this.onContextMenuHandler);
   }
 
   shouldComponentUpdate(nextProps: Readonly<PreviewViewProps>): boolean {
@@ -451,7 +471,7 @@ export class PreviewView extends Component<PreviewViewProps> {
     const fontFace = held_item_details?.font || font;
 
     // Do we have this ID in our cache?
-    let input = this.enabledInputFieldCache[id];
+    const input = this.enabledInputFieldCache[id];
 
     if (input) {
       // If we've gone to readOnly now, drop the cache because we're no longer

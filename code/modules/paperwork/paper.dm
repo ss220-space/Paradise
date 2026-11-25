@@ -233,6 +233,7 @@
 	var/is_signature = ((text == "%sign") || (text == "%s") || (text == "\[sign\]"))
 	var/is_date = ((text == "%date") || (text == "%d") || (text == "\[date\]"))
 	var/is_time = ((text == "%time") || (text == "%t") || (text == "\[time\]"))
+	var/is_station = (text == "\[station\]")
 
 	var/field_text = text
 	if(is_signature)
@@ -241,6 +242,8 @@
 		field_text = GLOB.current_date_string
 	else if(is_time)
 		field_text = station_time_timestamp()
+	else if(is_station)
+		field_text = station_name()
 
 	var/field_font = is_signature ? SIGNATURE_FONT : font
 
@@ -794,6 +797,91 @@ GAME_VERB_SRC(/obj/item/paper, rename, usr, "Rename paper", null)
 
 				add_field_input(field_key, field_text, writing_implement_data["font"], writing_implement_data["color"], writing_implement_data["use_bold"], user.real_name)
 
+			update_static_data_for_all_viewers()
+			return TRUE
+
+		if("auto_fill_field")
+			if(istype(loc, /obj/structure/noticeboard))
+				var/obj/structure/noticeboard/noticeboard = loc
+				if(!noticeboard.allowed(user))
+					return TRUE
+
+			var/obj/item/holding = user.get_active_hand()
+			if(istype(loc, /obj/item/clipboard))
+				var/obj/item/clipboard/clipboard = loc
+				if(!istype(holding, /obj/item/stamp) && clipboard.containedpen)
+					holding = clipboard.containedpen
+
+			if(!user.can_write(holding))
+				return TRUE
+
+			var/field_id = params["field_id"]
+			var/field_num = text2num(field_id)
+			if(isnull(field_num) || field_num < 0 || field_num >= input_field_count)
+				return TRUE
+
+			var/const/sign_text = "\[Поставить подпись\]"
+			var/const/account_text = "\[Написать номер аккаунта\]"
+			var/const/pin_text = "\[Написать пин-код\]"
+			var/const/time_text = "\[Написать текущее время\]"
+			var/const/date_text = "\[Написать текущую дату\]"
+			var/const/station_text = "\[Написать название станции\]"
+			var/const/gender_text = "\[Указать пол\]"
+			var/const/species_text = "\[Указать расу\]"
+
+			var/list/menu_list = list()
+			menu_list.Add(user.real_name)
+
+			if(user.real_name != user.name && lowertext(user.name) != lowertext(UNKNOWN_NAME_RUS))
+				menu_list.Add(user.name)
+
+			if(user.job)
+				menu_list.Add(get_job_title_ru(user.job))
+
+			menu_list.Add(sign_text)
+
+			if(user.mind?.initial_account?.account_number)
+				menu_list.Add(account_text)
+
+			if(user.mind?.initial_account?.remote_access_pin)
+				menu_list.Add(pin_text)
+
+			menu_list.Add(
+				time_text,
+				date_text,
+				station_text,
+				gender_text,
+			)
+
+			if(user.dna?.species)
+				menu_list.Add(species_text)
+
+			var/input_element = tgui_input_list(user, "Выберите текст который хотите добавить:", "Выбор пункта", menu_list)
+			if(!input_element)
+				return TRUE
+
+			switch(input_element)
+				if(sign_text)
+					input_element = "\[sign\]"
+				if(time_text)
+					input_element = "\[time\]"
+				if(date_text)
+					input_element = "\[date\]"
+				if(station_text)
+					input_element = "\[station\]"
+				if(account_text)
+					input_element = "[user.mind.initial_account.account_number]"
+				if(pin_text)
+					input_element = "[user.mind.initial_account.remote_access_pin]"
+				if(gender_text)
+					input_element = "[user.gender]"
+				if(species_text)
+					input_element = "[user.dna.species]"
+
+			var/writing_implement_data = holding.get_writing_implement_details()
+			playsound(src, SFX_WRITING_PEN, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, SOUND_FALLOFF_EXPONENT + 3, ignore_walls = FALSE)
+
+			add_field_input(field_id, input_element, writing_implement_data["font"], writing_implement_data["color"], writing_implement_data["use_bold"], user.real_name)
 			update_static_data_for_all_viewers()
 			return TRUE
 
