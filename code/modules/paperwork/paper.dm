@@ -913,8 +913,69 @@ GAME_VERB_SRC(/obj/item/paper, rename, usr, "Rename paper", null)
 		paper_contents += line.raw_text + "/"
 	return paper_contents
 
+/obj/item/paper/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ..()
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !ishuman(target))
+		return .
+
+	switch(user.zone_selected)
+		if(BODY_ZONE_PRECISE_EYES)
+			user.visible_message(
+				span_warning("[user] is trying to show the paper to [target]."),
+				span_notice("You hold up a paper and try to show it to [target]."),
+			)
+			if(!do_after(user, 0.7 SECONDS, target, NONE))
+				to_chat(user, span_warning("You fail to show the paper to [target]."))
+				return .
+			user.visible_message(
+				span_notice("[user] shows the paper to [target]."),
+				span_notice("You hold up a paper and show it to [target]."),
+			)
+			target.examinate(src)
+
+		if(BODY_ZONE_PRECISE_MOUTH)
+			if(target == user)
+				to_chat(user, span_notice("You wipe off your face with [src]."))
+			else
+				user.visible_message(
+					span_warning("[user] starts to wipe [target]'s face clean with [src]."),
+					span_notice("You start to wipe off [target]'s face."),
+				)
+				if(!do_after(user, 1 SECONDS, target))
+					return .
+				user.visible_message(
+					span_notice("[user] wipes [target]'s face clean with [src]."),
+					span_notice("You wipe off [target]'s face."),
+				)
+			target.lip_style = null
+			target.lip_color = null
+			target.update_body()
+
 /obj/item/paper/attack_self(mob/user)
 	ui_interact(user)
+
+/obj/item/paper/fire_act(exposed_temperature, exposed_volume)
+	..()
+	if(!(resistance_flags & FIRE_PROOF))
+		default_raw_text = "<i>Heat-curled corners and sooty words offer little insight. Whatever was once written on this page has been rendered illegible through fire.</i>"
+
+/obj/item/paper/proc/stamp(obj/item/stamp/stamp_target)
+	var/stamp_state
+	var/stamp_icon = 'icons/obj/service/bureaucracy.dmi'
+	if(ispath(stamp_target, /obj/item/stamp))
+		stamp_state = initial(stamp_target.icon_state)
+		stamp_icon = initial(stamp_target.icon)
+	else if(istype(stamp_target, /obj/item/stamp))
+		stamp_state = stamp_target.icon_state
+		stamp_icon = stamp_target.icon
+	else if(istext(stamp_target))
+		stamp_state = stamp_target
+	else
+		return FALSE
+
+	var/datum/asset/spritesheet_batched/sheet = get_asset_datum(/datum/asset/spritesheet_batched/stamps)
+	var/stamp_class = sheet ? sheet.icon_class_name(stamp_state) : "stamps [stamp_state]"
+	return add_stamp(stamp_class, rand(30, 220), rand(30, 300), rand(-15, 15), stamp_state, stamp_icon)
 
 // MARK: Paper datum
 /// A single instance of a saved raw input onto paper.
@@ -1009,26 +1070,3 @@ GAME_VERB_SRC(/obj/item/paper, rename, usr, "Rename paper", null)
 		LIST_PAPER_FIELD_DATA = field_data.to_list(),
 		LIST_PAPER_IS_SIGNATURE = is_signature,
 	)
-
-/obj/item/paper/fire_act(exposed_temperature, exposed_volume)
-	..()
-	if(!(resistance_flags & FIRE_PROOF))
-		default_raw_text = "<i>Heat-curled corners and sooty words offer little insight. Whatever was once written on this page has been rendered illegible through fire.</i>"
-
-/obj/item/paper/proc/stamp(obj/item/stamp/stamp_target)
-	var/stamp_state
-	var/stamp_icon = 'icons/obj/service/bureaucracy.dmi'
-	if(ispath(stamp_target, /obj/item/stamp))
-		stamp_state = initial(stamp_target.icon_state)
-		stamp_icon = initial(stamp_target.icon)
-	else if(istype(stamp_target, /obj/item/stamp))
-		stamp_state = stamp_target.icon_state
-		stamp_icon = stamp_target.icon
-	else if(istext(stamp_target))
-		stamp_state = stamp_target
-	else
-		return FALSE
-
-	var/datum/asset/spritesheet_batched/sheet = get_asset_datum(/datum/asset/spritesheet_batched/stamps)
-	var/stamp_class = sheet ? sheet.icon_class_name(stamp_state) : "stamps [stamp_state]"
-	return add_stamp(stamp_class, rand(30, 220), rand(30, 300), rand(-15, 15), stamp_state, stamp_icon)

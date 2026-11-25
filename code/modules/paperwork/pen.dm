@@ -244,7 +244,6 @@
  */
 /obj/item/pen/fakesign
 	font = SIGNATURE_FONT
-	//desc = "It's a normal black ink pen with constantly moving tip. Wait what?" //documented bcs its should be stealthy item, like edagger and poison
 
 /*
  * MARK: Bomb pen

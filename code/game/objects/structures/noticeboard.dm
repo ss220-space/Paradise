@@ -136,9 +136,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/noticeboard, 32, 32)
 	desc = "Right now it's more of a clipboard. Attach to a wall to use."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "noticeboard"
-	// custom_materials = list(
-	// 	/datum/material/wood = SHEET_MATERIAL_AMOUNT,
-	// )
 	resistance_flags = FLAMMABLE
 	result_path = /obj/structure/noticeboard
 	pixel_shift = 32

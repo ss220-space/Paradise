@@ -37,11 +37,6 @@
 	/// Name to display for use-on-item screentips, to avoid overly long screentips.
 	var/folder_type_name = "folder"
 
-	/*
-	obj_flags = UNIQUE_RENAME | RENAME_NO_DESC
-	custom_materials = list(/datum/material/cardboard = SHEET_MATERIAL_AMOUNT)
-	*/
-
 /obj/item/folder/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] begins filing an imaginary death warrant! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return OXYLOSS

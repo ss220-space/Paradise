@@ -17,7 +17,6 @@
 	icon_state = "filing_cabinet"
 	density = TRUE
 	anchored = TRUE
-	//custom_materials = list(/datum/material/iron = SHEET_MATERIAL_AMOUNT * 2)
 
 /obj/structure/filingcabinet/chestdrawer
 	name = "chest drawer"
@@ -53,7 +52,7 @@
 		if(!user.drop_transfer_item_to_loc(tool, src))
 			return ITEM_INTERACT_BLOCKING
 		to_chat(user, span_notice("You put [tool] in [src]."))
-		icon_state = "[initial(icon_state)]-open"
+		icon_state = "[initial(icon_state)]_open"
 		sleep(0.5 SECONDS)
 		icon_state = initial(icon_state)
 		return ITEM_INTERACT_SUCCESS
@@ -105,10 +104,10 @@
 	switch(action)
 		// Take the object out
 		if("remove_object")
-			var/obj/item/content = locate(params["ref"]) in src
+			var/obj/item/content = locateUID(params["ref"])
 			if(istype(content) && in_range(src, user))
 				user.put_in_hands(content)
-				icon_state = "[initial(icon_state)]-open"
+				icon_state = "[initial(icon_state)]_open"
 				addtimer(VARSET_CALLBACK(src, icon_state, initial(icon_state)), 0.5 SECONDS)
 				return TRUE
 
@@ -136,7 +135,7 @@
 	var/virgin = TRUE
 
 /obj/structure/filingcabinet/security/proc/populate()
-	if(virgin)
+	if(!virgin)
 		return
 	for(var/datum/data/record/G in GLOB.data_core.general) // God damn we need some records refactor
 		var/datum/data/record/S
@@ -245,11 +244,12 @@ GLOBAL_LIST_EMPTY(employmentContracts)
 	if(!COOLDOWN_FINISHED(src, devil_interaction))
 		to_chat(user, span_warning("[src] is jammed, give it a few seconds."))
 	else
-		if(!virgin)
+		if(virgin)
 			add_fingerprint(user)
 			fillCurrent()
-			virgin = TRUE
+			virgin = FALSE
 
 		if(user.mind.special_role == "devil")
 			COOLDOWN_START(src, devil_interaction, 10 SECONDS)
+
 		return ..()

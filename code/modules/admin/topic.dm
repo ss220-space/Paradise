@@ -2553,6 +2553,14 @@
 		var/stamptype
 		var/stampvalue
 		var/sendername
+		var/static/list/stamp_paths = list(
+			"cent" = /obj/item/stamp/centcom,
+			"syndicate" = /obj/item/stamp/syndicate,
+			"ok" = /obj/item/stamp/granted,
+			"deny" = /obj/item/stamp/denied,
+			"clown" = /obj/item/stamp/clown,
+			"ussp" = /obj/item/stamp/ussp,
+		)
 		switch(faxtype)
 			if("Central Command")
 				stamptype = "icon"
@@ -2604,9 +2612,9 @@
 		P.add_raw_text(input)
 		P.update_icon(UPDATE_ICON_STATE)
 		if(stamptype == "icon")
-			P.stamp(/obj/item/stamp/centcom, special_stamped = "<img src=large_stamp-[stampvalue].png>", special_icon_state = "stamp-[stampvalue]")
+			P.stamp(stamp_paths[stampvalue])
 		else if(stamptype == "text")
-			P.stamp(/obj/item/stamp, special_stamped = "<i>[stampvalue]</i>", special_icon_state = "stamp-[stampvalue]")
+			P.stamp(stamp_paths[stampvalue])
 
 		if(destination != "All Departments")
 			if(!fax.receivefax(P))
