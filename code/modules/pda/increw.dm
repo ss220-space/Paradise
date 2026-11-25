@@ -10,7 +10,6 @@
 	var/list/contact_search
 	var/show_public_groups = FALSE
 	var/datum/increw_call_member/call_member
-	var/datum/weakref/login_holder
 	var/datum/weakref/login_profile
 	var/login_paused = FALSE
 
@@ -28,11 +27,10 @@
 	if(!isliving(user) || pda.loc != user)
 		return null
 
-	var/datum/messenger_account/profile
-	if(login_holder?.resolve() == user)
-		if(login_paused && !manual_login)
-			return null
-		profile = login_profile?.resolve()
+	if(login_paused && !manual_login)
+		return null
+
+	var/datum/messenger_account/profile = login_profile?.resolve()
 
 	var/obj/item/card/id/card = pda.id
 	if(!card || card.loc != pda)
@@ -52,30 +50,19 @@
 
 	clear_login()
 	profile = account.get_messenger_profile()
-	login_holder = WEAKREF(user)
 	login_profile = WEAKREF(profile)
-	RegisterSignal(pda, COMSIG_MOVABLE_MOVED, PROC_REF(check_login_holder))
 	return profile
 
 /datum/data/pda/app/increw/proc/clear_login()
-	if(login_holder)
-		UnregisterSignal(pda, COMSIG_MOVABLE_MOVED)
-	login_holder = null
 	login_profile = null
 	login_paused = FALSE
 	open_chat(null)
 
 /datum/data/pda/app/increw/proc/is_signed_in_as(datum/messenger_account/profile, mob/user)
-	if(pda.loc != user || login_holder?.resolve() != user || login_profile?.resolve() != profile)
+	if(pda.loc != user || login_profile?.resolve() != profile)
 		return FALSE
 	var/obj/item/card/id/card = pda.id
 	return card?.loc != pda || profile.matches_card(card)
-
-/datum/data/pda/app/increw/proc/check_login_holder(obj/item/pda/source)
-	SIGNAL_HANDLER
-	if(source.loc != login_holder?.resolve())
-		clear_login()
-		refresh_alert(null)
 
 /datum/data/pda/app/increw/update_ui(mob/user, list/data)
 	var/datum/messenger_account/profile = get_profile(user)
@@ -83,7 +70,7 @@
 		refresh_alert(profile)
 	data["can_login"] = !!profile
 	var/obj/item/card/id/card = pda.id
-	data["can_sign_in"] = login_paused && pda.loc == user && login_holder?.resolve() == user && card?.loc == pda && card.associated_account_number && card.registered_name
+	data["can_sign_in"] = login_paused && pda.loc == user && card?.loc == pda && card.associated_account_number && card.registered_name
 	data["active_chat"] = null
 	data["public_groups"] = null
 	data["call"] = null
@@ -100,6 +87,14 @@
 			chats += list(chat.get_summary(profile))
 
 	data["owner_messenger_account"] = profile.get_ui_data()
+	var/datum/economy_process/subscription/increw_plus/plan = get_increw_plus_subscription()
+	var/has_plus = profile.has_increw_plus()
+	data["plus"] = list(
+		"active" = has_plus,
+		"available" = !QDELETED(plan) && !QDELETED(plan.recipient_account) && !plan.recipient_account.suspended && profile.owner != plan.recipient_account,
+		"cost" = plan?.cost || INCREW_PLUS_COST,
+		"minutes" = (plan?.interval || INCREW_PLUS_INTERVAL) / (1 MINUTES),
+	)
 	data["chats"] = chats
 	data["contact_search"] = contact_search
 	var/list/blocked_contacts = list()
@@ -111,7 +106,7 @@
 	if(call_member?.profile == profile && call_member.user == user && call_member.is_available())
 		data["call"] = call_member.call_session.get_ui_data(call_member)
 
-	if(show_public_groups)
+	if(show_public_groups && has_plus)
 		var/list/public_groups = list()
 		for(var/datum/messenger_chat/chat as anything in GLOB.increw_public_groups)
 			public_groups += list(chat.get_summary(profile, include_preview = FALSE))
@@ -126,7 +121,7 @@
 		return TRUE
 
 	if(action == "sign_in")
-		if(!login_paused || login_holder?.resolve() != ui.user)
+		if(!login_paused)
 			return FALSE
 		if(!get_profile(ui.user, manual_login = TRUE))
 			to_chat(ui.user, span_warning("InCrew: вставьте ID-карту с привязанным личным счётом."))
@@ -138,6 +133,13 @@
 		return FALSE
 
 	switch(action)
+		if("subscribe_plus")
+			if(!pda.can_use(ui.user))
+				return FALSE
+			var/datum/economy_process/subscription/increw_plus/plan = get_increw_plus_subscription()
+			if(QDELETED(plan))
+				return FALSE
+			return plan.sub(profile.owner)
 		if("sign_out")
 			login_paused = TRUE
 			login_profile = null
@@ -168,6 +170,8 @@
 			LAZYREMOVE(profile.blocked_accounts, target_id)
 			return TRUE
 		if("show_public_groups")
+			if(!profile.has_increw_plus())
+				return FALSE
 			open_chat(null)
 			show_public_groups = TRUE
 			return TRUE
@@ -190,6 +194,8 @@
 			LAZYSET(target.private_chats, profile, chat)
 			return open_chat(chat)
 		if("create_group_chat")
+			if(!profile.has_increw_plus())
+				return FALSE
 			var/name = params["name"]
 			var/description = params["description"]
 			var/public = params["isPublic"]
@@ -279,6 +285,8 @@
 	return FALSE
 
 /datum/data/pda/app/increw/proc/join_public_group(datum/messenger_account/profile, chat_id)
+	if(!profile.has_increw_plus())
+		return FALSE
 	var/datum/messenger_chat/chat = resolve_increw_uid(chat_id)
 	if(!istype(chat) || QDELETED(chat) || !chat.is_public)
 		return FALSE
@@ -359,6 +367,8 @@
 
 /datum/data/pda/app/increw/proc/start_call(datum/messenger_account/profile, datum/messenger_chat/chat, mob/user)
 	if(!isliving(user) || user.stat == DEAD || !pda.can_use(user) || !user.client)
+		return FALSE
+	if(!profile.has_increw_plus())
 		return FALSE
 	if(profile.active_call || chat.active_call)
 		to_chat(user, span_warning("InCrew: линия занята."))

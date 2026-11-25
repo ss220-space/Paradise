@@ -2924,6 +2924,7 @@
 #include "code\modules\economy\robotic_quests\robo_quest_console.dm"
 #include "code\modules\economy\robotic_quests\robo_quests.dm"
 #include "code\modules\economy\subscriptions\subscription.dm"
+#include "code\modules\economy\subscriptions\subscriptions\increw_plus.dm"
 #include "code\modules\economy\subscriptions\subscriptions\station_donations.dm"
 #include "code\modules\emoji\emoji_parse.dm"
 #include "code\modules\emoji\emojipedia.dm"

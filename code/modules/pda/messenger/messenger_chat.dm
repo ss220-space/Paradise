@@ -91,7 +91,7 @@ GLOBAL_LIST_EMPTY(increw_public_groups)
 	if(!(viewer in members))
 		return FALSE
 	if(is_group)
-		return TRUE
+		return viewer.has_increw_plus()
 	var/datum/messenger_account/partner = get_private_partner(viewer)
 	return partner && viewer.can_contact(partner)
 

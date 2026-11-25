@@ -77,6 +77,12 @@ type InCrewData =
 			active_chat?: ChatDetails;
 			call: CrewCall | null;
 			call_busy: boolean;
+			plus: {
+				active: boolean;
+				available: boolean;
+				cost: number;
+				minutes: number;
+			};
 	  };
 
 export const pda_raingor_messenger = () => {
@@ -272,10 +278,12 @@ function InCrew({ data }: { data: Extract<InCrewData, { can_login: true }> }) {
 		chats,
 		max_group_members,
 		owner_messenger_account,
+		plus,
 		public_groups,
 	} = data;
 	const chat = chats.find((item) => item.chat_id === active_chat?.chat_id);
-	const catalogOpen = tab === 'groups' && page === 'home' && !active_chat;
+	const catalogOpen =
+		!!plus.active && tab === 'groups' && page === 'home' && !active_chat;
 	const catalogLoaded = public_groups !== null;
 
 	useEffect(() => {
@@ -293,11 +301,12 @@ function InCrew({ data }: { data: Extract<InCrewData, { can_login: true }> }) {
 				profile={owner_messenger_account}
 				maxMembers={max_group_members}
 				callBusy={call_busy}
+				canCall={!!plus.active}
 			/>
 		);
 	}
 
-	if (page === 'create') {
+	if (page === 'create' && plus.active) {
 		return (
 			<CreateGroup
 				maxMembers={max_group_members}
@@ -347,7 +356,29 @@ function InCrew({ data }: { data: Extract<InCrewData, { can_login: true }> }) {
 					Выйти
 				</Button>
 			</div>
-			{tab === 'groups' ? (
+			{tab !== 'chats' && !plus.active ? (
+				<div className="increw-list">
+					<Section title="Оплатите подписку">
+						<Box mb={1}>
+							InCrew Plus открывает групповые чаты и исходящие
+							звонки. {plus.cost} кредитов каждые {plus.minutes}{' '}
+							мин.
+						</Box>
+						<Box mb={0.5}>
+							Первый платёж и доступ сразу. Продление по
+							банковскому расписанию.
+						</Box>
+						<Button
+							className="increw-primary"
+							icon="credit-card"
+							disabled={!plus.available}
+							onClick={() => act('subscribe_plus')}
+						>
+							Оплатить {plus.cost} кредитов
+						</Button>
+					</Section>
+				</div>
+			) : tab === 'groups' ? (
 				<GroupDirectory
 					groups={public_groups}
 					chats={chats}
@@ -797,12 +828,14 @@ function Conversation({
 	profile,
 	maxMembers,
 	callBusy,
+	canCall,
 }: {
 	chat: Chat;
 	details: ChatDetails;
 	profile: Profile;
 	maxMembers: number;
 	callBusy: boolean;
+	canCall: boolean;
 }) {
 	const { act } = useBackend();
 	const [draft, setDraft] = useState('');
@@ -876,17 +909,19 @@ function Conversation({
 				}
 				buttons={
 					<>
-						<Button
-							className="increw-primary"
-							icon="phone"
-							disabled={callBusy}
-							tooltip={
-								chat.is_group
-									? 'Начать конференцию'
-									: 'Позвонить'
-							}
-							onClick={() => act('start_call', { chatId })}
-						/>
+						{canCall && (
+							<Button
+								className="increw-primary"
+								icon="phone"
+								disabled={callBusy}
+								tooltip={
+									chat.is_group
+										? 'Начать конференцию'
+										: 'Позвонить'
+								}
+								onClick={() => act('start_call', { chatId })}
+							/>
+						)}
 						<Button
 							icon="users"
 							selected={showMembers}

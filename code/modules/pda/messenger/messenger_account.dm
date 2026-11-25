@@ -42,6 +42,10 @@
 /datum/messenger_account/proc/blocks(datum/money_account/account)
 	return length(blocked_accounts) && (account?.UID() in blocked_accounts)
 
+/datum/messenger_account/proc/has_increw_plus()
+	var/datum/economy_process/subscription/increw_plus/plan = get_increw_plus_subscription()
+	return !QDELETED(plan) && !!plan.subscriber_accounts[owner]
+
 /datum/messenger_account/proc/can_contact(datum/messenger_account/other)
 	return !blocks(other.owner) && !other.blocks(owner)
 
