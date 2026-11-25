@@ -746,7 +746,7 @@ GAME_VERB_SRC(/obj/item/paper, rename, usr, "Rename paper", null)
 
 			playsound(src, SFX_WRITING_PEN, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, SOUND_FALLOFF_EXPONENT + 3, ignore_walls = FALSE)
 
-			add_raw_text(paper_input, writing_implement_data["font"], writing_implement_data["color"], writing_implement_data["use_bold"], check_rights_for(user?.client, R_EVENT))
+			add_raw_text(paper_input, writing_implement_data["font"], writing_implement_data["color"], writing_implement_data["use_bold"], check_rights(R_EVENT, FALSE, user))
 
 			// log_paper("[key_name(user)] wrote to [name]: \"[paper_input]\"")
 			to_chat(user, "You have added to your paper masterpiece!")
@@ -825,6 +825,9 @@ GAME_VERB_SRC(/obj/item/paper, rename, usr, "Rename paper", null)
 		paper_contents += line.raw_text + "/"
 	return paper_contents
 
+/obj/item/paper/attack_self(mob/user)
+	ui_interact(user)
+
 // MARK: Paper datum
 /// A single instance of a saved raw input onto paper.
 /datum/paper_input
@@ -836,7 +839,7 @@ GAME_VERB_SRC(/obj/item/paper, rename, usr, "Rename paper", null)
 	var/colour = ""
 	/// Whether to render the font bold or not.
 	var/bold = FALSE
-	/// Whether the creator of this input field has the R_FUN permission, thus allowing less sanitization
+	/// Whether the creator of this input field has the R_EVENT permission, thus allowing less sanitization
 	var/advanced_html = FALSE
 
 /datum/paper_input/New(_raw_text, _font, _colour, _bold, _advanced_html)
@@ -918,31 +921,6 @@ GAME_VERB_SRC(/obj/item/paper, rename, usr, "Rename paper", null)
 		LIST_PAPER_FIELD_DATA = field_data.to_list(),
 		LIST_PAPER_IS_SIGNATURE = is_signature,
 	)
-
-/obj/item/paper/proc/openhelp(mob/user)
-	var/datum/browser/popup = new(user, "paper_help", "Pen Help")
-	popup.set_content({"
-		<b><center>Crayon&Pen commands</center></b><br>
-		<br>
-		\[br\] : Creates a linebreak.<br>
-		\[center\] - \[/center\] : Centers the text.<br>
-		\[h1\] - \[/h1\] : Makes the text a first level heading<br>
-		\[h2\] - \[/h2\] : Makes the text a second level heading<br>
-		\[h3\] - \[/h3\] : Makes the text a third level heading<br>
-		\[b\] - \[/b\] : Makes the text <b>bold</b>.<br>
-		\[i\] - \[/i\] : Makes the text <i>italic</i>.<br>
-		\[u\] - \[/u\] : Makes the text <u>underlined</u>.<br>
-		\[large\] - \[/large\] : Increases the <font size = \"4\">size</font> of the text.<br>
-		\[sign\] : Inserts a signature of your name in a foolproof way.<br>
-		\[field\] : Inserts an invisible field which lets you start type from there. Useful for forms.<br>
-		<br>
-		<b><center>Pen exclusive commands</center></b><br>
-		\[small\] - \[/small\] : Decreases the <font size = \"1\">size</font> of the text.<br>
-		\[list\] - \[/list\] : A list.<br>
-		\[*\] : A dot used for lists.<br>
-		\[hr\] : Adds a horizontal rule.
-		\[time\] : Inserts the current station time in HH:MM:SS.<br>"})
-	popup.open(FALSE)
 
 /obj/item/paper/fire_act(exposed_temperature, exposed_volume)
 	..()

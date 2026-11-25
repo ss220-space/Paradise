@@ -38,7 +38,10 @@ const fieldRegex: RegExp = /\[((?:_+))\]/gi;
  */
 export class PreviewView extends Component<PreviewViewProps> {
   // Array containing cache of HTMLInputElements that are enabled.
-  enabledInputFieldCache: Record<string, HTMLInputElement> = {};
+  enabledInputFieldCache: Record<
+    string,
+    HTMLInputElement | HTMLTextAreaElement
+  > = {};
 
   // State checking variables. Used to determine whether or not to use cache.
   lastReadOnly: boolean = true;
@@ -113,11 +116,9 @@ export class PreviewView extends Component<PreviewViewProps> {
   // allowing us to re-use them in the input field creation process to persist
   // their state across updates.
   onInputHandler = (ev: Event): void => {
-    const input = ev.target as HTMLInputElement;
+    const input = ev.target as HTMLInputElement | HTMLTextAreaElement;
 
-    // We don't care about text area input, but this is a good place to
-    // clear the text box cache if we've had new input.
-    if (input.nodeName !== 'INPUT') {
+    if (!input.id || !input.id.startsWith('paperfield_')) {
       this.parsedTextBoxCache = '';
       return;
     }
@@ -139,6 +140,12 @@ export class PreviewView extends Component<PreviewViewProps> {
     input.style.fontFamily = held_item_details?.font || default_pen_font;
     input.style.color = held_item_details?.color || default_pen_color;
     input.defaultValue = input.value;
+
+    if (input.nodeName === 'TEXTAREA') {
+      input.style.height = 'auto';
+      input.style.height = `${input.scrollHeight}px`;
+    }
+
     this.enabledInputFieldCache[input.id] = input;
   };
 
@@ -323,10 +330,23 @@ export class PreviewView extends Component<PreviewViewProps> {
     // Third, we sanitize the text of html
     let sanitizedText = sanitizeText(parsedText, advanced_html);
 
+    const ALLOWED_LOGOS = new Set([
+      'ntlogo.png',
+      'syndielogo.png',
+      'ussplogo.png',
+      'solgovlogo.png',
+      'thieflogo.png',
+      'talisman.png',
+    ]);
+
     sanitizedText = sanitizedText.replace(
-      /\[logo:([^\]]+)\]/g,
-      (_, logoName) =>
-        `<img src="${resolveAsset(logoName)}" style="width:150px;height:95px;" />`,
+      /\[logo:([a-zA-Z0-9_.-]+)\]/g,
+      (match, logoName) => {
+        if (!ALLOWED_LOGOS.has(logoName)) {
+          return match;
+        }
+        return `<img src="${resolveAsset(logoName)}" style="width:150px;height:95px;" />`;
+      },
     );
 
     // Fourth we replace the [__] with fields
@@ -443,28 +463,50 @@ export class PreviewView extends Component<PreviewViewProps> {
       // writing implements.
       input.style.fontFamily = fontFace;
       input.style.color = fontColor;
-      return `[${input.outerHTML}]`;
+      return input.nodeName === 'TEXTAREA'
+        ? input.outerHTML
+        : `[${input.outerHTML}]`;
+    }
+    // If we have some really long field, make it textarea
+    if (length >= 50) {
+      const textarea = document.createElement('textarea');
+      textarea.id = id;
+      textarea.rows = 4;
+      textarea.style.width = '100%';
+      textarea.style.boxSizing = 'border-box';
+      textarea.style.resize = 'none';
+      textarea.style.fontSize = `${fontSize}px`;
+      textarea.style.fontFamily = fontFace;
+      textarea.style.color = fontColor;
+      textarea.maxLength = max_input_field_length;
+      textarea.disabled = readOnly;
+
+      if (!readOnly) {
+        this.enabledInputFieldCache[id] = textarea;
+      }
+
+      return textarea.outerHTML;
     }
 
     // If we don't, make a new one.
-    input = document.createElement('input');
-    input.id = id;
-    input.setAttribute('type', 'text');
-    input.style.fontSize = `${fontSize}px`;
-    input.style.fontFamily = fontFace;
-    input.style.color = fontColor;
-    input.style.minWidth = `${width}px`;
-    input.style.maxWidth = `${width}px`;
+    const textInput = document.createElement('input');
+    textInput.id = id;
+    textInput.setAttribute('type', 'text');
+    textInput.style.fontSize = `${fontSize}px`;
+    textInput.style.fontFamily = fontFace;
+    textInput.style.color = fontColor;
+    textInput.style.minWidth = `${width}px`;
+    textInput.style.maxWidth = `${width}px`;
 
-    input.maxLength = Math.min(max_input_field_length, length);
-    input.size = length;
-    input.disabled = readOnly;
+    textInput.maxLength = Math.min(max_input_field_length, length);
+    textInput.size = length;
+    textInput.disabled = readOnly;
 
     if (!readOnly) {
-      this.enabledInputFieldCache[id] = input;
+      this.enabledInputFieldCache[id] = textInput;
     }
 
-    return `[${input.outerHTML}]`;
+    return `[${textInput.outerHTML}]`;
   };
 
   // Builds an <input> field from the supplied props, pre-filled with a value
@@ -485,6 +527,31 @@ export class PreviewView extends Component<PreviewViewProps> {
     const { max_input_field_length } = data;
 
     const fieldData = field.field_data;
+
+    if (length >= 50) {
+      const textarea = document.createElement('textarea');
+      textarea.id = id;
+      const lines = fieldData.raw_text.split('\n');
+      const visualRows = lines.reduce(
+        (acc, line) => acc + Math.max(1, Math.ceil(line.length / 55)),
+        0,
+      );
+      textarea.rows = Math.max(4, visualRows);
+      textarea.style.overflow = 'hidden';
+      textarea.style.width = '100%';
+      textarea.style.boxSizing = 'border-box';
+      textarea.style.resize = 'none';
+      textarea.style.fontSize = `${fontSize}px`;
+      textarea.style.fontFamily = fieldData.font || font;
+      textarea.style.fontWeight = 'bold';
+      textarea.style.color = fieldData.color || color;
+      textarea.style.backgroundColor = paperColor;
+      textarea.maxLength = max_input_field_length;
+      textarea.defaultValue = fieldData.raw_text;
+      textarea.disabled = true;
+
+      return textarea.outerHTML;
+    }
 
     const input = document.createElement('input');
     input.setAttribute('type', 'text');

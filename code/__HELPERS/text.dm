@@ -635,6 +635,8 @@
 	if(!input_text)
 		return ""
 
+	input_text = html_encode(input_text)
+
 	if(pen_item && iscrayon(pen_item))
 		var/list/strip_tags = list(
 			"\[b\]", "\[/b\]", "\[i\]", "\[/i\]", "\[u\]", "\[/u\]",
@@ -655,11 +657,11 @@
 	input_text = replacetext(input_text, "\[u\]", "<u>")
 	input_text = replacetext(input_text, "\[/u\]", "</u>")
 
-	input_text = replacetext(input_text, "\[sign\]", "<i>[user_mob ? user_mob.real_name : "Anonymous"]</i>")
+	input_text = replacetext(input_text, "\[sign\]", "<i>[html_encode(user_mob ? user_mob.real_name : "Anonymous")]</i>")
 	input_text = replacetext(input_text, "\[time\]", station_time_timestamp())
 	input_text = replacetext(input_text, "\[date\]", GLOB.current_date_string)
-	input_text = replacetext(input_text, "\[station\]", station_name())
-	input_text = replacetext(input_text, "\[field\]", "\[____\]")
+	input_text = replacetext(input_text, "\[station\]", html_encode(station_name()))
+	input_text = replacetext(input_text, "\[field\]", "\[__________\]")
 	input_text = replacetext(input_text, "\[gender\]", "[user_mob ? user_mob.gender : "neuter"]")
 	input_text = replacetext(input_text, "\[species\]", "[user_mob?.dna?.species ? user_mob.dna.species : UNKNOWN_STATUS_RUS]")
 
@@ -681,7 +683,7 @@
 	input_text = replacetext(input_text, "\[list\]", "<ul>")
 	input_text = replacetext(input_text, "\[/list\]", "</ul>")
 	input_text = replacetext(input_text, "\[*\]", "<li>")
-	input_text = replacetext(input_text, "\[table\]", "<table border=1 cellspacing=0 cellpadding=3 style='border: 1px solid black;'>")
+	input_text = replacetext(input_text, "\[table\]", "<table border=1 cellspacing=0 cellpadding=3>")
 	input_text = replacetext(input_text, "\[/table\]", "</td></tr></table>")
 	input_text = replacetext(input_text, "\[grid\]", "<table>")
 	input_text = replacetext(input_text, "\[/grid\]", "</td></tr></table>")
