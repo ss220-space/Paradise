@@ -137,11 +137,12 @@
 		mount_dir = artillery.get_ship_weapon_mount_dir()
 	return dir2angle(mount_dir) + (vessel.free_flight_view ? vessel.get_facing() : 0)
 
-/datum/component/ship_weapon/proc/can_aim(obj/overmap/entity/vessel, x, y)
+/datum/component/ship_weapon/proc/can_aim(obj/overmap/entity/vessel, x, y, list/origin)
 	if(QDELETED(vessel) || vessel.atmosphere)
 		return FALSE
-	var/list/point = world_position(vessel)
-	return point && abs(closer_angle_difference(heading(vessel), delta_to_angle(x - point[1], y - point[2]))) <= arc / 2
+	if(!origin)
+		origin = world_position(vessel)
+	return origin && abs(closer_angle_difference(heading(vessel), delta_to_angle(x - origin[1], y - origin[2]))) <= arc / 2
 
 /datum/component/ship_weapon/proc/fire_at(obj/overmap/entity/vessel, x, y, manual = TRUE, mob/user, mob/living/target)
 	if(istype(parent, /obj/item/spacepod_equipment/weaponry))
@@ -249,7 +250,7 @@
 	var/mob/living/best
 	var/best_distance = turret.scan_range ** 2
 	for(var/mob/living/target as anything in SSovermap.nearby_turret_targets(vessel.sector, point, turret.scan_range))
-		var/list/aim = target_position(vessel, target)
+		var/list/aim = target_position(vessel, target, point)
 		if(!aim)
 			continue
 		var/distance = (aim[1] - point[1]) ** 2 + (aim[2] - point[2]) ** 2
@@ -262,7 +263,7 @@
 			fire_at(vessel, aim[1], aim[2], FALSE, null, best)
 	return TRUE
 
-/datum/component/ship_weapon/proc/target_position(obj/overmap/entity/vessel, mob/living/target)
+/datum/component/ship_weapon/proc/target_position(obj/overmap/entity/vessel, mob/living/target, list/origin)
 	if(QDELETED(target) || target.stat == DEAD || target.invisibility > SEE_INVISIBLE_LIVING)
 		return null
 	var/obj/machinery/porta_turret/turret = parent
@@ -271,12 +272,12 @@
 	if(!owner || SSovermap.frame_sector(owner) != vessel.sector)
 		return null
 	var/list/point = SSovermap.frame_to_world(owner, spot)
-	var/list/origin = world_position(vessel)
-	if(!origin || (point[1] - origin[1]) ** 2 + (point[2] - origin[2]) ** 2 > turret.scan_range ** 2 || !can_aim(vessel, point[1], point[2]))
+	if(!origin)
+		origin = world_position(vessel)
+	if(!origin || (point[1] - origin[1]) ** 2 + (point[2] - origin[2]) ** 2 > turret.scan_range ** 2 || !can_aim(vessel, point[1], point[2], origin))
 		return null
 	if(turret.assess_living(target, TRUE) == TURRET_NOT_TARGET)
 		return null
 	var/angle = delta_to_angle(point[1] - origin[1], point[2] - origin[2])
-	origin[1] += sin(angle) * muzzle_distance
-	origin[2] += cos(angle) * muzzle_distance
-	return SSovermap.weapon_line_clear(vessel.sector, origin, point) ? point : null
+	var/list/muzzle = list(origin[1] + sin(angle) * muzzle_distance, origin[2] + cos(angle) * muzzle_distance)
+	return SSovermap.weapon_line_clear(vessel.sector, muzzle, point) ? point : null

@@ -198,7 +198,7 @@
 		return
 
 	if(!origin_space.sector)
-		origin_space.sector = sector
+		origin_space.set_sector(sector)
 	else if(origin_space.sector != sector)
 		return
 	var/list/spot = origin_space.to_world(origin[2], origin[3])

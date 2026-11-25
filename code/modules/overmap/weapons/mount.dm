@@ -22,29 +22,31 @@
 	if(!length(contacts) || !SSspatial_grid.initialized)
 		return contacts
 	var/list/nearby = list()
-	for(var/datum/overmap_bubble/space as anything in bubbles)
-		if(space.sector == sector && space.bubble_z)
+	for(var/datum/overmap_bubble/space as anything in sector.bubbles)
+		if(space.bubble_z)
 			var/list/origin = space.to_bubble(point[1], point[2])
 			if(space.covers(origin, reach + 1))
-				collect_turret_targets(nearby, origin, space.bubble_z, reach)
+				collect_turret_targets(nearby, contacts, origin, space.bubble_z, reach)
 	for(var/datum/turf_reservation/reservation as anything in flight_reservations)
 		var/obj/overmap/entity/vessel = flight_reservations[reservation]
 		if(vessel.sector != sector || vessel.atmosphere)
 			continue
 		var/list/origin = vessel.world_to_hull(point[1], point[2])
 		for(var/turf/corner as anything in reservation.bottom_left_turfs)
-			collect_turret_targets(nearby, origin, corner.z, reach)
+			collect_turret_targets(nearby, contacts, origin, corner.z, reach)
+	if(length(nearby) <= 1)
+		return nearby
 	return contacts & nearby
 
-/datum/controller/subsystem/overmap/proc/collect_turret_targets(list/nearby, list/origin, level, reach)
+/datum/controller/subsystem/overmap/proc/collect_turret_targets(list/nearby, list/contacts, list/origin, level, reach)
 	var/radius = reach + 1
 	if(origin[1] < 1 - radius || origin[1] > world.maxx + radius || origin[2] < 1 - radius || origin[2] > world.maxy + radius)
 		return
 	var/turf/center = locate(clamp(round(origin[1], 1), 1, world.maxx), clamp(round(origin[2], 1), 1, world.maxy), level)
 	for(var/mob/living/target in SSspatial_grid.orthogonal_range_search(center, SPATIAL_GRID_CONTENTS_TYPE_HEARING, radius))
 		var/turf/spot = get_turf(target)
-		if(spot && abs(spot.x - origin[1]) <= radius && abs(spot.y - origin[2]) <= radius)
-			nearby[target] = TRUE
+		if(spot && abs(spot.x - origin[1]) <= radius && abs(spot.y - origin[2]) <= radius && contacts[target])
+			nearby[target] = contacts[target]
 
 /obj/machinery/porta_turret/shuttleRotate(rotation, params)
 	. = ..()

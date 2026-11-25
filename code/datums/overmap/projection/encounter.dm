@@ -36,7 +36,7 @@
 	var/navigation_extent_until = 0
 
 /datum/overmap_bubble/New(datum/overmap_sector/sector, origin_x, origin_y, speed_x, speed_y)
-	src.sector = sector
+	set_sector(sector)
 	src.origin_x = origin_x
 	src.origin_y = origin_y
 	src.speed_x = speed_x
@@ -45,6 +45,15 @@
 	last_occupied = world.time
 	if(orbital)
 		SSovermap.bubbles += src
+
+/datum/overmap_bubble/proc/set_sector(datum/overmap_sector/new_sector)
+	if(sector == new_sector)
+		return
+	if(orbital && sector)
+		sector.bubbles -= src
+	sector = new_sector
+	if(orbital && sector)
+		sector.bubbles += src
 
 /datum/overmap_bubble/proc/fill_reservation(datum/turf_reservation/reservation)
 	src.reservation = reservation
@@ -96,7 +105,7 @@
 	if(host?.physical_space == src)
 		host.physical_space = null
 	host = null
-	sector = null
+	set_sector(null)
 	return ..()
 
 /datum/overmap_bubble/proc/drift_x()

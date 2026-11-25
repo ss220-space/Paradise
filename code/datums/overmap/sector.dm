@@ -18,6 +18,7 @@
 	var/guaranteed_content_placed = FALSE
 	var/populated = FALSE
 	var/list/obj/overmap/objects = list()
+	var/list/datum/overmap_bubble/bubbles = list()
 	var/area/overmap/map_area
 
 	var/wraparound = TRUE
@@ -41,6 +42,7 @@
 	for(var/obj/overmap/overmap_object as anything in objects)
 		qdel(overmap_object)
 	objects.Cut()
+	bubbles.Cut()
 	QDEL_LIST(comms_messages)
 	map_area = null
 	QDEL_NULL(reservation)

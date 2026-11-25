@@ -2,8 +2,8 @@
 	if(!host)
 		return
 
-	if(host.sector)
-		sector = host.sector
+	if(host.sector && sector != host.sector)
+		set_sector(host.sector)
 	var/host_x = host.get_world_x()
 	var/host_y = host.get_world_y()
 	if(region && origin_x == host_x && origin_y == host_y)
