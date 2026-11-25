@@ -246,7 +246,8 @@
 	if(ckey)
 		M.set_nutrition(new_nutrition * 1.25) //Player slimes are more robust at spliting. Once an oversight of poor copypasta, now a feature!
 	M.powerlevel = new_powerlevel
-	M.Friends = Friends.Copy()
+	for(var/mob/living/friend as anything in Friends)
+		M.add_friend(friend, Friends[friend])
 	babies += M
 	if(can_mutate)
 		M.mutation_chance = clamp(mutation_chance+(rand(5,-5)),0,100)
