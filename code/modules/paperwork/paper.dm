@@ -445,7 +445,7 @@
 	if(href_list["write"])
 		var/id = href_list["write"]																			/* Becаuse HTML */
 		var/input_element = tgui_input_text(usr, "Enter what you want to write:", "Write", multiline = TRUE, max_length = 3000, encode = FALSE)
-
+		input_element = STRIP_HTML_FULL(input_element, INFINITY)
 		topic_href_write(usr, id, input_element)
 
 /obj/item/paper/attackby(obj/item/I, mob/living/user, params)

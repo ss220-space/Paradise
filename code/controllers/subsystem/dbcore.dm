@@ -46,6 +46,9 @@ SUBSYSTEM_DEF(dbcore)
 /datum/controller/subsystem/dbcore/Recover()
 	connection = SSdbcore.connection
 
+/datum/controller/subsystem/dbcore/CanProcCall(procname)
+	return FALSE
+
 //nu
 /datum/controller/subsystem/dbcore/can_vv_get(var_name)
 	if(var_name == NAMEOF(src, connection))
