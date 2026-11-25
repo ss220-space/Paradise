@@ -98,20 +98,17 @@ SUBSYSTEM_DEF(overmap)
 	spawn_wilderness()
 	initialize_galaxy_layout(FALSE)
 	seed_reserved_space()
-	service_sector?.place_guaranteed_content()
 	apply_overmap_map_config()
 	spawn_lavaland()
 	spawn_station()
 	spawn_galaxy_relays()
 	spawn_taipan()
+	spawn_service_sites()
 	register_roundstart_shuttles()
 	register_roundstart_pods()
 	stamp_pad_hosts()
 	relink_hardware()
 	ensure_station_transponder()
-	for(var/datum/overmap_sector/sector as anything in sector_order)
-		sector.place_guaranteed_content()
-		CHECK_TICK
 	spawn_overmap_ruins(sector_order)
 	station_sector.populate(galaxy_systems[station_sector.id]?["generation"])
 	for(var/datum/overmap_sector/sector as anything in shuffle(sector_order - station_sector))
@@ -628,20 +625,8 @@ SUBSYSTEM_DEF(overmap)
 	return "[token.sector.name] ([token.sector.coord_x(here)]:[token.sector.coord_y(here)])"
 
 /datum/controller/subsystem/overmap/proc/hijack_instruction_html()
-	var/obj/overmap/entity/hyperrelay/station_relay
-	var/obj/overmap/entity/hyperrelay/service_relay
-	for(var/obj/overmap/thing as anything in station_sector?.objects)
-		if(istype(thing, /obj/overmap/entity/hyperrelay))
-			station_relay = thing
-			break
-	if(station_relay?.paired)
-		service_relay = station_relay.paired
-	else
-		for(var/obj/overmap/thing as anything in service_sector?.objects)
-			if(istype(thing, /obj/overmap/entity/hyperrelay))
-				service_relay = thing
-				break
 	var/obj/overmap/entity/scc = service_sites?[OVERMAP_SITE_SYNDICATE]
+	var/obj/overmap/entity/hyperrelay/station_relay = station_entity?.nearest_hyperrelay(scc?.sector)
 	. = "Инструкция по реквизиции эвакуационного шаттла 'Харон':<br>\
 	Приветствуем, агент. Вам выпала уникальная возможность выделиться на фоне остальных и совершить поистине грандиозный прыжок в карьерном росте.<br>\
 	Ваша задача — реквизировать эвакуационный шаттл 'Харон', вызываемый Центральным Командованием \"Нанотрейзен\" для эвакуации персонала.<br>\
@@ -652,15 +637,14 @@ SUBSYSTEM_DEF(overmap)
 	на 10 минут, мы внедрили в систему 'Харона' червя, увеличивающего это время до 30 минут.</li>\
 	<li><b>Получение точки реквизиции.</b> Ваш сиквенсер также способен получить доступ к транспондеру шаттла, открывая дополнительный канал. На эфире этого канала \
 	будет находиться объект, к которому необходимо доставить шаттл. Вы можете также воспользоваться координатами, указанными ниже.</li>\
-	<li><b>Доставка шаттла.</b> После получения контроля над навигацией, доставьте шаттл к точке реквизиции, расположенной в дальнем космосе вашего сектора. \
-	Для доступа к ней необходимо совершить прыжок через гипертранслятор, находящийся на краю сектора. Координаты гипертранслятора и точки реквизиции приведены ниже.</li>\
+	<li><b>Доставка шаттла.</b> После получения контроля над навигацией, проложите курс по галактической карте к сектору точки реквизиции и доставьте шаттл по указанным ниже координатам.</li>\
 	</ol>\
 	Обратите внимание: после прибытия к точке реквизиции, эвакуационный шаттл будет дополнительно зачищен от нежелательных живых организмов. \
 	Самостоятельно добивать выживший экипаж вам не обязательно.<br>\
 	Помните: вам доступны абсолютно любые средства для исполнения ваших обязанностей.<br>\
 	Удачи, агент.<br>\
 	<b>Координаты:</b><br>\
-	Гипертранслятор: СТАНЦИОННЫЙ СЕКТОР: [overmap_coord_label(station_relay)], ДАЛЬНИЙ КОСМОС: [overmap_coord_label(service_relay)]<br>\
+	[station_relay ? "Первый гипертранслятор: [overmap_coord_label(station_relay)]<br>" : ""]\
 	Точка реквизиции: [overmap_coord_label(scc)]"
 
 #define OVERMAP_PARALLAX_SCROLL 1000

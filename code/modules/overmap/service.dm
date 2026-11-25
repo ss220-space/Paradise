@@ -9,7 +9,14 @@
 	vessel_mass = OVERMAP_MASS_STATION
 	overmap_hazard_immune = TRUE
 	var/site_id
+	var/spawn_sector_id = OVERMAP_SECTOR_ID_SERVICE
 	var/area/area_root
+
+/datum/controller/subsystem/overmap/proc/spawn_service_sites()
+	for(var/obj/overmap/entity/service_site/site_type as anything in shuffle(valid_subtypesof(/obj/overmap/entity/service_site)))
+		var/datum/overmap_sector/sector = configured_map_sector(initial(site_type.spawn_sector_id), service_sector, initial(site_type.name))
+		if(!sector.place_guaranteed_spawn(site_type))
+			log_world("Overmap: could not place guaranteed [site_type] in [sector.id].")
 
 /obj/overmap/entity/service_site/Initialize(mapload)
 	. = ..()
@@ -29,10 +36,12 @@
 
 /obj/overmap/entity/proc/service_dock_host()
 	RETURN_TYPE(/obj/overmap/entity/service_site)
-	if(sector != SSovermap.service_sector || !in_free_flight() || atmosphere || relay_capture || docked_ship || length(docked_guests) || docking_approach || shuttle?.transfer_busy || is_programmed_locked())
+	if(!sector || !in_free_flight() || atmosphere || relay_capture || docked_ship || length(docked_guests) || docking_approach || shuttle?.transfer_busy || is_programmed_locked())
 		return null
-	var/obj/overmap/entity/service_site/site = get_dock_host()
-	return istype(site) ? site : null
+	var/turf/here = get_overmap_turf()
+	var/obj/overmap/entity/service_site/site = locate() in here
+	if(site && get_dock_host() == site)
+		return site
 
 /obj/overmap/entity/service_site/proc/dock_options(obj/overmap/entity/vessel)
 	var/list/options = list()
@@ -76,6 +85,7 @@
 /obj/overmap/entity/service_site/ninja
 	name = "Аванпост клана Паука"
 	site_id = OVERMAP_SITE_NINJA
+	spawn_sector_id = OVERMAP_SECTOR_ID_WILDERNESS_A
 	area_root = /area/centcom/ninja
 	map_color = COLOR_JADE
 	identity_color = COLOR_JADE
@@ -85,6 +95,7 @@
 /obj/overmap/entity/service_site/syndicate
 	name = "База синдиката"
 	site_id = OVERMAP_SITE_SYNDICATE
+	spawn_sector_id = OVERMAP_SECTOR_ID_FOX_FORD
 	area_root = /area/centcom/syndicate_base
 	map_color = COLOR_RED
 	identity_color = COLOR_RED
@@ -94,6 +105,7 @@
 /obj/overmap/entity/service_site/trader
 	name = "Торговая база"
 	site_id = OVERMAP_SITE_TRADER
+	spawn_sector_id = OVERMAP_SECTOR_ID_VESPERA
 	area_root = /area/centcom/trader_station
 	map_color = COLOR_VERY_SOFT_YELLOW
 	identity_color = COLOR_VERY_SOFT_YELLOW
@@ -102,6 +114,7 @@
 /obj/overmap/entity/service_site/vox
 	name = "База воксов-рейдеров"
 	site_id = OVERMAP_SITE_VOX
+	spawn_sector_id = OVERMAP_SECTOR_ID_FOX_FORD
 	area_root = /area/centcom/vox_station
 	map_color = COLOR_ETHIOPIA_GREEN
 	identity_color = COLOR_ETHIOPIA_GREEN

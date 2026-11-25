@@ -19,6 +19,7 @@
 #define OVERMAP_SECTOR_ID_SERVICE "service"
 #define OVERMAP_SECTOR_ID_WILDERNESS_A "wilderness_a"
 #define OVERMAP_SECTOR_ID_FOX_FORD "systems_15"
+#define OVERMAP_SECTOR_ID_VESPERA "systems_5"
 
 #define OVERMAP_SITE_CENTCOM "centcom"
 #define OVERMAP_SITE_NINJA "ninja"

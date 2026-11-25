@@ -15,7 +15,6 @@
 	var/list/hazard_clusters
 	var/hazard_spawn_weight = 0
 	var/asteroid_spawn_weight = 1
-	var/guaranteed_content_placed = FALSE
 	var/populated = FALSE
 	var/list/obj/overmap/objects = list()
 	var/list/datum/overmap_bubble/bubbles = list()
@@ -262,20 +261,6 @@
 /datum/overmap_sector/proc/get_map_turfs()
 	return block(locate_local(1, 1), locate_local(size, size))
 
-/datum/overmap_sector/proc/place_guaranteed_content()
-	if(guaranteed_content_placed)
-		return
-	guaranteed_content_placed = TRUE
-	var/static/list/spawns_by_sector = list(
-		OVERMAP_SECTOR_ID_SERVICE = valid_subtypesof(/obj/overmap/entity/service_site),
-	)
-	var/list/paths = spawns_by_sector[id]
-	if(!length(paths))
-		return
-	for(var/spawn_type in shuffle(paths))
-		if(!place_guaranteed_spawn(spawn_type))
-			log_world("Overmap: could not place guaranteed [spawn_type] in [id].")
-
 /datum/overmap_sector/proc/place_guaranteed_spawn(spawn_type)
 	if(ispath(spawn_type, /datum/map_template/ruin/space))
 		var/datum/map_template/ruin/space/ruin_type = spawn_type
@@ -296,7 +281,6 @@
 	if(populated)
 		return
 	populated = TRUE
-	place_guaranteed_content()
 	if(sector_kind == OVERMAP_SECTOR_KIND_WILDERNESS && generation?["fleet_chance"] > 0)
 		spawn_patrols(generation["fleet_chance"])
 	if(can_spawn_static_hazards())
