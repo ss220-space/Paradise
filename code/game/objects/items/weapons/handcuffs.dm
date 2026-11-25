@@ -69,9 +69,9 @@
 	var/handcuff_time_mod = 1
 
 	if(HAS_TRAIT(user, TRAIT_FAST_CUFFING))
-		handcuff_time_mod = 0.75
+		handcuff_time_mod = 0.5
 
-	if(!do_after(user, handcuff_time_mod * 5 SECONDS, target))
+	if(!do_after(user, handcuff_time_mod * 4 SECONDS, target))
 		balloon_alert(user, "заковывание прервано!")
 		return .
 
