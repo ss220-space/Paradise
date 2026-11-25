@@ -23,7 +23,7 @@
 		display_value = "[display_value]:[icon_state]"
 
 	var/display_ref = get_vv_link_ref()
-	return "<a href='byond://?_src_=vars;Vars=[display_ref]'>[display_name] ([span_value("[display_value]")]) [display_ref]</a>"
+	return "<a href='byond://?_src_=vars;[HrefToken()];Vars=[display_ref]'>[display_name] ([span_value("[display_value]")]) [display_ref]</a>"
 
 /// Returns the ref string to use when displaying this image in the vv menu of something else
 /image/proc/get_vv_link_ref()

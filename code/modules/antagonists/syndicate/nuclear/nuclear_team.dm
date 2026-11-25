@@ -235,10 +235,10 @@
 	. = ..()
 	if(!check_rights(R_ADMIN))
 		return .
-	. += "<br/><br/><a href='byond://?_src_=holder;team_command=set_tk;team=[UID()]'>Установить общее количество ТК</a><br>"
-	. += "<br/><a href='byond://?_src_=holder;team_command=set_tk_nuke;team=[UID()]'>Расчитать общее количество ТК как на старте</a><br>"
-	. += "<br/><a href='byond://?_src_=holder;team_command=set_tk_war;team=[UID()]'>Расчитать общее количество ТК как при объявлении войны</a><br>"
-	. += "<br/><a href='byond://?_src_=holder;team_command=scale_tk;team=[UID()]'>Разделить ТК между оперативниками</a><br>"
+	. += "<br/><br/><a href='byond://?_src_=holder;[HrefToken()];team_command=set_tk;team=[UID()]'>Установить общее количество ТК</a><br>"
+	. += "<br/><a href='byond://?_src_=holder;[HrefToken()];team_command=set_tk_nuke;team=[UID()]'>Расчитать общее количество ТК как на старте</a><br>"
+	. += "<br/><a href='byond://?_src_=holder;[HrefToken()];team_command=set_tk_war;team=[UID()]'>Расчитать общее количество ТК как при объявлении войны</a><br>"
+	. += "<br/><a href='byond://?_src_=holder;[HrefToken()];team_command=scale_tk;team=[UID()]'>Разделить ТК между оперативниками</a><br>"
 
 /datum/team/nuclear_team/admin_topic(comand)
 	if(comand == "set_tk")

@@ -47,11 +47,11 @@ ADMIN_VERB(player_panel_veth, R_ADMIN|R_MOD, "Player Panel Veth", "Updated Playe
 			BLACKBOX_LOG_VUAP("PM")
 			return
 		if("follow")
-			usr.client.holder.Topic(null, list("adminplayerobservefollow" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("adminplayerobservefollow" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			to_chat(usr, "Now following [selected_player.ckey].", confidential = TRUE)
 			return
 		if("smite")
-			usr.client.holder.Topic(null, list("Smite" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("Smite" = selected_mob.UID(), "admin_token" = RawHrefToken()))
 			to_chat(usr, "Smiting [selected_player.ckey].", confidential = TRUE)
 		if("checkAntags")
 			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/check_antagonists)
@@ -70,19 +70,19 @@ ADMIN_VERB(player_panel_veth, R_ADMIN|R_MOD, "Player Panel Veth", "Updated Playe
 			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/create_command_report)
 			return
 		if("logs")
-			usr.client.holder.Topic(null, list("open_logging_view" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("open_logging_view" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("notes")
-			usr.client.holder.Topic(null, list("shownoteckey" = selected_player.ckey))
+			usr.client.holder.Topic(null, list("shownoteckey" = selected_player.ckey, "admin_token" = RawHrefToken()))
 			return
 		if("vv")
 			usr.client.debug_variables(selected_player)
 			return
 		if("tp")
-			usr.client.holder.Topic(null, list("traitor" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("traitor" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("obs")
-			usr.client.holder.Topic(null, list("observeinventory" = selected_player.UID()))
+			usr.client.holder.Topic(null, list("observeinventory" = selected_player.UID(), "admin_token" = RawHrefToken()))
 			return
 		if("adminaiinteract")
 			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/toggle_advanced_interaction)

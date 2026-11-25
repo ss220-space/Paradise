@@ -725,7 +725,7 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 /datum/sdql2_query/proc/SDQL_print(object, list/text_list, print_nulls = TRUE)
 	if(isdatum(object))
 		var/datum/O = object
-		text_list += "<a href='byond://?_src_=vars;Vars=[O.UID()]'>\ref[O]</a> : [object]"
+		text_list += "<a href='byond://?_src_=vars;[HrefToken(forceGlobal = TRUE)];Vars=[O.UID()]'>\ref[O]</a> : [object]"
 		if(istype(object, /atom))
 			var/atom/A = object
 			var/turf/T = A.loc
@@ -1022,6 +1022,10 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 
 	if(object == world && (!long || expression[start + 1] == ".") && !(expression[start] in exclude) && copytext(expression[start], 1, 3) != "SS") //3 == length("SS") + 1
 		to_chat(usr, span_danger("World variables are not allowed to be accessed. Use global."), confidential = TRUE)
+		return null
+
+	else if(expression[start] == "world" && long && expression[start + 1] == ":")
+		to_chat(usr, span_danger("World proc calls via ':' are not allowed. Use global instead."), confidential = TRUE)
 		return null
 
 	else if(expression [start] == "{" && long)

@@ -912,3 +912,5 @@
 	default = TRUE
 
 /datum/config_entry/flag/grey_assistants
+
+/datum/config_entry/flag/debug_admin_hrefs
