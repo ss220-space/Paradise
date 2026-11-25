@@ -378,7 +378,7 @@
 				span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] схватил[GEND_A_O_I(src)] [pulled_mob.declent_ru(ACCUSATIVE)]!"),
 				span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] схватил[GEND_A_O_I(src)] Вас!"),
 			)
-		pulled_mob.LAssailant = iscarbon(src) ? src : null
+		pulled_mob.LAssailant = iscarbon(src) ? WEAKREF(src) : null
 	return TRUE
 
 /atom/movable/proc/stop_pulling()

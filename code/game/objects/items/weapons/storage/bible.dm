@@ -155,7 +155,7 @@
 	add_attack_logs(user, target, "Hit with [src]")
 
 	if(iscarbon(user))
-		target.LAssailant = user
+		target.LAssailant = WEAKREF(user)
 	else
 		target.LAssailant = null
 

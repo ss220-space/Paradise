@@ -298,7 +298,7 @@
 		if(!iscarbon(user))
 			target.LAssailant = null
 		else
-			target.LAssailant = user
+			target.LAssailant = WEAKREF(user)
 		add_attack_logs(user, target, "Disposal'ed")
 	else
 		return

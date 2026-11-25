@@ -143,7 +143,7 @@
 	owner.vomit(20)
 
 	var/mob/living/simple_animal/slime/Slime = new(get_turf(owner), "grey")
-	Slime.Friends = list(owner)
+	Slime.add_friend(owner, 0)
 	Slime.Leader = owner
 
 /obj/item/organ/internal/heart/gland/mindshock

@@ -405,11 +405,7 @@
 		if(!plasma.use(1))
 			to_chat(user, span_warning("You don't have enough plasma to feed [src]!"))
 			return ATTACK_CHAIN_PROCEED
-		if(user in Friends)
-			Friends[user]++
-		else
-			Friends[user] = 1
-			RegisterSignal(user, COMSIG_QDELETING, PROC_REF(clear_friend))
+		add_friend(user)
 		user.visible_message(
 			span_notice("[user] hand-feeds plasma to [src]. It chirps happily."),
 			span_notice("You hand-feed plasma to [src]. It chirps happily."),
@@ -437,6 +433,15 @@
 		force_effect = round(force / 2)
 	if(prob(10 + force_effect))
 		discipline_slime(user)
+
+/// Adds `amount` friendship with `friend`. Friends are dropped from the list when they are deleted.
+/mob/living/simple_animal/slime/proc/add_friend(mob/living/friend, amount = 1)
+	if(QDELETED(friend))
+		return
+	if(!(friend in Friends))
+		Friends[friend] = 0
+		RegisterSignal(friend, COMSIG_QDELETING, PROC_REF(clear_friend))
+	Friends[friend] += amount
 
 /mob/living/simple_animal/slime/proc/clear_friend(mob/living/friend)
 	UnregisterSignal(friend, COMSIG_QDELETING)

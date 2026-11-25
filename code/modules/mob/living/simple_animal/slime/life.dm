@@ -159,12 +159,10 @@
 	if(M.stat == DEAD) // our victim died
 		if(!client)
 			if(!rabid && !attacked)
-				if(M.LAssailant && M.LAssailant != M)
+				var/mob/living/carbon/assailant = M.LAssailant?.resolve()
+				if(assailant && assailant != M)
 					if(prob(50))
-						if(!(M.LAssailant in Friends))
-							Friends[M.LAssailant] = 1
-						else
-							++Friends[M.LAssailant]
+						add_friend(assailant)
 		else
 			to_chat(src, "<i>This subject does not have a strong enough life energy anymore...</i>")
 
