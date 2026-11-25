@@ -11,7 +11,8 @@
 	if(!isliving(lizard) || lizard.stat == DEAD)
 		finish_action(controller, FALSE)
 		return
-	var/atom/target = controller.blackboard[BB_LIZARD_TARGET]?.resolve()
+	var/datum/weakref/target_ref = controller.blackboard[BB_LIZARD_TARGET]
+	var/atom/target = target_ref?.resolve()
 	if(target && !QDELETED(target))
 		lizard.growl(target)
 	else
@@ -48,7 +49,8 @@
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_MOVE_AND_PERFORM
 
 /datum/ai_behavior/lizard_attack/setup(datum/ai_controller/giant_lizard/controller)
-	var/atom/target = controller.blackboard[BB_LIZARD_TARGET]?.resolve()
+	var/datum/weakref/target_ref = controller.blackboard[BB_LIZARD_TARGET]
+	var/atom/target = target_ref?.resolve()
 	if(!target || QDELETED(target))
 		return FALSE
 	controller.current_movement_target = target
@@ -56,7 +58,8 @@
 
 /datum/ai_behavior/lizard_attack/perform(delta_time, datum/ai_controller/giant_lizard/controller)
 	var/mob/living/simple_animal/hostile/giant_lizard/lizard = controller.pawn
-	var/mob/living/target = controller.blackboard[BB_LIZARD_TARGET]?.resolve()
+	var/datum/weakref/target_ref = controller.blackboard[BB_LIZARD_TARGET]
+	var/mob/living/target = target_ref?.resolve()
 	if(!isliving(lizard) || lizard.stat == DEAD || !target || QDELETED(target) || target.stat == DEAD)
 		finish_action(controller, FALSE)
 		return
@@ -75,7 +78,8 @@
 	action_cooldown = 10 SECONDS
 
 /datum/ai_behavior/lizard_pounce/setup(datum/ai_controller/giant_lizard/controller)
-	var/atom/target = controller.blackboard[BB_LIZARD_TARGET]?.resolve()
+	var/datum/weakref/target_ref = controller.blackboard[BB_LIZARD_TARGET]
+	var/atom/target = target_ref?.resolve()
 	if(!target || QDELETED(target))
 		return FALSE
 	controller.current_movement_target = target
@@ -83,7 +87,8 @@
 
 /datum/ai_behavior/lizard_pounce/perform(delta_time, datum/ai_controller/giant_lizard/controller)
 	var/mob/living/simple_animal/hostile/giant_lizard/lizard = controller.pawn
-	var/mob/living/target = controller.blackboard[BB_LIZARD_TARGET]?.resolve()
+	var/datum/weakref/target_ref = controller.blackboard[BB_LIZARD_TARGET]
+	var/mob/living/target = target_ref?.resolve()
 	if(!isliving(lizard) || lizard.stat == DEAD || !target || QDELETED(target) || target.stat == DEAD)
 		finish_action(controller, FALSE)
 		return
