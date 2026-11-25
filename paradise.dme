@@ -4338,6 +4338,7 @@
 #include "code\modules\spells\spell_types\pointed\goliath_dash.dm"
 #include "code\modules\spells\spell_types\pointed\goliath_tentacles.dm"
 #include "code\modules\spells\spell_types\pointed\horsemask.dm"
+#include "code\modules\spells\spell_types\pointed\lazer_eyes.dm"
 #include "code\modules\spells\spell_types\pointed\mimic.dm"
 #include "code\modules\spells\spell_types\pointed\mindswap.dm"
 #include "code\modules\spells\spell_types\pointed\shadow_grapple.dm"

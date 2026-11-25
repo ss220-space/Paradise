@@ -26,10 +26,12 @@
 /datum/action/cooldown/spell/basic_projectile/proc/fire_projectile(atom/target, atom/caster)
 	var/obj/projectile/to_fire = new projectile_type()
 	to_fire.firer = owner
+	var/mob/living/mob_caster = astype(owner, /mob/living)
+	if(mob_caster)
+		to_fire.def_zone = ran_zone(mob_caster.zone_selected)
 	to_fire.current = get_turf(caster)
 	to_fire.original = target
 	to_fire.preparePixelProjectile(target, caster)
-	to_fire.fire()
 	SEND_SIGNAL(caster, COMSIG_MOB_SPELL_PROJECTILE, src, target, to_fire)
 	to_fire.fire()
 	return to_fire

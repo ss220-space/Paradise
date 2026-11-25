@@ -294,7 +294,7 @@
 	QDEL_NULL(overdrive)
 	return ..()
 
-/obj/item/mmi/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
+/obj/item/mmi/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT, check_parents_zones = FALSE)
 	if(!brainmob)
 		return FALSE
 	if(!parent)

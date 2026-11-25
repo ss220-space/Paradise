@@ -58,7 +58,7 @@
 	if(ismouse(target))
 		visible_message(span_notice("[name] consumes [target] in a single gulp!"), span_notice("You consume [target] in a single gulp!"))
 		QDEL_NULL(target)
-		adjustHealth(-2)
+		heal_overall_damage(2, 2)
 	else
 		return ..()
 

@@ -170,8 +170,6 @@ GLOBAL_LIST_INIT(gun_module_default_offsets, list(
 			gun_modification_ignore_overlay_signal = FALSE
 			return TRUE
 
-	return TRUE
-
 /obj/item/gun/proc/get_slots_ui_data(obj/item/gun/gun)
 	var/list/slots = list()
 
