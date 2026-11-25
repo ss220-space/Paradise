@@ -133,6 +133,7 @@
 
 /obj/item/storage/proc/on_mouse_drop_dragged(atom/source, atom/over_object, mob/user)
 	SIGNAL_HANDLER
+
 	if(!isliving(user))
 		return
 
@@ -152,12 +153,6 @@
 
 	if(istype(src, /obj/item/storage/lockbox) || (!istable(over_object) && !isfloorturf(over_object)) \
 		|| !length(contents) || loc != user || user.incapacitated || !over_object.IsReachableBy(user))
-		return
-
-	if(tgui_alert(user, "Опустошить содержимое [declent_ru(GENITIVE)] на [over_object.declent_ru(ACCUSATIVE)]?", "Подтверждение", list("Да", "Нет")) != "Да")
-		return
-
-	if(!user || !over_object || user.incapacitated || loc != user || !over_object.IsReachableBy(user))
 		return
 
 	if(user.s_active == src)

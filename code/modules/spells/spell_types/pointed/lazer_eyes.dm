@@ -2,7 +2,7 @@
 	name = "Лазеры из глаз"
 	desc = "Выстрел лазерами из глаз."
 	spell_requirements = NONE
-	cooldown_time = 1 SECONDS
+	cooldown_time = 0.5 SECONDS
 	button_icon_state = "lazer_hulk"
 	sound = 'sound/weapons/taser2.ogg'
 	projectile_type = /obj/projectile/beam/laser/eyes

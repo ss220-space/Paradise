@@ -172,7 +172,7 @@
 /datum/chemical_reaction/blackpowder_explosion/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	do_sparks(2, TRUE, location)
-	addtimer(CALLBACK(src, PROC_REF(blackpowder_detonate),holder.my_atom, location, created_volume), rand(0.5 SECONDS, 1.5 SECONDS))
+	addtimer(CALLBACK(src, PROC_REF(blackpowder_detonate),holder.my_atom, location, created_volume), randfloat(0.5 SECONDS, 1.5 SECONDS))
 
 /datum/chemical_reaction/blackpowder_explosion/proc/blackpowder_detonate(atom/holder_atom, turf/location, created_volume)
 	var/ex_severe = round(created_volume / 100)

@@ -516,14 +516,14 @@
 	deactive_msg = "Ваша система для взлома издаёт почти разочарованное жужжание в глубине вашего разума, отключаясь."
 	button_icon_state = "hackerman"
 	background_icon_state = "bg_pulsedemon"
-	cast_range = 5
+	cast_range = 4
 	/// How many times have we successfully hacked in the last minute? Increases burn damage by 3 for each value above 0.
 	var/recent_hacking = 0
 
 /datum/action/cooldown/spell/pointed/hackerman_deck/cast(atom/cast_on)
 	. = ..()
 	var/mob/living/user = owner
-	if(get_dist(user, cast_on) > 5) //fucking cameras holy shit
+	if(get_dist(user, cast_on) > 4) //fucking cameras holy shit
 		to_chat(user, span_warning("Ваш имплант недостаточно мощён, чтобы взламывать на таком расстоянии!"))
 		StartCooldown(cooldown_time * 0.3)
 		return
