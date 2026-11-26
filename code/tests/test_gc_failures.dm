@@ -6,9 +6,7 @@
 /datum/unit_test/gc_failures
 	priority = TEST_AFTER_CREATE_AND_DESTROY
 	/// Types that already failed to collect when this test was added. Remove a type once its leak is fixed.
-	var/static/list/known_failures = list(
-		/obj/item/stock_parts/cell/energy_gun,
-	)
+	var/static/list/known_failures = list()
 	/// How long each object waits in the check queue during this test.
 	var/check_wait = 10 SECONDS
 	/// How long a failed object waits in the hard delete queue during this test.

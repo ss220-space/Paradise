@@ -30,6 +30,12 @@
 		cell = magazine.get_cell()
 	update_icon()
 
+/obj/item/gun/energy/accumulator/Destroy()
+	if(magazine)
+		cell = null
+	QDEL_NULL(magazine)
+	return ..()
+
 /obj/item/gun/energy/accumulator/examine(mob/user)
 	. = ..()
 	if(magazine)
