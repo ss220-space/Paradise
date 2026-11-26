@@ -49958,8 +49958,8 @@
 	pixel_x = -4;
 	pixel_y = 4
 	},
-/obj/item/ammo_box/inc46x30mm,
-/obj/item/ammo_box/inc46x30mm,
+/obj/item/ammo_box/a357,
+/obj/item/ammo_box/a357,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
