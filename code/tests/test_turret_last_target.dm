@@ -32,3 +32,20 @@
 	qdel(first)
 
 	TEST_ASSERT_EQUAL(turret.last_target, second, "The turret lost its live target when an earlier target was deleted")
+
+/// Checks that a turret which is switched off drops deleted mobs from the targets it tracks.
+/datum/unit_test/room_test/turret_off_drops_deleted_targets
+
+/datum/unit_test/room_test/turret_off_drops_deleted_targets/Run()
+	var/obj/machinery/porta_turret/syndicate/turret = allocate(/obj/machinery/porta_turret/syndicate)
+	var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/brood = allocate(/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion, run_loc_floor_top_right)
+
+	turret.enabled = FALSE
+	turret.handleInterloper(brood)
+	TEST_ASSERT(turret.processing_targets[brood], "The turret did not track the mob")
+
+	qdel(brood)
+	turret.process()
+
+	if(length(turret.processing_targets))
+		TEST_FAIL("The switched off turret kept a deleted mob in processing_targets")
