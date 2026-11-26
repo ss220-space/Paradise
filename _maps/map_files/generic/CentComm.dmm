@@ -10991,7 +10991,6 @@
 /obj/item/paper/central_command/archive/memes{
 	default_raw_text = "<center><img src=\"https://cdn.discordapp.com/attachments/961279768249118750/1079288344657277008/NVNcWzVwAHs.png?width=736&height=736\"></center>";
 	name = "Коллективное решение";
-	
 	},
 /turf/simulated/floor/plating,
 /area/centcom/central_command_areas/zone/two)
@@ -13399,7 +13398,7 @@
 /obj/item/paper/central_command/archive/memes{
 	name = "Супъективное мнение";
 	default_raw_text = "<center><img src=\"https://cdn.discordapp.com/attachments/961279768249118750/1046826506741104830/unknown.png?width=604&height=604\"></center>";
-	
+
 	},
 /obj/item/book/random,
 /turf/simulated/floor/plating,
@@ -38798,7 +38797,7 @@
 /obj/item/paper{
 	name = "K P A C U B bI E arts.";
 	default_raw_text = "<center><img src=\"https://cdn.discordapp.com/attachments/835083115536973826/947722266135908373/unknown.png\"></center>";
-	
+
 	},
 /obj/structure/safe,
 /turf/simulated/floor/wood,
@@ -51769,7 +51768,7 @@
 /obj/item/paper{
 	name = "Главный строить мужик репорт";
 	default_raw_text = "<center><img src=\"https://cdn.discordapp.com/attachments/961279768249118750/1168235730171080704/image.png?width=1919&height=824\"></center>";
-	
+
 	},
 /turf/simulated/floor/plating,
 /area/centcom/central_command_areas/zone/two)
