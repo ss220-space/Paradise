@@ -20,7 +20,7 @@ GLOBAL_LIST_EMPTY(disposals_pipe_areas)
 	return FALSE
 
 /datum/event/disposals_explosion/proc/has_disposals_pipe(turf/picked_turf)
-	for(var/obj/structure/disposalpipe/segment/picked_pipe in picked_turf)
+	if(locate(/obj/structure/disposalpipe/segment) in picked_turf)
 		return TRUE
 	return FALSE
 
@@ -101,9 +101,10 @@ GLOBAL_LIST_EMPTY(disposals_pipe_areas)
 
 	if(bursting_pipe.explodes)
 		var/obj/structure/disposalholder/trash_holder = new()
+		var/list/trash_types = valid_subtypesof(/obj/item/trash)
 
 		for(var/i in 0 to rand(5, 8))
-			var/chosen_trash = pick(valid_subtypesof(/obj/item/trash))
+			var/chosen_trash = pick(trash_types)
 			var/obj/item/trash/random_trash = new chosen_trash()
 			random_trash.forceMove(trash_holder)
 
