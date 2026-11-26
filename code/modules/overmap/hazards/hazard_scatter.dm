@@ -256,17 +256,28 @@
 	else
 		QDEL_NULL(scatter_fog)
 
-/datum/controller/subsystem/overmap/proc/scatter_fields_at(datum/overmap_sector/sector, world_x, world_y, reach)
-	. = list()
+/datum/controller/subsystem/overmap/proc/scatter_fields_at(datum/overmap_sector/sector, world_x, world_y, reach, list/cache)
 	if(!sector)
-		return
+		return list()
 	var/span = OVERMAP_TILE_SPAN * sector.tile_travel
-	for(var/x in max(sector.origin_x, FLOOR((world_x - reach) / span, 1) - 1) to min(sector.origin_x + sector.size - 1, CEILING((world_x + reach) / span, 1) + 1))
-		for(var/y in max(sector.origin_y, FLOOR((world_y - reach) / span, 1) - 1) to min(sector.origin_y + sector.size - 1, CEILING((world_y + reach) / span, 1) + 1))
+	var/min_x = max(sector.origin_x, FLOOR((world_x - reach) / span, 1) - 1)
+	var/max_x = min(sector.origin_x + sector.size - 1, CEILING((world_x + reach) / span, 1) + 1)
+	var/min_y = max(sector.origin_y, FLOOR((world_y - reach) / span, 1) - 1)
+	var/max_y = min(sector.origin_y + sector.size - 1, CEILING((world_y + reach) / span, 1) + 1)
+	var/key
+	if(cache)
+		key = "[min_x],[min_y],[max_x],[max_y]"
+		if(cache[key])
+			return cache[key]
+	. = list()
+	for(var/x in min_x to max_x)
+		for(var/y in min_y to max_y)
 			var/turf/cell = locate(x, y, sector.z_level)
 			for(var/obj/overmap/feature/hazard/field in cell)
 				if(!istype(field, /obj/overmap/feature/hazard/emp))
 					. += field
+	if(cache)
+		cache[key] = .
 
 /obj/overmap/entity/proc/radar_scatter_data(reach = 128)
 	if(atmosphere || !sector)

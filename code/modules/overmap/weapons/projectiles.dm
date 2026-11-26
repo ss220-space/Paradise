@@ -60,8 +60,19 @@
 	return TRUE
 
 /datum/controller/subsystem/overmap/proc/process_sector_projectiles(elapsed)
+	var/datum/overmap_sector/cached_sector
+	var/list/field_cache = list()
+	var/list/static_spaces = list()
 	for(var/datum/overmap_projectile/shot as anything in sector_projectiles)
-		shot.advance(elapsed)
+		if(cached_sector != shot.sector)
+			cached_sector = shot.sector
+			field_cache.Cut()
+			static_spaces.Cut()
+			for(var/datum/overmap_bubble/space as anything in bubbles)
+				if(space.static_level && space.sector == cached_sector)
+					static_spaces += space
+		if(!shot.advance(elapsed, field_cache, static_spaces))
+			cached_sector = null
 	projectile_snapshot_tick = -1
 
 /datum/controller/subsystem/overmap/proc/draw_sector_projectiles(elapsed)

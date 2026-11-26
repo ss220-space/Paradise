@@ -59,7 +59,7 @@
 	shot.trajectory_ignore_forcemove = FALSE
 	STOP_PROCESSING(SSprojectiles, shot)
 
-/datum/overmap_projectile/proc/advance(elapsed)
+/datum/overmap_projectile/proc/advance(elapsed, list/field_cache, list/static_spaces = SSovermap.bubbles)
 	if(payload?.overmap_effect_until)
 		if(world.time >= payload.overmap_effect_until)
 			qdel(src)
@@ -94,11 +94,11 @@
 		var/near_y = world_y + delta_y * fraction
 		if((vessel_x - near_x) ** 2 + (vessel_y - near_y) ** 2 > (vessel.hull_radius + travel + 1) ** 2)
 			continue
-		vessels[vessel] = list(pose[1], pose[2], pose[3], travel_x, travel_y, rotation)
+		vessels[vessel] = list(pose[1], pose[2], pose[3], travel_x, travel_y, rotation, vessel.hull_center_x, vessel.hull_center_y, vessel.hull_radius + 1)
 		max_travel = max(max_travel, travel)
-	var/list/fields = SSovermap.scatter_fields_at(sector, center_x, center_y, distance / 2 + 1)
+	var/list/fields = SSovermap.scatter_fields_at(sector, center_x, center_y, distance / 2 + 1, field_cache)
 	var/list/spaces = list()
-	for(var/datum/overmap_bubble/space as anything in SSovermap.bubbles)
+	for(var/datum/overmap_bubble/space as anything in static_spaces)
 		if(!space.static_level || space.sector != sector)
 			continue
 		var/list/region = space.ensure_region()
@@ -109,15 +109,25 @@
 		world_y += delta_y
 		if(!in_bounds(world_x, world_y))
 			qdel(src)
-		return
+			return FALSE
+		return TRUE
 	var/list/empty_turfs = list()
 	var/steps = max(1, CEILING((distance + max_travel) / 0.4, 1))
+	var/starts_inside = in_bounds(world_x, world_y)
+	var/ends_inside = in_bounds(world_x + delta_x, world_y + delta_y)
+	var/first_step = 1
+	if(starts_inside && !length(spaces) && steps > 1)
+		first_step = first_possible_step(vessels, fields, delta_x, delta_y, steps)
+		if(first_step > steps && !ends_inside)
+			qdel(src)
+			return FALSE
+	var/clear_path = TRUE
 	var/list/sample_pose = list(0, 0, 0)
-	for(var/step in 1 to steps)
+	for(var/step in first_step to steps)
 		var/fraction = step / steps
 		var/x = world_x + delta_x * fraction
 		var/y = world_y + delta_y * fraction
-		if(!in_bounds(x, y))
+		if((!starts_inside || !ends_inside) && !in_bounds(x, y))
 			qdel(src)
 			return
 		for(var/obj/overmap/entity/vessel as anything in vessels)
@@ -128,6 +138,7 @@
 				continue
 			var/pose_facing = previous[3] + previous[6] * fraction
 			if(istype(vessel, /obj/overmap/entity/virtual_structure))
+				clear_path = FALSE
 				sample_pose[1] = pose_x
 				sample_pose[2] = pose_y
 				sample_pose[3] = pose_facing
@@ -177,12 +188,26 @@
 			empty_turfs[spot] = TRUE
 		for(var/obj/overmap/feature/hazard/field as anything in fields)
 			var/index = field.scatter_at(x, y)
-			if(index && scatter_hit(field, index, x, y))
-				return
+			if(index)
+				clear_path = FALSE
+				if(scatter_hit(field, index, x, y))
+					return
 	world_x += delta_x
 	world_y += delta_y
+	return clear_path
+
+/datum/overmap_projectile/proc/first_possible_step(list/vessels, list/fields, delta_x, delta_y, steps)
+	for(var/obj/overmap/feature/hazard/field as anything in fields)
+		if(isnull(field.scatter_radar_chunks))
+			return 1
+	for(var/obj/overmap/entity/virtual_structure/structure in vessels)
+		if(!structure.cache_collision_hull())
+			return 1
+	return RUSTLIB_CALL(overmap_projectile_trace, list(world_x, world_y, delta_x, delta_y, steps), vessels, fields) || 1
 
 /datum/overmap_projectile/proc/draw(list/frames, elapsed)
+	if(!length(frames) && !length(proxies))
+		return
 	var/list/wanted = list()
 	for(var/datum/owner as anything in frames)
 		if(SSovermap.frame_sector(owner) != sector)

@@ -1,4 +1,4 @@
-use super::{navigation::numbers, object_id};
+use super::{navigation::numbers, object_id, FIELDS};
 use meowtonin::{byond_fn, ByondError, ByondResult, ByondValue};
 use std::cell::RefCell;
 use std::collections::HashMap;
@@ -70,6 +70,95 @@ fn visit_contacts(
     false
 }
 
+fn sin_cos_degrees(degrees: f32) -> (f32, f32) {
+    match degrees.rem_euclid(360.0) {
+        0.0 => (0.0, 1.0),
+        90.0 => (1.0, 0.0),
+        180.0 => (0.0, -1.0),
+        270.0 => (-1.0, 0.0),
+        _ => {
+            let (sin, cos) = f64::from(degrees).to_radians().sin_cos();
+            (sin as f32, cos as f32)
+        }
+    }
+}
+
+struct ProjectileTarget<'a> {
+    hull: Option<&'a Hull>,
+    pose: [f32; 9],
+}
+
+impl ProjectileTarget<'_> {
+    fn may_hit(&self, x: f32, y: f32, fraction: f32) -> bool {
+        let [sx, sy, angle, dx, dy, rotation, cx, cy, radius] = self.pose;
+        let lx = x - (sx + dx * fraction);
+        let ly = y - (sy + dy * fraction);
+        if lx * lx + ly * ly > radius * radius {
+            return false;
+        }
+        let Some(hull) = self.hull else { return true };
+        let (sin, cos) = sin_cos_degrees(angle + rotation * fraction);
+        let tx = cx + lx * cos - ly * sin + 0.5;
+        let ty = cy + lx * sin + ly * cos + 0.5;
+        let tolerance = 4.0 * f32::EPSILON * (lx.abs() + ly.abs() + cx.abs() + cy.abs() + 1.0);
+        (tx - tx.round()).abs() <= tolerance
+            || (ty - ty.round()).abs() <= tolerance
+            || hull
+                .solid
+                .contains_key(&(tx.floor() as i32, ty.floor() as i32))
+    }
+}
+
+#[byond_fn]
+fn overmap_projectile_trace(
+    path: ByondValue,
+    vessels: ByondValue,
+    fields: ByondValue,
+) -> ByondResult<ByondValue> {
+    let [x, y, dx, dy, steps] = numbers(&path)?;
+    HULLS.with_borrow(|hulls| {
+        FIELDS.with_borrow(|scatter| {
+            let mut targets = Vec::new();
+            for [vessel, pose] in vessels.read_assoc_list()? {
+                targets.push(ProjectileTarget {
+                    hull: hulls.get(&object_id(&vessel)?),
+                    pose: numbers(&pose)?,
+                });
+            }
+            let mut clouds = Vec::new();
+            for field in fields.read_list()? {
+                if let Some(cloud) = scatter.get(&object_id(&field)?) {
+                    clouds.push(cloud);
+                }
+            }
+            for step in 1..=steps as u32 {
+                let fraction = step as f32 / steps;
+                let px = x + dx * fraction;
+                let py = y + dy * fraction;
+                if targets
+                    .iter()
+                    .any(|target| target.may_hit(px, py, fraction))
+                {
+                    return Ok(ByondValue::new_num(step as f32));
+                }
+                let tx = (px + 0.5).floor() as i32;
+                let ty = (py + 0.5).floor() as i32;
+                if clouds.iter().any(|cloud| {
+                    cloud
+                        .chunks
+                        .get(&(tx.div_euclid(16), ty.div_euclid(16)))
+                        .is_some_and(|chunk| {
+                            chunk.rows[ty.rem_euclid(16) as usize] & (1 << tx.rem_euclid(16)) != 0
+                        })
+                }) {
+                    return Ok(ByondValue::new_num(step as f32));
+                }
+            }
+            Ok(ByondValue::new_num(steps + 1.0))
+        })
+    })
+}
+
 #[byond_fn]
 fn overmap_hull_contacts(
     owner: ByondValue,
@@ -105,18 +194,8 @@ fn overmap_hull_impact(
     let [x, y, angle, dx, dy, rotation, ox, oy, other_angle, odx, ody, other_rotation, cx, cy, steps, refinements] =
         numbers(&sweep)?;
     let frame_at = |t: f32| {
-        let trig = |degrees: f32| match degrees.rem_euclid(360.0) {
-            0.0 => (0.0, 1.0),
-            90.0 => (1.0, 0.0),
-            180.0 => (0.0, -1.0),
-            270.0 => (-1.0, 0.0),
-            _ => {
-                let (sin, cos) = f64::from(degrees).to_radians().sin_cos();
-                (sin as f32, cos as f32)
-            }
-        };
-        let (sin, cos) = trig(angle + rotation * t);
-        let (os, oc) = trig(other_angle + other_rotation * t);
+        let (sin, cos) = sin_cos_degrees(angle + rotation * t);
+        let (os, oc) = sin_cos_degrees(other_angle + other_rotation * t);
         [
             x + dx * t,
             y + dy * t,
