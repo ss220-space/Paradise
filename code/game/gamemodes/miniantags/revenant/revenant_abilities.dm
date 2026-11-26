@@ -189,7 +189,7 @@
 		if(caster.unreveal_time >= world.time)
 			caster.balloon_alert(caster, "слишком рано!")
 			return
-		caster.SetInvisibility(INVISIBILITY_REVENANT)
+		caster.SetInvisibility(INVISIBILITY_REVENANT, caster.type)
 		caster.alpha = 255
 		caster.visible = FALSE
 		caster.incorporeal_move = INCORPOREAL_REVENANT
@@ -198,7 +198,7 @@
 	if(caster.essence <= 0)
 		caster.balloon_alert(caster, "слишком мало эссенции!")
 		return
-	caster.SetInvisibility(INVISIBILITY_NONE)
+	caster.SetInvisibility(INVISIBILITY_NONE, caster.type)
 	caster.alpha = alpha_to_set
 	caster.visible = TRUE
 	caster.incorporeal_move = INCORPOREAL_NONE
