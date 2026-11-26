@@ -16,6 +16,7 @@
 #include "test_asset_smart_cache.dm"
 #include "test_blob_overmind_lists.dm"
 #include "test_components.dm"
+#include "test_create_and_destroy.dm"
 #include "test_detect_room.dm"
 #include "test_elements.dm"
 #include "test_emotes.dm"
