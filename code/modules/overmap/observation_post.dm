@@ -61,7 +61,7 @@
 	qdel(template)
 	loading_template = FALSE
 	if(template_loaded)
-		sensor_pack.set_long_sensors(TRUE)
+		set_long_sensors(TRUE)
 		GLOB.overmap_virtual_structures |= src
 	else
 		GLOB.overmap_virtual_structures -= src
@@ -92,7 +92,7 @@
 		destroyed_cells++
 		if(operational && destroyed_cells / max(1, length(virtual_cells)) >= 0.35)
 			operational = FALSE
-			sensor_pack.set_long_sensors(FALSE)
+			set_long_sensors(FALSE)
 			map_color = "#888888"
 			identity_color = map_color
 			radar_epoch++

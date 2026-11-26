@@ -163,7 +163,7 @@
 			return
 	if(pod_landing)
 		vessel.docking_approach = null
-		committing = vessel.overmap_pod.land_at(pod_landing, vessel.get_dock_host())
+		committing = vessel.land_pod_at(pod_landing, vessel.get_dock_host())
 	else if(host)
 		INVOKE_ASYNC(vessel, TYPE_PROC_REF(/obj/overmap/entity, finish_ship_dock), host, own, target)
 	else if(target)

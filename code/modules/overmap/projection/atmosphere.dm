@@ -82,11 +82,11 @@
 	var/list/pos = hull_to_surface(exit_turf.x, exit_turf.y)
 	var/turf/origin = locate(clamp(FLOOR(pos[1] + 0.5, 1), 1, world.maxx), clamp(FLOOR(pos[2] + 0.5, 1), 1, world.maxy), surface.bubble_z)
 	var/obj/spacepod/craft = thing
-	var/datum/component/overmap_pod/pod = isspacepod(craft) ? craft.overmap_vessel?.overmap_pod : null
-	var/turf/ground = nearest_open_ground(origin, !!pod)
+	var/is_overmap_pod = isspacepod(craft) && craft.has_overmap_pod_state(COMPONENT_OVERMAP_POD_LINKED)
+	var/turf/ground = nearest_open_ground(origin, is_overmap_pod)
 	if(ground)
-		if(pod)
-			pod.land_at(ground, surface.host)
+		if(is_overmap_pod)
+			craft.overmap_vessel.land_pod_at(ground, surface.host)
 		else
 			var/mob/living/faller = thing
 			var/mob/living/pulled = thing.pulling

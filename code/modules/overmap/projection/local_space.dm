@@ -52,11 +52,9 @@
 /datum/controller/subsystem/overmap/proc/create_local_spaces()
 
 	ensure_host_space(station_entity)
-	for(var/datum/component/overmap_dock_host/host as anything in dock_hosts)
-		if(QDELETED(host))
-			continue
-		var/obj/overmap/entity/token = host.parent
-		ensure_host_space(token)
+	for(var/obj/overmap/entity/host as anything in dock_hosts)
+		if(!QDELETED(host))
+			ensure_host_space(host)
 
 /obj/overmap/entity/proc/host_content_bounds(z_level)
 

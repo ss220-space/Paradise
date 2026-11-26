@@ -25,7 +25,7 @@
 /obj/overmap/entity/station_docking_zone/proc/accepts_pad(obj/docking_port/stationary/pad)
 	if(QDELETED(pad) || istype(pad, /obj/docking_port/stationary/transit) || istype(pad, /obj/docking_port/stationary/overmap/landing))
 		return FALSE
-	return SSovermap.station_entity?.dock_host?.matches_pad(pad)
+	return SSovermap.station_entity?.matches_docking_pad(pad)
 
 /obj/overmap/entity/station_docking_zone/proc/contains_vessel(obj/overmap/entity/vessel)
 	return vessel.shuttle && !vessel.overmap_pod && vessel.sector == sector && (vessel.get_world_x() - get_world_x()) ** 2 + (vessel.get_world_y() - get_world_y()) ** 2 <= radius ** 2

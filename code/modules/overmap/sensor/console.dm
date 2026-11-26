@@ -91,9 +91,6 @@
 /obj/machinery/computer/sensors/proc/can_run()
 	return !(stat & (NOPOWER|BROKEN)) && vessel?.has_working_sensor(view_mode)
 
-/obj/machinery/computer/sensors/proc/detects_contact(obj/overmap/overmap_object)
-	return vessel && vessel.object_visibility(overmap_object, vessel.get_overmap_turf(), vessel.sensor_reach_cells()) > 0
-
 /obj/machinery/computer/sensors/proc/update_scan_info(force = FALSE)
 	last_map_turf = vessel?.get_overmap_turf()
 	if(scanning)

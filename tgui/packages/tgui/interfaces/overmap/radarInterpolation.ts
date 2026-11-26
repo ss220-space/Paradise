@@ -23,11 +23,16 @@ export const mergeRadarPoses = (
   poses?: RadarPose[] | null,
 ) => {
   if (!poses) return objects;
-  const byId = new Map(poses.map((pose) => [pose.id, pose]));
-  return objects.flatMap((object) => {
+  const byId = new Map<string, RadarPose>();
+  for (const pose of poses) {
+    byId.set(pose.id, pose);
+  }
+  const merged: RadarObject[] = [];
+  for (const object of objects) {
     const pose = object.id && byId.get(object.id);
-    return pose ? [{ ...object, ...pose }] : [];
-  });
+    if (pose) merged.push({ ...object, ...pose });
+  }
+  return merged;
 };
 
 export type RadarFrame = {

@@ -69,7 +69,7 @@
 		return "Сначала остановитесь."
 	if(vessel.overmap_pod)
 		var/turf/ground = pod_landing_turf(pad)
-		if(!ground || !vessel.overmap_pod.land_at(ground, src))
+		if(!ground || !vessel.land_pod_at(ground, src))
 			return "Посадочная площадка занята."
 		return TRUE
 	return vessel.overmap_shuttle.begin_physical_dock(instant = TRUE, pad = pad)

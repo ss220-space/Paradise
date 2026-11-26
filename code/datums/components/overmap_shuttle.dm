@@ -601,9 +601,7 @@
 				continue
 			if(hyperspace_too_close_to_border(spot))
 				var/obj/spacepod/pod_to_rescue = thing
-				if(isspacepod(pod_to_rescue) && pod_to_rescue.overmap_vessel?.overmap_pod)
-					pod_to_rescue.overmap_vessel.overmap_pod.rescue_from_transit()
-				else
+				if(!isspacepod(pod_to_rescue) || !pod_to_rescue.rescue_from_transit())
 					delete_lost_in_hyperspace(thing)
 				continue
 			var/dx = 0
@@ -618,9 +616,7 @@
 				dy = spot.y - hull_max_y
 			if(max(dx, dy) > OVERMAP_HYPERSPACE_HULL_KEEP)
 				var/obj/spacepod/stray_pod = thing
-				if(isspacepod(stray_pod) && stray_pod.overmap_vessel?.overmap_pod)
-					stray_pod.overmap_vessel.overmap_pod.rescue_from_transit()
-				else
+				if(!isspacepod(stray_pod) || !stray_pod.rescue_from_transit())
 					delete_lost_in_hyperspace(thing)
 				continue
 			var/turf/dest = locate(port.x + (thing.x - pad.x), port.y + (thing.y - pad.y), port.z)

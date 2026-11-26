@@ -76,8 +76,7 @@
 	for(var/obj/machinery/gun as anything in virtual_weapons)
 		gun.end_processing()
 		SEND_SIGNAL(gun, COMSIG_OVERMAP_WEAPON_CONFIGURE, list("automatic" = FALSE))
-	if(!sensor_pack)
-		AddComponent(/datum/component/overmap_sensors/ai)
+	ensure_sensor_pack(/datum/component/overmap_sensors/ai)
 	short_sensors_on = TRUE
 	long_sensors_on = profile.long_scan
 	flight.angular_dampeners = TRUE

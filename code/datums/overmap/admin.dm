@@ -389,13 +389,10 @@
 			if(!istype(vessel))
 				to_chat(user, span_warning("Сенсоры только у entity-токенов."), confidential = TRUE)
 				return TRUE
-			if(!vessel.sensor_pack)
-				vessel.AddComponent(/datum/component/overmap_sensors)
+			vessel.ensure_sensor_pack()
 			vessel.long_sensors_on = TRUE
 			vessel.short_sensors_on = TRUE
-			for(var/obj/overmap/other as anything in vessel.sector?.objects)
-				vessel.sensor_pack.remember_short_contact(other)
-			vessel.refresh_sensor_displays()
+			vessel.identify_short_many(vessel.sector?.objects, TRUE)
 			log_admin("[key_name(user)] forced sensors on [vessel].")
 			return TRUE
 		if("set_field")
@@ -600,8 +597,7 @@
 		shell.bind_slave(token)
 	if(!vessel.flight)
 		vessel.AddComponent(/datum/component/overmap_flight)
-	if(!vessel.sensor_pack)
-		vessel.AddComponent(/datum/component/overmap_sensors)
+	vessel.ensure_sensor_pack()
 	vessel.long_sensors_on = TRUE
 	vessel.short_sensors_on = TRUE
 	vessel.movable = TRUE
@@ -625,8 +621,7 @@
 	if(!console.vessel)
 		to_chat(user, span_warning("Консоль не привязана к судну."), confidential = TRUE)
 		return
-	if(!console.vessel.sensor_pack)
-		console.vessel.AddComponent(/datum/component/overmap_sensors)
+	console.vessel.ensure_sensor_pack()
 	var/added = console.vessel.import_short_dump(dump_uids.Copy(), "admin")
 	to_chat(user, span_notice("Загружено контактов: [added]."), confidential = TRUE)
 	log_admin("[key_name(user)] loaded overmap dump ([added]) into [console] / [console.vessel].")
@@ -893,8 +888,7 @@
 	if(!console.vessel)
 		to_chat(user, span_warning("Консоль не привязана к судну."), confidential = TRUE)
 		return TRUE
-	if(!console.vessel.sensor_pack)
-		console.vessel.AddComponent(/datum/component/overmap_sensors)
+	console.vessel.ensure_sensor_pack()
 	var/added = console.vessel.import_short_dump(uids.Copy(), "admin")
 	to_chat(user, span_notice("Дамп загружен ([added])."), confidential = TRUE)
 	log_admin("[key_name(user)] click-loaded overmap dump ([added]) into [console].")

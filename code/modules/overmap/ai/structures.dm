@@ -20,8 +20,7 @@
 		flight.autopilot = FALSE
 		flight.clear_navigation()
 		flight.angular_velocity = 0
-	if(!sensor_pack)
-		AddComponent(/datum/component/overmap_sensors)
+	ensure_sensor_pack()
 	SSovermap.ensure_host_space(src)?.ensure_region()
 	if(!SSovermap.ai_controller)
 		SSovermap.ai_controller = new

@@ -635,11 +635,8 @@
 	var/turf/here = get_overmap_turf()
 	if(!here)
 		return null
-	for(var/datum/component/overmap_dock_host/host as anything in SSovermap.dock_hosts)
-		if(QDELETED(host) || host.parent == src)
-			continue
-		var/obj/overmap/entity/token = host.parent
-		if(token.get_overmap_turf() == here)
+	for(var/obj/overmap/entity/token as anything in SSovermap.dock_hosts)
+		if(!QDELETED(token) && token != src && token.get_overmap_turf() == here)
 			return token
 	for(var/obj/overmap/entity/other in here)
 		if(other != src && other.dock_host)
@@ -664,7 +661,10 @@
 	SSovermap?.host_for_pad(pad)
 	if(pad.overmap_host_uid)
 		return pad.overmap_host_uid == host.UID()
-	return host.dock_host?.matches_pad(pad)
+	return host.matches_docking_pad(pad)
+
+/obj/overmap/entity/proc/matches_docking_pad(obj/docking_port/stationary/pad)
+	return SEND_SIGNAL(src, COMSIG_OVERMAP_DOCK_MATCH_PAD, pad) & COMPONENT_OVERMAP_PAD_MATCH
 
 /obj/overmap/entity/proc/get_total_thrust()
 	return flight ? flight.get_total_thrust() : 0
@@ -722,6 +722,10 @@
 /obj/overmap/entity/proc/has_working_sensor(kind)
 	return sensor_pack?.has_working_sensor(kind)
 
+/obj/overmap/entity/proc/ensure_sensor_pack(component_type = /datum/component/overmap_sensors)
+	if(!(SEND_SIGNAL(src, COMSIG_OVERMAP_SENSOR_STATUS) & COMPONENT_OVERMAP_HAS_SENSORS))
+		AddComponent(component_type)
+
 /obj/overmap/entity/proc/signal_view_range()
 	return sensor_pack ? sensor_pack.signal_view_range() : 0
 
@@ -758,10 +762,10 @@
 	return sensor_pack ? sensor_pack.contact_identified(other) : iff_detects(other)
 
 /obj/overmap/entity/proc/set_long_sensors(enabled)
-	return sensor_pack?.set_long_sensors(enabled)
+	return SEND_SIGNAL(src, COMSIG_OVERMAP_SENSOR_SET_ENABLED, OVERMAP_SENSOR_KIND_LONG, enabled) & COMPONENT_OVERMAP_SENSOR_APPLIED
 
 /obj/overmap/entity/proc/set_short_sensors(enabled)
-	return sensor_pack?.set_short_sensors(enabled)
+	return SEND_SIGNAL(src, COMSIG_OVERMAP_SENSOR_SET_ENABLED, OVERMAP_SENSOR_KIND_SHORT, enabled) & COMPONENT_OVERMAP_SENSOR_APPLIED
 
 /obj/overmap/entity/proc/can_short_scan(obj/overmap/other)
 	return sensor_pack?.can_short_scan(other)
@@ -775,8 +779,8 @@
 /obj/overmap/entity/proc/identify_short(obj/overmap/other)
 	sensor_pack?.identify_short(other)
 
-/obj/overmap/entity/proc/identify_short_many(list/others)
-	sensor_pack?.identify_short_many(others)
+/obj/overmap/entity/proc/identify_short_many(list/others, force_refresh = FALSE)
+	SEND_SIGNAL(src, COMSIG_OVERMAP_SENSOR_IDENTIFY_CONTACTS, others, force_refresh)
 
 /obj/overmap/entity/proc/export_short_dump()
 	return sensor_pack?.export_short_dump() || list()

@@ -109,6 +109,8 @@
 	var/sensor_reach = sensor_reach_cells()
 	if(sector)
 		for(var/obj/overmap/overmap_object as anything in sector.objects)
+			if(istype(overmap_object, /obj/overmap/feature/hazard))
+				continue
 			var/turf/object_turf = overmap_object.get_overmap_turf()
 			if(!object_turf)
 				continue
@@ -118,7 +120,7 @@
 			if(here && max(abs(here.x - object_turf.x), abs(here.y - object_turf.y)) > view_range)
 				continue
 			var/is_self = overmap_object == src
-			var/is_terrain = istype(overmap_object, /obj/overmap/planet) || istype(overmap_object, /obj/overmap/feature/hazard)
+			var/is_terrain = istype(overmap_object, /obj/overmap/planet)
 			var/is_vessel = istype(overmap_object, /obj/overmap/entity/shuttle) || istype(overmap_object, /obj/overmap/entity/pod)
 			if(!is_self && !is_terrain)
 				if(!isturf(overmap_object.loc))
@@ -136,17 +138,15 @@
 			var/is_entity = istype(contact)
 			var/obj/overmap/planet/planet = overmap_object
 			var/obj/overmap/entity/hyperrelay/relay = overmap_object
-			if(istype(overmap_object, /obj/overmap/feature/hazard))
-
-				continue
+			var/destroyed = is_entity && contact.is_ai_destroyed()
 			var/list/entry = list(
 				"id" = overmap_object.UID(),
 				"name" = is_self || identified ? overmap_object.get_overmap_display_name() : OVERMAP_UNKNOWN_NAME,
 				"kind" = identified || is_self ? overmap_object.overmap_kind : "unknown",
 				"x" = is_self ? data["self_pos"][1] : sector.coord_x(object_turf) + overmap_object.position[1],
 				"y" = is_self ? data["self_pos"][2] : sector.coord_y(object_turf) + overmap_object.position[2],
-				"color" = is_entity && contact.is_ai_destroyed() ? "#888888" : identified ? overmap_object.map_color : "#fffffe",
-				"destroyed" = is_entity && contact.is_ai_destroyed(),
+				"color" = destroyed ? "#888888" : identified ? overmap_object.map_color : "#fffffe",
+				"destroyed" = destroyed,
 				"is_self" = is_self,
 				"nested" = !isturf(overmap_object.loc),
 				"speed" = round(OVERMAP_DISPLAY_SPEED(overmap_object.get_speed()), 0.01),

@@ -360,12 +360,12 @@
 /obj/overmap/entity/proc/quarter_turns()
 	return round(get_facing() / 90, 1) * 90
 
-/obj/overmap/entity/proc/update_neighbors(list/flying)
+/obj/overmap/entity/proc/update_neighbors(list/flying, origin_x = get_world_x(), origin_y = get_world_y())
 	nearby_ships = list()
 	for(var/obj/overmap/entity/other as anything in flying)
 		if(other == src || other.sector != sector || other.formation_pad || (formation_pad && other == docked_ship))
 			continue
-		var/distance = sqrt((other.get_world_x() - get_world_x()) ** 2 + (other.get_world_y() - get_world_y()) ** 2) - hull_radius - other.hull_radius
+		var/distance = sqrt((other.get_world_x() - origin_x) ** 2 + (other.get_world_y() - origin_y) ** 2) - hull_radius - other.hull_radius
 		if(distance <= OVERMAP_CONTACT_RANGE)
 			nearby_ships[other] = TRUE
 
@@ -826,7 +826,9 @@
 		if(vessel.atmosphere)
 			SSovermap_visuals.queue_update(vessel)
 			continue
-		vessel.update_neighbors(flight_index.nearby(vessel.sector, vessel.get_world_x(), vessel.get_world_y(), vessel.hull_radius + OVERMAP_CONTACT_RANGE))
+		var/world_x = vessel.get_world_x()
+		var/world_y = vessel.get_world_y()
+		vessel.update_neighbors(flight_index.nearby(vessel.sector, world_x, world_y, vessel.hull_radius + OVERMAP_CONTACT_RANGE), world_x, world_y)
 		SSovermap_visuals.queue_update(vessel)
 	for(var/datum/overmap_bubble/bubble as anything in bubbles)
 		var/list/center = bubble.to_world(bubble.center_x, bubble.center_y)

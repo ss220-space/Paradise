@@ -1256,7 +1256,7 @@
 			rider.update_parallax_contents()
 
 /obj/spacepod/proc/local_overmap_move_blocked()
-	return overmap_vessel?.overmap_pod?.blocks_local_move()
+	return has_overmap_pod_state(COMPONENT_OVERMAP_POD_IN_POCKET | COMPONENT_OVERMAP_POD_UNDOCKING)
 
 /obj/spacepod/proc/regulate_temp()
 	if(cabin_air && cabin_air.return_volume() > 0)
@@ -1300,7 +1300,7 @@
 	return TRUE	// obviously
 
 /obj/spacepod/relaymove(mob/user, direction)
-	if(overmap_vessel?.overmap_pod)
+	if(has_overmap_pod_state(COMPONENT_OVERMAP_POD_LINKED))
 		return FALSE
 	if(!COOLDOWN_FINISHED(src, spacepod_move_cooldown))
 		return FALSE
@@ -1310,7 +1310,7 @@
 		return FALSE
 
 	if(local_overmap_move_blocked())
-		if(overmap_vessel?.overmap_pod?.is_undocking())
+		if(has_overmap_pod_state(COMPONENT_OVERMAP_POD_UNDOCKING))
 			to_chat(user, span_warning("Зажигание. Управление заблокировано."))
 		else
 			to_chat(user, span_warning("Управление корпусом заблокировано: челнок в гиперпространстве."))

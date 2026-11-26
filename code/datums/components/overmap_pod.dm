@@ -12,8 +12,12 @@
 /datum/component/overmap_pod/RegisterWithParent()
 	var/obj/overmap/entity/pod/token = parent
 	token.overmap_pod = src
+	RegisterSignal(parent, COMSIG_OVERMAP_POD_STATE, PROC_REF(on_pod_state))
+	RegisterSignal(parent, COMSIG_OVERMAP_POD_RESCUE, PROC_REF(on_rescue))
+	RegisterSignal(parent, COMSIG_OVERMAP_POD_LAND, PROC_REF(on_land))
 
 /datum/component/overmap_pod/UnregisterFromParent()
+	UnregisterSignal(parent, list(COMSIG_OVERMAP_POD_STATE, COMSIG_OVERMAP_POD_RESCUE, COMSIG_OVERMAP_POD_LAND))
 	var/obj/overmap/entity/pod/token = parent
 	token.set_free_flight_view(FALSE)
 	if(token.overmap_pod == src)
@@ -29,8 +33,15 @@
 	var/obj/spacepod/craft = pod()
 	return pocket && !QDELETED(pocket) && craft && (get_turf(craft) in pocket.reserved_turfs)
 
-/datum/component/overmap_pod/proc/blocks_local_move()
-	return is_in_own_pocket() || is_undocking()
+/datum/component/overmap_pod/proc/on_pod_state(datum/source, requested, list/flying_areas)
+	SIGNAL_HANDLER
+	. = COMPONENT_OVERMAP_POD_LINKED
+	if((requested & COMPONENT_OVERMAP_POD_IN_POCKET) && is_in_own_pocket())
+		. |= COMPONENT_OVERMAP_POD_IN_POCKET
+		if(flying_areas)
+			flying_areas[pocket_area] = parent
+	if((requested & COMPONENT_OVERMAP_POD_UNDOCKING) && is_undocking())
+		. |= COMPONENT_OVERMAP_POD_UNDOCKING
 
 /datum/component/overmap_pod/proc/is_undocking()
 	return undocking_until != 0
@@ -131,8 +142,10 @@
 	craft.refresh_overmap_parallax()
 	return TRUE
 
-/datum/component/overmap_pod/proc/rescue_from_transit()
+/datum/component/overmap_pod/proc/on_rescue()
+	SIGNAL_HANDLER
 	INVOKE_ASYNC(src, PROC_REF(enter_hyperspace))
+	return COMPONENT_OVERMAP_POD_RESCUING
 
 /datum/component/overmap_pod/proc/landing_target()
 	var/obj/overmap/entity/pod/token = parent
@@ -237,6 +250,10 @@
 	token.docking_approach = approach
 	token.radar_docks_until = 0
 	return TRUE
+
+/datum/component/overmap_pod/proc/on_land(datum/source, turf/dest, obj/overmap/entity/host)
+	SIGNAL_HANDLER
+	return land_at(dest, host) ? COMPONENT_OVERMAP_POD_LANDED : NONE
 
 /datum/component/overmap_pod/proc/land_at(turf/dest, obj/overmap/entity/host)
 	var/obj/overmap/entity/pod/token = parent

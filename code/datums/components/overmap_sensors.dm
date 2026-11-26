@@ -21,9 +21,12 @@
 	var/obj/overmap/entity/token = parent
 	token.sensor_pack = src
 	RegisterSignal(parent, COMSIG_OVERMAP_SENSOR_JOURNAL, PROC_REF(on_journal_query))
+	RegisterSignal(parent, COMSIG_OVERMAP_SENSOR_STATUS, PROC_REF(on_sensor_status))
+	RegisterSignal(parent, COMSIG_OVERMAP_SENSOR_SET_ENABLED, PROC_REF(on_set_enabled))
+	RegisterSignal(parent, COMSIG_OVERMAP_SENSOR_IDENTIFY_CONTACTS, PROC_REF(on_identify_contacts))
 
 /datum/component/overmap_sensors/UnregisterFromParent()
-	UnregisterSignal(parent, COMSIG_OVERMAP_SENSOR_JOURNAL)
+	UnregisterSignal(parent, list(COMSIG_OVERMAP_SENSOR_JOURNAL, COMSIG_OVERMAP_SENSOR_STATUS, COMSIG_OVERMAP_SENSOR_SET_ENABLED, COMSIG_OVERMAP_SENSOR_IDENTIFY_CONTACTS))
 	if(peel_timer)
 		deltimer(peel_timer)
 		peel_timer = null
@@ -46,6 +49,21 @@
 /datum/component/overmap_sensors/proc/on_journal_query(datum/source, list/data)
 	SIGNAL_HANDLER
 	data["journal"] = sensor_journal || list()
+	data["known_count"] = length(short_identified)
+
+/datum/component/overmap_sensors/proc/on_sensor_status(datum/source, list/data)
+	SIGNAL_HANDLER
+	if(data)
+		data["stealth_speed"] = long_range_detection_speed()
+	return COMPONENT_OVERMAP_HAS_SENSORS
+
+/datum/component/overmap_sensors/proc/on_set_enabled(datum/source, kind, enabled)
+	SIGNAL_HANDLER
+	switch(kind)
+		if(OVERMAP_SENSOR_KIND_LONG)
+			return set_long_sensors(enabled) ? COMPONENT_OVERMAP_SENSOR_APPLIED : NONE
+		if(OVERMAP_SENSOR_KIND_SHORT)
+			return set_short_sensors(enabled) ? COMPONENT_OVERMAP_SENSOR_APPLIED : NONE
 
 /datum/component/overmap_sensors/proc/has_working_sensor(kind)
 	var/obj/overmap/entity/vessel = parent
@@ -288,14 +306,13 @@
 	if(!QDELETED(parent))
 		refresh_sensor_displays()
 
-/datum/component/overmap_sensors/proc/identify_short_many(list/others)
-	if(!length(others))
-		return
+/datum/component/overmap_sensors/proc/on_identify_contacts(datum/source, list/others, force_refresh)
+	SIGNAL_HANDLER
 	var/changed = FALSE
 	for(var/obj/overmap/other as anything in others)
 		if(remember_short_contact(other))
 			changed = TRUE
-	if(changed)
+	if(changed || force_refresh)
 		refresh_sensor_displays()
 
 /datum/component/overmap_sensors/proc/export_short_dump()

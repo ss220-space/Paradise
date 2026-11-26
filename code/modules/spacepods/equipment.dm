@@ -9,7 +9,7 @@
 		return
 	if(!craft.equipment_system || craft.equipment_system.weapon_system != src)
 		return
-	if(craft.overmap_vessel?.overmap_pod?.is_in_own_pocket())
+	if(craft.has_overmap_pod_state(COMPONENT_OVERMAP_POD_IN_POCKET))
 		if(craft.overmap_vessel.atmosphere || !craft.overmap_vessel.in_free_flight() || !craft.overmap_vessel.sector)
 			to_chat(user, span_warning("Орудия недоступны во время перехода и атмосферного полёта."))
 			return
@@ -28,7 +28,7 @@
 	var/obj/spacepod/craft = my_atom
 	if(QDELETED(craft) || QDELETED(src) || craft.pilot != user || craft.overmap_vessel?.atmosphere)
 		return FALSE
-	if(craft.overmap_vessel?.overmap_pod?.is_in_own_pocket() && !craft.overmap_vessel.in_free_flight())
+	if(craft.has_overmap_pod_state(COMPONENT_OVERMAP_POD_IN_POCKET) && !craft.overmap_vessel.in_free_flight())
 		return FALSE
 	var/obj/overmap/entity/vessel = craft.overmap_vessel
 	if(isnum(target_x) && isnum(target_y) && !SEND_SIGNAL(src, COMSIG_OVERMAP_WEAPON_CAN_AIM, vessel, target_x, target_y))

@@ -400,13 +400,10 @@
 /obj/machinery/landing_beacon/proc/bind_pad_host()
 	if(!pad || QDELETED(pad) || !SSovermap)
 		return
-	for(var/datum/component/overmap_dock_host/host_comp as anything in SSovermap.dock_hosts)
-		if(QDELETED(host_comp) || !host_comp.matches_pad(pad))
+	for(var/obj/overmap/entity/host as anything in SSovermap.dock_hosts)
+		if(QDELETED(host) || !host.matches_docking_pad(pad))
 			continue
-		var/obj/overmap/entity/token = host_comp.parent
-		if(!istype(token))
-			continue
-		pad.overmap_host_uid = token.UID()
+		pad.overmap_host_uid = host.UID()
 		return
 
 /obj/machinery/landing_beacon/shuttle_crush_react(turf/stationary_turf, mobile_dir, skip_ungibable_search = FALSE)

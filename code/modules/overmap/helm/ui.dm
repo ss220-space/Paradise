@@ -44,7 +44,8 @@
 		data["self_pos"] = list(vessel.sector.coord_x(here) + vessel.position[1], vessel.sector.coord_y(here) + vessel.position[2])
 	var/speed = vessel.get_speed()
 	data["speed"] = round(OVERMAP_DISPLAY_SPEED(speed), 0.01)
-	data["stealth_speed"] = vessel.sensor_pack?.long_range_detection_speed()
+	data["stealth_speed"] = null
+	SEND_SIGNAL(vessel, COMSIG_OVERMAP_SENSOR_STATUS, data)
 	data["heading"] = vessel.get_heading_angle()
 	data["facing"] = round(vessel.flight?.facing || 0)
 	data["phase"] = flight_phase()

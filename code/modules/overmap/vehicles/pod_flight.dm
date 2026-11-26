@@ -1,5 +1,14 @@
-/obj/overmap/entity/pod/in_free_flight()
-	return overmap_pod?.is_in_own_pocket() && !is_jumping() && status == OVERMAP_STATUS_OVERMAP && isturf(loc)
+/obj/spacepod/proc/has_overmap_pod_state(requested)
+	return overmap_vessel && (SEND_SIGNAL(overmap_vessel, COMSIG_OVERMAP_POD_STATE, requested) & requested)
+
+/obj/spacepod/proc/rescue_from_transit()
+	return overmap_vessel && (SEND_SIGNAL(overmap_vessel, COMSIG_OVERMAP_POD_RESCUE) & COMPONENT_OVERMAP_POD_RESCUING)
+
+/obj/overmap/entity/proc/land_pod_at(turf/dest, obj/overmap/entity/host)
+	return SEND_SIGNAL(src, COMSIG_OVERMAP_POD_LAND, dest, host) & COMPONENT_OVERMAP_POD_LANDED
+
+/obj/overmap/entity/pod/in_free_flight(in_pocket = overmap_pod?.is_in_own_pocket())
+	return in_pocket && !is_jumping() && status == OVERMAP_STATUS_OVERMAP && isturf(loc)
 
 /datum/controller/subsystem/overmap/proc/pod_blocker(turf/next, atom/movable/mover)
 	if(!mover.simulated || isobserver(mover) || (mover.movement_type & PHASING))

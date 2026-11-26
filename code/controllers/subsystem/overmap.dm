@@ -54,7 +54,7 @@ SUBSYSTEM_DEF(overmap)
 	var/preparing_bubble_space = FALSE
 	var/list/datum/overmap_bubble/bubbles_by_reservation = list()
 	var/list/static_bubbles_by_z = list()
-	var/list/datum/component/overmap_dock_host/dock_hosts = list()
+	var/list/obj/overmap/entity/dock_hosts = list()
 	var/list/obj/docking_port/mobile/area_shuttles = list()
 	var/area_shuttle_cache_ready = FALSE
 	var/last_fire_time = 0
@@ -669,14 +669,13 @@ SUBSYSTEM_DEF(overmap)
 		var/obj/overmap/entity/pod/pod_vessel = pod_vessels[craft]
 		if(QDELETED(pod_vessel) || QDELETED(craft))
 			continue
-		var/in_flight = pod_vessel.in_free_flight()
+		var/in_pocket = SEND_SIGNAL(pod_vessel, COMSIG_OVERMAP_POD_STATE, COMPONENT_OVERMAP_POD_IN_POCKET, flying_areas) & COMPONENT_OVERMAP_POD_IN_POCKET
+		var/in_flight = pod_vessel.in_free_flight(in_pocket)
 		if(in_flight != pod_vessel.free_flight_view)
 			pod_vessel.set_free_flight_view(in_flight)
 		if(in_flight)
 			flying += pod_vessel
 			flying_pods += pod_vessel
-		if(pod_vessel.overmap_pod.is_in_own_pocket())
-			flying_areas[pod_vessel.overmap_pod.pocket_area] = pod_vessel
 	for(var/obj/overmap/entity/virtual_structure/structure as anything in GLOB.overmap_virtual_structures)
 		if(!QDELETED(structure) && structure.sector && isturf(structure.loc))
 			flying += structure

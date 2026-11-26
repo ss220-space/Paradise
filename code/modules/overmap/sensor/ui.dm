@@ -103,7 +103,7 @@
 	data["dump_name"] = dump_paper?.name
 	data["dump_has_data"] = !!length(dump_paper?.overmap_scan_dump)
 	data["dump_count"] = length(dump_paper?.overmap_scan_dump)
-	data["known_count"] = length(vessel?.sensor_pack?.short_identified)
+	data["known_count"] = 0
 	data["scan_progress"] = 0
 	if(scanning)
 		if(scan_finished)
@@ -286,13 +286,15 @@
 /obj/machinery/computer/sensors/proc/build_ui_contacts()
 	var/list/contacts = list()
 	if(vessel && can_run() && !scanning && vessel.sector)
+		var/turf/here = vessel.get_overmap_turf()
+		var/reach = vessel.sensor_reach_cells()
+		var/short_mode = view_mode == OVERMAP_SENSOR_KIND_SHORT
 		for(var/obj/overmap/overmap_object as anything in vessel.sector.objects)
-			if(!detects_contact(overmap_object))
+			if(vessel.object_visibility(overmap_object, here, reach) <= 0)
 				continue
 			var/turf/there = overmap_object.get_overmap_turf()
 			if(!there)
 				continue
-			var/short_mode = view_mode == OVERMAP_SENSOR_KIND_SHORT
 			var/identified = vessel.display_identified(overmap_object, short_mode)
 			var/obj/overmap/entity/scan_contact = overmap_object
 			contacts += list(list(

@@ -50,7 +50,7 @@
 		return
 	if(isspacepod(arrived))
 		var/obj/spacepod/craft = arrived
-		if(craft.overmap_vessel?.overmap_pod?.is_in_own_pocket())
+		if(craft.has_overmap_pod_state(COMPONENT_OVERMAP_POD_IN_POCKET))
 			return
 	dump_in_space(arrived)
 
@@ -65,8 +65,7 @@
 				vessel.atmosphere.drop_from_hull(dumpee, origin)
 			return
 		var/obj/spacepod/craft = dumpee
-		if(isspacepod(craft) && craft.overmap_vessel?.overmap_pod)
-			craft.overmap_vessel.overmap_pod.rescue_from_transit()
+		if(isspacepod(craft) && craft.rescue_from_transit())
 			return
 		if(vessel?.eject_to_bubble(dumpee, origin))
 			return

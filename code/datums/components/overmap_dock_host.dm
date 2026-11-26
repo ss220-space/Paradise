@@ -20,16 +20,18 @@
 /datum/component/overmap_dock_host/RegisterWithParent()
 	var/obj/overmap/entity/token = parent
 	token.dock_host = src
-	SSovermap?.dock_hosts |= src
+	RegisterSignal(parent, COMSIG_OVERMAP_DOCK_MATCH_PAD, PROC_REF(on_match_pad))
+	SSovermap?.dock_hosts |= token
 	SSovermap?.ensure_host_space(token)
 
 /datum/component/overmap_dock_host/UnregisterFromParent()
 	var/obj/overmap/entity/token = parent
+	UnregisterSignal(parent, COMSIG_OVERMAP_DOCK_MATCH_PAD)
 	if(token.dock_host == src)
 		token.dock_host = null
 	if(token.physical_space?.host == token)
 		QDEL_NULL(token.physical_space)
-	SSovermap?.dock_hosts -= src
+	SSovermap?.dock_hosts -= token
 	cached_host_areas = null
 	QDEL_LIST_ASSOC_VAL(surfaces)
 
@@ -43,6 +45,10 @@
 		if(istype(place, area_root))
 			cached_host_areas += place
 	return cached_host_areas
+
+/datum/component/overmap_dock_host/proc/on_match_pad(datum/source, obj/docking_port/stationary/pad)
+	SIGNAL_HANDLER
+	return matches_pad(pad) ? COMPONENT_OVERMAP_PAD_MATCH : NONE
 
 /datum/component/overmap_dock_host/proc/matches_pad(obj/docking_port/stationary/pad)
 	if(!pad || istype(pad, /obj/docking_port/stationary/transit))
