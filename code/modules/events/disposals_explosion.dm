@@ -3,12 +3,11 @@
 	Marks a disposals pipe for a violent trash explosion if not repaired in time
 */
 
-GLOBAL_LIST_EMPTY(disposals_pipe_areas)
-
 /datum/event/disposals_explosion
 	name = "Взрыв мусоропровода"
 	announceWhen = 20
 	endWhen = 80 // Should be plenty of time to find it
+	var/list/area/disposals_pipe_areas = list()
 	var/obj/structure/disposalpipe/segment/bursting_pipe = null
 	var/area/picked_disposals_pipe_area = null
 
@@ -25,10 +24,10 @@ GLOBAL_LIST_EMPTY(disposals_pipe_areas)
 	return FALSE
 
 /datum/event/disposals_explosion/proc/pick_disposal_pipe_in_area()
-	if(!length(GLOB.disposals_pipe_areas))
+	if(!length(disposals_pipe_areas))
 		return
 
-	picked_disposals_pipe_area = pick(GLOB.disposals_pipe_areas)
+	picked_disposals_pipe_area = pick(disposals_pipe_areas)
 
 	var/list/disposal_pipe_in_area = list()
 
@@ -51,18 +50,18 @@ GLOBAL_LIST_EMPTY(disposals_pipe_areas)
 	kill()
 
 /datum/event/disposals_explosion/proc/cache_disposals_pipe_area()
-	if(length(GLOB.disposals_pipe_areas))
+	if(length(disposals_pipe_areas))
 		return
 
 	for(var/area/station_area in SSmapping.existing_station_areas)
 		if(!area_has_disposals_pipe(station_area))
 			continue
-		GLOB.disposals_pipe_areas += station_area
+		disposals_pipe_areas += station_area
 
 /datum/event/disposals_explosion/setup()
 	cache_disposals_pipe_area()
 
-	if(!length(GLOB.disposals_pipe_areas))
+	if(!length(disposals_pipe_areas))
 		log_debug("[name] event failed to start. No disposals pipes on found.")
 		kill()
 		return
@@ -113,3 +112,6 @@ GLOBAL_LIST_EMPTY(disposals_pipe_areas)
 		playsound(bursting_pipe, SFX_EXPLOSION, 40, 0, 0, 5)
 
 		bursting_pipe.deconstruct(FALSE)
+
+		disposals_pipe_areas = null
+		bursting_pipe = null
