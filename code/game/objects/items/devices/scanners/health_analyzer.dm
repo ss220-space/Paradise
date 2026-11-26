@@ -236,6 +236,7 @@
 		P.add_raw_text("Текущее количество очков страховки: [scan_data["insurance"]].\n")
 
 	P.add_raw_text("\n\n**Заметки:**\n")
+	P.update_appearance(UPDATE_ICON_STATE)
 
 	if(in_range(user, src))
 		user.put_in_hands(P, ignore_anim = FALSE)

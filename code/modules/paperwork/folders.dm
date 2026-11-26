@@ -1,15 +1,3 @@
-// /obj/item/folder
-// 	name = "folder"
-// 	desc = "A folder."
-// 	icon = 'icons/obj/service/bureaucracy.dmi'
-// 	icon_state = "folder"
-// 	w_class = WEIGHT_CLASS_SMALL
-// 	pressure_resistance = 2
-// 	resistance_flags = FLAMMABLE
-
-// 	lefthand_file = 'icons/mob/inhands/folder_lefthand.dmi'
-// 	righthand_file = 'icons/mob/inhands/folder_righthand.dmi'
-
 /obj/item/folder
 	name = "folder"
 	desc = "A folder."
@@ -98,7 +86,7 @@
 	. = ..()
 	if(contents.len)
 		var/to_add = get_paper_overlay()
-		if (to_add)
+		if(to_add)
 			. += to_add
 
 /obj/item/folder/proc/get_paper_overlay()

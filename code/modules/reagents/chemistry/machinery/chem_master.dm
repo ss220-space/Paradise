@@ -250,6 +250,7 @@
 				P.add_raw_text("**Описание:** [R.description]")
 			P.add_raw_text("\n\n**Заметки:**\n")
 			P.name = "Химический анализ — [R.name]"
+			P.update_appearance(UPDATE_ICON_STATE)
 			spawn(50)
 				printing = FALSE
 

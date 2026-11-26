@@ -9,7 +9,6 @@
 	icon = 'icons/obj/service/bureaucracy.dmi'
 	icon_state = "paper"
 	item_state = "paper"
-	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_range = 1
 	throw_speed = 1
@@ -26,7 +25,7 @@
 	custom_price = PAYCHECK_MIN * 0.05
 	interaction_flags_click = NEED_DEXTERITY|NEED_HANDS|ALLOW_RESTING
 	color = COLOR_WHITE
-	//scatter_distance = 8
+	scatter_distance = 8
 /*
 	item_flags = SKIP_FANTASY_ON_SPAWN
 	custom_materials = list(/datum/material/paper = HALF_SHEET_MATERIAL_AMOUNT / 2)
@@ -180,7 +179,7 @@
 	new_paper.input_field_count = input_field_count
 	new_paper.raw_stamp_data = copy_raw_stamps()
 	new_paper.stamp_cache = stamp_cache?.Copy()
-	new_paper.update_icon_state()
+	new_paper.update_icon(UPDATE_ICON_STATE)
 	new_paper.copy_overlays(src)
 	return new_paper
 
@@ -693,7 +692,7 @@ GAME_VERB_SRC(/obj/item/paper, rename, usr, "Rename paper", null)
 			var/stamp_icon_state = stamp_info["stamp_icon_state"]
 			var/stamp_icon = stamp_info["stamp_icon"]
 
-			if (LAZYLEN(raw_stamp_data) >= MAX_PAPER_STAMPS)
+			if(LAZYLEN(raw_stamp_data) >= MAX_PAPER_STAMPS)
 				to_chat(usr, pick("You try to stamp but you miss!", "There is nowhere else you can stamp!"))
 				return TRUE
 

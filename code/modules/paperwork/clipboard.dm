@@ -1,20 +1,5 @@
-#define PAPERWORK 1
-#define PHOTO 2
 
-// /obj/item/clipboard
-// 	name = "clipboard"
-// 	desc = "It looks like you're writing a letter. Want some help?"
-// 	icon = 'icons/obj/service/bureaucracy.dmi'
-// 	icon_state = "clipboard"
-// 	item_state = "clipboard"
-// 	w_class = WEIGHT_CLASS_SMALL
-// 	throw_speed = 3
-// 	var/obj/item/pen/containedpen
-// 	var/obj/item/toppaper
-// 	slot_flags = ITEM_SLOT_BELT
-// 	resistance_flags = FLAMMABLE
-
-/**
+/*
  * Clipboard
  */
 /obj/item/clipboard
@@ -23,10 +8,8 @@
 	icon = 'icons/obj/service/bureaucracy.dmi'
 	icon_state = "clipboard"
 	item_state = "clipboard"
-	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
-	throw_range = 7
 	slot_flags = ITEM_SLOT_BELT
 	resistance_flags = FLAMMABLE
 
@@ -133,7 +116,7 @@
 		update_appearance()
 		return ITEM_INTERACT_SUCCESS
 
-	if(istype(tool, /obj/item/pen) && !containedpen)
+	if(is_pen(tool) && !containedpen)
 		//Add a pen into the clipboard, attack (write) if there is already one
 		if(!user.drop_transfer_item_to_loc(tool, src))
 			return ITEM_INTERACT_BLOCKING

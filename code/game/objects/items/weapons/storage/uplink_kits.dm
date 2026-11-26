@@ -340,16 +340,14 @@
 	var/obj/item/paper/P = new /obj/item/paper(src)
 	P.name = "Prototype nanite repair guide" // The instructions need to be revised.
 	P.desc = "For when you want to safely get off Mr Bones' Wild Ride."
-	P.add_raw_text({"
-<font face="Verdana" color=black></font><font face="Verdana" color=black><center><b>Prototype Emergency Repair Nanites</b><hr></center><br><br>
-
-<b>Usage:</b> <br><br><br>
-
-<font size = "1">This is a highly experimental prototype chemical designed to repair damaged bones, organs, and treat interenal bleeding of soldiers in the field, use only as a last resort. The autoinjector contains prototype nanites bearing a classifed payload. The nanites will simultaneously shut down body systems whilst aiding in repair.<br><br><br>Warning: Side effects can cause temporary paralysis, loss of co-ordination and sickness. <b>Do not use with any kind of stimulant or drugs. Serious damage can occur!</b><br><br><br>
-
-To apply, hold the injector a short distance away from the outer thigh before applying firmly to the skin surface. The process of repairing should begin repair after a short time, during which you are advised to remain still. <br><br><br><br>After use you are advised to see a doctor at the next available opportunity. Mild scarring and tissue damage may occur after use. This is a prototype. We are not liable for any bone spurs, cancers, extra limbs, or creation of new viruses from use of the product.</font><br><hr></font>
-	"}
+	P.add_raw_text(" \
+	<center><b>Prototype Emergency Repair Nanites</b><hr></center><br><br> \
+	<b>Usage:</b> <br><br><br> \
+	This is a highly experimental prototype chemical designed to repair damaged bones, organs, and treat interenal bleeding of soldiers in the field, use only as a last resort. The autoinjector contains prototype nanites bearing a classifed payload. The nanites will simultaneously shut down body systems whilst aiding in repair.<br><br><br>Warning: Side effects can cause temporary paralysis, loss of co-ordination and sickness. <b>Do not use with any kind of stimulant or drugs. Serious damage can occur!</b><br><br><br> \
+	To apply, hold the injector a short distance away from the outer thigh before applying firmly to the skin surface. The process of repairing should begin repair after a short time, during which you are advised to remain still. <br><br><br><br>After use you are advised to see a doctor at the next available opportunity. Mild scarring and tissue damage may occur after use. This is a prototype. We are not liable for any bone spurs, cancers, extra limbs, or creation of new viruses from use of the product.</font><br><hr></font> \
+	"
 	)
+	P.update_appearance(UPDATE_ICON_STATE)
 
 /obj/item/storage/box/syndie_kit/chameleon
 	name = "chameleon kit"

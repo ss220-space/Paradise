@@ -218,8 +218,8 @@
 	paper.name = "Отчёт об аутопсии — [target_name]"
 	paper.add_raw_text("<tt>[scan_data]</tt>")
 	paper.update_icon()
+	paper.update_appearance(UPDATE_ICON_STATE)
 	user.put_in_hands(paper, ignore_anim = FALSE)
-
 
 /obj/item/autopsy_scanner/proc/print_report_form(mob/user)
 	if(!COOLDOWN_FINISHED(src, print_cooldown))
@@ -238,6 +238,7 @@
 	paper.name = "Отчёт патологоанатома — [dead_name]"
 	paper.add_raw_text("**<center>[station_name()] — Отчёт патологоанатома**</center>\n\n**Имя погибшего:** [dead_name]</br>\n**Должность погибшего:** [dead_rank]\n\n**Время смерти:** [dead_tod]\n\n**Причина смерти:** [dead_cause]\n\n**Химические следы:** [dead_chems]\n\n**Дополнительные детали:** [dead_notes]\n\n**Подпись патологоанатома:** <span class=\"paper_field\">")
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
+	paper.update_appearance(UPDATE_ICON_STATE)
 	user.put_in_hands(paper, ignore_anim = FALSE)
 
 //MARK: Collect data

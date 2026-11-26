@@ -5,7 +5,6 @@
 	desc = "A board for pinning important notices upon. It is made of the finest Spanish cork."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "noticeboard"
-	density = FALSE
 	anchored = TRUE
 	max_integrity = 150
 	/// Current number of a pinned notices

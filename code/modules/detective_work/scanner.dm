@@ -84,7 +84,6 @@
 	P.add_raw_text("<center><font size='6'>**Scanner Report**</font></center>\n---\n\n")
 	P.add_raw_text(jointext(log, "\n"))
 	P.add_raw_text("\n---\n**Notes:**\n")
-	// P.info_links = P.info
 
 	if(ismob(loc))
 		var/mob/M = loc

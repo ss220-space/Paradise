@@ -29,6 +29,8 @@
 	var/requires_gravity = TRUE
 	/// Used font
 	var/font = PEN_FONT
+	/// Can player actually "toggle off" pen by clicking it
+	var/toggleable_off = TRUE
 
 /obj/item/pen/get_ru_names()
 	return alist(
@@ -93,8 +95,9 @@
 	return
 
 /obj/item/pen/get_writing_implement_details()
-	if (HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
-		return null
+	if(toggleable_off)
+		if(HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
+			return null
 	return list(
 		interaction_mode = MODE_WRITING,
 		font = font,
@@ -127,6 +130,7 @@
 	name = "multicolor pen"
 	desc = "Круто выглядящая ручка с пятью стержнями стержнями разного цвета!"
 	icon_state = "multicolor"
+	toggleable_off = FALSE
 
 	// these values are for the overlay
 	var/static/list/colour_choices = list(
@@ -183,6 +187,7 @@
 	icon_state = "pen-fountain"
 	font = FOUNTAIN_PEN_FONT
 	requires_gravity = FALSE
+	toggleable_off = FALSE
 
 /obj/item/pen/fountain/get_ru_names()
 	return alist(
@@ -217,6 +222,7 @@
 	toolspeed = 10 //You will never willingly choose to use one of these over a shovel.
 	colour = COLOR_BLUE
 	usesound = 'sound/effects/picaxe1.ogg'
+	toggleable_off = FALSE
 
 /obj/item/pen/survival/get_ru_names()
 	return alist(

@@ -419,6 +419,7 @@ GAME_VERB_SRC(/obj/machinery/bodyscanner, eject, oview(1), "Извлечь па�
 			P.add_raw_text("[generate_printing_text()]")
 			P.add_raw_text("\n\n**Заметки:**\n")
 			P.name = "Отчёт по сканированию пациента — [name]"
+			P.update_appearance(UPDATE_ICON_STATE)
 			isPrinting = FALSE
 		if("insurance")
 			do_insurance_collection(usr, occupant, inserted_id ? inserted_id.associated_account_number : null)

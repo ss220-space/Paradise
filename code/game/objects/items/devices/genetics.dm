@@ -85,6 +85,7 @@
 	for(var/list/block as anything in dna_data)
 		paper.add_raw_text("[block["num"]]: <span style='color: [block["color"]];'>[block["name"]]</span>\n")
 	paper.add_raw_text("\n---\n")
+	paper.update_appearance(UPDATE_ICON_STATE)
 	if(in_range(usr, src))
 		usr.put_in_hands(paper, ignore_anim = FALSE)
 		usr.visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] дребезжит, после чего из окна печати выпадает лист бумаги."))

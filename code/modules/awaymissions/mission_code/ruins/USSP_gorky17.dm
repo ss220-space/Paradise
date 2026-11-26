@@ -336,7 +336,6 @@ GAME_VERB_SRC(/obj/machinery/computer/id_upgrader/ussp, set_name, oview(1), "В�
 /////////////////// Paper notes
 
 /obj/item/paper/gorky17
-	// language = LANGUAGE_NEO_RUSSIAN
 
 /obj/item/paper/gorky17/talisman
 	name = "Проклятый талисман"
@@ -395,12 +394,7 @@ GAME_VERB_SRC(/obj/machinery/computer/id_upgrader/ussp, set_name, oview(1), "В�
 
 /obj/item/paper/gorky17/report
 	name = "Доклад Центральному Комитету СССП"
-	// header = "<font face=\"Verdana\" color=black><center>&ZeroWidthSpace;<img src = ussplogo.png></center>"
-	default_raw_text = "<font face=\"Verdana\" color=black><br><center><b>Доклад Центральному Комитету СССП</b></center><br>Я <b><span class=\"paper_field\"></span></b>, в звании <b><span class=\"paper_field\"></span></b> и должности <b><span class=\"paper_field\"></span></b>, докладываю: <span class=\"paper_field\"></span> <br><br><br><font size = \"1\"> Подпись: <span class=\"paper_field\"></span></font><br><font size = \"1\"> Дата: <span class=\"paper_field\"></span></font><br><hr><font size = \"1\">*Данный факс, обязательно должен подтверждаться печатью ответственного лица. В случае наличия опечаток и отсутствия подписей или печатей, факс считается скомпрометированным.<br>*Нарушение субординации и уставных отношений повлечет наказание.</font></font>"
-
-/obj/item/paper/gorky17/report/Initialize(mapload)
-	. = ..()
-	// populatefields()
+	default_raw_text = "<center>\[logo:ussplogo.png\]</center><hr>\n\n<font face=\"Verdana\" color=black><br><center><b>Доклад Центральному Комитету СССП</b></center><br>Я <b><span class=\"paper_field\"></span></b>, в звании <b><span class=\"paper_field\"></span></b> и должности <b><span class=\"paper_field\"></span></b>, докладываю: <span class=\"paper_field\"></span> <br><br><br><font size = \"1\"> Подпись: <span class=\"paper_field\"></span></font><br><font size = \"1\"> Дата: <span class=\"paper_field\"></span></font><br><hr><font size = \"1\">*Данный факс, обязательно должен подтверждаться печатью ответственного лица. В случае наличия опечаток и отсутствия подписей или печатей, факс считается скомпрометированным.<br>*Нарушение субординации и уставных отношений повлечет наказание.</font></font>"
 
 ////// CURSED TALISMAN
 /obj/item/paper/poisonedtalisman
