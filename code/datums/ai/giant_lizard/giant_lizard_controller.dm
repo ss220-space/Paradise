@@ -58,7 +58,7 @@
 /datum/ai_controller/giant_lizard/proc/on_hurt(datum/source, damage_amount, damage_type, damage_flag, attacked_by)
 	SIGNAL_HANDLER
 	adjust_aggression(3)
-	if(attacked_by && istype(attacked_by, /mob/living) && !is_dead())
+	if(attacked_by && isliving(attacked_by) && !is_dead())
 		blackboard[BB_LIZARD_TARGET] = WEAKREF(attacked_by)
 		var/mob/living/simple_animal/hostile/giant_lizard/lizard = pawn
 		if(isliving(lizard))
