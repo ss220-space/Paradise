@@ -273,6 +273,35 @@ GLOBAL_LIST_EMPTY(unit_test_tguis)
 		/obj/effect/buildmode_line,
 		// Borers create their antag datums which cause a lot of runtimes without actual owner
 		/mob/living/simple_animal/borer,
+		// Abstract type without an icon_state, the decal element rejects it
+		/obj/effect/turf_decal/miscellaneous,
+		// Loads the ash walker village ruin over the test room
+		/obj/ash_walker_landmark,
+		// Needs a z-level below to drop its contents to
+		/turf/simulated/floor/indestructible/upperlevel,
+		// Needs blobstart landmarks or station turfs to relocate to
+		/obj/item/disk/nuclear,
+		// Needs station turfs to spawn its parts on
+		/obj/structure/clockwork/functional/heart,
+		// Needs station turfs to place the blob overmind
+		/obj/structure/blob/special/core,
+		// Needs the Lavaland z-level
+		/obj/machinery/power/bfl_emitter,
+		// Needs the Lavaland z-level
+		/obj/singularity/bfl_red,
+		// Its syringe gun runtimes on Destroy: the gun's reagents are already deleted (null.maximum_volume)
+		/obj/mecha/medical/odysseus/full_load,
+		// Needs the spell that creates it
+		/obj/item/melee/touch_attack/alien/transfer_plasma,
+		// Its pipe cleaner coil has no energy_type, so handle_storages() runtimes; maintenance drones hit the same runtime in rounds
+		/obj/item/robot_module/drone,
+		// Explodes on creation, the explosion lands on the test floor after the test
+		/obj/effect/temp_visual/thunderbolt/fancy,
+		// Explodes on Destroy, the explosion lands on the test floor after the test
+		/obj/structure/swarmer/power_cell,
+		// Pick a random hat look on Initialize; a suit hood look stack-traces in the hood's Initialize without its suit
+		/obj/item/clothing/head/chameleon/broken,
+		/obj/item/clothing/head/helmet/space/plasmaman/chameleon/broken,
 	)
 
 	// Everything that follows is a typesof() check.
@@ -293,7 +322,7 @@ GLOBAL_LIST_EMPTY(unit_test_tguis)
 	returnable_list += typesof(/obj/effect/client_image_holder)
 	//Same to above. Needs a client / mob / hallucination to observe it to exist.
 //	returnable_list += typesof(/obj/projectile/hallucination)
-//	returnable_list += typesof(/obj/item/hallucinated)
+	returnable_list += typesof(/obj/item/hallucinated)
 	//We don't have a pod
 	returnable_list += typesof(/obj/effect/pod_landingzone_effect)
 	returnable_list += typesof(/obj/effect/pod_landingzone)
@@ -317,6 +346,12 @@ GLOBAL_LIST_EMPTY(unit_test_tguis)
 //	returnable_list += typesof(/obj/effect/decal/cleanable/fuel_pool)
 	//Invoke async in init, skippppp
 //	returnable_list += typesof(/mob/living/silicon/robot/model)
+	// The base robot verb list has a broken path (robot.dm) and add_robot_verbs() runtimes on it.
+	// Drones runtime on their module (see /obj/item/robot_module/drone above). Cogscarabs have their own verb list and pass.
+	returnable_list += typesof(/mob/living/silicon/robot) - typesof(/mob/living/silicon/robot/cogscarab)
+	// Registers a signal on itself that outlives ChangeTurf and runtimes when the next atom initializes on the test floor
+	returnable_list += typesof(/turf/simulated/floor/beach/water)
+	returnable_list += typesof(/turf/simulated/floor/plasteel/reactor_pool)
 	//This lad also sleeps
 //	returnable_list += typesof(/obj/item/hilbertshotel)
 	//this boi spawns turf changing stuff, and it stacks and causes pain. Let's just not

@@ -120,6 +120,11 @@ CALL global.json_to_object_arbitrary_vars("{'type':'/obj/item/crowbar', 'color':
 	return min(arglist(args))
 
 /proc/_new(type, arguments)
+	if(ispath(type, /datum/callback) && IsAdminAdvancedProcCall())
+		to_chat(usr, "Creating [type] through a proc call is disallowed!", confidential = TRUE)
+		message_admins("[key_name_admin(usr)] attempted to create [type] through a proc call")
+		log_admin("[key_name(usr)] attempted to create [type] through a proc call with arguments: [english_list(arguments)]")
+		return
 	return new type (arglist(arguments))
 
 /proc/_num2text(N, SigFig = 6)

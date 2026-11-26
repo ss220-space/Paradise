@@ -5,10 +5,6 @@ GLOBAL_PROTECT(admin_datums)
 GLOBAL_VAR_INIT(href_token, GenerateToken())
 GLOBAL_PROTECT(href_token)
 
-/proc/GenerateToken()
-	. = ""
-	for(var/index in 1 to 32)
-		. += "[rand(10)]"
 
 /datum/admins
 	var/rank = "No Rank"
@@ -203,3 +199,26 @@ GLOBAL_PROTECT(href_token)
 		to_chat(user, span_red("Ошибка: У вас недостаточно прав для этого. Вам необходимы следующие флаги:[rights2text(rights_required, " ")]."))
 
 	return FALSE
+
+/proc/GenerateToken()
+	var/list/token = list()
+	for(var/i in 1 to 32)
+		token += "[rand(10)]"
+	return token.Join("")
+
+/proc/RawHrefToken(forceGlobal = FALSE)
+	var/tok = GLOB.href_token
+	if(!forceGlobal && usr)
+		var/client/C = usr.client
+		if(!C)
+			CRASH("No client for HrefToken()!")
+		var/datum/admins/holder = C.holder
+		if(holder)
+			tok = holder.href_token
+	return tok
+
+/proc/HrefToken(forceGlobal = FALSE)
+	return "admin_token=[RawHrefToken(forceGlobal)]"
+
+/proc/HrefTokenFormField(forceGlobal = FALSE)
+	return "<input type='hidden' name='admin_token' value='[RawHrefToken(forceGlobal)]'>"

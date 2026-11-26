@@ -166,6 +166,7 @@
 	var/datum/browser/popup = new(user, "engicart", name, 240, 160)
 	popup.set_content(dat)
 	popup.open()
+
 /obj/structure/engineeringcart/Topic(href, href_list)
 	if(!in_range(src, usr))
 		return

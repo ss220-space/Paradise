@@ -378,6 +378,22 @@
 	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
 	update_icon(UPDATE_OVERLAYS)
 
+/obj/machinery/suit_storage_unit/wirecutter_act(mob/user, obj/item/I)
+	if(!panel_open)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	wires.Interact(user)
+
+/obj/machinery/suit_storage_unit/multitool_act(mob/user, obj/item/I)
+	if(!panel_open)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	wires.Interact(user)
+
 /obj/machinery/suit_storage_unit/proc/store_item(obj/item/I, mob/user)
 	. = FALSE
 	if(panel_open)

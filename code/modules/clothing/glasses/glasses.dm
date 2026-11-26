@@ -344,14 +344,13 @@
 /obj/item/clothing/glasses/sunglasses/lasers/equipped(mob/user, slot, initial = FALSE) //grant them laser eyes upon equipping it.
 	. = ..()
 	if(slot == ITEM_SLOT_EYES)
-		ADD_TRAIT(user, TRAIT_LASEREYES, UNIQUE_TRAIT_SOURCE(src))
-		user.update_mutations()
+		user.AddSpell(new /datum/action/cooldown/spell/pointed/projectile/lasereyes)
+	else
+		user.RemoveSpell(/datum/action/cooldown/spell/pointed/projectile/lasereyes)
 
 /obj/item/clothing/glasses/sunglasses/lasers/dropped(mob/living/user, slot, silent = FALSE)
 	. = ..()
-	if(slot == ITEM_SLOT_EYES)
-		REMOVE_TRAIT(user, TRAIT_LASEREYES, UNIQUE_TRAIT_SOURCE(src))
-		user.update_mutations()
+	user.RemoveSpell(/datum/action/cooldown/spell/pointed/projectile/lasereyes)
 
 /obj/item/clothing/glasses/sunglasses/blindfold
 	name = "blindfold"

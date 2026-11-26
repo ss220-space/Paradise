@@ -128,7 +128,7 @@ ADMIN_VERB(server_memo, R_SERVER, "Memo", "View and modify server memos.", ADMIN
 				var/last_editor = query_memoshow.item[4]
 				output += span_memo("Memo by [span_prefix(ckey)] on [timestamp]")
 				if(last_editor)
-					output += span_memoedit("<br>Last edit by [last_editor] <a href='byond://?_src_=holder;memoeditlist=[ckey]'>(Click here to see edit log)</a>")
+					output += span_memoedit("<br>Last edit by [last_editor] <a href='byond://?_src_=holder;[HrefToken()];memoeditlist=[ckey]'>(Click here to see edit log)</a>")
 				output += span_memo("<br>[memotext]<br>")
 			if(output)
 				to_chat(src, output, confidential = TRUE)

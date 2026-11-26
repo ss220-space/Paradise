@@ -677,7 +677,7 @@
 /obj/item/storage/pill_bottle/proc/get_use_end_message(mob/user)
 	return user.visible_message(span_danger("[user] проглатыва[PLUR_ET_YUT(user)] всё содержимое [declent_ru(GENITIVE)] за раз!"))
 
-/obj/item/storage/pill_bottle/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
+/obj/item/storage/pill_bottle/on_mouse_drop_dragged(atom/source, atom/over_object, mob/user)
 	if(!iscarbon(user) || src != user.get_active_hand() || over_object != user)
 		return ..()
 
@@ -686,7 +686,9 @@
 		return
 
 	get_use_start_message(user)
+	INVOKE_ASYNC(src, PROC_REF(use_pills), over_object, user)
 
+/obj/item/storage/pill_bottle/proc/use_pills(atom/over_object, mob/user)
 	for(var/obj/item/reagent_containers/food/pill/pill in src)
 		if(!do_after(user, 2 SECONDS, user, NONE) || src != user.get_active_hand())
 			return

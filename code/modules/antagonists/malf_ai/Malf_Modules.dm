@@ -218,12 +218,6 @@
 
 /datum/action/innate/ai/nuke_station/proc/set_us_up_the_bomb()
 	to_chat(owner_AI, span_notice("Nuclear device armed."))
-	GLOB.major_announcement.announce(
-		message = "Во всех системах станции обнаружены вредоносные процессы, пожалуйста, деактивируйте ваш ИИ, чтобы предотвратить возможное повреждение его ядра морали.",
-		new_title = ANNOUNCE_ANOMALY_RU,
-		new_sound = ANNOUNCER_AIMALF,
-	)
-	SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 	owner_AI.nuking = TRUE
 	var/obj/machinery/doomsday_device/DOOM = new /obj/machinery/doomsday_device(owner_AI)
 	owner_AI.doomsday_device = DOOM
@@ -250,11 +244,17 @@
 
 /obj/machinery/doomsday_device/Destroy()
 	STOP_PROCESSING(SSfastprocess, src)
-
+	SSsecurity_level.set_level(SEC_LEVEL_RED)
 	SSshuttle.remove_hostile_environment(src, 'sound/AI/eshuttle_dock.ogg')
 	return ..()
 
 /obj/machinery/doomsday_device/proc/start()
+	GLOB.major_announcement.announce(
+		message = "Во всех системах станции обнаружены вредоносные процессы, пожалуйста, деактивируйте ваш ИИ, чтобы предотвратить возможное повреждение его ядра морали.",
+		new_title = ANNOUNCE_ANOMALY_RU,
+		new_sound = ANNOUNCER_AIMALF,
+	)
+	SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 	detonation_timer = world.time + default_timer
 	timing = 1
 	START_PROCESSING(SSfastprocess, src)

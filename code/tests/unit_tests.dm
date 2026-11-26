@@ -14,13 +14,16 @@
 #include "test_admin_verb_unique_names.dm"
 #include "test_announcements.dm"
 #include "test_asset_smart_cache.dm"
+#include "test_blob_overmind_lists.dm"
 #include "test_components.dm"
+#include "test_create_and_destroy.dm"
 #include "test_detect_room.dm"
 #include "test_elements.dm"
 #include "test_emotes.dm"
 #include "test_get_turf_pixel.dm"
 #include "test_greyscale_config.dm"
 #include "test_init_sanity.dm"
+#include "test_leak_fixes.dm"
 #include "test_map_templates.dm"
 #include "test_modsuit.dm"
 #include "test_missing_icons.dm"
@@ -41,11 +44,13 @@
 #include "test_subsystem_metric_sanity.dm"
 #include "test_tgui_create_message.dm"
 #include "test_timer_sanity.dm"
+#include "test_topic_log_masks_key.dm"
 #include "test_washing.dm"
 #endif
 
 #ifdef REFERENCE_TRACKING_DEBUG //Don't try and parse this file if ref tracking isn't turned on. IE: don't parse ref tracking please mr linter
 #include "test_find_reference_sanity.dm"
+#include "test_gc_failures.dm"
 #endif
 
 #ifdef MAP_TESTS

@@ -30,6 +30,12 @@
 		cell = magazine.get_cell()
 	update_icon()
 
+/obj/item/gun/energy/accumulator/Destroy()
+	if(magazine)
+		cell = null
+	QDEL_NULL(magazine)
+	return ..()
+
 /obj/item/gun/energy/accumulator/examine(mob/user)
 	. = ..()
 	if(magazine)
@@ -110,7 +116,7 @@
 
 	var/turf/spawn_turf = get_turf(user)
 	var/obj/item/new_gun = new choosen_weapon(spawn_turf)
-
+	drop_all_modules(user)
 	user.put_in_hands(new_gun)
 	playsound(user, 'sound/machines/ding.ogg', 50, TRUE)
 	do_sparks(3, TRUE, spawn_turf)
