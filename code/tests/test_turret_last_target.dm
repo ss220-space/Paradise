@@ -28,6 +28,7 @@
 	turret.target(second)
 	turret.target(first)
 	turret.target(second)
+	TEST_ASSERT(!LAZYACCESS(turret._signal_procs, first), "The turret kept listening to a target it no longer remembers")
 
 	qdel(first)
 
@@ -45,7 +46,6 @@
 	TEST_ASSERT(turret.processing_targets[brood], "The turret did not track the mob")
 
 	qdel(brood)
-	turret.process()
 
 	if(length(turret.processing_targets))
 		TEST_FAIL("The switched off turret kept a deleted mob in processing_targets")

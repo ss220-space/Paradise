@@ -123,6 +123,8 @@
 
 /obj/machinery/porta_turret/proc/handleInterloper(atom/movable/entity)
 	//message_admins("[entity] is in target range of [src]")
+	if(QDELETED(entity))
+		return
 
 	if(entity.invisibility > SEE_INVISIBLE_LIVING || HAS_TRAIT(entity, TRAIT_NINJA_INVISIBILITY)) //Let's not do typechecks and stuff on invisible things
 		return
@@ -131,7 +133,10 @@
 	if(!is_type_in_typecache(entity, valid_targets))
 		return
 
+	if(processing_targets[entity])
+		return
 	processing_targets[entity] = TRUE //associative for perfomance
+	watch_target(entity)
 
 /obj/machinery/porta_turret/Destroy()
 	set_last_target(null)
@@ -540,10 +545,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/process()
 	//the main machinery process
 
-	for(var/atom/movable/target as anything in processing_targets)
-		if(QDELETED(target))
-			processing_targets -= target
-
 	if(stat & (NOPOWER|BROKEN))
 		if(!always_up)
 			//if the turret has no power or is broken, make the turret pop down if it hasn't already
@@ -563,6 +564,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	for(var/atom/movable/atom as anything in processing_targets)
 		if(!can_see(atom, scan_range))
 			processing_targets -= atom
+			unwatch_target(atom)
 
 	var/list/primary_candidates
 	var/list/secondary_candidates
@@ -747,16 +749,30 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		new_target = null
 	if(last_target == new_target)
 		return
-	if(last_target)
-		UnregisterSignal(last_target, COMSIG_QDELETING)
+	var/atom/old_target = last_target
 	last_target = new_target
-	if(last_target)
-		RegisterSignal(last_target, COMSIG_QDELETING, PROC_REF(on_last_target_qdeleting))
+	if(old_target)
+		unwatch_target(old_target)
+	if(new_target)
+		watch_target(new_target)
 
-/// Forgets the last target when it is deleted
-/obj/machinery/porta_turret/proc/on_last_target_qdeleting(datum/source)
+/// Starts listening for the deletion of a target the turret tracks or fired at
+/obj/machinery/porta_turret/proc/watch_target(atom/target)
+	RegisterSignal(target, COMSIG_QDELETING, PROC_REF(on_target_qdeleting), override = TRUE)
+
+/// Stops listening for the deletion of a target once the turret neither tracks it nor remembers it
+/obj/machinery/porta_turret/proc/unwatch_target(atom/target)
+	if(target == last_target || processing_targets[target])
+		return
+	UnregisterSignal(target, COMSIG_QDELETING)
+
+/// Forgets a deleted target, so idle turrets do not hold references to it
+/obj/machinery/porta_turret/proc/on_target_qdeleting(atom/source)
 	SIGNAL_HANDLER
-	set_last_target(null)
+	processing_targets -= source
+	if(last_target == source)
+		last_target = null
+	UnregisterSignal(source, COMSIG_QDELETING)
 
 /obj/machinery/porta_turret/proc/shootAt(mob/living/target)
 	if(!raised && has_cover) //the turret has to be raised in order to fire - makes sense, right?
