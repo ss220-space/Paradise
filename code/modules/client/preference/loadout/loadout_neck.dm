@@ -1,5 +1,5 @@
 /datum/gear/neck
-	subtype_path = /datum/gear/neck
+	abstract_type = /datum/gear/neck
 	slot = ITEM_SLOT_NECK
 	sort_category = "Плащи"
 
@@ -25,7 +25,7 @@
 	path = /obj/item/clothing/neck/mantle/cowboy
 
 /datum/gear/neck/mantle/job
-	subtype_path = /datum/gear/neck/mantle/job
+	abstract_type = /datum/gear/neck/mantle/job
 	subtype_cost_overlap = FALSE
 
 /datum/gear/neck/mantle/job/captain
@@ -68,7 +68,7 @@
 	gear_tweaks += new /datum/gear_tweak/color(parent = src)
 
 /datum/gear/neck/cloak/job
-	subtype_path = /datum/gear/neck/cloak/job
+	abstract_type = /datum/gear/neck/cloak/job
 	subtype_cost_overlap = FALSE
 
 /datum/gear/neck/cloak/job/healer

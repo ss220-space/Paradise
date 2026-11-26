@@ -7,6 +7,7 @@
 	cooldown_time = 30 SECONDS
 	button_icon_state = "morph_reproduce"
 	background_icon_state = "bg_morph"
+	var/casting = FALSE
 	var/hunger_cost = 150 // 5 humans
 
 /datum/action/cooldown/spell/morph_reproduce/create_new_handler()
@@ -40,6 +41,9 @@
 
 /datum/action/cooldown/spell/morph_reproduce/cast(atom/cast_on)
 	. = ..()
+	if(casting)
+		return
+	casting = TRUE
 	var/mob/living/simple_animal/hostile/morph/user = owner
 	to_chat(user, span_sinister("Вы готовитесь разделиться на две части, что временно лишит вас возможности ползать по вентиляции!"))
 
@@ -52,12 +56,14 @@
 
 	if(user.stat == DEAD)
 		reset_spell_cooldown()
+		casting = FALSE
 		return
 
 	if(!length(candidates))
 		to_chat(user, span_warning("Ваше тело отказывается разделяться сейчас. Попробуйте позже."))
 		reset_spell_cooldown()
 		ADD_TRAIT(user, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
+		casting = FALSE
 		return
 
 	var/mob/picked_candidate = pick(candidates)
@@ -76,5 +82,6 @@
 
 	ADD_TRAIT(user, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	user.create_log(MISC_LOG, "Made a new morph using [src]", new_morph)
+	casting = FALSE
 
 #undef MORPH_REPRODUCE_COST_INCREASE

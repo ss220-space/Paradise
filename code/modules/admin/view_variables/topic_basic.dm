@@ -48,7 +48,7 @@
 		if(!target)
 			to_chat(usr, span_warning("The object you tried to expose to [target_client] no longer exists (nulled or hard-deled)"), confidential = TRUE)
 			return
-		message_admins(span_adminnotice("[key_name_admin(usr)] Showed [key_name_admin(target_client)] a <a href='byond://?_src_=vars;datumrefresh=[UID_of(target)]'>VV window</a>"))
+		message_admins(span_adminnotice("[key_name_admin(usr)] Showed [key_name_admin(target_client)] a <a href='byond://?_src_=vars;[HrefToken()];datumrefresh=[UID_of(target)]'>VV window</a>"))
 		log_admin("Admin [key_name(usr)] Showed [key_name(target_client)] a VV window of a [target]")
 		to_chat(target_client, span_notice("[holder.fakekey ? "an Administrator" : "[usr.client.key]"] has granted you access to view a View Variables window"), confidential = TRUE)
 		target_client.debug_variables(target)

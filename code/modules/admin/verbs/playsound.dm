@@ -98,7 +98,7 @@ ADMIN_VERB(play_web_sound, R_SOUNDS, "Play Internet Sound", "Play a given intern
 	var/stop_web_sounds = FALSE
 	var/list/music_extra_data = list()
 	if(length(input))
-		var/datum/web_sound_info/sound_info = get_web_sound_info(youtubedl, input)
+		var/datum/web_sound_info/sound_info = world.get_web_sound_info(youtubedl, input)
 		if(!sound_info.success)
 			to_chat(user, span_boldwarning("Не удалось получить URL через yt-dlp:"), confidential = TRUE)
 			to_chat(user, span_warning("[sound_info.error_message]"), confidential = TRUE)

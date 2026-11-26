@@ -165,7 +165,7 @@
 /obj/machinery/satellite/multitool_act(mob/living/user, obj/item/I)
 	..()
 	add_fingerprint(user)
-	to_chat(user, span_notice("// NTSAT-[id] // Режим : [active ? "ОСНОВНОЙ" : "ОЖИДАНИЕ"] //[emagged ? "ОТЛАДКА //" : ""]"))
+	to_chat(user, span_notice("// NTSAT-[id] // Режим : [active ? "ОСНОВНОЙ" : "ОЖИДАНИЕ"] //[(obj_flags & EMAGGED) ? "ОТЛАДКА //" : ""]"))
 	return TRUE
 
 /obj/machinery/satellite/meteor_shield
@@ -180,7 +180,7 @@
 /obj/machinery/satellite/meteor_shield/Destroy()
 	QDEL_NULL(proximity_monitor)
 	QDEL_LIST_ASSOC_VAL(proxies)
-	if(!(active && emagged))
+	if(!(active && (obj_flags & EMAGGED)))
 		return ..()
 
 	change_meteor_chance(0.5)
@@ -190,13 +190,13 @@
 	. = ..()
 	if(active)
 		. += span_notice("В настоящее время активно. Вы можете взаимодействовать с ним, чтобы отключить.")
-		if(emagged)
+		if(obj_flags & EMAGGED)
 			. += span_warning("Вместо обычных звуковых сигналов он издаёт странное постоянное шипение белого шума…")
 		else
 			. += span_notice("Он периодически издаёт звуковые сигналы, связываясь со спутниковой сетью.")
 	else
 		. += span_notice("В настоящее время отключено. Вы можете взаимодействовать с ним, чтобы активировать.")
-		if(emagged)
+		if(obj_flags & EMAGGED)
 			. += span_warning("Но что-то здесь не так…?")
 
 /obj/machinery/satellite/meteor_shield/proc/space_los(meteor)
@@ -250,7 +250,7 @@
 	if(!space_los(meteor_to_destroy))
 		return
 
-	if(emagged && !is_fake_meteor(meteor_to_destroy))
+	if((obj_flags & EMAGGED) && !is_fake_meteor(meteor_to_destroy))
 		return
 
 	if(meteor_to_destroy.shield_defense(src))
@@ -262,7 +262,7 @@
 /obj/machinery/satellite/meteor_shield/toggle(user)
 	if(..(user))
 		return TRUE
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		if(active)
 			change_meteor_chance(2)
 		else
@@ -283,15 +283,15 @@
 			if(is_type_in_typecache(event_meta.event_type, meteor_event_typecache))
 				event_meta.weight_mod *= mod
 
-/obj/machinery/satellite/meteor_shield/emag_act(mob/user)
-	if(emagged)
-		return
-
-	add_attack_logs(user, src, "emagged")
-	to_chat(user, span_danger("Вы переписали схемы метеорного щита, заставив его привлекать метеоры, а не уничтожать их."))
-	emagged = TRUE
+/obj/machinery/satellite/meteor_shield/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
 	if(active)
 		change_meteor_chance(2)
+	if(user)
+		to_chat(user, span_danger("Вы переписали схемы метеорного щита, заставив его привлекать метеоры, а не уничтожать их."))
 	return TRUE
 
 /obj/effect/abstract/meteor_shield_proxy

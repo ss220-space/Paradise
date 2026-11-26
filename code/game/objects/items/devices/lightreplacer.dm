@@ -148,22 +148,24 @@
 
 	return ..()
 
-/obj/item/lightreplacer/emag_act(mob/user)
-	if(!emagged)
-		emagged = TRUE
-		add_attack_logs(user, src, "emagged")
-		playsound(loc, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
+/obj/item/lightreplacer/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
+	playsound(loc, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
+	return TRUE
 
 /obj/item/lightreplacer/update_name(updates = ALL)
 	. = ..()
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		name = "shortcircuited [initial(name)]"
 	else
 		name = initial(name)
 
 /obj/item/lightreplacer/update_icon_state()
-	icon_state = "lightreplacer[emagged]"
+	icon_state = "lightreplacer[obj_flags & EMAGGED]"
 
 /obj/item/lightreplacer/attack_self(mob/user)
 	for(var/obj/machinery/light/target in user.loc)
@@ -215,7 +217,7 @@
 
 			target.status = L2.status
 			target.switchcount = L2.switchcount
-			target.rigged = emagged
+			target.rigged = obj_flags & EMAGGED
 			target.brightness_range = L2.brightness_range
 			target.brightness_power = L2.brightness_power
 			target.brightness_color = L2.brightness_color
@@ -271,9 +273,7 @@
 	desc = "A modified light replacer that zaps lights into place. Refill with broken or working light bulbs, or sheets of glass."
 	icon_state = "lightreplacer_blue0"
 	bluespace_toggle = TRUE
-
-/obj/item/lightreplacer/bluespace/emag_act()
-	return  // long range explosions are stupid
+	obj_flags = parent_type::obj_flags|NO_EMAG
 
 /obj/item/lightreplacer/bluespace/update_icon_state()
 	return

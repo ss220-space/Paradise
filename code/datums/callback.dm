@@ -138,3 +138,9 @@
 	if(object == GLOBAL_PROC)
 		return call(delegate)(arglist(calling_arguments))
 	return call(object, delegate)(arglist(calling_arguments))
+
+/datum/callback/CanProcCall(procname)
+	return FALSE
+
+/datum/callback/vv_edit_var(var_name, var_value)
+	return FALSE

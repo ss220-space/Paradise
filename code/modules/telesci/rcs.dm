@@ -73,7 +73,7 @@
 			areaindex[locname] = 1
 		L[locname] = R
 
-	if(emagged) // Add an 'Unknown' entry at the end if it's emagged
+	if(obj_flags & EMAGGED) // Add an 'Unknown' entry at the end if it's emagged
 		L += "**Unknown**"
 
 	var/select = tgui_input_list(user, "Выберите телепад для управления.", "RCS", L)
@@ -107,20 +107,21 @@
 
 	return locate(rand_x, rand_y, Z)
 
-/obj/item/rcs/emag_act(mob/user)
-	if(!emagged)
-		add_attack_logs(user, src, "emagged")
-		emagged = TRUE
-		do_sparks(3, TRUE, src)
-		if(user)
-			user.balloon_alert(user, "протокол безопасности отключен!")
-		return
+/obj/item/rcs/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
+	do_sparks(3, TRUE, src)
+	if(user)
+		user.balloon_alert(user, "протокол безопасности отключен!")
+	return TRUE
 
 /obj/item/rcs/proc/try_send_container(mob/user, obj/structure/closet/C)
 	if(teleporting)
 		user.balloon_alert(user, "уже используется!")
 		return FALSE
-	if((!emagged) && (user in C.contents)) // If it's emagged, skip this check.
+	if(!(obj_flags & EMAGGED) && (user in C.contents)) // If it's emagged, skip this check.
 		C.balloon_alert(user, "покиньте контейнер!")
 		return FALSE
 	if(rcell.charge < chargecost)

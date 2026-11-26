@@ -49,7 +49,7 @@
 				<li><a href='byond://?src=[UID()];switchscreen=5'>Upload New Title to Archive</a></li>
 				<li><a href='byond://?src=[UID()];switchscreen=6'>Print a Bible Copy</a></li>
 				<li><a href='byond://?src=[UID()];switchscreen=7'>Print a Manual</a></li>"}
-			if(src.emagged)
+			if(obj_flags & EMAGGED)
 				dat += "<li><a href='byond://?src=[UID()];switchscreen=8'>Access the Forbidden Lore Vault</a></li>"
 			dat += "</ol>"
 
@@ -134,8 +134,8 @@
 					var/controls =  "<a href='byond://?src=[UID()];id=[CB.id]'>\[Order\]</a>"
 					controls += {" <a href="byond://?src=[UID()];flag=[CB.id]">\[Flag[CB.flagged ? "ged" : ""]\]</a>"}
 					if(check_rights(R_ADMIN, FALSE, user = user))
-						controls +=  " <a style='color:red' href='byond://?src=[UID()];del=[CB.id]'>\[Delete\]</a>"
-						author += " (<a style='color:red' href='byond://?src=[UID()];delbyckey=[ckey(CB.ckey)]'>[ckey(CB.ckey)])</a>)"
+						controls +=  " <a style='color:red' href='byond://?src=[UID()];[HrefToken()];del=[CB.id]'>\[Delete\]</a>"
+						author += " (<a style='color:red' href='byond://?src=[UID()];[HrefToken()];delbyckey=[ckey(CB.ckey)]'>[ckey(CB.ckey)])</a>)"
 					dat += {"<tr>
 						<td>[author]</td>
 						<td>[CB.title]</td>
@@ -175,7 +175,7 @@
 				/obj/item/book/manual/random
 			)
 
-			if(!emagged)
+			if(!(obj_flags & EMAGGED))
 				forbidden |= /obj/item/book/manual/nuclear
 
 			var/manualcount = 1
@@ -202,12 +202,15 @@
 	B.add_stylesheet("dark_inputs", "html/dark_inputs.css")
 	B.open()
 
-/obj/machinery/computer/library/checkout/emag_act(mob/user)
-	if(density && !emagged)
-		emagged = 1
-		if(user)
-			to_chat(user, span_notice("Вы обходите ограничения печати компьютера."))
-			balloon_alert(user, "взломано")
+/obj/machinery/computer/library/checkout/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
+	if(user)
+		to_chat(user, span_notice("Вы обходите ограничения печати компьютера."))
+		balloon_alert(user, "взломано")
+	return TRUE
 
 /obj/machinery/computer/library/checkout/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -271,7 +274,7 @@
 
 		screenstate = 4
 	if(href_list["del"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_ADMIN) || !usr.client.holder.CheckAdminHref(href, href_list))
 			return
 		var/datum/cachedbook/target = getBookByID(href_list["del"]) // Sanitized in getBookByID
 		var/ans = alert(usr, "Are you sure you wish to delete \"[target.title]\", by [target.author]? This cannot be undone.", "Library System", "Yes", "No")
@@ -289,7 +292,7 @@
 			return
 
 	if(href_list["delbyckey"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_ADMIN) || !usr.client.holder.CheckAdminHref(href, href_list))
 			return
 		var/tckey = ckey(href_list["delbyckey"])
 		var/ans = alert(usr,"Are you sure you wish to delete all books by [tckey]? This cannot be undone.", "Library System", "Yes", "No")
@@ -337,8 +340,7 @@
 			if("5")
 				screenstate = 5
 			if("6")
-				if(!COOLDOWN_FINISHED(src, bibledelay))
-
+				if(COOLDOWN_FINISHED(src, bibledelay))
 					var/obj/item/storage/bible/B = new /obj/item/storage/bible/copy(src.loc)
 					if(SSticker && ( SSticker.Bible_icon_state && SSticker.Bible_item_state))
 						B.icon_state = SSticker.Bible_icon_state
@@ -346,15 +348,16 @@
 						B.name = SSticker.Bible_name
 						B.deity_name = SSticker.Bible_deity_name
 					COOLDOWN_START(src, bibledelay, BIBLE_COOLDOWN)
-				else
-					visible_message("<b>[src]</b>'s monitor flashes, \"Bible printer currently unavailable, please wait a moment.\"")
+					return
+
+				visible_message("<b>[src]</b>'s monitor flashes, \"Bible printer currently unavailable, please wait a moment.\"")
 
 			if("7")
 				screenstate = 7
 			if("8")
 				screenstate = 8
 	if(href_list["arccheckout"])
-		if(src.emagged)
+		if(obj_flags & EMAGGED)
 			src.arcanecheckout = 1
 		src.screenstate = 0
 	if(href_list["increasetime"])
@@ -428,7 +431,7 @@
 		if(!newbook)
 			alert("No book found")
 			return
-		if((newbook.forbidden == 2 && !emagged) || newbook.forbidden == 1)
+		if((newbook.forbidden == 2 && !(obj_flags & EMAGGED)) || newbook.forbidden == 1)
 			alert("This book is forbidden and cannot be printed.")
 			return
 
@@ -451,7 +454,7 @@
 		if(!newbook)
 			alert("No book found")
 			return
-		if((newbook.forbidden == 2 && !emagged) || newbook.forbidden == 1)
+		if((newbook.forbidden == 2 && !(obj_flags & EMAGGED)) || newbook.forbidden == 1)
 			alert("This book is forbidden and cannot be printed.")
 			return
 

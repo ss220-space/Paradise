@@ -1,3 +1,16 @@
+/datum/admins/proc/CheckAdminHref(href, href_list)
+	var/auth = href_list["admin_token"]
+	. = auth && (auth == href_token || auth == GLOB.href_token)
+	if(.)
+		return
+	var/msg = !auth ? "no" : "a bad"
+	message_admins("[key_name_admin(usr)] clicked an href with [msg] authorization key!")
+	if(CONFIG_GET(flag/debug_admin_hrefs))
+		message_admins("Debug mode enabled, call not blocked. Please ask your coders to review this round's logs.")
+		log_world("UAH: [href]")
+		return TRUE
+	log_admin_private("[key_name(usr)] clicked an href with [msg] authorization key! [href]")
+
 #define POWER_ALL "Power all APCs"
 #define REPAIR_ALL "Repair all APCs"
 #define REPAIR_AND_POWER_ALL "Repair and Power APCs"
@@ -10,6 +23,9 @@
 	if(usr.client != src.owner || !check_rights(R_NONE))
 		log_admin("[key_name(usr)] tried to use the admin panel without authorization.")
 		message_admins("[key_name_admin(usr)] has attempted to override the admin panel!")
+		return
+
+	if(!CheckAdminHref(href, href_list))
 		return
 
 	if(SSticker.mode && SSticker.mode.check_antagonists_topic(href, href_list))
@@ -587,17 +603,17 @@
 //Regular jobs
 	//Command (Blue)
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr align='center' bgcolor='ccccff'><th colspan='[length(GLOB.command_positions)]'><a href='byond://?src=[UID()];jobban3=commanddept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Command Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr align='center' bgcolor='ccccff'><th colspan='[length(GLOB.command_positions)]'><a href='byond://?src=[UID()];[HrefToken()];jobban3=commanddept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Command Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in GLOB.command_positions)
 			if(!jobPos)	continue
 			var/datum/job/job = SSjobs.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>[replacetext(job.title, " ", "&nbsp")]</span></a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];[HrefToken()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>[replacetext(job.title, " ", "&nbsp")]</span></a></td>"
 				counter++
 			else
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];[HrefToken()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
 				counter++
 
 			if(counter >= 6) //So things dont get squiiiiished!
@@ -608,17 +624,17 @@
 	//Security (Red)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='ffddf0'><th colspan='[length(GLOB.security_positions)]'><a href='byond://?src=[UID()];jobban3=securitydept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Security Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr bgcolor='ffddf0'><th colspan='[length(GLOB.security_positions)]'><a href='byond://?src=[UID()];[HrefToken()];jobban3=securitydept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Security Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in GLOB.security_positions)
 			if(!jobPos)	continue
 			var/datum/job/job = SSjobs.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>[replacetext(job.title, " ", "&nbsp")]</span></a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];[HrefToken()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>[replacetext(job.title, " ", "&nbsp")]</span></a></td>"
 				counter++
 			else
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];[HrefToken()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
 				counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -629,17 +645,17 @@
 	//Engineering (Yellow)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='fff5cc'><th colspan='[length(GLOB.engineering_positions)]'><a href='byond://?src=[UID()];jobban3=engineeringdept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Engineering Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr bgcolor='fff5cc'><th colspan='[length(GLOB.engineering_positions)]'><a href='byond://?src=[UID()];[HrefToken()];jobban3=engineeringdept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Engineering Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in GLOB.engineering_positions)
 			if(!jobPos)	continue
 			var/datum/job/job = SSjobs.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>[replacetext(job.title, " ", "&nbsp")]</span></a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];[HrefToken()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>[replacetext(job.title, " ", "&nbsp")]</span></a></td>"
 				counter++
 			else
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];[HrefToken()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
 				counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -650,17 +666,17 @@
 	//Medical (White)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='ffeef0'><th colspan='[length(GLOB.medical_positions)]'><a href='byond://?src=[UID()];jobban3=medicaldept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Medical Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr bgcolor='ffeef0'><th colspan='[length(GLOB.medical_positions)]'><a href='byond://?src=[UID()];[HrefToken()];jobban3=medicaldept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Medical Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in GLOB.medical_positions)
 			if(!jobPos)	continue
 			var/datum/job/job = SSjobs.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>[replacetext(job.title, " ", "&nbsp")]</span></a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];[HrefToken()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>[replacetext(job.title, " ", "&nbsp")]</span></a></td>"
 				counter++
 			else
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];[HrefToken()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
 				counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -671,17 +687,17 @@
 	//Science (Purple)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='e79fff'><th colspan='[length(GLOB.science_positions)]'><a href='byond://?src=[UID()];jobban3=sciencedept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Science Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr bgcolor='e79fff'><th colspan='[length(GLOB.science_positions)]'><a href='byond://?src=[UID()];[HrefToken()];jobban3=sciencedept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Science Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in GLOB.science_positions)
 			if(!jobPos)	continue
 			var/datum/job/job = SSjobs.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>[replacetext(job.title, " ", "&nbsp")]</span></a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];[HrefToken()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>[replacetext(job.title, " ", "&nbsp")]</span></a></td>"
 				counter++
 			else
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];[HrefToken()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
 				counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -692,17 +708,17 @@
 	//Support (Grey)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='dddddd'><th colspan='[length(GLOB.support_positions)]'><a href='byond://?src=[UID()];jobban3=supportdept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Support Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr bgcolor='dddddd'><th colspan='[length(GLOB.support_positions)]'><a href='byond://?src=[UID()];[HrefToken()];jobban3=supportdept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Support Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in GLOB.support_positions)
 			if(!jobPos)	continue
 			var/datum/job/job = SSjobs.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>[replacetext(job.title, " ", "&nbsp")]</span></a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];[HrefToken()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>[replacetext(job.title, " ", "&nbsp")]</span></a></td>"
 				counter++
 			else
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];[HrefToken()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
 				counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -713,17 +729,17 @@
 	//Non-Human (Green)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='ccffcc'><th colspan='[length(GLOB.nonhuman_positions)+1]'><a href='byond://?src=[UID()];jobban3=nonhumandept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Non-human Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr bgcolor='ccffcc'><th colspan='[length(GLOB.nonhuman_positions)+1]'><a href='byond://?src=[UID()];[HrefToken()];jobban3=nonhumandept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Non-human Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in GLOB.nonhuman_positions)
 			if(!jobPos)	continue
 			var/datum/job/job = SSjobs.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>[replacetext(job.title, " ", "&nbsp")]</span></a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];[HrefToken()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>[replacetext(job.title, " ", "&nbsp")]</span></a></td>"
 				counter++
 			else
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];[HrefToken()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
 				counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -732,29 +748,29 @@
 
 		//Drone
 		if(jobban_isbanned(M, "Drone"))
-			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=Drone;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>Drone</span></a></td>"
+			jobs += "<td width='20%'><a href='byond://?src=[UID()];[HrefToken()];jobban3=Drone;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>Drone</span></a></td>"
 		else
-			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=Drone;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Drone</a></td>"
+			jobs += "<td width='20%'><a href='byond://?src=[UID()];[HrefToken()];jobban3=Drone;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Drone</a></td>"
 
 		//pAI
 		if(jobban_isbanned(M, "pAI"))
-			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=pAI;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>pAI</span></a></td>"
+			jobs += "<td width='20%'><a href='byond://?src=[UID()];[HrefToken()];jobban3=pAI;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>pAI</span></a></td>"
 		else
-			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=pAI;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>pAI</a></td>"
+			jobs += "<td width='20%'><a href='byond://?src=[UID()];[HrefToken()];jobban3=pAI;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>pAI</a></td>"
 
 		jobs += "</tr></table>"
 
 	//Antagonist (Orange)
 		var/isbanned_dept = jobban_isbanned(M, "Syndicate")
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='ffeeaa'><th colspan='10'><a href='byond://?src=[UID()];jobban3=Syndicate;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Antagonist Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr bgcolor='ffeeaa'><th colspan='10'><a href='byond://?src=[UID()];[HrefToken()];jobban3=Syndicate;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Antagonist Positions</a></th></tr><tr align='center'>"
 
 		counter = 0
 		for(var/role in GLOB.antag_roles)
 			if(jobban_isbanned(M, role) || isbanned_dept)
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[role];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>[replacetext(role, " ", "&nbsp")]</span></a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];[HrefToken()];jobban3=[role];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>[replacetext(role, " ", "&nbsp")]</span></a></td>"
 			else
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[role];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(role, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];[HrefToken()];jobban3=[role];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(role, " ", "&nbsp")]</a></td>"
 			counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -769,9 +785,9 @@
 		counter = 0
 		for(var/role in GLOB.other_roles)
 			if(jobban_isbanned(M, role) || isbanned_dept)
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[role];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>[replacetext(role, " ", "&nbsp")]</span></a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];[HrefToken()];jobban3=[role];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>[replacetext(role, " ", "&nbsp")]</span></a></td>"
 			else
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[role];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(role, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];[HrefToken()];jobban3=[role];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(role, " ", "&nbsp")]</a></td>"
 			counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -782,17 +798,17 @@
 	//Whitelisted positions
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='dddddd'><th colspan='[length(GLOB.whitelisted_positions)]'><a href='byond://?src=[UID()];jobban3=whitelistdept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Whitelisted Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr bgcolor='dddddd'><th colspan='[length(GLOB.whitelisted_positions)]'><a href='byond://?src=[UID()];[HrefToken()];jobban3=whitelistdept;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Whitelisted Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in GLOB.whitelisted_positions)
 			if(!jobPos)	continue
 			var/datum/job/job = SSjobs.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>[replacetext(job.title, " ", "&nbsp")]</span></a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];[HrefToken()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>[replacetext(job.title, " ", "&nbsp")]</span></a></td>"
 				counter++
 			else
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];[HrefToken()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
 				counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -1181,9 +1197,9 @@
 		var/dat = {"<b>What mode do you wish to play?</b><hr>"}
 		dat += {"<table><tr><td>Minplayers</td><td>Gamemode</td></tr>"}
 		for(var/mode in config.modes)
-			dat += {"<tr><td>\[[config.mode_required_players[mode]]\]</td><td><a href='byond://?src=[UID()];c_mode2=[mode]'>[config.mode_names[mode]]</a></td></tr>"}
-		dat += {"</table><br><a href='byond://?src=[UID()];c_mode2=secret'>Secret</a><br>"}
-		dat += {"<a href='byond://?src=[UID()];c_mode2=random'>Random</a><br>"}
+			dat += {"<tr><td>\[[config.mode_required_players[mode]]\]</td><td><a href='byond://?src=[UID()];[HrefToken()];c_mode2=[mode]'>[config.mode_names[mode]]</a></td></tr>"}
+		dat += {"</table><br><a href='byond://?src=[UID()];[HrefToken()];c_mode2=secret'>Secret</a><br>"}
+		dat += {"<a href='byond://?src=[UID()];[HrefToken()];c_mode2=random'>Random</a><br>"}
 		dat += {"Now: [GLOB.master_mode]"}
 
 		var/datum/browser/popup = new(usr, "c_mode", "<div align='center'>Game Mode</div>")
@@ -1203,8 +1219,8 @@
 		var/dat = {"<b>What game mode do you want to force secret to be? Use this if you want to change the game mode, but want the players to believe it's secret. This will only work if the current game mode is secret.</b><hr>"}
 		dat += {"<table><tr><td>Minplayers</td><td>Gamemode</td></tr>"}
 		for(var/mode in config.modes)
-			dat += {"<tr><td>\[[config.mode_required_players[mode]]\]</td><td><a href='byond://?src=[UID()];f_secret2=[mode]'>[config.mode_names[mode]]</a></td></tr>"}
-		dat += {"</table><br><a href='byond://?src=[UID()];f_secret2=secret'>Random (default)</a><br>"}
+			dat += {"<tr><td>\[[config.mode_required_players[mode]]\]</td><td><a href='byond://?src=[UID()];[HrefToken()];f_secret2=[mode]'>[config.mode_names[mode]]</a></td></tr>"}
+		dat += {"</table><br><a href='byond://?src=[UID()];[HrefToken()];f_secret2=secret'>Random (default)</a><br>"}
 		dat += {"Now: [GLOB.secret_force_mode]"}
 		var/datum/browser/popup = new(usr, "f_secret", "<div align='center'>Secret Game Mode</div>")
 		popup.set_content(dat)
@@ -1257,18 +1273,18 @@
 			antags_list = antags_list.Copy()
 
 		for(var/antag in antags_list)
-			dat += {"<tr><td>[capitalize(antag)]</td><td><a href='byond://?src=[UID()];change_weights2=weights_normal_[antag]'>\[[antags_list[antag]]\]</a></td></tr>"}
+			dat += {"<tr><td>[capitalize(antag)]</td><td><a href='byond://?src=[UID()];[HrefToken()];change_weights2=weights_normal_[antag]'>\[[antags_list[antag]]\]</a></td></tr>"}
 
 		dat += {"</table><br><b>Edit the antag weights for special antag. Only one antag from below will be chosen for the mode. Rolling NOTHING means no special antag at all.</b><hr>"}
 		dat += {"<table><tr><td><b>Antag</b></td><td><b>Weight</b></td></tr>"}
 		var/list/special_antags_list = GLOB.antag_paradise_special_weights ? GLOB.antag_paradise_special_weights : config_to_roles(CONFIG_GET(keyed_list/antag_paradise_special_antags_weights))
 		for(var/antag in special_antags_list)
-			dat += {"<tr><td>[capitalize(antag)]</td><td><a href='byond://?src=[UID()];change_weights2=weights_special_[antag]'>\[[special_antags_list[antag]]\]</a></td></tr>"}
+			dat += {"<tr><td>[capitalize(antag)]</td><td><a href='byond://?src=[UID()];[HrefToken()];change_weights2=weights_special_[antag]'>\[[special_antags_list[antag]]\]</a></td></tr>"}
 
 		dat += {"</table><br><b>Edit the chance to roll double antag ([capitalize(ROLE_VAMPIRE)]/[capitalize(ROLE_CHANGELING)]) for [capitalize(ROLE_TRAITOR)].</b><hr>"}
-		dat += {"<table><tr><td>Chance = </td><td><a href='byond://?src=[UID()];change_weights2=chance'>[isnull(GLOB.antag_paradise_double_antag_chance) ? "[CONFIG_GET(number/antag_paradise_double_antag_chance)]" : "[GLOB.antag_paradise_double_antag_chance]%"]</a></td></tr></table>"}
+		dat += {"<table><tr><td>Chance = </td><td><a href='byond://?src=[UID()];[HrefToken()];change_weights2=chance'>[isnull(GLOB.antag_paradise_double_antag_chance) ? "[CONFIG_GET(number/antag_paradise_double_antag_chance)]" : "[GLOB.antag_paradise_double_antag_chance]%"]</a></td></tr></table>"}
 
-		dat += {"<br><a href='byond://?src=[UID()];change_weights2=reset'>Reset everything to default.</a><br>"}
+		dat += {"<br><a href='byond://?src=[UID()];[HrefToken()];change_weights2=reset'>Reset everything to default.</a><br>"}
 
 		var/datum/browser/popup = new(usr, "change_weights", "<div align='center'>Antag Paradise Weights</div>", 900, 700)
 		popup.set_content(dat)
@@ -1813,7 +1829,7 @@
 		if(source == "old")
 			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/show_old_player_panel, H)
 		else
-			usr.client.holder.Topic(null, list("showdna" = H.UID()))
+			usr.client.holder.Topic(null, list("showdna" = H.UID(), "admin_token" = RawHrefToken()))
 
 	else if(href_list["observeinventory"])
 		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/admin_observe_target, locateUID(href_list["observeinventory"]), TRUE)
@@ -2474,7 +2490,7 @@
 
 			for(var/page = 1 to length(bundle.papers))
 				var/obj/pageobj = bundle.papers[page]
-				data += "<a href='byond://?src=[UID()];AdminFaxViewPage=[page];paper_bundle=[bundle.UID()]'>Page [page] - [pageobj.name]</a><br>"
+				data += "<a href='byond://?src=[UID()];[HrefToken()];AdminFaxViewPage=[page];paper_bundle=[bundle.UID()]'>Page [page] - [pageobj.name]</a><br>"
 
 			var/datum/browser/popup = new(usr, "PaperBundle[bundle.UID()]", "Fax View")
 			popup.include_default_stylesheet = FALSE
@@ -2640,10 +2656,10 @@
 				sender.playsound_local(sender, 'sound/items/new_fax_message.ogg', 50, FALSE, use_reverb = FALSE)
 		if(sender)
 			log_admin("[key_name(src.owner)] replied to a fax message from [key_name(sender)]: [input]")
-			message_admins("[key_name_admin(src.owner)] replied to a fax message from [key_name_admin(sender)] (<a href='byond://?_src_=holder;AdminFaxView=[P.UID()]'>VIEW</a>).")
+			message_admins("[key_name_admin(src.owner)] replied to a fax message from [key_name_admin(sender)] (<a href='byond://?_src_=holder;[HrefToken()];AdminFaxView=[P.UID()]'>VIEW</a>).")
 		else
 			log_admin("[key_name(src.owner)] sent a fax message to [destination]: [input]")
-			message_admins("[key_name_admin(src.owner)] sent a fax message to [destination] (<a href='byond://?_src_=holder;AdminFaxView=[P.UID()]'>VIEW</a>).")
+			message_admins("[key_name_admin(src.owner)] sent a fax message to [destination] (<a href='byond://?_src_=holder;[HrefToken()];AdminFaxView=[P.UID()]'>VIEW</a>).")
 		return
 
 	else if(href_list["AdminFaxNotify"])
@@ -3825,7 +3841,7 @@
 			var/gene_name = GLOB.assigned_blocks[block]
 			if(gene_name)
 				var/text_color = "[M.dna.GetSEState(block) ? "#006600" : "#ff0000"]"
-				body += "<a href='byond://?_src_=holder;togmutate=[M.UID()];block=[block];version=new' style='color:[text_color];'>[gene_name]</a><sub>[block]</sub>"
+				body += "<a href='byond://?_src_=holder;[HrefToken()];togmutate=[M.UID()];block=[block];version=new' style='color:[text_color];'>[gene_name]</a><sub>[block]</sub>"
 			else
 				body += "[block]"
 			body += "</td>"

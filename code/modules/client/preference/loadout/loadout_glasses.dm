@@ -1,5 +1,5 @@
 /datum/gear/glasses
-	subtype_path = /datum/gear/glasses
+	abstract_type = /datum/gear/glasses
 	slot = ITEM_SLOT_EYES
 	sort_category = "Очки"
 

@@ -197,6 +197,15 @@
 
 #define rustlib_exit_byond_process(...) RUSTLIB_CALL(exit_byond_process)
 
+#define rustlib_process_physical_memory(...) RUSTLIB_CALL(process_physical_memory)
+
+#define rustlib_process_virtual_memory(...) RUSTLIB_CALL(process_virtual_memory)
+
+#define rustlib_uuid_v4(...) RUSTLIB_CALL(uuid_v4)
+
+#define rustlib_uuid_v7(...) RUSTLIB_CALL(uuid_v7)
+
+
 #define RUSTLIB_ICONFORGE_BLEND_COLOR "BlendColor"
 #define RUSTLIB_ICONFORGE_BLEND_ICON "BlendIcon"
 #define RUSTLIB_ICONFORGE_CROP "Crop"

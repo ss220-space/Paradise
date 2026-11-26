@@ -10,10 +10,10 @@ ADMIN_VERB(outfit_manager, R_EVENT, "Outfit Manager", "View and edit outfits.", 
 		var/datum/outfit/varedit/VO = O
 		if(istype(VO))
 			vv = length(VO.vv_values)
-		dat += "<li>[O.name][vv ? "(VV)" : ""]</li> <a href='byond://?_src_=holder;save_outfit=1;chosen_outfit=[O.UID()]'>Save</a> <a href='byond://?_src_=holder;delete_outfit=1;chosen_outfit=[O.UID()]'>Delete</a>"
+		dat += "<li>[O.name][vv ? "(VV)" : ""]</li> <a href='byond://?_src_=holder;[HrefToken()];save_outfit=1;chosen_outfit=[O.UID()]'>Save</a> <a href='byond://?_src_=holder;[HrefToken()];delete_outfit=1;chosen_outfit=[O.UID()]'>Delete</a>"
 	dat += "</ul>"
-	dat += "<a href='byond://?_src_=holder;create_outfit_menu=1'>Create</a><br>"
-	dat += "<a href='byond://?_src_=holder;load_outfit=1'>Load from file</a>"
+	dat += "<a href='byond://?_src_=holder;[HrefToken()];create_outfit_menu=1'>Create</a><br>"
+	dat += "<a href='byond://?_src_=holder;[HrefToken()];load_outfit=1'>Load from file</a>"
 	var/datum/browser/popup = new(admin, "outfitmanager", "Outfit Manager")
 	popup.set_content(dat.Join())
 	popup.open(FALSE)
@@ -107,6 +107,7 @@ ADMIN_VERB(outfit_manager, R_EVENT, "Outfit Manager", "View and edit outfits.", 
 	var/dat = {"
 	<form name="outfit" action="byond://?src=[UID()];" method="get">
 	<input type="hidden" name="src" value="[UID()]">
+	[HrefTokenFormField()]
 	<input type="hidden" name="create_outfit_finalize" value="1">
 	<table>
 		<tr>

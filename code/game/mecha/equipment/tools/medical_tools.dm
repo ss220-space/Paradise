@@ -402,11 +402,14 @@
 		mechsyringe.icon = initial(mechsyringe.icon)
 		mechsyringe.update_icon()
 
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/emag_act(mob/user)
-	if(!emagged)
-		emagged = TRUE
-		user.visible_message(span_warning("Sparks fly out of the [src]!</span>"), span_notice("You short out the safeties on[src]."))
-		playsound(loc, 'sound/effects/sparks4.ogg', 50, TRUE)
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
+	playsound(loc, SFX_SPARKS, 50, TRUE)
+	user.visible_message(span_warning("Sparks fly out of the [src]!</span>"), span_notice("You short out the safeties on[src]."))
+	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/load_syringe(obj/item/reagent_containers/syringe/syringe)
 	if(length(syringes) >= max_syringes)
@@ -443,7 +446,7 @@
 		return FALSE
 	occupant_message("Analyzing reagents...")
 	for(var/datum/reagent/R in A.reagents.reagent_list)
-		if((emagged && (R.id in strings(CHEMISTRY_TOOLS_FILE, "traitor_poison_bottle")) || R.can_synth) && add_known_reagent(R.type, R.name))
+		if(((obj_flags & EMAGGED) && (R.id in strings(CHEMISTRY_TOOLS_FILE, "traitor_poison_bottle")) || R.can_synth) && add_known_reagent(R.type, R.name))
 			occupant_message("Reagent analyzed, identified as [R.name] and added to database.")
 	occupant_message("Analyzis complete.")
 

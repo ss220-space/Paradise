@@ -37,7 +37,6 @@
 	childtype = list(/mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch = 100)
 
 	wanted_objects = list(/obj/effect/decal/cleanable/blood/gibs, /obj/item/organ/internal)
-	var/obj/item/udder/gutlunch/udder = null
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/get_ru_names()
 	return alist(
@@ -50,38 +49,31 @@
 	)
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/Initialize(mapload)
-	udder = new()
+	if(gender != MALE)
+		add_udder()
 	. = ..()
 
-/mob/living/simple_animal/hostile/asteroid/gutlunch/examine(mob/user)
-	. = ..()
-	if(udder)
-		. += span_notice("В его [udder.declent_ru(PREPOSITIONAL)] содержится [udder.reagents.total_volume] единиц[DECL_A_Y_0(udder.reagents.total_volume)] молока.")
+/mob/living/simple_animal/hostile/asteroid/gutlunch/proc/add_udder()
+	AddComponent(/datum/component/udder, /obj/item/udder/gutlunch, UDDER_EXAMINE | UDDER_GENERATE_ON_CONSUME, null, wanted_objects)
 
-/mob/living/simple_animal/hostile/asteroid/gutlunch/Destroy()
-	QDEL_NULL(udder)
-	return ..()
+/mob/living/simple_animal/hostile/asteroid/gutlunch/register_init_signals()
+	. = ..()
+	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_UDDER_FULL), PROC_REF(on_udder_fullness_changed))
+	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_UDDER_FULL), PROC_REF(on_udder_fullness_changed))
+
+/mob/living/simple_animal/hostile/asteroid/gutlunch/proc/on_udder_fullness_changed(datum/source)
+	SIGNAL_HANDLER
+
+	if(QDELETED(src))
+		return
+
+	regenerate_icons()
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/regenerate_icons()
 	..()
-	if(udder.reagents.total_volume == udder.reagents.maximum_volume)
+	if(HAS_TRAIT(src, TRAIT_UDDER_FULL))
 		add_overlay("gl_full")
 
-/mob/living/simple_animal/hostile/asteroid/gutlunch/attackby(obj/item/I, mob/user, params)
-	if(user.a_intent == INTENT_HARM)
-		return ..()
-
-	if(iscup(I))
-		add_fingerprint(user)
-		if(stat != CONSCIOUS)
-			to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] выглядит нездоровым."))
-			return ATTACK_CHAIN_PROCEED
-		if(udder.milkAnimal(I, user))
-			regenerate_icons()
-			return ATTACK_CHAIN_PROCEED_SUCCESS
-		return ATTACK_CHAIN_PROCEED
-
-	return ..()
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/ListTargetsLazy(check_z)//override to include wanted_objects as valid targets
 	. = ..()
@@ -113,12 +105,13 @@
 	return FALSE
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/AttackingTarget()
-	if(is_type_in_typecache(target,wanted_objects)) //we eats
-		udder.generateMilk()
-		regenerate_icons()
-		visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] с хлюпаньем поглощает [target.declent_ru(ACCUSATIVE)]."))
-		qdel(target)
+	if(is_type_in_typecache(target, wanted_objects))
+		var/atom/food = target
+		visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] с хлюпаньем поглощает [food.declent_ru(ACCUSATIVE)]."))
+		SEND_SIGNAL(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, food, TRUE)
+		qdel(food)
 		return
+
 	return ..()
 
 /obj/item/udder/gutlunch
@@ -144,6 +137,7 @@
 //Male gutlunch. They're smaller and more colorful!
 /mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck
 	name = "gubbuck"
+	desc = "Самец кишкожора, питающийся сырым мясом. Часто встречается рядом с пеплоходцами."
 	gender = MALE
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck/get_ru_names()
@@ -176,16 +170,8 @@
 		PREPOSITIONAL = "квохтуне",
 	)
 
-/mob/living/simple_animal/hostile/asteroid/gutlunch/guthen/Life()
-	..()
-	if(udder.reagents.total_volume == udder.reagents.maximum_volume) //Only breed when we're full.
-		make_babies()
-
-/mob/living/simple_animal/hostile/asteroid/gutlunch/guthen/make_babies()
-	. = ..()
-	if(.)
-		udder.reagents.clear_reagents()
-		regenerate_icons()
+/mob/living/simple_animal/hostile/asteroid/gutlunch/guthen/add_udder()
+	AddComponent(/datum/component/udder, /obj/item/udder/gutlunch, UDDER_EXAMINE | UDDER_GENERATE_ON_CONSUME | UDDER_CLEAR_ON_BIRTH, CALLBACK(src, PROC_REF(make_babies)), wanted_objects)
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch
 	name = "grublunch"

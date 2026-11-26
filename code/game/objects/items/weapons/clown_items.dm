@@ -79,15 +79,18 @@
 		return
 	playsound(src, pick('sound/voice/sitcom_laugh1.ogg', 'sound/voice/sitcom_laugh2.ogg', 'sound/voice/sitcom_laugh3.ogg', 'sound/voice/sitcom_laugh4.ogg', 'sound/voice/sitcom_laugh5.ogg'), 50, FALSE)
 
-	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
+	if(!(obj_flags & CMAGGED))
 		cooldown = world.time + LAUGH_COOLDOWN
 	else
 		cooldown = world.time + LAUGH_COOLDOWN_CMAG
 
-/obj/item/clown_recorder/cmag_act(mob/user)
-	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
-		to_chat(user, span_notice("Winding back speed has been improved by the bananium ooze!"))
-		ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
+/obj/item/clown_recorder/cmag_act(mob/user, obj/item/card/cmag/cmag_card)
+	. = ..()
+	if(obj_flags & CMAGGED)
+		return FALSE
+	to_chat(user, span_notice("Бананиумовая слизь ускорила работу заводного механизма!"))
+	obj_flags |= CMAGGED
+	return TRUE
 
 #undef LAUGH_COOLDOWN
 #undef LAUGH_COOLDOWN_CMAG

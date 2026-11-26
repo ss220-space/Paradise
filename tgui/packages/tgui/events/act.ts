@@ -1,4 +1,5 @@
 import { logger } from 'common/logging';
+import { backendStateAtom, store } from 'tgui/events/store';
 import { createQueue } from './handlers/chunking';
 
 /**
@@ -9,6 +10,7 @@ export function sendAct(
   action: string,
   payload: Record<string, unknown> = {},
 ): void {
+  const state = store.get(backendStateAtom);
   // Validate that payload is an object
   const isObject =
     typeof payload === 'object' && payload !== null && !Array.isArray(payload);
@@ -16,6 +18,7 @@ export function sendAct(
     logger.error(`Payload for act() must be an object, got this:`, payload);
     return;
   }
+  payload = { ...payload, _secret_code: state.config.secret };
 
   const stringifiedPayload = JSON.stringify(payload);
   const urlSize = Object.entries({

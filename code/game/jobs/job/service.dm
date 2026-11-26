@@ -504,6 +504,7 @@
 	uniform = /obj/item/clothing/under/rank/janitor
 	l_ear = /obj/item/radio/headset/headset_service
 	pda = /obj/item/pda/janitor
+	r_pocket = /obj/item/door_remote/janikeyring
 
 /datum/job/service/librarian
 	title = JOB_TITLE_LIBRARIAN

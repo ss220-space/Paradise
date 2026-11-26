@@ -132,6 +132,10 @@
 	greyscale_config_belt = null
 	greyscale_colors = null
 
+/obj/item/wirecutters/abductor/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SHOW_WIRE_INFO, ROUNDSTART_TRAIT)
+
 /obj/item/wirecutters/abductor/get_ru_names()
 	return alist(
 		NOMINATIVE = "чужеродные кусачки",

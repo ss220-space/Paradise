@@ -62,7 +62,7 @@
 /datum/station_goal/Topic(href, href_list)
 	..()
 
-	if(!check_rights(R_EVENT))
+	if(!check_rights(R_EVENT) || !usr.client.holder.CheckAdminHref(href, href_list))
 		return
 
 	if(href_list["announce"])

@@ -229,8 +229,8 @@
 	/// Override for sound_environments. If this is set the user will always hear a specific type of reverb (Instead of the area defined reverb)
 	var/sound_environment_override = SOUND_ENVIRONMENT_NONE
 
-	/// The last mob/living/carbon to push/drag/grab this mob (mostly used by slimes friend recognition)
-	var/mob/living/carbon/LAssailant = null
+	/// Weak reference to the last mob/living/carbon to push/drag/grab this mob (mostly used by slimes friend recognition)
+	var/datum/weakref/LAssailant = null
 
 	/// Construct spells and mime spells. Spells that do not transfer from one mob to another and can not be lost in mindswap.
 	var/list/mob_spell_list

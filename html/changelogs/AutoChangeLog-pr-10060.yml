@@ -1,5 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - bugfix: "Исправлен баг с созданием пиротехнического реагента. (PR #10060)"
-  - bugfix: "Исправлен реагент эдитор (PR #10060)"
