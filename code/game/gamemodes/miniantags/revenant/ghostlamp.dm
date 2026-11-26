@@ -19,11 +19,11 @@
 	var/mob/living/simple_animal/revenant/revenant_owner
 	var/datum/action/cooldown/spell/aoe/revenant/soul_lamp/spell
 	var/max_stamina_damage = 90
-	var/wisp_heal = 10
+	var/wisp_heal = 3
 	var/wisp_creation_time = 60 SECONDS
 	var/light_increase = 5
-	var/integrity_increase = 100
-	var/flame_cd = 20 SECONDS
+	var/integrity_increase = 50
+	var/flame_cd = 40 SECONDS
 	COOLDOWN_DECLARE(wisp_creation)
 	COOLDOWN_DECLARE(flame_cooldown)
 

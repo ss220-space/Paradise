@@ -75,7 +75,7 @@
 	var/desc = "Оно делает что-то жуткое"
 	var/spell_type = /datum/action/cooldown/spell/aoe/revenant
 	var/datum/action/cooldown/spell/aoe/revenant/spell
-	var/cost = 100
+	var/cost = 150
 	var/cast_cost = 50
 	var/cooldown_time = 0
 	var/reveal = 0
@@ -180,7 +180,7 @@
 	name = "Аура галлюцинации"
 	desc = "Играйте с живыми, показывая им видения того, что было или могло бы быть."
 	spell_type = /datum/action/cooldown/spell/aoe/revenant/hallucinations
-	cost = 25
+	cost = 45
 
 /datum/revenant_spell/aoe/overload
 	name = "Перегрузить сеть"
@@ -192,7 +192,7 @@
 	name = "Осквернить"
 	desc = "Искажает и оскверняет ближайшую территорию, а также рассеивает святую ауру на полу."
 	spell_type = /datum/action/cooldown/spell/aoe/revenant/defile
-	cost = 35
+	cost = 45
 
 /datum/revenant_spell/aoe/malfunction
 	name = "Вызвать сбой"
@@ -216,7 +216,7 @@
 	name = "Призрачный мираж"
 	desc = "Создайте свою призрачную копию чтобы обмануть смертных."
 	spell_type = /datum/action/cooldown/spell/aoe/revenant/mirage
-	cost = 15
+	cost = 30
 
 /datum/revenant_spell/aoe/lamp
 	name = "Призвать маяк душ"
@@ -227,25 +227,25 @@
 	name = "Призрачное пламя"
 	desc = "Выпустите волну призрачного пламени из вашего фонаря."
 	spell_type = /datum/action/cooldown/spell/aoe/revenant/soul_fire
-	cost = 50
+	cost = 80
 	need_lamp = TRUE
 
 /datum/revenant_spell/pointed/gaze
 	name = "Пугающий взор"
 	desc = "Направьте пламя вашей лампы в смертного, ослепляя и оглушая его."
 	spell_type = /datum/action/cooldown/spell/pointed/revenant/gaze
-	cost =  35
+	cost =  50
 	need_lamp = TRUE
 
 /datum/revenant_spell/pointed/tear
 	name = "Слеза пламени"
 	desc = "Выпустите в цель призрачную слезу из своего фонаря. При попадании слеза подожжет цель призрачным пламенем и нанесет урон ожогами."
 	spell_type = /datum/action/cooldown/spell/pointed/revenant/tear
-	cost = 50
+	cost = 80
 	need_lamp = TRUE
 
 /datum/revenant_spell/pointed/reflect
 	name = "Отражение мук"
 	desc = "Позволяет перенаправлять часть полученных повреждений в выбранного смертного."
 	spell_type = /datum/action/cooldown/spell/pointed/revenant/reflect
-	cost = 35
+	cost = 45
