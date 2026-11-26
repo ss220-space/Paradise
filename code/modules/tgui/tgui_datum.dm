@@ -67,7 +67,7 @@
 	// Deprecated
 	if(ui_x && ui_y)
 		src.window_size = list(ui_x, ui_y)
-	secret = rustlib_uuid_v7()
+	secret = rustlib_uuid_v4()
 
 /datum/tgui/Destroy(force)
 	user = null

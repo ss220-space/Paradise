@@ -290,6 +290,10 @@ td, th {
 	if(!check_rights(R_PERMISSIONS))
 		log_and_message_admins("attempted to edit the admin permissions without sufficient rights.")
 		return
+
+	if(!alert(usr, "Вы действительно хотите начать операцию с админскими правами?", "Внимание!", "Да", "Отмена") == "Да")
+		return
+
 	var/adm_ckey
 	if(task == "add")
 		var/new_ckey = ckey(tgui_input_text(usr, "Сикей нового админа", "Добавление админа", null, encode=FALSE))

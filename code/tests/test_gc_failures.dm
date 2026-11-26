@@ -7,7 +7,6 @@
 	priority = TEST_AFTER_CREATE_AND_DESTROY
 	/// Types that already failed to collect when this test was added. Remove a type once its leak is fixed.
 	var/static/list/known_failures = list(
-		/obj/item/stock_parts/cell/energy_gun,
 		// Terror spiders and their spells
 		/mob/living/simple_animal/hostile/poison/terror_spider/defiler,
 		/mob/living/simple_animal/hostile/poison/terror_spider/healer,
