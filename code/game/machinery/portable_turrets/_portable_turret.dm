@@ -70,7 +70,8 @@
 	var/datum/effect_system/spark_spread/spark_system	//the spark system, used for generating... sparks?
 
 	var/wrenching = FALSE
-	var/last_target //last target fired at, prevents turrets from erratically firing at all valid targets in range
+	/// Last target fired at, prevents turrets from erratically firing at all valid targets in range
+	var/atom/last_target
 
 	var/region_min = REGION_GENERAL
 	var/region_max = REGION_COMMAND
@@ -122,6 +123,8 @@
 
 /obj/machinery/porta_turret/proc/handleInterloper(atom/movable/entity)
 	//message_admins("[entity] is in target range of [src]")
+	if(QDELETED(entity))
+		return
 
 	if(entity.invisibility > SEE_INVISIBLE_LIVING || HAS_TRAIT(entity, TRAIT_NINJA_INVISIBILITY)) //Let's not do typechecks and stuff on invisible things
 		return
@@ -130,9 +133,13 @@
 	if(!is_type_in_typecache(entity, valid_targets))
 		return
 
+	if(processing_targets[entity])
+		return
 	processing_targets[entity] = TRUE //associative for perfomance
+	watch_target(entity)
 
 /obj/machinery/porta_turret/Destroy()
+	set_last_target(null)
 	QDEL_NULL(spark_system)
 	QDEL_NULL(proximity_monitor)
 	return ..()
@@ -557,6 +564,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	for(var/atom/movable/atom as anything in processing_targets)
 		if(!can_see(atom, scan_range))
 			processing_targets -= atom
+			unwatch_target(atom)
 
 	var/list/primary_candidates
 	var/list/secondary_candidates
@@ -695,7 +703,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	addtimer(CALLBACK(src, PROC_REF(finish_cover_animation), TRUE), TURRET_COVER_ANIMATION_TIME)
 
 /obj/machinery/porta_turret/proc/popDown()	//pops the turret down
-	last_target = null
+	set_last_target(null)
 	if(disabled)
 		return
 	if(raising || !raised)
@@ -728,12 +736,43 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		if(D.icon_state == "closed")
 			return
 	if(target)
-		last_target = target
+		set_last_target(target)
 		if(has_cover)
 			popUp()				//pop the turret up if it's not already up.
 		setDir(get_dir(src, target))	//even if you can't shoot, follow the target
 		shootAt(target)
 		return TRUE
+
+/// Remembers the target the turret fires at, and forgets it once it is deleted
+/obj/machinery/porta_turret/proc/set_last_target(atom/new_target)
+	if(QDELETED(new_target))
+		new_target = null
+	if(last_target == new_target)
+		return
+	var/atom/old_target = last_target
+	last_target = new_target
+	if(old_target)
+		unwatch_target(old_target)
+	if(new_target)
+		watch_target(new_target)
+
+/// Starts listening for the deletion of a target the turret tracks or fired at
+/obj/machinery/porta_turret/proc/watch_target(atom/target)
+	RegisterSignal(target, COMSIG_QDELETING, PROC_REF(on_target_qdeleting), override = TRUE)
+
+/// Stops listening for the deletion of a target once the turret neither tracks it nor remembers it
+/obj/machinery/porta_turret/proc/unwatch_target(atom/target)
+	if(target == last_target || processing_targets[target])
+		return
+	UnregisterSignal(target, COMSIG_QDELETING)
+
+/// Forgets a deleted target, so idle turrets do not hold references to it
+/obj/machinery/porta_turret/proc/on_target_qdeleting(atom/source)
+	SIGNAL_HANDLER
+	processing_targets -= source
+	if(last_target == source)
+		last_target = null
+	UnregisterSignal(source, COMSIG_QDELETING)
 
 /obj/machinery/porta_turret/proc/shootAt(mob/living/target)
 	if(!raised && has_cover) //the turret has to be raised in order to fire - makes sense, right?

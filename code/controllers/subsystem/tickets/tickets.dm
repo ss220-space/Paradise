@@ -493,7 +493,7 @@ SUBSYSTEM_DEF(tickets)
 		for(var/T in allTickets)
 			ticket = T
 			if(ticket.ticketState == TICKET_CLOSED)
-				dat += "<tr style='[trStyle]'><td style ='[tdStyleleft]'><a href='byond://?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='byond://?src=[UID()];details=[ticket.ticketNum]'>Details</a> <br /> #[ticket.ticketNum] ([ticket.ingame_time_opened]) </td><td style='[tdStyle]'><b>[makeUrlMessage(ticket, one_line = TRUE)]</b></td></tr>"
+				dat += "<tr style='[trStyle]'><td style ='[tdStyleleft]'><a href='byond://?src=[UID()];resolve=[ticket.ticketNum]'>Resolve</a><a href='byond://?src=[UID()];[HrefToken()];details=[ticket.ticketNum]'>Details</a> <br /> #[ticket.ticketNum] ([ticket.ingame_time_opened]) </td><td style='[tdStyle]'><b>[makeUrlMessage(ticket, one_line = TRUE)]</b></td></tr>"
 			else
 				continue
 
@@ -561,7 +561,7 @@ SUBSYSTEM_DEF(tickets)
 			break
 
 	dat += "<br />"
-	dat += "<a href='byond://?src=[UID()];[HrefToken()];detailreopen=[T.ticketNum]'>Re-Open</a>[check_rights(rights_needed, FALSE) ? "<a href='byond://?src=[UID()];autorespond=[T.ticketNum]'>Auto</a>": ""]<a href='byond://?src=[UID()];[HrefToken()];detailresolve=[T.ticketNum]'>Resolve</a><br /><br />"
+	dat += "<a href='byond://?src=[UID()];[HrefToken()];detailreopen=[T.ticketNum]'>Re-Open</a>[check_rights(rights_needed, FALSE) ? "<a href='byond://?src=[UID()];[HrefToken()];autorespond=[T.ticketNum]'>Auto</a>": ""]<a href='byond://?src=[UID()];[HrefToken()];detailresolve=[T.ticketNum]'>Resolve</a><br /><br />"
 
 	if(!T.staffAssigned)
 		dat += "No staff member assigned to this [ticket_name] - <a href='byond://?src=[UID()];[HrefToken()];assignstaff=[T.ticketNum]'>Take Ticket</a><br />"
@@ -639,6 +639,9 @@ SUBSYSTEM_DEF(tickets)
 	)
 
 /datum/controller/subsystem/tickets/Topic(href, href_list)
+	if(href_list["close"])
+		onCloseDetailUI(usr)
+
 	if(!check_rights(rights_needed) || !usr.client.holder.CheckAdminHref(href, href_list))
 		return
 
@@ -715,8 +718,6 @@ SUBSYSTEM_DEF(tickets)
 		else
 			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/resolve_all_admin_tickets)
 
-	if(href_list["close"])
-		onCloseDetailUI(usr)
 
 /datum/controller/subsystem/tickets/proc/takeTicket(index)
 	if(assignStaffToTicket(usr.client, index))
