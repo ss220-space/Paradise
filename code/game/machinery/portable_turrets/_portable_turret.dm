@@ -70,7 +70,8 @@
 	var/datum/effect_system/spark_spread/spark_system	//the spark system, used for generating... sparks?
 
 	var/wrenching = FALSE
-	var/last_target //last target fired at, prevents turrets from erratically firing at all valid targets in range
+	/// Last target fired at, prevents turrets from erratically firing at all valid targets in range
+	var/atom/last_target
 
 	var/region_min = REGION_GENERAL
 	var/region_max = REGION_COMMAND
@@ -133,6 +134,7 @@
 	processing_targets[entity] = TRUE //associative for perfomance
 
 /obj/machinery/porta_turret/Destroy()
+	set_last_target(null)
 	QDEL_NULL(spark_system)
 	QDEL_NULL(proximity_monitor)
 	return ..()
@@ -695,7 +697,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	addtimer(CALLBACK(src, PROC_REF(finish_cover_animation), TRUE), TURRET_COVER_ANIMATION_TIME)
 
 /obj/machinery/porta_turret/proc/popDown()	//pops the turret down
-	last_target = null
+	set_last_target(null)
 	if(disabled)
 		return
 	if(raising || !raised)
@@ -728,12 +730,29 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		if(D.icon_state == "closed")
 			return
 	if(target)
-		last_target = target
+		set_last_target(target)
 		if(has_cover)
 			popUp()				//pop the turret up if it's not already up.
 		setDir(get_dir(src, target))	//even if you can't shoot, follow the target
 		shootAt(target)
 		return TRUE
+
+/// Remembers the target the turret fires at, and forgets it once it is deleted
+/obj/machinery/porta_turret/proc/set_last_target(atom/new_target)
+	if(QDELETED(new_target))
+		new_target = null
+	if(last_target == new_target)
+		return
+	if(last_target)
+		UnregisterSignal(last_target, COMSIG_QDELETING)
+	last_target = new_target
+	if(last_target)
+		RegisterSignal(last_target, COMSIG_QDELETING, PROC_REF(on_last_target_qdeleting))
+
+/// Forgets the last target when it is deleted
+/obj/machinery/porta_turret/proc/on_last_target_qdeleting(datum/source)
+	SIGNAL_HANDLER
+	set_last_target(null)
 
 /obj/machinery/porta_turret/proc/shootAt(mob/living/target)
 	if(!raised && has_cover) //the turret has to be raised in order to fire - makes sense, right?

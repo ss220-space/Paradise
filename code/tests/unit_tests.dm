@@ -45,6 +45,7 @@
 #include "test_tgui_create_message.dm"
 #include "test_timer_sanity.dm"
 #include "test_topic_log_masks_key.dm"
+#include "test_turret_last_target.dm"
 #include "test_washing.dm"
 #endif
 
