@@ -24,7 +24,7 @@
 	desc = "Finally... peas."
 	icon_state = "peas"
 	tastes = list ("peas" = 1, "chalky saltiness" = 1)
-	wine_power = 50
+	wine_power = 0.5
 	wine_flavor = "what is, distressingly, fermented peas."
 
 // Laughin' Peas
@@ -53,7 +53,7 @@
 	desc = "Ridens Cicer, guaranteed to improve your mood dramatically upon consumption!"
 	icon_state = "laughpeas"
 	tastes = list ("a prancing rabbit" = 1) //Vib Ribbon sends her regards.. wherever she is.
-	wine_power = 90
+	wine_power = 0.9
 	wine_flavor = "a vector-graphic rabbit dancing on your tongue"
 
 // World Peas - Peace at last, peace at last...
@@ -83,5 +83,5 @@
 	icon_state = "worldpeas"
 	bitesize = 100
 	tastes = list ("numbing tranquility" = 2, "warmth" = 1)
-	wine_power = 100
+	wine_power = 1
 	wine_flavor = "mind-numbing peace and warmth"

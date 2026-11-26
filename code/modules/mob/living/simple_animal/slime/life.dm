@@ -47,13 +47,13 @@
 			break
 
 		if(Target.health <= -70 || Target.stat == DEAD)
-			Target = null
+			set_target(null)
 			AIproc = 0
 			break
 
 		if(Target)
 			if(locate(/mob/living/simple_animal/slime) in Target.buckled_mobs)
-				Target = null
+				set_target(null)
 				AIproc = 0
 				break
 			if(!AIproc)
@@ -91,7 +91,7 @@
 				// Bug of the month candidate: slimes were attempting to move to target only if it was directly next to them, which caused them to target things, but not approach them
 					step_to(src, Target)
 			else
-				Target = null
+				set_target(null)
 				AIproc = 0
 				break
 
@@ -159,12 +159,10 @@
 	if(M.stat == DEAD) // our victim died
 		if(!client)
 			if(!rabid && !attacked)
-				if(M.LAssailant && M.LAssailant != M)
+				var/mob/living/carbon/assailant = M.LAssailant?.resolve()
+				if(assailant && assailant != M)
 					if(prob(50))
-						if(!(M.LAssailant in Friends))
-							Friends[M.LAssailant] = 1
-						else
-							++Friends[M.LAssailant]
+						add_friend(assailant)
 		else
 			to_chat(src, "<i>This subject does not have a strong enough life energy anymore...</i>")
 
@@ -293,7 +291,7 @@
 			--target_patience
 			if(target_patience <= 0 || SStun > world.time || Discipline || attacked || docile) // Tired of chasing or something draws out attention
 				target_patience = 0
-				Target = null
+				set_target(null)
 
 		if(AIproc && SStun > world.time)
 			return
@@ -342,16 +340,16 @@
 
 				if(length(targets))
 					if(attacked || rabid || hungry == 2)
-						Target = targets[1] // I am attacked and am fighting back or so hungry I don't even care
+						set_target(targets[1]) // I am attacked and am fighting back or so hungry I don't even care
 					else
 						for(var/mob/living/carbon/C in targets)
 							if(!Discipline && prob(5))
 								if(ishuman(C) || isalienadult(C))
-									Target = C
+									set_target(C)
 									break
 
 							if(islarva(C) || is_monkeybasic(C))
-								Target = C
+								set_target(C)
 								break
 
 			if(Target)
@@ -425,13 +423,13 @@
 					if(Leader == who) // Already following him
 						to_say = pick("Yes...", "Lead...", "Follow...")
 					else if(Friends[who] > Friends[Leader]) // VIVA
-						Leader = who
+						set_leader(who)
 						to_say = "Yes... I follow [who]..."
 					else
 						to_say = "No... I follow [Leader]..."
 				else
 					if(Friends[who] >= SLIME_FRIENDSHIP_FOLLOW)
-						Leader = who
+						set_leader(who)
 						to_say = "I follow..."
 					else // Not friendly enough
 						to_say = pick("No...", "I no follow...")
@@ -439,7 +437,7 @@
 				if(buckled) // We are asked to stop feeding
 					if(Friends[who] >= SLIME_FRIENDSHIP_STOPEAT)
 						Feedstop()
-						Target = null
+						set_target(null)
 						if(Friends[who] < SLIME_FRIENDSHIP_STOPEAT_NOANGRY)
 							--Friends[who]
 							to_say = "Grrr..." // I'm angry but I do it
@@ -447,7 +445,7 @@
 							to_say = "Fine..."
 				else if(Target) // We are asked to stop chasing
 					if(Friends[who] >= SLIME_FRIENDSHIP_STOPCHASE)
-						Target = null
+						set_target(null)
 						if(Friends[who] < SLIME_FRIENDSHIP_STOPCHASE_NOANGRY)
 							--Friends[who]
 							to_say = "Grrr..." // I'm angry but I do it
@@ -456,10 +454,10 @@
 				else if(Leader) // We are asked to stop following
 					if(Leader == who)
 						to_say = "Yes... I stay..."
-						Leader = null
+						set_leader(null)
 					else
 						if(Friends[who] > Friends[Leader])
-							Leader = null
+							set_leader(null)
 							to_say = "Yes... I stop..."
 						else
 							to_say = "No... keep follow..."
@@ -481,7 +479,7 @@
 						to_say = "No... won't stay..."
 			else if(findtext(phrase, "attack"))
 				if(rabid && prob(20))
-					Target = who
+					set_target(who)
 					AIprocess() //Wake up the slime's Target AI, needed otherwise this doesn't work
 					to_say = "ATTACK!?!?"
 				else if(Friends[who] >= SLIME_FRIENDSHIP_ATTACK)
@@ -491,7 +489,7 @@
 								to_say = "NO... [L] slime friend..."
 								--Friends[who] //Don't ask a slime to attack its friend
 							else if(!Friends[L] || Friends[L] < 1)
-								Target = L
+								set_target(L)
 								AIprocess()//Wake up the slime's Target AI, needed otherwise this doesn't work
 								to_say = "Ok... I attack [Target]..."
 							else

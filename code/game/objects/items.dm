@@ -1025,7 +1025,7 @@ GAME_VERB_SRC(/obj/item, verb_pickup, oview(1), "Pick up", VERB_CATEGORY_HIDDEN)
 	if(!iscarbon(user))
 		target.LAssailant = null
 	else
-		target.LAssailant = user
+		target.LAssailant = WEAKREF(user)
 
 	add_fingerprint(user)
 	playsound(loc, hitsound, 30, TRUE, -1)
@@ -1557,8 +1557,8 @@ GAME_VERB_SRC(/obj/item, verb_pickup, oview(1), "Pick up", VERB_CATEGORY_HIDDEN)
 	. = ..()
 	. += {"
 		<br><font size='1'>
-			DAMTYPE: <font size='1'><a href='byond://?_src_=vars;item_to_tweak=[UID_of(src)];var_tweak=damtype' id='damtype'>[uppertext(damtype)]</a>
-			FORCE: <font size='1'><a href='byond://?_src_=vars;item_to_tweak=[UID_of(src)];var_tweak=force' id='force'>[force]</a>
+			DAMTYPE: <font size='1'><a href='byond://?_src_=vars;[HrefToken()];item_to_tweak=[UID_of(src)];var_tweak=damtype' id='damtype'>[uppertext(damtype)]</a>
+			FORCE: <font size='1'><a href='byond://?_src_=vars;[HrefToken()];item_to_tweak=[UID_of(src)];var_tweak=force' id='force'>[force]</a>
 		</font>
 	"}
 

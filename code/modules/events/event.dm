@@ -214,7 +214,7 @@
 	triggering = TRUE
 
 	if(alertadmins)
-		message_admins(span_warning("[forced? "Зафоршенное" : "Случайное"] событие сработает через 10 секунд: [EM.name] ([type]) (<a href='byond://?src=[UID()];cancel=1'>ОТМЕНИТЬ</a>)"))
+		message_admins(span_warning("[forced? "Зафоршенное" : "Случайное"] событие сработает через 10 секунд: [EM.name] ([type]) (<a href='byond://?src=[UID()];[HrefToken(forceGlobal = TRUE)];cancel=1'>ОТМЕНИТЬ</a>)"))
 
 	addtimer(CALLBACK(src, PROC_REF(run_event), skeleton), 10 SECONDS)
 	..()
@@ -233,7 +233,7 @@
 	. = ..()
 
 	if(href_list["cancel"])
-		if(!check_rights(R_EVENT))
+		if(!check_rights(R_EVENT) || !usr.client.holder.CheckAdminHref(href, href_list))
 			return
 
 		if(!triggering)

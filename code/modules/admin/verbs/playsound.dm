@@ -98,7 +98,7 @@ ADMIN_VERB(play_web_sound, R_SOUNDS, "Play Internet Sound", "Play a given intern
 	var/stop_web_sounds = FALSE
 	var/list/music_extra_data = list()
 	if(length(input))
-		var/datum/web_sound_info/sound_info = get_web_sound_info(youtubedl, input)
+		var/datum/web_sound_info/sound_info = world.get_web_sound_info(youtubedl, input)
 		if(!sound_info.success)
 			to_chat(user, span_boldwarning("Не удалось получить URL через yt-dlp:"), confidential = TRUE)
 			to_chat(user, span_warning("[sound_info.error_message]"), confidential = TRUE)
@@ -181,7 +181,7 @@ ADMIN_VERB(play_web_sound, R_SOUNDS, "Play Internet Sound", "Play a given intern
 			if(ASSET_TRANSPORT_WEBROOT)
 				var/datum/asset/music/music_asset = GLOB.cached_songs[web_sound_path]
 				if(!music_asset)
-					music_asset = new /datum/asset/music(youtubedl, input, web_sound_id)
+					music_asset = new /datum/asset/music(input, web_sound_id)
 					if(!music_asset.item_filename)
 						to_chat(user, span_boldwarning("Не удалось скачать через yt-dlp."), confidential = TRUE)
 						return

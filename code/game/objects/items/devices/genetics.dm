@@ -41,9 +41,9 @@
 		if(dna_detail_data["num"] == "[block]")
 			return dna_detail_data
 	var/list/current_dna_detail_data = list(
-		num = "[block]",
-		name = DNA_NO_DATA,
-		color = DNA_COLOR_UNKNOWN
+		"num" = "[block]",
+		"name" = DNA_NO_DATA,
+		"color" = DNA_COLOR_UNKNOWN
 	)
 	dna_data += list(current_dna_detail_data)
 	return current_dna_detail_data
@@ -56,16 +56,16 @@
 			break
 	if(!current_dna_detail_data)
 		current_dna_detail_data = list(
-			num = "[block]",
-			name = "[name]",
-			color = "[color]",
+			"num" = "[block]",
+			"name" = "[name]",
+			"color" = "[color]",
 		)
 		dna_data += list(current_dna_detail_data)
 	current_dna_detail_data["name"] = "[name]"
 	current_dna_detail_data["color"] = "[color]"
 
 /obj/item/dna_notepad/proc/create_empty_data()
-	for(var/i = 1; i <= DNA_COUNT; i++)
+	for(var/i in 1 to DNA_COUNT)
 		write_dna_data(i, DNA_NO_DATA, DNA_COLOR_UNKNOWN)
 
 /obj/item/dna_notepad/proc/print_report(mob/living/user)
@@ -178,10 +178,10 @@
 			write_dna_data(block_num, answer, DNA_COLOR_UNKNOWN)
 		return TRUE
 	var/color = DNA_COLOR_UNKNOWN
-	if(istype(gene, /datum/dna/gene/disability))
-		color = DNA_COLOR_DISABILITY
 	if(istype(gene, /datum/dna/gene/basic))
 		color = DNA_COLOR_POWER
+	if(block_num in GLOB.bad_blocks)
+		color = DNA_COLOR_DISABILITY
 	write_dna_data(block_num, answer, color)
 	return TRUE
 
@@ -200,7 +200,7 @@
 		to_chat(user, span_warning("Внутри [connected.declent_ru(GENITIVE)] некорректные гены."))
 		balloon_alert(user, "ошибка загрузки")
 		return
-	for(var/i = 1; i <= DNA_COUNT; i++)
+	for(var/i in 1 to DNA_COUNT)
 		var/save_block_data = read_dna_data(i)
 		if(save_block_data["name"] != DNA_NO_DATA)
 			continue
@@ -226,7 +226,7 @@
 
 /obj/item/dna_notepad/proc/sync_data_from_other_notepad(obj/item/dna_notepad/dna_notepad, mob/living/user)
 	add_fingerprint(user)
-	for(var/i = 1; i <= DNA_COUNT; i++)
+	for(var/i in 1 to DNA_COUNT)
 		var/self_block = read_dna_data(i)
 		var/other_block = dna_notepad.read_dna_data(i)
 		if(self_block["name"] == DNA_NO_DATA)
@@ -256,18 +256,20 @@
 	fill_genes_data()
 
 /obj/item/dna_notepad/full/proc/fill_genes_data()
+	var/list/bad_blocks = GLOB.bad_blocks
 	for(var/datum/dna/gene/gene as anything in GLOB.dna_genes)
-		if(gene.block < 1 || gene.block > DNA_COUNT)
+		var/block_num = gene.block
+		if(block_num < 1 || block_num > DNA_COUNT)
 			continue
 		if(gene.name == "Ordinary Gene")
-			write_dna_data(gene.block, DNA_EMPTY_DATA, DNA_COLOR_UNKNOWN)
+			write_dna_data(block_num, DNA_EMPTY_DATA, DNA_COLOR_UNKNOWN)
 			continue
 		var/color = DNA_COLOR_UNKNOWN
-		if(istype(gene, /datum/dna/gene/disability))
-			color = DNA_COLOR_DISABILITY
 		if(istype(gene, /datum/dna/gene/basic))
 			color = DNA_COLOR_POWER
-		write_dna_data(gene.block, gene.name, color)
+		if(block_num in bad_blocks)
+			color = DNA_COLOR_DISABILITY
+		write_dna_data(block_num, gene.name, color)
 
 #undef DNA_COUNT
 #undef DNA_COLOR_UNKNOWN

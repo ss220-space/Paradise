@@ -184,7 +184,7 @@ GLOBAL_PROTECT(banlist_savefile) // Obvious reasons
 			if(!expiry)		expiry = "Removal Pending"
 		else				expiry = "Permaban"
 
-		dat += text("<tr><td><a href='byond://?src=[ref];unbanf=[key][id]'>(U)</a><a href='byond://?src=[ref];unbane=[key][id]'>(E)</a> Key: <b>[key]</b></td><td>ComputerID: <b>[id]</b></td><td>IP: <b>[ip]</b></td><td> [expiry]</td><td>(By: [by])</td><td>(Reason: [reason])</td></tr>")
+		dat += text("<tr><td><a href='byond://?src=[ref];[HrefToken()];unbanf=[key][id]'>(U)</a><a href='byond://?src=[ref];[HrefToken()];unbane=[key][id]'>(E)</a> Key: <b>[key]</b></td><td>ComputerID: <b>[id]</b></td><td>IP: <b>[ip]</b></td><td> [expiry]</td><td>(By: [by])</td><td>(Reason: [reason])</td></tr>")
 
 	dat += "</table>"
 	dat = "<hr><b>Bans:</b> <span style='color: blue;'>(U) = Unban , (E) = Edit Ban</span> - <span style='color: green;'>([count] Bans)</span><hr><table border=1 rules=all frame=void cellspacing=0 cellpadding=3 >[dat]"

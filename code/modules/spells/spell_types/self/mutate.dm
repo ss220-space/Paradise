@@ -36,14 +36,14 @@
 /datum/status_effect/mutation/on_apply()
 	mutated = owner
 	mutated.force_gene_block(GLOB.hulkblock, TRUE)
-	ADD_TRAIT(mutated, TRAIT_LASEREYES, TRAIT_STATUS_EFFECT(id))
+	mutated.AddSpell(new /datum/action/cooldown/spell/pointed/projectile/lasereyes)
 	mutated.regenerate_icons()
 	to_chat(mutated, span_notice_alt("You feel strong! You feel a pressure building behind your eyes!"))
 	return TRUE
 
 /datum/status_effect/mutation/on_remove()
 	mutated.force_gene_block(GLOB.hulkblock, FALSE)
-	REMOVE_TRAIT(mutated, TRAIT_LASEREYES, TRAIT_STATUS_EFFECT(id))
+	mutated.RemoveSpell(/datum/action/cooldown/spell/pointed/projectile/lasereyes)
 	mutated.regenerate_icons()
 
 /atom/movable/screen/alert/status_effect/mutation

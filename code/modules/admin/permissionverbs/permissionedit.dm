@@ -248,7 +248,7 @@ td, th {
 </colgroup>
 <thead>
 <tr class='title'>
-<th>CKEY <a class='small' href='byond://?src=[UID()];editrights=add'>\[+\]</a></th>
+<th>CKEY <a class='small' href='byond://?src=[UID()];[HrefToken()];editrights=add'>\[+\]</a></th>
 <th>RANK</th>
 <th>PERMISSIONS</th>
 </tr>
@@ -264,9 +264,9 @@ td, th {
 		if(!rights)
 			rights = NONE_SELECT
 		output += {"<tr>
-<td style='min-width: 20%;'>[adm_ckey] <a class='small' href='byond://?src=[UID()];editrights=remove;ckey=[adm_ckey]'>\[-\]</a></td>
-<td slyle='min-width: 20%;'><a href='byond://?src=[UID()];editrights=rank;ckey=[adm_ckey]'>[rank]</a></td>
-<td style='min-width: 60%;'><a class='small' href='byond://?src=[UID()];editrights=permissions;ckey=[adm_ckey]'>[rights]</a></td>
+<td style='min-width: 20%;'>[adm_ckey] <a class='small' href='byond://?src=[UID()];[HrefToken()];editrights=remove;ckey=[adm_ckey]'>\[-\]</a></td>
+<td slyle='min-width: 20%;'><a href='byond://?src=[UID()];[HrefToken()];editrights=rank;ckey=[adm_ckey]'>[rank]</a></td>
+<td style='min-width: 60%;'><a class='small' href='byond://?src=[UID()];[HrefToken()];editrights=permissions;ckey=[adm_ckey]'>[rights]</a></td>
 </tr>"}
 
 	output += {"
@@ -290,6 +290,10 @@ td, th {
 	if(!check_rights(R_PERMISSIONS))
 		log_and_message_admins("attempted to edit the admin permissions without sufficient rights.")
 		return
+
+	if(!alert(usr, "Вы действительно хотите начать операцию с админскими правами?", "Внимание!", "Да", "Отмена") == "Да")
+		return
+
 	var/adm_ckey
 	if(task == "add")
 		var/new_ckey = ckey(tgui_input_text(usr, "Сикей нового админа", "Добавление админа", null, encode=FALSE))

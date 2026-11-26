@@ -110,7 +110,7 @@
 
 	var/turf/spawn_turf = get_turf(user)
 	var/obj/item/new_gun = new choosen_weapon(spawn_turf)
-
+	drop_all_modules(user)
 	user.put_in_hands(new_gun)
 	playsound(user, 'sound/machines/ding.ogg', 50, TRUE)
 	do_sparks(3, TRUE, spawn_turf)
