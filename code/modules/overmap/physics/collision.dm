@@ -355,9 +355,9 @@
 		if(!space)
 			continue
 		if(space.terrain_near(space.to_bubble(vessel.get_world_x(), vessel.get_world_y()), vessel.hull_radius + vessel.pose_travel() + 1))
-			vessel.collide()
-			collision_revision++
-			update_collision_index(vessel)
+			if(vessel.collide())
+				collision_revision++
+				update_collision_index(vessel)
 	if(length(flying) < 2)
 		return
 	var/list/snapshot = list()
@@ -381,6 +381,8 @@
 	if((other.docked_ship || other) == (vessel.docked_ship || vessel) || vessel.docking_approach?.aligning || other.docking_approach?.aligning || vessel.navigation_collision_disabled() || other.navigation_collision_disabled())
 		return FALSE
 	var/hit = vessel.collide(other)
+	if(!hit)
+		return FALSE
 	collision_revision++
 	update_collision_index(vessel)
 	update_collision_index(other)

@@ -15,6 +15,7 @@
 	var/obj/machinery/computer/helm/pilot_helm
 	var/list/helm_keys
 	var/pilot_turn = 0
+	var/thrust_pending = TRUE
 	var/thrust_north = 0
 	var/thrust_east = 0
 	var/thrust_south = 0
@@ -102,6 +103,12 @@
 		stop_burn()
 		angular_velocity = 0
 		return
+	if(!pilot && !autopilot && !held_brake && !pilot_turn && !angular_velocity && !vessel.ship_ai?.enabled && !vessel.is_moving())
+		thrust_pending = TRUE
+		if(was_burning || burn_sides || burn_turn)
+			stop_burn()
+		pilot_braking = FALSE
+		return
 	refresh_thrust()
 	burn_sides = NONE
 	burn_turn = 0
@@ -158,6 +165,7 @@
 		vessel.speed[2] = 0
 
 /datum/component/overmap_flight/proc/refresh_thrust()
+	thrust_pending = FALSE
 	var/obj/overmap/entity/vessel = parent
 	thrust_north = 0
 	thrust_east = 0
@@ -203,7 +211,10 @@
 			torques[key] = torque
 		engine_vectors[engine] = forces
 		engine_torques[engine] = torques
+
 /datum/component/overmap_flight/proc/strongest_thrust()
+	if(thrust_pending)
+		refresh_thrust()
 	return max(thrust_north, thrust_east, thrust_south, thrust_west)
 
 /datum/component/overmap_flight/proc/main_axis_angle()
@@ -217,6 +228,8 @@
 	return 270
 
 /datum/component/overmap_flight/proc/side_thrust(side)
+	if(thrust_pending)
+		refresh_thrust()
 	switch(side)
 		if(NORTH)
 			return thrust_north
@@ -236,6 +249,8 @@
 	return torque * OVERMAP_TORQUE_SCALE / (max(vessel.total_mass(), 1) * vessel.hull_inertia)
 
 /datum/component/overmap_flight/proc/flip_time()
+	if(thrust_pending)
+		refresh_thrust()
 	var/accel = angular_accel(min(torque_left, torque_right))
 	if(!accel)
 		return 0
@@ -379,6 +394,8 @@
 	vessel.refresh_heading_overlay()
 
 /datum/component/overmap_flight/proc/top_speed()
+	if(thrust_pending)
+		refresh_thrust()
 	var/obj/overmap/entity/vessel = parent
 	if(!vessel.shuttle || omni_thrust)
 		return vessel.max_speed

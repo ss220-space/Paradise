@@ -492,6 +492,9 @@
 				REMOVE_TRAIT(mob, TRAIT_IGNORING_GRAVITY, IGNORING_GRAVITY_NEGATION)
 		mob.refresh_gravity()
 
+	if(ispath(old_type, /turf/space) != isspaceturf(new_turf))
+		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_OVERMAP_TERRAIN_CHANGED, new_turf)
+
 	return new_turf
 
 /turf/proc/BeforeChange()

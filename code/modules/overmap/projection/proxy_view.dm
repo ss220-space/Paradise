@@ -115,6 +115,3 @@
 		copy_light()
 		return
 	setup_shading()
-
-/obj/effect/abstract/hull_proxy_tile/proc/needs_light_refresh()
-	return !!hull_turf?.lighting_object

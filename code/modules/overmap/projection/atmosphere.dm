@@ -152,10 +152,10 @@
 	var/list/displayed
 
 /obj/effect/abstract/hull_proxy_tile/surface/Destroy()
-	if(chunk && !--chunk.users)
-		qdel(chunk)
+	chunk?.release()
 	chunk = null
 	displayed = null
+	displayed_lights = null
 	return ..()
 
 /obj/effect/abstract/shuttle_shadow

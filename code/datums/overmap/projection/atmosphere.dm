@@ -103,10 +103,12 @@
 	center_x = x + OVERMAP_SURFACE_CHUNK / 2
 	center_y = y + OVERMAP_SURFACE_CHUNK / 2
 	turfs = block(locate(x, y, ground.bubble_z), locate(min(x + OVERMAP_SURFACE_CHUNK - 1, world.maxx), min(y + OVERMAP_SURFACE_CHUNK - 1, world.maxy), ground.bubble_z))
+	var/static/list/appearance_signals = list(COMSIG_TURF_CHANGE, COMSIG_TURF_EXPOSURE_CHANGED, COMSIG_ATOM_UPDATED_ICON, COMSIG_ATOM_SMOOTHED_ICON)
+	var/static/list/contents_signals = list(COMSIG_ATOM_ENTERED, COMSIG_ATOM_EXITED, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON)
 	for(var/turf/spot as anything in turfs)
 		RegisterSignal(spot, COMSIG_TURF_LIGHTING_CHANGED, PROC_REF(light_changed))
-		RegisterSignals(spot, list(COMSIG_TURF_CHANGE, COMSIG_TURF_EXPOSURE_CHANGED, COMSIG_ATOM_UPDATED_ICON, COMSIG_ATOM_SMOOTHED_ICON), PROC_REF(invalidate))
-		RegisterSignals(spot, list(COMSIG_ATOM_ENTERED, COMSIG_ATOM_EXITED, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON), PROC_REF(contents_changed))
+		RegisterSignals(spot, appearance_signals, PROC_REF(invalidate))
+		RegisterSignals(spot, contents_signals, PROC_REF(contents_changed))
 
 /datum/overmap_surface_chunk/Destroy()
 	UnregisterSignal(SSdcs, list(COMSIG_STARLIGHT_COLOR_CHANGED, COMSIG_GLOB_AREA_BASE_LIGHTING_CHANGED))
@@ -119,7 +121,13 @@
 	turfs = null
 	watched = null
 	layers = null
+	lights = null
 	return ..()
+
+/datum/overmap_surface_chunk/proc/release()
+	users--
+	if(!users)
+		qdel(src)
 
 /datum/overmap_surface_chunk/proc/invalidate()
 	SIGNAL_HANDLER
@@ -237,6 +245,7 @@
 	var/origin_x
 	var/origin_y
 	var/last_scale
+	var/list/prefetched = list()
 
 /datum/terrain_mirror/atmosphere/New(obj/overmap/entity/vessel, datum/overmap_bubble/local_space)
 	..()
@@ -244,8 +253,35 @@
 	SET_PLANE_EXPLICIT(frame, PLANET_SURFACE_PLANE, viewer_turf)
 
 /datum/terrain_mirror/atmosphere/Destroy()
+	for(var/key, entry in prefetched)
+		var/datum/overmap_surface_chunk/chunk = entry
+		chunk.release()
+	prefetched = null
 	QDEL_NULL(frame)
 	return ..()
+
+/datum/terrain_mirror/atmosphere/proc/prefetch_strip(datum/overmap_bubble/planet_surface/surface, list/strip, can_build)
+	var/list/ahead = list()
+	if(strip)
+		for(var/x in strip[1] to strip[3])
+			for(var/y in strip[2] to strip[4])
+				var/key = "[x],[y]"
+				if(tiles[key])
+					continue
+				ahead[key] = TRUE
+				if(!can_build || surface.view_chunks[key] || TICK_CHECK || length(prefetched) >= OVERMAP_SURFACE_PREFETCH_LIMIT)
+					continue
+				var/datum/overmap_surface_chunk/chunk = new(surface, x, y)
+				chunk.users++
+				prefetched[key] = chunk
+				chunk.render()
+				chunk.render_lights()
+				can_build = FALSE
+	for(var/key, entry in prefetched)
+		if(!ahead[key])
+			var/datum/overmap_surface_chunk/chunk = entry
+			prefetched -= key
+			chunk.release()
 
 /datum/terrain_mirror/atmosphere/proc/frame_transform(x, y, facing, scale)
 	var/matrix/pose = matrix()
@@ -269,6 +305,8 @@
 	var/c = cos(facing)
 	var/s = sin(facing)
 	var/list/wanted = list()
+	var/list/strip
+	var/cold_chunk = FALSE
 	for(var/list/viewport as anything in viewports)
 		var/turf/eye = viewport[1]
 		var/dx = (eye.x - vessel.hull_center_x) * scale
@@ -276,8 +314,21 @@
 		var/x = point[1] + dx * c + dy * s
 		var/y = point[2] + dy * c - dx * s
 		var/reach = viewport[2] * scale * (abs(c) + abs(s))
-		for(var/chunk_x in FLOOR((max(x - reach, 1) - 1) / OVERMAP_SURFACE_CHUNK, 1) to FLOOR((min(x + reach, world.maxx) - 1) / OVERMAP_SURFACE_CHUNK, 1))
-			for(var/chunk_y in FLOOR((max(y - reach, 1) - 1) / OVERMAP_SURFACE_CHUNK, 1) to FLOOR((min(y + reach, world.maxy) - 1) / OVERMAP_SURFACE_CHUNK, 1))
+		var/min_x = FLOOR((max(x - reach, 1) - 1) / OVERMAP_SURFACE_CHUNK, 1)
+		var/min_y = FLOOR((max(y - reach, 1) - 1) / OVERMAP_SURFACE_CHUNK, 1)
+		var/max_x = FLOOR((min(x + reach, world.maxx) - 1) / OVERMAP_SURFACE_CHUNK, 1)
+		var/max_y = FLOOR((min(y + reach, world.maxy) - 1) / OVERMAP_SURFACE_CHUNK, 1)
+		if(!strip && !isnull(last_x) && last_scale == scale && facing == last_turned_facing && (point[1] != last_x || point[2] != last_y))
+			if(abs(point[1] - last_x) >= abs(point[2] - last_y))
+				var/leading_x = point[1] > last_x ? max_x + 1 : min_x - 1
+				if(leading_x >= 0 && leading_x * OVERMAP_SURFACE_CHUNK < world.maxx)
+					strip = list(leading_x, min_y, leading_x, max_y)
+			else
+				var/leading_y = point[2] > last_y ? max_y + 1 : min_y - 1
+				if(leading_y >= 0 && leading_y * OVERMAP_SURFACE_CHUNK < world.maxy)
+					strip = list(min_x, leading_y, max_x, leading_y)
+		for(var/chunk_x in min_x to max_x)
+			for(var/chunk_y in min_y to max_y)
 				var/key = "[chunk_x],[chunk_y]"
 				if(wanted[key])
 					continue
@@ -286,7 +337,10 @@
 				var/fresh = !tile
 				if(fresh)
 					tile = new
-					tile.chunk = surface.view_chunks[key] || new /datum/overmap_surface_chunk(surface, chunk_x, chunk_y)
+					tile.chunk = surface.view_chunks[key]
+					if(!tile.chunk)
+						cold_chunk = TRUE
+						tile.chunk = new(surface, chunk_x, chunk_y)
 					tile.chunk.users++
 					tiles[key] = tile
 					frame.vis_contents += tile
@@ -303,6 +357,8 @@
 		if(!wanted[key])
 			qdel(tiles[key])
 			tiles -= key
+	if(strip || length(prefetched))
+		prefetch_strip(surface, strip, !cold_chunk)
 	if(moved || rebase)
 		var/matrix/next = frame_transform(point[1], point[2], facing, scale)
 		if(rebase && last_scale)

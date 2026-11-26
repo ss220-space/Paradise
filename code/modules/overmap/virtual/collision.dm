@@ -41,6 +41,30 @@
 	native_collision_version = hull_version
 	return TRUE
 
+/obj/overmap/entity/virtual_structure/find_impact(obj/overmap/entity/other)
+	var/obj/overmap/entity/virtual_structure/structure = other
+	if(!istype(structure) || !cache_collision_hull() || !structure.cache_collision_hull())
+		return ..()
+	var/list/start = pose_at(0)
+	var/list/target_start = structure.pose_at(0)
+	var/steps = max(CEILING((pose_travel() + structure.pose_travel()) / OVERMAP_RAM_SWEEP_STEP, 1), 1)
+	var/list/sweep = list(
+		start[1], start[2], start[3],
+		get_world_x() - start[1], get_world_y() - start[2], closer_angle_difference(start[3], get_facing()),
+		target_start[1], target_start[2], target_start[3],
+		structure.get_world_x() - target_start[1], structure.get_world_y() - target_start[2], closer_angle_difference(target_start[3], structure.get_facing()),
+		structure.hull_center_x, structure.hull_center_y, steps, OVERMAP_RAM_REFINE_STEPS,
+	)
+	var/list/hits = RUSTLIB_CALL(overmap_hull_impact, src, structure, sweep)
+	if(isnull(hits))
+		return ..()
+	if(!length(hits))
+		return null
+	var/list/contacts = list()
+	for(var/i in 2 to length(hits) step 4)
+		contacts += list(list(collision_edge[hits[i]], structure.collision_targets[hits[i + 1]], list(hits[i + 2], hits[i + 3])))
+	return list(hits[1], contacts)
+
 /obj/overmap/entity/virtual_structure/contacts_at(fraction, obj/overmap/entity/other)
 	. = list()
 	var/list/pose = pose_at(fraction)

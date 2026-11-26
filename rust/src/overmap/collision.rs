@@ -48,6 +48,28 @@ fn overmap_hull_drop(owner: ByondValue) -> ByondResult<ByondValue> {
     Ok(ByondValue::NULL)
 }
 
+fn visit_contacts(
+    source: &Hull,
+    target: &Hull,
+    frame: [f32; 10],
+    mut accept: impl FnMut([f32; 4]) -> bool,
+) -> bool {
+    let [x, y, cos, sin, ox, oy, oc, os, cx, cy] = frame;
+    for (i, [lx, ly]) in source.edges.iter().copied().enumerate() {
+        let wx = x + lx * cos + ly * sin;
+        let wy = y - lx * sin + ly * cos;
+        let (dx, dy) = (wx - ox, wy - oy);
+        let tx = (cx + dx * oc - dy * os + 0.5).floor() as i32;
+        let ty = (cy + dx * os + dy * oc + 0.5).floor() as i32;
+        if let Some(j) = target.solid.get(&(tx, ty)) {
+            if accept([(i + 1) as f32, *j as f32, wx, wy]) {
+                return true;
+            }
+        }
+    }
+    false
+}
+
 #[byond_fn]
 fn overmap_hull_contacts(
     owner: ByondValue,
@@ -56,23 +78,90 @@ fn overmap_hull_contacts(
 ) -> ByondResult<ByondValue> {
     let owner = object_id(&owner)?;
     let target = object_id(&target)?;
-    let [x, y, cos, sin, ox, oy, oc, os, cx, cy] = numbers(&frame)?;
+    let frame = numbers(&frame)?;
     let mut hits = Vec::new();
     HULLS.with_borrow(|cache| {
         let (Some(source), Some(target)) = (cache.get(&owner), cache.get(&target)) else {
             return;
         };
-        for (i, [lx, ly]) in source.edges.iter().copied().enumerate() {
-            let wx = x + lx * cos + ly * sin;
-            let wy = y - lx * sin + ly * cos;
-            let (dx, dy) = (wx - ox, wy - oy);
-            let tx = (cx + dx * oc - dy * os + 0.5).floor() as i32;
-            let ty = (cy + dx * os + dy * oc + 0.5).floor() as i32;
-            if let Some(j) = target.solid.get(&(tx, ty)) {
-                hits.extend([(i + 1) as f32, *j as f32, wx, wy].map(ByondValue::new_num));
-            }
-        }
+        visit_contacts(source, target, frame, |hit| {
+            hits.extend(hit.map(ByondValue::new_num));
+            false
+        });
     });
+    let mut out = ByondValue::new_list()?;
+    out.write_list(hits)?;
+    Ok(out)
+}
+
+#[byond_fn]
+fn overmap_hull_impact(
+    owner: ByondValue,
+    target: ByondValue,
+    sweep: ByondValue,
+) -> ByondResult<ByondValue> {
+    let owner = object_id(&owner)?;
+    let target = object_id(&target)?;
+    let [x, y, angle, dx, dy, rotation, ox, oy, other_angle, odx, ody, other_rotation, cx, cy, steps, refinements] =
+        numbers(&sweep)?;
+    let frame_at = |t: f32| {
+        let trig = |degrees: f32| match degrees.rem_euclid(360.0) {
+            0.0 => (0.0, 1.0),
+            90.0 => (1.0, 0.0),
+            180.0 => (0.0, -1.0),
+            270.0 => (-1.0, 0.0),
+            _ => {
+                let (sin, cos) = f64::from(degrees).to_radians().sin_cos();
+                (sin as f32, cos as f32)
+            }
+        };
+        let (sin, cos) = trig(angle + rotation * t);
+        let (os, oc) = trig(other_angle + other_rotation * t);
+        [
+            x + dx * t,
+            y + dy * t,
+            cos,
+            sin,
+            ox + odx * t,
+            oy + ody * t,
+            oc,
+            os,
+            cx,
+            cy,
+        ]
+    };
+    let mut hits = Vec::new();
+    let found = HULLS.with_borrow(|cache| {
+        let (Some(source), Some(target)) = (cache.get(&owner), cache.get(&target)) else {
+            return false;
+        };
+        let mut safe = 0.0;
+        for step in 1..=steps as usize {
+            let mut hit = step as f32 / steps;
+            if !visit_contacts(source, target, frame_at(hit), |_| true) {
+                safe = hit;
+                continue;
+            }
+            for _ in 0..refinements as usize {
+                let middle = (safe + hit) / 2.0;
+                if visit_contacts(source, target, frame_at(middle), |_| true) {
+                    hit = middle;
+                } else {
+                    safe = middle;
+                }
+            }
+            hits.push(ByondValue::new_num(safe));
+            visit_contacts(source, target, frame_at(hit), |contact| {
+                hits.extend(contact.map(ByondValue::new_num));
+                false
+            });
+            break;
+        }
+        true
+    });
+    if !found {
+        return Ok(ByondValue::NULL);
+    }
     let mut out = ByondValue::new_list()?;
     out.write_list(hits)?;
     Ok(out)

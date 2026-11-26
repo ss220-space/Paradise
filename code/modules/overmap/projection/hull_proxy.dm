@@ -141,6 +141,13 @@
 /obj/effect/abstract/hull_proxy_tile/proc/copy_light()
 	var/atom/movable/lighting_object/source_light = hull_turf?.lighting_object
 	if(!source_light)
+		if(light_mask)
+			lit = FALSE
+			copied_light_state = null
+			copied_light_color = null
+			QDEL_NULL(light_mask)
+			QDEL_NULL(light_backdrop)
+			rebuild_contents()
 		return
 	var/fresh = !light_mask
 	if(!light_mask)

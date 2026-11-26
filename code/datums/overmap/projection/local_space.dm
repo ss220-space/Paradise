@@ -19,14 +19,18 @@
 	var/list/cached = terrain_chunks[key]
 	if(cached && world.time < cached[1])
 		return cached
-	cached = list(world.time + 1 SECONDS)
+	var/list/updated = list(world.time + 1 SECONDS)
 	var/turf/low = locate(max(chunk_x * OVERMAP_RADAR_CHUNK, 1), max(chunk_y * OVERMAP_RADAR_CHUNK, 1), bubble_z)
 	var/turf/high = locate(min(chunk_x * OVERMAP_RADAR_CHUNK + OVERMAP_RADAR_CHUNK - 1, world.maxx), min(chunk_y * OVERMAP_RADAR_CHUNK + OVERMAP_RADAR_CHUNK - 1, world.maxy), bubble_z)
 	for(var/turf/spot as anything in block(low, high))
 		if(covers(list(spot.x, spot.y), 0) && (!isspaceturf(spot) || (locate(/obj/structure) in spot)))
-			cached += spot
-	terrain_chunks[key] = cached
-	return cached
+			updated += spot
+	if(cached && length(cached) == length(updated))
+		cached[1] = updated[1]
+		if(cached ~= updated)
+			return cached
+	terrain_chunks[key] = updated
+	return updated
 
 /datum/overmap_bubble/proc/terrain_near(list/spot, reach)
 	var/low_x = max(FLOOR(spot[1] - reach, 1), bounds[1])

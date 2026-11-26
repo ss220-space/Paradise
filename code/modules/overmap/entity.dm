@@ -620,7 +620,7 @@
 		if(dead)
 			return "двигатели без питания или повреждены"
 		return "двигатели не дают тяги"
-	if(!nav.omni_thrust && !nav.strongest_thrust())
+	if(!nav.strongest_thrust() && !nav.omni_thrust)
 		return "двигатели не дают тяги ни в одну сторону"
 	return ""
 
