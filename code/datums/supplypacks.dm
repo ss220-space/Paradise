@@ -1439,7 +1439,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/wrench,
 		/obj/item/binoculars/range,
 	)
-	cost = 150
+	cost = 250
 	containertype = /obj/structure/closet/crate/secure/mortar
 	containername = "ящик M402S"
 	container_ru_names = alist(
@@ -1460,7 +1460,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/mortar_shell/he,
 		/obj/item/mortar_shell/he,
 	)
-	cost = 20
+	cost = 50
 	containertype = /obj/structure/closet/crate/secure/mortar
 	containername = "ящик фугасных снарядов для миномета"
 	container_ru_names = alist(
@@ -1481,7 +1481,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/mortar_shell/frag,
 		/obj/item/mortar_shell/frag,
 	)
-	cost = 20
+	cost = 50
 	containertype = /obj/structure/closet/crate/secure/mortar
 	containername = "ящик осколочных снарядов для миномета"
 	container_ru_names = alist(
@@ -1500,7 +1500,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/mortar_shell/flare,
 		/obj/item/mortar_shell/flare,
 	)
-	cost = 20
+	cost = 50
 	containertype = /obj/structure/closet/crate/secure/mortar
 	containername = "ящик снарядов с камерой для миномета"
 	container_ru_names = alist(
@@ -1521,7 +1521,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/mortar_shell/incendiary,
 		/obj/item/mortar_shell/incendiary,
 	)
-	cost = 20
+	cost = 50
 	containertype = /obj/structure/closet/crate/secure/mortar
 	containername = "ящик зажигательных снарядов для миномета"
 	container_ru_names = alist(
@@ -1676,6 +1676,20 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике с имплантом изгнания",
 	)
 	required_tech = list(RESEARCH_TREE_MATERIALS = 2, RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_PROGRAMMING = 6)
+
+/datum/supply_packs/security/armory/bluespace_anchor
+	name = "блюспейс якорь"
+	contains = list(/obj/item/organ/internal/cyberimp/chest/bluespace_anchor)
+	cost = 250
+	containername = "ящик с блюспейс якорем"
+	container_ru_names = alist(
+		NOMINATIVE = "ящик с блюспейс якорем",
+		GENITIVE = "ящика с блюспейс якорем",
+		DATIVE = "ящику с блюспейс якорем",
+		ACCUSATIVE = "ящик с блюспейс якорем",
+		INSTRUMENTAL = "ящиком с блюспейс якорем",
+		PREPOSITIONAL = "ящике с блюспейс якорем",
+	)
 
 /datum/supply_packs/security/armory/ion_carbine
 	name = "Ионные карабины"
@@ -6805,7 +6819,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	manifest += "Содержит [num_contained] люб[DECL_OJ_YH_YH(num_contained)] предмет[DECL_0_A_OV(num_contained)] из списка:"
 	..()
 
-/datum/supply_packs/contraband/foamforce/bonus
+/datum/supply_packs/contraband/foamforce
 	name = "Игрушечные пистолеты"
 	contains = list(
 		/obj/item/gun/projectile/automatic/toy/pistol,

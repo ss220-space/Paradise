@@ -44,6 +44,14 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 		log_world("\[[time_stamp()]] The \"bug\" with recursion runtimes has been fixed. Please remove the snowflake check from world/Error in [__FILE__]:[__LINE__]")
 		return //this will never happen.
 
+	// Proc calls are allowed past this point
+	else if(copytext(E.name, 1, 18) == "Out of resources!")//18 == length() of that string + 1
+		log_world("BYOND out of memory. Restarting ([E?.file]:[E?.line])")
+		TgsEndProcess()
+		. = ..()
+		Reboot(reason = 1)
+		return
+
 	var/static/regex/stack_workaround
 	if(isnull(stack_workaround))
 		stack_workaround = regex("[WORKAROUND_IDENTIFIER](.+?)[WORKAROUND_IDENTIFIER]")

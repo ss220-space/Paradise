@@ -6,8 +6,8 @@
 	if(!dname)
 		dname = M
 
-	return {"<tr><td><a href='byond://?src=[UID()];adminplayeropts=[M.UID()]'>[dname]</a><b>[caption]</b>[logout_status][istype(A, /area/station/security/prison/perma) ? "<b><span style='color: red;'> (PERMA) </b></span>" : ""][M.stat == 2 ? " <b><span style='color: red;'>(DEAD)</span></b>" : ""]</td>
-		<td><a href='byond://?src=[usr.UID()];priv_msg=[M.client?.ckey]'>PM</a> [ADMIN_FLW(M, "FLW")] </td>[close ? "</tr>" : ""]"}
+	return {"<tr><td><a href='byond://?src=[UID()];[HrefToken()];adminplayeropts=[M.UID()]'>[dname]</a><b>[caption]</b>[logout_status][istype(A, /area/station/security/prison/perma) ? "<b><span style='color: red;'> (PERMA) </b></span>" : ""][M.stat == 2 ? " <b><span style='color: red;'>(DEAD)</span></b>" : ""]</td>
+		<td><a href='byond://?src=[usr.UID()];[HrefToken()];priv_msg=[M.client?.ckey]'>PM</a> [ADMIN_FLW(M, "FLW")] </td>[close ? "</tr>" : ""]"}
 
 /datum/admins/proc/check_antagonists()
 	if(!check_rights(R_ADMIN))
@@ -18,38 +18,38 @@
 		dat += "Round Duration: <b>[ROUND_TIME_TEXT()]</b><br>"
 		dat += "<b>Emergency shuttle</b><br>"
 		if(SSshuttle.emergency.is_nav_emagged())
-			dat += "Навигация взломана. Таймер заморожен. <a href='byond://?src=[UID()];force_dock_shuttle=1'>Force Dock</a><br>"
+			dat += "Навигация взломана. Таймер заморожен. <a href='byond://?src=[UID()];[HrefToken()];force_dock_shuttle=1'>Force Dock</a><br>"
 		else if(SSshuttle.emergency.mode == SHUTTLE_IDLE)
-			dat += "<a href='byond://?src=[UID()];call_shuttle=1'>Call Shuttle</a><br>"
+			dat += "<a href='byond://?src=[UID()];[HrefToken()];call_shuttle=1'>Call Shuttle</a><br>"
 		else
 			var/timeleft = SSshuttle.emergency.timeLeft()
 			var/clock = "[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]"
 			switch(SSshuttle.emergency.mode)
 				if(SHUTTLE_CALL)
 					if(SSshuttle.emergency.overmap_leg_started)
-						dat += "В полёте к станции. ETA нельзя менять, используйте force dock. <a href='byond://?src=[UID()];force_dock_shuttle=1'>Force Dock</a><br>"
-						dat += "<a href='byond://?src=[UID()];call_shuttle=2'>Send Back</a><br>"
+						dat += "В полёте к станции. ETA нельзя менять, используйте force dock. <a href='byond://?src=[UID()];[HrefToken()];force_dock_shuttle=1'>Force Dock</a><br>"
+						dat += "<a href='byond://?src=[UID()];[HrefToken()];call_shuttle=2'>Send Back</a><br>"
 					else
-						dat += "ETA (вызов): <a href='byond://?_src_=holder;edit_shuttle_time=1'>[clock]</a><br>"
-						dat += "<a href='byond://?src=[UID()];call_shuttle=2'>Send Back</a><br>"
+						dat += "ETA (вызов): <a href='byond://?_src_=holder;[HrefToken()];edit_shuttle_time=1'>[clock]</a><br>"
+						dat += "<a href='byond://?src=[UID()];[HrefToken()];call_shuttle=2'>Send Back</a><br>"
 				if(SHUTTLE_RECALL)
-					dat += "ETA (отзыв): <a href='byond://?_src_=holder;edit_shuttle_time=1'>[clock]</a><br>"
+					dat += "ETA (отзыв): <a href='byond://?_src_=holder;[HrefToken()];edit_shuttle_time=1'>[clock]</a><br>"
 				if(SHUTTLE_DOCKED)
-					dat += "ETD (посадка): <a href='byond://?_src_=holder;edit_shuttle_time=1'>[clock]</a><br>"
+					dat += "ETD (посадка): <a href='byond://?_src_=holder;[HrefToken()];edit_shuttle_time=1'>[clock]</a><br>"
 				if(SHUTTLE_ESCAPE, SHUTTLE_IGNITING)
-					dat += "В полёте. ETA нельзя менять, используйте force dock. <a href='byond://?src=[UID()];force_dock_shuttle=1'>Force Dock</a><br>"
+					dat += "В полёте. ETA нельзя менять, используйте force dock. <a href='byond://?src=[UID()];[HrefToken()];force_dock_shuttle=1'>Force Dock</a><br>"
 				else
-					dat += "Статус: [SSshuttle.emergency.mode]. <a href='byond://?src=[UID()];force_dock_shuttle=1'>Force Dock</a><br>"
+					dat += "Статус: [SSshuttle.emergency.mode]. <a href='byond://?src=[UID()];[HrefToken()];force_dock_shuttle=1'>Force Dock</a><br>"
 		if(!SSshuttle.emergencyNoEscape)
-			dat += "<a href='byond://?src=[UID()];lockdown_shuttle=1'>Lockdown Shuttle</a><br>"
+			dat += "<a href='byond://?src=[UID()];[HrefToken()];lockdown_shuttle=1'>Lockdown Shuttle</a><br>"
 		else
 			dat += span_danger("<b>Emergency shuttle lockdowned</b>")
-			dat += "<br><a href='byond://?src=[UID()];stop_lockdown=1'>Stop lockdown</a><br>"
+			dat += "<br><a href='byond://?src=[UID()];[HrefToken()];stop_lockdown=1'>Stop lockdown</a><br>"
 		if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
 			dat += span_danger("<b>Emergency shuttle stranded</b>")
-			dat += "<br><a href='byond://?src=[UID()];reload_shuttle=1'>Reload Shuttle</a><br>"
-		dat += "<a href='byond://?src=[UID()];full_lockdown=1'>Full Lockdown</a>Now: [GLOB.full_lockdown? "ON" : "OFF"]<br>"
-		dat += "<a href='byond://?src=[UID()];delay_round_end=1'>[SSticker.delay_end ? "End Round Normally" : "Delay Round End"]</a><br>"
+			dat += "<br><a href='byond://?src=[UID()];[HrefToken()];reload_shuttle=1'>Reload Shuttle</a><br>"
+		dat += "<a href='byond://?src=[UID()];[HrefToken()];full_lockdown=1'>Full Lockdown</a>Now: [GLOB.full_lockdown? "ON" : "OFF"]<br>"
+		dat += "<a href='byond://?src=[UID()];[HrefToken()];delay_round_end=1'>[SSticker.delay_end ? "End Round Normally" : "Delay Round End"]</a><br>"
 		var/connected_players = GLOB.clients.len
 		var/lobby_players = 0
 		var/observers = 0
@@ -84,7 +84,7 @@
 		dat +="<br><b>Code Phrases:</b> [span_codephrases("[GLOB.syndicate_code_phrase]")]"
 		dat +="<br><b>Code Responses:</b> [span_coderesponses("[GLOB.syndicate_code_response]")]"
 		dat += "<br><b>Antagonist Teams</b><br>"
-		dat += "<a href='byond://?src=[UID()];check_teams=1'>View Teams</a><br>"
+		dat += "<a href='byond://?src=[UID()];[HrefToken()];check_teams=1'>View Teams</a><br>"
 
 		if(length(SSticker.mode.head_revolutionaries) || length(SSticker.mode.revolutionaries))
 			dat += "<br><table cellspacing=5><tr><td><b>Revolutionaries</b></td><td></td></tr>"
@@ -113,21 +113,21 @@
 			var/datum/game_mode/mode = SSticker.mode
 			dat += "<br><table cellspacing=5><tr><td><b>Blob</b></td><td></td><td></td></tr>"
 			dat += "<tr><td><i>Progress: [length(mode.legit_blobs)]/[mode.blob_win_count]</i></td></tr>"
-			dat += "<tr><td><a href='byond://?src=[UID()];edit_blob_win_count=1'>Edit Win Count</a><br></tr>"
-			dat += "<tr><td><a href='byond://?src=[UID()];send_warning=1'>Send warning to all living blobs</a><br></td></tr>"
-			dat += "<tr><td><a href='byond://?src=[UID()];burst_all_blobs=1'>Burst all blobs</a><br></td></tr>"
+			dat += "<tr><td><a href='byond://?src=[UID()];[HrefToken()];edit_blob_win_count=1'>Edit Win Count</a><br></tr>"
+			dat += "<tr><td><a href='byond://?src=[UID()];[HrefToken()];send_warning=1'>Send warning to all living blobs</a><br></td></tr>"
+			dat += "<tr><td><a href='byond://?src=[UID()];[HrefToken()];burst_all_blobs=1'>Burst all blobs</a><br></td></tr>"
 			if(check_rights(R_EVENT))
-				dat += "<tr><td><a href='byond://?src=[UID()];delay_blob_end=1'>Delay blob end</a> Now: [mode.delay_blob_end? "ON" : "OFF"]<br></td></tr>"
-				dat += "<tr><td><a href='byond://?src=[UID()];toggle_auto_gamma=1'>Toggle auto GAMMA</a> Now: [mode.off_auto_gamma? "OFF" : "ON"]<br></td></tr>"
-			dat += "<tr><td><a href='byond://?src=[UID()];toggle_auto_nuke_codes=1'>Toggle auto nuke codes</a> Now: [mode.off_auto_nuke_codes? "OFF" : "ON"]<br></td></tr>"
-			dat += "<tr><td><a href='byond://?src=[UID()];toggle_blob_infinity_points=1'>Toggle blob infinity points</a> Now: [mode.is_blob_infinity_points? "ON" : "OFF"]<br></td></tr>"
+				dat += "<tr><td><a href='byond://?src=[UID()];[HrefToken()];delay_blob_end=1'>Delay blob end</a> Now: [mode.delay_blob_end? "ON" : "OFF"]<br></td></tr>"
+				dat += "<tr><td><a href='byond://?src=[UID()];[HrefToken()];toggle_auto_gamma=1'>Toggle auto GAMMA</a> Now: [mode.off_auto_gamma? "OFF" : "ON"]<br></td></tr>"
+			dat += "<tr><td><a href='byond://?src=[UID()];[HrefToken()];toggle_auto_nuke_codes=1'>Toggle auto nuke codes</a> Now: [mode.off_auto_nuke_codes? "OFF" : "ON"]<br></td></tr>"
+			dat += "<tr><td><a href='byond://?src=[UID()];[HrefToken()];toggle_blob_infinity_points=1'>Toggle blob infinity points</a> Now: [mode.is_blob_infinity_points? "ON" : "OFF"]<br></td></tr>"
 			dat += "</table>"
 			dat += "<br><table cellspacing=5><tr><td><b>Blobs</b></td><td></td></tr>"
 			for(var/datum/mind/blob in mode.blobs[BLOB_GROUP_INFECTED])
 				var/mob/M = blob.current
 				if(M)
 					dat += "<tr><td>[ADMIN_PP(M,"[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><span style='color: red;'>(DEAD)</span></b>" : ""]</td>"
-					dat += "<td><a href='byond://?priv_msg=[M.client?.ckey]'>PM</a></td>"
+					dat += "<td><a href='byond://?[HrefToken()];priv_msg=[M.client?.ckey]'>PM</a></td>"
 				else
 					dat += "<tr><td><i>Blob not found!</i></td></tr>"
 			dat += "</table>"
@@ -136,7 +136,7 @@
 				var/mob/M = blob.current
 				if(M)
 					dat += "<tr><td>[ADMIN_PP(M,"[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><span style='color: red;'>(DEAD)</span></b>" : ""]</td>"
-					dat += "<td><a href='byond://?priv_msg=[M.client?.ckey]'>PM</a></td>"
+					dat += "<td><a href='byond://?[HrefToken()];priv_msg=[M.client?.ckey]'>PM</a></td>"
 				else
 					dat += "<tr><td><i>Offspring not found!</i></td></tr>"
 
@@ -147,7 +147,7 @@
 				var/mob/M = blob.current
 				if(M)
 					dat += "<tr><td>[ADMIN_PP(M,"[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><span style='color: red;'(DEAD)</span></b>" : ""]</td>"
-					dat += "<td><a href='byond://?priv_msg=[M.client?.ckey]'>PM</a></td>"
+					dat += "<td><a href='byond://?[HrefToken()];priv_msg=[M.client?.ckey]'>PM</a></td>"
 				else
 					dat += "<tr><td><i>Minions not found!</i></td></tr>"
 
@@ -185,17 +185,17 @@
 			dat += "<br>Sacrifice objectives completed: [gamemode.cult_objs.sacrifices_done]"
 			dat += "<br>Sacrifice objectives needed for summoning: [gamemode.cult_objs.sacrifices_required]"
 			dat += "<br>Summoning locations: [english_list(gamemode.cult_objs.obj_summon.summon_spots)]"
-			dat += "<br><a href='byond://?src=[UID()];cult_mindspeak=[UID()]'>Cult Mindspeak</a>"
+			dat += "<br><a href='byond://?src=[UID()];[HrefToken()];cult_mindspeak=[UID()]'>Cult Mindspeak</a>"
 
 			if(gamemode.cult_objs.cult_status == NARSIE_DEMANDS_SACRIFICE)
-				dat += "<br><a href='byond://?src=[UID()];cult_adjustsacnumber=[UID()]'>Modify amount of sacrifices required</a>"
-				dat += "<br><a href='byond://?src=[UID()];cult_newtarget=[UID()]'>Reroll sacrifice target</a>"
+				dat += "<br><a href='byond://?src=[UID()];[HrefToken()];cult_adjustsacnumber=[UID()]'>Modify amount of sacrifices required</a>"
+				dat += "<br><a href='byond://?src=[UID()];[HrefToken()];cult_newtarget=[UID()]'>Reroll sacrifice target</a>"
 			else
 				dat += "<br>Modify amount of sacrifices required (Summon available!)</a>"
 				dat += "<br>Reroll sacrifice target (Summon available!)</a>"
 
-			dat += "<br><a href='byond://?src=[UID()];cult_newsummonlocations=[UID()]'>Reroll summoning locations</a>"
-			dat += "<br><a href='byond://?src=[UID()];cult_unlocknarsie=[UID()]'>Unlock Nar'Sie summoning</a>"
+			dat += "<br><a href='byond://?src=[UID()];[HrefToken()];cult_newsummonlocations=[UID()]'>Reroll summoning locations</a>"
+			dat += "<br><a href='byond://?src=[UID()];[HrefToken()];cult_unlocknarsie=[UID()]'>Unlock Nar'Sie summoning</a>"
 
 		if(length(SSticker.mode.clockwork_cult))
 			var/datum/game_mode/gamemode = SSticker.mode
@@ -215,17 +215,17 @@
 			dat += "<br>Beacons needed: [length(GLOB.clockwork_beacons)]/[gamemode.clocker_objs.beacon_goal]"
 			dat += "<br>Clockers needed: [SSticker.mode.get_clockers()]/[gamemode.clocker_objs.clocker_goal] Reveal:[SSticker.mode.clocker_objs.clocker_goal]"
 			dat += "<br>Summoning locations: [english_list(gamemode.clocker_objs.obj_summon.ritual_spots)]"
-			dat += "<br><a href='byond://?src=[UID()];clock_mindspeak=[UID()]'>Clock Cult Mindspeak</a>"
+			dat += "<br><a href='byond://?src=[UID()];[HrefToken()];clock_mindspeak=[UID()]'>Clock Cult Mindspeak</a>"
 
 			if(gamemode.clocker_objs.clock_status == RATVAR_DEMANDS_POWER)
-				dat += "<br><a href='byond://?src=[UID()];clock_adjustpower=[UID()]'>POWER CHANGE</a>"
-				dat += "<br><a href='byond://?src=[UID()];clock_adjustbeacon=[UID()]'>BEACON CHANGE</a>"
-				dat += "<br><a href='byond://?src=[UID()];clock_adjustclocker=[UID()]'>CLOCKER CHANGE</a>"
+				dat += "<br><a href='byond://?src=[UID()];[HrefToken()];clock_adjustpower=[UID()]'>POWER CHANGE</a>"
+				dat += "<br><a href='byond://?src=[UID()];[HrefToken()];clock_adjustbeacon=[UID()]'>BEACON CHANGE</a>"
+				dat += "<br><a href='byond://?src=[UID()];[HrefToken()];clock_adjustclocker=[UID()]'>CLOCKER CHANGE</a>"
 			else
 				dat += "<br>The cult reached power demand! Summon available!</a>"
 
-			dat += "<br><a href='byond://?src=[UID()];clock_newsummonlocations=[UID()]'>Reroll summoning locations</a>"
-			dat += "<br><a href='byond://?src=[UID()];clock_unlockratvar=[UID()]'>Unlock Ratvar summoning</a>"
+			dat += "<br><a href='byond://?src=[UID()];[HrefToken()];clock_newsummonlocations=[UID()]'>Reroll summoning locations</a>"
+			dat += "<br><a href='byond://?src=[UID()];[HrefToken()];clock_unlockratvar=[UID()]'>Unlock Ratvar summoning</a>"
 
 		if(length(SSticker.mode.traitors))
 			dat += check_role_table("Traitors", SSticker.mode.traitors)
@@ -321,7 +321,7 @@
 	if(show_objectives)
 		txt += {"
 			<td>
-				<a href='byond://?src=[UID()];traitor=[M.UID()]'>Show Objective</a>
+				<a href='byond://?src=[UID()];[HrefToken()];traitor=[M.UID()]'>Show Objective</a>
 			</td>
 		"}
 
@@ -339,7 +339,7 @@
 	var/logout_status = human.client ? "" : " <i>(logged out)</i>"
 	var/list/coords = ATOM_COORDS(human)
 	var/job = issilicon(human) ? "Cyborg" : human.job // || need because maybe ert robots with null in job
-	return {"<tr><td><a href='byond://?src=[UID()];adminplayeropts=[human.UID()]'>[human.real_name]</a>[logout_status]</td><td>[job][human.stat == DEAD ? " <b><span style='color: red;'>(Dead)</span></b>" : "<span style='color: green;'> [human.health]%</span>"] <b>[get_area_name(human)]</b> [coords[1]],[coords[2]],[coords[3]]</td><td><a href='byond://?src=[usr.UID()];priv_msg=[human.client?.ckey]'>PM</a> [ADMIN_FLW(human, "FLW")]</td>[close ? "</tr>" : ""]"}
+	return {"<tr><td><a href='byond://?src=[UID()];[HrefToken()];adminplayeropts=[human.UID()]'>[human.real_name]</a>[logout_status]</td><td>[job][human.stat == DEAD ? " <b><span style='color: red;'>(Dead)</span></b>" : "<span style='color: green;'> [human.health]%</span>"] <b>[get_area_name(human)]</b> [coords[1]],[coords[2]],[coords[3]]</td><td><a href='byond://?src=[usr.UID()];[HrefToken()];priv_msg=[human.client?.ckey]'>PM</a> [ADMIN_FLW(human, "FLW")]</td>[close ? "</tr>" : ""]"}
 
 /datum/admins/proc/check_security()
 	if(!check_rights(R_ADMIN))
@@ -384,7 +384,7 @@
 	if(show_objectives)
 		txt += {"
 			<td>
-				<a href='byond://?src=[UID()];traitor=[mob.UID()]'>Show Objective</a>
+				<a href='byond://?src=[UID()];[HrefToken()];traitor=[mob.UID()]'>Show Objective</a>
 			</td>
 		"}
 	txt += "</tr>"

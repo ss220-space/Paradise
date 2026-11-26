@@ -562,6 +562,7 @@
 	attack_verb = null
 	pickup_sound = 'sound/items/handling/pickup/generic_small_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/generic_small_drop.ogg'
+	scatter_distance = 10
 	var/lit = FALSE
 	var/burnt = FALSE
 	var/smoketime = 5
@@ -645,6 +646,7 @@
 		force = initial(force)
 		attack_verb = list("чиркнул")
 		STOP_PROCESSING(SSobj, src)
+		scatter_atom()
 		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 		return TRUE
 

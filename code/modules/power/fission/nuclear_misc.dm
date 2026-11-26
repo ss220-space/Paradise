@@ -228,7 +228,7 @@
 
 /obj/item/slag/Initialize(mapload)
 	. = ..()
-	//scatter_atom()
+	scatter_atom()
 	AddElement(/datum/element/radioactive, 10, chance = 80)
 	START_PROCESSING(SSprocessing, src)
 

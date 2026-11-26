@@ -32,6 +32,10 @@
 	muzzle_type = /obj/effect/projectile/muzzle/laser
 	impact_type = /obj/effect/projectile/impact/laser
 
+/obj/projectile/beam/laser/eyes
+	icon = 'icons/effects/genetics.dmi'
+	icon_state = "eyelasers"
+
 /obj/projectile/beam/laser/light
 	damage = 16
 	armour_penetration = -50

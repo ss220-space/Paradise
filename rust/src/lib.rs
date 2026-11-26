@@ -9,6 +9,7 @@ mod iconforge;
 mod jobs;
 mod logging;
 mod mapmanip;
+mod memory;
 mod milla;
 mod overmap;
 mod rand_replace;

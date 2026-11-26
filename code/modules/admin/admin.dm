@@ -79,33 +79,33 @@ ADMIN_VERB(show_old_player_panel, R_ADMIN|R_MOD, "Show Old Player Panel", ADMIN_
 	if(M.client)
 		body += " played by <b>[M.client]</b> "
 		if(check_rights(R_PERMISSIONS, FALSE))
-			body += "\[<a href='byond://?_src_=holder;editrights=rank;ckey=[M.ckey]'>[M.client.holder ? M.client.holder.rank : "Player"]</a>\] "
+			body += "\[<a href='byond://?_src_=holder;[HrefToken()];editrights=rank;ckey=[M.ckey]'>[M.client.holder ? M.client.holder.rank : "Player"]</a>\] "
 		else if(M.client.holder && M.client.holder.fakekey && M.client.holder.big_brother)
 			body += "\[Player\] "
 		else
 			body += "\[[M.client.holder ? M.client.holder.rank : "Player"]\] "
-		body += "\[<a href='byond://?_src_=holder;getplaytimewindow=[M.UID()]'>" + M.client.get_exp_type(EXP_TYPE_CREW) + " as [EXP_TYPE_CREW]</a>\]"
+		body += "\[<a href='byond://?_src_=holder;[HrefToken()];getplaytimewindow=[M.UID()]'>" + M.client.get_exp_type(EXP_TYPE_CREW) + " as [EXP_TYPE_CREW]</a>\]"
 		body += "<br>BYOND account registration date: [M.client.byondacc_date || "ERROR"] [M.client.byondacc_age <= CONFIG_GET(number/byond_account_age_threshold) ? "<b>" : ""]([M.client.byondacc_age] days old)[M.client.byondacc_age <= CONFIG_GET(number/byond_account_age_threshold) ? "</b>" : ""]"
-		body += "<br>Global Ban DB Lookup: [CONFIG_GET(string/centcom_ban_db_url) ? "<a href='byond://?_src_=holder;open_ccDB=[M.client.ckey]'>Lookup</a>" : "<i>Disabled</i>"]"
+		body += "<br>Global Ban DB Lookup: [CONFIG_GET(string/centcom_ban_db_url) ? "<a href='byond://?_src_=holder;[HrefToken()];open_ccDB=[M.client.ckey]'>Lookup</a>" : "<i>Disabled</i>"]"
 
 		body += "<br>"
 
 	if(isnewplayer(M))
 		body += " <b>Hasn't Entered Game</b> "
 	else
-		body += " \[<a href='byond://?_src_=holder;revive=[M.UID()]'>Heal</a>\] "
+		body += " \[<a href='byond://?_src_=holder;[HrefToken()];revive=[M.UID()]'>Heal</a>\] "
 
 	body += "<br><br>\[ "
-	body += "<a href='byond://?_src_=holder;open_logging_view=[M.UID()];'>LOGS</a> - "
-	body += "<a href='byond://?_src_=vars;Vars=[M.UID()]'>VV</a> - "
+	body += "<a href='byond://?_src_=holder;[HrefToken()];open_logging_view=[M.UID()];'>LOGS</a> - "
+	body += "<a href='byond://?_src_=vars;[HrefToken()];Vars=[M.UID()]'>VV</a> - "
 	body += "[ADMIN_TP(M,"TP")] - "
 	if(M.client)
 		body += "<a href='byond://?src=[user.UID()];priv_msg=[M.client.ckey]'>PM</a> - "
 		body += "[ADMIN_SM(M,"SM")] - "
 	if(ishuman(M) && M.mind)
-		body += "<a href='byond://?_src_=holder;HeadsetMessage=[M.UID()]'>HM</a> - "
+		body += "<a href='byond://?_src_=holder;[HrefToken()];HeadsetMessage=[M.UID()]'>HM</a> - "
 	body += "[admin_jump_link(M)] - "
-	body += "<a href='byond://?_src_=holder;adminalert=[M.UID()]'>SEND ALERT</a>\]</b><br>"
+	body += "<a href='byond://?_src_=holder;[HrefToken()];adminalert=[M.UID()]'>SEND ALERT</a>\]</b><br>"
 	body += "<b>Mob type:</b> [M.type]<br>"
 	if(M.client)
 		if(M.client.prefs.discord_id)
@@ -119,77 +119,77 @@ ADMIN_VERB(show_old_player_panel, R_ADMIN|R_MOD, "Show Old Player Panel", ADMIN_
 			body += "<b>Related accounts by IP:</b> [jointext(M.client.related_accounts_ip, " - ")]<br><br>"
 
 	if(M.ckey)
-		body += "<a href='byond://?_src_=holder;boot2=[M.UID()]'>Kick</a> | "
-		body += "<a href='byond://?_src_=holder;newban=[M.UID()];dbbanaddckey=[M.ckey]'>Ban</a> | "
-		body += "<a href='byond://?_src_=holder;jobban2=[M.UID()];dbbanaddckey=[M.ckey]'>Jobban</a> | "
-		body += "<a href='byond://?_src_=holder;appearanceban=[M.UID()];dbbanaddckey=[M.ckey]'>Appearance Ban</a> | "
-		body += "<a href='byond://?_src_=holder;shownoteckey=[M.ckey]'>Notes</a> | "
-		body += "<a href='byond://?_src_=holder;geoip=[M.UID()]'>GeoIP</a> | "
+		body += "<a href='byond://?_src_=holder;[HrefToken()];boot2=[M.UID()]'>Kick</a> | "
+		body += "<a href='byond://?_src_=holder;[HrefToken()];newban=[M.UID()];dbbanaddckey=[M.ckey]'>Ban</a> | "
+		body += "<a href='byond://?_src_=holder;[HrefToken()];jobban2=[M.UID()];dbbanaddckey=[M.ckey]'>Jobban</a> | "
+		body += "<a href='byond://?_src_=holder;[HrefToken()];appearanceban=[M.UID()];dbbanaddckey=[M.ckey]'>Appearance Ban</a> | "
+		body += "<a href='byond://?_src_=holder;[HrefToken()];shownoteckey=[M.ckey]'>Notes</a> | "
+		body += "<a href='byond://?_src_=holder;[HrefToken()];geoip=[M.UID()]'>GeoIP</a> | "
 		if(CONFIG_GET(string/forum_playerinfo_url))
-			body += "<a href='byond://?_src_=holder;webtools=[M.ckey]'>WebInfo</a> | "
+			body += "<a href='byond://?_src_=holder;[HrefToken()];webtools=[M.ckey]'>WebInfo</a> | "
 	if(M.client)
 		if(check_watchlist(M.client.ckey))
-			body += "<a href='byond://?_src_=holder;watchremove=[M.ckey]'>Remove from Watchlist</a> | "
-			body += "<a href='byond://?_src_=holder;watchedit=[M.ckey]'>Edit Watchlist Reason</a> "
+			body += "<a href='byond://?_src_=holder;[HrefToken()];watchremove=[M.ckey]'>Remove from Watchlist</a> | "
+			body += "<a href='byond://?_src_=holder;[HrefToken()];watchedit=[M.ckey]'>Edit Watchlist Reason</a> "
 		else
-			body += "<a href='byond://?_src_=holder;watchadd=[M.ckey]'>Add to Watchlist</a> "
+			body += "<a href='byond://?_src_=holder;[HrefToken()];watchadd=[M.ckey]'>Add to Watchlist</a> "
 
-		body += "| <a href='byond://?_src_=holder;sendtoprison=[M.UID()]'>Prison</a> | "
-		body += "\ <a href='byond://?_src_=holder;sendbacktolobby=[M.UID()]'>Send back to Lobby</a> | "
+		body += "| <a href='byond://?_src_=holder;[HrefToken()];sendtoprison=[M.UID()]'>Prison</a> | "
+		body += "\ <a href='byond://?_src_=holder;[HrefToken()];sendbacktolobby=[M.UID()]'>Send back to Lobby</a> | "
 		body += {"<br><b>Mute: </b>
-			\[<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_IC]'><span style='color: [check_mute(M.client.ckey, MUTE_IC) ? "#ffaa00" : "#aabbff"];'>IC</span></a> |
-			<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_OOC]'><span style='color: [check_mute(M.client.ckey, MUTE_OOC) ? "#ffaa00" : "#aabbff"];'>OOC</span></a> |
-			<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_PRAY]'><span style='color: [check_mute(M.client.ckey, MUTE_PRAY) ? "#ffaa00" : "#aabbff"];'>PRAY</span></a> |
-			<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ADMINHELP]'><span style='color: [check_mute(M.client.ckey, MUTE_ADMINHELP) ? "#ffaa00" : "#aabbff"];'>ADMINHELP</span></a> |
-			<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_DEADCHAT]'><span style='color: [check_mute(M.client.ckey, MUTE_DEADCHAT) ?"#ffaa00" : "#aabbff"];'>DEADCHAT</span></a> |
-			<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_TTS]'><span style='color: [check_mute(M.client.ckey, MUTE_TTS)?"#ffaa00":"#aabbff"];'>TTS</span></a> |
-			<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_EMOTE]'><span style='color: [check_mute(M.client.ckey, MUTE_EMOTE) ? "#ffaa00" : "#aabbff"];'>EMOTE</span></a> |
-			<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_INTERNET_REQUEST]'><span style='color: [check_mute(M.client.ckey, MUTE_INTERNET_REQUEST) ? "#ffaa00" : "#aabbff"];'>WEBREQ</span></a>\]
-			(<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ALL]'><span style='color: [check_mute(M.client.ckey, MUTE_ALL) ? "#ffaa00" : "#aabbff"];'>toggle all</span></a>)
+			\[<a href='byond://?_src_=holder;[HrefToken()];mute=[M.UID()];mute_type=[MUTE_IC]'><span style='color: [check_mute(M.client.ckey, MUTE_IC) ? "#ffaa00" : "#aabbff"];'>IC</span></a> |
+			<a href='byond://?_src_=holder;[HrefToken()];mute=[M.UID()];mute_type=[MUTE_OOC]'><span style='color: [check_mute(M.client.ckey, MUTE_OOC) ? "#ffaa00" : "#aabbff"];'>OOC</span></a> |
+			<a href='byond://?_src_=holder;[HrefToken()];mute=[M.UID()];mute_type=[MUTE_PRAY]'><span style='color: [check_mute(M.client.ckey, MUTE_PRAY) ? "#ffaa00" : "#aabbff"];'>PRAY</span></a> |
+			<a href='byond://?_src_=holder;[HrefToken()];mute=[M.UID()];mute_type=[MUTE_ADMINHELP]'><span style='color: [check_mute(M.client.ckey, MUTE_ADMINHELP) ? "#ffaa00" : "#aabbff"];'>ADMINHELP</span></a> |
+			<a href='byond://?_src_=holder;[HrefToken()];mute=[M.UID()];mute_type=[MUTE_DEADCHAT]'><span style='color: [check_mute(M.client.ckey, MUTE_DEADCHAT) ?"#ffaa00" : "#aabbff"];'>DEADCHAT</span></a> |
+			<a href='byond://?_src_=holder;[HrefToken()];mute=[M.UID()];mute_type=[MUTE_TTS]'><span style='color: [check_mute(M.client.ckey, MUTE_TTS)?"#ffaa00":"#aabbff"];'>TTS</span></a> |
+			<a href='byond://?_src_=holder;[HrefToken()];mute=[M.UID()];mute_type=[MUTE_EMOTE]'><span style='color: [check_mute(M.client.ckey, MUTE_EMOTE) ? "#ffaa00" : "#aabbff"];'>EMOTE</span></a> |
+			<a href='byond://?_src_=holder;[HrefToken()];mute=[M.UID()];mute_type=[MUTE_INTERNET_REQUEST]'><span style='color: [check_mute(M.client.ckey, MUTE_INTERNET_REQUEST) ? "#ffaa00" : "#aabbff"];'>WEBREQ</span></a>\]
+			(<a href='byond://?_src_=holder;[HrefToken()];mute=[M.UID()];mute_type=[MUTE_ALL]'><span style='color: [check_mute(M.client.ckey, MUTE_ALL) ? "#ffaa00" : "#aabbff"];'>toggle all</span></a>)
 		"}
 		body += {"<br><b>Mob Manipulation:</b>
-			<a href='byond://?_src_=holder;randomizename=[M.UID()]'>Randomize Name</a> |
-			<a href='byond://?_src_=holder;userandomname=[M.UID()]'>User Randomize Name</a> |
-			<a href='byond://?_src_=holder;eraseflavortext=[M.UID()]'>Erase Flavor Text</a> |
+			<a href='byond://?_src_=holder;[HrefToken()];randomizename=[M.UID()]'>Randomize Name</a> |
+			<a href='byond://?_src_=holder;[HrefToken()];userandomname=[M.UID()]'>User Randomize Name</a> |
+			<a href='byond://?_src_=holder;[HrefToken()];eraseflavortext=[M.UID()]'>Erase Flavor Text</a> |
 			"}
 		if(ishuman(M))
 			body += {"
-			<a href='byond://?_src_=holder;cma_admin=[M.UID()]'>Mirror UI to Admin</a> |
-			<a href='byond://?_src_=holder;cma_self=[M.UID()]'>Mirror UI to Player</a> |
-			<a href='byond://?_src_=holder;select_equip=[M.UID()]'>Select Equipment</a> |
-			<a href='byond://?_src_=holder;custom_equip=[M.UID()]'>Custom Equipment</a> |
-			<a href='byond://?_src_=holder;update_mob_sprite=[M.UID()]'>Update Mob Sprite</a> |
-			<a href='byond://?_src_=holder;change_voice=[M.UID()]'>Change Voice</a> |
+			<a href='byond://?_src_=holder;[HrefToken()];cma_admin=[M.UID()]'>Mirror UI to Admin</a> |
+			<a href='byond://?_src_=holder;[HrefToken()];cma_self=[M.UID()]'>Mirror UI to Player</a> |
+			<a href='byond://?_src_=holder;[HrefToken()];select_equip=[M.UID()]'>Select Equipment</a> |
+			<a href='byond://?_src_=holder;[HrefToken()];custom_equip=[M.UID()]'>Custom Equipment</a> |
+			<a href='byond://?_src_=holder;[HrefToken()];update_mob_sprite=[M.UID()]'>Update Mob Sprite</a> |
+			<a href='byond://?_src_=holder;[HrefToken()];change_voice=[M.UID()]'>Change Voice</a> |
 			"}
 		if(isliving(M))
-			body += {"<a href='byond://?_src_=holder;check_contents=[M.UID()]'>Check Contents</a> |"}
+			body += {"<a href='byond://?_src_=holder;[HrefToken()];check_contents=[M.UID()]'>Check Contents</a> |"}
 		body += {"
-		<a href='byond://?_src_=holder;man_up=[M.UID()]'>Man Up</a> |
+		<a href='byond://?_src_=holder;[HrefToken()];man_up=[M.UID()]'>Man Up</a> |
 		"}
 
 	var/jumptoeye = ""
 	if(isAI(M))
 		var/mob/living/silicon/ai/A = M
 		if(A.client && A.eyeobj) // No point following clientless AI eyes
-			jumptoeye = " <b>(<a href='byond://?_src_=holder;jumpto=[A.eyeobj.UID()]'>Eye</a>)</b>"
+			jumptoeye = " <b>(<a href='byond://?_src_=holder;[HrefToken()];jumpto=[A.eyeobj.UID()]'>Eye</a>)</b>"
 	body += {"<br><br>
-		<a href='byond://?_src_=holder;jumpto=[M.UID()]'><b>Jump to</b></a>[jumptoeye] |
-		<a href='byond://?_src_=holder;getmob=[M.UID()]'>Get</a> |
-		<a href='byond://?_src_=holder;sendmob=[M.UID()]'>Send To</a>
+		<a href='byond://?_src_=holder;[HrefToken()];jumpto=[M.UID()]'><b>Jump to</b></a>[jumptoeye] |
+		<a href='byond://?_src_=holder;[HrefToken()];getmob=[M.UID()]'>Get</a> |
+		<a href='byond://?_src_=holder;[HrefToken()];sendmob=[M.UID()]'>Send To</a>
 		<br><br>
 		[check_rights(R_ADMIN, FALSE) ? "[ADMIN_TP(M,"Traitor panel")] | " : "" ]
-		<a href='byond://?_src_=holder;narrateto=[M.UID()]'>Narrate to</a> |
+		<a href='byond://?_src_=holder;[HrefToken()];narrateto=[M.UID()]'>Narrate to</a> |
 		[ADMIN_SM(M,"Subtle message")]
 	"}
 
 	if(check_rights(R_EVENT, FALSE))
-		body += {" | <a href='byond://?_src_=holder;Bless=[M.UID()]'>Bless</a> | <a href='byond://?_src_=holder;Smite=[M.UID()]'>Smite</a>"}
+		body += {" | <a href='byond://?_src_=holder;[HrefToken()];Bless=[M.UID()]'>Bless</a> | <a href='byond://?_src_=holder;[HrefToken()];Smite=[M.UID()]'>Smite</a>"}
 
 	if(isLivingSSD(M))
 		if(istype(M.loc, /obj/machinery/cryopod))
-			body += {" | <a href='byond://?_src_=holder;cryossd=[M.UID()]'>De-Spawn</a> "}
+			body += {" | <a href='byond://?_src_=holder;[HrefToken()];cryossd=[M.UID()]'>De-Spawn</a> "}
 		else
-			body += {" | <a href='byond://?_src_=holder;cryossd=[M.UID()]'>Cryo</a> "}
+			body += {" | <a href='byond://?_src_=holder;[HrefToken()];cryossd=[M.UID()]'>Cryo</a> "}
 
 	if(M.client)
 		if(!isnewplayer(M))
@@ -201,37 +201,37 @@ ADMIN_VERB(show_old_player_panel, R_ADMIN|R_MOD, "Show Old Player Panel", ADMIN_
 			if(is_monkeybasic(M))
 				body += "<b>Monkeyized</b> | "
 			else
-				body += "<a href='byond://?_src_=holder;monkeyone=[M.UID()]'>Monkeyize</a> | "
+				body += "<a href='byond://?_src_=holder;[HrefToken()];monkeyone=[M.UID()]'>Monkeyize</a> | "
 
 			// Gorillas! OOGAS!
 			if(istype(M, /mob/living/simple_animal/hostile/gorilla))
-				body += "<a href='byond://?_src_=holder;makegorilla=[M.UID()]'>Re-Gorillize</a> | "
+				body += "<a href='byond://?_src_=holder;[HrefToken()];makegorilla=[M.UID()]'>Re-Gorillize</a> | "
 			else
-				body += "<a href='byond://?_src_=holder;makegorilla=[M.UID()]'>Gorillize</a> | "
+				body += "<a href='byond://?_src_=holder;[HrefToken()];makegorilla=[M.UID()]'>Gorillize</a> | "
 
 			//AI / Cyborg
 			if(isAI(M))
 				body += "<b>Is an AI</b> "
 			else if(ishuman(M))
-				body += {"<a href='byond://?_src_=holder;makeai=[M.UID()]'>AI</a> |
-					<a href='byond://?_src_=holder;makerobot=[M.UID()]'>Robot</a> |
-					<a href='byond://?_src_=holder;makesuper=[M.UID()]'>Superhero</a> |
+				body += {"<a href='byond://?_src_=holder;[HrefToken()];makeai=[M.UID()]'>AI</a> |
+					<a href='byond://?_src_=holder;[HrefToken()];makerobot=[M.UID()]'>Robot</a> |
+					<a href='byond://?_src_=holder;[HrefToken()];makesuper=[M.UID()]'>Superhero</a> |
 				"}
 
 			//Simple Animals
 			if(isanimal(M))
-				body += "<a href='byond://?_src_=holder;makeanimal=[M.UID()]'>Re-Animalize</a> | "
+				body += "<a href='byond://?_src_=holder;[HrefToken()];makeanimal=[M.UID()]'>Re-Animalize</a> | "
 			else
-				body += "<a href='byond://?_src_=holder;makeanimal=[M.UID()]'>Animalize</a> | "
+				body += "<a href='byond://?_src_=holder;[HrefToken()];makeanimal=[M.UID()]'>Animalize</a> | "
 
 			if(isobserver(M))
-				body += "<a href='byond://?_src_=holder;incarn_ghost=[M.UID()]'>Re-incarnate</a> | "
-				body += {"<a href='byond://?_src_=holder;togglerespawnability=[M.UID()]'>Toggle Respawnability</a> | "}
+				body += "<a href='byond://?_src_=holder;[HrefToken()];incarn_ghost=[M.UID()]'>Re-incarnate</a> | "
+				body += {"<a href='byond://?_src_=holder;[HrefToken()];togglerespawnability=[M.UID()]'>Toggle Respawnability</a> | "}
 
 			if(ispAI(M))
 				body += "<b>Is a pAI</b> "
 			else
-				body += "<a href='byond://?_src_=holder;makePAI=[M.UID()]'>Make pAI</a> | "
+				body += "<a href='byond://?_src_=holder;[HrefToken()];makePAI=[M.UID()]'>Make pAI</a> | "
 
 			// DNA2 - Admin Hax
 			if(M.dna && iscarbon(M))
@@ -245,7 +245,7 @@ ADMIN_VERB(show_old_player_panel, R_ADMIN|R_MOD, "Show Old Player Panel", ADMIN_
 					var/gene_name = GLOB.assigned_blocks[block]
 					if(gene_name)
 						var/text_color = "[M.dna.GetSEState(block) ? "#00cc66" : "#ffaa00"]"
-						body += "<a href='byond://?_src_=holder;togmutate=[M.UID()];block=[block];version=old;' style='color:[text_color];'>[gene_name]</a><sub>[block]</sub>"
+						body += "<a href='byond://?_src_=holder;[HrefToken()];togmutate=[M.UID()];block=[block];version=old;' style='color:[text_color];'>[gene_name]</a><sub>[block]</sub>"
 					else
 						body += "[block]"
 					body += "</td>"
@@ -253,42 +253,42 @@ ADMIN_VERB(show_old_player_panel, R_ADMIN|R_MOD, "Show Old Player Panel", ADMIN_
 
 			body += {"<br><br>
 				<b>Rudimentary transformation:</b><span style='font-size: 2;'><br>These transformations only create a new mob type and copy stuff over. They do not take into account MMIs and similar mob-specific things. The buttons in 'Transformations' are preferred, when possible.</span><br>
-				<a href='byond://?_src_=holder;simplemake=observer;mob=[M.UID()]'>Observer</a> |
-				\[ Alien: <a href='byond://?_src_=holder;simplemake=drone;mob=[M.UID()]'>Drone</a>,
-				<a href='byond://?_src_=holder;simplemake=hunter;mob=[M.UID()]'>Hunter</a>,
-				<a href='byond://?_src_=holder;simplemake=queen;mob=[M.UID()]'>Queen</a>,
-				<a href='byond://?_src_=holder;simplemake=sentinel;mob=[M.UID()]'>Sentinel</a>,
-				<a href='byond://?_src_=holder;simplemake=larva;mob=[M.UID()]'>Larva</a> \]
-				<a href='byond://?_src_=holder;simplemake=human;mob=[M.UID()]'>Human</a>
-				\[ slime: <a href='byond://?_src_=holder;simplemake=slime;mob=[M.UID()]'>Baby</a>,
-				<a href='byond://?_src_=holder;simplemake=adultslime;mob=[M.UID()]'>Adult</a> \]
-				<a href='byond://?_src_=holder;simplemake=monkey;mob=[M.UID()]'>Monkey</a> |
-				<a href='byond://?_src_=holder;simplemake=robot;mob=[M.UID()]'>Cyborg</a> |
-				<a href='byond://?_src_=holder;simplemake=cat;mob=[M.UID()]'>Cat</a> |
-				<a href='byond://?_src_=holder;simplemake=runtime;mob=[M.UID()]'>Runtime</a> |
-				<a href='byond://?_src_=holder;simplemake=corgi;mob=[M.UID()]'>Corgi</a> |
-				<a href='byond://?_src_=holder;simplemake=ian;mob=[M.UID()]'>Ian</a> |
-				<a href='byond://?_src_=holder;simplemake=crab;mob=[M.UID()]'>Crab</a> |
-				<a href='byond://?_src_=holder;simplemake=coffee;mob=[M.UID()]'>Coffee</a> |
-				\[ Construct: <a href='byond://?_src_=holder;simplemake=constructarmoured;mob=[M.UID()]'>Armoured</a> ,
-				<a href='byond://?_src_=holder;simplemake=constructbuilder;mob=[M.UID()]'>Builder</a> ,
-				<a href='byond://?_src_=holder;simplemake=constructwraith;mob=[M.UID()]'>Wraith</a> \]
-				<a href='byond://?_src_=holder;simplemake=shade;mob=[M.UID()]'>Shade</a>
+				<a href='byond://?_src_=holder;[HrefToken()];simplemake=observer;mob=[M.UID()]'>Observer</a> |
+				\[ Alien: <a href='byond://?_src_=holder;[HrefToken()];simplemake=drone;mob=[M.UID()]'>Drone</a>,
+				<a href='byond://?_src_=holder;[HrefToken()];simplemake=hunter;mob=[M.UID()]'>Hunter</a>,
+				<a href='byond://?_src_=holder;[HrefToken()];simplemake=queen;mob=[M.UID()]'>Queen</a>,
+				<a href='byond://?_src_=holder;[HrefToken()];simplemake=sentinel;mob=[M.UID()]'>Sentinel</a>,
+				<a href='byond://?_src_=holder;[HrefToken()];simplemake=larva;mob=[M.UID()]'>Larva</a> \]
+				<a href='byond://?_src_=holder;[HrefToken()];simplemake=human;mob=[M.UID()]'>Human</a>
+				\[ slime: <a href='byond://?_src_=holder;[HrefToken()];simplemake=slime;mob=[M.UID()]'>Baby</a>,
+				<a href='byond://?_src_=holder;[HrefToken()];simplemake=adultslime;mob=[M.UID()]'>Adult</a> \]
+				<a href='byond://?_src_=holder;[HrefToken()];simplemake=monkey;mob=[M.UID()]'>Monkey</a> |
+				<a href='byond://?_src_=holder;[HrefToken()];simplemake=robot;mob=[M.UID()]'>Cyborg</a> |
+				<a href='byond://?_src_=holder;[HrefToken()];simplemake=cat;mob=[M.UID()]'>Cat</a> |
+				<a href='byond://?_src_=holder;[HrefToken()];simplemake=runtime;mob=[M.UID()]'>Runtime</a> |
+				<a href='byond://?_src_=holder;[HrefToken()];simplemake=corgi;mob=[M.UID()]'>Corgi</a> |
+				<a href='byond://?_src_=holder;[HrefToken()];simplemake=ian;mob=[M.UID()]'>Ian</a> |
+				<a href='byond://?_src_=holder;[HrefToken()];simplemake=crab;mob=[M.UID()]'>Crab</a> |
+				<a href='byond://?_src_=holder;[HrefToken()];simplemake=coffee;mob=[M.UID()]'>Coffee</a> |
+				\[ Construct: <a href='byond://?_src_=holder;[HrefToken()];simplemake=constructarmoured;mob=[M.UID()]'>Armoured</a> ,
+				<a href='byond://?_src_=holder;[HrefToken()];simplemake=constructbuilder;mob=[M.UID()]'>Builder</a> ,
+				<a href='byond://?_src_=holder;[HrefToken()];simplemake=constructwraith;mob=[M.UID()]'>Wraith</a> \]
+				<a href='byond://?_src_=holder;[HrefToken()];simplemake=shade;mob=[M.UID()]'>Shade</a>
 			"}
 
 	if(M.client)
 		body += {"<br><br>
 			<b>Other actions:</b>
 			<br>
-			<a href='byond://?_src_=holder;forcespeech=[M.UID()]'>Forcesay</a> |
-			<a href='byond://?_src_=holder;aroomwarp=[M.UID()]'>Admin Room</a> |
-			<a href='byond://?_src_=holder;tdome1=[M.UID()]'>Thunderdome 1</a> |
-			<a href='byond://?_src_=holder;tdome2=[M.UID()]'>Thunderdome 2</a> |
-			<a href='byond://?_src_=holder;tdomeadmin=[M.UID()]'>Thunderdome Admin</a> |
-			<a href='byond://?_src_=holder;tdomeobserve=[M.UID()]'>Thunderdome Observer</a> |
-			<a href='byond://?_src_=holder;contractor_stop=[M.UID()]'>Stop Syndicate Jail Timer</a> |
-			<a href='byond://?_src_=holder;contractor_start=[M.UID()]'>Start Syndicate Jail Timer</a> |
-			<a href='byond://?_src_=holder;contractor_release=[M.UID()]'>Release now from Syndicate Jail</a> |
+			<a href='byond://?_src_=holder;[HrefToken()];forcespeech=[M.UID()]'>Forcesay</a> |
+			<a href='byond://?_src_=holder;[HrefToken()];aroomwarp=[M.UID()]'>Admin Room</a> |
+			<a href='byond://?_src_=holder;[HrefToken()];tdome1=[M.UID()]'>Thunderdome 1</a> |
+			<a href='byond://?_src_=holder;[HrefToken()];tdome2=[M.UID()]'>Thunderdome 2</a> |
+			<a href='byond://?_src_=holder;[HrefToken()];tdomeadmin=[M.UID()]'>Thunderdome Admin</a> |
+			<a href='byond://?_src_=holder;[HrefToken()];tdomeobserve=[M.UID()]'>Thunderdome Observer</a> |
+			<a href='byond://?_src_=holder;[HrefToken()];contractor_stop=[M.UID()]'>Stop Syndicate Jail Timer</a> |
+			<a href='byond://?_src_=holder;[HrefToken()];contractor_start=[M.UID()]'>Start Syndicate Jail Timer</a> |
+			<a href='byond://?_src_=holder;[HrefToken()];contractor_release=[M.UID()]'>Release now from Syndicate Jail</a> |
 		"}
 
 	body += {"<br></body>
@@ -322,7 +322,7 @@ ADMIN_VERB(vpn_whitelist, R_BAN, "VPN Ckey Whitelist", "Modify ckey's presence o
 		var/r = t
 		if(findtext(r,"##"))
 			r = copytext( r, 1, findtext(r,"##") )//removes the description
-		dat += text("<tr><td>[t] (<a href='byond://?src=[UID()];removejobban=[r]'>unban</a>)</td></tr>")
+		dat += text("<tr><td>[t] (<a href='byond://?src=[UID()];[HrefToken()];removejobban=[r]'>unban</a>)</td></tr>")
 	dat += "</table>"
 	var/datum/browser/popup = new(usr, "jobban", "Jobban", 400, 400)
 	popup.set_content(dat)
@@ -335,16 +335,16 @@ ADMIN_VERB(vpn_whitelist, R_BAN, "VPN Ckey Whitelist", "Modify ckey's presence o
 	var/list/dat = list()
 	var/cached_UID = UID()
 	dat += "<center>"
-	dat += "<p><a href='byond://?src=[cached_UID];c_mode=1'>Change Game Mode</a><br></p>"
+	dat += "<p><a href='byond://?src=[cached_UID];[HrefToken()];c_mode=1'>Change Game Mode</a><br></p>"
 	if(GLOB.master_mode == "secret")
-		dat += "<p><a href='byond://?src=[cached_UID];f_secret=1'>(Force Secret Mode)</a><br></p>"
+		dat += "<p><a href='byond://?src=[cached_UID];[HrefToken()];f_secret=1'>(Force Secret Mode)</a><br></p>"
 	if(GLOB.master_mode == "antag-paradise" || GLOB.secret_force_mode == "antag-paradise")
-		dat += "<p><a href='byond://?src=[cached_UID];change_weights=1'>Change Antag Weights</a><br></p>"
+		dat += "<p><a href='byond://?src=[cached_UID];[HrefToken()];change_weights=1'>Change Antag Weights</a><br></p>"
 
 	dat += "<hr><br>"
-	dat += "<a href='byond://?src=[cached_UID];spawn_panel=1'>Spawn Panel</a><br>"
+	dat += "<a href='byond://?src=[cached_UID];[HrefToken()];spawn_panel=1'>Spawn Panel</a><br>"
 	if(marked_datum && istype(marked_datum, /atom))
-		dat += "<a href='byond://?src=[cached_UID];dupe_marked_datum=1'>Duplicate Marked Datum</a><br>"
+		dat += "<a href='byond://?src=[cached_UID];[HrefToken()];dupe_marked_datum=1'>Duplicate Marked Datum</a><br>"
 
 	var/datum/browser/popup = new(usr, "game_panel", "<div align='center'>Game Panel</div>", 220, 300)
 	popup.set_content(dat.Join(""))
@@ -769,7 +769,7 @@ ADMIN_VERB(toggle_guests, R_SERVER, "Toggle Guests", "Toggle the ability for gue
 		loc = get_turf(location)
 	if(where=="")
 		where=formatLocation(loc)
-	return "<a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>[where]</a>"
+	return "<a href='byond://?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>[where]</a>"
 
 /proc/formatLocation(location)
 	var/turf/loc

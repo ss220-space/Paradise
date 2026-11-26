@@ -19,6 +19,10 @@
 			if(length(temp_vent.parent.other_atmosmch) > 50)
 				vents += temp_vent
 
+/datum/event/vent_clog/kill()
+	vents.Cut()
+	return ..()
+
 /datum/event/vent_clog/tick()
 	if(activeFor % interval == 0)
 		var/obj/machinery/atmospherics/unary/vent_scrubber/vent = pick_n_take(vents)

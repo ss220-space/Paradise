@@ -1551,7 +1551,7 @@ GAME_VERB(/mob/living, resist, "Сопротивляться", VERB_CATEGORY_IC)
 		var/mob/pulled_mob = pulled_atom
 		add_attack_logs(src, pulled_mob, "passively grabbed", ATKLOG_ALMOSTALL)
 
-		pulled_mob.LAssailant = iscarbon(src) ? src : null
+		pulled_mob.LAssailant = iscarbon(src) ? WEAKREF(src) : null
 
 		if(!supress_message && !(iscarbon(pulled_mob) && HAS_TRAIT(src, TRAIT_STRONG_GRABBER)))
 			if(ishuman(pulled_mob))
@@ -1588,7 +1588,7 @@ GAME_VERB(/mob/living, resist, "Сопротивляться", VERB_CATEGORY_IC)
 
 			set_pull_offsets(pulled_living, state)
 
-		pulled_mob.LAssailant = iscarbon(src) ? src : null
+		pulled_mob.LAssailant = iscarbon(src) ? WEAKREF(src) : null
 
 	update_pull_movespeed()
 

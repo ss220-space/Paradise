@@ -11,6 +11,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	materials = list(MAT_METAL = 1000)
 	override_notes = TRUE
+	scatter_distance = 10
 	/// What sound should play when this ammo is fired
 	var/fire_sound = null
 	/// What sound should play when this ammo hits the ground
@@ -77,8 +78,7 @@
 			INSTRUMENTAL = "пулей [get_ammo_marking()]",
 			PREPOSITIONAL = "пуле [get_ammo_marking()]",
 		))
-	pixel_x = rand(-10, 10)
-	pixel_y = rand(-10, 10)
+	scatter_atom()
 	dir = pick(GLOB.alldirs)
 	update_appearance(updates = ALL)
 

@@ -15713,6 +15713,11 @@
 /area/centcom/syndicate_base/outside)
 "iTp" = (
 /obj/structure/closet/abductor,
+/obj/item/melee/flyswatter/abductor,
+/obj/item/mop/advanced/abductor,
+/obj/item/reagent_containers/spray/cleaner/safety/abductor,
+/obj/item/lightreplacer/bluespace/abductor,
+/obj/item/soap/syndie/abductor,
 /turf/simulated/floor/indestructible/abductor,
 /area/centcom/abductor_ship)
 "iTE" = (

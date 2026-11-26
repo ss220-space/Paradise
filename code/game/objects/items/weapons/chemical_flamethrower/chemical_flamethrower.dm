@@ -262,5 +262,5 @@
 	)
 
 /obj/item/chemical_canister/extended/nuclear/Initialize(mapload)
-	..()
+	. = ..()
 	reagents.add_reagent(/datum/reagent/napalm/penetrating, ammo) // Overload it with napalm!

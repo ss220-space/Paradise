@@ -122,7 +122,7 @@ SUBSYSTEM_DEF(garbage)
 		if(I.no_hint)
 			dellog += "\tNo hint: [I.no_hint] times"
 		if(LAZYLEN(I.extra_details))
-			dellog += "\tExtra Info: [I.extra_details]"
+			dellog += "\tExtra Info: [I.extra_details.Join(" | ")]"
 	log_qdel(dellog.Join("\n"))
 
 /datum/controller/subsystem/garbage/fire()

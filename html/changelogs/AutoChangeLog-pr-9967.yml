@@ -1,4 +1,0 @@
-author: "FlitchTime"
-delete-after: True
-changes:
-  - map: "Перемещение смарт-холодильника в бриге. (PR #9967)"

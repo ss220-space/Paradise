@@ -2,6 +2,7 @@ use crate::uuid::statics::UUID_STORAGE;
 use base64::prelude::*;
 use meowtonin::{byond_fn, ByondError, ByondResult, ByondValue, ToByond};
 use std::error::Error;
+use uuid::Uuid;
 
 use slotmap::{Key, KeyData};
 
@@ -65,4 +66,14 @@ fn clear_uuid_storage() -> ByondResult<ByondValue> {
         storage.clear();
     });
     Ok(ByondValue::NULL)
+}
+
+#[byond_fn]
+fn uuid_v4() -> ByondResult<ByondValue> {
+    Uuid::new_v4().to_string().to_byond()
+}
+
+#[byond_fn]
+fn uuid_v7() -> ByondResult<ByondValue> {
+    Uuid::now_v7().to_string().to_byond()
 }

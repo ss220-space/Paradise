@@ -59,7 +59,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	//var/list/laws = list()
 	alarms_listend_for = list("Motion", "Fire", "Atmosphere", "Power", "Camera", "Burglar")
 	var/viewalerts = 0
-	var/icon/holo_icon//Default // is assigned when AI is created.
+	var/icon/holo_icon // is assigned when AI is created.
 	var/obj/mecha/controlled_mech //For controlled_mech a mech, to determine whether to relaymove or use the AI eye.
 	var/obj/item/pda/silicon/ai/aiPDA = null
 	var/obj/item/multitool/aiMulti = null
@@ -268,12 +268,29 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	malfhack = null
 	bot_ref = null
 	linked_core = null
+	controlled_mech = null
+	current = null
+	parent = null
+	deployed_shell = null
+	holo = null
+	waypoint = null
+	LAZYCLEARLIST(connected_robots)
+	LAZYCLEARLIST(lit_cameras)
+	LAZYCLEARLIST(all_eyes)
+	LAZYCLEARLIST(stored_locations)
+	QDEL_LIST(current_modules)
+	QDEL_NULL(malf_picker)
+	QDEL_NULL(modules_action)
 	QDEL_NULL(eyeobj) // No AI, no Eye
 	QDEL_NULL(aiPDA)
 	QDEL_NULL(aiMulti)
 	QDEL_NULL(aiRadio)
 	QDEL_NULL(builtInCamera)
 	QDEL_NULL(core_display_picker)
+	QDEL_NULL(doomsday_device)
+	QDEL_NULL(track)
+	QDEL_NULL(announcer)
+	QDEL_NULL(robot_control)
 	return ..()
 
 /mob/living/silicon/ai/get_radio()

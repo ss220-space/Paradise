@@ -32,7 +32,7 @@ GAME_VERB(/mob/living, pray, VERB_PRAY, VERB_CATEGORY_IC)
 	add_game_logs("Prayed to the gods: [message]", src)
 	GLOB.requests.pray(client, message, job == JOB_TITLE_CHAPLAIN)
 
-	message = "<b><span style='color: [font_color];'>[prayer_type][deity ? " (to [deity])" : ""][HAS_TRAIT(src, TRAIT_HOLY) ? " (blessings: [mind.num_blessed])" : ""]:</span> [key_name(src, 1)] ([ADMIN_QUE(src,"?")]) ([ADMIN_PP(src,"PP")]) ([ADMIN_VV(src,"VV")]) ([ADMIN_TP(src,"TP")]) ([ADMIN_SM(src,"SM")]) ([admin_jump_link(src)]) ([ADMIN_SC(src,"SC")]) (<a href='byond://?_src_=holder;Bless=[UID()]'>BLESS</a>) (<a href='byond://?_src_=holder;Smite=[UID()]'>SMITE</a>):</b> [message]"
+	message = "<b><span style='color: [font_color];'>[prayer_type][deity ? " (to [deity])" : ""][HAS_TRAIT(src, TRAIT_HOLY) ? " (blessings: [mind.num_blessed])" : ""]:</span> [key_name(src, 1)] ([ADMIN_QUE(src,"?")]) ([ADMIN_PP(src,"PP")]) ([ADMIN_VV(src,"VV")]) ([ADMIN_TP(src,"TP")]) ([ADMIN_SM(src,"SM")]) ([admin_jump_link(src)]) ([ADMIN_SC(src,"SC")]) (<a href='byond://?_src_=holder;[HrefToken()];Bless=[UID()]'>BLESS</a>) (<a href='byond://?_src_=holder;[HrefToken()];Smite=[UID()]'>SMITE</a>):</b> [message]"
 	for(var/client/X in GLOB.admins)
 		if(check_rights(R_EVENT, FALSE, X.mob))
 			to_chat(X, "[span_notice("[icon2html(cross, X.mob)] [message]")]")
@@ -65,7 +65,7 @@ GAME_VERB(/mob/living, pray, VERB_PRAY, VERB_CATEGORY_IC)
 /proc/HONK_announce(text, mob/Sender)
 	var/msg = sanitize(copytext_char(text, 1, MAX_MESSAGE_LEN))
 	GLOB.requests.message_honk(Sender.client, msg)
-	msg = "[span_boldnotice("<span style='color: pink;'>HONK: ")][key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) (<a href='byond://?_src_=holder;HONKReply=[Sender.UID()]'>RPLY</a>):</span> [msg]"
+	msg = "[span_boldnotice("<span style='color: pink;'>HONK: ")][key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) (<a href='byond://?_src_=holder;[HrefToken()];HONKReply=[Sender.UID()]'>RPLY</a>):</span> [msg]"
 	for(var/client/X in GLOB.admins)
 		if(R_EVENT & X.holder.rights)
 			to_chat(X, msg)
@@ -81,7 +81,7 @@ GAME_VERB(/mob/living, pray, VERB_PRAY, VERB_CATEGORY_IC)
 		"message" = msg))
 	GLOB.ert_request_messages.Insert(1, insert_this) // insert it to the top of the list
 	GLOB.requests.request_ert(Sender.client, msg)
-	msg = span_adminnotice("<b><span style='color: orange;'>ЗАПРОС ОБР: </span>[key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) (<a href='byond://?_src_=holder;ErtReply=[Sender.UID()]'>ОТВЕТИТЬ</a>):</b> [msg]")
+	msg = span_adminnotice("<b><span style='color: orange;'>ЗАПРОС ОБР: </span>[key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) (<a href='byond://?_src_=holder;[HrefToken()];ErtReply=[Sender.UID()]'>ОТВЕТИТЬ</a>):</b> [msg]")
 	if(repeat_warning)
 		msg += "<br>[span_adminnotice("<b>ВНИМАНИЕ: запрос ОБР не получил ответа в течении 15 минут!</b>")]"
 	for(var/client/X in GLOB.admins)

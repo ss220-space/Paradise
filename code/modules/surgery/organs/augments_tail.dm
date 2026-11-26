@@ -4,7 +4,7 @@
 	desc = "You shoudn't see this! Immediately report to a coder."
 	parent_organ_zone = BODY_ZONE_TAIL
 	slot = INTERNAL_ORGAN_TAIL_DEVICE
-	icon_state = "implant-toolkit"
+	icon_state = "toolkit_generic"
 	w_class = WEIGHT_CLASS_NORMAL
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
 	var/sound_on = 'sound/mecha/mechmove03.ogg'

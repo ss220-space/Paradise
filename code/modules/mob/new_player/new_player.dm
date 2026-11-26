@@ -269,10 +269,14 @@
 			client.prefs.process_link(src, href_list)
 
 	if(href_list["change_picture"])
+		if(!usr.client.holder.CheckAdminHref(href, href_list))
+			return
 		SSadmin_verbs.dynamic_invoke_verb(client, /datum/admin_verb/admin_change_title_screen)
 		return
 
 	if(href_list["leave_notice"])
+		if(!usr.client.holder.CheckAdminHref(href, href_list))
+			return
 		SSadmin_verbs.dynamic_invoke_verb(client, /datum/admin_verb/change_title_screen_notice)
 		return
 
