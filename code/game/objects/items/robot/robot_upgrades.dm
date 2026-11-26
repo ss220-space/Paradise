@@ -38,7 +38,6 @@
 	name = "cyborg jump module"
 	desc = "Enables a cyborg to leap."
 	origin_tech = null
-	/// The native leap action owned by this upgrade.
 	var/datum/action/cooldown/spell/leap/leap_action
 
 /obj/item/borg/upgrade/jump/action(mob/living/silicon/robot/robot, mob/user)
