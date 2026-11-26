@@ -299,6 +299,9 @@ GLOBAL_LIST_EMPTY(unit_test_tguis)
 		/obj/effect/temp_visual/thunderbolt/fancy,
 		// Explodes on Destroy, the explosion lands on the test floor after the test
 		/obj/structure/swarmer/power_cell,
+		// Pick a random hat look on Initialize; a suit hood look stack-traces in the hood's Initialize without its suit
+		/obj/item/clothing/head/chameleon/broken,
+		/obj/item/clothing/head/helmet/space/plasmaman/chameleon/broken,
 	)
 
 	// Everything that follows is a typesof() check.
