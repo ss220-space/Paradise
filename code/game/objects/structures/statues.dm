@@ -664,3 +664,18 @@
 	anchored = TRUE
 	obj_flags = NODECONSTRUCT
 
+/obj/structure/statue/trava
+	name = "trava"
+	desc = "Серебряная статуя женщины в деловом костюме ТСФ. Орнаменты позолочены.\nНадпись на табличке:\nВ благодарность от руководителей Транс-Солнечной Федерации руководителю колонии по прозвищу \"Трава\" за помощь в основании колонии \"Лазарь\""
+	icon_state = "trava"
+	anchored = TRUE
+
+/obj/structure/statue/get_ru_names()
+	return alist(
+		NOMINATIVE = "серебряная статуя",
+		GENITIVE = "серебряной статуи",
+		DATIVE = "серебряной статуе",
+		ACCUSATIVE = "серебряную статую",
+		INSTRUMENTAL = "серебряной статуей",
+		PREPOSITIONAL = "серебряной статуе",
+	)

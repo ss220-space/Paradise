@@ -222,6 +222,9 @@ SUBSYSTEM_DEF(mapping)
 	// reassure that multiz_levels list is filled. (We do it in manage_z_level inside add_new_zlevel)
 	generate_z_level_linkages(GLOB.space_manager.z_list)
 
+	// Create explorer ship docks for every accessible sector (except CentComm, Taipan and Lavaland)
+	create_explorer_docks()
+
 	// Now we make a list of areas for teleport locs
 	process_teleport_locs()
 
@@ -841,3 +844,40 @@ SUBSYSTEM_DEF(mapping)
 /datum/controller/subsystem/mapping/proc/is_planetary()
 	return map_datum.planetary
 
+
+/// Creates a docking port for the explorer ship in the lower-left corner of every accessible
+/// z-level (excluding CentComm, Taipan and Lavaland).
+/datum/controller/subsystem/mapping/proc/create_explorer_docks()
+	for(var/level_name in GLOB.space_manager.z_list)
+		var/datum/space_level/level = GLOB.space_manager.z_list[level_name]
+		var/z = level.zpos
+		if(!is_level_reachable(z) || is_taipan(z))
+			continue
+
+		var/turf/place_turf = null
+		for(var/scan_y in 15 to 40)
+			if(place_turf)
+				break
+			for(var/scan_x in 15 to 40)
+				var/corner_a = locate(scan_x - 4, scan_y, z)
+				var/corner_b = locate(scan_x + 4, scan_y + 18, z)
+				if(!corner_a || !corner_b)
+					continue
+				var/footprint_clear = TRUE
+				for(var/turf/T in block(corner_a, corner_b))
+					if(!isspaceturf(T) && !istype(T, /turf/simulated/floor/plating/airless))
+						footprint_clear = FALSE
+						break
+					if(locate(/obj/docking_port) in T)
+						footprint_clear = FALSE
+						break
+				if(footprint_clear)
+					place_turf = corner_a
+					break
+		if(!place_turf)
+			WARNING("create_explorer_docks(): no free spot for an explorer dock on z-[z] ([level.name]), skipping")
+			continue
+
+		var/obj/docking_port/stationary/explorer_ship/dock = new(place_turf)
+		dock.id = "explorer_ship_z[z]"
+		dock.name = "Сектор: [level.name]"

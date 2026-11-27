@@ -528,6 +528,11 @@
 	greyscale_colors = CIRCUIT_COLOR_SUPPLY
 	build_path = /obj/machinery/computer/shuttle/mining
 
+/obj/item/circuitboard/explorer_shuttle
+	board_name = "Explorer Shuttle"
+	greyscale_colors = CIRCUIT_COLOR_SUPPLY
+	build_path = /obj/machinery/computer/shuttle/explorer
+
 /obj/item/circuitboard/ruins_transport_shuttle
 	board_name = "Transport Shuttle"
 	build_path = /obj/machinery/computer/shuttle/ruins_transport_shuttle

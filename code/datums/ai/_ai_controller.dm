@@ -258,6 +258,14 @@ multiple modular subtrees with behaviors
 /datum/ai_controller/proc/get_access()
 	return
 
+/// Stub proc for adjusting aggression on controllers that support it (e.g. giant_lizard).
+/datum/ai_controller/proc/adjust_aggression(amount)
+	return
+
+/// Stub proc for alerting pack members on controllers that support it (e.g. giant_lizard).
+/datum/ai_controller/proc/alert_pack()
+	return
+
 ///Returns the minimum required distance to preform one of our current behaviors. Honestly this should just be cached or something but fuck you
 /datum/ai_controller/proc/get_minimum_distance()
 	var/minimum_distance = max_target_distance
