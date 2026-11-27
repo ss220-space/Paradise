@@ -379,11 +379,6 @@
 /atom/proc/check_eye(mob/user)
 	return
 
-/// Updates the icon of the container when the reagents change. Eats signal args.
-/atom/proc/on_reagent_change()
-	SIGNAL_HANDLER
-	update_appearance()
-
 /atom/proc/Bumped(atom/movable/moving_atom)
 	SEND_SIGNAL(src, COMSIG_ATOM_BUMPED, moving_atom)
 

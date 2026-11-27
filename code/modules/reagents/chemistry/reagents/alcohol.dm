@@ -1333,8 +1333,6 @@
 		flavor += ", с лёгким привкусом "
 		flavor += russian_list(secondary_tastes)
 	taste_description = flavor
-	if(holder.my_atom)
-		holder.my_atom.on_reagent_change()
 
 /datum/reagent/consumable/ethanol/bacchus_blessing //An EXTREMELY powerful drink. Smashed in seconds, dead in minutes.
 	name = "Благословение Бахуса"

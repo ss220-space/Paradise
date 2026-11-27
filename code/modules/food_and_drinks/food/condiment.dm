@@ -79,7 +79,7 @@
 
 	return NONE
 
-/obj/item/reagent_containers/condiment/on_reagent_change()
+/obj/item/reagent_containers/condiment/on_reagent_change(datum/reagents/holder, ...)
 	if(!length(possible_states))
 		return
 	if(length(reagents.reagent_list) > 0)
@@ -323,7 +323,7 @@
 	else
 		icon_state = "condi_empty"
 
-/obj/item/reagent_containers/condiment/pack/on_reagent_change()
+/obj/item/reagent_containers/condiment/pack/on_reagent_change(datum/reagents/holder, ...)
 	update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 
 // MARK: Pack types
@@ -366,7 +366,7 @@
 	volume = 80
 	list_reagents = list("afeed" = 80)
 
-/obj/item/reagent_containers/condiment/animalfeed/on_reagent_change()
+/obj/item/reagent_containers/condiment/animalfeed/on_reagent_change(datum/reagents/holder, ...)
 	return
 
 /obj/item/reagent_containers/condiment/pack/creamer

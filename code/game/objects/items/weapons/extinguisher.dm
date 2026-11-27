@@ -55,7 +55,7 @@
 /obj/item/extinguisher/Initialize(mapload)
 	. = ..()
 	if(starting_water)
-		refill()
+		extinguisher_refill()
 	else if(chem)
 		create_reagents(max_water, AMOUNT_VISIBLE | NO_REACT)
 
@@ -64,10 +64,10 @@
 
 	RegisterSignal(src, COMSIG_MOVABLE_IMPACT, PROC_REF(steam_explosion))
 
-/obj/item/extinguisher/proc/refill()
+/obj/item/extinguisher/proc/extinguisher_refill()
 	if(!chem)
 		return
-	create_reagents(max_water, AMOUNT_VISIBLE)
+	create_reagents(max_water, AMOUNT_VISIBLE | NO_REACT)
 	reagents.add_reagent(chem, max_water)
 
 /obj/item/extinguisher/examine(mob/user)

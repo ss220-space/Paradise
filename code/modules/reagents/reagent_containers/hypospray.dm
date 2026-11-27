@@ -61,7 +61,7 @@
 	to_chat(user, span_notice("Вы вкалываете <b>[trans]</b> единиц[DECL_U_Y_0(trans)]. В [declent_ru(PREPOSITIONAL)] осталось ещё <b>[reagents.total_volume]</b> единиц[DECL_A_Y_0(reagents.total_volume)]."))
 	add_attack_logs(user, target, "Injected with [src] containing ([english_list(injected)])", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 
-/obj/item/reagent_containers/hypospray/on_reagent_change()
+/obj/item/reagent_containers/hypospray/on_reagent_change(datum/reagents/holder, ...)
 	if(safety_hypo && !emagged)
 		var/found_forbidden_reagent = FALSE
 		for(var/datum/reagent/R in reagents.reagent_list)
@@ -73,6 +73,7 @@
 				to_chat(loc, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] определяет и удаляет недопустимое вещество."))
 			else
 				visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] определяет и удаляет недопустимое вещество."))
+	return ..()
 
 /obj/item/reagent_containers/hypospray/emag_act(mob/user)
 	if(safety_hypo && !emagged)

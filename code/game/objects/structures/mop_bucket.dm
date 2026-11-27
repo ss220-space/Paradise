@@ -13,6 +13,7 @@
 /obj/structure/mopbucket/Initialize(mapload)
 	. = ..()
 	create_reagents(100, OPENCONTAINER)
+	RegisterSignal(reagents, COMSIG_REAGENTS_HOLDER_UPDATED, PROC_REF(on_reagent_change))
 	GLOB.janitorial_equipment += src
 	register_context()
 
@@ -115,7 +116,8 @@
 	if(.)
 		to_chat(user, span_notice("You put [I] into [src]."))
 
-/obj/structure/mopbucket/on_reagent_change()
+/obj/structure/mopbucket/proc/on_reagent_change(datum/reagents/holder)
+	SIGNAL_HANDLER
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/mopbucket/update_overlays()

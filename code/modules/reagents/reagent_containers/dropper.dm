@@ -133,7 +133,7 @@
 	possible_transfer_amounts = list(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1)
 	volume = 1
 
-/obj/item/reagent_containers/dropper/precision/on_reagent_change()
+/obj/item/reagent_containers/dropper/precision/on_reagent_change(datum/reagents/holder, ...)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/reagent_containers/dropper/precision/update_icon_state()

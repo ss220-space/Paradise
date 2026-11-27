@@ -274,7 +274,7 @@
 
 	reagents.clear_reagents()
 
-/// Updates the icon of the container when the reagents change. Eats signal args
+/// Updates the icon of the container when the reagents change. Eats signal args.
 /obj/item/reagent_containers/proc/on_reagent_change(datum/reagents/holder, ...)
 	SIGNAL_HANDLER
 	update_appearance()

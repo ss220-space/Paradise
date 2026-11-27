@@ -586,9 +586,6 @@
 
 			sleep(2)
 
-/obj/item/mecha_parts/mecha_equipment/extinguisher/on_reagent_change()
-	return
-
 /obj/item/mecha_parts/mecha_equipment/extinguisher/get_snowflake_data()
 	return list(
 		"snowflake_id" = MECHA_SNOWFLAKE_ID_EXTINGUISHER,

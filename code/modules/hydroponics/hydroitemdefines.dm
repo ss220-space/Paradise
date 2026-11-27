@@ -290,9 +290,8 @@
 	if(has_lid)
 		. += "plastic_jug_lid"
 
-/obj/item/reagent_containers/cup/bottle/nutrient/on_reagent_change()
+/obj/item/reagent_containers/cup/bottle/nutrient/on_reagent_change(datum/reagents/holder, ...)
 	. = ..()
-	update_icon(UPDATE_OVERLAYS)
 	if(reagents.total_volume)
 		hitsound = 'sound/weapons/jug_filled_impact.ogg'
 		mob_throw_hit_sound = 'sound/weapons/jug_filled_impact.ogg'

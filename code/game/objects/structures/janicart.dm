@@ -18,6 +18,7 @@
 /obj/structure/janitorialcart/Initialize(mapload)
 	. = ..()
 	create_reagents(100, OPENCONTAINER)
+	RegisterSignal(reagents, COMSIG_REAGENTS_HOLDER_UPDATED, PROC_REF(on_reagent_change))
 	GLOB.janitorial_equipment += src
 	register_context()
 
@@ -34,43 +35,43 @@
 
 	if(istype(held_item, /obj/item/mop))
 		if(!mymop)
-			context[SCREENTIP_CONTEXT_LMB] = "Put [held_item]"
-		context[SCREENTIP_CONTEXT_RMB] = "Wet [held_item]"
+			context[SCREENTIP_CONTEXT_LMB] = "Прикрепить к тележке"
+		context[SCREENTIP_CONTEXT_RMB] = "Смочить в ведре"
 		return CONTEXTUAL_SCREENTIP_SET
 
 	if(istype(held_item, /obj/item/storage/bag/trash) && !mybag)
-		context[SCREENTIP_CONTEXT_LMB] = "Put [held_item]"
+		context[SCREENTIP_CONTEXT_LMB] = "Прикрепить к тележке"
 		return CONTEXTUAL_SCREENTIP_SET
 
 	if(istype(held_item, /obj/item/lightreplacer) && !myreplacer)
-		context[SCREENTIP_CONTEXT_LMB] = "Put [held_item]"
+		context[SCREENTIP_CONTEXT_LMB] = "Прикрепить к тележке"
 		return CONTEXTUAL_SCREENTIP_SET
 
 	if(istype(held_item, /obj/item/reagent_containers/spray/cleaner) && !myspray)
-		context[SCREENTIP_CONTEXT_LMB] = "Put [held_item]"
+		context[SCREENTIP_CONTEXT_LMB] = "Прикрепить к тележке"
 		return CONTEXTUAL_SCREENTIP_SET
 
 	if(istype(held_item, /obj/item/caution) && signs < max_signs)
-		context[SCREENTIP_CONTEXT_LMB] = "Put [held_item]"
+		context[SCREENTIP_CONTEXT_LMB] = "Прикрепить к тележке"
 		return CONTEXTUAL_SCREENTIP_SET
 
 	if(is_reagent_container(held_item))
-		context[SCREENTIP_CONTEXT_LMB] = "Fill cart bucket"
+		context[SCREENTIP_CONTEXT_LMB] = "Перелить в ведро"
 		return CONTEXTUAL_SCREENTIP_SET
 
 	if(!held_item)
-		context[SCREENTIP_CONTEXT_LMB] = "Take equipment"
+		context[SCREENTIP_CONTEXT_LMB] = "Взять оборудование"
 		return CONTEXTUAL_SCREENTIP_SET
 
 	if(held_item?.tool_behaviour == TOOL_CROWBAR)
-		context[SCREENTIP_CONTEXT_LMB] = "Empty cart bucket"
+		context[SCREENTIP_CONTEXT_LMB] = "Опустошить ведро"
 		return CONTEXTUAL_SCREENTIP_SET
 
 	if(held_item?.tool_behaviour == TOOL_WRENCH)
 		if(anchored)
-			context[SCREENTIP_CONTEXT_LMB] = "Unanchore"
+			context[SCREENTIP_CONTEXT_LMB] = "Открутить"
 		else
-			context[SCREENTIP_CONTEXT_LMB] = "Anchore"
+			context[SCREENTIP_CONTEXT_LMB] = "Прикрутить"
 		return CONTEXTUAL_SCREENTIP_SET
 
 	return .
@@ -80,7 +81,8 @@
 	if(.)
 		to_chat(user, span_notice("You put [I] into [src]."))
 
-/obj/structure/janitorialcart/on_reagent_change()
+/obj/structure/janitorialcart/proc/on_reagent_change(datum/reagents/holder)
+	SIGNAL_HANDLER
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/janitorialcart/attackby_secondary(obj/item/weapon, mob/user, list/modifiers, list/attack_modifiers)

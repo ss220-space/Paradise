@@ -49,7 +49,7 @@
 		if(user)
 			balloon_alert(user, "протоколы безопасности взломаны")
 
-/obj/item/reagent_containers/applicator/on_reagent_change()
+/obj/item/reagent_containers/applicator/on_reagent_change(datum/reagents/holder, ...)
 	if(!emagged)
 		var/found_forbidden_reagent = FALSE
 		for(var/datum/reagent/chem in reagents.reagent_list)
