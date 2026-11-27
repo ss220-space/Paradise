@@ -366,6 +366,7 @@ GLOBAL_LIST_EMPTY(unit_test_tguis)
 //	returnable_list += typesof(/obj/effect/landmark/ctf)
 	//Our system doesn't support it without warning spam from unregister calls on things that never registered
 	returnable_list += typesof(/obj/docking_port)
+	returnable_list += typesof(/obj/effect/ship_spawner)
 	//Asks for a shuttle that may not exist, let's leave it alone
 //	returnable_list += typesof(/obj/item/pinpointer/shuttle)
 	//This spawns beams as a part of init, which can sleep past an async proc. This hangs a ref, and fucks us. It's only a problem here because the beam sleeps with CHECK_TICK
