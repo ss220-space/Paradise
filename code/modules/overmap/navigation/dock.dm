@@ -221,6 +221,24 @@
 	var/obj/docking_port/stationary/pad = overmap_pad
 	if(!pad && id_tag)
 		pad = SSshuttle.getDock(id_tag, warn = FALSE)
+	var/obj/docking_port/stationary/overmap/landing/landing = pad
+	if(overmap_is_support && istype(landing) && landing.beacon_corners && z == landing.z)
+		if(operating)
+			addtimer(CALLBACK(src, PROC_REF(sync_overmap_bolts)), 1 SECONDS, TIMER_UNIQUE)
+			return
+		if(landing.get_docked() || landing.landed_pod)
+			unlock(TRUE)
+			if(density)
+				open()
+		else if(density)
+			lock(TRUE)
+		else
+			close()
+			if(operating)
+				lock(TRUE)
+			else if(!welded && arePowerSystemsOn() && !wires.is_cut(WIRE_OPEN_DOOR) && !(obj_flags & EMAGGED))
+				addtimer(CALLBACK(src, PROC_REF(sync_overmap_bolts)), 6 SECONDS, TIMER_UNIQUE)
+		return
 	if(pad?.get_docked())
 		if(locked)
 			unlock(TRUE)
@@ -326,6 +344,26 @@
 	var/temporary_stop = FALSE
 	var/list/landing_bounds
 	var/list/beacon_corners
+	var/obj/spacepod/landed_pod
+
+/obj/docking_port/stationary/overmap/landing/proc/update_beacon_doors()
+	for(var/obj/machinery/door/airlock/external/docking/door in GLOB.airlocks)
+		if(door.overmap_is_support && door.id_tag == id && door.z == z)
+			door.sync_overmap_bolts()
+	if(hidden && !length(beacon_corners) && !get_docked() && !landed_pod)
+		qdel(src, TRUE)
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(overmap_rebuild_landing_zones)), 1)
+
+/obj/docking_port/stationary/overmap/landing/proc/dock_pod(obj/spacepod/craft)
+	landed_pod = craft
+	RegisterSignal(craft, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING), PROC_REF(on_pod_departed))
+	INVOKE_ASYNC(src, PROC_REF(update_beacon_doors))
+
+/obj/docking_port/stationary/overmap/landing/proc/on_pod_departed(obj/spacepod/craft)
+	SIGNAL_HANDLER
+	UnregisterSignal(craft, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING))
+	landed_pod = null
+	INVOKE_ASYNC(src, PROC_REF(update_beacon_doors))
 
 /obj/docking_port/stationary/overmap/landing/apply_overmap_dock_role()
 	overmap_dock_mode = OVERMAP_DOCK_MANUAL
@@ -338,17 +376,19 @@
 /obj/machinery/landing_beacon
 	name = "landing beacon"
 	desc = "Четыре маяка с одинаковым названием в углах прямоугольника задают посадочную область."
-	icon = 'icons/obj/radio.dmi'
-	icon_state = "beacon"
+	icon = 'icons/obj/lighting.dmi'
+	icon_state = "markercerulean-on"
 	anchored = TRUE
+	dir = NORTH
 	layer = OBJ_LAYER
 	use_power = NO_POWER_USE
-	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|UNACIDABLE|ACID_PROOF
+	resistance_flags = LAVA_PROOF|FIRE_PROOF|UNACIDABLE|ACID_PROOF
 	light_range = 2
 	light_power = 0.8
 	light_color = "#7ec8e3"
 
 	var/dock_name = "Посадочный маяк"
+	var/dock_id
 	var/obj/docking_port/stationary/overmap/landing/pad
 
 /obj/machinery/landing_beacon/get_ru_names()
@@ -363,6 +403,10 @@
 
 /obj/machinery/landing_beacon/Initialize(mapload)
 	. = ..()
+	var/datum/overmap_programmed_profile/emergency = GLOB.overmap_programmed_profiles["emergency"]
+	if(dock_id && emergency.leg_for(dock_id))
+		resistance_flags |= INDESTRUCTIBLE
+		move_resist = INFINITY
 	GLOB.landing_beacons += src
 	drop_to_turf()
 	setup_pad()
@@ -375,7 +419,7 @@
 
 /obj/machinery/landing_beacon/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
 	. = ..()
-	if(isturf(loc))
+	if(isturf(loc) || pad)
 		setup_pad()
 
 /obj/machinery/landing_beacon/proc/drop_to_turf()
@@ -409,6 +453,16 @@
 /obj/machinery/landing_beacon/shuttle_crush_react(turf/stationary_turf, mobile_dir, skip_ungibable_search = FALSE)
 	return FALSE
 
+/obj/machinery/landing_beacon/singularity_act()
+	if(resistance_flags & INDESTRUCTIBLE)
+		return FALSE
+	return ..()
+
+/obj/machinery/landing_beacon/deconstruct(disassembled = TRUE)
+	if(resistance_flags & INDESTRUCTIBLE)
+		return
+	return ..()
+
 /obj/machinery/landing_beacon/onShuttleMove()
 	return FALSE
 
@@ -425,8 +479,8 @@
 /obj/item/overmap_landing_beacon
 	name = "landing beacon"
 	desc = "Установите четыре маяка в углах прямоугольной посадочной области."
-	icon = 'icons/obj/radio.dmi'
-	icon_state = "beacon"
+	icon = 'icons/obj/lighting.dmi'
+	icon_state = "markercerulean"
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/overmap_landing_beacon/get_ru_names()

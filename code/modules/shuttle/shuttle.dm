@@ -441,6 +441,9 @@
 		return SHUTTLE_NOT_A_DOCKING_PORT
 	if(istype(S, /obj/docking_port/stationary/transit))
 		return SHUTTLE_CAN_DOCK
+	var/obj/docking_port/stationary/overmap/landing/landing = S
+	if(istype(landing) && landing.landed_pod)
+		return SHUTTLE_SOMEONE_ELSE_DOCKED
 	if(overmap_force_dock)
 		if(S.get_docked() == src)
 			return SHUTTLE_ALREADY_DOCKED
@@ -692,6 +695,10 @@
 		return
 	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
 		if(A.id_tag == old_dock.id)
+			var/obj/docking_port/stationary/overmap/landing/landing = old_dock
+			var/obj/machinery/door/airlock/external/docking/door = A
+			if(istype(landing) && landing.beacon_corners && istype(door) && door.overmap_is_support)
+				continue
 			A.close()
 			A.lock()
 	var/obj/machinery/door/airlock/external/docking/host_collar = old_dock.dock_airlock
@@ -702,7 +709,14 @@
 	if(!istype(new_dock) || isnull(new_dock.id))
 		return
 	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
-		if(A.id_tag == new_dock.id && A.locked)
+		if(A.id_tag != new_dock.id)
+			continue
+		var/obj/docking_port/stationary/overmap/landing/landing = new_dock
+		var/obj/machinery/door/airlock/external/docking/door = A
+		if(istype(landing) && landing.beacon_corners && istype(door) && door.overmap_is_support)
+			if(door.z == landing.z)
+				door.sync_overmap_bolts()
+		else if(A.locked)
 			A.unlock(TRUE)
 
 //used by shuttle subsystem to check timers

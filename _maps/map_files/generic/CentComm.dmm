@@ -22686,7 +22686,7 @@
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/external/docking{
 	req_access = list(114);
-	dir = 8;
+	dir = 4;
 	dock_name = "Док шаттла гамма-оружейной";
 	id_tag = "gamma_away"
 	},

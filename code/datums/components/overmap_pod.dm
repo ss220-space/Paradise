@@ -180,7 +180,7 @@
 				continue
 			var/turf/pad_turf = overmap_pick_pod_beacon_turf(pad)
 			if(pad_turf)
-				return list(pad_turf, host)
+				return list(pad_turf, host, pad)
 	if(!space?.static_level || !OVERMAP_SPEED_STOPPED(token.get_speed()))
 		return null
 	var/list/spot = space.to_bubble(token.get_world_x(), token.get_world_y())
@@ -228,7 +228,7 @@
 	var/obj/overmap/entity/pod/token = parent
 	if(token.atmosphere)
 		return prepare_approach(target[1])
-	return land_at(target[1], target[2])
+	return land_at(target[1], target[2], length(target) >= 3 ? target[3] : null)
 
 /datum/component/overmap_pod/proc/prepare_approach(turf/ground, obj/docking_port/stationary/pad, list/point)
 	var/obj/overmap/entity/pod/token = parent
@@ -251,14 +251,14 @@
 	token.radar_docks_until = 0
 	return TRUE
 
-/datum/component/overmap_pod/proc/on_land(datum/source, turf/dest, obj/overmap/entity/host)
+/datum/component/overmap_pod/proc/on_land(datum/source, turf/dest, obj/overmap/entity/host, obj/docking_port/stationary/pad)
 	SIGNAL_HANDLER
-	return land_at(dest, host) ? COMPONENT_OVERMAP_POD_LANDED : NONE
+	return land_at(dest, host, pad) ? COMPONENT_OVERMAP_POD_LANDED : NONE
 
-/datum/component/overmap_pod/proc/land_at(turf/dest, obj/overmap/entity/host)
+/datum/component/overmap_pod/proc/land_at(turf/dest, obj/overmap/entity/host, obj/docking_port/stationary/pad)
 	var/obj/overmap/entity/pod/token = parent
 	var/obj/spacepod/craft = pod()
-	if(!craft || !host || !overmap_pod_2x2_landable(dest))
+	if(!craft || !host || !overmap_pod_pad_fits(pad, dest))
 		return FALSE
 	var/heading = token.get_facing() - (host.free_flight_view ? host.get_facing() : 0)
 	token.flight.release_pilot()
@@ -268,6 +268,9 @@
 	craft.setDir(angle2dir_cardinal(heading))
 	craft.vis_flags = landed_vis_flags
 	craft.anchored = TRUE
+	var/obj/docking_port/stationary/overmap/landing/landing = pad
+	if(istype(landing) && landing.beacon_corners)
+		landing.dock_pod(craft)
 	token.set_free_flight_view(FALSE)
 	token.nest_inside(host)
 	token.speed = list(0, 0)
@@ -340,12 +343,20 @@
 
 /proc/overmap_pick_pod_beacon_turf(obj/docking_port/stationary/pad, obj/overmap/entity/service_site/site)
 	var/turf/origin = get_turf(pad)
-	if(overmap_pod_2x2_landable(origin) && (!site || SSovermap.get_service_site(origin) == site))
+	if(overmap_pod_pad_fits(pad, origin) && (!site || SSovermap.get_service_site(origin) == site))
 		return origin
 	for(var/turf/spot in orange(2, origin))
-		if(overmap_pod_2x2_landable(spot) && (!site || SSovermap.get_service_site(spot) == site))
+		if(overmap_pod_pad_fits(pad, spot) && (!site || SSovermap.get_service_site(spot) == site))
 			return spot
 	return null
+
+/proc/overmap_pod_pad_fits(obj/docking_port/stationary/pad, turf/spot)
+	var/obj/docking_port/stationary/overmap/landing/landing = pad
+	if(istype(landing) && landing.beacon_corners)
+		var/list/bounds = landing.landing_bounds
+		if(!spot || landing.hidden || landing.get_docked() || landing.landed_pod || spot.z != landing.z || spot.x < bounds[1] || spot.y < bounds[2] || spot.x + 1 > bounds[3] || spot.y + 1 > bounds[4])
+			return FALSE
+	return overmap_pod_2x2_landable(spot)
 
 /proc/overmap_pod_exposed(turf/spot)
 	return overmap_exposed_surface(spot) && overmap_exposed_surface(get_step(spot, EAST)) && overmap_exposed_surface(get_step(spot, NORTH)) && overmap_exposed_surface(get_step(spot, NORTHEAST))

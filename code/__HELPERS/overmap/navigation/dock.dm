@@ -8,8 +8,9 @@
 			pads |= beacon.pad
 	for(var/obj/docking_port/stationary/overmap/landing/pad as anything in pads)
 		var/valid = length(pad.beacon_corners) == 4
+		var/obj/machinery/landing_beacon/first_corner = valid ? pad.beacon_corners[1] : null
 		for(var/obj/machinery/landing_beacon/corner as anything in pad.beacon_corners)
-			if(QDELETED(corner) || !(corner in available) || corner.dock_name != pad.overmap_dock_label || corner.z != pad.z)
+			if(QDELETED(corner) || !(corner in available) || corner.dock_name != pad.overmap_dock_label || corner.dock_id != first_corner?.dock_id || (corner.dock_id && corner.dock_id != pad.id) || corner.z != pad.z)
 				valid = FALSE
 		if(valid)
 			var/list/bounds = pad.landing_bounds
@@ -26,19 +27,23 @@
 		for(var/obj/machinery/landing_beacon/corner as anything in pad.beacon_corners)
 			if(!QDELETED(corner))
 				corner.pad = null
-		qdel(pad, TRUE)
+		if(pad.get_docked() || pad.landed_pod)
+			pad.hidden = TRUE
+			pad.beacon_corners.Cut()
+		else
+			qdel(pad, TRUE)
 	for(var/obj/machinery/landing_beacon/first as anything in available)
-		if(first.pad)
+		if(first.pad || (first.dock_id && SSshuttle.getDock(first.dock_id, warn = FALSE)))
 			continue
 		var/list/best
 		var/best_area = INFINITY
 		for(var/obj/machinery/landing_beacon/opposite as anything in available)
-			if(opposite.pad || opposite.z != first.z || opposite.dock_name != first.dock_name || opposite.x <= first.x + 2 || opposite.y <= first.y + 2)
+			if(opposite.pad || opposite.z != first.z || opposite.dock_name != first.dock_name || opposite.dock_id != first.dock_id || opposite.x <= first.x + 2 || opposite.y <= first.y + 2)
 				continue
 			var/obj/machinery/landing_beacon/second
 			var/obj/machinery/landing_beacon/third
 			for(var/obj/machinery/landing_beacon/corner as anything in available)
-				if(corner.pad || corner.z != first.z || corner.dock_name != first.dock_name)
+				if(corner.pad || corner.z != first.z || corner.dock_name != first.dock_name || corner.dock_id != first.dock_id)
 					continue
 				if(corner.x == opposite.x && corner.y == first.y)
 					second = corner
@@ -52,7 +57,8 @@
 			continue
 		var/obj/machinery/landing_beacon/opposite = best[4]
 		var/turf/center = locate(round((first.x + opposite.x) / 2), round((first.y + opposite.y) / 2), first.z)
-		var/obj/docking_port/stationary/overmap/landing/pad = new(center)
+		var/obj/docking_port/stationary/overmap/landing/pad = new(center, first.dock_id)
+		pad.setDir(first.dir)
 		pad.landing_bounds = list(first.x + 1, first.y + 1, opposite.x - 1, opposite.y - 1)
 		pad.beacon_corners = best
 		pad.overmap_dock_label = first.dock_name

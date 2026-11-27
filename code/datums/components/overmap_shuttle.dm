@@ -177,6 +177,9 @@
 	var/obj/overmap/entity/vessel = parent
 	if(!pad || !vessel.shuttle || !istype(vessel.shuttle, /obj/docking_port/mobile/emergency))
 		return FALSE
+	var/obj/docking_port/stationary/overmap/landing/landing = pad
+	if(istype(landing) && landing.beacon_corners)
+		return FALSE
 	if(isnull(status))
 		status = vessel.shuttle.canDock(pad)
 	return status != SHUTTLE_LOCKED && status != SHUTTLE_ALREADY_DOCKED && status != SHUTTLE_SOMEONE_ELSE_DOCKED && status != SHUTTLE_NOT_A_DOCKING_PORT

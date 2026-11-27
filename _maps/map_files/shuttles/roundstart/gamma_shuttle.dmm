@@ -7,7 +7,10 @@
 	timid = 1;
 	roundstart_move = null
 	},
-/obj/machinery/door/airlock/external/docking/shuttle,
+/obj/machinery/door/airlock/external/docking/shuttle{
+	dir = 8;
+	overmap_collar_id = "gamma_main"
+	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},

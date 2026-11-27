@@ -163,7 +163,7 @@
 			return
 	if(pod_landing)
 		vessel.docking_approach = null
-		committing = vessel.land_pod_at(pod_landing, vessel.get_dock_host())
+		committing = vessel.land_pod_at(pod_landing, vessel.get_dock_host(), pad)
 	else if(host)
 		INVOKE_ASYNC(vessel, TYPE_PROC_REF(/obj/overmap/entity, finish_ship_dock), host, own, target)
 	else if(target)
@@ -184,7 +184,7 @@
 
 /datum/overmap_docking_approach/proc/available()
 	if(pod_landing)
-		return update_target() && overmap_pod_2x2_landable(pod_landing) && (pad || !vessel.atmosphere || overmap_pod_exposed(pod_landing))
+		return update_target() && overmap_pod_pad_fits(pad, pod_landing) && (pad || !vessel.atmosphere || overmap_pod_exposed(pod_landing))
 	if(!own || !target || !update_target())
 		return !target && pad && vessel.shuttle?.canDock(pad) == SHUTTLE_CAN_DOCK
 	if(!host)

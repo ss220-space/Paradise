@@ -93,12 +93,16 @@
 	landing_ground = move_data["landing_ground"]
 	job.flush_shuttle_atmos(touched)
 	postflight_dock(new_dock, new_turfs, move_data, transit)
+	var/obj/docking_port/stationary/overmap/landing/old_landing = old_dock
+	if(istype(old_landing) && old_landing.beacon_corners)
+		old_landing.update_beacon_doors()
 	SEND_SIGNAL(src, COMSIG_SHUTTLE_DOCK, new_dock, old_dock)
 	return DOCKING_SUCCESS
 
 /obj/docking_port/mobile/proc/collect_move_pairs(obj/docking_port/stationary/new_dock)
 	. = list()
-	var/use_hull = uses_hull_fit()
+	var/obj/docking_port/stationary/overmap/landing/landing = new_dock
+	var/use_hull = uses_hull_fit() || (istype(landing) && landing.beacon_corners)
 	var/list/origin = overmap_docking_origin(new_dock)
 	var/turf/origin_turf = origin[1]
 	var/origin_dir = origin[2]

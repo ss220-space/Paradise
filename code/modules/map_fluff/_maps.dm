@@ -45,7 +45,7 @@
 	var/overmap_station_planetary = null
 	var/overmap_station_allow_custom_landing = TRUE
 	var/overmap_station_broadcasting = TRUE
-	var/overmap_station_planet_name = "Планета станции"
+	var/overmap_station_planet_name = "Планета"
 	var/overmap_station_planet_color = COLOR_DARK_MODERATE_LIME_GREEN
 	var/overmap_station_planet_icon_state = "lavaland"
 	var/overmap_station_planet_footprint = OVERMAP_LAVALAND_FOOTPRINT / 2

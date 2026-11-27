@@ -148,8 +148,8 @@
 "xEV" = (
 /obj/machinery/door/airlock/external/docking{
 	req_access = list(48);
-	dock_name = "Западный шлюз";
-	overmap_collar_id = "mining_west";
+	dock_name = "Восточный шлюз";
+	overmap_collar_id = "mining_east";
 	dir = 4
 	},
 /obj/structure/fans/tiny,
