@@ -42331,6 +42331,9 @@
 	icon_state = "darkgrey"
 	},
 /area/planetoid/lazarus/science/xenobiology)
+"ksX" = (
+/turf/simulated/floor/planetoid/desert/desert,
+/area/planetoid/lazarus/science/robotics/chargebay)
 "ksZ" = (
 /obj/machinery/floodlight/colony,
 /obj/structure/lattice/catwalk,
@@ -47282,7 +47285,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/lakes/east)
+/area/planetoid/lazarus/science/robotics/chargebay)
 "lDZ" = (
 /obj/item/bathroom_parts,
 /turf/simulated/floor/planetoid/grass,
@@ -64894,7 +64897,7 @@
 	req_access = list(29)
 	},
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/lakes/east)
+/area/planetoid/lazarus/science/robotics/chargebay)
 "qkY" = (
 /obj/machinery/power/terminal{
 	dir = 8
@@ -86719,7 +86722,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/planetoid/desert/desert,
-/area/planetoid/lakes/east)
+/area/planetoid/lazarus/science/robotics/chargebay)
 "vFI" = (
 /obj/structure/chair/wood{
 	dir = 1
@@ -145065,7 +145068,7 @@ rYK
 kmK
 pMw
 fqY
-vdn
+ksX
 vdn
 vdn
 vdn
@@ -145322,7 +145325,7 @@ iJk
 eNC
 eNC
 rsK
-vdn
+ksX
 vdn
 vdn
 vdn
