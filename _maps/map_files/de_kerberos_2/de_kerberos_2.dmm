@@ -38304,9 +38304,7 @@
 /area/station/security/warden)
 "iit" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/maintenance{
-	emagged = 1
-	},
+/obj/machinery/door/airlock/maintenance,
 /obj/structure/barricade/wooden{
 	layer = 3.5
 	},

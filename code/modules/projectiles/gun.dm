@@ -487,7 +487,7 @@
 		return
 
 	if(gun_on_cooldown(user))
-		return
+		return TRUE
 
 	if(!can_trigger_gun(user))
 		return
@@ -499,7 +499,6 @@
 
 	if(QDELETED(object))
 		return
-
 
 	calculate_target(object, user, params)
 	if(gun_firemode == GUN_FIREMODE_SEMIAUTO)
@@ -530,11 +529,10 @@
 
 /obj/item/gun/proc/calculate_target(atom/over_object, mob/user, params)
 	SIGNAL_HANDLER
-	if(istype(over_object, /atom/movable/screen/fullscreen/cursor_catcher/scope))
-		var/atom/movable/screen/fullscreen/cursor_catcher/scope/scope = over_object
-		var/turf/target = scope.crosshair_turf
-		set_target(get_scope_target(target, over_object))
-		modifiers = params2list(scope.mouse_params)
+	var/turf/target_overrite = over_object.get_get_click_overrite_turf(real = TRUE)
+	if(target_overrite)
+		set_target(get_scope_target(target_overrite, over_object))
+		modifiers = over_object.get_get_click_overrite_params()
 		return
 	set_target(get_turf_on_clickcatcher(over_object, gun_user, params))
 	modifiers = params2list(params)
@@ -1220,4 +1218,8 @@
 	if(var_name == NAMEOF(src, target))
 		set_target(var_value)
 		return TRUE
-	. = ..()
+	return ..()
+/obj/item/gun/proc/drop_all_modules(mob/user)
+	for(var/slot, module in attachments_by_slot)
+		var/obj/item/gun_module/typed_module = module
+		typed_module?.detach_without_check(src, user, force = TRUE, put_in_hands = FALSE, instant = TRUE)

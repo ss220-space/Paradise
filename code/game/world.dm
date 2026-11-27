@@ -99,7 +99,13 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 
 /world/Topic(T, addr, master, key)
 	TGS_TOPIC
-	log_misc("WORLD/TOPIC: \"[T]\", from:[addr], master:[master], key:[key == CONFIG_GET(string/comms_password) ? "*secret*" : key]")
+	var/list/input = params2list(T)
+	var/logged_query = T
+	if(input["key"])
+		var/list/logged_input = input.Copy()
+		logged_input["key"] = "SECRET"
+		logged_query = list2params(logged_input)
+	log_misc("WORLD/TOPIC: \"[logged_query]\", from:[addr], master:[master], key:[key == CONFIG_GET(string/comms_password) ? "*secret*" : key]")
 
 	// Handle spam prevention
 	if(!(addr in CONFIG_GET(str_list/topic_filtering_whitelist)))
@@ -111,8 +117,6 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 		// Lock the user out and cancel their topic if needed
 		if(sph.check_lockout())
 			return
-
-	var/list/input = params2list(T)
 
 	var/datum/world_topic_handler/wth
 

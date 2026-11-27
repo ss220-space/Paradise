@@ -378,6 +378,22 @@
 	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
 	update_icon(UPDATE_OVERLAYS)
 
+/obj/machinery/suit_storage_unit/wirecutter_act(mob/user, obj/item/I)
+	if(!panel_open)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	wires.Interact(user)
+
+/obj/machinery/suit_storage_unit/multitool_act(mob/user, obj/item/I)
+	if(!panel_open)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	wires.Interact(user)
+
 /obj/machinery/suit_storage_unit/proc/store_item(obj/item/I, mob/user)
 	. = FALSE
 	if(panel_open)
@@ -738,7 +754,7 @@
 		return
 	if(state_open)
 		return
-	if(emagged)
+	if(obj_flags & EMAGGED)
 		to_chat(user, span_warning("Locking mechanism doesn't seem to work."))
 		return
 	locked = !locked
@@ -782,19 +798,19 @@ GAME_VERB_SRC(/obj/machinery/suit_storage_unit, get_out, oview(1), "Извлеч
 	if(!wires.is_cut(WIRE_ELECTRIFY))
 		shocked = FALSE
 
-/obj/machinery/suit_storage_unit/emag_act(mob/user)
-	if(emagged)
-		return
-
-	add_attack_logs(user, src, "emagged")
+/obj/machinery/suit_storage_unit/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
 	locked = FALSE
-	emagged = TRUE
 	update_icon(UPDATE_OVERLAYS)
 	SStgui.update_uis(src)
-	if(user)
-		to_chat(user, span_warning("You burn the locking mechanism, unlocking it forever."))
 	do_sparks(5, FALSE, loc)
 	playsound(loc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	if(user)
+		to_chat(user, span_warning("You burn the locking mechanism, unlocking it forever."))
+	return TRUE
 
 /obj/machinery/suit_storage_unit/shove_impact(mob/living/target, mob/living/attacker)
 	if(target.incapacitated || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED) || target.buckled)

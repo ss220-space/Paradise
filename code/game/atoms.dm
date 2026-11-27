@@ -722,14 +722,26 @@
 	if(reagents)
 		reagents.temperature_reagents(exposed_temperature)
 
-/atom/proc/emag_act(mob/user)
-	SEND_SIGNAL(src, COMSIG_ATOM_EMAG_ACT, user)
+/**
+ * Respond to an emag being used on our atom
+ *
+ * Args:
+ * * mob/user: The mob that used the emag. Nullable.
+ * * obj/item/card/emag/emag_card: The emag that was used. Nullable.
+ *
+ * Returns:
+ * TRUE if the emag had any effect, falsey otherwise.
+ */
+/atom/proc/emag_act(mob/user, obj/item/card/emag/emag_card)
+	SHOULD_CALL_PARENT(TRUE)
+	return (SEND_SIGNAL(src, COMSIG_ATOM_EMAG_ACT, user, emag_card))
 
 /atom/proc/unemag()
 	return
 
-/atom/proc/cmag_act(mob/user)
-	return
+/atom/proc/cmag_act(mob/user, obj/item/card/cmag/cmag_card)
+	SHOULD_CALL_PARENT(TRUE)
+	return (SEND_SIGNAL(src, COMSIG_ATOM_CMAG_ACT, user, cmag_card))
 
 /**
  * Special treatment of [/datum/emote/living/carbon/human/fart].
@@ -1770,3 +1782,10 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 /atom/proc/get_lootpanel_cache_key()
 	return "[type]"
+
+/atom/proc/get_get_click_overrite_turf(real = TRUE)
+	return
+
+/atom/proc/get_get_click_overrite_params()
+	return
+

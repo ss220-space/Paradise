@@ -17,6 +17,7 @@
 	update_appearance()
 	GLOB.janitorial_equipment += src
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/janicart)
+	register_context()
 
 /obj/vehicle/ridden/janicart/Destroy()
 	if(trash_bag)
@@ -26,44 +27,72 @@
 	GLOB.janitorial_equipment -= src
 	return ..()
 
+/obj/vehicle/ridden/janicart/add_context(atom/source, list/context, obj/item/held_item, mob/living/user)
+	. = ..()
+
+	if(istype(held_item, /obj/item/storage/bag/trash) && !trash_bag)
+		context[SCREENTIP_CONTEXT_LMB] = "Put [held_item]"
+		return CONTEXTUAL_SCREENTIP_SET
+
+	if(istype(held_item, /obj/item/janiupgrade) && !installed_upgrade)
+		context[SCREENTIP_CONTEXT_LMB] = "Install upgrade"
+		return CONTEXTUAL_SCREENTIP_SET
+
+	if(!held_item && trash_bag)
+		context[SCREENTIP_CONTEXT_LMB] = "Take bag"
+		return CONTEXTUAL_SCREENTIP_SET
+
+	if(held_item?.tool_behaviour == TOOL_SCREWDRIVER && installed_upgrade)
+		context[SCREENTIP_CONTEXT_LMB] = "Uninstall upgrade"
+		return CONTEXTUAL_SCREENTIP_SET
+
+
+	if(trash_bag && (!is_key(held_item) || is_key(inserted_key)))
+		context[SCREENTIP_CONTEXT_LMB] = "Put trash in"
+		return CONTEXTUAL_SCREENTIP_SET
+
+
+	return .
+
 /obj/vehicle/ridden/janicart/examine(mob/user)
 	. = ..()
 	if(installed_upgrade)
 		. += "It has been upgraded with [installed_upgrade], which can be removed with a screwdriver."
 
-/obj/vehicle/ridden/janicart/attackby(obj/item/I, mob/user, params)
+/obj/vehicle/ridden/janicart/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/storage/bag/trash))
+	if(istype(tool, /obj/item/storage/bag/trash))
 		add_fingerprint(user)
 		if(trash_bag)
 			balloon_alert(user, "уже прицеплено!")
-			return ATTACK_CHAIN_PROCEED
-		if(!user.transfer_item_to_loc(I, src))
+			return ITEM_INTERACT_FAILURE
+		if(!user.transfer_item_to_loc(tool, src))
 			return ..()
 		balloon_alert(user, "прицеплено к машине")
-		trash_bag = I
+		trash_bag = tool
 		update_appearance()
-		return ATTACK_CHAIN_BLOCKED_ALL
+		return ITEM_INTERACT_SUCCESS
 
-	if(istype(I, /obj/item/janiupgrade))
+	if(istype(tool, /obj/item/janiupgrade))
 		if(installed_upgrade)
 			balloon_alert(user, "уже установлено!")
-			return ATTACK_CHAIN_PROCEED
-		if(!user.drop_transfer_item_to_loc(I, src))
+			return ITEM_INTERACT_FAILURE
+		if(!user.drop_transfer_item_to_loc(tool, src))
 			return ..()
-		var/obj/item/janiupgrade/new_upgrade = I
+		var/obj/item/janiupgrade/new_upgrade = tool
 		new_upgrade.forceMove(src)
 		installed_upgrade = new_upgrade
 		AddElement(/datum/element/cleaning)
 		balloon_alert(user, "установлено")
 		update_appearance()
-		return ATTACK_CHAIN_BLOCKED_ALL
+		return ITEM_INTERACT_SUCCESS
 
-	if(trash_bag && (!is_key(I) || is_key(inserted_key))) // don't put a key in the trash when we need it
-		trash_bag.attackby(I, user, params)
-		return ATTACK_CHAIN_BLOCKED_ALL
+	if(trash_bag && (!is_key(tool) || is_key(inserted_key))) // don't put a key in the trash when we need it
+		trash_bag.attackby(tool, user, modifiers)
+
+		return ITEM_INTERACT_SUCCESS
 
 	return ..()
 
@@ -87,6 +116,7 @@
 	installed_upgrade = null
 	RemoveElement(/datum/element/cleaning)
 	update_appearance()
+	return ITEM_INTERACT_SUCCESS
 
 /obj/vehicle/ridden/janicart/attack_hand(mob/user)
 	if(..())

@@ -141,6 +141,12 @@
 	. = ..()
 	install_sibyl()
 
+/obj/item/gun/energy/specter/Destroy()
+	if(magazine)
+		cell = null
+	QDEL_NULL(magazine)
+	return ..()
+
 /obj/item/gun/energy/specter/get_ru_names()
 	return alist(
 		NOMINATIVE = "Спектр",

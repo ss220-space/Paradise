@@ -25,6 +25,7 @@
 	drop_sound = 'sound/items/handling/drop/paper_drop.ogg'
 	pickup_sound =  'sound/items/handling/pickup/paper_pickup.ogg'
 	custom_price = PAYCHECK_MIN * 0.05
+	scatter_distance = 8
 	var/header //Above the main body, displayed at the top
 	var/info		//What's actually written on the paper.
 	var/footer	//The bottom stuff before the stamp but after the body
@@ -444,7 +445,7 @@
 	if(href_list["write"])
 		var/id = href_list["write"]																			/* Becаuse HTML */
 		var/input_element = tgui_input_text(usr, "Enter what you want to write:", "Write", multiline = TRUE, max_length = 3000, encode = FALSE)
-
+		input_element = STRIP_HTML_FULL(input_element, INFINITY)
 		topic_href_write(usr, id, input_element)
 
 /obj/item/paper/attackby(obj/item/I, mob/living/user, params)

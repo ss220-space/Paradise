@@ -39,6 +39,7 @@
 	var/list/asset_data
 	/// Rate limit client refreshes to prevent DoS.
 	COOLDOWN_DECLARE(refresh_cooldown)
+	var/secret
 
 /**
  * public
@@ -66,6 +67,7 @@
 	// Deprecated
 	if(ui_x && ui_y)
 		src.window_size = list(ui_x, ui_y)
+	secret = rustlib_uuid_v4()
 
 /datum/tgui/Destroy(force)
 	user = null
@@ -75,6 +77,12 @@
 	window?.close(TRUE)
 	window = null
 	. = ..()
+
+/datum/tgui/dump_harddel_info()
+	if(harddel_deets_dumped)
+		return
+	harddel_deets_dumped = TRUE
+	return "Interface: [interface], initialized: [initialized], closing: [closing], status: [status], opened at: [opened_at || "never"]"
 
 /**
  * public
@@ -251,7 +259,8 @@
 			"observer" = isobserver(user),
 		),
 		"map" = SSmapping.map_datum.name,
-		"ref" = "[src.UID()]"
+		"ref" = "[src.UID()]",
+		"secret" = secret,
 	)
 	var/data = custom_data || with_data && src_object.ui_data(user)
 	if(data)
@@ -320,6 +329,9 @@
 /datum/tgui/proc/on_message(type, list/payload, list/href_list)
 	// Pass act type messages to ui_act
 	if(type && copytext(type, 1, 5) == "act/")
+		if(payload["_secret_code"] != secret)
+			message_admins("[ADMIN_LOOKUPFLW(usr)] tried use act/ without secret, possible href exploit attempt.")
+			return
 		process_status()
 		if(src_object.ui_act(copytext(type, 5), payload, src, state) && src_object)
 			SStgui.update_uis(src_object)

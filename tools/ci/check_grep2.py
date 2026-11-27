@@ -282,6 +282,18 @@ def check_can_perform_action(idx, line):
     if CAN_PERFORM_ACTION_IMPROPER.search(line):
         return [(idx + 1, "Found a can_perform_action() proc with improper arguments.")]
 
+LASSAILANT_ASSIGNMENT = re.compile(r'\bLAssailant\s*(?:\|\|)?=(?!=)\s*(.+)')
+LASSAILANT_SAFE_VALUE = re.compile(r'WEAKREF\s*\(.*\)|null|[\w.]*\bLAssailant')
+def check_lassailant_weakref(idx, line):
+    assignment = LASSAILANT_ASSIGNMENT.search(line.split('//', 1)[0])
+    if not assignment:
+        return
+    value = assignment.group(1).strip().rstrip(';').strip()
+    branches = value.split('?', 1)[1].split(':') if '?' in value else [value]
+    if all(LASSAILANT_SAFE_VALUE.fullmatch(branch.strip()) for branch in branches):
+        return
+    return [(idx + 1, "LAssailant must be WEAKREF(mob) or null. A plain mob reference keeps a deleted attacker alive and ends in a hard delete.")]
+
 AS_ANYTHING_TYPELESS = re.compile(r'var/[^/]+ as anything')
 AS_ANYTHING_INTERNAL = re.compile(r'var\/(turf|mob|obj|atom\/movable).+ as anything in o?(view|range|hearers)\(')
 def check_as_anything(idx, line):
@@ -388,6 +400,7 @@ CODE_CHECKS = [
     check_timer_flags,
     check_force_move_syntax,
     check_can_perform_action,
+    check_lassailant_weakref,
     check_as_anything,
     check_ie_typo,
     check_define_formatting,

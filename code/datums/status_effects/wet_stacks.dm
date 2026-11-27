@@ -6,9 +6,20 @@
 	/// Holder of wet effect particles
 	var/obj/effect/abstract/particle_holder_tgmc/wet_effect
 
+/datum/status_effect/stacking/wet/on_apply()
+	. = ..()
+	var/datum/physiology/physiology = astype(owner, /mob/living/carbon/human)?.physiology
+	if(physiology)
+		physiology.cold_mod *= 4
+		physiology.siemens_coeff *= 4
+
 /datum/status_effect/stacking/wet/Destroy()
 	if(wet_effect)
 		QDEL_NULL(wet_effect)
+	var/datum/physiology/physiology = astype(owner, /mob/living/carbon/human)?.physiology
+	if(physiology)
+		physiology.cold_mod /= 4
+		physiology.siemens_coeff /= 4
 	return ..()
 
 /datum/status_effect/stacking/wet/proc/update_wet()
@@ -26,10 +37,6 @@
 
 /datum/status_effect/stacking/wet/proc/WetMob()
 	if(!HAS_TRAIT(owner, TRAIT_WET_IMMUNITY) && stacks > 0)
-		var/datum/physiology/physiology = astype(owner, /mob/living/carbon/human)?.physiology
-		if(physiology)
-			physiology.cold_mod *= 4
-			physiology.siemens_coeff *= 4
 		update_wet()
 		SEND_SIGNAL(owner, COMSIG_LIVING_WET)
 		return TRUE
@@ -48,10 +55,6 @@
 		WetMob()
 
 /datum/status_effect/stacking/wet/proc/DryMob()
-	var/datum/physiology/physiology = astype(owner, /mob/living/carbon/human)?.physiology
-	if(physiology)
-		physiology.cold_mod /= 4
-		physiology.siemens_coeff /= 4
 	stacks = 0
 	update_wet()
 
@@ -66,6 +69,10 @@
 
 /datum/status_effect/stacking/wet/tick(seconds_between_ticks)
 	. = ..()
+
+	if(!owner)
+		return
+
 	if(HAS_TRAIT(owner, TRAIT_RESIST_COLD))
 		return
 

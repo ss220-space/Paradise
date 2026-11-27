@@ -1,4 +1,5 @@
 /datum/event/solar_flare
+	blocked_on_planetary = TRUE
 	startWhen = 2
 	endWhen = 3
 	announceWhen = 1

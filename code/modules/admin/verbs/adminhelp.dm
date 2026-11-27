@@ -10,7 +10,7 @@ GAME_VERB(/client, adminhelp, "Запрос помощи", ADMIN_CATEGORY_TICKET
 	var/list/type = list(MENTORHELP, ADMINHELP)
 	var/selected_type = tgui_input_list(src, "Выберите, чья помощь вам необходима", "Запрос помощи", type)
 	if(selected_type)
-		msg = tgui_input_text(src, "Please enter your message.", selected_type, multiline = TRUE, encode = FALSE)
+		msg = tgui_input_text(src, "Please enter your message.", selected_type, multiline = TRUE)
 
 	if(!msg)
 		return

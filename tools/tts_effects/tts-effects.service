@@ -1,0 +1,25 @@
+# Example systemd unit for the TTS effects service.
+# Copy to /etc/systemd/system/tts-effects.service, then adjust User, paths and CPUs.
+# Run it as the user DreamDaemon runs as. One --root NAME=PATH per game server; each server's
+# TTS_EFFECTS_URL is http://127.0.0.1:5005/NAME. ReadWritePaths must list every real cache
+# directory, including the targets of symlinked sound/tts_cache folders.
+[Unit]
+Description=SS220 TTS effects service (ffmpeg)
+After=network.target
+
+[Service]
+Type=simple
+User=byond
+Group=byond
+WorkingDirectory=/srv/byond/main
+ExecStart=/usr/bin/python3 -I /srv/byond/main/tools/tts_effects/tts_effects.py --root main=/srv/byond/main --root secondary=/srv/byond/secondary --host 127.0.0.1 --port 5005 --ffmpeg /usr/bin/ffmpeg --timeout 15 --cpu-affinity 0-3
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/srv/byond/main/sound/tts_cache /srv/byond/secondary/sound/tts_cache
+
+[Install]
+WantedBy=multi-user.target

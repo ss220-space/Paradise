@@ -37,7 +37,8 @@
 /datum/event_meta/proc/get_weight(list/active_with_role)
 	if(!enabled)
 		return 0
-
+	if(event_type.blocked_on_planetary && SSmapping.is_planetary())
+		return 0
 	var/job_weight = 0
 	for(var/role in role_weights)
 		if(role in active_with_role)
@@ -87,6 +88,8 @@
 	/// Whether the event was canceled or not. TRUE if not
 	var/triggering = FALSE
 	var/datum/event_meta/event_meta = null
+	// If TRUE and the station is planetary, the event will not be selected.
+	var/blocked_on_planetary = FALSE
 
 /datum/event/nothing
 
@@ -214,7 +217,7 @@
 	triggering = TRUE
 
 	if(alertadmins)
-		message_admins(span_warning("[forced? "Зафоршенное" : "Случайное"] событие сработает через 10 секунд: [EM.name] ([type]) (<a href='byond://?src=[UID()];cancel=1'>ОТМЕНИТЬ</a>)"))
+		message_admins(span_warning("[forced? "Зафоршенное" : "Случайное"] событие сработает через 10 секунд: [EM.name] ([type]) (<a href='byond://?src=[UID()];[HrefToken(forceGlobal = TRUE)];cancel=1'>ОТМЕНИТЬ</a>)"))
 
 	addtimer(CALLBACK(src, PROC_REF(run_event), skeleton), 10 SECONDS)
 	..()
@@ -233,7 +236,7 @@
 	. = ..()
 
 	if(href_list["cancel"])
-		if(!check_rights(R_EVENT))
+		if(!check_rights(R_EVENT) || !usr.client.holder.CheckAdminHref(href, href_list))
 			return
 
 		if(!triggering)

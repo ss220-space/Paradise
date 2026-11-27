@@ -1,4 +1,0 @@
-author: "FlitchTime"
-delete-after: True
-changes:
-  - bugfix: "Душ и раковину можно использовать, если они стоит рядом с окном. (PR #10053)"

@@ -42,8 +42,8 @@
 #define IS_VALID_ASSOC_KEY(V) (!isnum(V)) //hhmmm..
 
 // General helpers
-#define VV_HREF_TARGET_INTERNAL(target, href_key) "byond://?_src_=vars;[href_key];[href_key]=TRUE;[VV_HK_TARGET]=[UID_of(target)]"
-#define VV_HREF_TARGETREF_INTERNAL(targetref, href_key) "byond://?_src_=vars;[href_key];[href_key]=TRUE;[VV_HK_TARGET]=[targetref]"
+#define VV_HREF_TARGET_INTERNAL(target, href_key) "byond://?_src_=vars;[HrefToken()];[href_key];[href_key]=TRUE;[VV_HK_TARGET]=[UID_of(target)]"
+#define VV_HREF_TARGETREF_INTERNAL(targetref, href_key) "byond://?_src_=vars;[HrefToken()];[href_key];[href_key]=TRUE;[VV_HK_TARGET]=[targetref]"
 #define VV_HREF_TARGET(target, href_key, text) "<a href='[VV_HREF_TARGET_INTERNAL(target, href_key)]'>[text]</a>"
 #define VV_HREF_TARGETREF(targetref, href_key, text) "<a href='[VV_HREF_TARGETREF_INTERNAL(targetref, href_key)]'>[text]</a>"
 #define VV_HREF_TARGET_1V(target, href_key, text, varname) "<a href='[VV_HREF_TARGET_INTERNAL(target, href_key)];[VV_HK_VARNAME]=[varname]'>[text]</a>" //for stuff like basic varedits, one variable
@@ -52,10 +52,10 @@
 #define GET_VV_VAR_TARGET href_list[VV_HK_VARNAME]
 
 // Helper for getting something to vv_do_topic in general
-#define VV_TOPIC_LINK(datum, href_key, text) "<a href='byond://?_src_=vars;[href_key];[href_key]=TRUE;[VV_HK_TARGET]=[UID_of(datum)]'>text</a>"
+#define VV_TOPIC_LINK(datum, href_key, text) "<a href='byond://?_src_=vars;[HrefToken()];[href_key];[href_key]=TRUE;[VV_HK_TARGET]=[UID_of(datum)]'>text</a>"
 
 // Helpers for vv_get_dropdown()
-#define VV_DROPDOWN_OPTION(href_key, name) . += "<a href='byond://?_src_=vars;[href_key]=TRUE;[VV_HK_TARGET]=[UID_of(src)]' style='display:none;'>[name]</a>"
+#define VV_DROPDOWN_OPTION(href_key, name) . += "<a href='byond://?_src_=vars;[HrefToken()];[href_key]=TRUE;[VV_HK_TARGET]=[UID_of(src)]' style='display:none;'>[name]</a>"
 
 // VV HREF KEYS
 #define VV_HK_TARGET "target"

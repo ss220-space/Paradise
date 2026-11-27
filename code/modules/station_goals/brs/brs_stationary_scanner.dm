@@ -111,7 +111,7 @@
 	var/previous_status = scanning_status
 
 	// Set status
-	var/scan_result = SEND_SIGNAL(src, COMSIG_SCANNING_RIFTS, seconds_per_tick, emagged)
+	var/scan_result = SEND_SIGNAL(src, COMSIG_SCANNING_RIFTS, seconds_per_tick, (obj_flags & EMAGGED))
 	if(scan_result & COMPONENT_SCANNED_NOTHING)
 		scanning_status = SCAN_NO_RIFTS
 	else if(scan_result & COMPONENT_SCANNED_NORMAL)
@@ -233,11 +233,14 @@
 	else
 		update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/power/brs_stationary_scanner/emag_act(mob/user)
-	if(!emagged)
-		if(user)
-			to_chat(user, span_warning("@?%!№@Протоколы безопасности сканера перезаписаны@?%!№@"))
-		emagged = TRUE
+/obj/machinery/power/brs_stationary_scanner/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
+	if(user)
+		to_chat(user, span_warning("@?%!№@Протоколы безопасности сканера перезаписаны@?%!№@"))
+	return TRUE
 
 /obj/machinery/power/brs_stationary_scanner/emp_act(severity)
 	. = ..()

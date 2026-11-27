@@ -70,7 +70,8 @@
 	var/datum/effect_system/spark_spread/spark_system	//the spark system, used for generating... sparks?
 
 	var/wrenching = FALSE
-	var/last_target //last target fired at, prevents turrets from erratically firing at all valid targets in range
+	/// Last target fired at, prevents turrets from erratically firing at all valid targets in range
+	var/atom/last_target
 
 	var/region_min = REGION_GENERAL
 	var/region_max = REGION_COMMAND
@@ -122,6 +123,8 @@
 
 /obj/machinery/porta_turret/proc/handleInterloper(atom/movable/entity)
 	//message_admins("[entity] is in target range of [src]")
+	if(QDELETED(entity))
+		return
 
 	if(entity.invisibility > SEE_INVISIBLE_LIVING || HAS_TRAIT(entity, TRAIT_NINJA_INVISIBILITY)) //Let's not do typechecks and stuff on invisible things
 		return
@@ -130,9 +133,13 @@
 	if(!is_type_in_typecache(entity, valid_targets))
 		return
 
+	if(processing_targets[entity])
+		return
 	processing_targets[entity] = TRUE //associative for perfomance
+	watch_target(entity)
 
 /obj/machinery/porta_turret/Destroy()
+	set_last_target(null)
 	QDEL_NULL(spark_system)
 	QDEL_NULL(proximity_monitor)
 	return ..()
@@ -420,7 +427,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	. = ..()
 	//if the turret was attacked with the intention of harming it
 	//and the force of impact dealt at least 1 damage, the turret gets pissed off
-	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !pissed_check || attacked || emagged)
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !pissed_check || attacked || (obj_flags & EMAGGED))
 		return .
 	attacked = TRUE
 	addtimer(VARSET_CALLBACK(src, attacked, FALSE), 6 SECONDS)
@@ -448,19 +455,23 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		to_chat(M, span_noticealien("That object is useless to you."))
 	return
 
-/obj/machinery/porta_turret/emag_act(mob/user)
-	if(!emagged)
-		//Emagging the turret makes it go bonkers and stun everyone. It also makes
-		//the turret shoot much, much faster.
-		if(user)
-			to_chat(user, span_warning("You short out [src]'s threat assessment circuits."))
-			visible_message("[src] hums oddly...")
-		emagged = TRUE
-		iconholder = 1
-		controllock = TRUE
-		enabled = FALSE //turns off the turret temporarily
-		sleep(60) //6 seconds for the traitor to gtfo of the area before the turret decides to ruin his shit
-		enabled = TRUE //turns it back on. The cover popUp() popDown() are automatically called in process(), no need to define it here
+/obj/machinery/porta_turret/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
+	//Emagging the turret makes it go bonkers and stun everyone. It also makes
+	//the turret shoot much, much faster.
+	iconholder = 1
+	controllock = TRUE
+	enabled = FALSE //turns off the turret temporarily
+	//6 seconds for the traitor to gtfo of the area before the turret decides to ruin his shit
+	//turns it back on. The cover popUp() popDown() are automatically called in process(), no need to define it here
+	addtimer(VARSET_CALLBACK(src, enabled, TRUE), 6 SECONDS)
+	if(user)
+		to_chat(user, span_warning("You short out [src]'s threat assessment circuits."))
+		visible_message("[src] hums oddly...")
+	return TRUE
 
 /obj/machinery/porta_turret/take_damage(force)
 	if(!raised && !raising)
@@ -483,7 +494,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		return
 
 	if(enabled)
-		if(!attacked && !emagged)
+		if(!attacked && !(obj_flags & EMAGGED))
 			attacked = TRUE
 			spawn(60)
 				attacked = FALSE
@@ -506,7 +517,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	check_access = prob(20)	// check_access is a pretty big deal, so it's least likely to get turned on
 	check_anomalies = prob(50)
 	if(prob(5))
-		emagged = TRUE
+		obj_flags |= EMAGGED
 	enabled = FALSE
 	addtimer(VARSET_CALLBACK(src, enabled, TRUE), rand(6 SECONDS, 12 SECONDS), TIMER_DELETE_ME)
 
@@ -553,6 +564,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	for(var/atom/movable/atom as anything in processing_targets)
 		if(!can_see(atom, scan_range))
 			processing_targets -= atom
+			unwatch_target(atom)
 
 	var/list/primary_candidates
 	var/list/secondary_candidates
@@ -615,13 +627,13 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(get_dist(src, L) > scan_range)	//if it's too far away, why bother?
 		return TURRET_NOT_TARGET
 
-	if(emagged)		// If emagged not even the dead get a rest
+	if(obj_flags & EMAGGED)	// If emagged not even the dead get a rest
 		return L.stat ? TURRET_SECONDARY_TARGET : TURRET_PRIORITY_TARGET
 
-	if(L.stat && !emagged)		//if the perp is dead/dying, no need to bother really
+	if(L.stat && !(obj_flags & EMAGGED))		//if the perp is dead/dying, no need to bother really
 		return TURRET_NOT_TARGET	//move onto next potential victim!
 
-	if(!emagged && !syndicate && (issilicon(L) || isbot(L)))
+	if(!(obj_flags & EMAGGED) && !syndicate && (issilicon(L) || isbot(L)))
 		return (check_borgs && isrobot(L)) ? TURRET_PRIORITY_TARGET : TURRET_NOT_TARGET
 
 	if(in_faction(L))
@@ -691,7 +703,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	addtimer(CALLBACK(src, PROC_REF(finish_cover_animation), TRUE), TURRET_COVER_ANIMATION_TIME)
 
 /obj/machinery/porta_turret/proc/popDown()	//pops the turret down
-	last_target = null
+	set_last_target(null)
 	if(disabled)
 		return
 	if(raising || !raised)
@@ -724,18 +736,49 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		if(D.icon_state == "closed")
 			return
 	if(target)
-		last_target = target
+		set_last_target(target)
 		if(has_cover)
 			popUp()				//pop the turret up if it's not already up.
 		setDir(get_dir(src, target))	//even if you can't shoot, follow the target
 		shootAt(target)
 		return TRUE
 
+/// Remembers the target the turret fires at, and forgets it once it is deleted
+/obj/machinery/porta_turret/proc/set_last_target(atom/new_target)
+	if(QDELETED(new_target))
+		new_target = null
+	if(last_target == new_target)
+		return
+	var/atom/old_target = last_target
+	last_target = new_target
+	if(old_target)
+		unwatch_target(old_target)
+	if(new_target)
+		watch_target(new_target)
+
+/// Starts listening for the deletion of a target the turret tracks or fired at
+/obj/machinery/porta_turret/proc/watch_target(atom/target)
+	RegisterSignal(target, COMSIG_QDELETING, PROC_REF(on_target_qdeleting), override = TRUE)
+
+/// Stops listening for the deletion of a target once the turret neither tracks it nor remembers it
+/obj/machinery/porta_turret/proc/unwatch_target(atom/target)
+	if(target == last_target || processing_targets[target])
+		return
+	UnregisterSignal(target, COMSIG_QDELETING)
+
+/// Forgets a deleted target, so idle turrets do not hold references to it
+/obj/machinery/porta_turret/proc/on_target_qdeleting(atom/source)
+	SIGNAL_HANDLER
+	processing_targets -= source
+	if(last_target == source)
+		last_target = null
+	UnregisterSignal(source, COMSIG_QDELETING)
+
 /obj/machinery/porta_turret/proc/shootAt(mob/living/target)
 	if(!raised && has_cover) //the turret has to be raised in order to fire - makes sense, right?
 		return
 
-	if(!emagged)	//if it hasn't been emagged, cooldown before shooting again
+	if(!(obj_flags & EMAGGED))	//if it hasn't been emagged, cooldown before shooting again
 		if((last_fired + shot_delay > world.time) || !raised)
 			return
 		last_fired = world.time
@@ -748,7 +791,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	update_icon(UPDATE_ICON_STATE)
 	// Lethal/emagged turrets use twice the power due to higher energy beams
 	// Emagged turrets again use twice as much power due to higher firing rates
-	use_power(reqpower * (2 * (emagged || lethal)) * (2 * emagged) * rapid)
+	use_power(reqpower * (2 * ((obj_flags & EMAGGED) || lethal)) * (2 * (obj_flags & EMAGGED)) * rapid)
 
 	if(rapid > 1)
 		for(var/i in 1 to rapid)
@@ -759,7 +802,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 /obj/machinery/porta_turret/proc/shoot(mob/living/target)
 	var/obj/projectile/proj
-	if(emagged || lethal)
+	if((obj_flags & EMAGGED) || lethal)
 		proj = new eprojectile(loc)
 		playsound(loc, eshot_sound, 75, TRUE)
 	else

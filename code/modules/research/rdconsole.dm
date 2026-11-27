@@ -277,14 +277,16 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	return ..()
 
-/obj/machinery/computer/rdconsole/emag_act(mob/user)
-	if(!emagged)
-		add_attack_logs(user, src, "emagged")
-		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, TRUE)
-		req_access = list()
-		emagged = TRUE
-		if(user)
-			balloon_alert_to_viewers("искрит и жужжит!", "протоколы безопасности взломаны")
+/obj/machinery/computer/rdconsole/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
+	playsound(loc, 'sound/effects/sparks4.ogg', 75, TRUE)
+	req_access = list()
+	if(user)
+		balloon_alert_to_viewers("искрит и жужжит!", "протоколы безопасности взломаны")
+	return TRUE
 
 /obj/machinery/computer/rdconsole/proc/valid_nav(next_menu, next_submenu)
 	switch(next_menu)
@@ -600,7 +602,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	for(var/print_index in 1 to amount)
 		var/obj/new_item = new being_built.build_path(!user ? src : machine.loc)
-
+		new_item.scatter_atom()
 		if(istype(new_item, /obj/item/storage/backpack/holding) && user)
 			new_item.investigate_log("built by [key_name_log(user)]", INVESTIGATE_ENGINE)
 

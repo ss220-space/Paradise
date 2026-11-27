@@ -270,6 +270,10 @@
 		/obj/item/rpd = 1,
 		/obj/item/flashlight = 1,
 	)
+	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/brain/wire_interface/hardened,
+		/obj/item/organ/internal/cyberimp/eyes/shield,
+	)
 
 /datum/outfit/job/centcom/response_team/engineer/red
 	name = "Инженер ОБР \"Ред\""
@@ -300,6 +304,7 @@
 		/obj/item/organ/internal/cyberimp/eyes/map/ert,
 		/obj/item/organ/internal/cyberimp/eyes/shield,
 		/obj/item/organ/internal/cyberimp/chest/nutriment_old,
+		/obj/item/organ/internal/cyberimp/brain/wire_interface/hardened,
 	)
 	implants = list(
 		/obj/item/implant/mindshield/ert,
@@ -336,6 +341,7 @@
 		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
 		/obj/item/organ/internal/cyberimp/eyes/shield,
 		/obj/item/organ/internal/cyberimp/arm/toolset,
+		/obj/item/organ/internal/cyberimp/brain/wire_interface/hardened,
 	)
 	implants = list(
 		/obj/item/implant/mindshield/ert,
