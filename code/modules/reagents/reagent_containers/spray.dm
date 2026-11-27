@@ -255,7 +255,6 @@
 	item_state = "cleaner_med"
 	container_type = TRANSPARENT | NO_SPLASH
 	volume = 100
-	amount_per_transfer_from_this = 5
 	close_clean_mode = TRUE
 	list_reagents = list(/datum/reagent/medicine/mitocholide = 100)
 
