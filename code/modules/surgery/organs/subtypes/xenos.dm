@@ -19,7 +19,7 @@
 	if(length(alien_powers))
 		for(var/power_to_remove in alien_powers)
 			var/datum/action/cooldown/spell/actual_spell = locate(power_to_remove) in user.actions
-			actual_spell.Remove(user)
+			actual_spell?.Remove(user)
 	. = ..()
 
 /obj/item/organ/internal/xenos/prepare_eat()

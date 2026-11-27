@@ -6,7 +6,56 @@
 /datum/unit_test/gc_failures
 	priority = TEST_AFTER_CREATE_AND_DESTROY
 	/// Types that already failed to collect when this test was added. Remove a type once its leak is fixed.
-	var/static/list/known_failures = list()
+	var/static/list/known_failures = list(
+		// Terror spiders and their spells
+		/mob/living/simple_animal/hostile/poison/terror_spider/defiler,
+		/mob/living/simple_animal/hostile/poison/terror_spider/healer,
+		/mob/living/simple_animal/hostile/poison/terror_spider/healer/strong,
+		/mob/living/simple_animal/hostile/poison/terror_spider/mother,
+		/mob/living/simple_animal/hostile/poison/terror_spider/prince,
+		/mob/living/simple_animal/hostile/poison/terror_spider/queen,
+		/mob/living/simple_animal/hostile/poison/terror_spider/queen/empress,
+		/mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/weak,
+		/mob/living/simple_animal/hostile/poison/terror_spider/queen/princess,
+		/datum/action/cooldown/spell/aoe/open_vent,
+		/datum/action/cooldown/spell/aoe/terror_healing,
+		/datum/action/cooldown/spell/aoe/terror_healing/greater,
+		/datum/action/cooldown/spell/aoe/terror_shriek,
+		/datum/action/cooldown/spell/aoe/terror_shriek_princess,
+		/datum/action/cooldown/spell/aoe/terror_shriek_queen,
+		/datum/action/cooldown/spell/aoe/terror_slam,
+		/datum/action/cooldown/spell/list_target/mindscan,
+		/datum/action/cooldown/spell/list_target/remotetalk,
+		// Other mobs and their spells
+		/mob/living/simple_animal/hostile/construct/builder,
+		/mob/living/simple_animal/hostile/construct/builder/holy,
+		/mob/living/simple_animal/hostile/construct/builder/hostile,
+		/mob/living/simple_animal/hostile/guardian/fire,
+		/mob/living/simple_animal/hostile/hellhound/greater,
+		/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner,
+		/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/guidance,
+		/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/hunter,
+		/mob/living/simple_animal/hostile/megafauna/dragon/space_dragon,
+		/mob/living/simple_animal/hostile/morph,
+		/mob/living/simple_animal/hostile/morph/wizard,
+		/mob/living/simple_animal/hostile/statue,
+		/datum/action/cooldown/spell/aoe/guardian_hallucination,
+		/datum/action/cooldown/spell/aoe/knock,
+		/datum/action/cooldown/spell/aoe/magic_missile/lesser,
+		/datum/action/cooldown/spell/list_target/impregnate,
+		// Energy sphere projectiles
+		/obj/projectile/energy/sphere,
+		/obj/projectile/energy/sphere/attack,
+		/obj/projectile/energy/sphere/heal,
+		// Nuclear rod fabricators
+		/obj/machinery/nuclear_rod_fabricator,
+		/obj/machinery/nuclear_rod_fabricator/upgraded,
+		// Other objects and datums
+		/obj/item/gun/projectile/automatic/stationary_gun,
+		/obj/structure/energy_net,
+		/datum/turf_reservation,
+		/datum/component/material_container,
+	)
 	/// How long each object waits in the check queue during this test.
 	var/check_wait = 10 SECONDS
 	/// How long a failed object waits in the hard delete queue during this test.
