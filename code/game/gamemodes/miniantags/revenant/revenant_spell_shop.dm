@@ -204,7 +204,6 @@
 	name = "Мор"
 	desc = "Заражает ближайших людей болезнью, которая постепенно ослабляет их."
 	spell_type = /datum/action/cooldown/spell/aoe/revenant/blight
-	cost = 150
 
 /datum/revenant_spell/aoe/haunt_object
 	name = "Призрачные предметы"
