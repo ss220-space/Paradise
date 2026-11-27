@@ -29,12 +29,7 @@
 	if(!istype(I))
 		return
 
-	if(I == l_hand)
-		l_hand = null
-		update_held_items()
-	else if(I == r_hand)
-		r_hand = null
-		update_held_items()
+	do_unEquip(I, invdrop = FALSE)
 
 	if(I.pulledby)
 		I.pulledby.stop_pulling()

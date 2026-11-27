@@ -356,6 +356,12 @@
 		calculate_params()
 	return ..()
 
+/atom/movable/screen/fullscreen/cursor_catcher/scope/get_get_click_overrite_turf(real = TRUE)
+	return real? crosshair_turf : given_turf
+
+/atom/movable/screen/fullscreen/cursor_catcher/scope/get_get_click_overrite_params()
+	return params2list(mouse_params)
+
 /atom/movable/screen/fullscreen/cursor_catcher/scope/calculate_params()
 	var/list/modifiers = params2list(mouse_params)
 	var/icon_x = text2num(LAZYACCESS(modifiers, VIS_X))

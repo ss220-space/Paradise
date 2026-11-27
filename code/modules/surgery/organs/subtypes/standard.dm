@@ -7,6 +7,7 @@
 	desc = "Верхняя часть туловища."
 	gender = FEMALE
 	limb_zone = BODY_ZONE_CHEST
+	parent_zones = list(BODY_ZONE_PRECISE_GROIN)
 	icon_name = "torso"
 	max_damage = 100
 	min_broken_damage = 35
@@ -74,6 +75,7 @@
 	gender = FEMALE
 	icon_name = "l_arm"
 	limb_zone = BODY_ZONE_L_ARM
+	parent_zones = list(BODY_ZONE_PRECISE_L_HAND)
 	max_damage = 50
 	max_bleeding_amount = 1
 	bleeding_mod = 0.8
@@ -141,6 +143,7 @@
 	desc = "Правая рука."
 	icon_name = "r_arm"
 	limb_zone = BODY_ZONE_R_ARM
+	parent_zones = list(BODY_ZONE_PRECISE_R_HAND)
 	limb_body_flag = ARM_RIGHT
 	amputation_point = "правое плечо"
 	convertable_children = list(/obj/item/organ/external/hand/right)
@@ -161,6 +164,7 @@
 	gender = FEMALE
 	icon_name = "l_leg"
 	limb_zone = BODY_ZONE_L_LEG
+	parent_zones = list(BODY_ZONE_PRECISE_L_FOOT)
 	max_damage = 50
 	max_bleeding_amount = 1
 	bleeding_mod = 0.8
@@ -241,6 +245,7 @@
 	desc = "Правая нога."
 	icon_name = "r_leg"
 	limb_zone = BODY_ZONE_R_LEG
+	parent_zones = list(BODY_ZONE_PRECISE_R_FOOT)
 	limb_body_flag = LEG_RIGHT
 	icon_position = RIGHT
 	amputation_point = "правое бедро"
@@ -540,6 +545,7 @@
 	desc = "Голова."
 	gender = FEMALE
 	limb_zone = BODY_ZONE_HEAD
+	parent_zones = list(BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH)
 	icon_name = "head"
 	max_damage = 75
 	min_broken_damage = 35

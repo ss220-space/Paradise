@@ -135,6 +135,9 @@ ADMIN_VERB(advanced_proc_call, R_DEBUG|R_PROCCALL, "Advanced ProcCall", "Call a 
 			target = null
 			targetselected = FALSE
 
+		else
+			return
+
 	var/procpath = tgui_input_text(usr, "Proc path, eg: /proc/fake_blood", "Path:")
 	if(!procpath)
 		return
@@ -212,12 +215,28 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		to_chat(usr, "Calling Del() is not allowed", confidential = TRUE)
 		return
 
+	if(target != GLOBAL_PROC && !target.CanProcCall(procname))
+		to_chat(usr, "Proccall on [target.type]/proc/[procname] is disallowed!", confidential = TRUE)
+		return
+
 	if(is_admin_denied_global_proc(procname))
 		to_chat(usr, "Calling [procname] is not allowed", confidential = TRUE)
 		return
 
-	if(target != GLOBAL_PROC && !target.CanProcCall(procname))
-		to_chat(usr, "Proccall on [target.type]/proc/[procname] is disallowed!", confidential = TRUE)
+	var/static/list/denied_deferred_procs = list(
+		"RegisterSignal",
+		"RegisterSignals",
+		"ui_modal_message",
+		"ui_modal_input",
+		"ui_modal_choice",
+		"ui_modal_bento",
+		"ui_modal_boolean",
+		"ui_modal_new",
+	)
+	if(procname in denied_deferred_procs)
+		to_chat(usr, "Proccall on [procname] is disallowed!", confidential = TRUE)
+		message_admins("[key_name_admin(usr)] attempted a blocked proc call: [procname]")
+		log_admin("[key_name(usr)] attempted a blocked proc call: [procname] on [target == GLOBAL_PROC ? "global" : target.type] with arguments: [english_list(arguments)]")
 		return
 	var/current_caller = GLOB.AdminProcCaller
 	var/user_identifier = usr ? usr.client?.ckey : GLOB.AdminProcCaller

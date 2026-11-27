@@ -115,7 +115,7 @@
 		return CLICK_ACTION_BLOCKING
 	return ..()
 
-/obj/item/storage/secure/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
+/obj/item/storage/secure/on_mouse_drop_dragged(atom/source, atom/over_object, mob/user)
 	if(!try_to_open(user))
 		return
 

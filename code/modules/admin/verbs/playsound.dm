@@ -181,7 +181,7 @@ ADMIN_VERB(play_web_sound, R_SOUNDS, "Play Internet Sound", "Play a given intern
 			if(ASSET_TRANSPORT_WEBROOT)
 				var/datum/asset/music/music_asset = GLOB.cached_songs[web_sound_path]
 				if(!music_asset)
-					music_asset = new /datum/asset/music(youtubedl, input, web_sound_id)
+					music_asset = new /datum/asset/music(input, web_sound_id)
 					if(!music_asset.item_filename)
 						to_chat(user, span_boldwarning("Не удалось скачать через yt-dlp."), confidential = TRUE)
 						return

@@ -1782,3 +1782,10 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 /atom/proc/get_lootpanel_cache_key()
 	return "[type]"
+
+/atom/proc/get_get_click_overrite_turf(real = TRUE)
+	return
+
+/atom/proc/get_get_click_overrite_params()
+	return
+

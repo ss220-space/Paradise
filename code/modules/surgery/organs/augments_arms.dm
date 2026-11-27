@@ -939,7 +939,7 @@
 	lefthand_file = 'icons/mob/inhands/implants_lefthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	sharp = TRUE
-	force = 30
+	force = 25
 	armour_penetration = -10
 	reach = 2
 	hitsound = 'sound/weapons/whip.ogg'

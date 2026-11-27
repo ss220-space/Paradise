@@ -101,8 +101,6 @@
 		qdel(active_dummy)
 	active_dummy = null
 	can_use = FALSE
-	if(QDELETED(active_dummy))
-		return
 	addtimer(VARSET_CALLBACK(src, can_use, TRUE), 5 SECONDS)
 
 /obj/item/chameleon/proc/eject_all()
