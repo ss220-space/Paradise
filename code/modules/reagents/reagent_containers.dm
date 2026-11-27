@@ -6,7 +6,6 @@
 	icon_state = null
 	w_class = WEIGHT_CLASS_TINY
 	var/amount_per_transfer_from_this = 5
-	var/visible_transfer_rate = TRUE
 	/// Does this container allow changing transfer amounts at all, the container can still have only one possible transfer value in `possible_transfer_amounts` at some point even if this is true
 	var/has_variable_transfer_amount = TRUE
 	/// The different possible amounts of reagent to transfer out of the container
@@ -38,8 +37,6 @@
 	var/fill_icon = 'icons/obj/reagentfillings.dmi'
 	///If we want to the contrast of the reagent overlay if the reagent mix color is very dark.
 	var/adjust_color_contrast = FALSE
-	/// Pass open check in empty verb
-	var/pass_open_check = FALSE
 	var/chem_master_made = FALSE
 
 /obj/item/reagent_containers/get_ru_names_cached()
@@ -76,7 +73,7 @@
 /obj/item/reagent_containers/examine()
 	. = ..()
 	if(has_variable_transfer_amount)
-		if(possible_transfer_amounts.len)
+		if(possible_transfer_amounts.len > 1)
 			. += span_notice("Объём перемещения содержимого — [amount_per_transfer_from_this] единиц[DECL_A_Y_0(amount_per_transfer_from_this)]. Используйте [EXAMINE_HINT("ЛКМ")] или [EXAMINE_HINT("ПКМ")] для изменения.")
 		else if(possible_transfer_amounts.len)
 			. += span_notice("Объём перемещения содержимого — [amount_per_transfer_from_this] единиц[DECL_A_Y_0(amount_per_transfer_from_this)].")
@@ -90,6 +87,8 @@
 		reagents.add_reagent_list(list_reagents)
 
 /obj/item/reagent_containers/attack_self(mob/user)
+	if(reagents.flags & SEALED_CONTAINER)
+		return TRUE
 	if(has_variable_transfer_amount)
 		change_transfer_amount(user, FORWARD)
 		return TRUE
@@ -149,11 +148,13 @@
 
 	var/punctuation = ismob(target) ? "!" : "."
 
+	user.changeNext_move(CLICK_CD_MELEE)
 	user.visible_message(
 		span_danger("[user] облива[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)] содержимым [declent_ru(GENITIVE)][punctuation]"),
 		span_danger("Вы обливаете [target.declent_ru(ACCUSATIVE)] содержимым [declent_ru(GENITIVE)][punctuation]"),
 		ignored_mobs = target,
 	)
+	SEND_SIGNAL(target, COMSIG_ATOM_SPLASHED)
 
 	if(ismob(target))
 		var/mob/target_mob = target
@@ -252,7 +253,7 @@
 		)
 		if(splasher)
 			add_attack_logs(splasher, target, "splashed")
-		reagents.reaction(target, REAGENT_TOUCH)
+		reagents.reaction(target, REAGENT_TOUCH, splash_multiplier)
 		if(turf_splash_multiplier > 0)
 			reagents.reaction(target_turf, REAGENT_TOUCH, turf_splash_multiplier) // 1 - splash_multiplier because it's what didn't hit the target
 	else

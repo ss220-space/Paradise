@@ -17,10 +17,8 @@
 	belt_icon = "mender"
 	volume = 200
 	has_variable_transfer_amount = FALSE
-	visible_transfer_rate = FALSE
 	resistance_flags = ACID_PROOF
 	initial_reagent_flags = REFILLABLE | AMOUNT_VISIBLE | NO_SPLASH
-	pass_open_check = TRUE
 	custom_premium_price = PAYCHECK_LOWER
 	// used for emagged version
 	var/ignore_flags = FALSE

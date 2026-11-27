@@ -12,7 +12,6 @@
 	possible_transfer_amounts = list(5, 10, 15)
 	volume = 15
 	sharp = TRUE
-	pass_open_check = TRUE
 	materials = list(MAT_METAL=10, MAT_GLASS=20)
 	initial_reagent_flags = TRANSPARENT
 	custom_price = PAYCHECK_MIN * 0.2

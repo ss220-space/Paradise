@@ -90,6 +90,7 @@
 	var/log_object = "containing [reagentlist]"
 	if(!carbon_target.is_mouth_covered())
 		reagents.reaction(carbon_target, REAGENT_INGEST)
+		reagents.trans_to(carbon_target, reagents.total_volume)
 		carbon_target.visible_message(span_danger("[user] smothers \the [carbon_target] with \the [src]!"), span_userdanger("[user] smothers you with \the [src]!"), span_hear("You hear some struggling and muffled cries of surprise."))
 		add_attack_logs(user, carbon_target, "smothered [log_object]")
 	else
