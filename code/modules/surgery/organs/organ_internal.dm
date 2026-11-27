@@ -208,7 +208,7 @@ GLOBAL_LIST_EMPTY(organ_rott_overlay_icons)
 	S.w_class = w_class
 	return S
 
-/obj/item/organ/internal/proc/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT, check_parents_zones = FALSE)
+/obj/item/organ/internal/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT, check_parents_zones = FALSE)
 	if(check_zone(parent_organ_zone) != parent.limb_zone)
 		if(!check_parents_zones || !(parent_organ_zone in parent.parent_zones))
 			return FALSE
