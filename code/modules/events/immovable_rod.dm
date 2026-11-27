@@ -8,6 +8,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 */
 
 /datum/event/immovable_rod
+	blocked_on_planetary = TRUE
 	announceWhen = 5
 
 /datum/event/immovable_rod/announce()

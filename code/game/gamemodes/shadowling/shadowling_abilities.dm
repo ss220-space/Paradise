@@ -70,7 +70,7 @@
 	cooldown_time = 15 SECONDS //Short cooldown because people can just turn the lights back on
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	school = SCHOOL_FORBIDDEN
-	var/blacklisted_lights = list(/obj/item/flashlight/flare, /obj/item/flashlight/slime, /obj/structure/glowshroom/shadowshroom)
+	var/blacklisted_lights = list(/obj/item/flashlight/flare, /obj/item/flashlight/slime, /obj/structure/glowshroom/shadowshroom, /obj/machinery/floodlight/colony)
 	button_icon_state = "veil"
 	background_icon_state = "bg_shadowling"
 	aoe_radius = 5

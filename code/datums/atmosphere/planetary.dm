@@ -67,3 +67,22 @@
 
 	minimum_pressure = ONE_ATMOSPHERE
 	maximum_pressure = ONE_ATMOSPHERE
+
+/datum/atmosphere/planetoid
+	id = ENVIRONMENT_PLANETOID
+
+	base_gases = list(
+		ATMOSPHERE_OXYGEN = MOLES_O2STANDARD,
+		ATMOSPHERE_NITROGEN = MOLES_N2STANDARD,
+	)
+	normal_gases = list(
+		ATMOSPHERE_CARBON_DIOXIDE = 5,
+	)
+	restricted_gases = list()
+	restricted_chance = 0
+
+	minimum_temp = T20C
+	maximum_temp = T20C
+
+	minimum_pressure = ONE_ATMOSPHERE
+	maximum_pressure = ONE_ATMOSPHERE

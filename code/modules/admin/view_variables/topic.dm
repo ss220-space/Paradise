@@ -14,7 +14,7 @@
  * * For basic operations, use /client/proc/vv_do_basic().
  */
 /client/proc/view_var_Topic(href, href_list, hsrc)
-	if(!check_rights(R_ADMIN|R_VIEWRUNTIMES))
+	if(!check_rights(R_ADMIN|R_VIEWRUNTIMES) || !holder.CheckAdminHref(href, href_list))
 		return
 
 	var/target = locate_vv_href(href_list[VV_HK_TARGET])

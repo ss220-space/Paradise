@@ -23,6 +23,8 @@
 	var/x_offset = 0
 	var/y_offset = 0
 	var/space_turfs_only = TRUE
+	/// Turf types that may sit under a landing spot even with space_turfs_only on.
+	/// Checked as an atom with istype(), so parent types cover all of their subtypes.
 	var/see_hidden = FALSE
 	var/designate_time = 0
 	var/turf/designating_target_loc
@@ -183,7 +185,6 @@
 		my_port.turf_type = /turf/space
 	if(current_user.client)
 		current_user.client.images -= the_eye.placed_images
-
 	QDEL_LIST(the_eye.placed_images)
 
 	for(var/image/place_spots as anything in the_eye.placement_images)
@@ -263,7 +264,12 @@
 
 	if(space_turfs_only)
 		var/turf_type = hidden_turf_info ? hidden_turf_info[2] : T.type
-		if(!(ispath(turf_type, /turf/space) || ispath(turf_type, /turf/space/openspace)) && !is_mining_level(T.z))
+		var/ignorable = is_type_in_list(T, string_list(list(
+			/turf/simulated/floor/planetoid,
+			/turf/simulated/wall/cm/indestructible/jungle,
+			/turf/simulated/floor/water/beach,
+		)))
+		if(!(ispath(turf_type, /turf/space) || ispath(turf_type, /turf/space/openspace)) && !ignorable && !is_mining_level(T.z))
 			return SHUTTLE_DOCKER_BLOCKED
 
 	if(istype(T.loc.type, /area/syndicate_depot))
@@ -307,7 +313,7 @@
 	return ..()
 
 /mob/camera/aiEye/remote/shuttle_docker/setLoc(turf/destination, force_update = FALSE)
-	if(isspacearea(get_area(destination)) || is_area_shuttle(get_area(destination)) ||  istype(get_area(destination), /area/lavaland) || istype(get_area(destination), /area/ruin))
+	if(isspacearea(get_area(destination)) || is_area_shuttle(get_area(destination)) ||  istype(get_area(destination), /area/lavaland) || istype(get_area(destination), /area/ruin)	|| istype(get_area(destination), /area/planetoid))
 		..()
 		var/obj/machinery/computer/camera_advanced/shuttle_docker/console = origin
 		console.checkLandingSpot()

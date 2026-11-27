@@ -716,7 +716,9 @@ const manageChannelModalBodyOverride = (
         <Stack.Item>
           <LabeledList.Item label="Владелец">
             <Input
-              disabled={!isAdmin}
+              disabled={
+                !isAdmin && !!channel?.author && channel?.author !== scannedUser
+              }
               width="100%"
               value={author}
               onChange={setAuthor}

@@ -74,6 +74,24 @@ GLOBAL_PROTECT(AdminProcCallHandler)
 	usr = lastusr
 	handler.remove_caller(user)
 
+/proc/is_admin_denied_global_proc(procname)
+	// A static list, so View Variables and SDQL2 can't reach or edit it.
+	var/static/list/denied_global_procs = list(
+		"get_web_sound_info",
+		"download_web_sound",
+		"apply_sound_effect",
+		"web_sound",
+		"jobban_savebanfile",
+		"appearance_savebanfile",
+		"update_byond_admin_configs",
+		"load_admins",
+		"load_admin_ranks",
+		"load_configuration",
+		// Calls any proc without the checks above.
+		"call_async",
+	)
+	return (procname in denied_global_procs)
+
 /**
  * Handles a userless sdql, used by circuits and tgs.
  *
@@ -103,7 +121,7 @@ ADMIN_VERB(advanced_proc_call, R_DEBUG|R_PROCCALL, "Advanced ProcCall", "Call a 
 	var/targetselected = FALSE
 	var/returnval
 
-	switch(tgui_alert(usr,"Proc owned by something?",,list("Yes","No")))
+	switch(alert(usr, "Proc owned by something?", "", "Yes", "No"))
 		if("Yes")
 			targetselected = TRUE
 			var/list/value = vv_get_value(default_class = VV_ATOM_REFERENCE, classes = list(VV_ATOM_REFERENCE, VV_DATUM_REFERENCE, VV_MOB_REFERENCE, VV_CLIENT, VV_MARKED_DATUM, VV_TEXT_LOCATE, VV_PROCCALL_RETVAL))
@@ -116,6 +134,9 @@ ADMIN_VERB(advanced_proc_call, R_DEBUG|R_PROCCALL, "Advanced ProcCall", "Call a 
 		if("No")
 			target = null
 			targetselected = FALSE
+
+		else
+			return
 
 	var/procpath = tgui_input_text(usr, "Proc path, eg: /proc/fake_blood", "Path:")
 	if(!procpath)
@@ -196,6 +217,26 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	if(target != GLOBAL_PROC && !target.CanProcCall(procname))
 		to_chat(usr, "Proccall on [target.type]/proc/[procname] is disallowed!", confidential = TRUE)
+		return
+
+	if(is_admin_denied_global_proc(procname))
+		to_chat(usr, "Calling [procname] is not allowed", confidential = TRUE)
+		return
+
+	var/static/list/denied_deferred_procs = list(
+		"RegisterSignal",
+		"RegisterSignals",
+		"ui_modal_message",
+		"ui_modal_input",
+		"ui_modal_choice",
+		"ui_modal_bento",
+		"ui_modal_boolean",
+		"ui_modal_new",
+	)
+	if(procname in denied_deferred_procs)
+		to_chat(usr, "Proccall on [procname] is disallowed!", confidential = TRUE)
+		message_admins("[key_name_admin(usr)] attempted a blocked proc call: [procname]")
+		log_admin("[key_name(usr)] attempted a blocked proc call: [procname] on [target == GLOBAL_PROC ? "global" : target.type] with arguments: [english_list(arguments)]")
 		return
 	var/current_caller = GLOB.AdminProcCaller
 	var/user_identifier = usr ? usr.client?.ckey : GLOB.AdminProcCaller

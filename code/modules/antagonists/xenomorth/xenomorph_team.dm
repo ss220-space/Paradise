@@ -161,7 +161,7 @@
 	. = ..()
 	if(current_queen)
 		if(check_rights(R_EVENT))
-			. += "<br/><a href='byond://?_src_=holder;team_command=delay_xeno_end;team=[UID()]'>Отложить победу Ксеноморфов</a> Сейчас: [delay_xeno_end? "ON" : "OFF"]<br>"
+			. += "<br/><a href='byond://?_src_=holder;[HrefToken()];team_command=delay_xeno_end;team=[UID()]'>Отложить победу Ксеноморфов</a> Сейчас: [delay_xeno_end? "ON" : "OFF"]<br>"
 		var/datum/admins/holder = usr.client.holder
 		. += holder.check_role_table("Королева", list(current_queen))
 

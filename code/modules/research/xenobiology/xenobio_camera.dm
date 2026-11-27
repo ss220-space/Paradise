@@ -309,7 +309,7 @@
 		if(X.monkeys >= 1)
 			var/mob/living/carbon/human/lesser/monkey/food = new /mob/living/carbon/human/lesser/monkey(remote_eye.loc)
 			SSmobs.cubemonkeys += food
-			food.LAssailant = C
+			food.LAssailant = WEAKREF(C)
 			X.monkeys--
 			to_chat(owner, "В [X.declent_ru(GENITIVE)] осталось [X.monkeys] мартыш[DECL_KA_KI_EK(X.monkeys)].")
 	else
@@ -526,7 +526,7 @@
 	if(turfarea.name == E.allowed_area || turfarea.xenobiology_compatible)
 		if(X.monkeys >= 1)
 			var/mob/living/carbon/human/lesser/monkey/food = new /mob/living/carbon/human/lesser/monkey(T)
-			food.LAssailant = C
+			food.LAssailant = WEAKREF(C)
 			SSmobs.cubemonkeys += food
 			X.monkeys--
 			X.monkeys = round(X.monkeys, 0.1)

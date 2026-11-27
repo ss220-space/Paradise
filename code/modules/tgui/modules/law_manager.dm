@@ -90,30 +90,35 @@
 
 		if("change_zeroth_law")
 			var/new_law = tgui_input_text(ui.user, "Enter new law Zero. Leaving the field blank will cancel the edit.", "Edit Law", zeroth_law, encode = FALSE)
+			new_law = STRIP_HTML_FULL(new_law, INFINITY)
 			if(new_law && new_law != zeroth_law && (!..()))
 				zeroth_law = new_law
 				notify_owner_shell()
 
 		if("change_ion_law")
 			var/new_law = tgui_input_text(ui.user, "Enter new ion law. Leaving the field blank will cancel the edit.", "Edit Law", ion_law, encode = FALSE)
+			new_law = STRIP_HTML_FULL(new_law, INFINITY)
 			if(new_law && new_law != ion_law && (!..()))
 				ion_law = new_law
 				notify_owner_shell()
 
 		if("change_devil_law")
 			var/new_law = tgui_input_text(ui.user, "Enter new devil law. Leaving the field blank will cancel the edit.", "Edit Law", devil_law, encode = FALSE)
+			new_law = STRIP_HTML_FULL(new_law, INFINITY)
 			if(new_law && new_law != devil_law && (!..()))
 				devil_law = new_law
 				notify_owner_shell()
 
 		if("change_inherent_law")
 			var/new_law = tgui_input_text(ui.user, "Enter new inherent law. Leaving the field blank will cancel the edit.", "Edit Law", inherent_law, encode = FALSE)
+			new_law = STRIP_HTML_FULL(new_law, INFINITY)
 			if(new_law && new_law != inherent_law && (!..()))
 				inherent_law = new_law
 				notify_owner_shell()
 
 		if("change_supplied_law")
 			var/new_law = tgui_input_text(ui.user, "Enter new supplied law. Leaving the field blank will cancel the edit.", "Edit Law", supplied_law, encode = FALSE)
+			new_law = STRIP_HTML_FULL(new_law, INFINITY)
 			if(new_law && new_law != supplied_law && (!..()))
 				supplied_law = new_law
 				notify_owner_shell()
@@ -133,6 +138,7 @@
 					return
 				if(AL)
 					var/new_law = tgui_input_text(ui.user, "Введите новый закон. Оставьте поле пустым для отмены.", "Редактирование закона", AL.law, encode = FALSE)
+					new_law = STRIP_HTML_FULL(new_law, INFINITY)
 					if(new_law && new_law != AL.law && is_malf(ui.user) && (!..()))
 						log_and_message_admins("has changed a law of [owner] from '[AL.law]' to '[new_law]'")
 						var/old_law = AL.law

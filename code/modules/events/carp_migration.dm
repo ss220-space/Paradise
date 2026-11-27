@@ -1,4 +1,5 @@
 /datum/event/carp_migration
+	blocked_on_planetary = TRUE
 	announceWhen	= 50
 	endWhen		= 900
 

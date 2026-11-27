@@ -193,7 +193,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
  * Used for running team specific admin commands.
  */
 /datum/team/Topic(href, href_list)
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_ADMIN) || !usr.client.holder.CheckAdminHref(href, href_list))
 		return
 
 	var/commands = get_admin_commands()
@@ -239,13 +239,13 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	for(var/team_type in GLOB.antagonist_teams)
 		var/datum/team/check_team = GLOB.antagonist_teams[team_type]
 		content += "<h3>[check_team.name] - [check_team.type]</h3>"
-		content += "<a href='byond://?_src_=holder;team_command=rename_team;team=[check_team.UID()]'>Rename Team</a>"
-		content += "<a href='byond://?_src_=holder;team_command=delete_team;team=[check_team.UID()]'>Delete Team</a>"
-		content += "<a href='byond://?_src_=holder;team_command=communicate;team=[check_team.UID()]'>Message Team</a>"
+		content += "<a href='byond://?_src_=holder;[HrefToken()];team_command=rename_team;team=[check_team.UID()]'>Rename Team</a>"
+		content += "<a href='byond://?_src_=holder;[HrefToken()];team_command=delete_team;team=[check_team.UID()]'>Delete Team</a>"
+		content += "<a href='byond://?_src_=holder;[HrefToken()];team_command=communicate;team=[check_team.UID()]'>Message Team</a>"
 
 		for(var/command in check_team.get_admin_commands())
 			// _src_ is T.UID() so it points to `/datum/team/Topic` instead of `/datum/admins/Topic`.
-			content += "<a href='byond://?_src_=holder;command=[command]'>[command]</a>"
+			content += "<a href='byond://?_src_=holder;[HrefToken()];command=[command]'>[command]</a>"
 		for(var/text in check_team.get_admin_texts())
 			content += text
 		content += "<br><br>Objectives:<br><ol>"
@@ -254,15 +254,15 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 			content += "<li>[objective.explanation_text]</li>"
 
 		for(var/datum/objective/objective as anything in check_team.objectives)
-			content += "<li>[objective.explanation_text] - <a href='byond://?_src_=holder;team_command=remove_objective;team=[check_team.UID()];objective=[objective.UID()]'>Remove</a></li>"
+			content += "<li>[objective.explanation_text] - <a href='byond://?_src_=holder;[HrefToken()];team_command=remove_objective;team=[check_team.UID()];objective=[objective.UID()]'>Remove</a></li>"
 
-		content += "</ol><a href='byond://?_src_=holder;team_command=add_objective;team=[check_team.UID()]'>Add Objective</a><br><br>"
+		content += "</ol><a href='byond://?_src_=holder;[HrefToken()];team_command=add_objective;team=[check_team.UID()]'>Add Objective</a><br><br>"
 		content += "Members: <br><ol>"
 
 		for(var/datum/mind/member as anything in check_team.members)
-			content += "<li>[member.name] - <a href='byond://?_src_=holder;team_command=view_member;team=[check_team.UID()];member=[member.UID()]'>Show Player Panel</a>"
-			content += "<a href='byond://?_src_=holder;team_command=remove_member;team=[check_team.UID()];member=[member.UID()]'>Remove Member</a></li>"
-		content += "</ol><a href='byond://?_src_=holder;team_command=admin_add_member;team=[check_team.UID()]'>Add Member</a><hr>"
+			content += "<li>[member.name] - <a href='byond://?_src_=holder;[HrefToken()];team_command=view_member;team=[check_team.UID()];member=[member.UID()]'>Show Player Panel</a>"
+			content += "<a href='byond://?_src_=holder;[HrefToken()];team_command=remove_member;team=[check_team.UID()];member=[member.UID()]'>Remove Member</a></li>"
+		content += "</ol><a href='byond://?_src_=holder;[HrefToken()];team_command=admin_add_member;team=[check_team.UID()]'>Add Member</a><hr>"
 		content += "<hr>"
 	return content.Join()
 

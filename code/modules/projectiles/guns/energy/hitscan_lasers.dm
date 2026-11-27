@@ -39,6 +39,7 @@
 	user.temporarily_remove_item_from_inventory(item)
 	qdel(item)
 
+	drop_all_modules(user)
 	user.put_in_hands(new_gun)
 	playsound(user, 'sound/machines/ding.ogg', 50, TRUE)
 	do_sparks(3, TRUE, spawn_turf)

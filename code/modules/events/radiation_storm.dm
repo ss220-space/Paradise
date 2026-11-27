@@ -1,3 +1,6 @@
+/datum/event/radiation_storm
+	blocked_on_planetary = TRUE
+
 /datum/event/radiation_storm/setup()
 	startWhen = 3
 	endWhen = startWhen + 1

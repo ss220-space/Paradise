@@ -6,21 +6,21 @@ ADMIN_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create 
 
 /datum/admins/proc/one_click_antag()
 	var/dat = {"<b>One-click Antagonist</b><br>
-		<a href='byond://?src=[UID()];makeAntag=1'>Make Traitors</a><br>
-		<a href='byond://?src=[UID()];makeAntag=2'>Make Changelings</a><br>
-		<a href='byond://?src=[UID()];makeAntag=3'>Make Revolutionaries</a><br>
-		<a href='byond://?src=[UID()];makeAntag=4'>Make Cult</a><br>
-		<a href='byond://?src=[UID()];makeAntag=5'>Make Clockwork Cult</a><br>
-		<a href='byond://?src=[UID()];makeAntag=6'>Make Wizard (Requires Ghosts)</a><br>
-		<a href='byond://?src=[UID()];makeAntag=7'>Make Vampires</a><br>
-		<a href='byond://?src=[UID()];makeAntag=8'>Make Vox Raiders (Requires Ghosts)</a><br>
-		<a href='byond://?src=[UID()];makeAntag=9'>Make Abductor Team (Requires Ghosts)</a><br>
-		<a href='byond://?src=[UID()];makeAntag=10'>Make Space Ninja (Requires Ghosts)</a><br>
-		<a href='byond://?src=[UID()];makeAntag=11'>Make Thieves</a><br>
-		<a href='byond://?src=[UID()];makeAntag=12'>Make Blobs</a><br>
-		<a href='byond://?src=[UID()];makeAntag=13'>Make Terror Spiders</a><br>
-		<a href='byond://?src=[UID()];makeAntag=14'>Make Aliens</a><br>
-		<a href='byond://?src=[UID()];makeAntag=15'>Make Nuke Team</a><br>
+		<a href='byond://?src=[UID()];[HrefToken()];makeAntag=1'>Make Traitors</a><br>
+		<a href='byond://?src=[UID()];[HrefToken()];makeAntag=2'>Make Changelings</a><br>
+		<a href='byond://?src=[UID()];[HrefToken()];makeAntag=3'>Make Revolutionaries</a><br>
+		<a href='byond://?src=[UID()];[HrefToken()];makeAntag=4'>Make Cult</a><br>
+		<a href='byond://?src=[UID()];[HrefToken()];makeAntag=5'>Make Clockwork Cult</a><br>
+		<a href='byond://?src=[UID()];[HrefToken()];makeAntag=6'>Make Wizard (Requires Ghosts)</a><br>
+		<a href='byond://?src=[UID()];[HrefToken()];makeAntag=7'>Make Vampires</a><br>
+		<a href='byond://?src=[UID()];[HrefToken()];makeAntag=8'>Make Vox Raiders (Requires Ghosts)</a><br>
+		<a href='byond://?src=[UID()];[HrefToken()];makeAntag=9'>Make Abductor Team (Requires Ghosts)</a><br>
+		<a href='byond://?src=[UID()];[HrefToken()];makeAntag=10'>Make Space Ninja (Requires Ghosts)</a><br>
+		<a href='byond://?src=[UID()];[HrefToken()];makeAntag=11'>Make Thieves</a><br>
+		<a href='byond://?src=[UID()];[HrefToken()];makeAntag=12'>Make Blobs</a><br>
+		<a href='byond://?src=[UID()];[HrefToken()];makeAntag=13'>Make Terror Spiders</a><br>
+		<a href='byond://?src=[UID()];[HrefToken()];makeAntag=14'>Make Aliens</a><br>
+		<a href='byond://?src=[UID()];[HrefToken()];makeAntag=15'>Make Nuke Team</a><br>
 		"}
 	var/datum/browser/popup = new(usr, "oneclickantag", "One-click Antagonist", 400, 400)
 	popup.set_content(dat)

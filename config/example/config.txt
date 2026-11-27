@@ -405,6 +405,8 @@ TOPIC_FILTERING_WHITELIST 127.0.0.1
 ## Silero Text-to-speech
 #TTS_TOKEN_SILERO mytoken
 #TTS_URL_SILERO https://example.com
+## Local TTS effects service (tools/tts_effects); the path is this server's --root name. Unset: effects run through ffmpeg in a shell.
+#TTS_EFFECTS_URL http://127.0.0.1:5005/main
 #TTS_ENABLED
 #TTS_CACHE
 

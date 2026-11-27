@@ -890,11 +890,12 @@
 
 /obj/effect/immovablerod/nuclear_rod/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
 	. = ..()
-	if(loc == end)
+	if(!QDELETED(src) && loc == end)
 		qdel(src)
 
-/obj/effect/immovablerod/nuclear_rod/Destroy()
-	held_rod.forceMove(get_turf(src))
+/obj/effect/immovablerod/nuclear_rod/Destroy(force)
+	held_rod?.forceMove(get_turf(src))
+	held_rod = null
 	return ..()
 
 #undef CHAMBER_HEAT_DAMAGE
