@@ -340,3 +340,6 @@
 	desc = "Weeeeee"
 	static_lighting = FALSE
 	base_lighting_alpha = 255
+
+/area/shuttle/explorer_ship
+	name = "Explorer Ship"

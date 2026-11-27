@@ -44,10 +44,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral,
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/reagent_containers/cup/glass/bottle/wine{
-	pixel_x = -12;
-	pixel_y = 10
-	},
+/obj/item/reagent_containers/cup/glass/bottle/wine,
 /obj/item/reagent_containers/cup/glass/drinkingglass,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';

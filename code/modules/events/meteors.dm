@@ -1,4 +1,5 @@
 /datum/event/meteor_wave
+	blocked_on_planetary = TRUE
 	startWhen = 5
 	endWhen = 7
 	var/next_meteor = 6

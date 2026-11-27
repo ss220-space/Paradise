@@ -12,6 +12,11 @@
 	var/list/defended = list()
 	var/list/collisions = list()
 
+/datum/station_goal/station_shield/can_gain()
+	if(SSmapping.is_planetary())
+		return FALSE
+	return ..()
+
 /datum/station_goal/station_shield/get_report()
 	return {"<b>Сооружение щитов станции</b><br>
 	В области вокруг станции большое количество космического мусора. У нас есть прототип щитовой системы, которую вы должны установить для уменьшения числа происшествий, связанных со столкновениями.

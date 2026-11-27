@@ -1363,6 +1363,10 @@
 		/area/station/ai/satellite/chamber,
 		/area/station/hallway/primary/starboard,
 		/area/shuttle,
+		/area/planetoid/caves,
+		/area/planetoid/lazarus/security/lobby,
+		/area/planetoid/lazarus/abandoned_building/temple_inner,
+		/area/planetoid/lazarus/maintenance,
 	)
 	end_message = span_notice_alt("Пепел перестаёт падать.")
 	radiation_treshhold = RAD_HEAVY_INSULATION

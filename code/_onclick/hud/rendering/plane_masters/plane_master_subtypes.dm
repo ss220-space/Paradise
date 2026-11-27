@@ -311,7 +311,7 @@
 // MARK: Weather
 /atom/movable/screen/plane_master/weather
 	name = "Weather"
-	documentation = "Holds the main tiling 32x32 sprites of weather. We mask against walls that are on the edge of weather effects."
+	documentation = "Holds the main tiling 32x32 sprites of weather."
 	plane = WEATHER_PLANE
 	start_hidden = TRUE
 

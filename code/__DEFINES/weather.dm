@@ -2,3 +2,5 @@
 #define MAIN_STAGE 2
 #define WIND_DOWN_STAGE 3
 #define END_STAGE 4
+
+#define THUNDER_VOLUME 80

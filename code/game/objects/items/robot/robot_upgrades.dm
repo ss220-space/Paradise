@@ -34,6 +34,36 @@
 		return FALSE
 	return TRUE
 
+/obj/item/borg/upgrade/jump
+	name = "cyborg jump module"
+	desc = "Enables a cyborg to leap."
+	origin_tech = null
+	var/datum/action/cooldown/spell/leap/leap_action
+
+/obj/item/borg/upgrade/jump/action(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	if(locate(/obj/item/borg/upgrade/jump) in robot.upgrades)
+		if(user)
+			to_chat(user, span_warning("This cyborg already has a jump module installed."))
+		return FALSE
+
+	leap_action = new /datum/action/cooldown/spell/leap
+	leap_action.Grant(robot)
+	return TRUE
+
+/obj/item/borg/upgrade/jump/deactivate(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	QDEL_NULL(leap_action)
+	return TRUE
+
+/obj/item/borg/upgrade/jump/Destroy()
+	QDEL_NULL(leap_action)
+	return ..()
+
 /obj/item/borg/upgrade/reset
 	name = "cyborg module reset board"
 	desc = "Used to reset a cyborg's module. Destroys any other upgrades applied to the cyborg."

@@ -25,6 +25,7 @@ SUBSYSTEM_DEF(weather)
 		if(our_event.aesthetic || our_event.stage != MAIN_STAGE)
 			continue
 		our_event.fire()
+		our_event.handle_weather_process()
 		if(our_event.self_fire)
 			continue
 		for(var/mob/living/act_on as anything in GLOB.mob_living_list)

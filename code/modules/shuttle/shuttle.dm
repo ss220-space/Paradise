@@ -186,6 +186,12 @@
 	height = 31
 	width = 17
 
+// Preset for explorer ship docks. Created at runtime by SSmapping.create_explorer_docks() for every accessible z-level
+/obj/docking_port/stationary/explorer_ship
+	width = 9
+	height = 14
+	dwidth = 4
+
 /obj/docking_port/stationary/register()
 	if(!SSshuttle)
 		stack_trace("Docking port [src] could not initialize. SSshuttle doesnt exist!")
@@ -1158,6 +1164,13 @@
 	possible_destinations = "freegolem_lavaland"
 	resistance_flags = INDESTRUCTIBLE
 	overmap_request_console = TRUE
+
+/obj/machinery/computer/shuttle/explorer
+	name = "Explorer Ship Console"
+	desc = "Используется для управления исследовательским кораблём."
+	circuit = /obj/item/circuitboard/explorer_shuttle
+	shuttleId = "explorer_ship"
+	possible_destinations = null // Filled at runtime: one dock per accessible z-level, see SSmapping.create_explorer_docks()
 
 //#undef DOCKING_PORT_HIGHLIGHT
 

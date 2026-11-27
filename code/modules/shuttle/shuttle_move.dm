@@ -68,6 +68,15 @@
 	if(!has_dest)
 		return DOCKING_NULL_DESTINATION
 
+	var/turf_type = old_dock?.turf_type || /turf/space
+	if(ispath(turf_type, /turf/space) || turf_type == /turf/baseturf_bottom)
+		for(var/turf/departure_turf in old_turfs)
+			var/level_turf = check_level_trait(departure_turf.z, ZTRAIT_BASETURF)
+			if(ispath(level_turf, /turf/simulated/floor))
+				turf_type = level_turf
+			break
+	var/area_type = ispath(turf_type, /turf/simulated/floor/planetoid) ? /area/planetoid : (old_dock?.area_type || /area/space)
+
 	SEND_SIGNAL(src, COMSIG_SHUTTLE_PRE_DOCK, old_dock, new_dock, move_data)
 
 	//close and lock the dock's airlocks
@@ -79,8 +88,8 @@
 	shuttle_smash(old_turfs, new_turfs, move_data["move_dir"], move_data["use_hull"])
 
 	// begin transition
-	var/list/touched = takeoff_turfs(job, old_turfs, new_turfs, move_data)
-	restore_origin_turfs(old_turfs, old_dock, touched)
+	var/list/touched = takeoff_turfs(job, old_turfs, new_turfs, move_data, area_type)
+	restore_origin_turfs(old_turfs, turf_type, touched)
 	landing_ground = move_data["landing_ground"]
 	job.flush_shuttle_atmos(touched)
 	postflight_dock(new_dock, new_turfs, move_data, transit)
@@ -120,11 +129,10 @@
 	.["move_dir"] = move_dir
 	.["origin_dir"] = origin_dir
 
-/obj/docking_port/mobile/proc/takeoff_turfs(datum/milla_safe_must_sleep/docking_port_dock/job, list/old_turfs, list/new_turfs, list/move_data)
+/obj/docking_port/mobile/proc/takeoff_turfs(datum/milla_safe_must_sleep/docking_port_dock/job, list/old_turfs, list/new_turfs, list/move_data, area_type)
 	. = list()
 	var/use_hull = move_data["use_hull"]
 	var/rotation = move_data["rotation"]
-	var/area_type = get_docked()?.area_type || /area/space
 	var/area/fallback_area
 	if(length(areaInstance?.contents) || use_hull)
 		fallback_area = locate(area_type)
@@ -196,8 +204,7 @@
 			.[oldT] = TRUE
 		old_turfs[i] = should_transit ? oldT : null
 
-/obj/docking_port/mobile/proc/restore_origin_turfs(list/old_turfs, obj/docking_port/stationary/old_dock, list/touched)
-	var/turf_type = old_dock?.turf_type || /turf/space
+/obj/docking_port/mobile/proc/restore_origin_turfs(list/old_turfs, turf_type, list/touched)
 	for(var/i in 1 to length(old_turfs))
 		var/turf/oldT = old_turfs[i]
 		if(!oldT)
