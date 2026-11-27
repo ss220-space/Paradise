@@ -735,6 +735,48 @@
 
 	return TRUE
 
+/obj/item/borg/upgrade/mitocholide_spray
+	name = "medical cyborg mitocholide spray upgrade"
+	desc = "Устанавливаемый модуль для медицинских киборгов, добавляющий встроенный герметичный распылитель с митоколидом."
+	icon_state = "cyborg_upgrade2"
+	origin_tech = "biotech=5;materials=5;engineering=4"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/medical
+
+/obj/item/borg/upgrade/mitocholide_spray/get_ru_names()
+	return alist(
+		NOMINATIVE = "модуль распылителя митоколида",
+		GENITIVE = "модуля распылителя митоколида",
+		DATIVE = "модулю распылителя митоколида",
+		ACCUSATIVE = "модуль распылителя митоколида",
+		INSTRUMENTAL = "модулем распылителя митоколида",
+		PREPOSITIONAL = "модуле распылителя митоколида",
+	)
+
+/obj/item/borg/upgrade/mitocholide_spray/action(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	if(locate(/obj/item/reagent_containers/spray/mitocholide) in robot.module.modules)
+		if(user)
+			to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("this unit already has a mitocholide spray installed!")]")
+		return FALSE
+
+	robot.module.add_module(new /obj/item/reagent_containers/spray/mitocholide(robot.module))
+	return TRUE
+
+/obj/item/borg/upgrade/mitocholide_spray/deactivate(mob/living/silicon/robot/robot, mob/user)
+	if(!..() || !robot.module)
+		return FALSE
+
+	for(var/obj/item/reagent_containers/spray/mitocholide/spray in robot.module.modules)
+		if(spray in list(robot.module_state_1, robot.module_state_2, robot.module_state_3))
+			robot.uneq_module(spray)
+		qdel(spray)
+
+	robot.module.rebuild()
+	return TRUE
+
 /obj/item/borg/upgrade/syndie_rcd
 	name = "Syndicate cyborg RCD upgrade"
 	desc = "An experimental upgrade that replaces cyborgs RCDs with the syndicate version."

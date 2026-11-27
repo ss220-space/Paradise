@@ -248,6 +248,38 @@
 			else
 				visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] определяет и удаляет недопустимое вещество."))
 
+/obj/item/reagent_containers/spray/mitocholide
+	name = "mitocholide spray"
+	desc = "Специализированный герметичный распылитель с митоколидом для восстановления некротических тканей и органов."
+	icon_state = "cleaner_medical"
+	item_state = "cleaner_med"
+	container_type = TRANSPARENT | NO_SPLASH
+	volume = 100
+	amount_per_transfer_from_this = 5
+	close_clean_mode = TRUE
+	list_reagents = list(/datum/reagent/medicine/mitocholide = 100)
+
+/obj/item/reagent_containers/spray/mitocholide/get_ru_names()
+	return alist(
+		NOMINATIVE = "распылитель митоколида",
+		GENITIVE = "распылителя митоколида",
+		DATIVE = "распылителю митоколида",
+		ACCUSATIVE = "распылитель митоколида",
+		INSTRUMENTAL = "распылителем митоколида",
+		PREPOSITIONAL = "распылителе митоколида",
+	)
+
+/obj/item/reagent_containers/spray/mitocholide/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(is_reagent_dispenser(target) && get_dist(src, target) <= 1)
+		balloon_alert(user, "ёмкость герметична!")
+		return
+	return ..()
+
+/obj/item/reagent_containers/spray/mitocholide/on_reagent_change()
+	for(var/datum/reagent/reagent as anything in reagents.reagent_list)
+		if(reagent.type != /datum/reagent/medicine/mitocholide)
+			reagents.del_reagent(reagent.type)
+
 //spray tan
 /obj/item/reagent_containers/spray/spraytan
 	name = "spray tan"
