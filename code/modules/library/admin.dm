@@ -39,9 +39,9 @@ ADMIN_VERB(view_flagged_books, R_ADMIN, "View Flagged Books", "View books flagge
 		books++
 		var/isbn = query.item[1]
 		dat += "<tr><td>[add_zero(isbn, 4)]</td><td>[query.item[2]]</td><td>[query.item[3]]</td><td>[query.item[4]]</td><td>"
-		dat += "<a href='byond://?_src_=holder;library_book_id=[isbn];view_library_book=1;'>View Content</a>"
-		dat += "<a href='byond://?_src_=holder;library_book_id=[isbn];unflag_library_book=1;'>Unflag</a>"
-		dat += "<a href='byond://?_src_=holder;library_book_id=[isbn];delete_library_book=1;'>Delete</a>"
+		dat += "<a href='byond://?_src_=holder;[HrefToken()];library_book_id=[isbn];view_library_book=1;'>View Content</a>"
+		dat += "<a href='byond://?_src_=holder;[HrefToken()];library_book_id=[isbn];unflag_library_book=1;'>Unflag</a>"
+		dat += "<a href='byond://?_src_=holder;[HrefToken()];library_book_id=[isbn];delete_library_book=1;'>Delete</a>"
 		dat += "</td>"
 
 	dat += "</table>"

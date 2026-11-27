@@ -42,6 +42,8 @@ SUBSYSTEM_DEF(tts)
 
 	var/list/tts_queue = list()
 	var/list/tts_effects_queue = list()
+	/// voice file => watchdog timer id, for effects service requests in flight
+	var/list/tts_effects_in_flight = list()
 
 	var/sanitized_messages_caching = TRUE
 	var/list/sanitized_messages_cache = list()
@@ -388,7 +390,7 @@ SUBSYSTEM_DEF(tts)
 
 	tts_queue -= filename
 
-/datum/controller/subsystem/tts/proc/play_tts(atom/speaker, mob/listener, filename, is_local = TRUE, effect = SOUND_EFFECT_NONE, preSFX = null, postSFX = null, whisper = FALSE)
+/datum/controller/subsystem/tts/proc/play_tts(atom/speaker, mob/listener, filename, is_local = TRUE, effect = SOUND_EFFECT_NONE, preSFX = null, postSFX = null, whisper = FALSE, effect_attempted = FALSE)
 	if(isnull(listener) || !listener.client)
 		return
 
@@ -416,11 +418,18 @@ SUBSYSTEM_DEF(tts)
 			CRASH("Invalid sound effect chosen.")
 	if(effect != SOUND_EFFECT_NONE)
 		if(!fexists(voice))
-			var/datum/callback/play_tts_cb = CALLBACK(src, PROC_REF(play_tts), speaker, listener, filename, is_local, effect, preSFX, postSFX, whisper)
+			// The effects service and its fallback already ran for this file and failed; both logged it.
+			if(effect_attempted)
+				return
+			var/use_effects_service = !!CONFIG_GET(string/tts_effects_url)
+			var/datum/callback/play_tts_cb = CALLBACK(src, PROC_REF(play_tts), speaker, listener, filename, is_local, effect, preSFX, postSFX, whisper, use_effects_service)
 			if(LAZYLEN(tts_effects_queue[voice]))
 				LAZYADD(tts_effects_queue[voice], play_tts_cb)
 				return
 			LAZYADD(tts_effects_queue[voice], play_tts_cb)
+			if(use_effects_service)
+				request_sound_effect(effect, "[filename].ogg", voice)
+				return
 			apply_sound_effect(effect, "[filename].ogg", voice)
 			for(var/datum/callback/cb in tts_effects_queue[voice])
 				tts_effects_queue[voice] -= cb
@@ -465,6 +474,86 @@ SUBSYSTEM_DEF(tts)
 
 	if(postSFX)
 		play_sfx(listener, postSFX, output.channel, output.volume, output.environment)
+
+/**
+ * Applies a sound effect through the local effects service (config TTS_EFFECTS_URL), so DreamDaemon does not fork.
+ * The callbacks queued in tts_effects_queue for `voice` are invoked once the file is ready or the fallback has run.
+ */
+/datum/controller/subsystem/tts/proc/request_sound_effect(effect, filename_input, voice)
+	var/static/list/effect_names = list(
+		"[SOUND_EFFECT_RADIO]" = "radio",
+		"[SOUND_EFFECT_ROBOT]" = "robot",
+		"[SOUND_EFFECT_RADIO_ROBOT]" = "radio_robot",
+		"[SOUND_EFFECT_MEGAPHONE]" = "megaphone",
+		"[SOUND_EFFECT_MEGAPHONE_ROBOT]" = "megaphone_robot",
+		"[SOUND_EFFECT_MASKFILTER]" = "maskfilter",
+		"[SOUND_EFFECT_RADIO_MASKFILTER]" = "radio_maskfilter",
+		"[SOUND_EFFECT_OLD_VOCODER]" = "old_vocoder",
+	)
+	var/effect_name = effect_names["[effect]"]
+	if(!effect_name)
+		flush_tts_effects_queue(voice)
+		CRASH("Invalid sound effect chosen.")
+
+	filename_input = filename_sanitize(filename_input)
+	var/filename_output = filename_sanitize(voice)
+	var/list/body = list("effect" = effect_name, "input" = filename_input, "output" = filename_output)
+	var/datum/callback/cb = CALLBACK(src, PROC_REF(sound_effect_callback), effect, filename_input, voice)
+	tts_effects_in_flight[voice] = addtimer(CALLBACK(src, PROC_REF(sound_effect_timeout), effect, filename_input, voice), TTS_EFFECTS_REQUEST_TIMEOUT, TIMER_STOPPABLE)
+	try
+		SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, CONFIG_GET(string/tts_effects_url), json_encode(body), list("content-type" = "application/json"), cb)
+	catch(var/exception/request_exception)
+		if(end_sound_effect_request(voice))
+			sound_effect_failed(effect, filename_input, voice, "request not started: [request_exception.name]")
+
+/// Stops the watchdog of a request in flight. Returns FALSE if the request already ended (answered or timed out).
+/datum/controller/subsystem/tts/proc/end_sound_effect_request(voice)
+	if(!(voice in tts_effects_in_flight))
+		return FALSE
+	deltimer(tts_effects_in_flight[voice])
+	tts_effects_in_flight -= voice
+	return TRUE
+
+/datum/controller/subsystem/tts/proc/sound_effect_timeout(effect, filename_input, voice)
+	tts_effects_in_flight -= voice
+	sound_effect_failed(effect, filename_input, voice, "no reply in [TTS_EFFECTS_REQUEST_TIMEOUT / 10] seconds")
+
+/datum/controller/subsystem/tts/proc/sound_effect_callback(effect, filename_input, voice, datum/http_response/response)
+	// A late reply after the watchdog already ran the fallback.
+	if(!end_sound_effect_request(voice))
+		return
+	var/error
+	if(response.errored)
+		error = "request error: [response.error]"
+	else
+		var/list/result = safe_json_decode(response.body)
+		if(response.status_code != 200 || !islist(result) || !result["ok"])
+			error = "status [response.status_code]: [islist(result) ? result["error"] : "invalid response"]"
+		else if(!fexists(voice))
+			error = "output file missing"
+
+	if(error)
+		sound_effect_failed(effect, filename_input, voice, error)
+		return
+
+	flush_tts_effects_queue(voice)
+
+/// Logs a failed effects service request and applies the effect with the synchronous ffmpeg call instead.
+/datum/controller/subsystem/tts/proc/sound_effect_failed(effect, filename_input, voice, error)
+	log_debug("TTS effects service failed for [voice] ([error]), falling back to ffmpeg via shell.")
+	// The fallback blocks on ffmpeg, so it runs from a timer rather than inside the SShttp callback.
+	addtimer(CALLBACK(src, PROC_REF(apply_sound_effect_fallback), effect, filename_input, voice))
+
+/datum/controller/subsystem/tts/proc/apply_sound_effect_fallback(effect, filename_input, voice)
+	apply_sound_effect(effect, filename_input, voice)
+	flush_tts_effects_queue(voice)
+
+/// Invokes every callback waiting for `voice` exactly once and drops its queue entry.
+/datum/controller/subsystem/tts/proc/flush_tts_effects_queue(voice)
+	var/list/callbacks = tts_effects_queue[voice]
+	tts_effects_queue -= voice
+	for(var/datum/callback/cb as anything in callbacks)
+		cb.InvokeAsync()
 
 /datum/controller/subsystem/tts/proc/play_sfx(mob/listener, sfx, channel, volume, environment)
 	var/sound/output = sound(sfx)

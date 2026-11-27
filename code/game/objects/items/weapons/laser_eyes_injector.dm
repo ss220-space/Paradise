@@ -33,7 +33,7 @@
 		balloon_alert(user, UNLINT("ДНК не обнаружена!"))
 		return .
 
-	if(locate(/datum/action/cooldown/spell/lasereyes, target.mob_spell_list))
+	if(HAS_TRAIT(target, TRAIT_LASEREYES))
 		balloon_alert(user, "ген уже имеется!")
 		return .
 
@@ -42,24 +42,6 @@
 		return .
 
 	. |= ATTACK_CHAIN_SUCCESS
-	target.AddSpell(new /datum/action/cooldown/spell/lasereyes)
+	target.AddSpell(new /datum/action/cooldown/spell/pointed/projectile/lasereyes)
 	used = TRUE
 	update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
-
-/datum/action/cooldown/spell/lasereyes
-	name = "Лазеры из глаз"
-	desc = "Активация или дезактивация способности стрелять лазерами из глаз."
-	spell_requirements = SPELL_REQUIRES_HUMAN
-	cooldown_time = 1 SECONDS
-	button_icon_state = "lazer_hulk"
-
-/datum/action/cooldown/spell/lasereyes/cast(atom/cast_on)
-	. = ..()
-	var/mob/living/carbon/human/user = cast_on
-	if(HAS_TRAIT_FROM(user, TRAIT_LASEREYES, UNIQUE_TRAIT_SOURCE(src)))
-		REMOVE_TRAIT(user, TRAIT_LASEREYES, UNIQUE_TRAIT_SOURCE(src))
-		to_chat(user, span_warning("Лёгкое жжение в области ваших глаз прошло."))
-	else
-		ADD_TRAIT(user, TRAIT_LASEREYES, UNIQUE_TRAIT_SOURCE(src))
-		to_chat(user, span_warning("Вы чувствуете лёгкое жжение в области ваших глаз."))
-

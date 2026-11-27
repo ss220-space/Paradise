@@ -443,7 +443,7 @@ SUBSYSTEM_DEF(ticker)
 
 	// Only resolve metadata here. The audio file is downloaded later, when the
 	// music asset is built on first client login.
-	var/datum/web_sound_info/sound_info = get_web_sound_info(ytdl, selected_lobby_music)
+	var/datum/web_sound_info/sound_info = world.get_web_sound_info(ytdl, selected_lobby_music)
 
 	// Shell work is done, every remaining path marks init complete.
 	login_music_initializated = TRUE

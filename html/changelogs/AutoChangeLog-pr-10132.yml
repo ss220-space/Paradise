@@ -1,0 +1,4 @@
+author: "Bizzonium"
+delete-after: True
+changes:
+  - server: "Comms key больше не пишется в game.log. (PR #10132)"

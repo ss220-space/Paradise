@@ -273,7 +273,7 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 	var/list/terror_defilers = main_spiders[TERROR_DEFILER]
 	if(length(terror_queens) || length(terror_princes)|| length(terror_princesses) || length(terror_defilers))
 		if(check_rights(R_EVENT))
-			. += "<br/><a href='byond://?_src_=holder;team_command=delay_terror_end;team=[UID()]'>Отложить победу Терроров</a> Сейчас: [delay_terror_end? "ON" : "OFF"]<br>"
+			. += "<br/><a href='byond://?_src_=holder;[HrefToken()];team_command=delay_terror_end;team=[UID()]'>Отложить победу Терроров</a> Сейчас: [delay_terror_end? "ON" : "OFF"]<br>"
 		var/datum/admins/holder = usr.client.holder
 		. += holder.check_role_table("Королевы", terror_queens)
 		. += holder.check_role_table("Принцы", terror_princes)

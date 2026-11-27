@@ -21962,9 +21962,7 @@
 /area/station/maintenance/asmaint4)
 "eNx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
+/obj/structure/cable/layer1,
 /obj/machinery/atmospherics/reactor_chamber,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/reactor)
@@ -48159,14 +48157,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/kitchen)
-"knI" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitehall"
-	},
-/area/station/maintenance/tourist)
 "knJ" = (
 /obj/effect/landmark/start/shaft_miner,
 /turf/simulated/floor/plasteel,
@@ -116184,6 +116174,13 @@
 	icon_state = "neutralfull"
 	},
 /area/station/commons/locker)
+"ydT" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/firealarm/directional/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitehall"
+	},
+/area/station/maintenance/tourist)
 "yeb" = (
 /obj/structure/table/reinforced,
 /obj/item/assembly/timer,
@@ -128656,7 +128653,7 @@ xpv
 gmF
 gjp
 hDA
-uqF
+ydT
 vES
 kUf
 bwH
@@ -128912,7 +128909,7 @@ ilG
 wWm
 fVp
 gjp
-knI
+pVl
 hDA
 vES
 oap

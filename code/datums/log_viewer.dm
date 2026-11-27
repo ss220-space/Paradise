@@ -133,8 +133,8 @@ if(!result || result.ckey != __ckey){\
 	var/list/dat = list()
 	dat += "<head><meta http-equiv='X-UA-Compatible' content='IE=edge'><style>.adminticket{border:2px solid} td{border:1px solid grey;} th{border:1px solid grey;} span{float:left;width:150px;}</style></head>"
 	dat += "<div style='min-height:100px'>"
-	dat += "<span>Time Search Range:</span> <a href='byond://?src=[UID()];start_time=1'>[gameTimestamp(wtime = time_from)]</a>"
-	dat += " To: <a href='byond://?src=[UID()];end_time=1'>[gameTimestamp(wtime = time_to)]</a>"
+	dat += "<span>Time Search Range:</span> <a href='byond://?src=[UID()];[HrefToken()];start_time=1'>[gameTimestamp(wtime = time_from)]</a>"
+	dat += " To: <a href='byond://?src=[UID()];[HrefToken()];end_time=1'>[gameTimestamp(wtime = time_to)]</a>"
 	dat += "<br>"
 
 	dat += "<span>Mobs being used:</span>"
@@ -143,16 +143,16 @@ if(!result || result.ckey != __ckey){\
 		if(QDELETED(M))
 			selected_mobs -= i
 			continue
-		dat += "<a href='byond://?src=[UID()];remove_mob=[M.UID()]'>[get_display_name(M)]</a>"
-	dat += "<a href='byond://?src=[UID()];add_mob=1'>Add Mob</a>"
-	dat += "<a href='byond://?src=[UID()];clear_mobs=1'>Clear All Mobs</a>"
+		dat += "<a href='byond://?src=[UID()];[HrefToken()];remove_mob=[M.UID()]'>[get_display_name(M)]</a>"
+	dat += "<a href='byond://?src=[UID()];[HrefToken()];add_mob=1'>Add Mob</a>"
+	dat += "<a href='byond://?src=[UID()];[HrefToken()];clear_mobs=1'>Clear All Mobs</a>"
 	dat += "<br>"
 
 	dat += "<span>Ckeys being used:</span>"
 	for(var/ckey in selected_ckeys)
-		dat += "<a href='byond://?src=[UID()];remove_ckey=[ckey]'>[get_ckey_name(ckey)]</a>"
-	dat += "<a href='byond://?src=[UID()];add_ckey=1'>Add ckey</a>"
-	dat += "<a href='byond://?src=[UID()];clear_ckeys=1'>Clear All ckeys</a>"
+		dat += "<a href='byond://?src=[UID()];[HrefToken()];remove_ckey=[ckey]'>[get_ckey_name(ckey)]</a>"
+	dat += "<a href='byond://?src=[UID()];[HrefToken()];add_ckey=1'>Add ckey</a>"
+	dat += "<a href='byond://?src=[UID()];[HrefToken()];clear_ckeys=1'>Clear All ckeys</a>"
 	dat += "<br>"
 
 	dat += "<span>Log Types:</span>"
@@ -166,11 +166,11 @@ if(!result || result.ckey != __ckey){\
 		else
 			text = log_type
 
-		dat += "<a href='byond://?src=[UID()];toggle_log_type=[log_type]' style='[style]'>[text]</a>"
+		dat += "<a href='byond://?src=[UID()];[HrefToken()];toggle_log_type=[log_type]' style='[style]'>[text]</a>"
 
 	dat += "<br>"
-	dat += "<a href='byond://?src=[UID()];clear_all=1'>Clear All Settings</a>"
-	dat += "<a href='byond://?src=[UID()];search=1'>Search</a>"
+	dat += "<a href='byond://?src=[UID()];[HrefToken()];clear_all=1'>Clear All Settings</a>"
+	dat += "<a href='byond://?src=[UID()];[HrefToken()];search=1'>Search</a>"
 	dat += "</div>"
 
 	// Search results
@@ -196,6 +196,9 @@ if(!result || result.ckey != __ckey){\
 	popup.open()
 
 /datum/log_viewer/Topic(href, href_list)
+	if(!check_rights(R_ADMIN|R_MOD) || !usr.client.holder.CheckAdminHref(href, href_list))
+		return
+
 	if(href_list["start_time"])
 		var/input = tgui_input_text(usr, "hh:mm:ss", "Start time", "00:00:00")
 		if(isnull(input))

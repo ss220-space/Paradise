@@ -40,6 +40,6 @@
 	H.force_gene_block(GLOB.eatblock, TRUE)
 	H.force_gene_block(GLOB.jumpblock, TRUE)
 	H.force_gene_block(GLOB.immolateblock, TRUE)
-	ADD_TRAIT(H, TRAIT_LASEREYES, WISHGRANTER_TRAIT)
+	H.AddSpell(new /datum/action/cooldown/spell/pointed/projectile/lasereyes)
 	H.update_mutations()
 
