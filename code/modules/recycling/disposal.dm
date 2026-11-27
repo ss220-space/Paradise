@@ -89,7 +89,11 @@
 /datum/milla_safe/disposal_suck_air
 
 /datum/milla_safe/disposal_suck_air/on_run(obj/machinery/disposal/disposal)
+	if(QDELETED(disposal))
+		return
 	var/turf/location = get_turf(disposal)
+	if(!location)
+		return
 	var/datum/gas_mixture/env = get_turf_air(location)
 
 	var/pressure_delta = (SEND_PRESSURE + 1) - disposal.air_contents.return_pressure()

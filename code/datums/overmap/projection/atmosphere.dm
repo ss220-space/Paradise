@@ -244,6 +244,7 @@
 	var/obj/effect/abstract/hull_proxy_tile/surface_frame/frame
 	var/origin_x
 	var/origin_y
+	var/edge_mask_radius
 	var/last_scale
 	var/list/prefetched = list()
 
@@ -291,6 +292,33 @@
 	pose.Translate((vessel.hull_center_x - viewer_turf.x) * ICON_SIZE_X, (vessel.hull_center_y - viewer_turf.y) * ICON_SIZE_Y)
 	return pose
 
+/datum/terrain_mirror/atmosphere/proc/add_edge_strip(list/mask, left, bottom, right, top)
+	var/mutable_appearance/strip = mutable_appearance('icons/effects/alphacolors.dmi', "white", SPACE_LAYER, plane = FLOAT_PLANE)
+	strip.color = COLOR_BLACK
+	strip.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	var/matrix/position = matrix()
+	position.Scale(right - left + 1, top - bottom + 1)
+	position.Translate(((left + right) / 2 - origin_x) * ICON_SIZE_X, ((bottom + top) / 2 - origin_y) * ICON_SIZE_Y)
+	strip.transform = position
+	mask += strip
+
+/datum/terrain_mirror/atmosphere/proc/update_edge_mask(radius)
+	var/left = origin_x - radius
+	var/right = origin_x + radius
+	var/bottom = origin_y - radius
+	var/top = origin_y + radius
+	var/list/mask = list()
+	if(left < 1)
+		add_edge_strip(mask, left, bottom, 0, top)
+	if(right > world.maxx)
+		add_edge_strip(mask, world.maxx + 1, bottom, right, top)
+	if(bottom < 1)
+		add_edge_strip(mask, max(1, left), bottom, min(world.maxx, right), 0)
+	if(top > world.maxy)
+		add_edge_strip(mask, max(1, left), world.maxy + 1, min(world.maxx, right), top)
+	frame.underlays = mask
+	edge_mask_radius = radius
+
 /datum/terrain_mirror/atmosphere/update(elapsed, list/viewports = SSovermap.frame_viewports(vessel))
 	var/datum/overmap_atmosphere/flight = vessel.atmosphere
 	var/datum/overmap_bubble/planet_surface/surface = flight.surface
@@ -307,6 +335,7 @@
 	var/list/wanted = list()
 	var/list/strip
 	var/cold_chunk = FALSE
+	var/view_radius = 0
 	for(var/list/viewport as anything in viewports)
 		var/turf/eye = viewport[1]
 		var/dx = (eye.x - vessel.hull_center_x) * scale
@@ -314,10 +343,13 @@
 		var/x = point[1] + dx * c + dy * s
 		var/y = point[2] + dy * c - dx * s
 		var/reach = viewport[2] * scale * (abs(c) + abs(s))
+		view_radius = max(view_radius, max(abs(x - origin_x), abs(y - origin_y)) + reach)
 		var/min_x = FLOOR((max(x - reach, 1) - 1) / OVERMAP_SURFACE_CHUNK, 1)
 		var/min_y = FLOOR((max(y - reach, 1) - 1) / OVERMAP_SURFACE_CHUNK, 1)
 		var/max_x = FLOOR((min(x + reach, world.maxx) - 1) / OVERMAP_SURFACE_CHUNK, 1)
 		var/max_y = FLOOR((min(y + reach, world.maxy) - 1) / OVERMAP_SURFACE_CHUNK, 1)
+		if(min_x > max_x || min_y > max_y)
+			continue
 		if(!strip && !isnull(last_x) && last_scale == scale && facing == last_turned_facing && (point[1] != last_x || point[2] != last_y))
 			if(abs(point[1] - last_x) >= abs(point[2] - last_y))
 				var/leading_x = point[1] > last_x ? max_x + 1 : min_x - 1
@@ -353,6 +385,9 @@
 				if(fresh || rebase)
 					tile.pixel_x = (tile.chunk.center_x - origin_x) * ICON_SIZE_X
 					tile.pixel_y = (tile.chunk.center_y - origin_y) * ICON_SIZE_Y
+	var/radius = CEILING(view_radius, OVERMAP_SURFACE_CHUNK)
+	if(rebase || edge_mask_radius != radius)
+		update_edge_mask(radius)
 	for(var/key in tiles)
 		if(!wanted[key])
 			qdel(tiles[key])

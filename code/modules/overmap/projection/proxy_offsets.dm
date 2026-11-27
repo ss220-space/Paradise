@@ -9,6 +9,8 @@
 
 /obj/effect/abstract/hull_proxy_offset/Initialize(mapload, atom/movable/source)
 	. = ..()
+	if(QDELETED(source))
+		return INITIALIZE_HINT_QDEL
 	src.source = source
 	plane = source.plane
 	layer = source.layer

@@ -76,8 +76,8 @@
 
 /obj/item/clothing/suit/space/space_ninja/proc/on_ninja_shuttle_console(datum/source, obj/machinery/computer/shuttle/ninja/console)
 	SIGNAL_HANDLER
-	if(QDELETED(shuttle_controller))
-		shuttle_controller = console
+	if(!shuttle_controller_ref?.resolve())
+		shuttle_controller_ref = WEAKREF(console)
 
 /obj/item/clothing/suit/space/space_ninja/proc/linked_overmap_vessel()
 	var/obj/machinery/computer/shuttle/ninja/console = ensure_shuttle_controller()
@@ -101,14 +101,14 @@
 	return TRUE
 
 /obj/item/clothing/suit/space/space_ninja/proc/ensure_shuttle_controller()
-	if(!QDELETED(shuttle_controller))
-		return shuttle_controller
-	shuttle_controller = null
+	var/obj/machinery/computer/shuttle/ninja/controller = shuttle_controller_ref?.resolve()
+	if(controller)
+		return controller
 	for(var/obj/machinery/computer/shuttle/ninja/shuttle as anything in SSmachines.get_by_type(/obj/machinery/computer/shuttle/ninja))
 		if(QDELETED(shuttle))
 			continue
-		shuttle_controller = shuttle
-		return shuttle_controller
+		shuttle_controller_ref = WEAKREF(shuttle)
+		return shuttle
 	return null
 
 /obj/item/clothing/suit/space/space_ninja/ui_act(action, list/params)

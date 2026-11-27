@@ -66,11 +66,11 @@
 	local_sector.add_object(host, center)
 	return TRUE
 
-/obj/overmap/planet/station_world/Initialize(mapload, datum/map/settings, footprint_size)
+/obj/overmap/planet/station_world/Initialize(mapload, datum/map/settings = SSmapping.map_datum, footprint_size)
 	name = settings.overmap_station_planet_name
 	map_color = settings.overmap_station_planet_color
 	surface_tint = map_color
-	footprint = footprint_size
+	footprint = isnum(footprint_size) ? footprint_size : settings.overmap_station_planet_footprint
 	if(settings.overmap_station_planet_icon_state in icon_states(OVERMAP_PLANET_ICON_FILE))
 		icon_state = settings.overmap_station_planet_icon_state
 	return ..()

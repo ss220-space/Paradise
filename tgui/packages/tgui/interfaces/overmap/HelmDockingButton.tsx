@@ -12,7 +12,7 @@ export const HelmDockingButton = () => {
   let label = 'Остановиться';
   let action = 'prepare_stop';
   let enabled = !!data.can_stop;
-  if (data.dock_preview) {
+  if (data.dock_preview || data.dock_aligning) {
     label = data.dock_aligning
       ? 'Автодоводка…'
       : data.dock_ready
@@ -57,16 +57,6 @@ export const HelmDockingButton = () => {
       </button>
       {!!data.in_atmosphere && (
         <div className="HelmAtmosphereActions">
-          {!!data.dock_preview && (
-            <button
-              type="button"
-              className="HelmButton"
-              disabled={busy || !data.can_stop}
-              onClick={() => act('prepare_stop')}
-            >
-              Остановиться
-            </button>
-          )}
           <button
             type="button"
             className="HelmButton"

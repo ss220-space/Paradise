@@ -97,7 +97,7 @@
 	var/obj/item/gun/magic/johyo/integrated_harpoon
 
 	/// Референс для компьютера шатла
-	var/obj/machinery/computer/shuttle/ninja/shuttle_controller
+	var/datum/weakref/shuttle_controller_ref
 	var/obj/machinery/computer/helm/virtual/remote_helm
 	var/obj/machinery/computer/sensors/virtual/remote_sensors
 	var/obj/machinery/transponder/virtual/remote_transponder
@@ -345,7 +345,7 @@
 	QDEL_NULL(remote_sensors)
 	QDEL_NULL(remote_transponder)
 	UnregisterSignal(SSdcs, COMSIG_GLOB_OVERMAP_NINJA_CONSOLE)
-	shuttle_controller = null
+	shuttle_controller_ref = null
 	cloning_ref = null
 	QDEL_NULL(disguise)
 	STOP_PROCESSING(SSfastprocess, src)
