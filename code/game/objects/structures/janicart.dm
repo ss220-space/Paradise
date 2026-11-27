@@ -84,15 +84,91 @@
 /obj/structure/janitorialcart/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/structure/janitorialcart/attackby_secondary(obj/item/weapon, mob/user, list/modifiers, list/attack_modifiers)
-	if(istype(weapon, /obj/item/mop))
-		if(weapon.reagents.total_volume >= weapon.reagents.maximum_volume)
+/obj/structure/janitorialcart/item_interaction_secondary(mob/living/user, obj/item/tool, list/modifiers)
+	if(istype(tool, /obj/item/mop))
+		if(tool.reagents.total_volume >= tool.reagents.maximum_volume)
 			balloon_alert(user, "already soaked!")
-			return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
-		reagents.trans_to(weapon, weapon.reagents.maximum_volume)
+			return ITEM_INTERACT_FAILURE
+		reagents.trans_to(tool, tool.reagents.maximum_volume)
 		balloon_alert(user, "doused mop")
 		playsound(src, 'sound/effects/slosh.ogg', 25, vary = TRUE)
+		return ITEM_INTERACT_SUCCESS
+	return ..()
 
+/obj/structure/janitorialcart/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(user.a_intent == INTENT_HARM || tool.is_robot_module())
+		return ..()
+
+	var/fail_msg = span_notice("There is already one of those in [src].")
+
+
+	if(istype(tool, /obj/item/mop))
+		if(mymop)
+			to_chat(user, fail_msg)
+			return ITEM_INTERACT_FAILURE
+		add_fingerprint(user)
+		if(!put_in_cart(tool, user))
+			return ..()
+		mymop = tool
+		SStgui.update_uis(src)
+		update_appearance(UPDATE_OVERLAYS)
+		return ITEM_INTERACT_SUCCESS
+
+	if(istype(tool, /obj/item/storage/bag/trash))
+		add_fingerprint(user)
+		if(mybag)
+			to_chat(user, fail_msg)
+			return ITEM_INTERACT_FAILURE
+		if(!put_in_cart(tool, user))
+			return ..()
+		mybag = tool
+		SStgui.update_uis(src)
+		update_icon(UPDATE_OVERLAYS)
+		return ITEM_INTERACT_SUCCESS
+
+	if(istype(tool, /obj/item/lightreplacer))
+		add_fingerprint(user)
+		if(myreplacer)
+			to_chat(user, fail_msg)
+			return ITEM_INTERACT_FAILURE
+		if(!put_in_cart(tool, user))
+			return ..()
+		myreplacer = tool
+		SStgui.update_uis(src)
+		update_icon(UPDATE_OVERLAYS)
+		return ITEM_INTERACT_SUCCESS
+
+	if(istype(tool, /obj/item/reagent_containers/spray/cleaner))
+		add_fingerprint(user)
+		if(myspray)
+			to_chat(user, fail_msg)
+			return ATTACK_CHAIN_PROCEED
+		if(!put_in_cart(tool, user))
+			return ..()
+		myspray = tool
+		SStgui.update_uis(src)
+		update_icon(UPDATE_OVERLAYS)
+		return ITEM_INTERACT_SUCCESS
+
+	if(istype(tool, /obj/item/caution))
+		add_fingerprint(user)
+		if(signs >= max_signs)
+			to_chat(user, span_notice("The [name] cannot hold any more signs."))
+			return ATTACK_CHAIN_PROCEED
+		if(!put_in_cart(tool, user))
+			return ..()
+		signs++
+		SStgui.update_uis(src)
+		update_icon(UPDATE_OVERLAYS)
+		return ITEM_INTERACT_SUCCESS
+
+	if(mybag?.can_be_inserted(tool, stop_messages = TRUE))
+		mybag.handle_item_insertion(tool)
+		return ITEM_INTERACT_SUCCESS
+
+	return ..()
+
+/obj/structure/janitorialcart/attackby_secondary(obj/item/weapon, mob/user, list/modifiers, list/attack_modifiers)
 	if(is_reagent_container(weapon) || istype(weapon, /obj/item/mop))
 		update_appearance(UPDATE_OVERLAYS)
 		return SECONDARY_ATTACK_CONTINUE_CHAIN // skip attack animations when refilling cart
@@ -103,77 +179,9 @@
 	if(user.a_intent == INTENT_HARM || I.is_robot_module())
 		return ..()
 
-	var/fail_msg = span_notice("There is already one of those in [src].")
-
-
-	if(istype(I, /obj/item/mop))
-		if(mymop)
-			to_chat(user, fail_msg)
-			return ATTACK_CHAIN_BLOCKED_ALL
-		add_fingerprint(user)
-		if(!put_in_cart(I, user))
-			return ..()
-		mymop = I
-		SStgui.update_uis(src)
-		update_appearance(UPDATE_OVERLAYS)
-		return ATTACK_CHAIN_BLOCKED_ALL
-
-	if(istype(I, /obj/item/storage/bag/trash))
-		add_fingerprint(user)
-		if(mybag)
-			to_chat(user, fail_msg)
-			return ATTACK_CHAIN_PROCEED
-		if(!put_in_cart(I, user))
-			return ..()
-		mybag = I
-		SStgui.update_uis(src)
-		update_icon(UPDATE_OVERLAYS)
-		return ATTACK_CHAIN_BLOCKED_ALL
-
-	if(istype(I, /obj/item/lightreplacer))
-		add_fingerprint(user)
-		if(myreplacer)
-			to_chat(user, fail_msg)
-			return ATTACK_CHAIN_PROCEED
-		if(!put_in_cart(I, user))
-			return ..()
-		myreplacer = I
-		SStgui.update_uis(src)
-		update_icon(UPDATE_OVERLAYS)
-		return ATTACK_CHAIN_BLOCKED_ALL
-
-	if(istype(I, /obj/item/reagent_containers/spray/cleaner))
-		add_fingerprint(user)
-		if(myspray)
-			to_chat(user, fail_msg)
-			return ATTACK_CHAIN_PROCEED
-		if(!put_in_cart(I, user))
-			return ..()
-		myspray = I
-		SStgui.update_uis(src)
-		update_icon(UPDATE_OVERLAYS)
-		return ATTACK_CHAIN_BLOCKED_ALL
-
 	if(is_reagent_container(I))
 		update_appearance(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_BLOCKED // skip attack animation when refilling cart
-
-	if(istype(I, /obj/item/caution))
-		add_fingerprint(user)
-		if(signs >= max_signs)
-			to_chat(user, span_notice("The [name] cannot hold any more signs."))
-			return ATTACK_CHAIN_PROCEED
-		if(!put_in_cart(I, user))
-			return ..()
-		signs++
-		SStgui.update_uis(src)
-		update_icon(UPDATE_OVERLAYS)
-		return ATTACK_CHAIN_BLOCKED_ALL
-
-	if(mybag?.can_be_inserted(I, stop_messages = TRUE))
-		mybag.handle_item_insertion(I)
-		return ATTACK_CHAIN_BLOCKED_ALL
-
 	return ..()
 
 /obj/structure/janitorialcart/crowbar_act(mob/living/user, obj/item/I)
@@ -193,6 +201,7 @@
 	)
 	reagents.reaction(loc)
 	reagents.clear_reagents()
+	return ITEM_INTERACT_SUCCESS
 
 /obj/structure/janitorialcart/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -214,6 +223,7 @@
 			span_notice("You have loosened [name]'s casters."),
 			span_italics("You hear ratchet."),
 		)
+	return ITEM_INTERACT_SUCCESS
 
 /obj/structure/janitorialcart/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

@@ -226,8 +226,7 @@ GLOBAL_LIST_EMPTY(cached_songs)
 			var/filepath = SSticker.login_music_data["path"]
 			var/datum/asset/music/music_asset = GLOB.cached_songs[filepath]
 			if(!music_asset)
-				var/ytdl = CONFIG_GET(string/invoke_youtubedl)
-				music_asset = new /datum/asset/music(ytdl, SSticker.selected_lobby_music, SSticker.login_music_data["id"])
+				music_asset = new /datum/asset/music(SSticker.selected_lobby_music, SSticker.login_music_data["id"])
 				if(!music_asset.item_filename)
 					return
 				GLOB.cached_songs[filepath] = music_asset

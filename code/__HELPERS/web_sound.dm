@@ -55,7 +55,7 @@
 /world/proc/get_web_sound_info(ytdl, url)
 	var/datum/web_sound_info/info = new
 	var/scrubbed_url = shell_url_scrub(url)
-	var/list/output = world.shelleo("[ytdl] [YTDL_COMMON_ARGS] --dump-single-json --simulate \"[scrubbed_url]\"")
+	var/list/output = world.shelleo("[ytdl] [YTDL_COMMON_ARGS] --dump-single-json --simulate -- \"[scrubbed_url]\"")
 	if(output[SHELLEO_ERRORLEVEL])
 		info.error_message = output[SHELLEO_STDERR]
 		return info
@@ -92,7 +92,7 @@
 /world/proc/download_web_sound(ytdl, url, sound_id)
 	var/datum/web_sound_download/download = new
 	var/scrubbed_url = shell_url_scrub(url)
-	var/list/output = world.shelleo("[ytdl] [YTDL_COMMON_ARGS] -o \"cache/songs/%(id)s.%(ext)s\" \"[scrubbed_url]\"")
+	var/list/output = world.shelleo("[ytdl] [YTDL_COMMON_ARGS] -o \"cache/songs/%(id)s.%(ext)s\" -- \"[scrubbed_url]\"")
 	if(output[SHELLEO_ERRORLEVEL])
 		download.error_message = output[SHELLEO_STDERR]
 		return download

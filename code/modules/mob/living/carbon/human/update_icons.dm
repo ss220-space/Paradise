@@ -944,6 +944,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(dna.species.optional_body_accessory)
 			return
 		bodypart_wing.body_accessory = GLOB.body_accessory_by_name[dna.species.default_bodyacc]
+	if(!body_accessory)
+		return
 	var/icon/wings_icon = new /icon(body_accessory.icon, body_accessory.icon_state)
 	if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
 		wings_icon.ColorTone(COLORTONE_DEAD_EXT_ORGAN)

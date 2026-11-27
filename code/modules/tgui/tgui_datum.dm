@@ -67,7 +67,7 @@
 	// Deprecated
 	if(ui_x && ui_y)
 		src.window_size = list(ui_x, ui_y)
-	secret = rustlib_uuid_v7()
+	secret = rustlib_uuid_v4()
 
 /datum/tgui/Destroy(force)
 	user = null
@@ -77,6 +77,12 @@
 	window?.close(TRUE)
 	window = null
 	. = ..()
+
+/datum/tgui/dump_harddel_info()
+	if(harddel_deets_dumped)
+		return
+	harddel_deets_dumped = TRUE
+	return "Interface: [interface], initialized: [initialized], closing: [closing], status: [status], opened at: [opened_at || "never"]"
 
 /**
  * public
