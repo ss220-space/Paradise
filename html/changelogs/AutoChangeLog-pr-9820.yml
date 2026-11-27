@@ -1,4 +1,0 @@
-author: "vovakons"
-delete-after: True
-changes:
-  - add: "Добавлен станковый пулемет в щитспавн. (PR #9820)"

@@ -670,6 +670,10 @@
 	. = ..()
 	update_icon(UPDATE_OVERLAYS)
 
+/obj/item/weapon_cell/Destroy()
+	QDEL_NULL(internal_cell)
+	return ..()
+
 /obj/item/weapon_cell/proc/is_available_shot(shot_energy_cost)
 	return internal_cell.charge >= shot_energy_cost
 

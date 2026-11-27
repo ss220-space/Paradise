@@ -64,28 +64,28 @@
 
 /obj/effect/sound_emitter/proc/edit_emitter(mob/user)
 	var/dat = ""
-	dat += "<b>Маркировка:</b> <a href='byond://?src=[UID()];edit_label=1'>[maptext ? maptext : "Маркировка не установлена!"]</a><br>"
+	dat += "<b>Маркировка:</b> <a href='byond://?src=[UID()];[HrefToken()];edit_label=1'>[maptext ? maptext : "Маркировка не установлена!"]</a><br>"
 
 	dat += "<br>"
-	dat += "<b>Звуковой файл:</b> <a href='byond://?src=[UID()];edit_sound_file=1'>[sound_file ? sound_file : "Не выбран!"]</a><br>"
-	dat += "<b>Громкость:</b> <a href='byond://?src=[UID()];edit_volume=1'>[sound_volume]%</a><br>"
+	dat += "<b>Звуковой файл:</b> <a href='byond://?src=[UID()];[HrefToken()];edit_sound_file=1'>[sound_file ? sound_file : "Не выбран!"]</a><br>"
+	dat += "<b>Громкость:</b> <a href='byond://?src=[UID()];[HrefToken()];edit_volume=1'>[sound_volume]%</a><br>"
 	dat += "<br>"
-	dat += "<b>Режим:</b> <a href='byond://?src=[UID()];edit_mode=1'>[motus_operandi]</a><br>"
+	dat += "<b>Режим:</b> <a href='byond://?src=[UID()];[HrefToken()];edit_mode=1'>[motus_operandi]</a><br>"
 	if(motus_operandi != SOUND_EMITTER_LOCAL)
-		dat += "<b>Дальность:</b> <a href='byond://?src=[UID()];edit_range=1'>[emitter_range]</a>[emitter_range == SOUND_EMITTER_RADIUS ? "<a href='byond://?src=[UID()];edit_radius=1'>[play_radius]-тайловый радиус</a>" : ""]<br>"
+		dat += "<b>Дальность:</b> <a href='byond://?src=[UID()];[HrefToken()];edit_range=1'>[emitter_range]</a>[emitter_range == SOUND_EMITTER_RADIUS ? "<a href='byond://?src=[UID()];[HrefToken()];edit_radius=1'>[play_radius]-тайловый радиус</a>" : ""]<br>"
 	dat += "<br>"
 	if(!started)
-		dat += "<a href='byond://?src=[UID()];play=1'>Проиграть звук</a> (прерывает звуки других звуковых излучателей)"
+		dat += "<a href='byond://?src=[UID()];[HrefToken()];play=1'>Проиграть звук</a> (прерывает звуки других звуковых излучателей)"
 	else
-		dat += "<a href='byond://?src=[UID()];reload=1'>Перезапустить звук</a>"
-		dat += "<a href='byond://?src=[UID()];stop=1'>Остановить звук</a>"
+		dat += "<a href='byond://?src=[UID()];[HrefToken()];reload=1'>Перезапустить звук</a>"
+		dat += "<a href='byond://?src=[UID()];[HrefToken()];stop=1'>Остановить звук</a>"
 	var/datum/browser/popup = new(user, "emitter", "", 500, 600)
 	popup.set_content(dat)
 	popup.open()
 
 /obj/effect/sound_emitter/Topic(href, href_list)
 	..()
-	if(!ismob(usr) || !usr.client || !check_rights_for(usr.client, R_SOUNDS))
+	if(!ismob(usr) || !usr.client || !check_rights_for(usr.client, R_SOUNDS) || !usr.client.holder.CheckAdminHref(href, href_list))
 		return
 	var/mob/user = usr
 

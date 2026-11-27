@@ -66,8 +66,6 @@
 			return
 
 	if(!GLOB.pacifism_after_gt && !(HAS_TRAIT(src, TRAIT_PACIFISM) || HAS_TRAIT(src, TRAIT_NO_GUNS)))
-		if(HAS_TRAIT(src, TRAIT_LASEREYES) && a_intent == INTENT_HARM)
-			LaserEyes(A)
 
 		if(HAS_TRAIT(src, TRAIT_TELEKINESIS))
 			A.attack_tk(src)

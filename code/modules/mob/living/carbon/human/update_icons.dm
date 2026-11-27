@@ -944,6 +944,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(dna.species.optional_body_accessory)
 			return
 		bodypart_wing.body_accessory = GLOB.body_accessory_by_name[dna.species.default_bodyacc]
+	if(!body_accessory)
+		return
 	var/icon/wings_icon = new /icon(body_accessory.icon, body_accessory.icon_state)
 	if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
 		wings_icon.ColorTone(COLORTONE_DEAD_EXT_ORGAN)
@@ -1180,6 +1182,19 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	overlays_standing[INTORGAN_LAYER] = standing
 	apply_overlay(INTORGAN_LAYER)
+	update_hand_int_organs()
+
+/mob/living/carbon/human/proc/update_hand_int_organs()
+	remove_overlay(HAND_INTORGAN_LAYER)
+
+	var/list/standing = list()
+	for(var/obj/item/organ/internal/organ as anything in internal_organs)
+		var/extra_render = organ.extra_render()
+		if(extra_render)
+			standing += extra_render
+
+	overlays_standing[HAND_INTORGAN_LAYER] = standing
+	apply_overlay(HAND_INTORGAN_LAYER)
 
 /mob/living/carbon/human/handle_transform_change()
 	..()

@@ -123,6 +123,8 @@
 
 	/// Last location of the atom for demo recording purposes
 	var/atom/demo_last_loc
+	/// How far (in pixels) should this atom scatter when created/dropped/etc. Does not apply to mapped-in items.
+	var/scatter_distance = 0
 
 /mutable_appearance/emissive_blocker
 
@@ -376,7 +378,7 @@
 				span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] схватил[GEND_A_O_I(src)] [pulled_mob.declent_ru(ACCUSATIVE)]!"),
 				span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] схватил[GEND_A_O_I(src)] Вас!"),
 			)
-		pulled_mob.LAssailant = iscarbon(src) ? src : null
+		pulled_mob.LAssailant = iscarbon(src) ? WEAKREF(src) : null
 	return TRUE
 
 /atom/movable/proc/stop_pulling()
@@ -1730,3 +1732,8 @@
 /// Called when a mob resists while inside a container that is itself inside something.
 /atom/movable/proc/relay_container_resist_act(mob/living/user, obj/container)
 	return
+
+/// Used to scatter atoms so that multiple copies aren't all at the exact same spot.
+/atom/movable/proc/scatter_atom(x_offset = 0, y_offset = 0)
+	pixel_x = base_pixel_x + x_offset + rand(-scatter_distance, scatter_distance)
+	pixel_y = base_pixel_y + y_offset + rand(-scatter_distance, scatter_distance)

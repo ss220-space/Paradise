@@ -58,6 +58,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/vending/wallmed, SHIFTING_WALLMED, SH
 
 /obj/machinery/vending/wallmed/add_context(atom/source, list/context, obj/item/held_item, mob/user)
 	. = ..()
+	if(!held_item)
+		return
 
 	switch(held_item.tool_behaviour)
 		if(TOOL_WRENCH)

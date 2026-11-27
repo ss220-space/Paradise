@@ -824,9 +824,9 @@ ADMIN_VERB(list_ssds_afks, R_ADMIN, "List SSDs and AFKs", "List SSDs and AFK pla
 		msg += "<tr><td>[key_string]</td><td>[H.real_name]</td><td>[job_string]</td><td>[mins_ssd]</td><td>[role_string][obj_string]</td>"
 		msg += "<td>[get_area(H)]</td><td>[ADMIN_PP(H,"PP")]</td>"
 		if(istype(H.loc, /obj/machinery/cryopod))
-			msg += "<td><a href='byond://?_src_=holder;cryossd=[H.UID()]'>De-Spawn</a></td>"
+			msg += "<td><a href='byond://?_src_=holder;[HrefToken()];cryossd=[H.UID()]'>De-Spawn</a></td>"
 		else
-			msg += "<td><a href='byond://?_src_=holder;cryossd=[H.UID()]'>Cryo</a></td>"
+			msg += "<td><a href='byond://?_src_=holder;[HrefToken()];cryossd=[H.UID()]'>Cryo</a></td>"
 		msg += "</tr>"
 	msg += "</table><br>"
 
@@ -864,9 +864,9 @@ ADMIN_VERB(list_ssds_afks, R_ADMIN, "List SSDs and AFKs", "List SSDs and AFK pla
 		msg += "<tr><td>[key_string]</td><td>[H.real_name]</td><td>[job_string]</td><td>[mins_afk]</td><td>[role_string][obj_string]</td>"
 		msg += "<td>[get_area(H)]</td><td>[ADMIN_PP(H,"PP")]</td>"
 		if(istype(H.loc, /obj/machinery/cryopod))
-			msg += "<td><a href='byond://?_src_=holder;cryossd=[H.UID()];cryoafk=1'>De-Spawn</a></td>"
+			msg += "<td><a href='byond://?_src_=holder;[HrefToken()];cryossd=[H.UID()];cryoafk=1'>De-Spawn</a></td>"
 		else
-			msg += "<td><a href='byond://?_src_=holder;cryossd=[H.UID()];cryoafk=1'>Cryo</a></td>"
+			msg += "<td><a href='byond://?_src_=holder;[HrefToken()];cryossd=[H.UID()];cryoafk=1'>Cryo</a></td>"
 		msg += "</tr>"
 	msg += "</table>"
 	var/datum/browser/popup = new(user, "player_ssd_afk_check", "SSD & AFK Report", 600, 300)
@@ -913,8 +913,8 @@ ADMIN_VERB(modify_goals, R_EVENT, "Modify Goals", "Modify the station goals for 
 
 	var/dat = ""
 	for(var/datum/station_goal/S in SSticker.mode.station_goals)
-		dat += "[S.name] - <a href='byond://?src=[S.UID()];announce=1'>Announce</a> | <a href='byond://?src=[S.UID()];remove=1'>Remove</a><br>"
-	dat += "<br><a href='byond://?src=[UID()];add_station_goal=1'>Add New Goal</a>"
+		dat += "[S.name] - <a href='byond://?src=[S.UID()];[HrefToken()];announce=1'>Announce</a> | <a href='byond://?src=[S.UID()];[HrefToken()];remove=1'>Remove</a><br>"
+	dat += "<br><a href='byond://?src=[UID()];[HrefToken()];add_station_goal=1'>Add New Goal</a>"
 	var/datum/browser/popup = new(usr, "goals", "Modify Goals", 400, 400)
 	popup.set_content(dat)
 	popup.open(FALSE)

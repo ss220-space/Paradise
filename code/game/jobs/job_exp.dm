@@ -71,7 +71,7 @@ ADMIN_VERB(check_player_exp, R_ADMIN|R_MOD|R_MENTOR, "Check Player Playtime", "R
 				jtext = theirjob.title
 		msg += "<td>[jtext]</td>"
 
-		msg += "<td><a href='byond://?_src_=holder;getplaytimewindow=[C.mob.UID()]'>" + C.get_exp_type(EXP_TYPE_CREW) + "</a></td>"
+		msg += "<td><a href='byond://?_src_=holder;[HrefToken()];getplaytimewindow=[C.mob.UID()]'>" + C.get_exp_type(EXP_TYPE_CREW) + "</a></td>"
 		msg += "[C.get_exp_dept_string()]"
 		msg += "</tr>"
 

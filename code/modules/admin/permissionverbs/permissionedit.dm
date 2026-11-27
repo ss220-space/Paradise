@@ -6,6 +6,11 @@
 		to_chat(usr, span_warning("Failed to establish database connection"))
 		return
 
+	if(IsAdminAdvancedProcCall())
+		to_chat(usr, span_boldannounceooc("Admin edit blocked: Advanced ProcCall detected."))
+		log_and_message_admins("attempted to edit admin ranks via advanced proc-call")
+		return
+
 	if(!adm_ckey || !new_rank)
 		return
 
@@ -55,6 +60,11 @@
 
 /datum/admins/proc/admin_rank_only_modification(adm_ckey, new_rank)
 	if(!check_rights(R_PERMISSIONS))
+		return
+
+	if(IsAdminAdvancedProcCall())
+		to_chat(usr, span_boldannounceooc("Admin edit blocked: Advanced ProcCall detected."))
+		log_and_message_admins("attempted to edit admin ranks via advanced proc-call")
 		return
 
 	if(!SSdbcore.IsConnected())
@@ -238,7 +248,7 @@ td, th {
 </colgroup>
 <thead>
 <tr class='title'>
-<th>CKEY <a class='small' href='byond://?src=[UID()];editrights=add'>\[+\]</a></th>
+<th>CKEY <a class='small' href='byond://?src=[UID()];[HrefToken()];editrights=add'>\[+\]</a></th>
 <th>RANK</th>
 <th>PERMISSIONS</th>
 </tr>
@@ -254,9 +264,9 @@ td, th {
 		if(!rights)
 			rights = NONE_SELECT
 		output += {"<tr>
-<td style='min-width: 20%;'>[adm_ckey] <a class='small' href='byond://?src=[UID()];editrights=remove;ckey=[adm_ckey]'>\[-\]</a></td>
-<td slyle='min-width: 20%;'><a href='byond://?src=[UID()];editrights=rank;ckey=[adm_ckey]'>[rank]</a></td>
-<td style='min-width: 60%;'><a class='small' href='byond://?src=[UID()];editrights=permissions;ckey=[adm_ckey]'>[rights]</a></td>
+<td style='min-width: 20%;'>[adm_ckey] <a class='small' href='byond://?src=[UID()];[HrefToken()];editrights=remove;ckey=[adm_ckey]'>\[-\]</a></td>
+<td slyle='min-width: 20%;'><a href='byond://?src=[UID()];[HrefToken()];editrights=rank;ckey=[adm_ckey]'>[rank]</a></td>
+<td style='min-width: 60%;'><a class='small' href='byond://?src=[UID()];[HrefToken()];editrights=permissions;ckey=[adm_ckey]'>[rights]</a></td>
 </tr>"}
 
 	output += {"
@@ -280,14 +290,19 @@ td, th {
 	if(!check_rights(R_PERMISSIONS))
 		log_and_message_admins("attempted to edit the admin permissions without sufficient rights.")
 		return
+
+	if(!alert(usr, "Вы действительно хотите начать операцию с админскими правами?", "Внимание!", "Да", "Отмена") == "Да")
+		return
+
 	var/adm_ckey
 	if(task == "add")
 		var/new_ckey = ckey(tgui_input_text(usr, "Сикей нового админа", "Добавление админа", null, encode=FALSE))
+		new_ckey = ckey(new_ckey)
 		if(!new_ckey)	return
 		if(new_ckey in GLOB.admin_datums)
 			to_chat(usr, "<span style='color: red;'>Ошибка: Topic 'editrights': [new_ckey] уже админ!</span>", confidential = TRUE)
 			return
-		adm_ckey = new_ckey
+		adm_ckey = ckey(new_ckey)
 		task = "rank"
 	else if(task != "show")
 		adm_ckey = ckey(ckey)

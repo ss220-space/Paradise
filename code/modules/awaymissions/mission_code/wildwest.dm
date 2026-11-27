@@ -73,7 +73,7 @@
 			if("Power")
 				to_chat(user, "<b>Your wish is granted, but at a terrible cost...</b>")
 				to_chat(user, "The Wish Granter punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart.")
-				ADD_TRAIT(user, TRAIT_LASEREYES, WISHGRANTER_TRAIT)
+				user.AddSpell(new /datum/action/cooldown/spell/pointed/projectile/lasereyes)
 				ADD_TRAIT(user, TRAIT_RESIST_COLD, WISHGRANTER_TRAIT)
 				ADD_TRAIT(user, TRAIT_XRAY, WISHGRANTER_TRAIT)
 				user.update_sight()

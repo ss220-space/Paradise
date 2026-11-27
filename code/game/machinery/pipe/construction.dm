@@ -136,8 +136,7 @@
 	update(make_from)
 	//Flipping handled manually due to custom handling for trinary pipes
 	AddElement(/datum/element/simple_rotation, ROTATION_NO_FLIPPING, post_rotation_proccall = PROC_REF(post_rotate))
-	src.pixel_x = rand(-5, 5)
-	src.pixel_y = rand(-5, 5)
+	scatter_atom()
 
 //update the name and icon of the pipe item depending on the type
 

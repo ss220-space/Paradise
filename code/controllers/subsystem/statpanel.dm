@@ -110,6 +110,8 @@ SUBSYSTEM_DEF(statpanels)
 	mc_data = list(
 		list("CPU:", Master.formatcpu(world.cpu)),
 		list("Map CPU:", Master.formatcpu(world.map_cpu)),
+		list("Memory:", Master.format_memory(SSserver_maint.memory)),
+		list("Virtual Memory:", Master.format_memory(SSserver_maint.virtual_memory)),
 		list("Instances:", "[num2text(length(world.contents), 10)]"),
 		list("World Time:", "[world.time]"),
 		list("Server Time:", time_stamp()),

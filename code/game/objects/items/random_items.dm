@@ -93,8 +93,7 @@
 	reagents.add_reagent(reagent, volume)
 	name = "unlabelled bottle"
 	icon_state = pick("alco-white","alco-green","alco-blue","alco-clear","alco-red")
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
+	scatter_atom()
 
 /obj/item/reagent_containers/cup/glass/bottle/random_reagent // Same as the chembottle code except the container
 	name = "unlabelled drink?"
@@ -115,12 +114,12 @@
 	name = "unlabelled pillbottle"
 	desc = "The sheer recklessness of this bottle's existence astounds you."
 	allow_wrap = FALSE
+	scatter_distance = 10
 	var/labelled = FALSE
 
 /obj/item/storage/pill_bottle/random_meds/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(-10, 10)
-	pixel_y = rand(-10, 10)
+	scatter_atom()
 
 /obj/item/storage/pill_bottle/random_meds/populate_contents()
 	for(var/i in 1 to storage_slots)

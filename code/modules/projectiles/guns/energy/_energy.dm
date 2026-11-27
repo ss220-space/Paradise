@@ -317,7 +317,7 @@ GAME_PROC_SRC(/obj/item/gun/energy, toggle_voice, usr, "Сменить голо�
 			chambered.BB = null
 		chambered = null
 	newshot()
-	gun_user.hud_used?.update_ammo_hud(src, get_display_ammo_count())
+	gun_user?.hud_used?.update_ammo_hud(src, get_display_ammo_count())
 	update_icon()
 
 /obj/item/gun/energy/update_icon(updates = ALL)

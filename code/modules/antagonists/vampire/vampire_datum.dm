@@ -263,7 +263,7 @@
 	if(!iscarbon(vampire))
 		target.LAssailant = null
 	else
-		target.LAssailant = vampire
+		target.LAssailant = WEAKREF(vampire)
 
 	var/is_target_grabbed = FALSE
 	if(target.pulledby == vampire && vampire.grab_state > GRAB_PASSIVE)

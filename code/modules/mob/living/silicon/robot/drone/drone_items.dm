@@ -148,7 +148,6 @@
 	)
 
 /obj/item/gripper/cogscarab/Initialize(mapload)
-	. = ..()
 	//Has a list of items that it can hold.
 	can_hold += list(
 		/obj/item/clockwork/integration_cog,
@@ -156,6 +155,7 @@
 		/obj/item/stack/sheet,
 		/obj/item/mmi/robotic_brain/clockwork
 	)
+	return ..()
 
 /obj/item/gripper/universal
 	name = "Universal gripper"

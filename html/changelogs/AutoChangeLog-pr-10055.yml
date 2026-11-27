@@ -1,5 +1,0 @@
-author: "L343-CJ"
-delete-after: True
-changes:
-  - bugfix: "Исправлена работа Project Mind и удаление Scan Mind при деактивации гена. (PR #10055)"
-  - bugfix: "Дальний взор с генетики не требует возможности говорить для каста. (PR #10055)"

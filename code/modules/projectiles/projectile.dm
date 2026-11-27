@@ -78,7 +78,7 @@
 	var/flag = BULLET
 	///How much armor this projectile pierces.
 	var/armour_penetration = 0
-	var/projectile_type = "/obj/projectile"
+	var/projectile_type = /obj/projectile
 	/// This will de-increment every step. When 0, it will delete the projectile.
 	var/range = 50
 	/// Original range upon being fired/reflected
@@ -443,7 +443,10 @@
 	if(prehit_cancelled)
 		return FALSE
 
-	var/permutation = bumped_atom.bullet_act(src, def_zone) // searches for return value, could be deleted after run so check A isn't null
+	var/pre_permutation = SEND_SIGNAL(bumped_atom, COMSIG_ATOM_PREHIT, src)
+	var/permutation = -1
+	if(pre_permutation != ATOM_PREHIT_FAILURE && !(bumped_atom in permutated))
+		permutation = bumped_atom.bullet_act(src, def_zone) // searches for return value, could be deleted after run so check A isn't null
 	if(permutation == -1 || forcedodge == -1 ||forcedodge >= 1) // the bullet passes through a dense object!
 		if(forcedodge >= 1)
 			forcedodge -= 1

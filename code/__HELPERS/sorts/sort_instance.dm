@@ -31,6 +31,15 @@ GLOBAL_DATUM_INIT(sortInstance, /datum/sort_instance, new())
 	var/list/runLens = list()
 
 
+// The sorts call cmp with call(); the admin deny-list check sits in the global sort procs, not here.
+/datum/sort_instance/vv_edit_var(var_name, var_value)
+	if(var_name == NAMEOF(src, cmp))
+		return FALSE
+	return ..()
+
+/datum/sort_instance/CanProcCall(procname)
+	return FALSE
+
 /datum/sort_instance/proc/timSort(start, end)
 	runBases.Cut()
 	runLens.Cut()

@@ -260,6 +260,10 @@
 	pixel_x = base_pixel_x + rand(-6, 6)
 	pixel_y = base_pixel_y + rand(0, 10)
 
+/mob/living/simple_animal/chick/scatter_atom(x_offset, y_offset)
+	pixel_x = base_pixel_x + rand(-6, 6) + x_offset
+	pixel_y = base_pixel_y + rand(0, 10) + y_offset
+
 /mob/living/simple_animal/chick/Life(seconds, times_fired)
 	. =..()
 	if(.)
@@ -331,6 +335,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		PREPOSITIONAL = "курице",
 	)
 
+
 /mob/living/simple_animal/chicken/Initialize(mapload)
 	. = ..()
 	if(!body_color)
@@ -341,6 +346,11 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	icon_dead = "[icon_prefix]_[body_color]_dead"
 	GLOB.chicken_count += 1
 	update_icon(UPDATE_ICON_STATE)
+	scatter_atom()
+
+/mob/living/basic/chicken/scatter_atom(x_offset, y_offset)
+	pixel_x = base_pixel_x + rand(-6, 6) + x_offset
+	pixel_y = base_pixel_y + rand(0, 10) + y_offset
 
 /mob/living/simple_animal/chicken/death(gibbed)
 	// Only execute the below if we successfully died
@@ -379,8 +389,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		visible_message("[src] [pick(layMessage)]")
 		eggsleft--
 		var/obj/item/E = new egg_type(get_turf(src))
-		E.pixel_x = rand(-6,6)
-		E.pixel_y = rand(-6,6)
+		E.scatter_atom()
 		if(eggsFertile)
 			if(GLOB.chicken_count < MAX_CHICKENS && prob(25))
 				START_PROCESSING(SSobj, E)
