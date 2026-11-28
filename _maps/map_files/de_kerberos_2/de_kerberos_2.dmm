@@ -409,6 +409,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/hallway/secure)
+"aey" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/maintenance,
+/obj/structure/barricade/wooden{
+	layer = 3.5
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/asmaint4)
 "aeA" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -28141,15 +28149,6 @@
 	icon_state = "white"
 	},
 /area/station/security/medical)
-"gdc" = (
-/obj/spacepod/sec{
-	dir = 4
-	},
-/obj/structure/cable,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/security/podbay)
 "gde" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -30918,6 +30917,19 @@
 	icon_state = "dark"
 	},
 /area/station/service/chapel)
+"gIf" = (
+/obj/structure/closet/secure_closet/security,
+/obj/effect/turf_decal/delivery/red/hollow,
+/obj/machinery/light,
+/obj/item/spacepod_key{
+	id = 100000
+	},
+/obj/item/clothing/suit/jacket/pilot,
+/obj/item/clothing/head/beret/sec,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/security/podbay)
 "gIh" = (
 /obj/structure/chair/stool,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -36404,21 +36416,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/research)
-"hMQ" = (
-/obj/structure/closet/secure_closet/security,
-/obj/effect/turf_decal/delivery/red/hollow,
-/obj/machinery/light,
-/obj/item/spacepod_equipment/key{
-	id = 100000
-	},
-/obj/item/spacepod_equipment/weaponry/laser,
-/obj/item/clothing/suit/jacket/pilot,
-/obj/item/clothing/head/beret/sec,
-/obj/item/spacepod_equipment/weaponry/burst_taser,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/security/podbay)
 "hMT" = (
 /obj/structure/sign/goldenplaque{
 	desc = "ЦК награждает клоуна Шляпку как первого заключённого брига после перестройки. Он был задержан по статьям 100 104 и 309. Так держать.";
@@ -38302,14 +38299,6 @@
 	icon_state = "dark"
 	},
 /area/station/security/warden)
-"iit" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/maintenance,
-/obj/structure/barricade/wooden{
-	layer = 3.5
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/asmaint4)
 "iix" = (
 /obj/machinery/atmospherics/air_sensor/n2o{
 	id_tag = "n2o_sensor"
@@ -39954,6 +39943,15 @@
 	icon_state = "yellow"
 	},
 /area/station/maintenance/electrical)
+"iBt" = (
+/obj/spacepod/template/two_engine/raptor{
+	dir = 4
+	},
+/obj/structure/cable,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/security/podbay)
 "iBv" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -47886,6 +47884,22 @@
 /obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/station/security/courtroom)
+"knw" = (
+/obj/structure/table/wood,
+/obj/item/spacepod_key{
+	id = 100000
+	},
+/obj/machinery/firealarm/directional/south,
+/obj/item/paper/safe_code{
+	owner = "hos"
+	},
+/obj/structure/sign/poster/secret/lady{
+	pixel_x = 32
+	},
+/obj/item/lighter/zippo/hos,
+/obj/item/reagent_containers/cup/glass/mug/hos,
+/turf/simulated/floor/wood,
+/area/station/command/office/hos)
 "knD" = (
 /obj/effect/turf_decal/siding/green/corner{
 	color = "";
@@ -85758,22 +85772,6 @@
 	icon_state = "caution"
 	},
 /area/station/maintenance/bar)
-"snM" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/cup/glass/mug/hos,
-/obj/item/spacepod_equipment/key{
-	id = 100000
-	},
-/obj/machinery/firealarm/directional/south,
-/obj/item/paper/safe_code{
-	owner = "hos"
-	},
-/obj/structure/sign/poster/secret/lady{
-	pixel_x = 32
-	},
-/obj/item/lighter/zippo/hos,
-/turf/simulated/floor/wood,
-/area/station/command/office/hos)
 "snY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -167426,7 +167424,7 @@ kKS
 lTI
 lTI
 lTI
-iit
+aey
 lBC
 ajh
 lTI
@@ -172982,7 +172980,7 @@ qbj
 rOV
 xGj
 mTh
-hMQ
+gIf
 qbj
 qbj
 xAX
@@ -173776,7 +173774,7 @@ adm
 ajV
 rys
 wzI
-snM
+knw
 ajV
 ajV
 coE
@@ -174523,7 +174521,7 @@ coE
 mQG
 kBK
 pYn
-gdc
+iBt
 xUY
 wfr
 coE

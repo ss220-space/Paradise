@@ -394,3 +394,9 @@
 	#define COMPONENT_STOP_EXPORT_REPORT (1<<0)
 
 #define COMSIG_GRIPPED_ITEM_CHANGE "gripped_item_change"
+
+// /obj/spacepod signals
+/// From /obj/spacepod/proc/on_pod_moved(): ()
+#define COMSIG_SPACEPOD_MOVED "spacepod_moved"
+/// From /obj/spacepod/emp_act(): (severity)
+#define COMSIG_SPACEPOD_EMP "spacepod_emp"

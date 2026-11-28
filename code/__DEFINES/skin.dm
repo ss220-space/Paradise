@@ -16,6 +16,8 @@
 #define SKIN_TGUISAY "tgui_say"
 #define SKIN_TGUISAY_BROWSER "[SKIN_TGUISAY].browser"
 
+#define SKIN_POD_PANEL "pod_panel"
+
 #define SKIN_MINIMAP_PANEL "minimap_panel"
 #define SKIN_MINIMAP_PANEL_ELEM "[SKIN_MAPWINDOW].minimap_panel"
 

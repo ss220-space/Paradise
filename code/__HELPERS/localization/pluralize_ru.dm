@@ -29,6 +29,7 @@
 #define PLUR_IT_YAT(target) pluralize_ru(target.gender, "ит", "ят")
 #define PLUR_IT_AT(target) pluralize_ru(target.gender, "ит", "ат")
 #define PLUR_I(target) pluralize_ru(target.gender, "", "и")
+#define PLUR_LI(target) pluralize_ru(target.gender, "", "ли")
 // Макросы для случаев, когда обычные не применимы.
 #define PLUR_JET_GUT(target) pluralize_ru(target.gender, "жет", "гут")
 #define PLUR_CHET_TYAT(target) pluralize_ru(target.gender, "чет", "тят")
