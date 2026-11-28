@@ -139,10 +139,6 @@
 	applied_modules = list(
 		/obj/item/mod/module/storage,
 	)
-	default_pins = list(
-		/obj/item/mod/module/sphere_transform,
-	)
-
 
 /obj/item/mod/control/pre_equipped/mining/asteroid //The asteroid skin, as that one looks more space worthy / older. Good for space ruins.
 	name = "MOD control unit mining asteroid"

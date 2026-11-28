@@ -523,7 +523,6 @@
 	charge_drain = DEFAULT_CHARGE_DRAIN * 2
 	slowdown_deployed = 0.5
 	allowed_suit_storage = ALLOWED_MINING_SUIT_ITEMS
-	inbuilt_modules = list(/obj/item/mod/module/ash_accretion, /obj/item/mod/module/sphere_transform)
 	variants = list(
 		MOD_VARIANT_MINING = list(
 			/obj/item/clothing/head/mod = list(
