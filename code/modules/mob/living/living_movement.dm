@@ -381,3 +381,4 @@ GAME_VERB(/mob/living, lookdown, "Смотреть вниз", VERB_CATEGORY_IC)
 	var/list/weak_mob_modifier = list()
 	SEND_SIGNAL(src, COMSIG_GET_WEAK_MOB_MODIFIERS, weak_mob_modifier)
 	return !length(weak_mob_modifier) ? 1 : weak_mob_modifier[1]
+
