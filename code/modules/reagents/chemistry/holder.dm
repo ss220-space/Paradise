@@ -11,7 +11,7 @@
 	/// The atom this holder is attached to
 	var/atom/my_atom = null
 	/// Current temp of the holder volume
-	var/chem_temp = T20C
+	var/chem_temp = DEFAULT_REAGENT_TEMPERATURE
 	/// various flags, see code\__DEFINES\reagents.dm
 	var/flags
 	var/temperature_min = 0
@@ -662,7 +662,7 @@
 		var/amt = list_reagents[r_id]
 		add_reagent(r_id, amt, data)
 
-/datum/reagents/proc/add_reagent(reagent, amount, list/data=null, reagtemp = T20C, no_react = FALSE)
+/datum/reagents/proc/add_reagent(reagent, amount, list/data=null, reagtemp = DEFAULT_REAGENT_TEMPERATURE, no_react = FALSE)
 	if(!isnum(amount))
 		return TRUE
 

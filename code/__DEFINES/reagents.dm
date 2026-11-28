@@ -38,6 +38,8 @@
 
 /// Water temperature
 #define COLD_WATER_TEMPERATURE 283.15 // 10 degrees celsius
+/// Default temperature of reagents in a holder.
+#define DEFAULT_REAGENT_TEMPERATURE T20C
 
 /// Sanity check limit to clamp chems to sane amounts and prevent rounding errors during transfer.
 #define CHEMICAL_VOLUME_ROUNDING 0.01

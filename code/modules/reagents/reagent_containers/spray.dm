@@ -21,6 +21,7 @@
 	var/spray_maxrange = 3 //what the sprayer will set spray_currentrange to in the attack_self.
 	var/spray_currentrange = 3 //the range of tiles the sprayer will reach when in fixed mode.
 	var/spray_sound = 'sound/effects/spray2.ogg'
+	reagent_container_liquid_sound = SFX_DEFAULT_LIQUID_SLOSH
 
 /obj/item/reagent_containers/spray/get_ru_names()
 	return alist(
@@ -278,6 +279,8 @@
 	volume = 40
 	spray_maxrange_mod = 2
 	list_reagents = list("condensedcapsaicin" = 40)
+	pickup_sound = 'sound/items/handling/pepper_spray/pepper_spray_pick_up.ogg'
+	drop_sound = 'sound/items/handling/pepper_spray/pepper_spray_drop.ogg'
 
 /obj/item/reagent_containers/spray/pepper/get_ru_names()
 	return alist(

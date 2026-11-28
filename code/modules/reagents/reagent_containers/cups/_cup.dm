@@ -7,6 +7,7 @@
 	volume = 50
 	initial_reagent_flags = OPENCONTAINER | DUNKABLE
 	resistance_flags = ACID_PROOF
+	reagent_container_liquid_sound = SFX_DEFAULT_LIQUID_SLOSH
 
 	/// Like Edible's food type, what kind of drink is this?
 	var/drink_type = NONE
@@ -235,6 +236,8 @@
 	custom_price = PAYCHECK_MIN / 5
 	can_lid = TRUE
 	fill_icon_thresholds = list(1, 10, 25, 50, 75, 80, 100)
+	pickup_sound = 'sound/items/handling/beaker_pickup.ogg'
+	drop_sound = 'sound/items/handling/beaker_place.ogg'
 	var/obj/item/assembly_holder/assembly = null
 	var/can_assembly = TRUE
 
@@ -372,6 +375,9 @@ GAME_VERB_SRC(/obj/item/reagent_containers/cup/beaker, remove_assembly, usr, "О
 	can_assembly = 0
 	can_lid = FALSE
 	volume = 25
+	pickup_sound = null
+	drop_sound = null
+	reagent_container_liquid_sound = null
 
 /obj/item/reagent_containers/cup/beaker/plastic_baggie/drugs
 	name = "baggie"
@@ -474,6 +480,9 @@ GAME_VERB_SRC(/obj/item/reagent_containers/cup/beaker, remove_assembly, usr, "О
 	item_state = "bottle"
 	list_reagents = list("water" = 49.5, "fluorine" = 0.5) //see desc, don't think about it too hard
 	materials = list(MAT_GLASS = 0)
+	pickup_sound = null
+	drop_sound = null
+	reagent_container_liquid_sound = SFX_PLASTIC_BOTTLE_LIQUID_SLOSH
 
 /obj/item/reagent_containers/cup/beaker/waterbottle/get_ru_names()
 	return alist(

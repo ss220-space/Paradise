@@ -124,6 +124,8 @@
 	volume = 20
 	list_reagents = list("sodiumchloride" = 20)
 	possible_states = list()
+	pickup_sound = SFX_SEASONING_SHAKER_PICKUP
+	drop_sound = SFX_SEASONING_SHAKER_DROP
 
 /obj/item/reagent_containers/condiment/saltshaker/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] begins to swap forms with the salt shaker! It looks like [user.p_theyre()] trying to commit suicide."))
@@ -143,6 +145,8 @@
 	volume = 20
 	list_reagents = list("blackpepper" = 20)
 	possible_states = list()
+	pickup_sound = SFX_SEASONING_SHAKER_PICKUP
+	drop_sound = SFX_SEASONING_SHAKER_DROP
 
 /obj/item/reagent_containers/condiment/milk
 	name = "space milk"

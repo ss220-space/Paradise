@@ -453,63 +453,58 @@
 		'sound/machines/computer/keyboard_clicks_7.ogg',
 	)
 
-/datum/sound_effect/beakerpour_0_10
-	key = SFX_BEAKERPOUR_0_10
+/datum/sound_effect/liquid_pour
+	key = SFX_LIQUID_POUR
 	file_paths = list(
-		'sound/items/reagent_containers/beakerpour_0-10-1.ogg',
-		'sound/items/reagent_containers/beakerpour_0-10-2.ogg',
-		'sound/items/reagent_containers/beakerpour_0-10-3.ogg',
-		'sound/items/reagent_containers/beakerpour_0-10-4.ogg',
-		'sound/items/reagent_containers/beakerpour_0-10-5.ogg',
-		'sound/items/reagent_containers/beakerpour_0-10-6.ogg',
+		'sound/effects/liquid_pour/liquid_pour1.ogg',
+		'sound/effects/liquid_pour/liquid_pour2.ogg',
+		'sound/effects/liquid_pour/liquid_pour3.ogg',
 	)
 
-/datum/sound_effect/beakerpour_10_25
-	key = SFX_BEAKERPOUR_10_25
+/datum/sound_effect/default_liquid_slosh
+	key = SFX_DEFAULT_LIQUID_SLOSH
 	file_paths = list(
-		'sound/items/reagent_containers/beakerpour_10-25-1.ogg',
-		'sound/items/reagent_containers/beakerpour_10-25-2.ogg',
-		'sound/items/reagent_containers/beakerpour_10-25-3.ogg',
-		'sound/items/reagent_containers/beakerpour_10-25-5.ogg',
-		'sound/items/reagent_containers/beakerpour_10-25-6.ogg',
+		'sound/items/handling/reagent_containers/default/default_liquid_slosh1.ogg',
+		'sound/items/handling/reagent_containers/default/default_liquid_slosh2.ogg',
+		'sound/items/handling/reagent_containers/default/default_liquid_slosh3.ogg',
+		'sound/items/handling/reagent_containers/default/default_liquid_slosh4.ogg',
+		'sound/items/handling/reagent_containers/default/default_liquid_slosh5.ogg',
 	)
 
-/datum/sound_effect/beakerpour_25_50
-	key = SFX_BEAKERPOUR_25_50
+/datum/sound_effect/plastic_bottle_liquid_slosh
+	key = SFX_PLASTIC_BOTTLE_LIQUID_SLOSH
 	file_paths = list(
-		'sound/items/reagent_containers/beakerpour_25-50-1.ogg',
-		'sound/items/reagent_containers/beakerpour_25-50-2.ogg',
-		'sound/items/reagent_containers/beakerpour_25-50-3.ogg',
+		'sound/items/handling/reagent_containers/plastic_bottle/plastic_bottle_liquid_slosh1.ogg',
+		'sound/items/handling/reagent_containers/plastic_bottle/plastic_bottle_liquid_slosh2.ogg',
 	)
 
-/datum/sound_effect/beakerpour_50_inf
-	key = SFX_BEAKERPOUR_50_INF
+/datum/sound_effect/seasoning_shaker_pickup
+	key = SFX_SEASONING_SHAKER_PICKUP
 	file_paths = list(
-		'sound/items/reagent_containers/beakerpour_50-inf-1.ogg',
-		'sound/items/reagent_containers/beakerpour_50-inf-2.ogg',
-		'sound/items/reagent_containers/beakerpour_50-inf-3.ogg',
-		'sound/items/reagent_containers/beakerpour_50-inf-4.ogg',
-		'sound/items/reagent_containers/beakerpour_50-inf-5.ogg',
+		'sound/items/seasoning_shaker/seasoning_shaker_pickup1.ogg',
+		'sound/items/seasoning_shaker/seasoning_shaker_pickup2.ogg',
+		'sound/items/seasoning_shaker/seasoning_shaker_pickup3.ogg',
 	)
 
-/datum/sound_effect/dropperpour
-	key = SFX_DROPPERPOUR
+/datum/sound_effect/seasoning_shaker_drop
+	key = SFX_SEASONING_SHAKER_DROP
 	file_paths = list(
-		'sound/items/reagent_containers/dropper1.ogg',
-		'sound/items/reagent_containers/dropper2.ogg',
+		'sound/items/seasoning_shaker/seasoning_shaker_drop1.ogg',
+		'sound/items/seasoning_shaker/seasoning_shaker_drop2.ogg',
 	)
 
-/datum/sound_effect/syringepour
-	key = SFX_SYRINGEPOUR
+/datum/sound_effect/towel_pickup
+	key = SFX_TOWEL_PICKUP
 	file_paths = list(
-		'sound/items/reagent_containers/syringepour1.ogg',
-		'sound/items/reagent_containers/syringepour2.ogg',
+		'sound/items/towel/towel_pickup1.ogg',
+		'sound/items/towel/towel_pickup2.ogg',
 	)
 
-/datum/sound_effect/liquid_splash
-	key = SFX_LIQUID_SPLASH
+/datum/sound_effect/towel_drop
+	key = SFX_TOWEL_DROP
 	file_paths = list(
-		'sound/items/reagent_containers/watersplash.ogg',
+		'sound/items/towel/towel_drop1.ogg',
+		'sound/items/towel/towel_drop2.ogg',
 	)
 
 /datum/sound_effect/industrial_scan

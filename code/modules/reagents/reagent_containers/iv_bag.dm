@@ -191,7 +191,6 @@
 			return
 
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
-		after_transfer(target)
 		to_chat(user, span_notice("Вы перемещаете <b>[trans]</b> единиц[DECL_U_Y_0(trans)] вещества в [target.declent_ru(ACCUSATIVE)]."))
 
 	else if(iscup(target) && !target.is_open_container())
