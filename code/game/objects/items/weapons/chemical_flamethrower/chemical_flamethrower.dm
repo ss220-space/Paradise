@@ -189,7 +189,6 @@
 	desc = "Простой баллон с топливом."
 	icon = 'icons/obj/chemical_flamethrower.dmi'
 	icon_state = "normal"
-	container_type = REFILLABLE | AMOUNT_VISIBLE
 	materials = list(MAT_METAL = 5000)
 	/// How much ammo do we have? Empty at 0.
 	var/ammo = 300
@@ -212,10 +211,11 @@
 
 /obj/item/chemical_canister/Initialize(mapload)
 	. = ..()
-	create_reagents(ammo)
-	reagents.set_reacting(FALSE)
+	create_reagents(ammo, REFILLABLE | AMOUNT_VISIBLE | NO_REACT)
+	RegisterSignal(reagents, COMSIG_REAGENTS_HOLDER_UPDATED, PROC_REF(on_reagent_change))
 
-/obj/item/chemical_canister/on_reagent_change()
+/obj/item/chemical_canister/proc/on_reagent_change(datum/reagents/holder)
+	SIGNAL_HANDLER
 	var/datum/reagents/chem_content = reagents
 	var/list/reagents_whitelist = src.reagents_whitelist
 	if(is_clearing)
@@ -228,6 +228,7 @@
 		if(istype(reagent, /datum/reagent/napalm))
 			fuel_count += reagent.volume
 	has_fuel = fuel_count > (ammo * 0.2)
+	is_clearing = FALSE
 
 /obj/item/chemical_canister/extended
 	name = "extended capacity chemical canister"

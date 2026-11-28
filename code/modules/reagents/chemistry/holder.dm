@@ -510,6 +510,12 @@
 					any_reaction = TRUE
 					break
 	while(reaction_occured)
+	if(trigger_volatiles)
+		var/list/combust_data = calc_combust_data()
+		if(combust_data)
+			clear_reagents()
+			combust(get_turf(my_atom), combust_data[COMBUST_DATA_RADIUS], combust_data[COMBUST_DATA_INTENSITY], combust_data[COMBUST_DATA_DURATION], combust_data[COMBUST_DATA_SUPPLEMENTED], combust_data[COMBUST_DATA_FIRECOLOR], combust_data[COMBUST_DATA_PENETRATING])
+		trigger_volatiles = FALSE
 	if(any_reaction)
 		update_total()
 	return FALSE
@@ -614,18 +620,30 @@
 
 /datum/reagents/proc/isolate_reagent(reagent)
 	for(var/datum/reagent/iter_reagent as anything in reagent_list)
-		if(iter_reagent.id != reagent && iter_reagent.type != reagent)
+		if(iter_reagent.type != reagent)
 			iter_reagent.volume = 0
 	update_total()
 
-/datum/reagents/proc/del_reagent(reagent_type)
+/**
+ * Removes an specific reagent from this holder
+ * Arguments
+ *
+ * * [target_reagent_typepath][datum/reagent] - type typepath of the reagent to remove
+ */
+/datum/reagents/proc/del_reagent(datum/reagent/target_reagent_typepath)
+	if(!ispath(target_reagent_typepath))
+		stack_trace("invalid reagent path passed to del reagent [target_reagent_typepath]")
+		return FALSE
+
+	//setting the volume to 0 will allow update_total() to clear it up for us
 	var/list/cached_reagents = reagent_list
 	for(var/datum/reagent/reagent as anything in cached_reagents)
-		if(reagent.id == reagent_id || reagent.type == reagent_id)
+		if(reagent.type == target_reagent_typepath)
 			reagent.volume = 0
 			update_total()
-			return FALSE
-	return TRUE
+			return TRUE
+
+	return FALSE
 
 /datum/reagents/proc/update_total()
 	var/list/cached_reagents = reagent_list
@@ -757,8 +775,13 @@
 		var/amt = list_reagents[r_id]
 		add_reagent(r_id, amt, data)
 
-/datum/reagents/proc/add_reagent(reagent, amount, list/data=null, reagtemp = DEFAULT_REAGENT_TEMPERATURE, no_react = FALSE)
-	if(!isnum(amount))
+/datum/reagents/proc/add_reagent(reagent_type, amount, list/data=null, reagtemp = DEFAULT_REAGENT_TEMPERATURE, no_react = FALSE)
+	if(!ispath(reagent_type))
+		stack_trace("invalid reagent passed to add reagent [reagent_type]")
+		return FALSE
+
+	if(!IS_FINITE(amount))
+		stack_trace("non finite amount passed to add reagent [amount] [reagent_type]")
 		return TRUE
 
 	if(total_volume + amount > maximum_volume)
@@ -771,43 +794,22 @@
 	chem_temp = clamp((chem_temp * total_volume + reagtemp * amount) / (total_volume + amount), temperature_min, temperature_max) // equalize with new chems
 	if(old_temp != chem_temp)
 		SEND_SIGNAL(src, COMSIG_REAGENTS_TEMP_CHANGE, chem_temp, old_temp)
-	if(SEND_SIGNAL(src, COMSIG_EARLY_REAGENT_ADDED, reagent, amount, data, reagtemp, no_react, chem_temp) & COMPONENT_PREVENT_ADD_REAGENT)
+	if(SEND_SIGNAL(src, COMSIG_EARLY_REAGENT_ADDED, reagent_type, amount, data, reagtemp, no_react, chem_temp) & COMPONENT_PREVENT_ADD_REAGENT)
 		return FALSE
 
 	var/list/cached_reagents = reagent_list
-	for(var/A in cached_reagents)
-		var/datum/reagent/R = A
-		if(R.id == reagent || R.type == reagent)
-			R.volume += amount
-			R.on_merge(data)
-			update_total()
-
-			if(!no_react)
-				temperature_react()
-				handle_reactions()
-
-			return FALSE
-
-	var/datum/reagent/D = (ispath(reagent))? new reagent() : GLOB.chemical_reagents_list[reagent]
-	if(D)
-		var/datum/reagent/R = new D.type()
-		cached_reagents += R
-		R.holder = src
-		R.volume = amount
-		R.on_new(data)
-
-		if(data)
-			R.data = data
-
-		if(isliving(my_atom))
-			R.on_mob_add(my_atom) // Must occur befor it could posibly run on_mob_delete
+	for(var/datum/reagent/cached_reagent as anything in cached_reagents)
+		if(cached_reagent.type != reagent_type)
+			continue
 
 		cached_reagent.volume += amount
+		cached_reagent.on_merge(data)
 		update_total()
 
 		if(!no_react)
 			temperature_react()
 			handle_reactions()
+
 		return FALSE
 
 	var/datum/reagent/reagent = new reagent_type()
@@ -823,8 +825,6 @@
 		reagent.on_mob_add(my_atom) // Must occur befor it could posibly run on_mob_delete
 
 	update_total()
-	if(my_atom)
-		my_atom.on_reagent_change()
 
 	if(!no_react)
 		temperature_react()

@@ -181,7 +181,7 @@
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = "smallbottle"
 	item_state = "bottle"
-	list_reagents = list("water" = 50)
+	list_reagents = list(/datum/reagent/water = 50)
 	materials = list(MAT_PLASTIC = MINERAL_MATERIAL_AMOUNT)
 	volume = 50
 	amount_per_transfer_from_this = 10
@@ -282,7 +282,7 @@
 	desc = "Пластиковая ёмкость для питьевой воды. Увеличенного объёма."
 	icon_state = "largebottle"
 	materials = list(MAT_PLASTIC = MINERAL_MATERIAL_AMOUNT * 3)
-	list_reagents = list("water" = 100)
+	list_reagents = list(/datum/reagent/water = 100)
 	volume = 100
 	amount_per_transfer_from_this = 20
 	possible_transfer_amounts = list(5, 10, 15, 20, 25, 30, 50, 100)
@@ -320,10 +320,12 @@
 	)
 
 /obj/item/reagent_containers/cup/glass/waterbottle/relic/Initialize(mapload)
-	var/reagent_id = get_random_reagent_id()
-	var/datum/reagent/random_reagent = new reagent_id
-	list_reagents = list(random_reagent.type = 50)
+	var/reagent_type = get_random_reagent_type()
+	var/datum/reagent/random_reagent = GLOB.chemical_reagents_list[reagent_type]
+	list_reagents = list()
+	list_reagents[reagent_type] = 50
 	. = ..()
+	if(random_reagent)
 		desc += span_notice(" Надпись гласит: \"[random_reagent.name]\".")
 	update_appearance()
 

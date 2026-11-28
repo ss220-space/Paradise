@@ -519,7 +519,6 @@
 	name = "Окислитель"
 	id = "oxidizing_agent"
 	description = "Синтезированный высокоочищенный окислитель, который, скорее всего, крайне вреден для употребления человеком."
-	reagent_state = GAS
 	color = "#c4c4c4"
 	chemfiresupp = TRUE
 	properties = list(PROPERTY_OXIDIZING = 6)
@@ -550,7 +549,6 @@
 	id = "paraformaldehyde"
 	description = "Полимеризованная форма формальдегида, которая медленно образуется в холодном водном растворе."
 	color = "#e0e0e0"
-	reagent_state = SOLID
 
 /datum/reagent/ammoniumnitrate
 	name = "Нитрат аммония"
@@ -591,7 +589,6 @@
 	name = "Хлорид калия"
 	id = "potassium_chloride"
 	description = "Горькая на вкус соль, которую можно использовать как приправу, но в больших количествах она может вызвать остановку сердца. По этой причине она на протяжении многих лет использовалась как компонент смертельных инъекций."
-	reagent_state = SOLID
 	color = COLOR_WHITE
 	chemfiresupp = TRUE
 	intensitymod = 0.1
