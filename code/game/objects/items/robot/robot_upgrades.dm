@@ -325,6 +325,44 @@
 	robot.module.rebuild()
 	return TRUE
 
+/obj/item/borg/upgrade/jaunter
+	name = "mining cyborg wormhole jaunter upgrade"
+	desc = "Модуль для установки в шахтёрского киборга экспериментального многоразового генератора червоточин, созданного компанией Ward-Takahashi GMB по заказу Nanotrasen. Создание портала расходует 10000 единиц заряда батареи и разрушает установленную бронеплиту. Генератор срабатывает автоматически при падении в пропасть и не поддерживает ручную активацию."
+	icon_state = "cyborg_upgrade3"
+	origin_tech = "engineering=4;materials=4;bluespace=4"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/miner
+
+/obj/item/borg/upgrade/jaunter/action(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	if((locate(/obj/item/borg/upgrade/jaunter) in robot.upgrades) || (locate(/obj/item/wormhole_jaunter/cyborg) in robot.module.modules))
+		if(user)
+			to_chat(user, span_warning("В этом киборге уже установлен генератор червоточин!"))
+		return FALSE
+
+	robot.module.add_module(new /obj/item/wormhole_jaunter/cyborg(robot.module))
+	robot.hud_used?.update_robot_modules_display()
+	return TRUE
+
+/obj/item/borg/upgrade/jaunter/deactivate(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	if(!robot.module)
+		return TRUE
+
+	var/obj/item/wormhole_jaunter/cyborg/jaunter = locate() in robot.module.modules
+	if(jaunter)
+		robot.module.modules -= jaunter
+		robot.uneq_module(jaunter)
+		qdel(jaunter)
+
+	robot.module.rebuild()
+	robot.hud_used?.update_robot_modules_display()
+	return TRUE
+
 /obj/item/borg/upgrade/gps
 	name = "cyborg gps upgrade"
 	desc = "Upgraded GPS for cyborgs."
