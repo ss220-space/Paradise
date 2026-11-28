@@ -1,3 +1,6 @@
+/// How far the AI eye can be from a camera to still be considered watching through it
+#define AI_CAMERA_WATCH_RANGE 7
+
 GLOBAL_LIST_EMPTY(ai_list)
 GLOBAL_LIST_INIT(ai_verbs_default, list(
 	VERB_META(/mob/living/silicon/ai, announcement),
@@ -54,6 +57,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/mutable_appearance/portrait_appearance
 	var/list/network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
 	var/obj/machinery/camera/current = null
+	/// Cameras in range of the AI eye
+	var/list/datum/weakref/watched_cameras = list()
 	var/list/connected_robots = list()
 	var/aiRestorePowerRoutine = POWER_RESTORATION_OFF
 	//var/list/laws = list()
@@ -259,6 +264,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	update_appearance()
 
 /mob/living/silicon/ai/Destroy()
+	clear_watched_cameras()
 	GLOB.ai_list -= src
 	GLOB.shuttle_caller_list -= src
 	SSshuttle.autoEvac()
@@ -793,6 +799,42 @@ GAME_VERB_PROC_DESC(/mob/living/silicon/ai, botcall, "Диспетчер роб�
 
 	return TRUE
 
+/mob/living/silicon/ai/proc/update_watched_cameras()
+	if(stat == DEAD)
+		clear_watched_cameras()
+		return
+
+	var/list/obj/machinery/camera/visible = list()
+	if(!QDELETED(eyeobj))
+		for(var/datum/camerachunk/chunk as anything in eyeobj.visibleCameraChunks)
+			for(var/z_key, chunk_cameras in chunk.cameras)
+				for(var/obj/machinery/camera/camera as anything in chunk_cameras)
+					if(!camera.can_use() || get_dist(camera, eyeobj) > AI_CAMERA_WATCH_RANGE)
+						continue
+					visible |= camera
+
+	var/list/obj/machinery/camera/already_watched = list()
+	for(var/datum/weakref/camera_ref as anything in watched_cameras)
+		var/obj/machinery/camera/camera = camera_ref.resolve()
+		if(camera)
+			already_watched |= camera
+
+	for(var/obj/machinery/camera/camera as anything in already_watched - visible)
+		camera.remove_watcher(src)
+	for(var/obj/machinery/camera/camera as anything in visible - already_watched)
+		camera.add_watcher(src)
+
+	watched_cameras.Cut()
+	for(var/obj/machinery/camera/camera as anything in visible)
+		watched_cameras += WEAKREF(camera)
+
+/mob/living/silicon/ai/proc/clear_watched_cameras()
+	for(var/datum/weakref/camera_ref as anything in watched_cameras)
+		var/obj/machinery/camera/camera = camera_ref.resolve()
+		if(camera)
+			camera.remove_watcher(src)
+	watched_cameras.Cut()
+
 //Replaces /mob/living/silicon/ai/verb/change_network() in ai.dm & camera.dm
 //Adds in /mob/living/silicon/ai/proc/ai_network_change() instead
 //Addition by Mord_Sith to define AI's network change ability
@@ -1072,7 +1114,7 @@ GAME_VERB_PROC_DESC(/mob/living/silicon/ai, change_arrival_message, "Сообщ�
 	for(var/datum/camerachunk/chunk as anything in eyeobj.visibleCameraChunks)
 		for(var/z_key in chunk.cameras)
 			for(var/obj/machinery/camera/camera as anything in chunk.cameras[z_key])
-				if(!camera.can_use() || get_dist(camera, eyeobj) > 7 || !camera.internal_light)
+				if(!camera.can_use() || get_dist(camera, eyeobj) > AI_CAMERA_WATCH_RANGE || !camera.internal_light)
 					continue
 				visible |= camera
 
@@ -1481,3 +1523,5 @@ GAME_VERB_PROC_DESC(/mob/living/silicon/ai, control_integrated_radio, "Наст�
 
 /mob/living/silicon/ai/get_lootpanel_cache_key()
 	return "[display_icon_override] [portrait_appearance?.icon] [portrait_appearance?.icon_state]"
+
+#undef AI_CAMERA_WATCH_RANGE

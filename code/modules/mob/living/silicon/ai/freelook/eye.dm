@@ -44,6 +44,7 @@
 	SEND_SIGNAL(src, COMSIG_AI_EYE_MOVED, destination)
 	if(use_static)
 		ai.camera_visibility(src)
+	ai.update_watched_cameras()
 	if(ai.client)
 		ai.client.set_eye(src)
 	update_parallax_contents()
@@ -130,6 +131,7 @@ GAME_VERB_PROC(/mob/living/silicon/ai, core, "К ядру ИИ", VERB_CATEGORY_A
 
 /mob/living/silicon/ai/proc/view_core()
 
+	clear_watched_cameras()
 	current = null
 	cameraFollow = null
 	unset_machine()
