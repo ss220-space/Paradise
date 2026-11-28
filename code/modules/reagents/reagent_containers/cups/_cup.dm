@@ -197,6 +197,21 @@
 
 	return NONE
 
+/obj/item/reagent_containers/cup/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(!is_open_container())
+		return NONE
+
+	if(istype(tool, /obj/item/reagent_containers/food/snacks/egg)) //breaking eggs
+		if(reagents.holder_full())
+			balloon_alert(user, "нет места!")
+			return ITEM_INTERACT_BLOCKING
+		to_chat(user, span_notice("Вы разбиваете [tool.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
+		tool.reagents.trans_to(src, tool.reagents.total_volume)
+		qdel(tool)
+		return ITEM_INTERACT_SUCCESS
+
+	return NONE
+
 /obj/item/reagent_containers/cup/update_overlays()
 	. = ..()
 	if(has_lid)
@@ -470,61 +485,15 @@ GAME_VERB_SRC(/obj/item/reagent_containers/cup/beaker, remove_assembly, usr, "О
 /obj/item/reagent_containers/cup/beaker/laughter
 	list_reagents = list("laughter" = 50)
 
-// MARK: Water bottle
-/obj/item/reagent_containers/cup/beaker/waterbottle
-	name = "bottle of water"
-	desc = "Бутылка воды, наполненная на старом земном заводе по разливу воды."
-	gender = FEMALE
-	icon = 'icons/obj/drinks.dmi'
-	icon_state = "smallbottle"
-	item_state = "bottle"
-	list_reagents = list("water" = 49.5, "fluorine" = 0.5) //see desc, don't think about it too hard
-	materials = list(MAT_GLASS = 0)
-	pickup_sound = null
-	drop_sound = null
-	reagent_container_liquid_sound = SFX_PLASTIC_BOTTLE_LIQUID_SLOSH
-
-/obj/item/reagent_containers/cup/beaker/waterbottle/get_ru_names()
-	return alist(
-		NOMINATIVE = "бутылка воды",
-		GENITIVE = "бутылки воды",
-		DATIVE = "бутылке воды",
-		ACCUSATIVE = "бутылку воды",
-		INSTRUMENTAL = "бутылкой воды",
-		PREPOSITIONAL = "бутылке воды",
-	)
-
-/obj/item/reagent_containers/cup/beaker/waterbottle/empty
-	list_reagents = list()
-
-/obj/item/reagent_containers/cup/beaker/waterbottle/large
-	desc = "Свежая бутылка воды коммерческого размера."
-	icon_state = "largebottle"
-	materials = list(MAT_GLASS = 0)
-	list_reagents = list("water" = 100)
-	volume = 100
-	amount_per_transfer_from_this = 20
-
-/obj/item/reagent_containers/cup/beaker/waterbottle/large/get_ru_names()
-	return alist(
-		NOMINATIVE = "большая бутылка воды",
-		GENITIVE = "большой бутылки воды",
-		DATIVE = "большой бутылке воды",
-		ACCUSATIVE = "большую бутылку воды",
-		INSTRUMENTAL = "большой бутылкой воды",
-		PREPOSITIONAL = "большой бутылке воды",
-	)
-
-/obj/item/reagent_containers/cup/beaker/waterbottle/large/empty
-	list_reagents = list()
-
 // MARK: Bucket
 /obj/item/reagent_containers/cup/bucket
 	name = "bucket"
-	desc = "Металлическое ведро. Можете налить туда что-то или надеть себе на голову, никто не запрещает."
+	desc = "Ёмкость для удобной транспортировки жидкостей. Крышка не предусмотрена."
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "bucket"
 	item_state = "bucket"
+	fill_icon_state = "bucket"
+	fill_icon_thresholds = list(50, 90)
 	materials = list(MAT_METAL = 200)
 	w_class = WEIGHT_CLASS_NORMAL
 	amount_per_transfer_from_this = 20
@@ -551,66 +520,80 @@ GAME_VERB_SRC(/obj/item/reagent_containers/cup/beaker, remove_assembly, usr, "О
 		color = "#0085E5"
 	update_icon(UPDATE_OVERLAYS) //in case bucket's color has been changed in editor or by some deriving buckets
 
-/obj/item/reagent_containers/cup/bucket/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/toy/crayon/spraycan))
+/obj/item/reagent_containers/cup/bucket/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(istype(tool, /obj/item/toy/crayon/spraycan))
 		add_fingerprint(user)
-		var/obj/item/toy/crayon/spraycan/can = I
+		var/obj/item/toy/crayon/spraycan/can = tool
 		if(!paintable)
 			balloon_alert(user, "нельзя покрасить!")
-			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
+			return ITEM_INTERACT_BLOCKING
 		if(can.capped)
 			balloon_alert(user, "закрыто крышкой!")
-			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
+			return ITEM_INTERACT_BLOCKING
 		balloon_alert(user, "перекрашено!")
 		playsound(user.loc, 'sound/effects/spray.ogg', 20, TRUE)
 		color = can.colour
 		update_icon(UPDATE_OVERLAYS)
-		return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
+		return ITEM_INTERACT_SUCCESS
 
-	if(istype(I, /obj/item/mop))
+	if(istype(tool, /obj/item/mop))
 		if(reagents.total_volume < 1)
-			user.balloon_alert(user, "empty!")
-			return ATTACK_CHAIN_PROCEED
-		reagents.trans_to(I, 5)
-		user.balloon_alert(user, "doused [I]")
+			balloon_alert(user, "пусто!")
+			return ITEM_INTERACT_BLOCKING
+		reagents.trans_to(tool, 5)
+		balloon_alert(user, "швабра смочена")
 		playsound(src, 'sound/effects/slosh.ogg', 25, TRUE)
-		return ATTACK_CHAIN_PROCEED_SUCCESS
+		return ITEM_INTERACT_SUCCESS
 
-	if(isprox(I))
-		if(!user.drop_transfer_item_to_loc(I, src))
+	if(isprox(tool))
+		if(!user.drop_transfer_item_to_loc(tool, src))
 			return ..()
 		add_fingerprint(user)
-		balloon_alert(user, "прикреплено")
-		to_chat(user, span_notice("Вы прикрепили [I.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]."))
+		to_chat(user, span_notice("Вы прикрепили [tool.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]."))
 		var/obj/item/bot_assembly/bucket_sensor/bucket_sensor = new(drop_location())
 		transfer_fingerprints_to(bucket_sensor)
-		I.transfer_fingerprints_to(bucket_sensor)
+		tool.transfer_fingerprints_to(bucket_sensor)
 		bucket_sensor.add_fingerprint(user)
 		if(loc == user)
 			user.temporarily_remove_item_from_inventory(src, force = TRUE)
 			user.put_in_hands(bucket_sensor)
-		qdel(I)
+		qdel(tool)
 		qdel(src)
-		return ATTACK_CHAIN_BLOCKED_ALL
+		return ITEM_INTERACT_SUCCESS
 
 	return ..()
 
 /obj/item/reagent_containers/cup/bucket/update_overlays()
-	. = ..()
+	. = list()
 	if(color)
-		var/mutable_appearance/bucket_mask = mutable_appearance(icon='icons/obj/janitor.dmi', icon_state = "bucket_mask")
+		var/mutable_appearance/bucket_mask = mutable_appearance(icon = 'icons/obj/janitor.dmi', icon_state = "bucket_mask")
 		. += bucket_mask
 
-		var/mutable_appearance/bucket_hand = mutable_appearance(icon='icons/obj/janitor.dmi', icon_state = "bucket_hand", appearance_flags = RESET_COLOR)
+		var/mutable_appearance/bucket_hand = mutable_appearance(icon = 'icons/obj/janitor.dmi', icon_state = "bucket_hand", appearance_flags = RESET_COLOR)
 		. += bucket_hand
+	. += ..() // we add reagent overlays in the end so they won't be hidden by mask and hand
 
 /obj/item/reagent_containers/cup/bucket/equipped(mob/user, slot, initial)
 	. = ..()
+	if(slot & ITEM_SLOT_HEAD)
+		if(reagents.total_volume)
+			to_chat(user, span_userdanger("Вы надеваете [declent_ru(ACCUSATIVE)] себе на голову и его содержимое выливается прямо на вас!"))
+			reagents.reaction(user, REAGENT_TOUCH)
+			reagents.clear_reagents()
+		update_container_flags(NONE)
 
-	if(slot == ITEM_SLOT_HEAD && reagents.total_volume)
-		to_chat(user, span_userdanger("Вы надеваете [declent_ru(ACCUSATIVE)] себе на голову и его содержимое выливается прямо на вас!"))
-		reagents.reaction(user, REAGENT_TOUCH)
-		reagents.clear_reagents()
+/obj/item/reagent_containers/cup/bucket/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
+	reset_container_flags()
+
+/obj/item/reagent_containers/cup/bucket/equip_to_best_slot(mob/user, force = FALSE, drop_on_fail = FALSE, qdel_on_fail = FALSE, silent = FALSE)
+	if(reagents.total_volume) // If there is water in a bucket, don't quick equip it to the head
+		var/old_slot_flags = slot_flags
+		slot_flags = NONE
+		. = ..()
+		slot_flags = old_slot_flags
+		return
+	return ..()
 
 /obj/item/reagent_containers/cup/bucket/wooden
 	name = "wooden bucket"
@@ -631,9 +614,6 @@ GAME_VERB_SRC(/obj/item/reagent_containers/cup/beaker, remove_assembly, usr, "О
 		INSTRUMENTAL = "деревянным ведром",
 		PREPOSITIONAL = "деревянном ведре",
 	)
-
-/obj/item/reagent_containers/cup/bucket/wooden/update_overlays()
-	. = list()
 
 /obj/item/reagent_containers/cup/bucket/wooden/shit
 	name = "shit bucket"

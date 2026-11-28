@@ -528,7 +528,7 @@
 	},
 /obj/effect/decal/remains/mouse,
 /obj/item/trash/tapetrash,
-/obj/item/reagent_containers/cup/beaker/waterbottle/large/empty{
+/obj/item/reagent_containers/cup/glass/waterbottle/large/empty{
 	pixel_x = -6;
 	pixel_y = -15
 	},

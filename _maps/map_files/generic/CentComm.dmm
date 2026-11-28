@@ -4510,7 +4510,7 @@
 	dir = 8
 	},
 /obj/structure/table,
-/obj/item/reagent_containers/cup/beaker/waterbottle,
+/obj/item/reagent_containers/cup/glass/waterbottle,
 /turf/simulated/floor/carpet/black,
 /area/centcom/central_command_areas/zone/two)
 "cte" = (
@@ -12811,7 +12811,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/reagent_containers/cup/beaker/waterbottle,
+/obj/item/reagent_containers/cup/glass/waterbottle,
 /obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_x = -5
 	},
@@ -16186,7 +16186,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/reagent_containers/cup/beaker/waterbottle,
+/obj/item/reagent_containers/cup/glass/waterbottle,
 /obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_x = -5
 	},
@@ -17899,7 +17899,7 @@
 	pixel_x = -8;
 	pixel_y = -11
 	},
-/obj/item/reagent_containers/cup/beaker/waterbottle{
+/obj/item/reagent_containers/cup/glass/waterbottle{
 	pixel_x = 8;
 	pixel_y = -3
 	},
@@ -26929,7 +26929,7 @@
 /area/centcom/syndicate_base/elite_squad)
 "mDm" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/cup/beaker/waterbottle/large{
+/obj/item/reagent_containers/cup/glass/waterbottle/large{
 	pixel_x = -7;
 	pixel_y = 9
 	},
@@ -29005,7 +29005,7 @@
 /area/centcom/central_command_areas/special_operations)
 "nvu" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/cup/beaker/waterbottle,
+/obj/item/reagent_containers/cup/glass/waterbottle,
 /obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_x = -5
 	},
@@ -36030,7 +36030,7 @@
 /area/shuttle/vox)
 "qDr" = (
 /obj/structure/bed/mattress/dirty,
-/obj/item/reagent_containers/cup/beaker/waterbottle{
+/obj/item/reagent_containers/cup/glass/waterbottle{
 	pixel_x = -10;
 	pixel_y = -3
 	},
@@ -38208,7 +38208,7 @@
 	},
 /area/centcom/syndicate_base/cargo)
 "rxm" = (
-/obj/item/reagent_containers/cup/beaker/waterbottle{
+/obj/item/reagent_containers/cup/glass/waterbottle{
 	pixel_x = -10;
 	pixel_y = -3
 	},
@@ -41753,7 +41753,7 @@
 "tbY" = (
 /obj/structure/window/reinforced,
 /obj/structure/table,
-/obj/item/reagent_containers/cup/beaker/waterbottle,
+/obj/item/reagent_containers/cup/glass/waterbottle,
 /turf/simulated/floor/carpet/black,
 /area/centcom/central_command_areas/zone/two)
 "tcs" = (
@@ -51805,7 +51805,7 @@
 	pixel_x = -6;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/cup/beaker/waterbottle/large{
+/obj/item/reagent_containers/cup/glass/waterbottle/large{
 	pixel_x = 13;
 	pixel_y = 9
 	},

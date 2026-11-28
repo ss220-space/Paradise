@@ -7974,7 +7974,7 @@
 /area/ruin/space/pirate_base/lab_medical)
 "Bd" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/cup/beaker/waterbottle,
+/obj/item/reagent_containers/cup/glass/waterbottle,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},

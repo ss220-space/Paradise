@@ -385,7 +385,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Buffer)
 "bL" = (
-/obj/item/reagent_containers/cup/beaker/waterbottle/large,
+/obj/item/reagent_containers/cup/glass/waterbottle/large,
 /turf/simulated/floor/wood/fancy,
 /area/awaymission/BMPship/CommonArea)
 "bM" = (

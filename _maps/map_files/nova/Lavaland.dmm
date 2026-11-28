@@ -6991,7 +6991,7 @@
 "PR" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/snacks/breadslice,
-/obj/item/reagent_containers/cup/beaker/waterbottle/large,
+/obj/item/reagent_containers/cup/glass/waterbottle/large,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "PT" = (

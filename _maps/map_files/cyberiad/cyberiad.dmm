@@ -38971,7 +38971,7 @@
 	pixel_x = -8;
 	pixel_y = 11
 	},
-/obj/item/reagent_containers/cup/beaker/waterbottle/large{
+/obj/item/reagent_containers/cup/glass/waterbottle/large{
 	pixel_x = 7
 	},
 /obj/machinery/door/window/brigdoor/eastright{
@@ -43650,7 +43650,7 @@
 /obj/effect/turf_decal/siding/purple{
 	dir = 4
 	},
-/obj/item/reagent_containers/cup/beaker/waterbottle/empty,
+/obj/item/reagent_containers/cup/glass/waterbottle/empty,
 /turf/simulated/floor/plating,
 /area/station/maintenance/server)
 "jyB" = (
@@ -62030,7 +62030,7 @@
 /area/station/commons/arcade)
 "qnM" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/cup/beaker/waterbottle{
+/obj/item/reagent_containers/cup/glass/waterbottle{
 	pixel_x = 5
 	},
 /obj/item/reagent_containers/cup/glass/drinkingglass{
@@ -74148,7 +74148,7 @@
 /area/station/engineering/engine)
 "uTu" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/cup/beaker/waterbottle{
+/obj/item/reagent_containers/cup/glass/waterbottle{
 	pixel_x = 5
 	},
 /obj/item/reagent_containers/cup/glass/drinkingglass{
@@ -75222,7 +75222,7 @@
 /obj/item/reagent_containers/cup/glass/drinkingglass{
 	pixel_x = -5
 	},
-/obj/item/reagent_containers/cup/beaker/waterbottle{
+/obj/item/reagent_containers/cup/glass/waterbottle{
 	pixel_x = 5
 	},
 /turf/simulated/floor/carpet,
@@ -82268,7 +82268,7 @@
 /area/station/ai/satellite/interior)
 "xTq" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/cup/beaker/waterbottle,
+/obj/item/reagent_containers/cup/glass/waterbottle,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"

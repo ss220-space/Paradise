@@ -26,22 +26,6 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_CAN_ATTACH_TO_TRIPWIRE, INNATE_TRAIT)
 
-/obj/item/reagent_containers/cup/glass/drinkingglass/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/food/snacks/egg)) //breaking eggs
-		add_fingerprint(user)
-		if(!reagents)
-			balloon_alert(user, "яйцо пустое!")
-			return ATTACK_CHAIN_PROCEED
-		if(reagents.total_volume >= reagents.maximum_volume)
-			balloon_alert(user, "нет места!")
-			return ATTACK_CHAIN_PROCEED
-		to_chat(user, span_notice("Вы разбиваете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
-		I.reagents.trans_to(src, I.reagents.total_volume)
-		qdel(I)
-		return ATTACK_CHAIN_BLOCKED_ALL
-
-	return ..()
-
 /obj/item/reagent_containers/cup/glass/drinkingglass/fire_act(exposed_temperature, exposed_volume)
 	if(!reagents.total_volume)
 		return
