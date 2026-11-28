@@ -4,13 +4,16 @@
 /turf/simulated/floor/wood,
 /area/centcom/admin_room)
 "ac" = (
-/turf/simulated/wall/indestructible/mineral_rock,
+/turf/simulated/floor/lava/lava_land_surface/plasma{
+	atmos_environment = null;
+	atmos_mode = 1
+	},
 /area/centcom/tdome/new_arena)
 "ad" = (
 /obj/machinery/door/poddoor/shutters/invincible{
 	id_tag = "TD_CloseCombat"
 	},
-/turf/simulated/floor/indestructible/grass,
+/turf/simulated/floor/indestructible/snow,
 /area/centcom/tdome/new_arena)
 "ah" = (
 /obj/structure/table/wood/poker,
@@ -247,8 +250,9 @@
 /turf/simulated/floor/wood,
 /area/centcom/admin_room)
 "cD" = (
-/turf/simulated/floor/indestructible/asteroid,
-/area/centcom/tdome/new_arena/cqc)
+/obj/item/decorations/sticky_decorations/flammable/snowflake,
+/turf/simulated/wall/indestructible/iron,
+/area/centcom/tdome/new_arena)
 "cE" = (
 /turf/simulated/floor/holofloor{
 	dir = 10;
@@ -321,7 +325,10 @@
 /turf/simulated/floor/wood,
 /area/centcom/admin_room)
 "dp" = (
-/turf/simulated/floor/lava,
+/obj/structure/mecha_wreckage/mauler{
+	anchored = 1
+	},
+/turf/simulated/floor/indestructible/stone_floor,
 /area/centcom/tdome/new_arena)
 "dq" = (
 /obj/structure/holohoop,
@@ -476,8 +483,9 @@
 /turf/simulated/floor/wood,
 /area/centcom/admin_room)
 "eT" = (
-/turf/simulated/wall/indestructible/wood,
-/area/centcom/tdome/new_arena/cqc)
+/obj/structure/decorative_structures/garland/north,
+/turf/simulated/floor/indestructible/snow,
+/area/centcom/tdome/new_arena)
 "eW" = (
 /obj/structure/flora/grass/green,
 /turf/simulated/floor/holofloor{
@@ -662,6 +670,12 @@
 	icon_state = "darkgrey"
 	},
 /area/centcom/admin_room)
+"hh" = (
+/obj/structure/closet/crate/trashcart,
+/turf/simulated/floor/indestructible/snow{
+	color = "yellow"
+	},
+/area/centcom/tdome/new_arena)
 "hm" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
@@ -745,13 +759,14 @@
 	icon_state = "navyblue"
 	},
 /area/centcom/admin_room/construction)
-"iy" = (
-/obj/effect/turf_decal{
-	dir = 10;
-	icon_state = "grass_edge_medium";
-	name = "grass"
+"ix" = (
+/obj/structure/mecha_wreckage/marauder{
+	anchored = 1
 	},
-/turf/simulated/floor/indestructible/asteroid,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/centcom/tdome/new_arena)
+"iy" = (
+/turf/simulated/wall/indestructible/iron,
 /area/centcom/tdome/new_arena/cqc)
 "iD" = (
 /obj/structure/closet/secure_closet/cabinet{
@@ -912,11 +927,10 @@
 /turf/simulated/floor/wood,
 /area/centcom/admin_room)
 "jI" = (
-/obj/effect/turf_decal{
-	dir = 4;
-	icon_state = "grass_edge_medium"
+/obj/machinery/door/poddoor/shutters/invincible{
+	id_tag = "TD_CloseCombat"
 	},
-/turf/simulated/floor/indestructible/asteroid,
+/turf/simulated/wall/indestructible/iron,
 /area/centcom/tdome/new_arena)
 "jN" = (
 /obj/structure/table/wood,
@@ -985,7 +999,8 @@
 /turf/simulated/floor/wood,
 /area/centcom/admin_room)
 "kw" = (
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air,
+/obj/structure/closet/crate/trashcart/gibs,
+/turf/simulated/floor/indestructible/snow,
 /area/centcom/tdome/new_arena)
 "kD" = (
 /obj/structure/table/wood,
@@ -1035,11 +1050,9 @@
 /turf/simulated/floor/wood,
 /area/centcom/admin_room)
 "kZ" = (
-/obj/structure/sink/puddle{
-	armor = list("melee" = 1000, "bullet" = 1000, "laser" = 1000, "energy" = 1000, "bomb" = 1000, "bio" = 1000, "fire" = 500, "acid" = 500)
-	},
-/turf/simulated/floor/indestructible/asteroid,
-/area/centcom/tdome/new_arena/cqc)
+/obj/item/reagent_containers/food/snacks/gingercookie/cane,
+/turf/simulated/floor/indestructible/snow,
+/area/centcom/tdome/new_arena)
 "lc" = (
 /obj/structure/holowindow{
 	dir = 1
@@ -1134,12 +1147,9 @@
 /turf/simulated/floor/wood,
 /area/centcom/admin_room)
 "mN" = (
-/obj/effect/turf_decal{
-	dir = 8;
-	icon_state = "grass_edge_medium_corner"
-	},
-/turf/simulated/floor/indestructible/asteroid,
-/area/centcom/tdome/new_arena/cqc)
+/obj/structure/decorative_structures/garland/east,
+/turf/simulated/floor/indestructible/snow,
+/area/centcom/tdome/new_arena)
 "mO" = (
 /obj/structure/table/wood,
 /obj/item/twohanded/chainsaw,
@@ -1311,6 +1321,11 @@
 /obj/item/gun/energy/gun/advtaser,
 /turf/simulated/floor/wood,
 /area/centcom/admin_room)
+"pz" = (
+/obj/item/trash/semki,
+/obj/item/trash/liquidfood,
+/turf/simulated/floor/indestructible/snow,
+/area/centcom/tdome/new_arena)
 "pA" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/wand/polymorph,
@@ -1364,26 +1379,18 @@
 /turf/simulated/floor/holofloor/grass,
 /area/holodeck/source_picnicarea)
 "qg" = (
-/obj/effect/turf_decal{
-	dir = 10;
-	icon_state = "grass_edge_medium";
-	name = "grass"
-	},
-/turf/simulated/floor/indestructible/grass,
-/area/centcom/tdome/new_arena/cqc)
+/obj/structure/snowman/high,
+/turf/simulated/floor/indestructible/snow,
+/area/centcom/tdome/new_arena)
 "qi" = (
 /turf/simulated/floor/holofloor{
 	icon_state = "green"
 	},
 /area/holodeck/source_boxingcourt)
 "qr" = (
-/obj/effect/turf_decal{
-	dir = 6;
-	icon_state = "grass_edge_medium";
-	name = "grass"
-	},
-/turf/simulated/floor/indestructible/asteroid,
-/area/centcom/tdome/new_arena/cqc)
+/obj/structure/decorative_structures/garland/west,
+/turf/simulated/floor/indestructible/snow,
+/area/centcom/tdome/new_arena)
 "qt" = (
 /obj/machinery/computer/card/centcom{
 	req_access = list(150)
@@ -1401,11 +1408,9 @@
 	},
 /area/centcom/admin_room)
 "qw" = (
-/obj/effect/turf_decal{
-	icon_state = "grass_edge_medium_corner"
-	},
-/turf/simulated/floor/indestructible/asteroid,
-/area/centcom/tdome/new_arena/cqc)
+/obj/structure/flora/tree/pine,
+/turf/simulated/floor/indestructible/snow,
+/area/centcom/tdome/new_arena)
 "qx" = (
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser,
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/ion,
@@ -1496,6 +1501,15 @@
 	icon_state = "green"
 	},
 /area/holodeck/source_emptycourt)
+"rV" = (
+/obj/structure/snowman/short,
+/turf/simulated/floor/indestructible/snow,
+/area/centcom/tdome/new_arena)
+"rX" = (
+/obj/item/trash/popcorn,
+/obj/item/trash/broken_ashtray,
+/turf/simulated/floor/indestructible/snow,
+/area/centcom/tdome/new_arena)
 "sk" = (
 /obj/structure/table/wood,
 /obj/item/twohanded/bostaff,
@@ -1834,12 +1848,8 @@
 /turf/simulated/floor/wood,
 /area/centcom/admin_room)
 "wE" = (
-/obj/effect/turf_decal{
-	dir = 8;
-	icon_state = "grass_edge_medium";
-	name = "grass"
-	},
-/turf/simulated/floor/indestructible/asteroid,
+/obj/structure/snowman/medium,
+/turf/simulated/floor/indestructible/snow,
 /area/centcom/tdome/new_arena)
 "wM" = (
 /obj/structure/table/wood,
@@ -2023,7 +2033,8 @@
 	},
 /area/centcom/admin_room)
 "yQ" = (
-/turf/simulated/floor/indestructible/grass,
+/obj/item/decorations/sticky_decorations/flammable/snowflake,
+/turf/simulated/wall/indestructible/iron,
 /area/centcom/tdome/new_arena/cqc)
 "yV" = (
 /obj/structure/rack,
@@ -2329,7 +2340,7 @@
 /turf/simulated/floor/wood,
 /area/centcom/admin_room)
 "BI" = (
-/turf/simulated/floor/plating/asteroid/basalt/lava,
+/turf/simulated/floor/indestructible/stone_floor,
 /area/centcom/tdome/new_arena)
 "BN" = (
 /obj/structure/table/wood,
@@ -2337,7 +2348,7 @@
 /turf/simulated/floor/wood,
 /area/centcom/admin_room)
 "BT" = (
-/turf/simulated/wall/indestructible/rock,
+/turf/simulated/wall/indestructible/iron,
 /area/space)
 "BU" = (
 /turf/simulated/floor/holofloor{
@@ -2460,7 +2471,8 @@
 	},
 /area/centcom/admin_room/construction)
 "Du" = (
-/turf/simulated/floor/indestructible/grass,
+/obj/structure/decorative_structures/garland,
+/turf/simulated/floor/indestructible/snow,
 /area/centcom/tdome/new_arena)
 "Dx" = (
 /obj/effect/landmark/spawner/tdomeadmin,
@@ -2474,12 +2486,11 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/tdome/administration)
 "Dz" = (
-/obj/effect/turf_decal{
-	dir = 9;
-	icon_state = "grass_edge_medium"
+/obj/machinery/door/poddoor/shutters/invincible{
+	id_tag = "TD_CloseCombat"
 	},
-/turf/simulated/floor/indestructible/asteroid,
-/area/centcom/tdome/new_arena/cqc)
+/turf/simulated/floor/indestructible/stone_floor,
+/area/centcom/tdome/new_arena)
 "DF" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/wand/fireball,
@@ -2513,11 +2524,8 @@
 	},
 /area/holodeck/source_basketball)
 "Ef" = (
-/obj/effect/turf_decal{
-	icon_state = "grass_edge_medium";
-	name = "grass"
-	},
-/turf/simulated/floor/indestructible/asteroid,
+/obj/item/reagent_containers/food/snacks/gingercookie/mitten,
+/turf/simulated/floor/indestructible/snow,
 /area/centcom/tdome/new_arena)
 "Eh" = (
 /obj/machinery/light_switch/directional/east,
@@ -2568,13 +2576,9 @@
 /turf/space,
 /area/centcom/admin_room/construction)
 "EL" = (
-/obj/effect/turf_decal{
-	dir = 5;
-	icon_state = "grass_edge_medium";
-	name = "grass"
-	},
-/turf/simulated/floor/indestructible/asteroid,
-/area/centcom/tdome/new_arena/cqc)
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking,
+/turf/simulated/wall/indestructible/gingerbread,
+/area/centcom/tdome/new_arena)
 "EU" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/pistol/aps,
@@ -2700,12 +2704,9 @@
 	},
 /area/holodeck/source_boxingcourt)
 "FE" = (
-/obj/effect/turf_decal{
-	dir = 4;
-	icon_state = "grass_edge_medium_corner"
-	},
-/turf/simulated/floor/indestructible/asteroid,
-/area/centcom/tdome/new_arena/cqc)
+/obj/item/trash/broken_ashtray,
+/turf/simulated/floor/indestructible/snow,
+/area/centcom/tdome/new_arena)
 "FF" = (
 /turf/simulated/floor/holofloor{
 	dir = 8;
@@ -2790,11 +2791,7 @@
 /turf/simulated/floor/beach/sand,
 /area/holodeck/source_beach)
 "GP" = (
-/obj/effect/turf_decal{
-	icon_state = "grass_edge_medium";
-	name = "grass"
-	},
-/turf/simulated/wall/indestructible/mineral_rock,
+/turf/simulated/wall/indestructible/gingerbread,
 /area/centcom/tdome/new_arena)
 "GQ" = (
 /obj/item/toy/prize/honk,
@@ -2897,6 +2894,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/centcom/admin_room)
+"HD" = (
+/obj/structure/mecha_wreckage/marauder,
+/turf/simulated/floor/indestructible/snow,
+/area/centcom/tdome/new_arena)
 "HG" = (
 /obj/structure/table/wood,
 /obj/item/toy/russian_revolver,
@@ -2914,13 +2915,7 @@
 /turf/simulated/floor/wood,
 /area/centcom/admin_room)
 "HY" = (
-/obj/structure/table/reinforced{
-	armor = list("melee" = 1000, "bullet" = 1000, "laser" = 1000, "energy" = 1000, "bomb" = 1000, "bio" = 1000, "fire" = 500, "acid" = 500)
-	},
-/obj/item/reagent_containers/food/snacks/charred_krill{
-	name = "ТАНДЕРДРОМНЫЙ КРИИЛ"
-	},
-/turf/simulated/floor/indestructible/asteroid,
+/turf/simulated/floor/indestructible/stone_floor,
 /area/centcom/tdome/new_arena/cqc)
 "HZ" = (
 /obj/structure/table/wood,
@@ -2935,7 +2930,7 @@
 	},
 /area/centcom/admin_room)
 "Ie" = (
-/turf/simulated/wall/indestructible/sandstone,
+/turf/simulated/floor/indestructible/snow,
 /area/centcom/tdome/new_arena/cqc)
 "If" = (
 /obj/structure/table/wood,
@@ -3351,6 +3346,10 @@
 	icon_state = "dark"
 	},
 /area/centcom/tdome/arena)
+"NQ" = (
+/obj/item/trash/can,
+/turf/simulated/floor/indestructible/snow,
+/area/centcom/tdome/new_arena)
 "NR" = (
 /obj/machinery/light/small{
 	brightness_range = 6;
@@ -3504,11 +3503,9 @@
 /turf/simulated/floor/carpet/arcade,
 /area/centcom/admin_room)
 "PX" = (
-/obj/structure/table/reinforced{
-	armor = list("melee" = 1000, "bullet" = 1000, "laser" = 1000, "energy" = 1000, "bomb" = 1000, "bio" = 1000, "fire" = 500, "acid" = 500)
-	},
-/turf/simulated/floor/indestructible/asteroid,
-/area/centcom/tdome/new_arena/cqc)
+/obj/structure/mineral_door/ginger,
+/turf/simulated/floor/indestructible/snow,
+/area/centcom/tdome/new_arena)
 "PY" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/tommygun,
@@ -3614,12 +3611,9 @@
 /turf/simulated/floor/wood,
 /area/centcom/admin_room)
 "RA" = (
-/obj/effect/turf_decal{
-	dir = 1;
-	icon_state = "grass_edge_medium_corner"
-	},
-/turf/simulated/floor/indestructible/asteroid,
-/area/centcom/tdome/new_arena/cqc)
+/obj/item/reagent_containers/food/snacks/gingercookie/home,
+/turf/simulated/floor/indestructible/snow,
+/area/centcom/tdome/new_arena)
 "RF" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/l6_saw,
@@ -3730,7 +3724,7 @@
 /turf/simulated/floor/wood,
 /area/centcom/admin_room)
 "To" = (
-/turf/simulated/floor/indestructible/asteroid,
+/turf/simulated/floor/indestructible/snow,
 /area/centcom/tdome/new_arena)
 "Tr" = (
 /obj/machinery/teleport/hub/upgraded{
@@ -3859,7 +3853,8 @@
 /obj/minigame_anchor/thunderdome_poller/melee,
 /obj/minigame_anchor/thunderdome_poller/mixed,
 /obj/minigame_anchor/thunderdome_poller/ranged,
-/turf/simulated/floor/indestructible/asteroid,
+/obj/structure/flora/tree/pine/xmas,
+/turf/simulated/floor/indestructible/snow,
 /area/centcom/tdome/new_arena/cqc)
 "UB" = (
 /obj/structure/table/wood,
@@ -3889,15 +3884,12 @@
 /turf/simulated/floor/wood,
 /area/centcom/admin_room)
 "UY" = (
-/obj/structure/table/reinforced{
-	armor = list("melee" = 1000, "bullet" = 1000, "laser" = 1000, "energy" = 1000, "bomb" = 1000, "bio" = 1000, "fire" = 500, "acid" = 500)
+/obj/item/decorations/sticky_decorations/flammable/snowflake,
+/obj/machinery/door/poddoor/shutters/invincible{
+	id_tag = "TD_CloseCombat"
 	},
-/obj/effect/turf_decal{
-	dir = 8;
-	icon_state = "grass_edge_medium_corner"
-	},
-/turf/simulated/floor/indestructible/asteroid,
-/area/centcom/tdome/new_arena/cqc)
+/turf/simulated/wall/indestructible/iron,
+/area/centcom/tdome/new_arena)
 "Vb" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -4209,12 +4201,8 @@
 /turf/simulated/floor/holofloor/burn_mix_floor,
 /area/holodeck/source_burntest)
 "Yf" = (
-/obj/effect/turf_decal{
-	dir = 1;
-	icon_state = "grass_edge_medium";
-	name = "grass"
-	},
-/turf/simulated/floor/indestructible/asteroid,
+/obj/item/reagent_containers/food/snacks/gingercookie/tree,
+/turf/simulated/floor/indestructible/snow,
 /area/centcom/tdome/new_arena)
 "Yl" = (
 /obj/structure/flora/ausbushes/grassybush,
@@ -4231,7 +4219,7 @@
 /turf/space,
 /area/space)
 "Yz" = (
-/turf/simulated/wall/indestructible/wood,
+/turf/simulated/wall/indestructible/iron,
 /area/centcom/tdome/new_arena)
 "YC" = (
 /turf/simulated/floor/beach/sand,
@@ -4263,11 +4251,9 @@
 /turf/simulated/floor/wood,
 /area/centcom/admin_room)
 "YS" = (
-/obj/effect/turf_decal{
-	icon_state = "grass_edge_medium_corner"
-	},
-/turf/simulated/wall/indestructible/sandstone,
-/area/centcom/tdome/new_arena/cqc)
+/obj/mecha/makeshift,
+/turf/simulated/floor/indestructible/stone_floor,
+/area/centcom/tdome/new_arena)
 "Za" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/staff/change,
@@ -59168,31 +59154,31 @@ Yq
 Yq
 Yq
 BT
-To
+YS
+ix
 BI
+ac
 To
 To
-Yf
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-ac
-ac
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Du
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+mN
+To
+To
+To
+To
+To
+To
+To
+To
 BT
 Yq
 Yq
@@ -59425,31 +59411,31 @@ Yq
 Yq
 Yq
 BT
+dp
 BI
-kw
 BI
+ac
 To
-ac
+To
+To
+Yz
+To
+To
+To
+To
+To
+To
+To
 Du
-Du
-ac
-Du
-Du
-ac
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-ac
-Du
-Du
-Du
-ac
-Du
+cD
+eT
+wE
+mN
+qg
+To
+To
+wE
+To
 BT
 Yq
 Yq
@@ -59682,31 +59668,31 @@ Yq
 Yq
 Yq
 BT
-To
 BI
-To
+BI
 ac
+ac
+To
+To
+qw
+To
+To
+To
+To
+To
+To
+To
+To
+To
+qr
+To
 Du
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Yz
-Du
-Du
-Du
+cD
+eT
+To
+To
+mN
+To
 BT
 Yq
 Yq
@@ -59939,31 +59925,31 @@ Yq
 Yq
 Yq
 BT
-To
-To
 ac
-Du
+ac
+ac
+To
+To
+To
+To
+To
+To
+To
+BI
+To
+To
+To
+BI
+To
+To
 Yz
+To
+qr
+To
+qg
 Du
-Du
-Du
-Du
-Du
-Du
-Du
-Yz
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Yz
-Du
-Du
-Du
-Du
+cD
+eT
 BT
 Yq
 Yq
@@ -60196,31 +60182,31 @@ Yq
 Yq
 Yq
 BT
-wE
-ac
-Du
-Du
-Du
-Du
-Du
-Du
+To
+To
+To
+qw
+To
+BI
+To
+To
+To
+To
+To
+BI
+To
+BI
+To
+To
 Yz
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Yz
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Du
+To
+To
+BI
+To
+To
+To
+qr
+To
 BT
 Yq
 Yq
@@ -60453,31 +60439,31 @@ Yq
 Yq
 Yq
 BT
-Du
-Du
-Du
-Du
-Du
+To
+To
+To
+To
+To
+jI
 ad
 ad
 ad
 ad
 ad
 ad
+Dz
 ad
 ad
 ad
 ad
 ad
+Dz
 ad
-ad
-ad
-ad
-Du
-Du
-Du
-Du
-ac
+BI
+To
+To
+To
+To
 BT
 Yq
 Yq
@@ -60710,31 +60696,31 @@ Yq
 Yq
 Yq
 BT
-Du
-Du
-Du
-Du
-Du
+To
+qw
+Yz
+To
+To
 ad
+HY
+Ie
+HY
+Ie
+Ie
+iy
 yQ
-yQ
-yQ
-yQ
-yQ
-yQ
-yQ
-yQ
-yQ
-yQ
-yQ
-yQ
-yQ
-ad
-Du
-Du
-Du
-Du
-Du
+iy
+Ie
+Ie
+HY
+Ie
+iy
+Dz
+To
+To
+To
+rV
+To
 BT
 Yq
 Yq
@@ -60967,31 +60953,31 @@ Yq
 Yq
 Yq
 BT
-ac
-Du
-Du
-Du
-Du
+To
+To
+Yz
+To
+To
 ad
-yQ
-yQ
-eT
-yQ
-yQ
-qr
 Ie
-EL
-yQ
-yQ
-eT
-yQ
-yQ
+iy
+Ie
+Ie
+Ie
+Ie
+HY
+Ie
+Ie
+Ie
+Ie
+HY
+Ie
 ad
-Du
-Du
-Du
-Du
-Du
+To
+To
+mN
+To
+To
 BT
 Yq
 Yq
@@ -61224,31 +61210,31 @@ Yq
 Yq
 Yq
 BT
-Du
-Du
-Du
-Du
-Yz
+To
+To
+To
+HD
+To
 ad
-yQ
-yQ
-yQ
-yQ
-qr
-FE
+HY
+Ie
+HY
+Ie
+Ie
+HY
+HY
+HY
+Ie
+Ie
+HY
+Ie
+HY
+ad
+To
+Du
 cD
-RA
-EL
-yQ
-yQ
-yQ
-yQ
-ad
-Yz
-Du
-Du
-Du
-Du
+eT
+To
 BT
 Yq
 Yq
@@ -61481,31 +61467,31 @@ Yq
 Yq
 Yq
 BT
-Du
-Du
-Du
-Du
-Du
+To
+To
+To
+To
+To
 ad
-yQ
-yQ
-yQ
-qr
 Ie
-cD
-cD
-cD
-PX
-EL
-yQ
-yQ
-yQ
+Ie
+Ie
+iy
+HY
+HY
+Ie
+HY
+HY
+iy
+Ie
+Ie
+Ie
 ad
-Yz
-Du
-ac
-Du
-Du
+To
+To
+qr
+To
+To
 BT
 Yq
 Yq
@@ -61738,31 +61724,31 @@ Yq
 Yq
 Yq
 BT
-Du
-ac
-ac
-Du
-Du
+To
+To
+To
+BI
+To
 ad
-yQ
-yQ
-qr
-FE
-cD
 Ie
-cD
-PX
-cD
-RA
-EL
-yQ
-yQ
+Ie
+Ie
+HY
+iy
+Ie
+HY
+Ie
+iy
+HY
+Ie
+Ie
+Ie
 ad
-Du
-Du
-Du
-ac
-Du
+To
+BI
+To
+To
+To
 BT
 Yq
 Yq
@@ -61995,31 +61981,31 @@ Yq
 Yq
 Yq
 BT
-Du
-Du
-Du
-Du
-Du
+To
+To
+To
+To
+Yz
 ad
-yQ
-qr
-FE
-cD
-cD
-cD
-cD
-cD
-cD
-cD
-RA
-EL
-yQ
+HY
+Ie
+HY
+HY
+Ie
+HY
+HY
+HY
+Ie
+HY
+iy
+Ie
+HY
 ad
-Du
-Du
-Du
-Du
-Du
+BI
+To
+To
+To
+To
 BT
 Yq
 Yq
@@ -62252,31 +62238,31 @@ Yq
 Yq
 Yq
 BT
-Du
-Du
-Du
-Du
-Du
-ad
-yQ
-Ie
-cD
-cD
-Ie
-kZ
-Uw
-cD
+To
+To
+To
+To
+To
+UY
 HY
-cD
-cD
+HY
+iy
 Ie
-yQ
-ad
-Du
-Yz
-Du
-Du
-Du
+HY
+HY
+Uw
+HY
+HY
+Ie
+iy
+HY
+HY
+jI
+To
+To
+To
+To
+To
 BT
 Yq
 Yq
@@ -62509,31 +62495,31 @@ Yq
 Yq
 Yq
 BT
-Du
-Du
-Du
-ac
-Du
+To
+To
+To
+To
+BI
 ad
-yQ
+HY
+Ie
+HY
+HY
+Ie
+HY
+HY
+HY
+Ie
+HY
 iy
-qw
-cD
-cD
-cD
-cD
-cD
-cD
-cD
-mN
-Dz
-yQ
+Ie
+HY
 ad
-Du
-Du
-Du
-Du
-Du
+Yz
+To
+To
+To
+To
 BT
 Yq
 Yq
@@ -62766,31 +62752,31 @@ Yq
 Yq
 Yq
 BT
-Du
-ac
-Du
-Du
-Du
+To
+To
+To
+BI
+To
 ad
-yQ
-yQ
-iy
-qw
-cD
 Ie
-cD
-PX
-cD
-mN
-Dz
-yQ
-yQ
+Ie
+Ie
+HY
+iy
+Ie
+HY
+Ie
+iy
+iy
+Ie
+Ie
+Ie
 ad
-Du
-Du
-Du
-ac
-Du
+To
+Yz
+To
+To
+To
 BT
 Yq
 Yq
@@ -63023,31 +63009,31 @@ Yq
 Yq
 Yq
 BT
-Du
-ac
-Du
-Du
-Du
+To
+To
+To
+To
+To
 ad
-yQ
-yQ
-yQ
+Ie
+Ie
+Ie
 iy
-YS
-cD
-cD
-cD
-UY
-Dz
-yQ
-yQ
-yQ
+HY
+HY
+Ie
+HY
+HY
+iy
+Ie
+Ie
+Ie
 ad
-Du
-Du
-Du
-Du
-Du
+To
+To
+To
+To
+To
 BT
 Yq
 Yq
@@ -63280,31 +63266,31 @@ Yq
 Yq
 Yq
 BT
-Du
-Du
-Du
-Du
-Yz
+To
+To
+To
+To
+To
 ad
-yQ
-yQ
-yQ
-qg
 iy
-qw
-cD
-mN
-Dz
-yQ
-yQ
-yQ
-yQ
+Ie
+HY
+Ie
+Ie
+HY
+HY
+HY
+Ie
+Ie
+HY
+Ie
+HY
 ad
-Yz
-Du
-Du
-Du
-Du
+To
+To
+To
+To
+To
 BT
 Yq
 Yq
@@ -63537,31 +63523,31 @@ Yq
 Yq
 Yq
 BT
-Du
-Du
-Du
-Du
-Yz
+To
+To
+To
+To
+To
 ad
-yQ
-yQ
-eT
-yQ
-yQ
-iy
 Ie
-Dz
-yQ
-yQ
-eT
-yQ
-yQ
+HY
+Ie
+Ie
+Ie
+Ie
+HY
+Ie
+Ie
+Ie
+Ie
+HY
+Ie
 ad
-Du
-Du
-Du
-Du
-ac
+To
+GP
+EL
+PX
+GP
 BT
 Yq
 Yq
@@ -63794,31 +63780,31 @@ Yq
 Yq
 Yq
 BT
-Du
-Du
-Du
-Du
-Du
-ad
-yQ
-yQ
-yQ
-yQ
-yQ
-yQ
-yQ
-yQ
-yQ
-yQ
-yQ
-yQ
-yQ
-ad
-Du
-Du
-Du
-Du
-Du
+To
+To
+To
+To
+To
+Dz
+HY
+Ie
+HY
+Ie
+Ie
+HY
+HY
+HY
+Ie
+Ie
+HY
+Ie
+HY
+jI
+To
+GP
+To
+RA
+To
 BT
 Yq
 Yq
@@ -64051,31 +64037,31 @@ Yq
 Yq
 Yq
 BT
-Du
-Du
-Du
-Du
-Du
+To
+To
+To
+To
+BI
+ad
+Dz
 ad
 ad
 ad
 ad
 ad
+jI
 ad
 ad
 ad
 ad
 ad
+jI
 ad
-ad
-ad
-ad
-ad
-Du
-Du
-Du
-Du
-Du
+BI
+EL
+To
+To
+To
 BT
 Yq
 Yq
@@ -64308,31 +64294,31 @@ Yq
 Yq
 Yq
 BT
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Du
+To
+To
+To
+To
+To
+BI
+To
+To
+To
+To
+To
 Yz
-Du
-Du
-Du
-Du
-Du
-Du
-Du
+To
 Yz
-Du
-Du
-Du
-Du
-Du
-Du
-ac
-jI
+To
+To
+To
+To
+To
+BI
+To
+PX
+To
+To
+To
 BT
 Yq
 Yq
@@ -64565,31 +64551,31 @@ Yq
 Yq
 Yq
 BT
-Du
-ac
-Du
-Du
-Yz
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Yz
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Yz
-Du
-ac
 To
 To
+To
+Yz
+To
+To
+To
+To
+To
+To
+BI
+To
+To
+To
+BI
+To
+To
+GP
+To
+To
+To
+GP
+To
+kZ
+Yf
 BT
 Yq
 Yq
@@ -64822,30 +64808,30 @@ Yq
 Yq
 Yq
 BT
-Du
-Du
-Du
 Yz
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-ac
+Yz
 To
-BI
+To
+Yz
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+GP
+To
+To
+Yf
+To
+To
+To
 To
 BT
 Yq
@@ -65079,31 +65065,31 @@ Yq
 Yq
 Yq
 BT
-ac
-ac
-Du
-Du
-Du
-Du
-ac
-Du
-Du
-Du
-Du
-Du
-Du
-ac
-Du
-Du
-Du
-Du
-Du
-Du
+kw
+rX
+NQ
+To
+Yz
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+PX
+To
 GP
 To
-BI
-dp
-BI
+kZ
+GP
+Ef
+To
 BT
 Yq
 Yq
@@ -65336,30 +65322,30 @@ Yq
 Yq
 Yq
 BT
-Du
-Du
-Du
-Du
-Du
-Du
-ac
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-ac
-Du
-Du
+hh
+pz
+FE
+To
+Yz
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+To
+EL
+To
+To
 Ef
 To
 To
-BI
+To
 To
 BT
 Yq
