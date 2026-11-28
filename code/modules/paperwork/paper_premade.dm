@@ -58,6 +58,24 @@
 	name = "photo"
 	icon_state = "photo"
 
+/obj/item/paper/black_market
+	default_raw_text = "<color=black><i> Чёрный Рынок, работающий под покровительством \"Синдиката\", рад предложить вам разнообразные контракты, которые могут приносить вам приличные кредиты. Чтобы получить контракт, необходимо отправить факс на адрес \"Синдиката\", не забывая указать, что обращение направлено к Черному Рынку. Это поможет ускорить обработку и направление контракта на выполнение.<br><br>Помните, что на поиск подходящего контракта Черному Рынку требуется некоторое время. Чтобы сделать процесс более эффективным, пожалуйста, заранее укажите интересующие вас направления, чтобы мы могли отправлять вам новые контракты в соответствии с вашими предпочтениями.<br><br>Вот некоторые из доступных заданий и вознаграждения:<br><br>Похищение Определенного Человека: <br>Задача — похитить цель, живым. <br>Вознаграждение: до 120 000 кредитов.<br><br>Убийство Определенного Человека: <br>Задача — убить цель. <br>Вознаграждение: до 60 000 кредитов.<br><br>Сбор Редкой Фауны: <br>Найдите и захватите редких животных живыми. <br>Вознаграждение: до 40 000 кредитов.<br><br>Сбор Ядер Аномалии: <br>Опасная задача — собрать и доставить ядра из аномалий. <br>Вознаграждение: до 50 000 кредитов.<br><br>Выращивание Определенных Растений: <br>Поставьте и вырастите указанные растения. <br>Вознаграждение: до 20 000 кредитов.<br><br>Приготовление Особой Еды: <br>Подготовьте особую пиратскую пищу. <br>Вознаграждение: до 20 000 кредитов.<br><br>Половина заработанных вами кредитов будет уходить в уплату долга.<br><br>Пожалуйста, не забудьте отправить факс на адрес \"Синдиката\" для подтверждения. <br>Ваша активность на Черном Рынке может приносить вам богатства и славу в пиратском мире.<br><br>С наилучшими пиратскими пожеланиями, Чёрный Рынок.</i></font>"
+	name = "Чёрный Рынок"
+
+/obj/item/paper/djstation/totskiy
+	default_raw_text = "Я переживаю за Тотского. Его уже пятый раз за эту неделю отправляют в вытрезвитель, и сколько бы я ни приходил к нему, он может найти Бога только на дне стакана Тунгуски.<br><brВсе это пьянство... я ненавижу плохо думать о СССП, но, не уделять этому никакого внимания? Не уподобляемся ли мы мерзкому ТСФ? Многие даже забыли свое истинную культуру в пользу \"общегалактической\". Такая снисходительность, такое пренебрежение, это не идет на пользу нашему духу, не говоря уже о душе."
+	layer = 2
+	name = "исповедь"
+
+/obj/item/paper/syndie_problem
+	default_raw_text = "Мой запас еды заканчивается, я не знаю как покинуть это место. мне еле удалось удрать из морга прикинувшись трупом. Синдикат слишком опасен! Это не просто отряд наёмников, это настоящая язва которая уже выросла! НТ должны знать! Хоть бы мне удалось сбежать и сообщить об этом месте! Но запас еды заканчивается, а \"Синдикату\" нужны известные лишь мне сведения. Когда еда закончится, я унесу эти секреты с собой в могилу!"
+	name = "Недоставленное послание"
+
+/obj/item/paper/holodeck_diclaimer
+	desc = ""
+	info = "Brusies sustained in the holodeck can be healed simply by sleeping."
+	name = "Holodeck Disclaimer"
+
 /obj/item/paper/sop
 	name = "paper- 'Standard Operating Procedure'"
 	default_raw_text = "Alert Levels:\n\nBlue- Emergency\n\n\t1. Caused by fire\n\n\t2. Caused by manual interaction\n\n\tAction:\n\n\t\tClose all fire doors. These can only be opened by reseting the alarm\n\nRed- Ejection/Self Destruct\n\n\t1. Caused by module operating computer.\n\n\tAction:\n\n\t\tAfter the specified time the module will eject completely.\n\n\n\nEngine Maintenance Instructions:\n\n\tShut off ignition systems:\n\n\tActivate internal power\n\n\tActivate orbital balance matrix\n\n\tRemove volatile liquids from area\n\n\tWear a fire suit\n\n\n\n\tAfter\n\n\t\tDecontaminate\n\n\t\tVisit medical examiner\n\n\n\nToxin Laboratory Procedure:\n\n\tWear a gas mask regardless\n\n\tGet an oxygen tank.\n\n\tActivate internal atmosphere\n\n\n\n\tAfter\n\n\t\tDecontaminate\n\n\t\tVisit medical examiner\n\n\n\nDisaster Procedure:\n\n\tFire:\n\n\t\tActivate sector fire alarm.\n\n\t\tMove to a safe area.\n\n\t\tGet a fire suit\n\n\t\tAfter:\n\n\t\t\tAssess Damage\n\n\t\t\tRepair damages\n\n\t\t\tIf needed, Evacuate\n\n\tMeteor Shower:\n\n\t\tActivate fire alarm\n\n\t\tMove to the back of ship\n\n\t\tAfter\n\n\t\t\tRepair damage\n\n\t\t\tIf needed, Evacuate\n\n\tAccidental Reentry:\n\n\t\tActivate fire alarms in front of ship.\n\n\t\tMove volatile matter to a fire proof area!\n\n\t\tGet a fire suit.\n\n\t\tStay secure until an emergency ship arrives.\n\n\n\n\t\tIf ship does not arrive-\n\n\t\t\tEvacuate to a nearby safe area!"

@@ -13127,10 +13127,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood,
-/obj/item/paper{
-	info = "Мой запас еды заканчивается, я не знаю как покинуть это место. мне еле удалось удрать из морга прикинувшись трупом. Синдикат слишком опасен! Это не просто отряд наёмников, это настоящая язва которая уже выросла! НТ должны знать! Хоть бы мне удалось сбежать и сообщить об этом месте! Но запас еды заканчивается, а \"Синдикату\" нужны известные лишь мне сведения. Когда еда закончится, я унесу эти секреты с собой в могилу!";
-	name = "Недоставленное послание"
-	},
+/obj/item/paper/syndie_problem,
 /obj/item/gun/energy/gun/mini,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)

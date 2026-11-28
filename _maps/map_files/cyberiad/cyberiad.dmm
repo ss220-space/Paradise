@@ -10472,11 +10472,7 @@
 /area/station/commons/dorms)
 "bvx" = (
 /obj/structure/table,
-/obj/item/paper{
-	desc = "";
-	info = "Brusies sustained in the holodeck can be healed simply by sleeping.";
-	name = "Holodeck Disclaimer"
-	},
+/obj/item/paper/holodeck_diclaimer,
 /turf/simulated/floor/plasteel,
 /area/station/commons/dorms)
 "bvA" = (
