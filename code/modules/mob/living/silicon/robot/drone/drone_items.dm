@@ -41,6 +41,7 @@
 
 	//Item currently being held.
 	var/obj/item/gripped_item = null
+	var/selection_revision = 0
 
 /obj/item/gripper/get_ru_names()
 	return alist(
@@ -234,8 +235,40 @@
 		PREPOSITIONAL = "ядерном захвате",
 	)
 
+/obj/item/gripper/proc/can_craft_with_sheet(obj/item/stack/material)
+	if(type != /obj/item/gripper)
+		return FALSE
+	return istype(material, /obj/item/stack/sheet/plasteel) \
+		|| istype(material, /obj/item/stack/sheet/plasmaglass) \
+		|| istype(material, /obj/item/stack/sheet/plasmarglass)
+
+/obj/item/gripper/proc/can_use_recipes(mob/user, obj/item/stack/material, selection_revision)
+	if(!isrobot(user) || QDELETED(src))
+		return FALSE
+	var/mob/living/silicon/robot/robot = user
+	if(QDELETED(material))
+		return FALSE
+	if(!can_craft_with_sheet(material) || gripped_item != material || loc != robot)
+		return FALSE
+	if(robot.module_active != src)
+		return FALSE
+	if(!isnull(selection_revision) && selection_revision != src.selection_revision)
+		return FALSE
+	return TRUE
+
+/obj/item/stack/sheet/ui_host(mob/user)
+	var/obj/item/gripper/gripper = loc
+	if(!istype(gripper) || !gripper.can_use_recipes(user, src))
+		return ..()
+	return gripper
+
 /obj/item/gripper/Initialize(mapload)
 	. = ..()
+	if(type == /obj/item/gripper)
+		can_hold = can_hold + list(
+			/obj/item/stack/sheet/plasmaglass,
+			/obj/item/stack/sheet/plasmarglass,
+		)
 	can_hold = typecacheof(can_hold)
 
 /obj/item/gripper/attack_self(mob/user)
@@ -488,3 +521,4 @@
 
 			stack.add(1)
 			decompiler.stored_comms[type]--
+
