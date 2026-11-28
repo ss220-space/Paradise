@@ -95,6 +95,10 @@
 		for(var/atom/T in get_turf(puff_decal))
 			puff_decal.reagents.reaction(T)
 		sleep(3)
+	if(get_dist(puff_decal, target_turf) == 1 && target_turf.density)
+		puff_decal.reagents.reaction(target_turf)
+		for(var/atom/content_atom as anything in target_turf)
+			puff_decal.reagents.reaction(content_atom)
 	qdel(puff_decal)
 
 /obj/item/reagent_containers/spray/attack_self(mob/user)
