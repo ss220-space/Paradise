@@ -61699,7 +61699,7 @@
 /turf/simulated/floor/planetoid/grass,
 /area/planetoid/caves/underground_lake)
 "ptp" = (
-/obj/structure/filingcabinet/filingcabinet,
+/obj/structure/filingcabinet/white,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
@@ -69672,8 +69672,8 @@
 	},
 /obj/item/paper{
 	desc = "Paper attached to freezer";
-	info = "<h1>Моему сменщику</h1><hr>Одна из камер содержания снабжена теплопроводящим контуром. Чтобы контур работал эффективно, пусти в него плазму из хранилища токсинов и настрой охладитель на желаемую температуру.<br><br><br><br>-Пит.";
-	name = "Записка"
+	name = "Записка";
+	default_raw_text = "<h1>Моему сменщику</h1><hr>Одна из камер содержания снабжена теплопроводящим контуром. Чтобы контур работал эффективно, пусти в него плазму из хранилища токсинов и настрой охладитель на желаемую температуру.<br><br><br><br>-Пит."
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"

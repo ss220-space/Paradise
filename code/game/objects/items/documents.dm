@@ -1,7 +1,7 @@
 /obj/item/documents
 	name = "secret documents"
 	desc = "\"Top Secret\" documents printed on special copy-protected paper."
-	icon = 'icons/obj/bureaucracy.dmi'
+	icon = 'icons/obj/service/bureaucracy.dmi'
 	icon_state = "docs_generic"
 	item_state = "paper"
 	w_class = WEIGHT_CLASS_TINY

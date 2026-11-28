@@ -365,7 +365,7 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 		new /datum/stack_recipe("display case chassis", /obj/structure/displaycase_chassis, 5, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("dog bed", /obj/structure/bed/dogbed, 10, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("dresser", /obj/structure/dresser, 30, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("notice board", /obj/item/noticeboard, 5, time = 1 SECONDS),
+		new /datum/stack_recipe("notice board", /obj/item/wallframe/noticeboard, 5, time = 1 SECONDS),
 		new /datum/stack_recipe("tribune", /obj/structure/tribune, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("wood table frame", /obj/structure/table_frame/wood, 2, time = 1 SECONDS),
 		new /datum/stack_recipe("wooden barricade", /obj/structure/barricade/wooden, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),

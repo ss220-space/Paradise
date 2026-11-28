@@ -59,7 +59,7 @@
 	num_check++
 	var/obj/item/paper/check/ch = new(drop_location())
 	ch.name = "Receipt: [machine_name]"
-	ch.info = {"<tt><b><big>Receipt No.[num_check]</big></b> <br>
+	ch.add_raw_text({"<tt>**<big>Receipt No.[num_check]</big>** \n)
 		-------------------------------------- <br>
 		<b>Transaction purpose:</b> [transaction_purpose] <br>
 		<b>Transaction amount:</b> [transaction_amount] <br>
@@ -67,6 +67,7 @@
 		<b>Station time:</b> [station_time_timestamp()] <br>
 		-------------------------------------- <br>
 		This notice does not require a signature.</tt>"}
+	)
 	ch.stamp(/obj/item/stamp, TRUE, "<i>This paper has been stamped by the [machine_name].</i>")
 	user.put_in_hands(ch, ignore_anim = FALSE)
 
@@ -74,10 +75,11 @@
 	playsound(src, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 	var/obj/item/paper/check/ref = new(drop_location())
 	ref.name = "Reference: [machine_name]"
-	ref.info = {"<tt><b><big>EFTPOS Reference</big></b> <br>
+	ref.add_raw_text({"<tt>**<big>EFTPOS Reference</big>** \n)
 		-------------------------------------- <br>
 		<b>Access code:</b> [access_code] <br>
 		Do not lose or misplace this note.</tt>"}
+	)
 	ref.stamp(/obj/item/stamp, TRUE, "<i>This paper has been stamped by the [machine_name].</i>")
 	user.put_in_hands(ref, ignore_anim = FALSE)
 

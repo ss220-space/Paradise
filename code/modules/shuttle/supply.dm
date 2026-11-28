@@ -15,10 +15,10 @@
 	)
 
 /obj/item/paper/manifest/proc/is_approved()
-	return LAZYLEN(stamped) && !is_denied()
+	return LAZYLEN(stamp_cache) && !is_denied()
 
 /obj/item/paper/manifest/proc/is_denied()
-	return LAZYLEN(stamped) && ( (/obj/item/stamp/denied in stamped) || ("stamp-deny" in stamped) )
+	return LAZYLEN(stamp_cache) && ("stamp-deny" in stamp_cache)
 
 /obj/docking_port/mobile/supply
 	name = "supply shuttle"
@@ -179,12 +179,12 @@
 				if(find_slip && istype(thing,/obj/item/paper/manifest))
 					var/obj/item/paper/manifest/slip = thing
 					// TODO: Check for a signature, too.
-					var/slip_stamped_len = LAZYLEN(slip.stamped)
+					var/slip_stamped_len = LAZYLEN(slip.stamp_cache)
 					if(slip_stamped_len) //yes, the clown stamp will work. clown is the highest authority on the station, it makes sense
 						// Did they mark it as erroneous?
 						var/denied = FALSE
 						for(var/i in 1 to slip_stamped_len)
-							if(slip.stamped[i] == /obj/item/stamp/denied)
+							if("stamp-deny" in slip.stamp_cache)
 								denied = TRUE
 						if(slip.erroneous && denied) // Caught a mistake by Centcom (IDEA: maybe Centcom rarely gets offended by this)
 							pointsEarned = slip.points - SSshuttle.points_per_crate
@@ -316,18 +316,18 @@
 		INSTRUMENTAL = "запросом [request_desc]",
 		PREPOSITIONAL = "запросе [request_desc]",
 	)
-	reqform.info += "<h3>[station_name()] — запрос на поставку грузов</h3><hr>"
-	reqform.info += "ИНДЕКС: №[SSshuttle.ordernum]<br>"
-	reqform.info += "ЗАПРОСИВШИЙ: [orderedby]<br>"
-	reqform.info += "ПРИОРИТЕТ: [orderedbyRank]<br>"
-	reqform.info += "ПРИЧИНА: [comment]<br>"
-	reqform.info += "ТИП ГРУЗА: [object.name]<br>"
-	reqform.info += "КОЛИЧЕСТВО ЯЩИКОВ: [crates]<br>"
-	reqform.info += "ТРЕБОВАНИЯ К ДОСТУПУ: [object.access ? get_access_desc(object.access) : "Нет"]<br>"
-	reqform.info += "СОДЕРЖИМОЕ:<br>"
-	reqform.info += object.manifest
-	reqform.info += "<hr>"
-	reqform.info += "ПОСТАВЬТЕ ПЕЧАТЬ НИЖЕ ДЛЯ ОДОБРЕНИЯ ЗАПРОСА:<br>"
+	reqform.add_raw_text("\n### [station_name()] — запрос на поставку грузов\n\n---\n")
+	reqform.add_raw_text("ИНДЕКС: №[SSshuttle.ordernum]\n")
+	reqform.add_raw_text("ЗАПРОСИВШИЙ: [orderedby]\n")
+	reqform.add_raw_text("ПРИОРИТЕТ: [orderedbyRank]\n")
+	reqform.add_raw_text("ПРИЧИНА: [comment]\n")
+	reqform.add_raw_text("ТИП ГРУЗА: [object.name]\n")
+	reqform.add_raw_text("КОЛИЧЕСТВО ЯЩИКОВ: [crates]\n")
+	reqform.add_raw_text("ТРЕБОВАНИЯ К ДОСТУПУ: [object.access ? get_access_desc(object.access) : "Нет"]\n")
+	reqform.add_raw_text("СОДЕРЖИМОЕ:\n")
+	reqform.add_raw_text(object.manifest)
+	reqform.add_raw_text("\n---\n")
+	reqform.add_raw_text("ПОСТАВЬТЕ ПЕЧАТЬ НИЖЕ ДЛЯ ОДОБРЕНИЯ ЗАПРОСА:\n")
 
 	reqform.update_icon()	//Fix for appearing blank when printed.
 
@@ -368,16 +368,16 @@
 		INSTRUMENTAL = "манифестом [order_desc]",
 		PREPOSITIONAL = "манифесте [order_desc]",
 	)
-	slip.info = "<h3>[command_name()] Манифест поставки</h3><hr><br>"
-	slip.info +="Заказ: №[ordernum]<br>"
-	slip.info +="Пункт назначения: [stationName]<br>"
-	slip.info +="Запросивший: [orderedby]<br>"
-	slip.info +="Приоритет: [orderedbyRank]<br>"
-	slip.info +="Причина: [comment]<br>"
-	slip.info +="Тип груза: [object.name]<br>"
-	slip.info +="Требования к доступу: [object.access ? get_access_desc(object.access) : "Нет"]<br>"
-	slip.info +="[packagesAmt] ЯЩИК[declension_ru(packagesAmt, "", "А", "ОВ")] В ЗАКАЗЕ<br>"
-	slip.info +="СОДЕРЖИМОЕ:<br><ul>"
+	slip.add_raw_text("\n### [command_name()] Манифест поставки\n\n---\n\n")
+	slip.add_raw_text("Заказ: №[ordernum]\n")
+	slip.add_raw_text("Пункт назначения: [stationName]\n")
+	slip.add_raw_text("Запросивший: [orderedby]\n")
+	slip.add_raw_text("Приоритет: [orderedbyRank]\n")
+	slip.add_raw_text("Причина: [comment]\n")
+	slip.add_raw_text("Тип груза: [object.name]\n")
+	slip.add_raw_text("Требования к доступу: [object.access ? get_access_desc(object.access) : "Нет"]\n")
+	slip.add_raw_text("[packagesAmt] ЯЩИК[declension_ru(packagesAmt, "", "А", "ОВ")] В ЗАКАЗЕ\n")
+	slip.add_raw_text("СОДЕРЖИМОЕ:\n")
 
 	//we now create the actual contents
 	var/list/contains
@@ -395,13 +395,13 @@
 		var/atom/A = new typepath(Crate)
 		if(object.amount && A.vars.Find("amount") && A:amount)
 			A:amount = object.amount
-		slip.info += "<li>[A.declent_ru(NOMINATIVE)]</li>"	//add the item to the manifest (even if it was misplaced)
+		slip.add_raw_text("- [A.declent_ru(NOMINATIVE)]\n")	//add the item to the manifest (even if it was misplaced))
 
 	if(istype(Crate, /obj/structure/closet/crate/critter)) // critter crates do not actually spawn mobs yet and have no contains var, but the manifest still needs to list them
 		var/obj/structure/closet/crate/critter/CritCrate = Crate
 		if(CritCrate.content_mob)
 			var/mob/crittername = CritCrate.content_mob
-			slip.info += "<li>[crittername.declent_ru(NOMINATIVE)]</li>"
+			slip.add_raw_text("- [crittername.declent_ru(NOMINATIVE)]\n")
 
 	if(errors & MANIFEST_ERROR_ITEM)
 		//secure and large crates cannot lose items
@@ -414,8 +414,8 @@
 				qdel(pick(Crate.contents))
 
 	//manifest finalisation
-	slip.info += "</ul><br>"
-	slip.info += "ПРОВЕРЬТЕ СОДЕРЖИМОЕ И ПОСТАВЬТЕ ПЕЧАТЬ ПОД ЛИНИЕЙ, ЧТОБЫ ПОДТВЕРДИТЬ КОРРЕКТНОСТЬ МАНИФЕСТА<hr>" // And now this is actually meaningful.
+	slip.add_raw_text("\n")
+	slip.add_raw_text("ПРОВЕРЬТЕ СОДЕРЖИМОЕ И ПОСТАВЬТЕ ПЕЧАТЬ ПОД ЛИНИЕЙ, ЧТОБЫ ПОДТВЕРДИТЬ КОРРЕКТНОСТЬ МАНИФЕСТА\n---\n") // And now this is actually meaningful.)
 	slip.update_appearance()
 	slip.loc = Crate
 	if(is_crate(Crate))

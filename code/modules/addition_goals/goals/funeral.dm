@@ -67,9 +67,10 @@
 /datum/addition_goal/funeral/proc/create_paper_about_corpse(turf/location, mob/living/carbon/human/corpse, datum/addition_goal_corpse_data/data)
 	var/obj/item/paper/paper = new (location)
 	paper.name = "Документ о проведении погребения №[data.request_number]"
-	paper.info = {"<center><b>Документ о проведении погребения [data.request_number]</b></center><br>
+	paper.add_raw_text({"<center>**Документ о проведении погребения [data.request_number]**</center>\n)
 		Настоящим подтверждается, что гражданин [data.name] подлежит захоронению в соответствии с указанным способом.<br>
 		<b>Форма погребения:</b> [data.preffered_method]."}
+	)
 
 /datum/addition_goal/funeral/proc/create_body_bag_and_close(turf/location)
 	var/obj/structure/closet/body_bag/body_bag = new /obj/structure/closet/body_bag(location)

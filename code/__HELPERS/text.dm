@@ -526,9 +526,7 @@
 		// Apply font styling unless disabled
 		if(!disable_font)
 			if(pen_item)
-				input_text = "<font face=\"[pen_item.fake_signing ? signature_font : default_font]\" color=[pen_item ? pen_item.colour : "black"]>[input_text]</font>"
-				if(pen_item.fake_signing)
-					input_text = "<i>[input_text]</i>"
+				input_text = "<font face=\"[default_font]\" color=[pen_item ? pen_item.colour : "black"]>[input_text]</font>"
 			else
 				input_text = "<font face=\"[default_font]\">[input_text]</font>"
 
@@ -628,6 +626,76 @@
 	input_text = replacetext(input_text, "<img src = ntlogo.png>", "\[logo\]")
 	input_text = replacetext(input_text, "<img src = syndielogo.png>", "\[slogo\]")
 	input_text = replacetext(input_text, "<img src = ussplogo.png>", "\[ussplogo\]")
+
+	return input_text
+
+/proc/pencode_to_tgui(input_text, mob/user_mob, obj/item/pen/pen_item = null)
+	if(!input_text)
+		return ""
+
+	input_text = sanitize(input_text)
+
+	if(pen_item && iscrayon(pen_item))
+		var/list/strip_tags = list(
+			"\[b\]", "\[/b\]", "\[i\]", "\[/i\]", "\[u\]", "\[/u\]",
+			"\[h1\]", "\[/h1\]", "\[h2\]", "\[/h2\]", "\[h3\]", "\[/h3\]",
+			"\[center\]", "\[/center\]", "\[br\]", "\[large\]", "\[/large\]",
+			"\[*\]", "\[hr\]", "\[small\]", "\[/small\]", "\[list\]", "\[/list\]",
+			"\[table\]", "\[/table\]", "\[grid\]", "\[/grid\]", "\[row\]", "\[/row\]",
+			"\[cell\]", "\[logo\]", "\[slogo\]", "\[ussplogo\]", "\[solgov\]", "\[field\]"
+		)
+		for(var/tag in strip_tags)
+			input_text = replacetext(input_text, tag, "")
+		return input_text
+
+	input_text = replacetext(input_text, "\[b\]", "<b>")
+	input_text = replacetext(input_text, "\[/b\]", "</b>")
+	input_text = replacetext(input_text, "\[i\]", "<i>")
+	input_text = replacetext(input_text, "\[/i\]", "</i>")
+	input_text = replacetext(input_text, "\[u\]", "<u>")
+	input_text = replacetext(input_text, "\[/u\]", "</u>")
+
+	input_text = replacetext(input_text, "\[sign\]", "<i>[sanitize(user_mob ? user_mob.real_name : "Anonymous")]</i>")
+	input_text = replacetext(input_text, "\[time\]", station_time_timestamp())
+	input_text = replacetext(input_text, "\[date\]", GLOB.current_date_string)
+	input_text = replacetext(input_text, "\[station\]", sanitize(station_name()))
+	input_text = replacetext(input_text, "\[field\]", "\[__________\]")
+	input_text = replacetext(input_text, "\[gender\]", "[user_mob ? user_mob.gender : "neuter"]")
+	input_text = replacetext(input_text, "\[species\]", "[user_mob?.dna?.species ? user_mob.dna.species : UNKNOWN_STATUS_RUS]")
+
+	input_text = replacetext(input_text, "\[h1\]", "<h1>")
+	input_text = replacetext(input_text, "\[/h1\]", "</h1>")
+	input_text = replacetext(input_text, "\[h2\]", "<h2>")
+	input_text = replacetext(input_text, "\[/h2\]", "</h2>")
+	input_text = replacetext(input_text, "\[h3\]", "<h3>")
+	input_text = replacetext(input_text, "\[/h3\]", "</h3>")
+	input_text = replacetext(input_text, "\[center\]", "<center>")
+	input_text = replacetext(input_text, "\[/center\]", "</center>")
+	input_text = replacetext(input_text, "\[br\]", "<br>")
+	input_text = replacetext(input_text, "\[large\]", "<h3>")
+	input_text = replacetext(input_text, "\[/large\]", "</h3>")
+	input_text = replacetext(input_text, "\[small\]", "<small>")
+	input_text = replacetext(input_text, "\[/small\]", "</small>")
+	input_text = replacetext(input_text, "\[hr\]", "<hr>")
+
+	input_text = replacetext(input_text, "\[list\]", "<ul>")
+	input_text = replacetext(input_text, "\[/list\]", "</ul>")
+	input_text = replacetext(input_text, "\[*\]", "<li>")
+	input_text = replacetext(input_text, "\[table\]", "<table border=1 cellspacing=0 cellpadding=3>")
+	input_text = replacetext(input_text, "\[/table\]", "</td></tr></table>")
+	input_text = replacetext(input_text, "\[grid\]", "<table>")
+	input_text = replacetext(input_text, "\[/grid\]", "</td></tr></table>")
+	input_text = replacetext(input_text, "\[row\]", "<tr>")
+	input_text = replacetext(input_text, "\[/row\]", "</tr>")
+	input_text = replacetext(input_text, "\[cell\]", "<td>")
+
+	input_text = replacetext(input_text, "\[logo\]", "\[logo:ntlogo.png\]")
+	input_text = replacetext(input_text, "\[slogo\]", "\[logo:syndielogo.png\]")
+	input_text = replacetext(input_text, "\[ussplogo\]", "\[logo:ussplogo.png\]")
+	input_text = replacetext(input_text, "\[solgov\]", "\[logo:solgovlogo.png\]")
+
+	input_text = replacetext(input_text, "<small>*", "<small>\\*")
+	input_text = replacetext(input_text, "<br>*", "<br>\\*")
 
 	return input_text
 

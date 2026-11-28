@@ -338,7 +338,7 @@
 	var/obj/item/paper/P = locate() in container
 	P.loc = null //So we don't delete the paper while cooking the cookie
 	var/obj/item/reagent_containers/food/snacks/fortunecookie/being_cooked = ..()
-	if(P.info) //If there's anything written on the paper, just move it into the fortune cookie
+	if(!P.is_empty()) //If there's anything written on the paper, just move it into the fortune cookie
 		P.forceMove(being_cooked) //Prevents the oven deleting our paper
 		being_cooked.trash = P //so the paper is left behind as trash without special-snowflake(TM Nodrak) code ~carn
 	else

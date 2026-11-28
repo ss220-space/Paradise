@@ -12,7 +12,7 @@
 /obj/item/pen
 	name = "pen"
 	desc = "Простая ручка с чёрными чернилами."
-	icon = 'icons/obj/bureaucracy.dmi'
+	icon = 'icons/obj/service/bureaucracy.dmi'
 	icon_state = "pen"
 	item_state = "pen"
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_EARS
@@ -21,11 +21,16 @@
 	materials = list(MAT_METAL=10)
 	var/colour = COLOR_BLACK	//what colour the ink is!
 	pressure_resistance = 2
-	var/fake_signing = FALSE //do we always write like [sign]?
 	/// At what angle head of pen now
 	var/degrees
 	/// Is the pen clicked out (extended) to allow writing
 	var/can_write = TRUE
+	/// Most pen require gravity for work
+	var/requires_gravity = TRUE
+	/// Used font
+	var/font = PEN_FONT
+	/// Can player actually "toggle off" pen by clicking it
+	var/toggleable_off = TRUE
 
 /obj/item/pen/get_ru_names()
 	return alist(
@@ -89,6 +94,17 @@
 /obj/item/proc/on_write(obj/item/paper/P, mob/user)
 	return
 
+/obj/item/pen/get_writing_implement_details()
+	if(toggleable_off)
+		if(HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))
+			return null
+	return list(
+		interaction_mode = MODE_WRITING,
+		font = font,
+		color = colour,
+		use_bold = FALSE,
+	)
+
 /obj/item/pen/blue
 	name = "blue-ink pen"
 	desc = "Простая ручка с синими чернилами."
@@ -114,6 +130,7 @@
 	name = "multicolor pen"
 	desc = "Круто выглядящая ручка с пятью стержнями стержнями разного цвета!"
 	icon_state = "multicolor"
+	toggleable_off = FALSE
 
 	// these values are for the overlay
 	var/static/list/colour_choices = list(
@@ -168,6 +185,9 @@
 	name = "fountain pen"
 	desc = "Дорого выглядящая ручка. Для самых богатых."
 	icon_state = "pen-fountain"
+	font = FOUNTAIN_PEN_FONT
+	requires_gravity = FALSE
+	toggleable_off = FALSE
 
 /obj/item/pen/fountain/get_ru_names()
 	return alist(
@@ -202,6 +222,7 @@
 	toolspeed = 10 //You will never willingly choose to use one of these over a shovel.
 	colour = COLOR_BLUE
 	usesound = 'sound/effects/picaxe1.ogg'
+	toggleable_off = FALSE
 
 /obj/item/pen/survival/get_ru_names()
 	return alist(
@@ -228,8 +249,7 @@
  * MARK: Fake sign pen
  */
 /obj/item/pen/fakesign
-	fake_signing = TRUE
-	//desc = "It's a normal black ink pen with constantly moving tip. Wait what?" //documented bcs its should be stealthy item, like edagger and poison
+	font = SIGNATURE_FONT
 
 /*
  * MARK: Bomb pen

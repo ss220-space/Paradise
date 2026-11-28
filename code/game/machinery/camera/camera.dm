@@ -159,7 +159,7 @@
 		if(is_paper)
 			var/obj/item/paper/paper = I
 			itemname = paper.name
-			info = paper.info
+			info = paper.get_raw_text()
 		else
 			var/obj/item/pda/PDA = I
 			itemname = PDA.name

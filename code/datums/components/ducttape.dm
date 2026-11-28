@@ -7,7 +7,7 @@
 		return COMPONENT_INCOMPATIBLE
 	src.hide_tape = hide_tape
 	if(!hide_tape) //if TRUE this hides the tape overlay and added examine text
-		tape_overlay = mutable_appearance('icons/obj/bureaucracy.dmi', "tape")
+		tape_overlay = mutable_appearance('icons/obj/service/bureaucracy.dmi', "tape")
 		tape_overlay.pixel_w = x_offset - 2
 		tape_overlay.pixel_z = y_offset - 2
 		RegisterSignal(parent, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(add_tape_overlay))

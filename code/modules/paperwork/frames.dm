@@ -1,7 +1,7 @@
 /obj/item/picture_frame
 	name = "picture frame"
 	desc = "Its patented design allows it to be folded larger or smaller to accommodate standard paper, photo, and poster, and canvas sizes."
-	icon = 'icons/obj/bureaucracy.dmi'
+	icon = 'icons/obj/service/bureaucracy.dmi'
 
 	usesound = 'sound/items/deconstruct.ogg'
 
@@ -181,7 +181,7 @@
 	new /obj/item/stack/sheet/wood(src, 1)
 
 /obj/structure/sign/picture_frame
-	icon = 'icons/obj/bureaucracy.dmi'
+	icon = 'icons/obj/service/bureaucracy.dmi'
 	icon_state = "glass-poster"
 
 	var/obj/item/picture_frame/frame

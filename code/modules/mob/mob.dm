@@ -1583,3 +1583,51 @@ GAME_VERB(/mob, reset_ui_positions_for_mob, "Reset UI Positions", VERB_CATEGORY_
 /// Returns an updated incapacitated bitflag. If a flag is set it means we're incapacitated in that case
 /mob/proc/build_incapacitated()
 	return NONE
+
+/**
+ * Proc that returns TRUE if the mob can write using the writing_instrument, FALSE otherwise.
+ *
+ * This proc a side effect, outputting a message to the mob's chat with a reason if it returns FALSE.
+ * Unless silent_if_not_writing_tool is TRUE. In that case it'll be silent if it isn't a writing implement/tool/instrument w/e.
+ */
+/mob/proc/can_write(obj/item/writing_instrument, silent_if_not_writing_tool = FALSE)
+	if(!writing_instrument)
+		return FALSE
+
+	if(!IS_WRITING_UTENSIL(writing_instrument))
+		if(!silent_if_not_writing_tool)
+			to_chat(src, span_warning("You can't write with \the [writing_instrument]!"))
+		return FALSE
+
+	if(!is_literate())
+		to_chat(src, span_warning("You try to write, but don't know how to spell anything!"))
+		return FALSE
+
+	if(!has_light_nearby() && !has_nightvision())
+		to_chat(src, span_warning("It's too dark in here to write anything!"))
+		return FALSE
+
+	if(has_gravity())
+		return TRUE
+
+	var/obj/item/pen/pen = writing_instrument
+
+	if(istype(pen) && pen.requires_gravity)
+		to_chat(src, span_warning("You try to write, but \the [writing_instrument] doesn't work in zero gravity!"))
+		return FALSE
+
+	return TRUE
+
+/// Can this mob read
+/mob/proc/can_read(atom/viewed_atom, reading_check_flags = (READING_CHECK_LITERACY|READING_CHECK_LIGHT), silent = FALSE)
+	if((reading_check_flags & READING_CHECK_LITERACY) && !is_literate())
+		if(!silent)
+			to_chat(src, span_warning("You try to read [viewed_atom], but can't comprehend any of it."))
+		return FALSE
+
+	if((reading_check_flags & READING_CHECK_LIGHT) && !has_light_nearby() && !has_nightvision())
+		if(!silent)
+			to_chat(src, span_warning("It's too dark in here to read!"))
+		return FALSE
+
+	return TRUE

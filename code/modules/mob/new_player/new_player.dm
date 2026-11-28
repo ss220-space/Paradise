@@ -559,7 +559,7 @@
 
 /proc/add_employment_contract(mob/living/carbon/human/employee)
 	for(var/obj/structure/filingcabinet/employment/cabinet as anything in GLOB.employmentCabinets)
-		if(cabinet.populated)
+		if(!cabinet.virgin)
 			cabinet.addFile(employee)
 
 /mob/new_player/proc/AnnounceCyborg(mob/living/character, rank, join_message)

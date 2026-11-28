@@ -1589,3 +1589,11 @@ GAME_VERB_SRC(/obj/item, verb_pickup, oview(1), "Pick up", VERB_CATEGORY_HIDDEN)
 
 /obj/item/proc/on_human_ebedded(/mob/living/carbon/human/our_target)
 	return
+
+
+/**
+ * Returns null if this object cannot be used to interact with physical writing mediums such as paper.
+ * Returns a list of key attributes for this object interacting with paper otherwise.
+ */
+/obj/item/proc/get_writing_implement_details()
+	return

@@ -1630,7 +1630,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return
 	if(istype(note, /obj/item/paper))
 		var/obj/item/paper/pinned_paper = note
-		if(pinned_paper.info)
+		if(!pinned_paper.is_empty())
 			return "note_words"
 		else
 			return "note"

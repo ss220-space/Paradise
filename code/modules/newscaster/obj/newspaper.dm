@@ -11,7 +11,7 @@
 	name = "newspaper"
 	desc = "Выпуск газеты \"Грифон\", распространяемой на объектах \"Нанотрейзен\"."
 	gender = FEMALE
-	icon = 'icons/obj/bureaucracy.dmi'
+	icon = 'icons/obj/service/bureaucracy.dmi'
 	icon_state = "newspaper"
 	item_state = "newspaper"
 	w_class = WEIGHT_CLASS_SMALL

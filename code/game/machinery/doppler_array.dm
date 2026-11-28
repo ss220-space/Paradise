@@ -107,14 +107,16 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	var/obj/item/paper/explosive_log/P = new(get_turf(src))
 	for(var/D in logged_explosions)
 		var/datum/explosion_log/E = D
-		P.info += "<tr>\
+		P.add_raw_text("<tr>\
 		<td>[E.logged_time]</td>\
 		<td>[E.epicenter]</td>\
 		<td>[E.actual_size_message]</td>\
 		<td>[E.theoretical_size_message]</td>\
 		</tr>"
-	P.info += "</table><hr/>\
+		)
+	P.add_raw_text("</table>\n---\n\
 	<em>Printed at [station_time_timestamp()].</em>"
+	)
 
 /obj/machinery/doppler_array/proc/sense_explosion(x0, y0, z0, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)
 	if(stat & NOPOWER)
@@ -230,7 +232,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 
 /obj/item/paper/explosive_log
 	name = "explosive log"
-	info = "<h3>Explosive Log Report</h3>\
+	default_raw_text = "<h3>Explosive Log Report</h3>\
 	<table style='width:380px;text-align:left;'>\
 	<tr>\
 	<th>Time logged</th>\

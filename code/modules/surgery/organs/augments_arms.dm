@@ -740,7 +740,7 @@
 	actions_types = list(/datum/action/item_action/organ_action/toggle/stamp)
 
 /datum/action/item_action/organ_action/toggle/stamp
-	button_icon = 'icons/obj/bureaucracy.dmi'
+	button_icon = 'icons/obj/service/bureaucracy.dmi'
 	button_icon_state = "stamp-ok"
 
 /datum/action/item_action/organ_action/toggle/v1_arm

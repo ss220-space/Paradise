@@ -77,31 +77,31 @@
 	var/obj/item/paper/P = new(drop_location())
 
 	P.name = scan_title
-	P.header += "<center><b>[scan_title]</b></center><br>"
-	P.header += "<b>Время сканирования:</b> [station_time_timestamp()]<br><br>"
-	P.header += "<hr>"
+	P.add_raw_text("<center>**[scan_title]**</center>\n")
+	P.add_raw_text("**Время сканирования:** [station_time_timestamp()]\n\n")
+	P.add_raw_text("\n---\n")
 
 	if(scan_data["status"] == 2)
-		P.header += "Состояние: [span_color("<b>Смерть</b>", "red")]<br>"
+		P.add_raw_text("Состояние: [span_color("**Смерть**", "red")]\n")
 	else
-		P.header += "Состояние: [scan_data["status"] > 1 ? "[span_color("<b>Смерть</b>", "red")]" : scan_data["health"] > 0 ? "[scan_data["health"]]%" : "[span_color("<b>[scan_data["health"]]%</b>", "red")]"]<br>"
+		P.add_raw_text("Состояние: [scan_data["status"] > 1 ? "[span_color("**Смерть**", "red")]" : scan_data["health"] > 0 ? "[scan_data["health"]]%" : "[span_color("**[scan_data["health"]]%**", "red")]"]\n")
 
-	P.header += "Тип повреждений: [span_color("Удушье", "#0080ff")]/[span_color("Отравление", "green")]/[span_color("Терм.", "#FF8000")]/[span_color("Мех.", "red")]<br>"
-	P.header += "Уровень повреждений: [span_color("[scan_data["damageLevels"]["oxy"]]", "#0080ff")] - [span_color("[scan_data["damageLevels"]["tox"]]", "green")] - [span_color("[scan_data["damageLevels"]["burn"]]", "#FF8000")] - [span_color("[scan_data["damageLevels"]["brute"]]", "red")]<br>"
-	P.header += "Температура тела: [scan_data["bodyTemperatureC"]] &deg;C ([scan_data["bodyTemperatureF"]] &deg;F)<br>"
+	P.add_raw_text("Тип повреждений: [span_color("Удушье", "#0080ff")]/[span_color("Отравление", "green")]/[span_color("Терм.", "#FF8000")]/[span_color("Мех.", "red")]\n")
+	P.add_raw_text("Уровень повреждений: [span_color("[scan_data["damageLevels"]["oxy"]]", "#0080ff")] - [span_color("[scan_data["damageLevels"]["tox"]]", "green")] - [span_color("[scan_data["damageLevels"]["burn"]]", "#FF8000")] - [span_color("[scan_data["damageLevels"]["brute"]]", "red")]\n")
+	P.add_raw_text("Температура тела: [scan_data["bodyTemperatureC"]] °C ([scan_data["bodyTemperatureF"]] °F)\n")
 	var/pulse_color = (scan_data["pulse_status"] == PULSE_NORM ? "#0080ff" : "red")
 	var/pulse_text = "[scan_data["pulse"]] уд/мин."
-	P.header += "Пульс: [span_color(pulse_text, pulse_color)]<br>"
+	P.add_raw_text("Пульс: [span_color(pulse_text, pulse_color)]\n")
 
 	if(scan_data["genes"])
 		if(scan_data["genes"] < 40)
-			P.header += "[span_color("<b>Критическая генная нестабильность!</b>", "red")]<br>"
+			P.add_raw_text("[span_color("**Критическая генная нестабильность!**", "red")]\n")
 		else if(scan_data["genes"] < 70)
-			P.header += "[span_color("<b>Тяжёлая генная нестабильность.</b>", "red")]<br>"
+			P.add_raw_text("[span_color("**Тяжёлая генная нестабильность.**", "red")]\n")
 		else if(scan_data["genes"] < 85)
-			P.header += "[span_color("Незначительная генная нестабильность.", "red")]<br>"
+			P.add_raw_text("[span_color("Незначительная генная нестабильность.", "red")]\n")
 		else
-			P.header += "Гены стабильны.<br>"
+			P.add_raw_text("Гены стабильны.\n")
 
 	if(scan_data["bloodData"])
 		var/blood_percent = scan_data["bloodData"]["blood_percent"]
@@ -128,114 +128,115 @@
 			blood_species_text = ", кровь расы: [ru_blood_species[blood_species]]"
 
 		if(blood_volume <= BLOOD_VOLUME_SAFE && blood_percent > BLOOD_VOLUME_OKAY)
-			P.header += "Уровень крови: [span_color("НИЗКИЙ", "red")] - [blood_percent] %, [blood_volume] u, тип: [blood_type][blood_species_text].<br>"
+			P.add_raw_text("Уровень крови: [span_color("НИЗКИЙ", "red")] - [blood_percent] %, [blood_volume] u, тип: [blood_type][blood_species_text].\n")
 		else if(blood_volume <= BLOOD_VOLUME_OKAY)
-			P.header += "Уровень крови: [span_color("КРИТИЧЕСКИЙ", "red")] - [blood_percent] %, [blood_volume] u, тип: [blood_type][blood_species_text].<br>"
+			P.add_raw_text("Уровень крови: [span_color("КРИТИЧЕСКИЙ", "red")] - [blood_percent] %, [blood_volume] u, тип: [blood_type][blood_species_text].\n")
 		else
-			P.header += "Уровень крови: [blood_percent] %, [blood_volume] u, тип: [blood_type][blood_species_text]."
+			P.add_raw_text("Уровень крови: [blood_percent] %, [blood_volume] u, тип: [blood_type][blood_species_text].")
 
 	if(scan_data["timeofdeath"])
-		P.header += "Время смерти: [scan_data["timeofdeath"]]<br>"
+		P.add_raw_text("Время смерти: [scan_data["timeofdeath"]]\n")
 		if(scan_data["timetodefibText"])
-			P.header += span_color("&emsp;Субъект умер [scan_data["timetodefib"]] назад<br>", "red")
-			P.header += "&emsp;Дефибриляция возможна!<br>"
+			P.add_raw_text(span_color("    Субъект умер [scan_data["timetodefib"]] назад\n", "red"))
+			P.add_raw_text("    Дефибриляция возможна!\n")
 		else
-			P.header += span_color("&emsp;Субъект умер [scan_data["timetodefib"]] назад<br>", "red")
+			P.add_raw_text(span_color("    Субъект умер [scan_data["timetodefib"]] назад\n", "red"))
 
 	if(scan_data["damageLocalization"])
-		P.header += "<hr>"
-		P.header += "Локализация повреждений, [span_color("Терм.", "#FF8000")]/[span_color("Мех.", "red")]:<br>"
+		P.add_raw_text("\n---\n")
+		P.add_raw_text("Локализация повреждений, [span_color("Терм.", "#FF8000")]/[span_color("Мех.", "red")]:\n")
 		for(var/damage in scan_data["damageLocalization"])
-			P.header += "&emsp;[span_notice(capitalize(damage["name"]))]: [span_color("[damage["burn"]]", "#FF8000")] - [span_color("[damage["brute"]]", "red")]<br>"
+			P.add_raw_text("    [span_notice(capitalize(damage["name"]))]: [span_color("[damage["burn"]]", "#FF8000")] - [span_color("[damage["brute"]]", "red")]\n")
 
 	if(scan_data["bleedingList"])
 		for(var/bleeding in scan_data["bleedingList"])
-			P.header += span_color("[bleeding].<br>", "red")
+			P.add_raw_text(span_color("[bleeding].\n", "red"))
 
 	if(scan_data["fractureList"])
 		for(var/fracture in scan_data["fractureList"])
-			P.header += span_color("Обнаружен перелом в [fracture].<br>", "red")
+			P.add_raw_text(span_color("Обнаружен перелом в [fracture].\n", "red"))
 
 	if(scan_data["infectedList"])
 		for(var/infection in scan_data["infectedList"])
-			P.header += span_color("Заражение в [infection].<br>", "red")
+			P.add_raw_text(span_color("Заражение в [infection].\n", "red"))
 
 	if(scan_data["extraFacture"] == 1)
-		P.header += span_color("Обнаружен перелом. Локализация невозможна.<br>", "red")
+		P.add_raw_text(span_color("Обнаружен перелом. Локализация невозможна.\n", "red"))
 
 	if(scan_data["extraBleeding"] == 1)
-		P.header += span_color("Обнаружено внутреннее кровотечение. Локализация невозможна.<br>", "red")
+		P.add_raw_text(span_color("Обнаружено внутреннее кровотечение. Локализация невозможна.\n", "red"))
 
 	if(scan_data["reagentList"])
-		P.header += "Обнаружены реагенты:<br>"
+		P.add_raw_text("Обнаружены реагенты:\n")
 		for(var/reagent in scan_data["reagentList"])
-			P.header += "&emsp;[reagent["volume"]]u [reagent["name"]] [reagent["overdosed"] == "1" ? " - <b>ПЕРЕДОЗИРОВКА</b>" : "."]<br>"
+			P.add_raw_text("    [reagent["volume"]]u [reagent["name"]] [reagent["overdosed"] == "1" ? " - **ПЕРЕДОЗИРОВКА**" : "."]\n")
 	else
-		P.header += "<br>Реагенты не обнаружены.<br>"
+		P.add_raw_text("\nРеагенты не обнаружены.\n")
 
 	if(scan_data["addictionList"])
-		P.header += "<b>Обнаружены зависимости от реагентов:</b><br>"
+		P.add_raw_text("**Обнаружены зависимости от реагентов:**\n")
 		for(var/addiction in scan_data["addictionList"])
-			P.header += span_color("&emsp;[addiction["name"]] Стадия: [addiction["addiction_stage"]]/5<br>", "red")
+			P.add_raw_text(span_color("    [addiction["name"]] Стадия: [addiction["addiction_stage"]]/5\n", "red"))
 	else
-		P.header += "Зависимости от реагентов не обнаружены.<br>"
+		P.add_raw_text("Зависимости от реагентов не обнаружены.\n")
 
-	P.header += "<hr>"
+	P.add_raw_text("\n---\n")
 
 	if(scan_data["diseases"])
 		for(var/disease in scan_data["diseases"])
-			P.header += "[span_color("<b>Внимание: [disease["form"]]</b>", "red")]<br>"
-			P.header += "&emsp;Название: [disease["name"]]<br>"
-			P.header += "&emsp;Тип: [disease["additional_info"]]<br>"
-			P.header += "&emsp;Стадия: [disease["stage"]]/[disease["max_stages"]]<br>"
-			P.header += "&emsp;Лечение: [disease["cure_text"]]<br>"
+			P.add_raw_text("[span_color("**Внимание: [disease["form"]]**", "red")]\n")
+			P.add_raw_text("    Название: [disease["name"]]\n")
+			P.add_raw_text("    Тип: [disease["additional_info"]]\n")
+			P.add_raw_text("    Стадия: [disease["stage"]]/[disease["max_stages"]]\n")
+			P.add_raw_text("    Лечение: [disease["cure_text"]]\n")
 
 	if(scan_data["heartCondition"] == ORGAN_STATUS_CRIT)
-		P.header += "[span_color("<b>Внимание: Критическое состояние</b>", "#d82020")]<br>"
-		P.header += "&emsp;Название: Остановка сердца<br>"
-		P.header += "&emsp;Тип: Сердце пациента остановилось<br>"
-		P.header += "&emsp;Стадия: 1/1<br>"
-		P.header += "&emsp;Лечение: Электрический шок<br>"
+		P.add_raw_text("[span_color("**Внимание: Критическое состояние**", "#d82020")]\n")
+		P.add_raw_text("    Название: Остановка сердца\n")
+		P.add_raw_text("    Тип: Сердце пациента остановилось\n")
+		P.add_raw_text("    Стадия: 1/1\n")
+		P.add_raw_text("    Лечение: Электрический шок\n")
 	else if(scan_data["heartCondition"] == ORGAN_STATUS_NECROSIS)
-		P.header += "[span_color("<b>Обнаружен некроз сердца.</b>", "#d82020")]<br>"
+		P.add_raw_text("[span_color("**Обнаружен некроз сердца.**", "#d82020")]\n")
 	else if(scan_data["heartCondition"] == ORGAN_STATUS_LESS)
-		P.header += "[span_color("<b>Сердце не обнаружено.</b>", "#d82020")]<br>"
+		P.add_raw_text("[span_color("**Сердце не обнаружено.**", "#d82020")]\n")
 
 	if(scan_data["liverCondition"] == ORGAN_STATUS_NECROSIS)
-		P.header += "[span_color("<b>Обнаружена острая печёночная недостаточность.</b>", "#d82020")]<br>"
+		P.add_raw_text("[span_color("**Обнаружена острая печёночная недостаточность.**", "#d82020")]\n")
 	else if(scan_data["liverCondition"] == ORGAN_STATUS_LESS)
-		P.header += "[span_color("<b>Печень не обнаружена.</b>", "#d82020")]<br>"
+		P.add_raw_text("[span_color("**Печень не обнаружена.**", "#d82020")]\n")
 
 	if(scan_data["staminaStatus"] == 1)
-		P.header += span_color("Обнаружено истощение.<br>", "blue")
+		P.add_raw_text(span_color("Обнаружено истощение.\n", "blue"))
 
 	if(scan_data["cloneStatus"] > 0)
-		P.header += "[span_color("Обнаружено [scan_data["cloneStatus"] > 30 ? "серьёзное" : "незначительное"] клеточное повреждение.", "#d82020")]<br>"
+		P.add_raw_text("[span_color("Обнаружено [scan_data["cloneStatus"] > 30 ? "серьёзное" : "незначительное"] клеточное повреждение.", "#d82020")]\n")
 
 	if(scan_data["brainWorms"])
-		P.header += "[span_color("Обнаружены отклонения в работе мозга.", "#d82020")]<br>"
+		P.add_raw_text("[span_color("Обнаружены отклонения в работе мозга.", "#d82020")]\n")
 
 	if(scan_data["brainDamage"] == ORGAN_STATUS_LESS)
-		P.header += "[span_color("<b>Мозг не обнаружен.</b>", "#d82020")]<br>"
+		P.add_raw_text("[span_color("**Мозг не обнаружен.**", "#d82020")]\n")
 	else if(scan_data["brainDamage"] >= 100)
-		P.header += "[span_color("<b>Мозг мёртв.</b>", "#d82020")]<br>"
+		P.add_raw_text("[span_color("**Мозг мёртв.**", "#d82020")]\n")
 	else if(scan_data["brainDamage"] >= 60)
-		P.header += "[span_color("<b>Обнаружено серьёзное повреждение мозга.</b>", "#d82020")]<br>"
+		P.add_raw_text("[span_color("**Обнаружено серьёзное повреждение мозга.**", "#d82020")]\n")
 	else if(scan_data["brainDamage"] >= 10)
-		P.header += "[span_color("Обнаружено значительное повреждение мозга.", "#d82020")]<br>"
+		P.add_raw_text("[span_color("Обнаружено значительное повреждение мозга.", "#d82020")]\n")
 
 	if(scan_data["implantDetect"])
-		P.header += "Обнаружены кибернетические модификации:<br>"
+		P.add_raw_text("Обнаружены кибернетические модификации:\n")
 		for(var/implant in scan_data["implantDetect"])
-			P.header += "&emsp;[implant]<br>"
+			P.add_raw_text("    [implant]\n")
 
-	P.header += "<hr>"
-	P.header += "Тип страховки — [scan_data["insuranceType"]].<br>"
-	P.header += "Требуемое количество очков страховки: [scan_data["reqInsurance"]].<br>"
+	P.add_raw_text("\n---\n")
+	P.add_raw_text("Тип страховки — [scan_data["insuranceType"]].\n")
+	P.add_raw_text("Требуемое количество очков страховки: [scan_data["reqInsurance"]].\n")
 	if(scan_data["insurance"])
-		P.header += "Текущее количество очков страховки: [scan_data["insurance"]].<br>"
+		P.add_raw_text("Текущее количество очков страховки: [scan_data["insurance"]].\n")
 
-	P.info += "<br><br><b>Заметки:</b><br>"
+	P.add_raw_text("\n\n**Заметки:**\n")
+	P.update_appearance(UPDATE_ICON_STATE)
 
 	if(in_range(user, src))
 		user.put_in_hands(P, ignore_anim = FALSE)

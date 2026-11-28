@@ -468,10 +468,9 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 /obj/item/paper/tcommskey/LateInitialize(mapload)
 	for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
 		if(C.network_id == "СТАНЦИЯ-ЯДРО")
-			info = "<center><h2>Пароль привязки телекоммуникаций</h2></center>\n\t<br>Пароль для привязки к станционному ядру: \"[C.link_password]\".<br> \
+			default_raw_text = "<center><h2>Пароль привязки телекоммуникаций</h2></center>\n\t<br>Пароль для привязки к станционному ядру: \"[C.link_password]\".<br> \
 			Если эта записка будет утеряна или уничтожена, вы всегда можете найти пароль во вкладке \"Привязка к ядру\".<br> \
 			Если вы захотите сменить пароль, это можно сделать с помощью конфигурации ядра телекоммуникаций."
-			info_links = info
 			update_icon(UPDATE_ICON_STATE)
 			// Save time, even though there should only be one СТАНЦИЯ-ЯДРО in the world
 			break

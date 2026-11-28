@@ -3,7 +3,7 @@
 /obj/item/desk_bell
 	name = "desk bell"
 	desc = "The cornerstone of any customer service job. You feel an unending urge to ring it. It looks like it can be wrenched or screwdrivered."
-	icon = 'icons/obj/bureaucracy.dmi'
+	icon = 'icons/obj/service/bureaucracy.dmi'
 	icon_state = "desk_bell"
 	interaction_flags_mouse_drop = NEED_HANDS
 	/// The amount of times this bell has been rang, used to check the chance it breaks

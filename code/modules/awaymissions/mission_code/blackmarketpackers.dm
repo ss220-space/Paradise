@@ -126,7 +126,7 @@
 
 /obj/item/paper/taunt
 	name = "Shrot note"
-	info = "<b>Ha-ha! Gotcha! As always!</b>"
+	default_raw_text = "<b>Ha-ha! Gotcha! As always!</b>"
 
 /obj/item/storage/firstaid/with_mousetrap/syndie
 	name = "first-aid tacticool kit"

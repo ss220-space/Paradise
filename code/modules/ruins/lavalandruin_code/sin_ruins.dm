@@ -155,4 +155,4 @@
 /obj/item/paper/fluff/stations/lavaland/sloth/note
 	name = "note from sloth"
 	icon_state = "paper_words"
-	info = "have not gotten around to finishing my cursed item yet sorry - sloth"
+	default_raw_text = "have not gotten around to finishing my cursed item yet sorry - sloth"

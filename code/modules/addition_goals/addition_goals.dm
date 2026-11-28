@@ -169,7 +169,7 @@ SUBSYSTEM_DEF(addition_goals)
 			continue
 		var/obj/item/paper/paper = new (console.loc)
 		paper.name = "[title]"
-		paper.info = message
+		paper.add_raw_text(message)
 		if(stamp)
 			paper.stamp(/obj/item/stamp/centcom)
 

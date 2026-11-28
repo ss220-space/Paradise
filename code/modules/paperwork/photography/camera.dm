@@ -215,7 +215,7 @@
 	var/icon/small_img = icon(photoimage)
 	var/icon/tiny_img = icon(photoimage)
 	var/icon/ic = icon('icons/obj/items.dmi',"photo")
-	var/icon/pc = icon('icons/obj/bureaucracy.dmi', "photo")
+	var/icon/pc = icon('icons/obj/service/bureaucracy.dmi', "photo")
 	small_img.Scale(8, 8)
 	tiny_img.Scale(4, 4)
 	ic.Blend(small_img,ICON_OVERLAY, 10, 13)

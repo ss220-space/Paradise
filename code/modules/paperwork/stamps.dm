@@ -1,7 +1,7 @@
 /obj/item/stamp
 	name = "rubber stamp"
 	desc = "A rubber stamp for stamping important documents."
-	icon = 'icons/obj/bureaucracy.dmi'
+	icon = 'icons/obj/service/bureaucracy.dmi'
 	icon_state = "stamp-ok"
 	item_state = "stamp"
 	w_class = WEIGHT_CLASS_TINY
@@ -11,6 +11,15 @@
 	pressure_resistance = 2
 	attack_verb = list("опечатал")
 	var/list/stamp_sounds = list('sound/effects/stamp1.ogg','sound/effects/stamp2.ogg','sound/effects/stamp3.ogg')
+
+/obj/item/stamp/get_writing_implement_details()
+	var/datum/asset/spritesheet_batched/sheet = get_asset_datum(/datum/asset/spritesheet_batched/stamps)
+	return list(
+		interaction_mode = MODE_STAMPING,
+		stamp_icon_state = icon_state,
+		stamp_icon = icon,
+		stamp_class = sheet.icon_class_name(icon_state)
+	)
 
 /obj/item/stamp/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()

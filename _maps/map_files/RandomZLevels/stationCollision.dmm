@@ -462,7 +462,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/research)
 "bP" = (
-/obj/structure/filingcabinet/filingcabinet,
+/obj/structure/filingcabinet/white,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},

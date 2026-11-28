@@ -71,7 +71,7 @@
 	if(pickednum == 1)
 		var/obj/item/paper/P = new /obj/item/paper(src)
 		P.name = "IOU"
-		P.info = "Sorry man, we needed the money so we sold your stash. It's ok, we'll double our money for sure this time!"
+		P.add_raw_text("Sorry man, we needed the money so we sold your stash. It's ok, we'll double our money for sure this time!")
 
 	//Metal (common ore)
 	if(pickednum >= 2)

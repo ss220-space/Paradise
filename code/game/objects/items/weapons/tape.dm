@@ -1,7 +1,7 @@
 /obj/item/stack/tape_roll
 	name = "tape roll"
 	desc = "A roll of sticky tape. Possibly for taping ducks... or was that ducts?"
-	icon = 'icons/obj/bureaucracy.dmi'
+	icon = 'icons/obj/service/bureaucracy.dmi'
 	icon_state = "taperoll"
 	singular_name = "tape roll"
 	w_class = WEIGHT_CLASS_TINY

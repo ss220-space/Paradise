@@ -1,0 +1,48 @@
+/**
+  * @file
+  * @copyright 2020
+  * @author ThePotato97 (https://github.com/ThePotato97)
+  * @license ISC
+  */
+
+.Paper {
+	&__Stamp {
+		position: absolute;
+		pointer-events: none;
+		user-select: none;
+	}
+	&__Page {
+		word-break: break-word;
+		word-wrap: break-word;
+
+		small,
+		span small,
+		td small,
+		center small {
+			font-size: 9px;
+			line-height: 1.15;
+		}
+
+		h3 {
+			color: #000000;
+			font-size: 15px;
+			margin: 4px 0;
+		}
+
+		hr {
+			border: 0;
+			border-top: 1px solid #444;
+			margin: 6px 0;
+		}
+
+		table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+
+		td {
+			vertical-align: top;
+			padding: 2px 4px;
+		}
+	}
+}

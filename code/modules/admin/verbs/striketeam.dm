@@ -107,7 +107,7 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 		if(L.name == "Commando_Manual")
 			//new /obj/item/gun/energy/pulse_rifle(L.loc)
 			var/obj/item/paper/pamphletdeathsquad/P = new(L.loc)
-			P.info = "<p><b>Доброе утро, солдат!</b>. \
+			P.add_raw_text("<p>**Доброе утро, солдат!**. \
 			Это компактное руководство познакомит тебя со стандартной процедурой операции. \
 			Есть три основных правила, которым нужно следовать:<br>\
 			#1 Работай в команде.<br>\
@@ -142,6 +142,7 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 			Теперь, прежде чем удалить диск, если нужно переместить бомбу, можешь: открепить её, переместить и снова закрепить.</p><p>\
 			Код ядерной аутентификации: <b>[nuke_code ? nuke_code : "Не предоставлен"]</b></p>\
 			<p><b>Удачи, солдат!</b></p>"
+			)
 			P.name = "Руководство по Специальным Операциям"
 			P.stamp(/obj/item/stamp/centcom)
 

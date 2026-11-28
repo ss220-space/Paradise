@@ -724,7 +724,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 /obj/item/paper/Cloning
 	name = "paper - 'H-87 Cloning Apparatus Manual"
-	info = {"<h4>Getting Started</h4>
+	default_raw_text = {"<h4>Getting Started</h4>
 	Congratulations, your station has purchased the H-87 industrial cloning device!<br>
 	Using the H-87 is almost as simple as brain surgery! Simply insert the target humanoid into the scanning chamber and select the scan option to create a new profile!<br>
 	<b>That's all there is to it!</b><br>

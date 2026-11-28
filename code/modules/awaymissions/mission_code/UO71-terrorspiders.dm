@@ -74,7 +74,7 @@
 
 /obj/item/paper/terrorspiders1
 	name = "paper - 'Sealed Facility'"
-	info = {"<b>SEALED FACILITY</b><br>
+	default_raw_text = {"<b>SEALED FACILITY</b><br>
 	<br>
 	This facility is sealed shut by order of Commander Marquez. Do not enter.<br>
 	Terror spiders live here. We believe they are a weapon developed by the syndicate.<br>
@@ -84,7 +84,7 @@
 
 /obj/item/paper/terrorspiders2
 	name = "paper - 'The Trio of Terror'"
-	info = {"<b>Status Report on the 'Terrors'</b><br>
+	default_raw_text = {"<b>Status Report on the 'Terrors'</b><br>
 	<br>
 	All the spiders are deadly. We know this much already. Within an hour of their appearance, they have killed several staff.<br>
 	Two, however, bear particular mention, as they appear to be leading the spider hivemind.<br>
@@ -102,7 +102,7 @@
 
 /obj/item/paper/terrorspiders3
 	name = "paper - 'Final Report'"
-	info = {"FROM: Field Agent 0738<br>
+	default_raw_text = {"FROM: Field Agent 0738<br>
 	TO: Syndicate #873589<br>
 	SUBJECT: Mission Success<br>
 	<br>
@@ -118,7 +118,7 @@
 
 /obj/item/paper/terrorspiders4
 	name = "paper - 'Prescription for Jones, David'"
-	info = {"PRESCRIPTION FOR: David Jones<br>
+	default_raw_text = {"PRESCRIPTION FOR: David Jones<br>
 	RANK: Miner<br>
 	FOR: Charcoal<br>
 	REASON FOR TREATMENT: Toxins in bloodstream<br>
@@ -128,7 +128,7 @@
 
 /obj/item/paper/terrorspiders5
 	name = "paper - 'A Study in Terror'"
-	info = {"<b>Findings Overview</b><br>
+	default_raw_text = {"<b>Findings Overview</b><br>
 	<br>
 	<p>Gray Spiders<br>Stealthy predators that ambush prey from vents. Otherwise weak.</p>
 	<p>Red Spiders<br>Can kill anyone in melee, but slow.</p>
@@ -142,7 +142,7 @@
 
 /obj/item/paper/terrorspiders6
 	name = "paper - 'A Study in Venom'"
-	info = {"<b>Initial Report - Black Widow Venom</b><br>
+	default_raw_text = {"<b>Initial Report - Black Widow Venom</b><br>
 	<br>
 	Even a single bite kills within a few minutes. Immediate charcoal is necessary for the victim to survive.<br>
 	The fascinating thing is that multiple bites actually cause rapid symptom onset. The victim quickly loses the ability to walk.<br>
@@ -151,7 +151,7 @@
 
 /obj/item/paper/terrorspiders7
 	name = "paper - 'Security Orders'"
-	info = {"<b>Directives for Officer James</b><br>
+	default_raw_text = {"<b>Directives for Officer James</b><br>
 	<br>
 	1. Find a way to lift the bridge lockdown.<br>
 	2. Kill any spiders you encounter.<br>
@@ -161,7 +161,7 @@
 
 /obj/item/paper/terrorspiders8
 	name = "paper - 'Last Words'"
-	info = {"<b>The Last Words of Nurse Barnes</b><br>
+	default_raw_text = {"<b>The Last Words of Nurse Barnes</b><br>
 	<br>
 	It is too much. First Phil, then those damn spiders bite Mary too. Heaven help us. <br>
 	I'll be evacuating as soon as I've grabbed my supplies. I had to pay for those myself. Stupid budget cuts. <br>

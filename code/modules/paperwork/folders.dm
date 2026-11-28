@@ -1,162 +1,186 @@
 /obj/item/folder
 	name = "folder"
 	desc = "A folder."
-	icon = 'icons/obj/bureaucracy.dmi'
+	icon = 'icons/obj/service/bureaucracy.dmi'
 	icon_state = "folder"
 	w_class = WEIGHT_CLASS_SMALL
 	pressure_resistance = 2
 	resistance_flags = FLAMMABLE
-
 	lefthand_file = 'icons/mob/inhands/folder_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/folder_righthand.dmi'
 
-/obj/item/folder/IsContainedAtomAccessible(atom/contained, atom/movable/user)
-	return TRUE
+	/// The background color for tgui in hex (with a `#`)
+	var/bg_color = "#7f7f7f"
+	/// A typecache of the objects that can be inserted into a folder
+	var/static/list/folder_insertables = typecacheof(list(
+		/obj/item/paper,
+		/obj/item/photo,
+		/obj/item/documents,
+		// /obj/item/paperwork,
+	))
+	/// Do we hide the contents on examine?
+	var/contents_hidden = FALSE
+	/// icon_state of overlay for papers inside of this folder
+	var/paper_overlay_state = "folder_paper"
+	/// Name to display for use-on-item screentips, to avoid overly long screentips.
+	var/folder_type_name = "folder"
 
-/obj/item/folder/emp_act(severity)
-	..()
-	for(var/i in contents)
-		var/atom/A = i
-		A.emp_act(severity)
+/obj/item/folder/suicide_act(mob/living/user)
+	user.visible_message(span_suicide("[user] begins filing an imaginary death warrant! It looks like [user.p_theyre()] trying to commit suicide!"))
+	return OXYLOSS
 
-/obj/item/folder/blue
-	desc = "A blue folder."
-	icon_state = "folder_blue"
+/obj/item/folder/Initialize(mapload)
+	update_icon()
+	. = ..()
+	AddElement(/datum/element/burn_on_item_ignition)
+	register_item_context()
+	register_context()
 
-/obj/item/folder/red
-	desc = "A red folder."
-	icon_state = "folder_red"
+/obj/item/folder/Destroy()
+	for(var/obj/important_thing in contents)
+		if(!(important_thing.resistance_flags & INDESTRUCTIBLE))
+			continue
+		important_thing.forceMove(drop_location()) //don't destroy round critical content such as objective documents.
+	return ..()
 
-/obj/item/folder/yellow
-	desc = "A yellow folder."
-	icon_state = "folder_yellow"
+/obj/item/folder/examine()
+	. = ..()
+	if(length(contents) && !contents_hidden)
+		. += span_notice("<b>Right-click</b> to remove [contents[1]].")
 
-/obj/item/folder/white
-	desc = "A white folder."
-	icon_state = "folder_white"
+/obj/item/folder/add_item_context(obj/item/source, list/context, atom/target, mob/living/user)
+	if(is_type_in_typecache(target, folder_insertables))
+		// As this is shown on the paper, we clarify we are picking it up.
+		context[SCREENTIP_CONTEXT_LMB] = "Insert into [folder_type_name]"
+		return CONTEXTUAL_SCREENTIP_SET
+	return NONE
+
+/obj/item/folder/add_context(atom/source, list/context, obj/item/held_item, mob/living/user)
+	if(isnull(held_item))
+		return NONE
+	if(is_type_in_typecache(held_item, folder_insertables))
+		context[SCREENTIP_CONTEXT_LMB] = "Insert"
+		return CONTEXTUAL_SCREENTIP_SET
+	if(IS_WRITING_UTENSIL(held_item))
+		context[SCREENTIP_CONTEXT_LMB] = "Rename"
+		return CONTEXTUAL_SCREENTIP_SET
+	if((held_item.get_sharpness() || held_item.tool_behaviour == TOOL_WIRECUTTER) && !contents.len)
+		context[SCREENTIP_CONTEXT_LMB] = "Cut apart"
+		return CONTEXTUAL_SCREENTIP_SET
+	return NONE
+
+/obj/item/folder/proc/remove_item(obj/item/item, mob/user)
+	if(istype(item))
+		item.forceMove(user.loc)
+		user.put_in_hands(item)
+		to_chat(user, span_notice("You remove [item] from [src]."))
+		update_icon()
+
+/obj/item/folder/attack_hand(mob/user, list/modifiers)
+	if(length(contents) && LAZYACCESS(modifiers, RIGHT_CLICK))
+		remove_item(contents[1], user)
+		return TRUE
+	. = ..()
 
 /obj/item/folder/update_overlays()
 	. = ..()
-	if(length(contents))
-		. += "folder_paper"
+	if(contents.len)
+		var/to_add = get_paper_overlay()
+		if(to_add)
+			. += to_add
 
-/obj/item/folder/attackby(obj/item/I, mob/user, params)
-	if(is_pen(I))
-		rename_interactive(user, I)
-		return ATTACK_CHAIN_BLOCKED
+/obj/item/folder/proc/get_paper_overlay()
+	var/mutable_appearance/paper_overlay = mutable_appearance(icon, paper_overlay_state, offset_spokesman = src, appearance_flags = KEEP_APART)
+	paper_overlay = contents[1].color_atom_overlay(paper_overlay)
+	return paper_overlay
 
-	var/static/list/allowed_to_store = typecacheof(list(
-		/obj/item/paper,
-		/obj/item/photo,
-		/obj/item/paper_bundle,
-		/obj/item/documents,
-	))
-	if(is_type_in_typecache(I, allowed_to_store))
-		if(!user.drop_transfer_item_to_loc(I, src))
-			return ..()
-		add_fingerprint(user)
-		to_chat(user, span_notice("You put [I] into [src]."))
-		update_icon(UPDATE_OVERLAYS)
-		updateUsrDialog()
-		return ATTACK_CHAIN_BLOCKED_ALL
+/obj/item/folder/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(is_type_in_typecache(tool, folder_insertables))
+		return interact_with_insertables(tool, user)
+	if(tool.get_sharpness() || tool.tool_behaviour == TOOL_WIRECUTTER)
+		return sharp_thing_act(user, tool)
+	if(IS_WRITING_UTENSIL(tool))
+		if(rename_interactive(user, tool))
+			playsound(src, SFX_WRITING_PEN, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, SOUND_FALLOFF_EXPONENT + 3, ignore_walls = FALSE)
+	return NONE
 
-	if(user.a_intent != INTENT_HARM)
-		to_chat(user, span_warning("You cannot put [I] into [src]!"))
-		return ATTACK_CHAIN_PROCEED
+/obj/item/folder/proc/sharp_thing_act(mob/user, obj/item/sharp_tool)
+	if(contents.len)
+		balloon_alert(user, "empty [src] first!")
+		return ITEM_INTERACT_BLOCKING
 
-	return ..()
+	balloon_alert(user, "cut apart")
+	qdel(src)
+	user.put_in_hands(new /obj/item/stack/sheet/cardboard)
+	return ITEM_INTERACT_SUCCESS
 
-/obj/item/folder/attack_self(mob/user as mob)
-	var/dat = ""
+/obj/item/folder/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	if(is_type_in_typecache(interacting_with, folder_insertables))
+		return interact_with_insertables(interacting_with, user)
 
-	for(var/obj/item/paper/P in src)
-		dat += "<a href='byond://?src=[UID()];remove=[P.UID()]'>Remove</a> - <a href='byond://?src=[UID()];read=[P.UID()]'>[P.name]</a><br>"
-	for(var/obj/item/photo/Ph in src)
-		dat += "<a href='byond://?src=[UID()];remove=[Ph.UID()]'>Remove</a> - <a href='byond://?src=[UID()];look=[Ph.UID()]'>[Ph.name]</a><br>"
-	for(var/obj/item/paper_bundle/Pa in src)
-		dat += "<a href='byond://?src=[UID()];remove=[Pa.UID()]'>Remove</a> - <a href='byond://?src=[UID()];look=[Pa.UID()]'>[Pa.name]</a><br>"
-	for(var/obj/item/documents/doc in src)
-		dat += "<a href='byond://?src=[UID()];remove=[doc.UID()]'>Remove</a> - <a href='byond://?src=[UID()];look=[doc.UID()]'>[doc.name]</a><br>"
-	var/datum/browser/popup = new(user, "folder", name)
-	popup.set_content(dat)
-	popup.open(TRUE)
-	onclose(user, "folder")
-	add_fingerprint(user)
+/obj/item/folder/proc/interact_with_insertables(obj/item/interacting_with, mob/living/user)
+	if(interacting_with.loc == user)
+		if(!user.drop_transfer_item_to_loc(interacting_with, src, silent = TRUE))
+			return ITEM_INTERACT_BLOCKING
+	else
+		interacting_with.do_pickup_animation(src)
+		interacting_with.forceMove(src)
+
+	if(interacting_with.pickup_sound)
+		playsound(src, interacting_with.pickup_sound, PICKUP_SOUND_VOLUME, TRUE, ignore_walls = FALSE)
+
+	update_appearance()
+	return ITEM_INTERACT_SUCCESS
+
+/obj/item/folder/attack_self(mob/user)
+	add_fingerprint(usr)
+	ui_interact(user)
 	return
 
-/obj/item/folder/Topic(href, href_list)
-	..()
-	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+/obj/item/folder/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Folder")
+		ui.open()
+
+/obj/item/folder/ui_data(mob/user)
+	var/list/data = list()
+	if(istype(src, /obj/item/folder/syndicate))
+		data["theme"] = "syndicate"
+	data["bg_color"] = "[bg_color]"
+	data["folder_name"] = "[name]"
+
+	data["contents"] = list()
+	data["contents_ref"] = list()
+	for(var/obj/content in contents)
+		data["contents"] += "[content]"
+		data["contents_ref"] += "[content?.UID()]"
+
+	return data
+
+/obj/item/folder/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
+	if(.)
 		return
 
-	if(src.loc == usr)
+	var/mob/user = ui.user
 
-		if(href_list["remove"])
-			var/obj/item/P = locateUID(href_list["remove"])
-			if(P && (P.loc == src) && istype(P))
-				P.forceMove_turf()
-				usr.put_in_hands(P, ignore_anim = FALSE)
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
 
-		else if(href_list["read"])
-			var/obj/item/paper/P = locateUID(href_list["read"])
-			if(P && (P.loc == src) && istype(P))
-				P.show_content(usr)
-		else if(href_list["look"])
-			var/obj/item/photo/P = locateUID(href_list["look"])
-			if(P && (P.loc == src) && istype(P))
-				P.show(usr)
-		else if(href_list["browse"])
-			var/obj/item/paper_bundle/P = locateUID(href_list["browse"])
-			if(P && (P.loc == src) && istype(P))
-				P.attack_self(usr)
-				onclose(usr, "[P.name]")
+	switch(action)
+		// Take item out
+		if("remove")
+			var/obj/item/item = locateUID(params["ref"])
+			if(istype(item) && item.loc == src)
+				remove_item(item, user)
+			. = TRUE
+		// Inspect the item
+		if("examine")
+			var/obj/item/item = locateUID(params["ref"])
+			if(istype(item))
+				user.examinate(item)
+				. = TRUE
 
-		//Update everything
-		attack_self(usr)
-		update_icon(UPDATE_OVERLAYS)
-
-/obj/item/folder/documents
-	name = "folder- 'TOP SECRET'"
-	desc = "A folder stamped \"Top Secret - Property of Nanotrasen Corporation. Unauthorized distribution is punishable by death.\""
-
-/obj/item/folder/documents/Initialize(mapload)
-	. = ..()
-	new /obj/item/documents/nanotrasen(src)
-	update_icon(UPDATE_OVERLAYS)
-
-/obj/item/folder/syndicate
-	name = "folder- 'TOP SECRET'"
-	desc = "A folder stamped \"Top Secret - Property of The Syndicate.\""
-
-/obj/item/folder/syndicate/red
-	icon_state = "folder_sred"
-
-/obj/item/folder/syndicate/red/Initialize(mapload)
-	. = ..()
-	new /obj/item/documents/syndicate/red(src)
-	update_icon(UPDATE_OVERLAYS)
-
-/obj/item/folder/syndicate/blue
-	icon_state = "folder_sblue"
-
-/obj/item/folder/syndicate/blue/Initialize(mapload)
-	. = ..()
-	new /obj/item/documents/syndicate/blue(src)
-	update_icon(UPDATE_OVERLAYS)
-
-/obj/item/folder/syndicate/yellow
-	icon_state = "folder_syellow"
-
-/obj/item/folder/syndicate/yellow/full/Initialize(mapload)
-	. = ..()
-	new /obj/item/documents/syndicate/yellow(src)
-	update_icon(UPDATE_OVERLAYS)
-
-/obj/item/folder/syndicate/mining/Initialize(mapload)
-	. = ..()
-	new /obj/item/documents/syndicate/mining(src)
-	update_icon(UPDATE_OVERLAYS)
-
-/obj/item/folder/ussp
-	desc = "A folder with a hammer and sickle seal."
-	icon_state = "folder_ussp"
+/obj/item/folder/IsContainedAtomAccessible(atom/contained, atom/movable/user)
+	return TRUE

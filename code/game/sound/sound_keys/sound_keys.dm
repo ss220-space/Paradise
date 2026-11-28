@@ -831,3 +831,15 @@
 		'sound/weapons/bulletflyby2.ogg',
 		'sound/weapons/bulletflyby3.ogg',
 	)
+
+/datum/sound_effect/writing_pen
+	key = SFX_WRITING_PEN
+	file_paths = list(
+		'sound/effects/writing_pen/writing_pen1.ogg',
+		'sound/effects/writing_pen/writing_pen2.ogg',
+		'sound/effects/writing_pen/writing_pen3.ogg',
+		'sound/effects/writing_pen/writing_pen4.ogg',
+		'sound/effects/writing_pen/writing_pen5.ogg',
+		'sound/effects/writing_pen/writing_pen6.ogg',
+		'sound/effects/writing_pen/writing_pen7.ogg',
+	)

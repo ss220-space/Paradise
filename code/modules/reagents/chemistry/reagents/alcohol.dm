@@ -32,7 +32,7 @@
 			O.visible_message(span_warning("Смесь воспламеняется при контакте с [O.declent_ru(INSTRUMENTAL)]."))
 		else
 			var/obj/item/paper/paperaffected = O
-			paperaffected.clearpaper()
+			paperaffected.clear_paper()
 			paperaffected.visible_message(span_notice("Раствор плавит чернила на бумаге."))
 	if(istype(O,/obj/item/book))
 		if(volume >= 5)

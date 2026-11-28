@@ -205,6 +205,6 @@
 	bell_action.Invoke()
 
 /datum/action/innate/wheelchair/bell
-	button_icon = 'icons/obj/bureaucracy.dmi'
+	button_icon = 'icons/obj/service/bureaucracy.dmi'
 	button_icon_state = "desk_bell"
 	name = "Звонок"

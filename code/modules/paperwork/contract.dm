@@ -31,18 +31,22 @@
 
 /obj/item/paper/contract/employment/update_text()
 	name = "Документ — Трудовой договор — [target]"
-	info = "<center>Условия трудоустройства</center><br><br><br><br>Настоящий Договор заключён между [target] (в дальнейшем именуемый Раб) и корпорацией \"Нанотрейзен\" (в дальнейшем именуемой Вездесущим и полезным наблюдателем за человечеством). Договор вступает в силу с момента его подписания.\
+	clear_paper()
+	var/contract_text = "<center>Условия трудоустройства</center><br><br>Настоящий Договор заключён между [target] (в дальнейшем именуемый Раб) и корпорацией \"Нанотрейзен\" (в дальнейшем именуемой Вездесущим и полезным наблюдателем за человечеством). Договор вступает в силу с момента его подписания.\
 	<br>Преамбула \
 	<br>Раб, будучи рождённым естественным путём человеком (или иным гуманоидом), обладает навыками, которыми он может быть полезен Вездесущему и полезному наблюдателю за человечеством. Раб ищет трудоустройства в Вездесущем и полезном наблюдателе за человечеством.\
 	<br>При этом Вездесущий и полезный наблюдатель за человечеством согласен иногда выплачивать Рабу вознаграждение, в обмен на его постоянную службу.\
 	<br>Настоящим, принимая во внимание вышеперечисленные взаимные выгоды и прочие соображения, стороны взаимно договариваются о нижеследующем:\
 	<br>В обмен на незначительные выплаты Раб соглашается работать на Вездесущего и полезного наблюдателя за человечеством до конца своей нынешней и всех своих будущих жизней.\
 	<br>Кроме того, Раб соглашается передать право на владение своей душой отделу лояльности Вездесущего и полезного наблюдателя за человечеством.\
-	<br>В случае, если передача души Раба невозможна, Раб вносит вместо неё залог.<br>Подписано,<br><i>[target]</i>"
+	<br>В случае, если передача души Раба невозможна, Раб вносит вместо неё залог.<br>Подписано,<br><font face=\"[SIGNATURE_FONT]\"><i>[target]</i></font>"
+
+	add_raw_text(contract_text, PEN_FONT, COLOR_BLACK, FALSE, FALSE)
+	update_appearance()
 
 /obj/item/paper/contract/employment/Destroy()
 	GLOB.employmentContracts -= src
-	. = ..()
+	return ..()
 
 /obj/item/paper/contract/infernal
 	var/datum/devil_contract/contract
@@ -50,10 +54,10 @@
 	var/datum/antagonist/devil/devilinfo
 	var/datum/mind/owner
 	icon_state = "evil_contract"
-	joinable = FALSE
 	var/close_button
 	var/static/soulless_text = "Бездушные существа не могут видеть условия данного договора.<br>\
 	Данный контракт гарантирует, что обещанное в нём благо будет получено подписавшим его существом."
+	var/html_content = ""
 
 /obj/item/paper/contract/infernal/Initialize(mapload, mob/living/nTarget, datum/mind/nOwner, datum/devil_contract/contract)
 	. = ..()
@@ -92,8 +96,8 @@
 
 /obj/item/paper/contract/infernal/update_text()
 	var/datum/asset/simple/namespaced/contracts/contracts_asset = get_asset_datum(/datum/asset/simple/namespaced/contracts)
-	info = close_button
-	info +="\
+	default_raw_text = close_button
+	html_content +="\
 	<link rel='stylesheet' type='text/css' href='[contracts_asset.get_url_mappings()["contract_styles.css"]]'>\
 	<div class='contract-container'>\
 	<div class='contract-title'>Контракт [contract.contract_subject]</div>\
@@ -107,18 +111,23 @@
 	</div>\
 	<br><br>Подписано, "
 	if(signed)
-		info += "<div class='contract-signature'>\
+		html_content += "<div class='contract-signature'>\
 					<span id='signature'>[target ? target.name : "Анонимно"]</span>\
 					</div>"
 	else
-		info += "<a href='byond://?src=[UID()];sign_contract=1' class='sign-button'>Подписать кровью</a>"
-	info +=	"</div>"
+		html_content += "<a href='byond://?src=[UID()];sign_contract=1' class='sign-button'>Подписать кровью</a>"
+	html_content +=	"</div>"
+	clear_paper()
+	add_raw_text("Контракт [contract.contract_subject]\n\nПодписано: [signed ? target?.name : "Не подписано"]")
 
-/obj/item/paper/contract/infernal/show_content(mob/user, forceshow, forcestars, infolinks, view)
+/obj/item/paper/contract/infernal/ui_interact(mob/user, datum/tgui/ui)
 	var/datum/asset/simple/namespaced/contracts/contracts_asset = get_asset_datum(/datum/asset/simple/namespaced/contracts)
 	contracts_asset.send(user)
-	. = ..(user, forceshow, forcestars, infolinks, view, "can_minimize=0;auto_format=0;titlebar=0;can_resize=0;", ((user.mind.hasSoul)? null : close_button + soulless_text))
-	if(!signed)
+	var/datum/browser/popup = new(user, "Paper[UID()]", name, 400, 500)
+	popup.set_window_options("can_minimize=0;auto_format=0;titlebar=0;can_resize=0;")
+	popup.set_content((user.mind?.hasSoul) ? html_content : (close_button + soulless_text))
+	popup.open()
+	if(!signed && owner?.current)
 		balloon_alert(owner.current, "контракт не подписан!")
 
 /obj/item/paper/contract/infernal/Topic(href, href_list)
@@ -160,7 +169,7 @@
 
 	return ..()
 
-/obj/item/paper/contract/infernal/stamp(obj/item/stamp/stamp, no_pixel_shift, special_stamped, special_icon_state)
+/obj/item/paper/contract/infernal/add_stamp(stamp_class, stamp_x, stamp_y, rotation, stamp_icon_state, stamp_icon)
 	return FALSE
 
 /obj/item/paper/contract/infernal/attack(mob/living/victim, mob/living/user, params, def_zone, skip_attack_anim = FALSE)

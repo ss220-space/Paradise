@@ -127,9 +127,6 @@
 		. += span_notice("Шахтёрских очков на аккаунте: <b>[mining_points]</b>. Всего заработано за смену: <b>[total_mining_points]</b>смену.")
 
 /obj/item/card/id/proc/show(mob/user as mob)
-	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/paper)
-	assets.send(user)
-
 	var/datum/browser/popup = new(user, "idcard", DECLENT_RU_CAP(src, NOMINATIVE), 600, 400)
 	popup.set_content(dat)
 	popup.open()
@@ -242,17 +239,6 @@
 		SEND_SIGNAL(loc, COMSIG_CARD_DECAL_APPLIED)
 		qdel(decal)
 		return ATTACK_CHAIN_BLOCKED_ALL
-
-	if(istype(I, /obj/item/stamp))
-		add_fingerprint(user)
-		if(stamped)
-			balloon_alert(user, "печать уже поставлена!")
-			return ATTACK_CHAIN_PROCEED
-		dat += "<img src=large_[I.icon_state].png>"
-		stamped = TRUE
-		balloon_alert(user, "печать поставлена")
-		playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
-		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(I, /obj/item/card/id/guest))
 		add_fingerprint(user)

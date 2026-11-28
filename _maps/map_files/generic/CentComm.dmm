@@ -2419,8 +2419,8 @@
 /area/centcom/syndicate_base)
 "blt" = (
 /obj/item/paper/djstation{
-	info = "Блять, сука. Блятьблять. Я знал, что эта миссия была ошибкой, этот идиот Томас самоубился о какого-то разъяренного русского робота-охранника в оружейной. А лейтенант вбежал на станцию, как идиот, и попал в ловушку. Теперь я просто просиживаю штаны взаперти, потому что этот шаттл, черт возьми, не двигается. Этот тупой кусок дерьма, стыковочный рычаг СССП, должно быть, заклинило, а у меня нет скафандра, чтобы выйти и починить его.<br><br>Кто, черт возьми, атакует космическую станцию ​​без скафандров!? В любом случае, без ригов выходить в открытый космос? Нельзя же, черт возьми, начинать кровавую заварушку в космосе лишь с горячим кофе и забить на всё болт.";
-	name = "неизвестный отчет"
+	name = "неизвестный отчет";
+	default_raw_text = "Блять, сука. Блятьблять. Я знал, что эта миссия была ошибкой, этот идиот Томас самоубился о какого-то разъяренного русского робота-охранника в оружейной. А лейтенант вбежал на станцию, как идиот, и попал в ловушку. Теперь я просто просиживаю штаны взаперти, потому что этот шаттл, черт возьми, не двигается. Этот тупой кусок дерьма, стыковочный рычаг СССП, должно быть, заклинило, а у меня нет скафандра, чтобы выйти и починить его.<br><br>Кто, черт возьми, атакует космическую станцию ​​без скафандров!? В любом случае, без ригов выходить в открытый космос? Нельзя же, черт возьми, начинать кровавую заварушку в космосе лишь с горячим кофе и забить на всё болт."
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -4968,7 +4968,7 @@
 	pixel_x = -32
 	},
 /obj/item/paper{
-	info = "Переговорить с ОЦК по поводу пиццы с ананасами"
+	default_raw_text = "Переговорить с ОЦК по поводу пиццы с ананасами"
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/carpet/black,
@@ -7006,8 +7006,8 @@
 /obj/item/stack/packageWrap,
 /obj/structure/table,
 /obj/item/paper{
-	info = "<h1>Особенности отправки оборудования с помощью шаттла отдела снабжения</h1><br>С целью минимизации рисков провоза опасных грузов и/или контрабанды сотрудники департамента защиты активов Nanotrasen регулярно осуществляют проверки шаттла снабжения. Эти проверки включают в себя снятие внешней упаковки с контейнеров для проверки манифестов, а также уничтожение любых объектов, не находящихся в контейнерах. Контроль груза осуществляется: <ol><li>Непосредственно после отлета шаттла с АКН Трурль на объект Nanotrasen;</li><li>После отлета шаттла с объекта Nanotrasen до прибытия на АКН Трурль;</li><li>Непосредственно после стыковки шаттла с АКН Трурль.</li></ol><br> Для отправки оборудования на объект Nanotrasen с помощью шаттла снабжения необходимо обернуть контейнер упаковочной бумагой или поместить его еще в один контейнер.";
-	name = "Особенности отправки оборудования с помощью шаттла отдела снабжения"
+	name = "Особенности отправки оборудования с помощью шаттла отдела снабжения";
+	default_raw_text = "<h1>Особенности отправки оборудования с помощью шаттла отдела снабжения</h1><br>С целью минимизации рисков провоза опасных грузов и/или контрабанды сотрудники департамента защиты активов Nanotrasen регулярно осуществляют проверки шаттла снабжения. Эти проверки включают в себя снятие внешней упаковки с контейнеров для проверки манифестов, а также уничтожение любых объектов, не находящихся в контейнерах. Контроль груза осуществляется: <ol><li>Непосредственно после отлета шаттла с АКН Трурль на объект Nanotrasen;</li><li>После отлета шаттла с объекта Nanotrasen до прибытия на АКН Трурль;</li><li>Непосредственно после стыковки шаттла с АКН Трурль.</li></ol><br> Для отправки оборудования на объект Nanotrasen с помощью шаттла снабжения необходимо обернуть контейнер упаковочной бумагой или поместить его еще в один контейнер."
 	},
 /obj/item/hand_labeler,
 /obj/item/hand_labeler,
@@ -8336,10 +8336,7 @@
 /area/shuttle/ussp)
 "egQ" = (
 /obj/structure/safe/floor,
-/obj/item/paper{
-	info = "<center><img src=\"https://cdn.discordapp.com/attachments/835083115536973826/947850300524470282/ES.png?width=461&height=338\"></center>";
-	name = "26/02/2022 - 22:54"
-	},
+/obj/item/paper/central_command/year_twentytwo,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -11105,10 +11102,7 @@
 	pixel_x = -32;
 	pixel_y = 32
 	},
-/obj/item/paper/central_command/archive/memes{
-	info = "<center><img src=\"https://cdn.discordapp.com/attachments/961279768249118750/1079288344657277008/NVNcWzVwAHs.png?width=736&height=736\"></center>";
-	name = "Коллективное решение"
-	},
+/obj/item/paper/central_command/archive/memes/collective_decision,
 /turf/simulated/floor/plating,
 /area/centcom/central_command_areas/zone/two)
 "fvm" = (
@@ -11785,7 +11779,7 @@
 	},
 /area/centcom/central_command_areas/special_operations)
 "fJC" = (
-/obj/structure/filingcabinet/filingcabinet,
+/obj/structure/filingcabinet/white,
 /obj/machinery/door_control/secure{
 	id = "CC_Players_In";
 	name = "Civilian Access";
@@ -12397,9 +12391,7 @@
 /obj/structure/noticeboard{
 	pixel_y = -30
 	},
-/obj/item/paper/syndimemo{
-	info = "https://www.youtube.com/watch?v=PD8LdxRSueA"
-	},
+/obj/item/paper/syndimemo/yt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -13539,10 +13531,7 @@
 	icon_opened = "cardboard_librarian_open";
 	icon_state = "cardboard_librarian"
 	},
-/obj/item/paper/central_command/archive/memes{
-	info = "<center><img src=\"https://cdn.discordapp.com/attachments/961279768249118750/1046826506741104830/unknown.png?width=604&height=604\"></center>";
-	name = "Супъективное мнение"
-	},
+/obj/item/paper/central_command/archive/memes/subjective_opinion,
 /obj/item/book/random,
 /turf/simulated/floor/plating,
 /area/centcom/central_command_areas/zone/two)
@@ -17561,7 +17550,7 @@
 	layer = 4;
 	pixel_y = 32
 	},
-/obj/structure/filingcabinet/filingcabinet,
+/obj/structure/filingcabinet/white,
 /turf/simulated/floor/carpet/black,
 /area/centcom/central_command_areas/zone/two)
 "iCo" = (
@@ -22785,10 +22774,10 @@
 	pixel_y = 30
 	},
 /obj/item/paper{
-	info = "Уволить клоуна."
+	default_raw_text = "Уволить клоуна."
 	},
 /obj/item/paper{
-	info = "Переговорить с командованием о трёхзначных числах"
+	default_raw_text = "Переговорить с командованием о трёхзначных числах"
 	},
 /obj/structure/chair/sofa/corp/left,
 /obj/item/toy/plushie/fox,
@@ -27692,7 +27681,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced,
-/obj/structure/filingcabinet/filingcabinet,
+/obj/structure/filingcabinet/white,
 /turf/simulated/floor/carpet/black,
 /area/centcom/central_command_areas/zone/two)
 "mOA" = (
@@ -27802,7 +27791,7 @@
 	},
 /area/centcom/central_command_areas/prison)
 "mQQ" = (
-/obj/structure/filingcabinet/filingcabinet,
+/obj/structure/filingcabinet/white,
 /obj/machinery/light_construct/small{
 	dir = 8
 	},
@@ -31965,7 +31954,7 @@
 	},
 /area/centcom/central_command_areas/special_operations)
 "oGU" = (
-/obj/structure/filingcabinet/filingcabinet,
+/obj/structure/filingcabinet/white,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/wood,
 /area/centcom/central_command_areas/zone/two)
@@ -39040,7 +39029,7 @@
 	pixel_y = 32
 	},
 /obj/item/paper{
-	info = "Передвинуть бойлер с водой"
+	default_raw_text = "Передвинуть бойлер с водой"
 	},
 /obj/machinery/light{
 	dir = 1
@@ -39061,10 +39050,7 @@
 /turf/simulated/floor/wood,
 /area/centcom/central_command_areas/zone/three)
 "rKJ" = (
-/obj/item/paper{
-	info = "<center><img src=\"https://cdn.discordapp.com/attachments/835083115536973826/947722266135908373/unknown.png\"></center>";
-	name = "K P A C U B bI E arts."
-	},
+/obj/item/paper/central_command/archive/memes/awesome_arts,
 /obj/structure/safe,
 /turf/simulated/floor/wood,
 /area/centcom/central_command_areas/zone/two)
@@ -39214,7 +39200,7 @@
 	pixel_y = 32
 	},
 /obj/item/paper/syndimemo{
-	info = "Дней без рассекречивания Тайпана: 0"
+	default_raw_text = "Дней без рассекречивания Тайпана: 0"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/centcom/syndicate_base/control)
@@ -43011,26 +42997,26 @@
 /area/centcom/syndicate_base/outside)
 "tyB" = (
 /obj/item/paper{
-	info = "Убрать кишку на Дельте";
-	pixel_y = -2
+	pixel_y = -2;
+	default_raw_text = "Убрать кишку на Дельте"
 	},
 /obj/item/paper{
-	info = "Наныть мультизет для трама";
-	pixel_y = -4
+	pixel_y = -4;
+	default_raw_text = "Наныть мультизет для трама"
 	},
 /obj/item/paper{
-	info = "Обед через час, работа через вчера";
-	pixel_x = 9
+	pixel_x = 9;
+	default_raw_text = "Обед через час, работа через вчера"
 	},
 /obj/item/paper{
-	info = "Пофиксить в моем кабинете рантайм трубы в трубе... опять";
 	pixel_x = 7;
-	pixel_y = -9
+	pixel_y = -9;
+	default_raw_text = "Пофиксить в моем кабинете рантайм трубы в трубе... опять"
 	},
 /obj/item/paper{
-	info = "Начать делать очередную новую станцию и сгореть на втором часу работы в самокопании";
 	pixel_x = -5;
-	pixel_y = -6
+	pixel_y = -6;
+	default_raw_text = "Начать делать очередную новую станцию и сгореть на втором часу работы в самокопании"
 	},
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
@@ -44787,8 +44773,8 @@
 	icon_state = "tile_full"
 	},
 /obj/item/paper/syndimemo{
-	info = "ТАК ТЫ ПОЛУЧИЛ ЭТОТ ЧЕРТОВ ДИСК?<br>ЕСЛИ НЕТ ТО ПОЛУЧИ ЕГО!";
-	name = "paper- '?'"
+	name = "paper- '?'";
+	default_raw_text = "ТАК ТЫ ПОЛУЧИЛ ЭТОТ ЧЕРТОВ ДИСК?<br>ЕСЛИ НЕТ ТО ПОЛУЧИ ЕГО!"
 	},
 /turf/simulated/floor/indestructible/grass,
 /area/centcom/syndicate_base/outside)
@@ -48354,7 +48340,7 @@
 	},
 /area/centcom/central_command_areas/evacuation)
 "vOq" = (
-/obj/structure/filingcabinet/filingcabinet,
+/obj/structure/filingcabinet/white,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -50157,7 +50143,7 @@
 	pixel_x = -32
 	},
 /obj/item/paper/syndimemo{
-	info = "ПОЛУЧИТЕ ЭТОТ ЕБУЧИЙ ДИСК!"
+	default_raw_text = "ПОЛУЧИТЕ ЭТОТ ЕБУЧИЙ ДИСК!"
 	},
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
@@ -50904,9 +50890,9 @@
 "xdW" = (
 /obj/structure/table,
 /obj/item/paper/syndimemo{
-	info = "Пришлось срочно вылететь на задание. Печенье доделаете сами. - Джордж";
 	name = "Записка'";
-	pixel_x = 3
+	pixel_x = 3;
+	default_raw_text = "Пришлось срочно вылететь на задание. Печенье доделаете сами. - Джордж"
 	},
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
@@ -52096,10 +52082,7 @@
 /area/shuttle/syndicate)
 "xCr" = (
 /obj/structure/bookcase,
-/obj/item/paper{
-	info = "<center><img src=\"https://cdn.discordapp.com/attachments/961279768249118750/1168235730171080704/image.png?width=1919&height=824\"></center>";
-	name = "Главный строить мужик репорт"
-	},
+/obj/item/paper/central_command/archive/memes/report,
 /turf/simulated/floor/plating,
 /area/centcom/central_command_areas/zone/two)
 "xCs" = (

@@ -513,7 +513,7 @@ GLOBAL_LIST_EMPTY(safes)
 	name = "safe codes"
 	desc = "Надежный способ сохранить секретность важных цифр."
 	var/owner
-	info = "<div style='text-align:center;'><img src = ntlogo.png><center><h3>Коды от сейфа</h3></center>"
+	default_raw_text = "<div style='text-align:center;'><img src = ntlogo.png><center><h3>Коды от сейфа</h3></center>"
 
 /obj/item/paper/safe_code/get_ru_names()
 	return alist(
@@ -534,8 +534,7 @@ GLOBAL_LIST_EMPTY(safes)
 	for(var/safe in GLOB.safes)
 		var/obj/structure/safe/S = safe
 		if(owner in S.known_by)
-			info += "<br> Комбинация для сейфа, расположенного в <b>[get_area(S)]</b>, следующая: <b>[S.get_combination()]</b><br>"
-			info_links = info
+			default_raw_text = "\n Комбинация для сейфа, расположенного в **[get_area(S)]**, следующая: **[S.get_combination()]**\n"
 			update_icon()
 
 #undef DRILL_SPARK_CHANCE

@@ -206,7 +206,7 @@
 
 /obj/item/birthday_invite/proc/setup_card(birthday_name)
 	desc = "Небольшая карточка с надписью: \"[birthday_name] сегодня празднует/ют свой день рождения!\""
-	icon = 'icons/obj/bureaucracy.dmi'
+	icon = 'icons/obj/service/bureaucracy.dmi'
 	icon_state = "slip"
 
 /// No tesla beacon, but there are spare singulogen in the storage

@@ -130,7 +130,7 @@
 
 	var/list/options = list(
 		PLAYBACK_TAPE = image(icon = 'icons/obj/device.dmi', icon_state = "taperecorder_playing"),
-		PRINT_TRANSCRIPT = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper_words"),
+		PRINT_TRANSCRIPT = image(icon = 'icons/obj/service/bureaucracy.dmi', icon_state = "paper_words"),
 		EJECT_TAPE = image(icon = 'icons/obj/device.dmi', icon_state = "[mytape.icon_state]"),
 		SILENT_MODE = image(icon = silent_mode ? 'icons/obj/items.dmi' : 'icons/obj/device.dmi' , icon_state = silent_mode ? "earmuffs" : "megaphone")
 	)
@@ -349,7 +349,7 @@
 		else
 			paper_info += "[replace_characters(piece.message, list("+"))]<br>"
 
-	transcript.info = paper_info.Join("")
+	transcript.add_raw_text(paper_info.Join(""))
 	transcript.name = "paper- 'Transcript'"
 	cooldown = world.time + 3 SECONDS
 

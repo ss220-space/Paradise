@@ -2,7 +2,7 @@
 /obj/item/paperplane
 	name = "paper plane"
 	desc = "Paper, folded in the shape of a plane."
-	icon = 'icons/obj/bureaucracy.dmi'
+	icon = 'icons/obj/service/bureaucracy.dmi'
 	icon_state = "paperplane"
 	throw_speed = 1
 	w_class = WEIGHT_CLASS_TINY
@@ -41,10 +41,10 @@
 
 /obj/item/paperplane/update_overlays()
 	. = ..()
-	var/list/stamped = internal_paper.stamped
+	var/list/stamped = internal_paper?.stamp_cache
 	if(LAZYLEN(stamped))
-		for(var/obj/item/stamp/stamp_path as anything in stamped)
-			. += "paperplane_[initial(stamp_path.icon_state)]"
+		for(var/stamp_icon_state in stamped)
+			. += "paperplane_[stamp_icon_state]"
 
 /obj/item/paperplane/attack_self(mob/user) // Unfold the paper plane
 	to_chat(user, span_notice("You unfold [src]."))
@@ -65,7 +65,7 @@
 
 	if(istype(I, /obj/item/stamp))	//we don't randomize stamps on a paperplane
 		add_fingerprint(user)
-		internal_paper.attackby(I, user, params) //spoofed attack to update internal paper.
+		internal_paper.item_interaction_secondary(user, I)
 		update_icon(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
