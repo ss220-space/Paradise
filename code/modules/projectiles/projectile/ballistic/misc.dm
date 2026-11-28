@@ -16,3 +16,14 @@
 		INSTRUMENTAL = "магнитным копьем",
 		PREPOSITIONAL = "магнитном копье",
 	)
+
+/obj/projectile/kitty
+	name = "kitty"
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "kitten"
+	damage = 2
+
+/obj/projectile/bullet/weakbullet3/kitty
+	name = "kitty"
+	icon = 'icons/mob/pets.dmi'
+	icon_state = "kitten"

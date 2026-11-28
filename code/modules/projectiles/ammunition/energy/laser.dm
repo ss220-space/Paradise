@@ -44,6 +44,12 @@
 	sibyl_tier = SIBYL_TIER_DESTRUCTIVE
 	fire_sound = 'sound/weapons/gunshots/1pulse2.ogg'
 
+/obj/item/ammo_casing/energy/laser/nyan
+	projectile_type = /obj/projectile/kitty
+	muzzle_flash_color = LIGHT_COLOR_HOLY_MAGIC
+	e_cost = 200
+	select_name = "MEOW"
+
 /obj/item/ammo_casing/energy/laser/pulse/hitscan
 	projectile_type = /obj/projectile/beam/pulse/hitscan
 

@@ -262,3 +262,25 @@
 		INSTRUMENTAL = "пистолетом M1911",
 		PREPOSITIONAL = "пистолете M1911",
 	)
+
+/obj/item/gun/projectile/automatic/pistol/enforcer/kittyforcer
+	name = "DCA-P9 \"Kittyforcer\" pistol"
+	desc = "Сбалансированный пистолет калибра 9x19 мм производства \"Tajar Co. Arms\". Хорошее мурчание, низкая отдача, высокая мяукольность. \
+		Используется службой безопасности \"Trav Co.\"."
+	fire_sound = 'sound/mobs/non-humanoids/cat/cat_meow1.ogg'
+
+/obj/item/gun/projectile/automatic/pistol/enforcer/kittyforcer/get_ru_names()
+	return alist(
+		NOMINATIVE = "пистолет DCA-P9 \"Мрявститель\"",
+		GENITIVE = "пистолета DCA-P9 \"Мрявститель\"",
+		DATIVE = "пистолету DCA-P9 \"Мрявститель\"",
+		ACCUSATIVE = "пистолет DCA-P9 \"Мрявститель\"",
+		INSTRUMENTAL = "пистолетом DCA-P9 \"Мрявститель\"",
+		PREPOSITIONAL = "пистолете DCA-P9 \"Мрявститель\"",
+	)
+
+/obj/item/gun/projectile/automatic/pistol/enforcer/kittyforcer/chamber_round()
+	..()
+	if(chambered?.BB)
+		QDEL_NULL(chambered.BB)
+		chambered.BB = new /obj/projectile/bullet/weakbullet3/kitty(chambered)
