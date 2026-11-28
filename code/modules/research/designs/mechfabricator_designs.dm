@@ -1313,6 +1313,15 @@
 	construction_time = 12 SECONDS
 	category = list(MECH_FAB_CATEGORY_CYBORG_EQUIPMENT)
 
+/datum/design/borg_upgrade_mitocholide_spray
+	id = "borg_upgrade_mitocholide_spray"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/mitocholide_spray
+	req_tech = list(RESEARCH_TREE_BIOTECH = 5, RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_ENGINEERING = 4)
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 3000, MAT_PLASMA = 2000)
+	construction_time = 12 SECONDS
+	category = list(MECH_FAB_CATEGORY_CYBORG_EQUIPMENT)
+
 /datum/design/borg_upgrade_abductor_medi
 	id = "borg_upgade_abductor_medi"
 	build_type = MECHFAB

@@ -350,6 +350,11 @@
 /obj/item/robot_module/medical/add_default_robot_items()
 	return
 
+/obj/item/robot_module/medical/respawn_consumable(mob/living/silicon/robot/R)
+	var/obj/item/reagent_containers/spray/mitocholide/spray = locate() in modules
+	spray?.reagents.add_reagent(/datum/reagent/medicine/mitocholide, 5)
+	return ..()
+
 /obj/item/robot_module/medical/ert
 	name = "Combat Medical"
 
