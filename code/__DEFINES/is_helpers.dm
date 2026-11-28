@@ -97,6 +97,8 @@ GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))
 
 #define isgrenade(A) (istype(A, /obj/item/grenade))
 
+#define islandmine(A) (istype(A, /obj/effect/mine))
+
 #define iscrayon(A) (istype(A, /obj/item/toy/crayon))
 
 #define issoap(A) (istype(A, /obj/item/soap))

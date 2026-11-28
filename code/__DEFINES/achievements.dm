@@ -35,6 +35,7 @@
 #define MEDAL_KERBEROS_MASTER "Kerberos master"
 #define MEDAL_DEEP_DRAW "Deep draw"
 #define MEDAL_THEORETICAL_LIMITS "All Within Theoretical Limits"
+#define MEDAL_WATCH_YOUR_STEP "Watch your step"
 
 //Skill medal hub IDs
 #define MEDAL_LEGENDARY_MINER "Legendary Miner"

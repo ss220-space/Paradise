@@ -54,7 +54,7 @@
 	var/mob/living/shooter
 
 /datum/component/pellet_cloud/Initialize(projectile_type=/obj/projectile/shrapnel, magnitude=5)
-	if(!isammocasing(parent) && !isgrenade(parent) && !issupplypod(parent) && !ismortarcasing(parent))
+	if(!isammocasing(parent) && !isgrenade(parent) && !issupplypod(parent) && !ismortarcasing(parent) && !islandmine(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	if(magnitude < 1)
@@ -83,6 +83,8 @@
 	else if(isgrenade(parent))
 		RegisterSignal(parent, COMSIG_GRENADE_ARMED, PROC_REF(grenade_armed))
 		RegisterSignal(parent, COMSIG_GRENADE_DETONATE, PROC_REF(create_blast_pellets))
+	else if(islandmine(parent))
+		RegisterSignal(parent, COMSIG_MINE_TRIGGERED, PROC_REF(create_blast_pellets))
 	else if(issupplypod(parent))
 		RegisterSignal(parent, COMSIG_SUPPLYPOD_LANDED, PROC_REF(create_blast_pellets))
 	else if(ismortarcasing(parent))

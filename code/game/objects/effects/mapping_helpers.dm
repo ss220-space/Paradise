@@ -157,6 +157,7 @@
 	airlock.update_appearance(UPDATE_ICON)
 	return ..()
 
+INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
 /obj/effect/mapping_helpers/no_lava
 	icon_state = "no_lava"
 

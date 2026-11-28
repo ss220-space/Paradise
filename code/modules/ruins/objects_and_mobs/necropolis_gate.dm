@@ -193,6 +193,9 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/structure/necropolis_gate/legion_gate/attack_hand(mob/user)
+	if("ashwalker" in user.faction)
+		to_chat(user, span_boldannounceic("Все ваше естество противится идее беспокоить священный Некрополь."))
+		return
 	if(!open && !changing_openness)
 		var/safety = tgui_alert(user, "Каждая клеточка тела кричит, что это плохая идея...", "Постучать?", list("Решиться", "Отступить"))
 		if(!safety || safety == "Отступить" || !in_range(src, user) || !src || open || changing_openness || user.incapacitated)

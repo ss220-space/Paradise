@@ -36,3 +36,9 @@
 
 /obj/item/ammo_box/magazine/pkm/update_icon_state()
 	icon_state = "b762x54-[round(ammo_count(), 20)]"
+
+/obj/item/ammo_box/magazine/pkm/b32
+	ammo_type = /obj/item/ammo_casing/a762x54/b32
+
+/obj/item/ammo_box/magazine/pkm/bp
+	ammo_type = /obj/item/ammo_casing/a762x54/bp

@@ -193,6 +193,10 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 	min_spread = 8
 	max_spread = 30
 
+/datum/gun_accuracy/rifle/stationary_machinegun
+	min_spread = 4
+	max_spread = 18
+
 /datum/gun_accuracy/minimal/gatling
 	min_spread = 10
 	max_spread = 40
