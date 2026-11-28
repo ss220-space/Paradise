@@ -3930,10 +3930,7 @@
 /turf/simulated/wall/shuttle,
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "Il" = (
-/obj/item/paper/crumpled{
-	desc = "Они смогли меня найти и здесь, надо бы успеть спрятать риг пока они не поняли кто я. Хотя без него я далеко не уйду, но бурю можно переждать и в этой лачуге. Прямо в центре \" мертвого леса\" не забудь, пустая ты башка.";
-	layer = 2.9
-	},
+/obj/item/paper/crumpled/evil_santa,
 /obj/item/stack/sheet/wood,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	slowdown = 0

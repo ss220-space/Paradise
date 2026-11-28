@@ -76,6 +76,10 @@
 	info = "Brusies sustained in the holodeck can be healed simply by sleeping."
 	name = "Holodeck Disclaimer"
 
+/obj/item/paper/crumpled/evil_santa
+	default_raw_text = "Они смогли меня найти и здесь, надо бы успеть спрятать риг пока они не поняли кто я. Хотя без него я далеко не уйду, но бурю можно переждать и в этой лачуге. Прямо в центре \" мертвого леса\" не забудь, пустая ты башка.";
+	layer = 2.9
+
 /obj/item/paper/sop
 	name = "paper- 'Standard Operating Procedure'"
 	default_raw_text = "Alert Levels:\n\nBlue- Emergency\n\n\t1. Caused by fire\n\n\t2. Caused by manual interaction\n\n\tAction:\n\n\t\tClose all fire doors. These can only be opened by reseting the alarm\n\nRed- Ejection/Self Destruct\n\n\t1. Caused by module operating computer.\n\n\tAction:\n\n\t\tAfter the specified time the module will eject completely.\n\n\n\nEngine Maintenance Instructions:\n\n\tShut off ignition systems:\n\n\tActivate internal power\n\n\tActivate orbital balance matrix\n\n\tRemove volatile liquids from area\n\n\tWear a fire suit\n\n\n\n\tAfter\n\n\t\tDecontaminate\n\n\t\tVisit medical examiner\n\n\n\nToxin Laboratory Procedure:\n\n\tWear a gas mask regardless\n\n\tGet an oxygen tank.\n\n\tActivate internal atmosphere\n\n\n\n\tAfter\n\n\t\tDecontaminate\n\n\t\tVisit medical examiner\n\n\n\nDisaster Procedure:\n\n\tFire:\n\n\t\tActivate sector fire alarm.\n\n\t\tMove to a safe area.\n\n\t\tGet a fire suit\n\n\t\tAfter:\n\n\t\t\tAssess Damage\n\n\t\t\tRepair damages\n\n\t\t\tIf needed, Evacuate\n\n\tMeteor Shower:\n\n\t\tActivate fire alarm\n\n\t\tMove to the back of ship\n\n\t\tAfter\n\n\t\t\tRepair damage\n\n\t\t\tIf needed, Evacuate\n\n\tAccidental Reentry:\n\n\t\tActivate fire alarms in front of ship.\n\n\t\tMove volatile matter to a fire proof area!\n\n\t\tGet a fire suit.\n\n\t\tStay secure until an emergency ship arrives.\n\n\n\n\t\tIf ship does not arrive-\n\n\t\t\tEvacuate to a nearby safe area!"
