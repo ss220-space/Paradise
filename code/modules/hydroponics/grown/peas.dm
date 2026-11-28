@@ -16,7 +16,7 @@
 	icon_dead = "peas-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/peas/laugh)
-	reagents_add = list ("vitamin" = 0.1, "nutriment" = 0.05, "water" = 0.05)
+	reagents_add = list (/datum/reagent/consumable/nutriment/vitamin = 0.1, /datum/reagent/consumable/nutriment = 0.05, /datum/reagent/water = 0.05)
 
 /obj/item/reagent_containers/food/snacks/grown/peas
 	seed = /obj/item/seeds/peas
@@ -24,7 +24,7 @@
 	desc = "Finally... peas."
 	icon_state = "peas"
 	tastes = list ("peas" = 1, "chalky saltiness" = 1)
-	wine_power = 50
+	wine_power = 0.5
 	wine_flavor = "what is, distressingly, fermented peas."
 
 // Laughin' Peas
@@ -44,7 +44,7 @@
 	icon_dead = "laughpeas-dead"
 	genes = list (/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/glow/purple, /datum/plant_gene/trait/plant_laughter)
 	mutatelist = list (/obj/item/seeds/peas/laugh/peace)
-	reagents_add = list ("laughter" = 0.05, "sugar" = 0.05, "nutriment" = 0.07)
+	reagents_add = list (/datum/reagent/consumable/laughter = 0.05, /datum/reagent/consumable/sugar = 0.05, /datum/reagent/consumable/nutriment = 0.07)
 	rarity = 25 //It actually might make Central Command Officials loosen up a smidge, eh?
 
 /obj/item/reagent_containers/food/snacks/grown/peaslaugh
@@ -53,7 +53,7 @@
 	desc = "Ridens Cicer, guaranteed to improve your mood dramatically upon consumption!"
 	icon_state = "laughpeas"
 	tastes = list ("a prancing rabbit" = 1) //Vib Ribbon sends her regards.. wherever she is.
-	wine_power = 90
+	wine_power = 0.9
 	wine_flavor = "a vector-graphic rabbit dancing on your tongue"
 
 // World Peas - Peace at last, peace at last...
@@ -72,7 +72,7 @@
 	icon_grow = "worldpeas-grow"
 	icon_dead = "worldpeas-dead"
 	genes = list (/datum/plant_gene/trait/glow/blue)
-	reagents_add = list ("fomepizole" = 0.1, "love" = 0.1, "nutriment" = 0.15)
+	reagents_add = list (/datum/reagent/medicine/fomepizole = 0.1, /datum/reagent/love = 0.1, /datum/reagent/consumable/nutriment = 0.15)
 	rarity = 50 // This absolutely will make even the most hardened Syndicate Operators relax.
 	mutatelist = list()
 
@@ -83,5 +83,5 @@
 	icon_state = "worldpeas"
 	bitesize = 100
 	tastes = list ("numbing tranquility" = 2, "warmth" = 1)
-	wine_power = 100
+	wine_power = 1
 	wine_flavor = "mind-numbing peace and warmth"

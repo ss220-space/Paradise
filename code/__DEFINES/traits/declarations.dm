@@ -8,6 +8,8 @@
 #define TRAIT_BEING_SHOCKED "being_shocked" // Used together with WAS_SHOCKED instead of flag SHOCKED_2 from the Official Paradise.
 /// Trait that determines, if object under floor.
 #define TRAIT_UNDERFLOOR "underfloor"
+/// Machinery can accept a logistics interface board when its panel is open.
+#define TRAIT_LOGISTICS_COMPATIBLE "logistics_compatible"
 
 /// Weather immunities, also protect mobs inside them.
 #define TRAIT_LAVA_IMMUNE "lava_immune" //Used by lava turfs and The Floor Is Lava.
@@ -47,6 +49,7 @@
 #define TRAIT_LAVA_STOPPED "lava_stopped"
 
 // MARK: mob traits
+#define TRAIT_UDDER_FULL "udder_full"
 #define TRAIT_GODMODE "godmode"
 #define TRAIT_PACIFISM "pacifism"
 #define TRAIT_NO_DEATH "nodeath"
@@ -58,6 +61,10 @@
 #define TRAIT_MUTE "mute"
 #define TRAIT_DEAF "deaf"
 #define TRAIT_SECDEATH "secdeath"
+/// Immune to hallucinations entirely.
+#define TRAIT_HALLUCINATION_IMMUNE "hallucination_immune"
+/// Immune to madness-based hallucinations (used by hallucination_pulse / visible_hallucination_pulse).
+#define TRAIT_MADNESS_IMMUNE "madness_immune"
 #define TRAIT_AI_UNTRACKABLE "AI_untrackable"
 #define TRAIT_NINJA_INVISIBILITY "ninja_invisibility"
 /// Does nothing on its own, applied via status effect.
@@ -76,6 +83,7 @@
 #define TRAIT_WET_IMMUNITY "wet_immunity"
 /// This just means that the carbon will always have functional liverless metabolism
 #define TRAIT_LIVERLESS_METABOLISM "liverless_metabolism"
+
 
 /// Makes the user handcuff others faster
 #define TRAIT_FAST_CUFFING "fast_cuffing"
@@ -154,6 +162,8 @@
 #define TRAIT_UI_BLOCKED "uiblocked"
 /// Inability to pull things. Turned into a trait from [MOBILITY_PULL] to be able to track sources.
 #define TRAIT_PULL_BLOCKED "pullblocked"
+/// This mob is currently looking through a scope, such as binoculars. Prevents other scopes from taking over the view.
+#define TRAIT_USER_SCOPED "user_scoped"
 /// Abstract condition that prevents movement if being pulled and might be resisted against. Handcuffs and straight jackets, basically.
 #define TRAIT_RESTRAINED "restrained"
 
@@ -222,7 +232,6 @@
 #define TRAIT_FORCED_GRAVITY "forced_gravity"
 
 // MARK: item traits
-#define TRAIT_CMAGGED "cmagged"
 /// Trait to toggle Inugami Gloves built-in defibrillator mode
 #define TRAIT_DEFIB_BLOCKED "defib_blocked"
 /// The items needs two hands to be carried
@@ -396,7 +405,10 @@
 
 #define TRAIT_FAKE_FIRE "fake_fire"
 
-#define TRAIT_CAN_SEE_WIRES "can_see_wires"
+/// Show what machine/door wires do when held.
+#define TRAIT_SHOW_WIRE_INFO "show_wire_info"
+
+#define TRAIT_WIRE_BLIND "wire_blind" // This doesn't block someone from seeing wires or recalling their position, but randomizes name / function to the user
 
 #define TRAIT_DECOY_BRAIN "decoy_brain"
 
@@ -695,3 +707,6 @@
 
 /// Trait that allows an item to perform holy rites akin to a nullrod
 #define TRAIT_NULLROD_ITEM "nullrod_item"
+
+#define TRAIT_MEPHEDRONE_ADAPTED "mephedrone_adapted" // Trait that changes the ending effects of twitch leaving your system
+#define TRAIT_NOKNOCKDOWNSLOWDOWN "noknockdownslowdown" //If this person has this trait, they are not slowed via knockdown, but they can be hit by bullets like a self knockdown

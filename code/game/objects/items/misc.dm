@@ -97,7 +97,7 @@
 	custom_price = PAYCHECK_CREW
 	var/amount_left = 600
 	var/applying = FALSE
-	var/list/reagent = list("nicotine")
+	var/list/reagent = list(/datum/reagent/nicotine)
 
 /obj/item/ecig/get_ru_names()
 	return alist(
@@ -109,17 +109,14 @@
 		PREPOSITIONAL = "электронной сигарете"
 	)
 
-/obj/item/ecig/emag_act(mob/user)
-	if(emagged)
-		return
-
-	add_attack_logs(user, src, "emagged")
-	emagged = TRUE
-
-	if(!user)
-		return
-
-	balloon_alert(user, "протоколы безопасности взломаны")
+/obj/item/ecig/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
+	if(user)
+		balloon_alert(user, "протоколы безопасности взломаны")
+	return TRUE
 
 /obj/item/ecig/examine(mob/user)
 	. = ..()
@@ -200,7 +197,7 @@
 	if(cycle_count >= AWARD_THRESHOLD)
 		user.client?.give_award(/datum/award/achievement/misc/deep_draw, user)
 
-	if(emagged && cycle_count >= SAFE_THRESHOLD)
+	if((obj_flags & EMAGGED) && cycle_count >= SAFE_THRESHOLD)
 		applying = FALSE
 		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] становится обжигающе горячей!"))
 		addtimer(CALLBACK(src, PROC_REF(perform_sparks)), 15)
@@ -243,7 +240,7 @@
 	desc = "Гладкий никотиновый испаритель в подозрительном красном корпусе. Выдаёт плотное облако пара с лёгким химическим оттенком."
 	icon_state = "ecig_syndi"
 	item_state = "ecig_syndi"
-	reagent = list("nicotine", "syndiezine")
+	reagent = list(/datum/reagent/nicotine, /datum/reagent/medicine/syndiezine)
 
 /obj/item/ecig/syndi/get_ru_names()
 	return alist(

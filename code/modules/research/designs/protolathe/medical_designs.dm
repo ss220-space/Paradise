@@ -358,6 +358,51 @@
 	build_path = /obj/item/organ/internal/cyberimp/arm/surgery/alien
 	category = list(PROTOLATHE_CATEGORY_MEDICAL)
 
+/datum/design/cyberimp_shell_launcher
+	id = "ci-shell_launcher"
+	req_tech = list(RESEARCH_TREE_MATERIALS = 7, RESEARCH_TREE_ENGINEERING = 5, RESEARCH_TREE_COMBAT = 5)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 2500, MAT_GLASS = 1500, MAT_SILVER = 1500)
+	construction_time = 20 SECONDS
+	build_path = /obj/item/organ/internal/cyberimp/arm/shell_launcher
+	category = list(PROTOLATHE_CATEGORY_MEDICAL)
+
+/datum/design/cyberimp_razorwire_spool
+	id = "ci-razorwire-spool"
+	req_tech = list(RESEARCH_TREE_COMBAT = 6, RESEARCH_TREE_BIOTECH = 6, RESEARCH_TREE_ILLEGAL = 3)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 5000, MAT_SILVER = 2000, MAT_DIAMOND = 2000, MAT_BLUESPACE = 2000)
+	construction_time = 10 SECONDS
+	build_path = /obj/item/organ/internal/cyberimp/arm/razorwire
+	category = list(PROTOLATHE_CATEGORY_MEDICAL)
+
+/datum/design/cyberimp_sensory_enhancer
+	id = "ci-sensory-enhancer"
+	req_tech = list(RESEARCH_TREE_COMBAT = 7, RESEARCH_TREE_BIOTECH = 7, RESEARCH_TREE_ILLEGAL = 5)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 10000, MAT_SILVER = 2000, MAT_PLASMA = 10000, MAT_DIAMOND = 4000, MAT_BLUESPACE = 4000)
+	construction_time = 10 SECONDS
+	build_path = /obj/item/organ/internal/cyberimp/brain/sensory_enhancer/rnd
+	category = list(PROTOLATHE_CATEGORY_MEDICAL)
+
+/datum/design/cyberimp_toolset_abductor
+	id = "al_hacking"
+	req_tech = list(RESEARCH_TREE_MATERIALS = 6, RESEARCH_TREE_ENGINEERING = 6, RESEARCH_TREE_PLASMA = 6, RESEARCH_TREE_ALIEN = 4)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 20000, MAT_SILVER = 10000, MAT_PLASMA = 9000, MAT_TITANIUM = 8000, MAT_DIAMOND = 8000)
+	construction_time = 200
+	build_path = /obj/item/organ/internal/cyberimp/arm/toolset_abductor
+	category = list(PROTOLATHE_CATEGORY_MEDICAL)
+
+/datum/design/cyberimp_janitorial_abductor
+	id = "ci-jani-abductor"
+	req_tech = list(RESEARCH_TREE_MATERIALS = 6, RESEARCH_TREE_ENGINEERING = 6, RESEARCH_TREE_BIOTECH = 6, RESEARCH_TREE_ALIEN = 3)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 20000, MAT_SILVER = 10000, MAT_PLASMA = 9000, MAT_TITANIUM = 8000, MAT_DIAMOND = 8000)
+	construction_time = 20 SECONDS
+	build_path = /obj/item/organ/internal/cyberimp/arm/janitorial_abductor
+	category = list(PROTOLATHE_CATEGORY_MEDICAL)
+
 /datum/design/cyberimp_toolset
 	id = "ci-toolset"
 	req_tech = list(RESEARCH_TREE_MATERIALS = 3, RESEARCH_TREE_ENGINEERING = 4, RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_POWERSTORAGE = 4)
@@ -392,6 +437,15 @@
 	materials = list(MAT_METAL = 8000, MAT_GLASS = 3500, MAT_SILVER = 1500, MAT_TITANIUM = 1000, MAT_DIAMOND = 600, MAT_BLUESPACE = 1000)
 	construction_time = 200
 	build_path = /obj/item/organ/internal/cyberimp/arm/atmostoolset
+	category = list(PROTOLATHE_CATEGORY_MEDICAL)
+
+/datum/design/cyberimp_cargo
+	id = "ci-cargo"
+	req_tech = list(RESEARCH_TREE_MATERIALS = 3, RESEARCH_TREE_ENGINEERING = 4, RESEARCH_TREE_BIOTECH = 4)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 2500, MAT_GLASS = 1500, MAT_SILVER = 1500)
+	construction_time = 200
+	build_path = /obj/item/organ/internal/cyberimp/arm/cargo
 	category = list(PROTOLATHE_CATEGORY_MEDICAL)
 
 /datum/design/cyberimp_janitorial
@@ -437,6 +491,15 @@
 	construction_time = 50
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 500, MAT_GOLD = 500)
 	build_path = /obj/item/organ/internal/cyberimp/eyes/hud/medical
+	category = list(PROTOLATHE_CATEGORY_MEDICAL)
+
+/datum/design/cyberimp_hydroponics_hud
+	id = "ci-hydrohud"
+	req_tech = list(RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_PROGRAMMING = 4, RESEARCH_TREE_BIOTEC = 4, RESEARCH_TREE_MAGNETS = 3)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 5 SECONDS
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 700, MAT_GOLD = 500)
+	build_path = /obj/item/organ/internal/cyberimp/eyes/hud/hydroponic
 	category = list(PROTOLATHE_CATEGORY_MEDICAL)
 
 /datum/design/cyberimp_science_hud
@@ -520,6 +583,15 @@
 	build_path = /obj/item/organ/internal/cyberimp/eyes/map/fire
 	category = list(PROTOLATHE_CATEGORY_MEDICAL)
 
+/datum/design/cyberimp_scope
+	id = "ci-scope"
+	req_tech = list(RESEARCH_TREE_MATERIALS = 6, RESEARCH_TREE_PROGRAMMING = 4, RESEARCH_TREE_BIOTECH = 7, RESEARCH_TREE_MAGNETS = 5, RESEARCH_TREE_PLASMA = 4)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 60
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 600, MAT_GOLD = 600, MAT_PLASMA = 1000, MAT_DIAMOND = 2000)
+	build_path = /obj/item/organ/internal/cyberimp/eyes/scope
+	category = list(PROTOLATHE_CATEGORY_MEDICAL)
+
 /datum/design/cyberimp_antidrop
 	id = "ci-antidrop"
 	req_tech = list(RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_PROGRAMMING = 6, RESEARCH_TREE_BIOTECH = 5)
@@ -581,6 +653,24 @@
 	construction_time = 60
 	materials = list(MAT_METAL = 800, MAT_GLASS = 800, MAT_GOLD = 300, MAT_URANIUM = 500)
 	build_path = /obj/item/organ/internal/cyberimp/chest/reviver
+	category = list(PROTOLATHE_CATEGORY_MEDICAL)
+
+/datum/design/cyberimp_wire_interface
+	id = "ci-wire_interface"
+	req_tech = list(RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_PROGRAMMING = 4, RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_ALIEN = 4)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 60
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 400, MAT_GOLD = 400)
+	build_path = /obj/item/organ/internal/cyberimp/brain/wire_interface
+	category = list(PROTOLATHE_CATEGORY_MEDICAL)
+
+/datum/design/bluespace_anchor
+	id = "bluespace_anchor_implant"
+	req_tech = list(RESEARCH_TREE_BLUESPACE = 7, RESEARCH_TREE_BIOTECH = 5)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 6 SECONDS
+	materials = list(MAT_METAL = 10000, MAT_BLUESPACE = 2000)
+	build_path = /obj/item/organ/internal/cyberimp/chest/bluespace_anchor
 	category = list(PROTOLATHE_CATEGORY_MEDICAL)
 
 /datum/design/voice_retranslator

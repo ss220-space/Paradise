@@ -299,7 +299,7 @@
 	desc = "Toxic to nonbelievers; this water renews and reinvigorates the faithful of a cult."
 	icon_state = "holyflask"
 	color = "#333333"
-	list_reagents = list("unholywater" = 40)
+	list_reagents = list(/datum/reagent/fuel/unholywater = 40)
 
 /obj/item/clothing/glasses/hud/health/night/cultblind
 	name = "zealot's blindfold"
@@ -734,7 +734,7 @@
 			else
 				L.visible_message(span_warning("[src] bounces off of [L], as if repelled by an unseen force!"))
 		else if(!..())
-			if(!L.can_block_magic())
+			if(!L.can_block_magic(MAGIC_RESISTANCE_HOLY))
 				L.Knockdown(6 SECONDS)
 			break_spear(T)
 	else

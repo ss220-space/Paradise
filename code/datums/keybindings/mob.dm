@@ -440,32 +440,6 @@
 		return .
 	belt.attack_self(human)
 
-/datum/keybinding/mob/toggle_gun_sight
-	name = "toggle_gun_sight"
-	full_name = "Использовать прицел"
-	description = "Включает/выключает прицел оружия при нажатии"
-	hotkey_keys = list("CtrlR")
-	keybind_signal = COMSIG_KB_MOB_TOGGLE_GUN_SIGHT_DOWN
-
-/datum/keybinding/mob/toggle_gun_sight/can_use(client/user)
-	return ishuman(user.mob) //only humans can use sights
-
-/datum/keybinding/mob/toggle_gun_sight/down(client/user, turf/target, mousepos_x, mousepos_y)
-	. = ..()
-	if(.)
-		return .
-	var/mob/living/carbon/human/human = user.mob
-	if(!istype(human))
-		return .
-	var/obj/item/gun/gun = human.get_item_by_slot(ITEM_SLOT_HAND_LEFT)
-	if(!gun || !istype(gun))
-		gun = human.get_item_by_slot(ITEM_SLOT_HAND_RIGHT)
-	if(!gun || !istype(gun))
-		return .
-	if(!gun.azoom)
-		return
-	gun.azoom.Trigger()
-
 /datum/keybinding/mob/toggle_laser_sight
 	name = "toggle_laser_sight"
 	full_name = "Переключить лазерный целеуказатель"

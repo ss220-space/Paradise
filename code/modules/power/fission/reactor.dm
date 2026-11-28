@@ -1014,6 +1014,7 @@
 	playsound(src, 'sound/machines/alarm.ogg', 100, FALSE, 5)
 	if(SSticker && SSticker.mode)
 		SSticker.mode.explosion_in_progress = TRUE
+	explosion(get_turf(src), 80, 100, 120, 0, ignorecap = TRUE)
 	sleep(10 SECONDS)
 	SSblackbox.record_feedback("tally", "fission_overload", 1, "detonation successful")
 	active_meltdown = FALSE
@@ -1362,6 +1363,10 @@
 		/area/station/ai/satellite/chamber,
 		/area/station/hallway/primary/starboard,
 		/area/shuttle,
+		/area/planetoid/caves,
+		/area/planetoid/lazarus/security/lobby,
+		/area/planetoid/lazarus/abandoned_building/temple_inner,
+		/area/planetoid/lazarus/maintenance,
 	)
 	end_message = span_notice_alt("Пепел перестаёт падать.")
 	radiation_treshhold = RAD_HEAVY_INSULATION

@@ -10,18 +10,18 @@
 		return 1
 	if(HAS_TRAIT(target, TRAIT_NO_PAIN))//if you don't feel pain, you can hold still
 		return 1
-	if(target.reagents.has_reagent("hydrocodone"))//really good pain killer
+	if(target.reagents.has_reagent(/datum/reagent/medicine/hydrocodone))//really good pain killer
 		return 0.99
-	if(target.reagents.has_reagent("morphine"))//Just as effective as Hydrocodone, but has an addiction chance
+	if(target.reagents.has_reagent(/datum/reagent/medicine/morphine))//Just as effective as Hydrocodone, but has an addiction chance
 		return 0.99
-	if(target.reagents.has_reagent("syntmorphine"))
+	if(target.reagents.has_reagent(/datum/reagent/medicine/morphine/syntmorphine))
 		return 0.99
 	var/drunk = target.get_drunkenness()
 	if(drunk >= 80)//really damn drunk
 		return 0.95
 	if(drunk >= 40)//pretty drunk
 		return 0.9
-	if(target.reagents.has_reagent("sal_acid")) //it's better than nothing, as far as painkillers go.
+	if(target.reagents.has_reagent(/datum/reagent/medicine/sal_acid)) //it's better than nothing, as far as painkillers go.
 		return 0.85
 	if(drunk >= 15)//a little drunk
 		return 0.85
@@ -55,7 +55,7 @@
  * * parent - bodypart in which our src object is placed.
  * * target - future owner of the limb.
  */
-/atom/movable/proc/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
+/atom/movable/proc/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT, check_parents_zones = FALSE)
 	return FALSE
 
 /// Check to see if a surgical operation proposed on ourselves is valid or not. We are the target of the surgery

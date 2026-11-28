@@ -84,6 +84,8 @@
 		icon_floor_type = ""
 	if(istype(loc, /turf/simulated/floor/beach/sand))
 		icon_floor_type = "sand"
+	if(istype(loc, /turf/simulated/floor/planetoid/desert))
+		icon_floor_type = "sand"
 	if(istype(loc, /turf/simulated/floor/grass))
 		icon_floor_type = "mud"
 	update_icon(UPDATE_ICON_STATE)
@@ -139,7 +141,7 @@
 	if(open)
 		return
 
-	if(escapee.incapacitated() || HAS_TRAIT(escapee, TRAIT_HANDS_BLOCKED))
+	if(escapee.incapacitated || HAS_TRAIT(escapee, TRAIT_HANDS_BLOCKED))
 		return
 
 	escapee.changeNext_click(CLICK_CD_CLICK_ABILITY)

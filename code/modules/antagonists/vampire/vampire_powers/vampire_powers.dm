@@ -47,11 +47,14 @@
 /datum/vampire_passive/full
 	gain_desc = "Вы достигли полной силы и ничто святое больше не может ослабить вас. Ваше зрение значительно улучшилось."
 
-/datum/vampire_passive/full/on_apply(datum/antagonist/vampire/vampire_datum)
+/datum/vampire_passive/virus_immune
+	gain_desc = "Вы достигли полной силы и никакие вирусы вам больше не помеха."
+
+/datum/vampire_passive/virus_immune/on_apply(datum/antagonist/vampire/vampire_datum)
 	. = ..()
 	ADD_TRAIT(vampire_datum.owner.current, TRAIT_VIRUSIMMUNE, VAMPIRE_TRAIT)
 
-/datum/vampire_passive/full/on_remove(datum/antagonist/vampire/vampire_datum)
+/datum/vampire_passive/virus_immune/on_remove(datum/antagonist/vampire/vampire_datum)
 	. = ..()
 	REMOVE_TRAIT(vampire_datum.owner.current, TRAIT_VIRUSIMMUNE, VAMPIRE_TRAIT)
 
@@ -138,7 +141,7 @@
 			user.updatehealth()
 		for(var/datum/reagent/R in user.reagents.reagent_list)
 			if(!R.harmless)
-				user.reagents.remove_reagent(R.id, 2 * rejuv_bonus)
+				user.reagents.remove_reagent(R.type, 2 * rejuv_bonus)
 		sleep(3.5 SECONDS)
 
 /datum/antagonist/vampire/proc/get_rejuv_bonus()

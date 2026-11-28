@@ -6,21 +6,56 @@
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
 	item_flags = NOBLUDGEON
-	var/flush = null
 	origin_tech = "programming=3;materials=3"
+	var/flush = null
+	var/mob/living/silicon/ai/AI
 
-/obj/item/aicard/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	. = ..()
-	if(!proximity_flag || !target)
-		return
+/obj/item/aicard/Destroy(force)
+	if(AI)
+		AI.ghostize(can_reenter_corpse = FALSE)
+		QDEL_NULL(AI)
+	return ..()
 
-	var/mob/living/silicon/ai/AI = locate(/mob/living/silicon/ai) in src
-	if(AI) //AI is on the card, implies user wants to upload it.
-		target.transfer_ai(AI_TRANS_FROM_CARD, user, AI, src)
-		add_attack_logs(user, AI, "Carded with [src]")
-	else //No AI on the card, therefore the user wants to download one.
-		target.transfer_ai(AI_TRANS_TO_CARD, user, null, src)
-	update_state() //Whatever happened, update the card's state (icon, name) to match.
+/obj/item/aicard/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	if(AI)
+		if(upload_ai(interacting_with, user))
+			return ITEM_INTERACT_SUCCESS
+	else
+		if(capture_ai(interacting_with, user))
+			return ITEM_INTERACT_SUCCESS
+	return NONE
+
+/// Tries to get an AI from the atom clicked
+/obj/item/aicard/proc/capture_ai(atom/from_what, mob/living/user)
+	from_what.transfer_ai(AI_TRANS_TO_CARD, user, null, src)
+	if(isnull(AI))
+		return FALSE
+	update_appearance()
+	AI.cancel_camera()
+	RegisterSignal(AI, COMSIG_MOB_STATCHANGE, PROC_REF(on_ai_stat_change))
+	RegisterSignal(AI, COMSIG_ATOM_UPDATE_ICON, PROC_REF(on_ai_icon_update))
+	return TRUE
+
+/// Tries to upload the AI we have captured to the atom clicked
+/obj/item/aicard/proc/upload_ai(atom/to_what, mob/living/user)
+	var/mob/living/silicon/ai/old_ai = AI
+	to_what.transfer_ai(AI_TRANS_FROM_CARD, user, AI, src)
+	if(!isnull(AI))
+		return FALSE
+	update_appearance()
+	old_ai.cancel_camera()
+	UnregisterSignal(old_ai, COMSIG_MOB_STATCHANGE)
+	UnregisterSignal(old_ai, COMSIG_ATOM_UPDATE_ICON)
+	return TRUE
+
+/obj/item/aicard/proc/on_ai_stat_change(datum/source, new_stat, old_stat)
+	SIGNAL_HANDLER
+	if(new_stat == DEAD || old_stat == DEAD)
+		update_appearance()
+
+/obj/item/aicard/proc/on_ai_icon_update(datum/source)
+	SIGNAL_HANDLER
+	update_appearance()
 
 /obj/item/aicard/update_icon_state()
 	var/mob/living/silicon/ai/AI = locate(/mob/living/silicon/ai) in src

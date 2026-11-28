@@ -44,7 +44,7 @@ ADMIN_VERB(cmd_admin_say, R_ADMIN|R_MOD, "ASay", "Send a message to other admins
 		var/msg = tgui_input_text(src, null, "asay \"text\"", encode = FALSE)
 		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_say, msg)
 	else if(check_rights(R_MENTOR))
-		var/msg = tgui_input_text(src, null, "msay \"text\"", encode = FALSE)
+		var/msg = tgui_input_text(src, null, "msay \"text\"")
 		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_mentor_say, msg)
 
 ADMIN_VERB(cmd_mentor_say, R_ADMIN|R_MOD|R_MENTOR, "MSay", "Send a message to other mentors.", ADMIN_CATEGORY_MAIN)
@@ -81,7 +81,7 @@ ADMIN_VERB(cmd_mentor_say, R_ADMIN|R_MOD|R_MENTOR, "MSay", "Send a message to ot
 
 /client/proc/get_mentor_say()
 	if(check_rights(R_ADMIN|R_MOD|R_MENTOR))
-		var/msg = tgui_input_text(src, null, "msay \"text\"", encode = FALSE)
+		var/msg = tgui_input_text(src, null, "msay \"text\"")
 		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_mentor_say, msg)
 
 ADMIN_VERB(toggle_mentor_chat, R_ADMIN, "Toggle Mentor Chat", "Toggle whether mentors have access to the msay command.", ADMIN_CATEGORY_TOGGLES)

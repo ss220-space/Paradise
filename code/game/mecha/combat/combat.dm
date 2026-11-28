@@ -10,7 +10,7 @@
 	if(..())
 		if(H.client)
 			H.client.mouse_override_icon = 'icons/obj/mecha/mecha_mouse.dmi'
-			H.client.mouse_pointer_icon = H.client.mouse_override_icon
+			H.update_mouse_pointer()
 		return TRUE
 	return FALSE
 
@@ -18,7 +18,7 @@
 	if(..())
 		if(occupant.client)
 			occupant.client.mouse_override_icon = 'icons/obj/mecha/mecha_mouse.dmi'
-			occupant.client.mouse_pointer_icon = occupant.client.mouse_override_icon
+			occupant.update_mouse_pointer()
 		return TRUE
 	return FALSE
 

@@ -25,8 +25,6 @@
 	tool_behaviour = TOOL_MULTITOOL
 	toolbox_radial_menu_compatibility = TRUE
 	hitsound = 'sound/weapons/tap.ogg'
-	/// Shows what a wire does if set to TRUE
-	var/shows_wire_information = FALSE
 	/// Simple machine buffer for device linkage
 	var/obj/machinery/buffer
 	var/datum/multitool_menu_host/menu
@@ -163,7 +161,10 @@
 	desc = "Используется для подачи импульсов на провода, чтобы определить, какой из них перерезать. \
 			Не одобряется врачами. Имеет странную бирку с надписью: \"Гриферить в удовольствие\"."
 	track_delay = 5
-	shows_wire_information = TRUE
+
+/obj/item/multitool/ai_detect/admin/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SHOW_WIRE_INFO, ROUNDSTART_TRAIT)
 
 /obj/item/multitool/ai_detect/admin/multitool_detect()
 	var/turf/our_turf = get_turf(src)
@@ -191,7 +192,10 @@
 	toolspeed = 0.1
 	usesound = 'sound/items/multitool2.ogg'
 	origin_tech = "magnets=5;engineering=5;abductor=3"
-	shows_wire_information = TRUE
+
+/obj/item/multitool/abductor/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SHOW_WIRE_INFO, ROUNDSTART_TRAIT)
 
 /obj/item/multitool/abductor/ComponentInitialize()
 	. = ..()

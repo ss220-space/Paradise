@@ -314,7 +314,7 @@
 	if(isobserver(user))
 		return FALSE
 
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return TRUE
 
 	if(!user.can_use_machinery(src))
@@ -548,7 +548,7 @@
 	return 0
 
 /obj/machinery/proc/is_assess_emagged()
-	return emagged
+	return (obj_flags & EMAGGED)
 
 /obj/machinery/proc/assess_perp(mob/living/carbon/human/perp, check_access, auth_weapons, check_records, check_arrest)
 	var/threatcount = 0	//the integer returned
@@ -665,7 +665,7 @@
  * * user - the mob who is trying to interact with the machine.
  */
 /obj/machinery/proc/can_use_shortcut(mob/living/user)
-	if(user.incapacitated())
+	if(user.incapacitated)
 		to_chat(user, span_warning("You can't do that right now!"))
 		return FALSE
 
@@ -698,3 +698,8 @@
 	SHOULD_NOT_OVERRIDE(TRUE)
 
 	set_panel_open(!panel_open)
+
+/obj/machinery/proc/create_logistics_adapter()
+	if(GetComponent(/datum/component/material_container))
+		return new /datum/logistics_adapter/material_container(src)
+	return null

@@ -39,6 +39,7 @@
 	var/obj/machinery/computer/security/mortar/internal_camera
 
 	var/skin
+	var/obj/item/binoculars/range/rangefinder
 
 /obj/structure/mortar/Initialize(mapload, skin)
 	. = ..()
@@ -61,6 +62,7 @@
 
 /obj/structure/mortar/Destroy()
 	QDEL_NULL(internal_camera)
+	rangefinder = null
 	return ..()
 
 /obj/structure/mortar/attack_alien(mob/living/carbon/alien/xeno)
@@ -69,8 +71,6 @@
 		return
 
 	if(firing)
-		playsound(src, "acid_hit", 25, TRUE)
-		playsound(xeno, "alien_help", 25, TRUE)
 		xeno.apply_damage(10, BURN)
 		xeno.visible_message(
 			span_danger("[xeno] tried to knock the steaming hot [src] over, but burned itself and pulled away!"),
@@ -113,7 +113,8 @@
 		"data_target_y" = targ_y,
 		"data_target_z" = targ_z,
 		"data_dial_x" = dial_x,
-		"data_dial_y" = dial_y
+		"data_dial_y" = dial_y,
+		"linked" = !!rangefinder,
 	)
 
 /obj/structure/mortar/ui_act(action, params)
@@ -136,6 +137,30 @@
 
 		if("operate_cam")
 			internal_camera.ui_interact(user)
+
+		if("unlink")
+			unlink_rangefinder()
+
+/obj/structure/mortar/proc/link_rangefinder(obj/item/binoculars/range/rangefinder)
+	if(!rangefinder)
+		return
+	src.rangefinder = rangefinder
+	rangefinder.connected = TRUE
+	RegisterSignal(rangefinder, COMSIG_RANGEFINDER_TARGET_LOCKED, PROC_REF(on_target_locked))
+	SStgui.update_uis(src)
+
+/obj/structure/mortar/proc/unlink_rangefinder()
+	var/obj/item/binoculars/range/rangefinder = src.rangefinder
+	if(!rangefinder)
+		return
+	src.rangefinder = null
+	rangefinder.connected = FALSE
+	UnregisterSignal(rangefinder, COMSIG_RANGEFINDER_TARGET_LOCKED)
+	SStgui.update_uis(src)
+
+/obj/structure/mortar/proc/on_target_locked(datum/source, turf/target, mob/user)
+	SIGNAL_HANDLER
+	INVOKE_ASYNC(src, PROC_REF(handle_target), user, target.x, target.y, target.z)
 
 /obj/structure/mortar/proc/handle_target(mob/user, temp_targ_x = 0, temp_targ_y = 0, temp_targ_z = 0)
 
@@ -206,36 +231,27 @@
 	SStgui.update_uis(src)
 
 /obj/structure/mortar/attackby(obj/item/item, mob/user)
+	if(istype(item, /obj/item/binoculars/range))
+		var/obj/item/binoculars/range/rangefinder = item
+		if(rangefinder.connected)
+			return ATTACK_CHAIN_PROCEED
+		link_rangefinder(rangefinder)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 	if(!ismortarcasing(item))
 		return ATTACK_CHAIN_PROCEED
 	var/obj/item/mortar_shell/mortar_shell = item
 
 	if(!mortar_shell.locked)
 		return ATTACK_CHAIN_PROCEED
+	if(!can_fire_at(user, test_dial_x = dial_x, test_dial_y = dial_y, firing = TRUE))
+		return ATTACK_CHAIN_PROCEED
 	var/turf/target_turf = locate(targ_x + dial_x + offset_x, targ_y + dial_y + offset_y, targ_z)
-	var/area/target_area = get_area(target_turf)
-	if(busy)
-		to_chat(user, span_warning("Someone else is currently using [src]."))
-		return
 
 	if(targ_x == 0 && targ_y == 0 && targ_z == 0) //Mortar wasn't set
 		to_chat(user, span_warning("[src] needs to be aimed first."))
 		return ATTACK_CHAIN_PROCEED
 
-	if(!target_turf)
-		to_chat(user, span_warning("You cannot fire [src] to this target."))
-		return ATTACK_CHAIN_PROCEED
-
-	if(!istype(target_area))
-		to_chat(user, span_warning("This area is out of bounds!"))
-		return ATTACK_CHAIN_PROCEED
-
-	var/turf/above_turf = GET_TURF_ABOVE(target_turf)
-	if(above_turf && !isopenspaceturf(above_turf))
-		to_chat(user, span_warning("You cannot hit the target. It is probably underground."))
-		return ATTACK_CHAIN_PROCEED
-
-	var/turf/deviation_turf = locate(target_turf.x + pick(-1,0,0,1), target_turf.y + pick(-1,0,0,1), target_turf.z) //Small amount of spread so that consecutive mortar shells don't all land on the same tile
+	var/turf/deviation_turf = locate(target_turf.x + pick(-1, 0, 0, 1), target_turf.y + pick(-1, 0, 0, 1), target_turf.z) //Small amount of spread so that consecutive mortar shells don't all land on the same tile
 	if(deviation_turf)
 		target_turf = deviation_turf
 
@@ -299,6 +315,7 @@
 	playsound(loc, 'sound/items/Deconstruct.ogg', 25, TRUE)
 	var/obj/item/mortar_kit/mortar = new /obj/item/mortar_kit(loc, skin)
 	mortar.name = src.name
+	mortar.rangefinder = rangefinder
 	qdel(src)
 
 /obj/structure/mortar/ex_act(severity, target)
@@ -313,12 +330,23 @@
 	invisibility = INVISIBILITY_MAXIMUM
 
 /obj/structure/mortar/proc/handle_shell(turf/target, obj/item/mortar_shell/shell)
+	// Zones in which a mortar shell does not detonate
+	var/static/list/safe_areas = list(
+		/area/planetoid/caves,
+		/area/planetoid/lazarus/engineering,
+		/area/planetoid/lazarus/science,
+	)
 	if(istype(shell, /obj/item/mortar_shell/custom)) // big shell warning for ghosts
 		var/obj/effect/effect = new /obj/effect/mortar_effect(target)
 		QDEL_IN(effect, 5 SECONDS)
 		notify_ghosts(title = "Custom Shell", message = "A custom mortar shell is about to land at [get_area(target)].", source = effect)
 	add_game_logs("fired an explosive shell from a mortar to ([target.x], [target.y], [target.z]).", usr)
 	message_admins("[usr] set mortar target to ([target.x], [target.y], [target.z]).[ADMIN_JMP(target)] [ADMIN_FLW(usr, usr)].")
+	if(is_type_in_list(get_area(target), safe_areas))
+		handle_cave_impact(target)
+		qdel(shell)
+		firing = FALSE
+		return
 	if(!shell.silent)
 		handle_messages(target)
 	else
@@ -326,6 +354,16 @@
 	shell.detonate(target)
 	qdel(shell)
 	firing = FALSE
+
+/obj/structure/mortar/proc/handle_cave_impact(turf/target)
+	playsound(target, 'sound/weapons/gun_mortar_travel.ogg', 15, TRUE)
+	addtimer(CALLBACK(src, PROC_REF(cave_impact_aftermath), target), 4 SECONDS)
+
+/obj/structure/mortar/proc/cave_impact_aftermath(turf/target)
+	playsound(target, SSexplosions.creaking_explosion_sound, 40, TRUE)
+	for(var/mob/mob in range(6, target))
+		shake_camera(mob, 2, 1)
+	visible_message(span_danger("The shell impact thuds dully somewhere in the caves."))
 
 /obj/structure/mortar/proc/handle_messages(turf/target)
 	playsound(target, 'sound/weapons/gun_mortar_travel.ogg', 50, TRUE)
@@ -343,48 +381,55 @@
 	new /obj/effect/overlay/temp/blinking_laser(target)
 	sleep(2 SECONDS) // Wait out the rest of the landing time
 
-/obj/structure/mortar/proc/can_fire_at(mob/user, test_targ_x = targ_x, test_targ_y = targ_y, test_targ_z = targ_z, test_dial_x, test_dial_y)
+/obj/structure/mortar/proc/can_fire_at(mob/user, test_targ_x = targ_x, test_targ_y = targ_y, test_targ_z = targ_z, test_dial_x, test_dial_y, firing = FALSE)
 	var/dialing = test_dial_x || test_dial_y
 
+	var/text = firing? "fire at" : (dialing ? "dial to" : "aim at")
+
 	if(test_dial_x + test_targ_x > world.maxx || test_dial_x + test_targ_x < 0)
-		to_chat(user, span_warning("You cannot [dialing ? "dial to" : "aim at"] this coordinate, it is outside of the area of operations."))
+		to_chat(user, span_warning("You cannot [text] this coordinate, it is outside of the area of operations."))
 		return FALSE
 
 	if(test_dial_x < -10 || test_dial_x > 10 || test_dial_y < -10 || test_dial_y > 10)
-		to_chat(user, span_warning("You cannot [dialing ? "dial to" : "aim at"] this coordinate, it is too far away from the original target."))
+		to_chat(user, span_warning("You cannot [text] this coordinate, it is too far away from the original target."))
 		return FALSE
 
 	if(test_dial_y + test_targ_y > world.maxy || test_dial_y + test_targ_y < 0)
-		to_chat(user, span_warning("You cannot [dialing ? "dial to" : "aim at"] this coordinate, it is outside of the area of operations."))
+		to_chat(user, span_warning("You cannot [text] this coordinate, it is outside of the area of operations."))
 		return FALSE
 
 	var/turf/turf = locate(test_targ_x + test_dial_x, test_targ_y + test_dial_y, test_targ_z);
+	var/area/target_area = get_area(turf)
 	if(!turf)
-		to_chat(user, span_warning("You cannot [dialing ? "dial to" : "aim at"] this coordinate. Location not exist."))
+		to_chat(user, span_warning("You cannot [text] this coordinate. Location not exist."))
+		return FALSE
+
+	if(!istype(target_area))
+		to_chat(user, span_warning("This area is out of bounds!"))
 		return FALSE
 
 	if(isspaceturf(turf))
-		to_chat(user, span_warning("You cannot [dialing ? "dial to" : "aim at"] this coordinate, it is in space."))
+		to_chat(user, span_warning("You cannot [text] this coordinate, it is in space."))
 		return FALSE
 
 	var/turf/above_turf = GET_TURF_ABOVE(turf)
 	if(above_turf && !isopenspaceturf(above_turf))
-		to_chat(user, span_warning("You cannot [dialing ? "dial to" : "aim at"] this coordinate, it isn't first floor to impact."))
+		to_chat(user, span_warning("You cannot [text] this coordinate, it isn't first floor to impact."))
 		return FALSE
 
 	var/turf/top_turf = get_highest_turf(loc)
 	var/turf/low_turf = get_lowest_turf(loc)
 
 	if(!cross_sector && (!low_turf && !top_turf || low_turf && (test_targ_z < low_turf.z) || top_turf && (test_targ_z > top_turf.z)))
-		to_chat(user, span_warning("You cannot [dialing ? "dial to" : "aim at"] this coordinate. It isn't in your sector."))
+		to_chat(user, span_warning("You cannot [text] this coordinate. It isn't in your sector."))
 		return FALSE
 
 	if(get_dist(src, turf) < min_range && !(cross_sector && turf.z != loc.z))
-		to_chat(user, span_warning("You cannot [dialing ? "dial to" : "aim at"] this coordinate, it is too close to your mortar."))
+		to_chat(user, span_warning("You cannot [text] this coordinate, it is too close to your mortar."))
 		return FALSE
 
 	if(get_dist(src, turf) > max_range && !(cross_sector && turf.z != loc.z))
-		to_chat(user, span_warning("You cannot [dialing ? "dial to" : "aim at"] this coordinate, it is too far from your mortar."))
+		to_chat(user, span_warning("You cannot [text] this coordinate, it is too far from your mortar."))
 		return FALSE
 
 	if(busy)
@@ -417,6 +462,7 @@
 	w_class = WEIGHT_CLASS_HUGE //No dumping this in a backpack. Carry it, fatso
 	flags = CONDUCT
 	var/skin
+	var/obj/item/binoculars/range/rangefinder
 
 /obj/item/mortar_kit/Initialize(mapload, skin)
 	. = ..()
@@ -504,16 +550,62 @@
 	playsound(deploy_turf, 'sound/weapons/gun_mortar_unpack.ogg', 25, TRUE)
 	mortar.name = src.name
 	mortar.setDir(user.dir)
+	mortar.link_rangefinder(rangefinder)
 	qdel(src)
+
+/obj/effect/overlay/temp
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT //can't click to examine it
+	var/effect_duration = 10 //in deciseconds
+
+	var/start_on_spawn = TRUE
+
+/obj/effect/overlay/temp/Initialize(mapload)
+	. = ..()
+	flick(icon_state, src)
+	if(start_on_spawn)
+		QDEL_IN(src, effect_duration)
+
+/obj/effect/overlay/temp/laser_coordinate
+	name = "laser"
+	mouse_opacity = MOUSE_OPACITY_ICON
+	light_range = 2
+	icon = 'icons/obj/weapons/guns/projectiles.dmi'
+	icon_state = "laser_target_coordinate"
+	effect_duration = 1 MINUTES
+	var/obj/item/binoculars/range/source_binoc
+
+/obj/effect/overlay/temp/laser_coordinate/Destroy()
+	if(source_binoc)
+		source_binoc.coord = null
+		source_binoc = null
+	return ..()
+
+/obj/effect/overlay/temp/laser_target
+	name = "laser"
+	mouse_opacity = MOUSE_OPACITY_ICON
+	light_range = 2
+	icon = 'icons/obj/weapons/guns/projectiles.dmi'
+	icon_state = "laser_target2"
+	effect_duration = 1 MINUTES
+	var/obj/item/binoculars/range/source_binoc
+
+/obj/effect/overlay/temp/laser_target/Destroy()
+	if(source_binoc)
+		source_binoc.coord = null
+		source_binoc = null
+	return ..()
+
+/obj/effect/overlay/temp/laser_target/ex_act(severity) //immune to explosions
+	return
+
+/obj/effect/overlay/temp/laser_target/examine(mob/user)
+	. = ..()
+	if(ishuman(user))
+		. += span_danger("It's a laser to designate artillery targets, get away from it!")
 
 //used to show where dropship ordnance will impact.
 /obj/effect/overlay/temp/blinking_laser
 	name = "blinking laser"
 	light_range = 2
-	var/effect_duration = 1 SECONDS
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	icon_state = "impact_laser"
-
-/obj/effect/overlay/temp/blinking_laser/Initialize(mapload)
-	. = ..()
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), effect_duration )
+	icon = 'icons/obj/weapons/guns/projectiles.dmi'
+	icon_state = "laser_target3"

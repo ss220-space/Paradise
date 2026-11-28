@@ -16,8 +16,9 @@
 
 /datum/action/cooldown/spell/zombie_claws/cast(atom/cast_on)
 	. = ..()
-	if(dispel())
-		return
+	if(owner.l_hand || owner.r_hand)
+		owner.drop_l_hand()
+		owner.drop_r_hand()
 
 	var/obj/item/zombie_claw/claws
 	if(HAS_TRAIT(owner, TRAIT_PLAGUE_ZOMBIE))
@@ -29,13 +30,12 @@
 	claws.force *= damage_mod
 	claws.damage_mod = damage_mod
 
-	if(owner.put_in_hands(claws))
+	if(owner.put_in_hands(claws, qdel_on_fail = TRUE))
 		our_claws += claws
 		RegisterSignal(owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN, PROC_REF(dispel))
 	else
 		qdel(claws)
 		to_chat(owner, span_warning(span_zombie("У нас нет когтей...")))
-
 
 /datum/action/cooldown/spell/zombie_claws/proc/dispel()
 	var/mob/living/carbon/human/user = owner
@@ -44,10 +44,10 @@
 		qdel(claw)
 		return TRUE
 
-/datum/action/cooldown/spell/zombie_claws/before_cast(atom/cast_on)
+/datum/action/cooldown/spell/zombie_claws/can_cast_spell(feedback)
 	var/mob/living/living_owner = owner
 	if(living_owner.get_active_hand() || living_owner.is_holding_item_of_type(/obj/item/zombie_claw))
-		return SPELL_CANCEL_CAST
+		return FALSE
 	return ..()
 
 /obj/item/zombie_claw
@@ -154,9 +154,6 @@
 /obj/item/zombie_claw/proc/try_infect(mob/living/carbon/human/target, mob/living/user)
 	if(!ishuman(target) || HAS_TRAIT(user, TRAIT_NON_INFECTIOUS_ZOMBIE))
 		return
-	if(!(user.zone_selected in list(BODY_ZONE_CHEST, BODY_ZONE_HEAD)))
-		to_chat(user, span_warning(span_zombie("Наша инфекция не может распространяться без их головы или груди.")))
-		return
 	if(HAS_TRAIT(target, TRAIT_PIERCEIMMUNE))
 		return FALSE
 	if(target.reagents.has_reagent(/datum/reagent/zombie_cure) || target.reagents.has_reagent(/datum/reagent/medicine/spaceacillin))
@@ -166,7 +163,7 @@
 		return // We don't want people to be infected via zombie claws if they're augmented or have robotic limbs. Bites are handled differently.
 	if(prob(3 * target.getarmor(user.zone_selected, MELEE)) || prob(50)) // more than 33.34 melee armor will always protect you! Or just get lucky B)
 		return // Armor blocks zombies trying to eat your brains!
-	for(var/datum/disease/virus/virus as anything in user.diseases)
+	for(var/datum/disease/virus/virus in user.diseases)
 		virus.Contract(target, BLOOD|BITES, need_protection_check = TRUE, zone = user.zone_selected)
 	// already have the disease, or have contracted it. Good for feedback when being attacked while wearing a biosuit
 	if(target.HasDisease(/datum/disease/virus/zombie))
@@ -221,7 +218,7 @@
 	background_icon_state = "bg_vampire"
 	spell_requirements = SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_NO_ANTIMAGIC
 	antimagic_flags = NONE
-	cooldown_time = 60 SECONDS
+	cooldown_time = 30 SECONDS
 
 /datum/action/cooldown/spell/pointed/zombie_leap/before_cast(atom/cast_on)
 	if(iscarbon(owner))
@@ -229,14 +226,13 @@
 		return ..() && caster.body_position != LYING_DOWN
 	return ..()
 
-/datum/action/cooldown/spell/pointed/zombie_leap/cast(list/targets, mob/user)
+/datum/action/cooldown/spell/pointed/zombie_leap/cast(atom/cast_on)
 	. = ..()
-	var/target = targets[1]
-	if(isliving(user))
-		playsound(user, 'sound/voice/zombie_leap.ogg', 80, FALSE)
-		var/mob/living/L = user
-		L.apply_status_effect(STATUS_EFFECT_CHARGING)
-		L.throw_at(target, 5, 1, L, FALSE, callback = CALLBACK(L, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_CHARGING))
+	if(isliving(owner))
+		playsound(owner, 'sound/voice/zombie_leap.ogg', 80, FALSE)
+		var/mob/living/living_owner = owner
+		living_owner.apply_status_effect(STATUS_EFFECT_CHARGING)
+		living_owner.throw_at(cast_on, 5, 1, living_owner, FALSE, callback = CALLBACK(living_owner, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_CHARGING))
 
 /datum/action/cooldown/spell/stomp/zombie/target_validation(mob/living/target, mob/user)
 	return !HAS_TRAIT(target, TRAIT_I_WANT_BRAINS)
@@ -249,6 +245,7 @@
 	desc = "Вы испускаете зловонный дым, заставляющий всех вокруг блевать."
 	button_icon_state = "parasmoke"
 	background_icon_state = "bg_vampire"
+	cooldown_time = 18 SECONDS
 	smoke_type = /datum/effect_system/fluid_spread/smoke/zombie
 
 /datum/action/cooldown/spell/pointed/projectile/acid_spit
@@ -284,7 +281,7 @@
 	var/mob/living/living_owner = owner
 	var/datum/antagonist/zombie/datum = living_owner.mind.has_antag_datum(/datum/antagonist/zombie)
 	var/selected_class = tgui_input_list(owner, "Выберите класс зомби", "Класс зомби", GLOB.zombie_classes)
-	if(isnull(selected_class))
+	if(isnull(selected_class) || QDELETED(datum))
 		return ..()
 	datum.class = GLOB.zombie_classes[selected_class]
 	datum.class.apply(living_owner)

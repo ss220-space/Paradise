@@ -48,7 +48,7 @@
 /obj/item/storage/belt/proc/check_menu(mob/living/user)
 	if(!istype(user))
 		return FALSE
-	if(user.incapacitated() || !user.Adjacent(src))
+	if(user.incapacitated || !user.Adjacent(src))
 		return FALSE
 	return TRUE
 
@@ -485,7 +485,7 @@
 
 
 /obj/item/storage/belt/security/webbing/CtrlClick(mob/user)
-	if(!IsReachableBy(user) || user.incapacitated())
+	if(!IsReachableBy(user) || user.incapacitated)
 		return ..()
 	for(var/obj/item/ammo_box/magazine/magazine in contents)
 		user.put_in_active_hand(magazine)
@@ -544,6 +544,7 @@
 	can_hold = list(/obj/item/ammo_box/magazine)
 	custom_price = PAYCHECK_MAX
 	fast_reload_delay = 2 SECONDS
+	dynamic_storage_size = FALSE
 
 /obj/item/storage/belt/security/webbing/pouch/get_ru_names()
 	return alist(
@@ -801,6 +802,7 @@
 		/obj/item/holosign_creator/janitor,
 		/obj/item/melee/flyswatter,
 		/obj/item/radio,
+		/obj/item/door_remote/janikeyring,
 	)
 
 /obj/item/storage/belt/janitor/full/populate_contents()
@@ -1014,7 +1016,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.incapacitated())
+	if(H.incapacitated)
 		return
 
 	if(length(contents))
@@ -1406,7 +1408,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.incapacitated())
+	if(H.incapacitated)
 		return
 
 	if(length(contents))

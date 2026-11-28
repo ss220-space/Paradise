@@ -617,7 +617,7 @@
 	. = ..()
 
 	var/mob/living/user = usr
-	if(user && active && cell?.charge)
+	if(user?.is_in_hands(src) && active && cell?.charge)
 		flick("baton_active", src)
 		finalize_baton_attack(user, user, in_attack_chain = FALSE)
 		user.visible_message(

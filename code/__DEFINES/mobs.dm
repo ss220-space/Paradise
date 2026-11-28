@@ -348,6 +348,7 @@ GLOBAL_LIST_INIT(ru_species, list(
 
 // Eye protection
 #define FLASH_PROTECTION_VERYVUNERABLE -4
+#define FLASH_PROTECTION_EXTRA_SENSITIVE -2
 #define FLASH_PROTECTION_SENSITIVE -1
 #define FLASH_PROTECTION_NONE 0
 #define FLASH_PROTECTION_FLASH 1
@@ -476,12 +477,18 @@ GLOBAL_LIST_INIT(ru_species, list(
 #define EYE_CONTACT_RANGE 5
 
 // Incapacitated status effect flags
-/// If the incapacitated status effect will ignore a mob in restraints (handcuffs)
-#define IGNORE_RESTRAINTS (1<<0)
-/// If the incapacitated status effect will ignore a mob in stasis (stasis beds)
-#define IGNORE_STASIS (1<<1)
-/// If the incapacitated status effect will ignore a mob being agressively grabbed
-#define IGNORE_GRAB (1<<2)
+/// If the mob is normal incapacitated. Should never need this, just avoids issues if we ever overexpand this
+#define TRADITIONAL_INCAPACITATED (1<<0)
+/// If the incapacitated status effect is being caused by restraints (handcuffs)
+#define INCAPABLE_RESTRAINTS (1<<1)
+/// If the incapacitated status effect is being caused by stasis (stasis beds)
+#define INCAPABLE_STASIS (1<<2)
+/// If the incapacitated status effect is being caused by being agressively grabbed
+#define INCAPABLE_GRAB (1<<3)
+
+/// Checks to see if a mob would be incapacitated even while ignoring some types
+/// Does this by inverting the passed in flags and seeing if we're still incapacitated
+#define INCAPACITATED_IGNORING(mob, flags) (mob.incapacitated & ~(flags))
 
 /// If reading is required to perform action (can't read a book if you are illiterate)
 #define NEED_LITERACY (1<<0)
@@ -528,19 +535,20 @@ GLOBAL_LIST_INIT(ru_species, list(
 #define SCREWYHUD_HEALTHY 3
 
 // Carbon Overlays Indexes
-#define TOTAL_LAYERS 47
-#define MUTANTRACE_LAYER 45
-#define WING_UNDERLIMBS_LAYER 44
-#define TAIL_UNDERLIMBS_LAYER 43 //Tail split-rendering.
-#define LIMBS_LAYER 42
-#define INTORGAN_LAYER 41
-#define MARKINGS_LAYER 40
-#define UNDERWEAR_LAYER 39
-#define MUTATIONS_LAYER 38
-#define H_DAMAGE_LAYER 37
-#define UNIFORM_LAYER 36
-#define SHOES_LAYER 35
-#define OVER_SHOES_LAYER 34
+#define TOTAL_LAYERS 48
+#define MUTANTRACE_LAYER 46
+#define WING_UNDERLIMBS_LAYER 45
+#define TAIL_UNDERLIMBS_LAYER 44 //Tail split-rendering.
+#define LIMBS_LAYER 43
+#define INTORGAN_LAYER 42
+#define MARKINGS_LAYER 41
+#define UNDERWEAR_LAYER 40
+#define MUTATIONS_LAYER 39
+#define H_DAMAGE_LAYER 38
+#define UNIFORM_LAYER 37
+#define SHOES_LAYER 36
+#define OVER_SHOES_LAYER 35
+#define HAND_INTORGAN_LAYER 34
 #define ID_LAYER 33
 #define GLOVES_LAYER 32
 #define EARS_LAYER 31

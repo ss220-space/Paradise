@@ -632,7 +632,9 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 			var/user_input = port.handle_manual_input(usr, params["input"])
 			if(isnull(user_input))
 				return TRUE
-
+			if(istext(user_input) && port.datatype != PORT_TYPE_OPTION)
+				user_input = sanitize(user_input)
+			log_circuit("[key_name_log(usr)] set [user_input] as [port.name] value.")
 			port.set_input(user_input)
 			. = TRUE
 

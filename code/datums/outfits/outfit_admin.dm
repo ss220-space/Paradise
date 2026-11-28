@@ -216,7 +216,7 @@
 	l_ear = /obj/item/radio/headset/ert/alt
 	l_pocket = /obj/item/reagent_containers/hypospray/combat
 	r_pocket = /obj/item/reagent_containers/food/snacks/candy/mre
-	glasses = /obj/item/clothing/glasses/hud/blueshield
+	glasses = /obj/item/clothing/glasses/hud/multimode
 	id = /obj/item/card/id/centcom
 
 	backpack_contents = list(
@@ -1110,7 +1110,7 @@
 
 	var/obj/item/reagent_containers/R = H.l_hand
 	if(istype(R))
-		R.reagents.add_reagent("water", 70)
+		R.reagents.add_reagent(/datum/reagent/water, 70)
 
 /datum/outfit/admin/survivor
 	name = "Survivor"

@@ -47,9 +47,9 @@
 /obj/projectile/bullet/dart/metalfoam/Initialize(mapload)
 	. = ..()
 
-	reagents.add_reagent("aluminum", 15)
-	reagents.add_reagent("fluorosurfactant", 5)
-	reagents.add_reagent("sacid", 5)
+	reagents.add_reagent(/datum/reagent/aluminum, 15)
+	reagents.add_reagent(/datum/reagent/fluorosurfactant, 5)
+	reagents.add_reagent(/datum/reagent/acid, 5)
 
 // MARK: Syring dart
 /obj/projectile/bullet/dart/syringe
@@ -73,4 +73,4 @@
 /obj/projectile/bullet/dart/syringe/tranquilizer/Initialize(mapload)
 	. = ..()
 
-	reagents.add_reagent("haloperidol", 15)
+	reagents.add_reagent(/datum/reagent/medicine/haloperidol, 15)

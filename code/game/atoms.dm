@@ -716,14 +716,26 @@
 	if(reagents)
 		reagents.temperature_reagents(exposed_temperature)
 
-/atom/proc/emag_act(mob/user)
-	SEND_SIGNAL(src, COMSIG_ATOM_EMAG_ACT, user)
+/**
+ * Respond to an emag being used on our atom
+ *
+ * Args:
+ * * mob/user: The mob that used the emag. Nullable.
+ * * obj/item/card/emag/emag_card: The emag that was used. Nullable.
+ *
+ * Returns:
+ * TRUE if the emag had any effect, falsey otherwise.
+ */
+/atom/proc/emag_act(mob/user, obj/item/card/emag/emag_card)
+	SHOULD_CALL_PARENT(TRUE)
+	return (SEND_SIGNAL(src, COMSIG_ATOM_EMAG_ACT, user, emag_card))
 
 /atom/proc/unemag()
 	return
 
-/atom/proc/cmag_act(mob/user)
-	return
+/atom/proc/cmag_act(mob/user, obj/item/card/cmag/cmag_card)
+	SHOULD_CALL_PARENT(TRUE)
+	return (SEND_SIGNAL(src, COMSIG_ATOM_CMAG_ACT, user, cmag_card))
 
 /**
  * Special treatment of [/datum/emote/living/carbon/human/fart].
@@ -948,13 +960,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 //returns the mob's dna info as a list, to be inserted in an object's blood_DNA list
 /mob/living/proc/get_blood_dna_list()
-	if(get_blood_id() != "blood")
+	if(get_blood_type() != /datum/reagent/blood)
 		return
 	return list("ANIMAL DNA" = "Y-")
 
 /mob/living/carbon/get_blood_dna_list()
-	var/static/list/acceptable_blood = list("blood", "cryoxadone", "slimejelly")
-	var/check_blood = get_blood_id()
+	var/static/list/acceptable_blood = list(/datum/reagent/blood, /datum/reagent/medicine/cryoxadone, /datum/reagent/slimejelly)
+	var/check_blood = get_blood_type()
 	if(!check_blood || !(check_blood in acceptable_blood))
 		return
 	var/list/blood_dna = list()
@@ -1086,7 +1098,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
 	if(!isspaceturf(src))
 		var/type = green ? /obj/effect/decal/cleanable/vomit/green : /obj/effect/decal/cleanable/vomit
-		var/vomit_reagent = green ? "green_vomit" : "vomit"
+		var/vomit_reagent = green ? /datum/reagent/greenvomit : /datum/reagent/vomit
 		if(type_override)
 			type = type_override
 		for(var/obj/effect/decal/cleanable/vomit/V in get_turf(src))
@@ -1306,7 +1318,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	// Sanity check that the user can, indeed, rename the thing.
 	// This, sadly, means you can't rename things with a telekinetic pen, but that's
 	// too much of a hassle to make work nicely.
-	if((implement && implement.loc != user) || !in_range(src, user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if((implement && implement.loc != user) || !in_range(src, user) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return null
 
 	add_fingerprint(user)
@@ -1341,7 +1353,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	else if(!in_range(src, user))
 		balloon_alert(user, "слишком далеко!")
 		return null
-	else if(user.incapacitated())
+	else if(user.incapacitated)
 		balloon_alert(user, "невозможно в данный момент!")
 		return null
 
@@ -1442,6 +1454,46 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(mover.throwing && (pass_flags_self & LETPASSTHROW))
 		return TRUE
 	return !density
+
+/*
+ * Checks whether an atom can pass through the calling atom into its target turf.
+ * Returns the blocking direction.
+ * If the atom's movement is not blocked, returns 0.
+ * If the object is completely solid, returns ALL
+ */
+/atom/proc/BlockedPassDirs(atom/movable/mover, target_dir)
+	if(!mover)
+		return NONE
+
+	if(CanAllowThrough(mover, target_dir))
+		return NONE
+
+	if(flags & ON_BORDER)
+		var/reverse_dir = REVERSE_DIR(dir)
+		if(!(target_dir & reverse_dir))
+			return NONE
+
+		// This is to properly handle diagonal movement (a cade to your NE facing west when you are trying to move NE should block for north instead of east)
+		if(target_dir in GLOB.diagonals)
+			return target_dir - (target_dir & reverse_dir)
+		return target_dir & reverse_dir
+	else
+		return ALL
+
+/*
+ * Checks whether an atom can leave its current turf through the calling atom.
+ * Returns the blocking direction.
+ * If the atom's movement is not blocked, returns 0 (no directions)
+ * If the object is completely solid, returns all directions
+ */
+/atom/proc/BlockedExitDirs(atom/movable/mover, target_dir)
+	if(!mover)
+		return NONE
+
+	if(flags & ON_BORDER && !CanAllowThrough(mover, target_dir))
+		return target_dir & dir
+
+	return NONE
 
 /**
  * Returns `TRUE` if this atom has gravity for the passed in turf
@@ -1724,3 +1776,10 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 /atom/proc/get_lootpanel_cache_key()
 	return "[type]"
+
+/atom/proc/get_get_click_overrite_turf(real = TRUE)
+	return
+
+/atom/proc/get_get_click_overrite_params()
+	return
+

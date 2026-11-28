@@ -30,6 +30,8 @@ GLOBAL_VAR(round_id)
 GLOBAL_PROTECT(round_id)
 GLOBAL_VAR(signal_log)
 GLOBAL_PROTECT(signal_log)
+GLOBAL_VAR(circuit_log)
+GLOBAL_PROTECT(circuit_log)
 
 #ifdef REFERENCE_TRACKING
 GLOBAL_VAR(gc_log)

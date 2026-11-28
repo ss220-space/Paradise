@@ -38,9 +38,9 @@
 /datum/zombie_class/hunter
 	name = "Охотник"
 	desc = "Быстрый и юркий зомби. Наносит мало урона и сам быстро погибает, зато способен совершать рывки на большие расстояния."
-	brute_mod = 3
-	burn_mod = 3
-	stamina_mod = 3
+	brute_mod = 2.3
+	burn_mod = 2.3
+	stamina_mod = 1.5
 	damage_mod = 0.5
 	healing_factor_mod = 1.1
 	movespeed_modifier = /datum/movespeed_modifier/zombie/fast
@@ -49,9 +49,10 @@
 /datum/zombie_class/tank
 	name = "Танк"
 	desc = "Очень медленный, но невероятно живучий зомби. Наносит огромный урон и выдерживает множество попаданий. Умеет топать, создавая ударную волну."
-	brute_mod = 0.5
-	burn_mod = 0.5
-	stamina_mod = 0.5
+	healing_factor_mod = 1.2
+	brute_mod = 0.4
+	burn_mod = 0.4
+	stamina_mod = 0.4
 	damage_mod = 1.7
 	movespeed_modifier = /datum/movespeed_modifier/zombie/slow
 	special_skill = /datum/action/cooldown/spell/stomp/zombie
@@ -63,15 +64,15 @@
 	burn_mod = 4
 	brute_mod = 0.9
 	burn_mod = 0.9
-	stamina_mod = 0.9
+	stamina_mod = 0.6
 	special_skill = /datum/action/cooldown/spell/smoke/zombie
 
 /datum/zombie_class/smoker/apply(mob/living/carbon/human/zombie)
 	. = ..()
-	zombie.AddElement(/datum/element/dark_invisibility)
+	zombie.AddElement(/datum/element/dark_invisibility, 100, 50, ALPHA_SOURCE_ZOMBIE)
 
 /datum/zombie_class/smoker/remove(mob/living/carbon/human/zombie)
-	zombie.RemoveElement(/datum/element/dark_invisibility)
+	zombie.RemoveElement(/datum/element/dark_invisibility, 100, 50, ALPHA_SOURCE_ZOMBIE)
 	return ..()
 
 /datum/zombie_class/spitter
@@ -80,7 +81,6 @@
 	healing_factor_mod = 2
 	burn_mod = 0.9
 	brute_mod = 0.9
-	burn_mod = 0.9
-	stamina_mod = 0.9
+	stamina_mod = 0.6
 	special_skill = /datum/action/cooldown/spell/pointed/projectile/acid_spit
 

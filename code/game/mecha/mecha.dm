@@ -317,7 +317,7 @@
 		return
 	if(completely_disabled)
 		return
-	if(user.incapacitated())
+	if(user.incapacitated)
 		return
 	if(phasing)
 		occupant_message(span_warning("Нельзя взаимодействовать с объектами, пока [declent_ru(NOMINATIVE)] находится в режиме фазового перехода!"))
@@ -397,10 +397,10 @@
 /obj/mecha/proc/mech_toxin_damage(mob/living/target)
 	playsound(src, 'sound/effects/spray2.ogg', 50, TRUE)
 	if(target.reagents)
-		if(target.reagents.get_reagent_amount("atropine") + force < force*2)
-			target.reagents.add_reagent("atropine", force/2)
-		if(target.reagents.get_reagent_amount("toxin") + force < force*2)
-			target.reagents.add_reagent("toxin", force/2.5)
+		if(target.reagents.get_reagent_amount(/datum/reagent/medicine/atropine) + force < force*2)
+			target.reagents.add_reagent(/datum/reagent/medicine/atropine, force/2)
+		if(target.reagents.get_reagent_amount(/datum/reagent/toxin) + force < force*2)
+			target.reagents.add_reagent(/datum/reagent/toxin, force/2.5)
 
 /obj/mecha/proc/range_action(atom/target)
 	return
@@ -1169,20 +1169,23 @@
 		add_attack_logs(mech.occupant, src, "Mecha-attacked with [mech] ([uppertext(mech.occupant.a_intent)]) ([uppertext(mech.damtype)])")
 		. = ..()
 
-/obj/mecha/emag_act(mob/user)
-	if(emagged)
+/obj/mecha/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
 		return FALSE
+
 	if(!emaggable)
 		if(user)
 			to_chat(user, span_warning("ID слот меха [src] отклоняет карту."))
-		return
-	add_attack_logs(user, src, "emagged")
-	emagged = TRUE
+		return FALSE
+
+	obj_flags |= EMAGGED
 	allowed_equipment |= MECH_EQUIPMENT_COMBAT
-	if(user)
-		to_chat(user, span_notice("Вы проводите картой по ID слоту меха [src]."))
 	playsound(loc, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	desc += emag_desc
+	if(user)
+		to_chat(user, span_notice("Вы проводите картой по ID слоту меха [src]."))
+	return TRUE
 
 /////////////////////////////////////
 //////////// AI piloting ////////////
@@ -1359,7 +1362,7 @@
 	if(frozen)
 		to_chat(user, span_warning("Do not enter Admin-Frozen mechs."))
 		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(user != M)
 		return
@@ -1523,7 +1526,7 @@
 
 	if(occupant?.client)
 		occupant.client.mouse_override_icon = null
-		occupant.client.mouse_pointer_icon = initial(occupant.client.mouse_pointer_icon)
+		occupant.update_mouse_pointer()
 
 	if(ishuman(occupant))
 		mob_container = occupant
@@ -1880,7 +1883,7 @@
 /obj/mecha/proc/check_menu(mob/living/L)
 	if(L != occupant || !istype(L))
 		return FALSE
-	if(L.incapacitated())
+	if(L.incapacitated)
 		return FALSE
 	return TRUE
 

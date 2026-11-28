@@ -6,7 +6,7 @@
 
 ///Monkey checks
 #define SHOULD_RESIST(source) (source.on_fire || source.buckled || HAS_TRAIT(source, TRAIT_RESTRAINED) || (source.pulledby && source.pulledby.grab_state > GRAB_PASSIVE))
-#define IS_DEAD_OR_INCAP(source) (source.incapacitated() || source.stat)
+#define IS_DEAD_OR_INCAP(source) (source.incapacitated || source.stat)
 
 ///For JPS pathing, the maximum length of a path we'll try to generate. Should be modularized depending on what we're doing later on
 #define AI_MAX_PATH_LENGTH 30 // 30 is possibly overkill since by default we lose interest after 14 tiles of distance, but this gives wiggle room for weaving around obstacles
@@ -181,3 +181,18 @@
 #define BB_BASIC_MOB_CURRENT_TARGET "BB_basic_current_target"
 #define BB_BASIC_MOB_CURRENT_TARGET_HIDING_LOCATION "BB_basic_current_target_hiding_location"
 #define BB_TARGETTING_DATUM "targetting_datum"
+
+///Giant Lizard AI controller blackboard keys
+#define BB_LIZARD_TARGET "lizard_target"
+#define BB_LIZARD_FOOD_TARGET "lizard_food_target"
+#define BB_LIZARD_IS_RETREATING "lizard_is_retreating"
+#define BB_LIZARD_AGGRESSION "lizard_aggression"
+#define BB_LIZARD_RETREAT_ATTEMPTS "lizard_retreat_attempts"
+#define BB_LIZARD_PACK_ALERT_COOLDOWN "lizard_pack_alert_cooldown"
+
+///Giant Lizard AI tuning constants
+#define GIANT_LIZARD_PACK_ALERT_COOLDOWN_TIME 15 SECONDS
+#define GIANT_LIZARD_MAX_ATTACK_DISTANCE 16
+#define GIANT_LIZARD_GROWL_DISTANCE 4
+#define GIANT_LIZARD_RETALIATE_DISTANCE 2
+#define GIANT_LIZARD_FOOD_SEARCH_RANGE 6

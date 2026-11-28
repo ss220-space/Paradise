@@ -107,6 +107,11 @@
 /obj/effect/decal/cleanable/blood/can_bloodcrawl_in()
 	return TRUE
 
+/obj/effect/decal/cleanable/blood/never_should_have_come_here(turf/here_turf)
+	if(istype(here_turf, /turf/simulated/floor/water))
+		return TRUE
+	return ..()
+
 /obj/effect/decal/cleanable/blood/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
@@ -219,6 +224,11 @@
 /obj/effect/decal/cleanable/trail_holder/can_bloodcrawl_in()
 	return TRUE
 
+/obj/effect/decal/cleanable/trail_holder/never_should_have_come_here(turf/here_turf)
+	if(istype(here_turf, /turf/simulated/floor/water))
+		return TRUE
+	return ..()
+
 /obj/effect/decal/cleanable/blood/writing
 	icon_state = "tracks"
 	desc = "Это похоже на надпись кровью."
@@ -247,7 +257,7 @@
 	icon_state = "gib2"
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6")
 	no_clear = TRUE
-	scoop_reagents = list("liquidgibs" = 5)
+	scoop_reagents = list(/datum/reagent/liquidgibs = 5)
 	mergeable_decal = FALSE
 	var/image/giblets
 	var/fleshcolor = "#FFFFFF"
@@ -318,7 +328,7 @@
 
 /obj/effect/decal/cleanable/blood/gibs/core
 	random_icon_states = list("gibmid1", "gibmid2", "gibmid3")
-	scoop_reagents = list("liquidgibs" = 15)
+	scoop_reagents = list(/datum/reagent/liquidgibs = 15)
 
 /obj/effect/decal/cleanable/blood/gibs/cleangibs //most ironic name ever...
 	scoop_reagents = null
@@ -379,11 +389,13 @@
 	var/damage_dealt = 0
 
 /obj/effect/decal/cleanable/blood/hitsplatter/Initialize(mapload, splatter_strength)
-	. = ..()
-	//leave_blood = has_blood_flag(blood_dna_info, BLOOD_COVER_TURFS)
-	prev_loc = loc //Just so we are sure prev_loc exists
+	var/init_result = ..()
+	if(init_result == INITIALIZE_HINT_QDEL)
+		return INITIALIZE_HINT_QDEL
+	prev_loc = loc
 	if(splatter_strength)
 		src.splatter_strength = splatter_strength
+	return INITIALIZE_HINT_NORMAL
 
 /obj/effect/decal/cleanable/blood/hitsplatter/Destroy(force)
 	if(ismovable(loc))
@@ -392,7 +404,7 @@
 	return ..()
 
 /obj/effect/decal/cleanable/blood/hitsplatter/proc/expire()
-	if(isturf(loc) && !skip)
+	if(isturf(loc) && !skip && !istype(loc, /turf/simulated/floor/water))
 		if(damage_dealt > DAMAGE_TO_PLAY_SOUND)
 			playsound(src, 'sound/effects/splatter.ogg', 60, TRUE, -1)
 		if(blood_dna_info && damage_dealt > DAMAGE_TO_ADD_BLOOD)
@@ -433,7 +445,8 @@
 	if(splatter_strength <= 0)
 		expire()
 		return
-
+	if(istype(loc, /turf/simulated/floor/water))
+		return
 	if(!leave_blood)
 		loc.add_blood(blood_dna_info, basecolor)
 		return
@@ -479,7 +492,8 @@
 			return
 
 	if(!leave_blood)
-		prev_loc.add_blood(blood_dna_info, basecolor)
+		if(!istype(prev_loc, /turf/simulated/floor/water))
+			prev_loc.add_blood(blood_dna_info, basecolor)
 		return
 
 	var/obj/effect/decal/cleanable/blood/splatter/over_window/final_splatter = new(prev_loc)

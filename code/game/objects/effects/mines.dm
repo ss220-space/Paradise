@@ -149,7 +149,7 @@
 	var/pure_red = list(0,0,0,0,0,0,0,0,0,1,0,0)
 
 	spawn(0)
-		new /obj/effect/hallucination/delusion(victim.loc, victim, force_kind = "demon", duration = duration, skip_nearby = 0)
+		victim.cause_hallucination(/datum/hallucination/delusion/preset/demon, "mine hallucination", duration = duration, skip_nearby = FALSE)
 
 	var/obj/item/twohanded/chainsaw_handmade/doomslayer/chainsaw = new(victim.loc)
 	ADD_TRAIT(chainsaw, TRAIT_NODROP, CURSED_ITEM_TRAIT(chainsaw.type))
@@ -159,7 +159,7 @@
 	victim.put_in_hands(chainsaw)
 	chainsaw.attack_self(victim)
 	victim.mode()	// Same as wielded
-	victim.reagents.add_reagent("adminordrazine", 25)
+	victim.reagents.add_reagent(/datum/reagent/medicine/adminordrazine, 25)
 
 	victim.client.color = pure_red
 	animate(victim.client,color = red_splash, time = 10, easing = SINE_EASING|EASE_OUT)

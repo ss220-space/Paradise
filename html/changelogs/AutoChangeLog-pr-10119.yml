@@ -1,0 +1,4 @@
+author: "Bizzonium"
+delete-after: True
+changes:
+  - code_imp: "Звуковые токены и событие засора вытяжек больше не держат удалённые объекты; меньше hard delete и фризов. (PR #10119)"

@@ -245,14 +245,14 @@
 
 	else if(I == r_ear)
 		r_ear = null
-		if(I.slot_flags_2 & ITEM_FLAG_TWOEARS)
+		if(invdrop && I.slot_flags_2 & ITEM_FLAG_TWOEARS)
 			drop_item_ground(l_ear, silent = TRUE)
 		if(!QDELETED(src))
 			update_worn_ears()
 
 	else if(I == l_ear)
 		l_ear = null
-		if(I.slot_flags_2 & ITEM_FLAG_TWOEARS)
+		if(invdrop && I.slot_flags_2 & ITEM_FLAG_TWOEARS)
 			drop_item_ground(r_ear, silent = TRUE)
 		if(!QDELETED(src))
 			update_worn_ears()
@@ -335,12 +335,7 @@
 	if(!has_organ_for_slot(slot))
 		return
 
-	if(I == l_hand)
-		l_hand = null
-		update_held_items()//So items actually disappear from hands.
-	else if(I == r_hand)
-		r_hand = null
-		update_held_items()
+	do_unEquip(I, invdrop = FALSE)
 
 	if(I.pulledby)
 		I.pulledby.stop_pulling()
@@ -717,7 +712,7 @@
 
 /// take the most recent item out of a slot or place held item in a slot
 /mob/living/carbon/human/proc/smart_equip_targeted(slot_type = ITEM_SLOT_BELT, slot_item_name = "пояс")
-	if(incapacitated())
+	if(incapacitated)
 		return
 	var/obj/item/thing = get_active_hand()
 	var/obj/item/equipped_item = get_item_by_slot(slot_type)

@@ -152,7 +152,7 @@
 			balloon_alert(user, "пусто!")
 			return ATTACK_CHAIN_PROCEED
 		balloon_alert(user, "вещество введено")
-		if(syringe.reagents.has_reagent("plasma", 5) || syringe.reagents.has_reagent("plasma_dust", 5))
+		if(syringe.reagents.has_reagent(/datum/reagent/plasma, 5) || syringe.reagents.has_reagent(/datum/reagent/plasma_dust, 5))
 			rigged = TRUE
 			log_admin("LOG: [key_name(user)] injected a power cell with plasma, rigging it to explode.")
 			message_admins("LOG: [key_name_admin(user)] injected a power cell with plasma, rigging it to explode.")
@@ -186,16 +186,11 @@
 	if(prob(10))
 		rigged = TRUE //broken batterys are dangerous
 
-/obj/item/stock_parts/cell/emp_act(severity, resistance_modifier = 1)
+/obj/item/stock_parts/cell/emp_act(severity)
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
-	var/atom/container = loc
-	while(container)
-		if(SEND_SIGNAL(container, COMSIG_ATOM_PRE_EMP_ACT, severity) & EMP_PROTECT_CONTENTS)
-			return
-		container = container.loc
-	use(min(charge, (STANDARD_CELL_CHARGE / severity) * emp_damage_modifier / resistance_modifier))
+	use(round(min(charge, (STANDARD_CELL_CHARGE / severity) * emp_damage_modifier)))
 	if(!QDELETED(src))
 		update_icon(UPDATE_OVERLAYS)
 
@@ -674,6 +669,10 @@
 /obj/item/weapon_cell/Initialize(mapload)
 	. = ..()
 	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/weapon_cell/Destroy()
+	QDEL_NULL(internal_cell)
+	return ..()
 
 /obj/item/weapon_cell/proc/is_available_shot(shot_energy_cost)
 	return internal_cell.charge >= shot_energy_cost

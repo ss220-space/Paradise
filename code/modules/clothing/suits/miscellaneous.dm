@@ -1107,14 +1107,14 @@
 	if(on)
 		var/mob/living/carbon/human/user = src.loc
 		if(user && ishuman(user) && (user.wear_suit == src))
-			if(user.reagents.get_reagent_amount("stimulants") < 15)
-				user.reagents.add_reagent("stimulants", 15)
-			if(user.reagents.get_reagent_amount("adminordrazine") < 15)
-				user.reagents.add_reagent("adminordrazine", 15)
-			if(user.reagents.get_reagent_amount("nanites") < 15)
-				user.reagents.add_reagent("nanites", 15)
-			if(user.reagents.get_reagent_amount("syndicate_nanites") < 15)
-				user.reagents.add_reagent("syndicate_nanites", 15)
+			if(user.reagents.get_reagent_amount(/datum/reagent/medicine/stimulants) < 15)
+				user.reagents.add_reagent(/datum/reagent/medicine/stimulants, 15)
+			if(user.reagents.get_reagent_amount(/datum/reagent/medicine/adminordrazine) < 15)
+				user.reagents.add_reagent(/datum/reagent/medicine/adminordrazine, 15)
+			if(user.reagents.get_reagent_amount(/datum/reagent/medicine/adminordrazine/nanites) < 15)
+				user.reagents.add_reagent(/datum/reagent/medicine/adminordrazine/nanites, 15)
+			if(user.reagents.get_reagent_amount(/datum/reagent/medicine/syndicate_nanites) < 15)
+				user.reagents.add_reagent(/datum/reagent/medicine/syndicate_nanites, 15)
 	else
 		STOP_PROCESSING(SSobj, src)
 
@@ -1192,6 +1192,17 @@
 	throw_range = 2
 	w_class = WEIGHT_CLASS_TINY
 	flags_inv = HIDEGLOVES|HIDEHEADSETS|HIDENAME|HIDEHAIR
+
+/obj/item/clothing/suit/ghost_sheet/Initialize(mapload)
+	. = ..()
+	if(SSholiday.check_holidays(HALLOWEEN))
+		update_icon(UPDATE_OVERLAYS)
+	//AddElement(/datum/element/adjust_fishing_difficulty, 8)
+
+/obj/item/clothing/suit/ghost_sheet/worn_overlays(mutable_appearance/standing, isinhands, icon_file, bodyshape = NONE)
+	. = ..()
+	if(!isinhands && SSholiday.check_holidays(HALLOWEEN))
+		. += emissive_appearance('icons/mob/mob.dmi', "ghost", offset_spokesman = src, alpha = src.alpha)
 
 /obj/item/clothing/suit/cyberpunk
 	name = "long cyberpunk black coat"

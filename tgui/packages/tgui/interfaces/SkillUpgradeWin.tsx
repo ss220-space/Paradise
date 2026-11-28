@@ -1,36 +1,94 @@
-import { Box, Button, Section, Stack, Table } from 'tgui-core/components';
+import {
+  Box,
+  Button,
+  Icon,
+  ProgressBar,
+  Section,
+  Stack,
+  Tooltip,
+} from 'tgui-core/components';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
-//MARK: Window
+// MARK: Window
 type SkillUpgradeWinData = {
   user: UserData;
   categories: SkillCategory[];
+  max_level: number;
 };
 
 export const SkillUpgradeWin = (props: unknown) => {
-  const { act, data } = useBackend<SkillUpgradeWinData>();
+  const { data } = useBackend<SkillUpgradeWinData>();
+  const { user, categories, max_level } = data;
 
   return (
-    <Window width={650} height={900} theme="nologo">
+    <Window width={720} height={860} theme="nologo">
       <Window.Content>
-        <Stack fill vertical={true}>
-          <Stack.Item height="12%">
-            <Section title="Персонаж">{UserView(data.user)}</Section>
+        <Stack fill vertical>
+          <Stack.Item>
+            <Section>
+              <Stack align="center" justify="space-between" wrap>
+                <Stack.Item>
+                  <Stack align="center">
+                    <Stack.Item>
+                      <Icon name="user" size={2} color="blue" />
+                    </Stack.Item>
+                    <Stack.Item>
+                      <Stack vertical>
+                        <Stack.Item>
+                          <Box bold fontSize={1.2}>
+                            {user.username}
+                          </Box>
+                        </Stack.Item>
+                        <Stack.Item>
+                          <Box opacity={0.7}>{user.job}</Box>
+                        </Stack.Item>
+                      </Stack>
+                    </Stack.Item>
+                  </Stack>
+                </Stack.Item>
+                <Stack.Item>
+                  <Stack align="center">
+                    {!!user.admin && (
+                      <Stack.Item>
+                        <Box color="yellow" italic>
+                          Админ-режим
+                        </Box>
+                      </Stack.Item>
+                    )}
+                    <Stack.Item>
+                      <Box textAlign="right">
+                        <Box fontSize={0.85} opacity={0.7}>
+                          Свободные очки
+                        </Box>
+                        <Box
+                          bold
+                          fontSize={1.5}
+                          color={user.points > 0 ? 'good' : 'average'}
+                        >
+                          <Icon name="star" mr={0.5} />
+                          {user.points}
+                        </Box>
+                      </Box>
+                    </Stack.Item>
+                  </Stack>
+                </Stack.Item>
+              </Stack>
+            </Section>
           </Stack.Item>
-          <Stack.Item height="88%">
-            <Section
-              title="Навыки"
-              minHeight="100%"
-              fill
-              scrollable
-              scrollableHorizontal={true}
-            >
-              <Stack fill height="100%" vertical={true}>
-                {data.categories.map((category: SkillCategory) => (
-                  <Stack.Item key={category.id} height="100%">
-                    {SkillCategoryView(category)}
-                  </Stack.Item>
+          <Stack.Item grow>
+            <Section title="Навыки" fill scrollable>
+              <Box mb={1} opacity={0.7} fontSize={0.9}>
+                Уровень показан без бонусов от руководств. Бонус от мануала
+                указан в скобках, например (+1 мануал).
+              </Box>
+              <Stack vertical>
+                {categories.map((category: SkillCategory) => (
+                  <SkillCategoryView
+                    key={category.id}
+                    category={category}
+                    maxLevel={max_level}
+                  />
                 ))}
               </Stack>
             </Section>
@@ -49,31 +107,6 @@ type UserData = {
   points: number;
 };
 
-const UserView = (user: UserData) => {
-  const { act } = useBackend<UserData>();
-  return (
-    <Box>
-      <Stack width="100%" ml="10px" vertical={true}>
-        <Stack.Item>
-          <Box>
-            <b>Имя:</b> {user.username}
-          </Box>
-        </Stack.Item>
-        <Stack.Item>
-          <Box>
-            <b>Должность:</b> {user.job}
-          </Box>
-        </Stack.Item>
-        <Stack.Item>
-          <Box>
-            <b>Свободных очков:</b> {user.points}
-          </Box>
-        </Stack.Item>
-      </Stack>
-    </Box>
-  );
-};
-
 // MARK: Category view
 type SkillCategory = {
   id: string;
@@ -83,54 +116,68 @@ type SkillCategory = {
   skills: Skill[];
 };
 
-const SkillCategoryView = (category: SkillCategory) => {
-  const { act } = useBackend<SkillCategory>();
+const CATEGORY_ICONS: Record<string, string> = {
+  Общие: 'user',
+  Сервис: 'utensils',
+  Боевые: 'crosshairs',
+  Инженерные: 'wrench',
+  Медицинские: 'medkit',
+  Научные: 'flask',
+};
+
+const SkillCategoryView = ({
+  category,
+  maxLevel,
+}: {
+  category: SkillCategory;
+  maxLevel: number;
+}) => {
   return (
-    <Stack vertical={true} height="100%" fill>
-      <Stack.Item>
-        <Box
-          backgroundColor={category.color}
-          style={{
-            borderRadius: '10px 10px 0 0',
-            padding: '5px',
-          }}
-        >
-          <center>
-            <b>{category.name}</b>{' '}
-            {category.has_discount ? (
-              <i
-                style={{
-                  color: 'yellow',
-                }}
+    <Box>
+      <Box
+        backgroundColor={category.color}
+        px={1.5}
+        py={0.75}
+        style={{
+          borderRadius: '6px 6px 0 0',
+        }}
+      >
+        <Stack align="center" justify="space-between">
+          <Stack.Item bold fontSize={1.05}>
+            <Icon name={CATEGORY_ICONS[category.name] || 'layer-group'} mr={1} />
+            {category.name}
+          </Stack.Item>
+          {!!category.has_discount && (
+            <Stack.Item>
+              <Box
+                backgroundColor="rgba(0, 0, 0, 0.25)"
+                px={1}
+                py={0.25}
+                fontSize={0.85}
+                style={{ borderRadius: '3px' }}
               >
-                Скидка!
-              </i>
-            ) : (
-              ''
-            )}
-          </center>
-        </Box>
-      </Stack.Item>
-      <Stack.Item height="100%">
-        <Box
-          mt="-3px"
-          backgroundColor="#454545"
-          style={{
-            borderRadius: '0px 0px 10px 10px',
-            padding: '5px',
-          }}
-          height="100%"
-        >
-          <Stack vertical={true} height="100%">
-            {category.skills.map((skill: Skill) => (
-              <Stack.Item key={skill.id}>
-                {SkillView(category, skill)}
-              </Stack.Item>
-            ))}
-          </Stack>
-        </Box>
-      </Stack.Item>
-    </Stack>
+                <Icon name="tag" mr={0.5} />
+                Скидка
+              </Box>
+            </Stack.Item>
+          )}
+        </Stack>
+      </Box>
+      <Box
+        p={1}
+        backgroundColor="rgba(0, 0, 0, 0.15)"
+        style={{
+          borderRadius: '0 0 6px 6px',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+          gap: '0.5rem',
+        }}
+      >
+        {category.skills.map((skill: Skill) => (
+          <SkillView key={skill.id} skill={skill} maxLevel={maxLevel} />
+        ))}
+      </Box>
+    </Box>
   );
 };
 
@@ -140,95 +187,104 @@ type Skill = {
   name: string;
   desc: string;
   level: number;
+  effective_level: number;
+  effective_level_name: string;
+  bonus: number;
   level_name: string;
   level_color: string;
   price: number;
   discount: boolean;
-  can_purchase: number;
+  can_purchase: boolean;
 };
 
-const SkillView = (category: SkillCategory, skill: Skill) => {
-  const { act } = useBackend<Skill>();
+const SkillView = ({
+  skill,
+  maxLevel,
+}: {
+  skill: Skill;
+  maxLevel: number;
+}) => {
+  const { act } = useBackend<SkillUpgradeWinData>();
+  const isMaxLevel = skill.level >= maxLevel;
+
+  let buttonTooltip = `Стоимость: ${skill.price}`;
+  if (isMaxLevel) {
+    buttonTooltip = 'Навык уже максимального уровня';
+  } else if (!skill.can_purchase) {
+    buttonTooltip = 'Недостаточно свободных очков';
+  }
+
   return (
-    <Table
-      width="100%"
-      height="75px"
-      backgroundColor="#353535"
+    <Box
+      p={1}
+      backgroundColor="rgba(0, 0, 0, 0.2)"
       style={{
-        borderRadius: '5px 5px 5px 5px',
-        margin: '2px',
+        borderRadius: '4px',
+        borderLeft: `3px solid ${skill.level_color}`,
       }}
     >
-      <Table.Row height="25px">
-        <Table.Cell
-          backgroundColor="#252525"
-          style={{
-            borderRadius: '5px 5px 0px 0px',
-          }}
-        >
-          <Box ml="5px" mt="5px">
-            <b>{skill.name}</b>
-            {skill.discount ? (
-              <i
-                style={{
-                  color: 'yellow',
-                }}
-              >
-                {'  '}
-                Скидка!
-              </i>
-            ) : (
-              ''
+      <Stack vertical>
+        <Stack.Item>
+          <Stack align="center" justify="space-between">
+            <Stack.Item bold>{skill.name}</Stack.Item>
+            {!!skill.discount && (
+              <Stack.Item>
+                <Box color="yellow" italic fontSize={0.85}>
+                  <Icon name="tag" mr={0.5} />
+                  Скидка
+                </Box>
+              </Stack.Item>
             )}
+          </Stack>
+        </Stack.Item>
+        <Stack.Item>
+          <Box italic opacity={0.7} fontSize={0.9} minHeight="2.4em">
+            {skill.desc}
           </Box>
-        </Table.Cell>
-      </Table.Row>
-      <Table.Row height="25px">
-        <Table.Cell>
-          <Box ml="5px" mt="-8px" height="100%">
-            <p>
-              <i>{skill.desc}</i>
-            </p>
-          </Box>
-        </Table.Cell>
-      </Table.Row>
-      <Table.Row height="8px">
-        <Table.Cell color={skill.level_color}>
-          <Box ml="5px" mt="-8px" mb="-10px">
-            <Stack width="100%">
-              <Stack.Item width="79%">
-                <b>
-                  {skill.level_name} ({skill.level})
-                </b>
-              </Stack.Item>
-              <Stack.Item width="21%">
-                <Button
-                  pl="5px"
-                  pr="5px"
-                  pt="2px"
-                  pb="2px"
-                  mt="-2px"
-                  width="115px"
-                  textAlign="center"
-                  style={{
-                    borderRadius: '5px 5px 5px 5px',
-                  }}
-                  color={skill.can_purchase ? 'green' : 'gray'}
-                  disabled={!skill.can_purchase}
-                  onClick={() => act('purchase_skill', { skill: skill.id })}
+        </Stack.Item>
+        <Stack.Item>
+          <ProgressBar
+            value={skill.level}
+            minValue={0}
+            maxValue={maxLevel}
+            color={skill.level_color}
+            height="0.4em"
+            empty
+          />
+        </Stack.Item>
+        <Stack.Item>
+          <Stack align="center" justify="space-between" wrap>
+            <Stack.Item>
+              <Box bold textColor={skill.level_color}>
+                {skill.level_name} ({skill.level})
+              </Box>
+              {!!skill.bonus && (
+                <Tooltip
+                  content={`С бонусом от руководства: ${skill.effective_level_name} (${skill.effective_level})`}
                 >
-                  Прокачать за {skill.price}
-                </Button>
-              </Stack.Item>
-            </Stack>
-          </Box>
-        </Table.Cell>
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell>
-          <br />
-        </Table.Cell>
-      </Table.Row>
-    </Table>
+                  <Box inline bold color="good">
+                    {' '}
+                    (+{skill.bonus} мануал)
+                  </Box>
+                </Tooltip>
+              )}
+            </Stack.Item>
+            <Stack.Item>
+              <Button
+                compact
+                icon="plus"
+                color={skill.can_purchase ? 'green' : undefined}
+                disabled={!skill.can_purchase}
+                tooltip={buttonTooltip}
+                tooltipPosition="top-end"
+                onClick={() => act('purchase_skill', { skill: skill.id })}
+              >
+                {isMaxLevel ? 'Максимум' : `Прокачать за ${skill.price}`}
+              </Button>
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
+      </Stack>
+    </Box>
   );
 };

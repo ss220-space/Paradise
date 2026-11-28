@@ -115,7 +115,7 @@
 		CtrlClickOn(A)
 		return
 
-	if(incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB))
+	if(INCAPACITATED_IGNORING(src, INCAPABLE_RESTRAINTS|INCAPABLE_GRAB))
 		return
 
 	if(usr && is_ventcrawling(usr) && isitem(A)) // stops inventory actions in vents
@@ -426,7 +426,7 @@
 	return
 
 /mob/living/MiddleShiftClickOn(atom/A)
-	if(incapacitated())
+	if(incapacitated)
 		return
 	var/face_dir = get_cardinal_dir(src, A)
 	if(!face_dir || forced_look == face_dir || A == src)
@@ -442,7 +442,7 @@
 	return
 
 /mob/living/MiddleShiftControlClickOn(atom/A)
-	if(incapacitated())
+	if(incapacitated)
 		return
 	var/face_uid = A.UID()
 	if(forced_look == face_uid || A == src)
@@ -479,7 +479,7 @@
 		ML.pulled(src)
 
 /mob/living/CtrlClick(mob/living/user)
-	if(!isliving(user) || !user.Adjacent(src) || user.incapacitated())
+	if(!isliving(user) || !user.Adjacent(src) || user.incapacitated)
 		return ..()
 
 	if(world.time < user.next_move)
@@ -534,26 +534,6 @@
 	Laser Eyes: as the name implies, handles this since nothing else does currently
 	face_atom: turns the mob towards what you clicked on
 */
-/mob/proc/LaserEyes(atom/A)
-	return
-
-/mob/living/LaserEyes(atom/A)
-	changeNext_move(CLICK_CD_RANGE)
-	var/turf/T = get_turf(src)
-	var/turf/U = get_turf(A)
-
-	var/obj/projectile/beam/LE = new /obj/projectile/beam(loc)
-	LE.icon = 'icons/effects/genetics.dmi'
-	LE.icon_state = "eyelasers"
-	playsound(usr.loc, 'sound/weapons/taser2.ogg', 75, TRUE)
-
-	LE.firer = src
-	LE.def_zone = ran_zone(zone_selected)
-	LE.original = A
-	LE.current = T
-	LE.yo = U.y - T.y
-	LE.xo = U.x - T.x
-	LE.fire()
 
 /// Simple helper to face what you clicked on, in case it should be needed in more than one place
 /mob/proc/face_atom(atom/atom_to_face)

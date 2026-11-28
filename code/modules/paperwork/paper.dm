@@ -25,6 +25,7 @@
 	drop_sound = 'sound/items/handling/drop/paper_drop.ogg'
 	pickup_sound =  'sound/items/handling/pickup/paper_pickup.ogg'
 	custom_price = PAYCHECK_MIN * 0.05
+	scatter_distance = 8
 	var/header //Above the main body, displayed at the top
 	var/info		//What's actually written on the paper.
 	var/footer	//The bottom stuff before the stamp but after the body
@@ -374,7 +375,7 @@
 
 /obj/item/paper/Topic(href, href_list)
 	..()
-	if(!usr || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(!usr || usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(href_list["auto_write"])
@@ -444,7 +445,7 @@
 	if(href_list["write"])
 		var/id = href_list["write"]																			/* Becаuse HTML */
 		var/input_element = tgui_input_text(usr, "Enter what you want to write:", "Write", multiline = TRUE, max_length = 3000, encode = FALSE)
-
+		input_element = STRIP_HTML_FULL(input_element, INFINITY)
 		topic_href_write(usr, id, input_element)
 
 /obj/item/paper/attackby(obj/item/I, mob/living/user, params)
@@ -1613,3 +1614,15 @@
 
 /obj/item/paper/pamphletdeathsquad/update_icon_state()
 	return
+
+/obj/item/paper/mortar
+	name = "Инструкция по сборке снаряда для мортиры"
+	info = "<b>Инструкция по сборке снаряда для мортиры</b></br>\
+	1) Для начала соберите боевую часть. Для этого нужно вставить минимум один(максимум 2) бикер, с нужными вам реагентами.</br>\
+	Помните: у снаряда есть ограничения по вместимости бикеров(50 с камерой и 100 без)</br>\
+	2) После того, как вставите нужные бикеры, закрутите крышку отверткой.</br> \
+	Внимание: Не рекомендуется пытаться раскрутить крышку после сборки. Это приведет к преждевременному смешению содержимого.</br> \
+	3) Затем необходимо вставить собраную боевую часть в корпус снаряда.</br> \
+	4) Затем вставьте в корпус бикер с топливом(минимум 60 юнитов). Наши снаряды используют водород в качестве оного</br> \
+	5) После этого можно завершить сборку снаряда, закрутив крышку отверткой \
+	"

@@ -756,6 +756,10 @@
 	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
 
 /datum/config_entry/string/shutdown_shell_command/ValidateAndSet(str_val)
+	if(config?.loaded)
+		if(str_val != GLOB.shutdown_shell_command && (str_val || GLOB.shutdown_shell_command))
+			log_config("[name] changed in the config file; the new value applies only after a server restart.")
+		return TRUE
 	. = ..()
 	if(.)
 		GLOB.shutdown_shell_command = config_entry_value
@@ -906,3 +910,7 @@
 
 /datum/config_entry/flag/emojis
 	default = TRUE
+
+/datum/config_entry/flag/grey_assistants
+
+/datum/config_entry/flag/debug_admin_hrefs

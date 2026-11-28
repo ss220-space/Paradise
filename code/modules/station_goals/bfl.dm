@@ -89,7 +89,6 @@
 	idle_power_usage = 100000
 	active_power_usage = 500000
 
-	var/emag = FALSE
 	var/state = FALSE
 	var/obj/singularity/bfl_red/laser = null
 	var/datum/weakref/receiver_ref
@@ -110,7 +109,7 @@
 
 	switch(response)
 		if("Деактивировать")
-			if(emag)
+			if(obj_flags & EMAGGED)
 				visible_message(span_notice("Обновление ПО BFL, пожалуйста подождите.<br>Завершено на 99%"))
 				playsound(src, 'sound/BFL/prank.ogg', 100, TRUE)
 			else
@@ -130,13 +129,14 @@
 			else
 				visible_message(span_warning("Ошибка: излучатель всё ещё охлаждается"))
 
-/obj/machinery/power/bfl_emitter/emag_act(mob/user)
+/obj/machinery/power/bfl_emitter/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
-	if(!emag)
-		add_attack_logs(user, src, "emagged")
-		emag = TRUE
-		if(user)
-			to_chat(user, span_notice("Излучатель успешно саботирован"))
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
+	if(user)
+		to_chat(user, span_notice("Излучатель успешно саботирован"))
+	return TRUE
 
 /obj/machinery/power/bfl_emitter/process()
 	if(!state)
@@ -151,7 +151,7 @@
 
 	var/obj/machinery/bfl_receiver/receiver = receiver_ref?.resolve()
 
-	if(!receiver || !receiver.state || emag || !receiver.lens || !receiver.lens.anchored)
+	if(!receiver || !receiver.state || (obj_flags & EMAGGED) || !receiver.lens || !receiver.lens.anchored)
 		var/turf/rand_location = locate(rand((2*TRANSITIONEDGE), world.maxx - (2*TRANSITIONEDGE)), rand((2*TRANSITIONEDGE), world.maxy - (2*TRANSITIONEDGE)), lavaland_z_lvl)
 		laser = new (rand_location)
 		for(var/M in GLOB.player_list)

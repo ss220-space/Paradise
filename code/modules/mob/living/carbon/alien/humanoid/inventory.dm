@@ -29,12 +29,7 @@
 	if(!istype(I))
 		return
 
-	if(I == l_hand)
-		l_hand = null
-		update_held_items()
-	else if(I == r_hand)
-		r_hand = null
-		update_held_items()
+	do_unEquip(I, invdrop = FALSE)
 
 	if(I.pulledby)
 		I.pulledby.stop_pulling()
@@ -74,7 +69,7 @@
 				return FALSE
 			if(!I.allowed_for_alien())
 				return FALSE
-			if(!bypass_incapacitated && incapacitated())
+			if(!bypass_incapacitated && incapacitated)
 				return FALSE
 			return TRUE
 
@@ -83,7 +78,7 @@
 				return FALSE
 			if(!I.allowed_for_alien())
 				return FALSE
-			if(!bypass_incapacitated && incapacitated())
+			if(!bypass_incapacitated && incapacitated)
 				return FALSE
 			return TRUE
 

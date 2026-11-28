@@ -41,11 +41,12 @@
 	. = ..()
 	var/list/possible_chems = GLOB.chemical_reagents_list.Copy()
 	possible_chems -= GLOB.blocked_chems.Copy()
-	var/datum/reagent/R = pick(possible_chems)
-	if(GLOB.rare_chemicals.Find(R))
-		reagents.add_reagent(R, 10)
+	var/random_chem_id = pick(possible_chems)
+	var/datum/reagent/random_reagent = GLOB.chemical_reagents_list[random_chem_id]
+	if(GLOB.rare_chemicals.Find(random_reagent))
+		reagents.add_reagent(random_reagent.type, 10)
 	else
-		reagents.add_reagent(R, rand(2, 3)*10)
+		reagents.add_reagent(random_reagent.type, rand(2, 3)*10)
 	pixel_x = rand(-10, 10)
 	pixel_y = rand(-10, 10)
 
@@ -55,11 +56,11 @@
 
 /obj/item/reagent_containers/cup/bottle/random_chem/Initialize(mapload)
 	. = ..()
-	var/R = get_random_reagent_id()
-	if(GLOB.rare_chemicals.Find(R))
-		reagents.add_reagent(R, 10)
+	var/datum/reagent/random_reagent = get_random_reagent_type()
+	if(GLOB.rare_chemicals.Find(random_reagent))
+		reagents.add_reagent(random_reagent, 10)
 	else
-		reagents.add_reagent(R, rand(2, 3)*10)
+		reagents.add_reagent(random_reagent.type, rand(2, 3)*10)
 	name = "unlabelled bottle"
 	pixel_x = rand(-10, 10)
 	pixel_y = rand(-10, 10)
@@ -86,21 +87,20 @@
 		reagent = pick(special_drinks)
 	else
 		reagent = pick(GLOB.drinks)
-		if(initial(reagent.id) in GLOB.blocked_chems)
+		if(reagent in GLOB.blocked_chems)
 			reagent = pick(special_drinks)
 
-	reagents.add_reagent(initial(reagent.id), volume)
+	reagents.add_reagent(reagent, volume)
 	name = "unlabelled bottle"
 	icon_state = pick("alco-white","alco-green","alco-blue","alco-clear","alco-red")
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
+	scatter_atom()
 
 /obj/item/reagent_containers/cup/glass/bottle/random_reagent // Same as the chembottle code except the container
 	name = "unlabelled drink?"
 
 /obj/item/reagent_containers/cup/glass/bottle/random_reagent/Initialize(mapload)
 	. = ..()
-	var/R = get_random_reagent_id()
+	var/R = get_random_reagent_type()
 	if(GLOB.rare_chemicals.Find(R))
 		reagents.add_reagent(R, 10)
 	else
@@ -114,12 +114,12 @@
 	name = "unlabelled pillbottle"
 	desc = "The sheer recklessness of this bottle's existence astounds you."
 	allow_wrap = FALSE
+	scatter_distance = 10
 	var/labelled = FALSE
 
 /obj/item/storage/pill_bottle/random_meds/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(-10, 10)
-	pixel_y = rand(-10, 10)
+	scatter_atom()
 
 /obj/item/storage/pill_bottle/random_meds/populate_contents()
 	for(var/i in 1 to storage_slots)

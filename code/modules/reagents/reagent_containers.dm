@@ -112,9 +112,8 @@
 		return TRUE
 	if(has_variable_transfer_amount)
 		change_transfer_amount(user, FORWARD)
-		return TRUE
 
-/obj/item/reagent_containers/attack_self_secondary(mob/user)
+/obj/item/reagent_containers/click_alt_secondary(mob/user)
 	if(has_variable_transfer_amount)
 		change_transfer_amount(user, BACKWARD)
 

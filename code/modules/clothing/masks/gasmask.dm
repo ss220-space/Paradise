@@ -653,7 +653,6 @@
 	clothing_traits = list(TRAIT_SECDEATH)
 	var/phrase = 1
 	var/aggressiveness = AGGRESSIVENESS_FIRST_POSITION
-	var/safety = 1
 	can_toggle = TRUE
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/adjust)
 	custom_price = PAYCHECK_CREW
@@ -853,7 +852,7 @@
 	var/key = phrase_list[phrase]
 	var/message = phrase_list[key]
 
-	if(!safety)
+	if(obj_flags & EMAGGED)
 		to_chat(user, span_notice("You set the restrictor to: FUCK YOUR CUNT YOU SHIT EATING COCKSUCKER MAN EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND DO SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT."))
 		return
 
@@ -913,7 +912,7 @@
 		to_chat(user, span_warning("The [name] is already broken."))
 		return .
 	var/confirm = tgui_alert(user, "Do you want to cut off the voice modulator? Warning: It will destroy mask's functionality.", "Cut voice modulator?", list("Yes", "No"))
-	if(confirm != "Yes" || aggressiveness == AGGRESSIVENESS_BROKEN || !Adjacent(user) || user.incapacitated())
+	if(confirm != "Yes" || aggressiveness == AGGRESSIVENESS_BROKEN || !Adjacent(user) || user.incapacitated)
 		return .
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
@@ -923,18 +922,21 @@
 /obj/item/clothing/mask/gas/sechailer/attack_self(mob/user)
 	adjustmask(user)
 
-/obj/item/clothing/mask/gas/sechailer/emag_act(mob/user)
-	if(safety)
-		safety = FALSE
-		if(user)
-			to_chat(user, "<span class='warning'>You silently fry [src]'s vocal circuit with the cryptographic sequencer.")
+/obj/item/clothing/mask/gas/sechailer/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
+		return FALSE
+	obj_flags |= EMAGGED
+	if(user)
+		to_chat(user, "<span class='warning'>You silently fry [src]'s vocal circuit with the cryptographic sequencer.")
+	return TRUE
 
 /obj/item/clothing/mask/gas/sechailer/proc/halt()
 	var/key = phrase_list[phrase]
 	var/message = phrase_list[key]
 
 	if(cooldown < world.time - 35) // A cooldown, to stop people being jerks
-		if(!safety)
+		if(obj_flags & EMAGGED)
 			message = "FUCK YOUR CUNT YOU SHIT EATING COCKSUCKER MAN EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND DO SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT."
 			usr.visible_message("[usr]'s Compli-o-Nator: <font color='red' size='4'><b>[message]</b></font>")
 			playsound(src.loc, 'sound/voice/binsult.ogg', 100, FALSE, 4)

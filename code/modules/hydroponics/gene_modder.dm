@@ -114,7 +114,7 @@
 			return ATTACK_CHAIN_BLOCKED_ALL
 		return ATTACK_CHAIN_PROCEED
 
-	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+	if(obj_flags & CMAGGED)
 		var/cleaning = FALSE
 		if(istype(I, /obj/item/reagent_containers/spray/cleaner))
 			var/obj/item/reagent_containers/spray/cleaner/cleaner = I
@@ -128,13 +128,13 @@
 			span_notice("[user] starts to clean the ooze off the [src]."),
 			span_notice("You start to clean the ooze off the [src]."),
 		)
-		if(!do_after(user, 5 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL) || !HAS_TRAIT(src, TRAIT_CMAGGED))
+		if(!do_after(user, 5 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL) || !(obj_flags & CMAGGED))
 			return ATTACK_CHAIN_PROCEED
 		user.visible_message(
 			span_notice("[user] cleans the ooze off [src]."),
 			span_notice("You clean the ooze off [src]."),
 		)
-		REMOVE_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
+		obj_flags &= ~CMAGGED
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
@@ -431,7 +431,7 @@
 	return ..()
 
 /obj/item/disk/plantgene/attackby(obj/item/W, mob/user, params)
-	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+	if(obj_flags & CMAGGED)
 		var/cleaning = FALSE
 		if(istype(W, /obj/item/reagent_containers/spray/cleaner))
 			var/obj/item/reagent_containers/spray/cleaner/C = W
@@ -447,17 +447,17 @@
 		user.visible_message(span_notice("[user] starts to clean the ooze off the disc."), span_notice("You start to clean the ooze off the disk."))
 		if(do_after(user, 5 SECONDS, src))
 			user.visible_message(span_notice("[user] cleans the ooze off [src]."), span_notice("You clean the ooze off [src]."))
-			REMOVE_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
+			obj_flags &= ~CMAGGED
 			update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
 	..()
-	if(is_pen(W) && !HAS_TRAIT(src, TRAIT_CMAGGED))
+	if(is_pen(W) && !(obj_flags & CMAGGED))
 		rename_interactive(user, W)
 
 	return ATTACK_CHAIN_PROCEED
 
 /obj/item/disk/plantgene/update_name(updates = ALL)
 	. = ..()
-	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+	if(obj_flags & CMAGGED)
 		name = "nuclear authentication disk"
 		return
 	if(gene)
@@ -467,7 +467,7 @@
 
 /obj/item/disk/plantgene/update_desc(updates = ALL)
 	. = ..()
-	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+	if(obj_flags & CMAGGED)
 		desc = "Better keep this safe."
 		return
 
@@ -475,7 +475,7 @@
 
 /obj/item/disk/plantgene/update_icon_state()
 	. = ..()
-	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+	if(obj_flags & CMAGGED)
 		icon_state = "nucleardisk"
 		return
 
@@ -483,27 +483,29 @@
 
 /obj/item/disk/plantgene/update_overlays()
 	. = ..()
-	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+	if(obj_flags & CMAGGED)
 		return
 
 	. += "datadisk_gene"
 
 /obj/item/disk/plantgene/attack_self(mob/user)
-	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+	if(obj_flags & CMAGGED)
 		return
 	read_only = !read_only
 	to_chat(user, span_notice("You flip the write-protect tab to [read_only ? "protected" : "unprotected"]."))
 
-/obj/item/disk/plantgene/cmag_act(mob/user)
-	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
-		to_chat(user, span_warning("The bananium ooze flips a couple bits on the plant disk's display, making it look just like the..!"))
-		ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
-		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
-		playsound(src, SFX_SPARKS, 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+/obj/item/disk/plantgene/cmag_act(mob/user, obj/item/card/cmag/cmag_card)
+	. = ..()
+	if(obj_flags & CMAGGED)
+		return FALSE
+	to_chat(user, span_warning("Бананиумовая слизь сбивает пару битов на экранчике дискеты с генами растений, превращая её в копию того самого!.."))
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON)
+	playsound(src, SFX_SPARKS, 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	return TRUE
 
 /obj/item/disk/plantgene/examine(mob/user)
 	. = ..()
-	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
+	if(!(obj_flags & CMAGGED))
 		. += "The write-protect tab is set to [read_only ? "protected" : "unprotected"]."
 		return
 	if((user.mind.assigned_role == "Captain" || user.mind.special_role == SPECIAL_ROLE_NUKEOPS) && (user.Adjacent(src)))

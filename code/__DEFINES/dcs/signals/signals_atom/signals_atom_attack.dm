@@ -58,3 +58,7 @@
 
 /// Called when an atom is splashed with something: (atom/source)
 #define COMSIG_ATOM_SPLASHED "atom_splashed"
+///from base of atom/atom_prehit(obj/projectile/P):
+#define COMSIG_ATOM_PREHIT "atom_prehit"
+	#define ATOM_PREHIT_SUCCESS (1<<0)
+	#define ATOM_PREHIT_FAILURE (1<<1)

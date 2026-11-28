@@ -305,7 +305,7 @@
 		D.update_label()
 
 GAME_VERB_SRC(/obj/machinery/computer/id_upgrader/ussp, set_name, oview(1), "Ввести название", VERB_CATEGORY_HIDDEN)
-	if(!ishuman(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(!ishuman(usr) || usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/temp_name = reject_bad_name(tgui_input_text(usr, "Enter cardholder name:", "Cardholder name", usr.name), TRUE)
@@ -410,7 +410,7 @@ GAME_VERB_SRC(/obj/machinery/computer/id_upgrader/ussp, set_name, oview(1), "В�
 			<br><hr></font>"
 	desc = "Strange and stinky paper with blood rune."
 	icon_state = "paper_talisman"
-	var/poison_type = "amanitin"
+	var/poison_type = /datum/reagent/amanitin
 	var/poison_dose = 20
 	var/poison_total = 60
 

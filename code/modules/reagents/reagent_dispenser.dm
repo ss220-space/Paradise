@@ -9,7 +9,7 @@
 	/// In units, how much the dispenser can hold
 	var/tank_volume = 1000
 	/// The ID of the reagent that the dispenser uses
-	var/reagent_id = "water"
+	var/reagent_id = /datum/reagent/water
 	/// The last person to rig this fuel tank - Stored with the object. Only the last person matters for investigation
 	var/lastrigger = ""
 	/// If the dispenser is being blown up already. Used to avoid multiple boom calls due to itself exploding etc
@@ -79,7 +79,7 @@
 	name = "holy water tank"
 	desc = "Бак, заполненный святой водой."
 	tank_volume = 3000
-	reagent_id = "holywater"
+	reagent_id = /datum/reagent/holywater
 	icon_state = "holywater_tank"
 
 /obj/structure/reagent_dispensers/holywatertank/get_ru_names()
@@ -96,14 +96,14 @@
 	name = "oil tank"
 	desc = "A tank of oil, commonly used to by robotics to fix leaking IPCs or just to loosen up those rusted underused parts."
 	icon_state = "oil_tank"
-	reagent_id = "oil"
+	reagent_id = /datum/reagent/oil
 	tank_volume = 3000
 
 /obj/structure/reagent_dispensers/fueltank
 	name = "fuel tank"
 	desc = "A tank full of industrial welding fuel. Do not consume."
 	icon_state = "fuel_tank"
-	reagent_id = "fuel"
+	reagent_id = /datum/reagent/fuel
 	tank_volume = 4000
 	var/icon/rigged_olay
 	var/obj/item/assembly_holder/rig = null
@@ -220,7 +220,7 @@
 
 /obj/structure/reagent_dispensers/fueltank/welder_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!reagents.has_reagent("fuel"))
+	if(!reagents.has_reagent(/datum/reagent/fuel))
 		to_chat(user, span_warning("[src] is out of fuel!"))
 		return
 	if(I.tool_enabled && I.use_tool(src, user, volume = I.tool_volume)) //check it's enabled first to prevent duplicate messages when refuelling
@@ -229,7 +229,7 @@
 		investigate_log("[key_name(user)] triggered a fueltank explosion", INVESTIGATE_BOMB)
 		boom()
 	else
-		I.refill(user, src, reagents.get_reagent_amount("fuel")) //Try dump all fuel into the welder
+		I.refill(user, src, reagents.get_reagent_amount(/datum/reagent/fuel)) //Try dump all fuel into the welder
 
 /obj/structure/reagent_dispensers/fueltank/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
@@ -268,7 +268,7 @@
 	icon_state = "pepper_wall"
 	anchored = TRUE
 	density = FALSE
-	reagent_id = "condensedcapsaicin"
+	reagent_id = /datum/reagent/consumable/condensedcapsaicin
 
 /obj/structure/reagent_dispensers/water_cooler
 	name = "liquid cooler"
@@ -303,7 +303,7 @@
 	name = "beer keg"
 	desc = "Beer is liquid bread, it's good for you..."
 	icon_state = "beer"
-	reagent_id = "beer"
+	reagent_id = /datum/reagent/consumable/ethanol/beer
 	reagent_flags = DRAINABLE | REFILLABLE | AMOUNT_VISIBLE
 
 /obj/structure/reagent_dispensers/beerkeg/blob_act(obj/structure/blob/B)
@@ -325,7 +325,7 @@
 	icon_state = "virus_food_wall"
 	anchored = TRUE
 	density = FALSE
-	reagent_id = "virusfood"
+	reagent_id = /datum/reagent/consumable/virus_food
 
 /obj/structure/reagent_dispensers/spacecleanertank
 	name = "space cleaner refiller"
@@ -334,7 +334,7 @@
 	anchored = TRUE
 	density = FALSE
 	tank_volume = 5000
-	reagent_id = "cleaner"
+	reagent_id = /datum/reagent/space_cleaner
 
 /obj/structure/reagent_dispensers/fueltank/chem
 	icon_state = "fuel_wall"

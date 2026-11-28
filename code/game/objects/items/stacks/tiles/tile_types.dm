@@ -11,13 +11,14 @@
 	throw_range = 20
 	max_amount = 60
 	flags = CONDUCT
+	logistics_count_amount = TRUE
+	scatter_distance = 3
 	var/turf_type = null
 	var/mineralType = null
 
 /obj/item/stack/tile/Initialize(mapload, new_amount, merge)
 	. = ..()
-	pixel_x = rand(-3, 3)
-	pixel_y = rand(-3, 3) //randomize a little
+	scatter_atom()
 	AddElement(/datum/element/openspace_item_click_handler)
 
 /obj/item/stack/tile/welder_act(mob/user, obj/item/I)

@@ -29,6 +29,7 @@
 
 	/// External body part zone
 	var/limb_zone
+	var/list/parent_zones
 	/// Used to calculate protection from armor
 	var/limb_body_flag = NONE
 	/// Bodypart parent
@@ -93,8 +94,6 @@
 	/// Whether this bodypart can be used for grasping
 	var/can_grasp = FALSE
 
-	/// Whether prosthetic bodypart is emagged, it will detonate when it fails
-	var/sabotaged = FALSE
 	/// Time when this organ was last splinted
 	var/splinted_count = 0
 	/// Lazy list of all embedded objects inside the bodypart
@@ -127,6 +126,12 @@
 
 /obj/item/organ/external/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
 	. = ..()
+
+	if(convertable_children)
+		convertable_children = string_list(convertable_children)
+
+	if(parent_zones)
+		parent_zones = string_list(parent_zones)
 
 	if(dna?.species)
 		icobase = dna.species.icobase
@@ -219,7 +224,7 @@
 		owner.bleeding_bodyparts |= src
 
 	for(var/atom/movable/thing in src)
-		thing.attempt_become_organ(src, owner, special)
+		thing.attempt_become_organ(src, owner, special, check_parents_zones = TRUE)
 
 	if(parent_organ_zone)
 		parent = owner.bodyparts_by_name[parent_organ_zone]
@@ -260,8 +265,8 @@
 	if(!ignore_children)
 		organ_owner.updatehealth("limb remove")
 
-	//Robotic limbs explode if sabotaged.
-	if(is_robotic() && sabotaged && !special)
+	//Robotic limbs explode if emagged.
+	if(is_robotic() && (obj_flags & EMAGGED) && !special)
 		organ_owner.visible_message(
 			span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] [organ_owner] взрыва[PLUR_ET_YUT(src)]ся!"),
 			span_danger("Ваш[GEND_A_E_I(src)] [declent_ru(NOMINATIVE)] взрыва[PLUR_ET_YUT(src)]ся!"),
@@ -271,9 +276,10 @@
 		do_sparks(5, FALSE, organ_owner)
 		qdel(src)
 
-/obj/item/organ/external/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
+/obj/item/organ/external/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT, check_parents_zones = FALSE)
 	if(parent_organ_zone != parent.limb_zone)
-		return FALSE
+		if(!check_parents_zones || !(parent_organ_zone in parent.parent_zones))
+			return FALSE
 	replaced(target, special)
 	return TRUE
 

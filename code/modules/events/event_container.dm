@@ -311,6 +311,8 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 			EVENT_LEVEL_MAJOR, EVENT_SHADOW_DEMON, /datum/event/spawn_slaughter/shadow,	20, is_one_shot = TRUE),
 		new /datum/event_meta(
 			EVENT_LEVEL_MAJOR, EVENT_SPACE_DRAGON, /datum/event/space_dragon, 20, list(ASSIGNMENT_SECURITY = 4), TRUE),
+		new /datum/event_meta(
+			EVENT_LEVEL_MAJOR, EVENT_ZOMBIE, /datum/event/zombie, 20, is_one_shot = TRUE),
 	)
 
 #undef ASSIGNMENT_ANY

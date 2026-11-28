@@ -1,9 +1,7 @@
 /datum/antagonist/vampire/devil_vampire
 	name = "Devil-Vampire"
-	nullification = OLD_NULLIFICATION
-	is_garlic_affected = TRUE
-	dust_in_space = TRUE
 	antag_datum_blacklist = list(/datum/antagonist/vampire)
+	has_skill_bonus = FALSE
 	antag_menu_name = "Вампир дьявола"
 	upgrade_tiers = list(
 		/datum/action/cooldown/spell/vamp_rejuvenate = 0,
@@ -18,6 +16,7 @@
 		/datum/action/cooldown/spell/jaunt/ethereal_jaunt/goon_vamp_jaunt = 300,
 		/datum/vampire_passive/xray = 500,
 		/datum/vampire_passive/full = 500,
+		/datum/vampire_passive/virus_immune = 500,
 	)
 
 /datum/antagonist/vampire/devil_vampire/add_owner_to_gamemode()

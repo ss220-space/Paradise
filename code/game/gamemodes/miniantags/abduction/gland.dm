@@ -143,8 +143,8 @@
 	owner.vomit(20)
 
 	var/mob/living/simple_animal/slime/Slime = new(get_turf(owner), "grey")
-	Slime.Friends = list(owner)
-	Slime.Leader = owner
+	Slime.add_friend(owner, 0)
+	Slime.set_leader(owner)
 
 /obj/item/organ/internal/heart/gland/mindshock
 	origin_tech = "materials=4;biotech=4;magnets=6;abductor=3"
@@ -303,7 +303,7 @@
 	mind_control_duration = 1200
 
 /obj/item/organ/internal/heart/gland/chem/activate()
-	owner.reagents.add_reagent(get_random_reagent_id(), 2)
+	owner.reagents.add_reagent(get_random_reagent_type(), 2)
 	owner.adjustToxLoss(-2)
 	..()
 

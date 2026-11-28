@@ -25,10 +25,32 @@
 /obj/item/card/emag/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
 
-/obj/item/card/emag/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	if(!proximity_flag)
-		return
-	target.emag_act(user)
+/obj/item/card/emag/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	if(isobj(interacting_with))
+		var/obj/interacting_obj = interacting_with
+		if(interacting_obj.obj_flags & NO_EMAG)
+			to_chat(user, span_warning("Электронные системы [interacting_with.declent_ru(ACCUSATIVE)] защищены от такого примитивного устройства взлома!"))
+			return ITEM_INTERACT_BLOCKING
+	if(interacting_with.emag_act(user, src))
+		SSblackbox.record_feedback("tally", "atom_emagged")
+		add_attack_logs(user, interacting_with, "emagged")
+		return ITEM_INTERACT_SUCCESS
+	return NONE // In a perfect world this would be blocking, but this is not a perfect world
+
+/obj/item/card/emag/halloween
+	name = "hack-o'-lantern"
+	desc = "Это тыква с торчащим из неё криптографическим секвенсором."
+	icon_state = "hack_o_lantern"
+
+/obj/item/card/emag/halloween/get_ru_names()
+	return alist(
+		NOMINATIVE = "светильник Хака",
+		GENITIVE = "светильника Хака",
+		DATIVE = "светильнику Хака",
+		ACCUSATIVE = "светильник Хака",
+		INSTRUMENTAL = "светильником Хака",
+		PREPOSITIONAL = "светильнике Хака",
+	)
 
 /obj/item/card/emag_broken
 	name = "broken cryptographic sequencer"
@@ -78,3 +100,10 @@
 	if(!proximity_flag)
 		return
 	INVOKE_ASYNC(target, TYPE_PROC_REF(/atom, cmag_act), user)
+
+/obj/item/card/cmag/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	if(interacting_with.cmag_act(user, src))
+		SSblackbox.record_feedback("tally", "atom_cmagged")
+		add_attack_logs(user, interacting_with, "cmagged")
+		return ITEM_INTERACT_SUCCESS
+	return NONE

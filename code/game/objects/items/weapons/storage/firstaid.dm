@@ -22,11 +22,11 @@
 	use_sound = 'sound/items/handling/plasticbox_open.ogg'
 	throw_range = 8
 	req_access = list(ACCESS_MEDICAL, ACCESS_ROBOTICS) //Access and treatment are utilized for medbots.
-	var/treatment_brute = "salglu_solution"
-	var/treatment_oxy = "salbutamol"
-	var/treatment_fire = "salglu_solution"
-	var/treatment_tox = "charcoal"
-	var/treatment_virus = "spaceacillin"
+	var/treatment_brute = /datum/reagent/medicine/salglu_solution
+	var/treatment_oxy = /datum/reagent/medicine/salbutamol
+	var/treatment_fire = /datum/reagent/medicine/salglu_solution
+	var/treatment_tox = /datum/reagent/medicine/charcoal
+	var/treatment_virus = /datum/reagent/medicine/spaceacillin
 	var/med_bot_skin = null
 	var/syndicate_aligned = FALSE
 
@@ -336,9 +336,9 @@
 	icon_state = "NTfirstaid"
 	item_state = "medkit_ert"
 	max_w_class = WEIGHT_CLASS_NORMAL
-	treatment_oxy = "perfluorodecalin"
-	treatment_brute = "bicaridine"
-	treatment_fire = "kelotane"
+	treatment_oxy = /datum/reagent/medicine/perfluorodecalin
+	treatment_brute = /datum/reagent/medicine/bicaridine
+	treatment_fire = /datum/reagent/medicine/kelotane
 	req_access = list(ACCESS_SYNDICATE)
 	med_bot_skin = "bezerk"
 
@@ -383,9 +383,9 @@
 	icon_state = "NTeraid"
 	item_state = "medkit_ert2"
 	max_w_class = WEIGHT_CLASS_NORMAL
-	treatment_oxy = "perfluorodecalin"
-	treatment_brute = "bicaridine"
-	treatment_fire = "kelotane"
+	treatment_oxy = /datum/reagent/medicine/perfluorodecalin
+	treatment_brute = /datum/reagent/medicine/bicaridine
+	treatment_fire = /datum/reagent/medicine/kelotane
 	med_bot_skin = "bezerk"
 
 /obj/item/storage/firstaid/ertm/get_ru_names()
@@ -415,9 +415,9 @@
 	icon_state = "bezerk"
 	item_state = "medkit_bezerk"
 	max_w_class = WEIGHT_CLASS_NORMAL
-	treatment_oxy = "perfluorodecalin"
-	treatment_brute = "bicaridine"
-	treatment_fire = "kelotane"
+	treatment_oxy = /datum/reagent/medicine/perfluorodecalin
+	treatment_brute = /datum/reagent/medicine/bicaridine
+	treatment_fire = /datum/reagent/medicine/kelotane
 	req_access = list(ACCESS_SYNDICATE)
 	med_bot_skin = "bezerk"
 	syndicate_aligned = TRUE
@@ -509,7 +509,7 @@
 
 /obj/item/storage/firstaid/crew/ComponentInitialize()
 	. = ..()
-	AddElement(/datum/element/item_skins, item_path = /obj/item/storage/firstaid/crew)
+	AddElement(/datum/element/item_skins, item_path = /obj/item/storage/firstaid/crew, key = COMSIG_CLICK_ALT_SECONDARY)
 
 /obj/item/storage/firstaid/crew/full
 
@@ -677,7 +677,7 @@
 /obj/item/storage/pill_bottle/proc/get_use_end_message(mob/user)
 	return user.visible_message(span_danger("[user] проглатыва[PLUR_ET_YUT(user)] всё содержимое [declent_ru(GENITIVE)] за раз!"))
 
-/obj/item/storage/pill_bottle/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
+/obj/item/storage/pill_bottle/on_mouse_drop_dragged(atom/source, atom/over_object, mob/user)
 	if(!iscarbon(user) || src != user.get_active_hand() || over_object != user)
 		return ..()
 
@@ -686,7 +686,9 @@
 		return
 
 	get_use_start_message(user)
+	INVOKE_ASYNC(src, PROC_REF(use_pills), over_object, user)
 
+/obj/item/storage/pill_bottle/proc/use_pills(atom/over_object, mob/user)
 	for(var/obj/item/reagent_containers/food/pill/pill in src)
 		if(!do_after(user, 2 SECONDS, user, NONE) || src != user.get_active_hand())
 			return

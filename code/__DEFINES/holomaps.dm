@@ -5,8 +5,9 @@
 /// Pixel width & height of the holomap icon. Used for auto-centering etc.
 #define HOLOMAP_ICON_SIZE 480
 #define ui_holomap "CENTER-7,CENTER-7" // Screen location of the holomap "hud"
-/// Screen location of the mini holomap "hud"
-#define ui_mini_holomap "EAST-2:8,NORTH-2:8"
+/// Dimensions of the TGUI minimap overlay
+#define MINIMAP_PANEL_WIDTH 300
+#define MINIMAP_PANEL_HEIGHT 312
 
 #define HOLOMAP_EXTRA_STATIONMAP "stationmapformatted"
 #define HOLOMAP_EXTRA_STATIONMAPAREAS "stationareas"
@@ -35,6 +36,7 @@
 #define HOLOMAP_AREACOLOR_DORMS "#bfff8399"
 #define HOLOMAP_AREACOLOR_SERVICE "#3ab33699"
 #define HOLOMAP_AREACOLOR_HANGAR "#2681a599"
+#define HOLOMAP_AREACOLOR_ROAD "#D4B48399"
 //#define HOLOMAP_AREACOLOR_MUNITION "#CC889999"
 
 #define HOLOMAP_LEGEND_X 64

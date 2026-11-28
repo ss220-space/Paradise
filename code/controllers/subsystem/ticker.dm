@@ -443,7 +443,7 @@ SUBSYSTEM_DEF(ticker)
 
 	// Only resolve metadata here. The audio file is downloaded later, when the
 	// music asset is built on first client login.
-	var/datum/web_sound_info/sound_info = get_web_sound_info(ytdl, selected_lobby_music)
+	var/datum/web_sound_info/sound_info = world.get_web_sound_info(ytdl, selected_lobby_music)
 
 	// Shell work is done, every remaining path marks init complete.
 	login_music_initializated = TRUE
@@ -475,7 +475,7 @@ SUBSYSTEM_DEF(ticker)
 
 	if(!station_missed)	//nuke kills everyone on z-level 1 to prevent "hurr-durr I survived"
 		for(var/mob/M in GLOB.mob_list)
-			if(M.stat != DEAD && !(issilicon(M) && override == MALF_AI))
+			if(!(issilicon(M) && override == MALF_AI))
 				var/turf/T = get_turf(M)
 				if(T && is_station_level(T.z) && !istype(M.loc, /obj/structure/closet/secure_closet/freezer))
 					M.ghostize()

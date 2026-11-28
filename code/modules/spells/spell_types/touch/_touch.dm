@@ -119,6 +119,7 @@
 		if(hand_owner)
 			to_chat(hand_owner, drop_message)
 		reset_spell_cooldown()
+		should_go_on_cooldown = TRUE
 	else
 		StartCooldown()
 		build_all_button_icons()

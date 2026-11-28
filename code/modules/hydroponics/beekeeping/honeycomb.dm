@@ -8,13 +8,13 @@
 	disease_amount = 0
 	volume = 10
 	amount_per_transfer_from_this = 0
-	list_reagents = list("honey" = 5)
+	list_reagents = list(/datum/reagent/consumable/honey = 5)
+	scatter_distance = 8
 	var/honey_color = ""
 
 /obj/item/reagent_containers/honeycomb/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(8,-8)
-	pixel_y = rand(8,-8)
+	scatter_atom()
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/honeycomb/update_overlays()
@@ -32,7 +32,7 @@
 	if(istype(R))
 		name = "honeycomb ([R.name])"
 		honey_color = R.color
-		reagents.add_reagent(R.id,5)
+		reagents.add_reagent(R.type, 5)
 	else
 		honey_color = ""
 	update_icon(UPDATE_OVERLAYS)

@@ -59,7 +59,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	//var/list/laws = list()
 	alarms_listend_for = list("Motion", "Fire", "Atmosphere", "Power", "Camera", "Burglar")
 	var/viewalerts = 0
-	var/icon/holo_icon//Default // is assigned when AI is created.
+	var/icon/holo_icon // is assigned when AI is created.
 	var/obj/mecha/controlled_mech //For controlled_mech a mech, to determine whether to relaymove or use the AI eye.
 	var/obj/item/pda/silicon/ai/aiPDA = null
 	var/obj/item/multitool/aiMulti = null
@@ -268,12 +268,29 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	malfhack = null
 	bot_ref = null
 	linked_core = null
+	controlled_mech = null
+	current = null
+	parent = null
+	deployed_shell = null
+	holo = null
+	waypoint = null
+	LAZYCLEARLIST(connected_robots)
+	LAZYCLEARLIST(lit_cameras)
+	LAZYCLEARLIST(all_eyes)
+	LAZYCLEARLIST(stored_locations)
+	QDEL_LIST(current_modules)
+	QDEL_NULL(malf_picker)
+	QDEL_NULL(modules_action)
 	QDEL_NULL(eyeobj) // No AI, no Eye
 	QDEL_NULL(aiPDA)
 	QDEL_NULL(aiMulti)
 	QDEL_NULL(aiRadio)
 	QDEL_NULL(builtInCamera)
 	QDEL_NULL(core_display_picker)
+	QDEL_NULL(doomsday_device)
+	QDEL_NULL(track)
+	QDEL_NULL(announcer)
+	QDEL_NULL(robot_control)
 	return ..()
 
 /mob/living/silicon/ai/get_radio()
@@ -446,7 +463,7 @@ GAME_VERB_PROC_DESC(/mob/living/silicon/ai, pick_icon, "Поменять дис�
 	if(stat || aiRestorePowerRoutine)
 		return
 
-	if(incapacitated())
+	if(incapacitated)
 		to_chat(src, span_warning("You cannot access the core display controls in your current state."))
 		return
 
@@ -468,7 +485,7 @@ GAME_VERB_PROC(/mob/living/silicon/ai, ai_announcement_text, "Станционн
 		to_chat(src, span_warning("Пожалуйста, подождите [COOLDOWN_TIMELEFT(src, next_text_announcement) / 10] секунд[DECL_U_Y_0(COOLDOWN_TIMELEFT(src, next_text_announcement) / 10)] между объявлениями."))
 		return
 
-	var/input = tgui_input_text(usr, "Пожалуйста, напишите сообщение, которое вы хотите объявить экипажу станции.", "Объявление ИИ", multiline = TRUE, encode = FALSE)
+	var/input = tgui_input_text(usr, "Пожалуйста, напишите сообщение, которое вы хотите объявить экипажу станции.", "Объявление ИИ", multiline = TRUE)
 	if(!input)
 		return
 
@@ -481,7 +498,7 @@ GAME_VERB_PROC(/mob/living/silicon/ai, ai_call_shuttle, "Вызвать эвак
 	if(check_unable(AI_CHECK_WIRELESS))
 		return
 
-	var/input = tgui_input_text(src, "Please enter the reason for calling the shuttle.", "Shuttle Call Reason", multiline = TRUE, encode = FALSE)
+	var/input = tgui_input_text(src, "Please enter the reason for calling the shuttle.", "Shuttle Call Reason", multiline = TRUE)
 	if(!input || stat)
 		return
 
@@ -1038,7 +1055,7 @@ GAME_VERB_PROC_DESC(/mob/living/silicon/ai, arrivals_announcement, "Авто-о�
 
 GAME_VERB_PROC_DESC(/mob/living/silicon/ai, change_arrival_message, "Сообщение о прибытии", "Change the message that's transmitted when a new crew member arrives on station.", VERB_CATEGORY_AICOMMANDS)
 
-	var/newmsg = tgui_input_text(usr, "What would you like the arrival message to be? List of options: $name, $rank, $species, $gender, $age", "Change Arrival Message", arrivalmsg, encode = FALSE)
+	var/newmsg = tgui_input_text(usr, "What would you like the arrival message to be? List of options: $name, $rank, $species, $gender, $age", "Change Arrival Message", arrivalmsg)
 	if(isnull(newmsg) || newmsg == arrivalmsg)
 		to_chat(usr, "Arrival message changing aborted.")
 	else if(newmsg != arrivalmsg)

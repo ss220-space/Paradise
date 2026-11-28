@@ -35,7 +35,7 @@
 /obj/machinery/snow_machine/Initialize(mapload)
 	. = ..()
 	create_reagents(300, REFILLABLE | NO_REACT) //Makes 100 snow tiles!
-	reagents.add_reagent("water", 300) //But any reagent will do
+	reagents.add_reagent(/datum/reagent/water, 300) //But any reagent will do
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/snow_machine(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)

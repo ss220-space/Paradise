@@ -11,6 +11,7 @@
 	icon_state = "ore"
 	full_w_class = WEIGHT_CLASS_BULKY
 	singular_name = "ore chunk"
+	logistics_count_amount = TRUE
 	var/points = 0 //How many points this ore gets you from the ore redemption machine
 	var/refined_type = null //What this ore defaults to being refined into
 	var/list/stack_overlays
@@ -47,8 +48,11 @@
 
 /obj/item/stack/ore/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
-	pixel_x = base_pixel_x + rand(0, 16) - 8
-	pixel_y = base_pixel_y + rand(0, 8) - 8
+	scatter_atom()
+
+/obj/item/stack/ore/scatter_atom(x_offset, y_offset)
+	pixel_x = base_pixel_x + rand(-8, 8) + x_offset
+	pixel_y = base_pixel_y + rand(-8, 0) + y_offset
 
 /obj/item/stack/ore/welder_act(mob/user, obj/item/I)
 	. = TRUE

@@ -40,11 +40,11 @@
 
 	if(isnull(held_item) || held_item == src)
 		if(can_lid)
-			context[SCREENTIP_CONTEXT_ALT_LMB] = "[has_lid ? "Снять" : "Надеть"] крышку"
+			context[SCREENTIP_CONTEXT_CTRL_SHIFT_LMB] = "[has_lid ? "Снять" : "Надеть"] крышку"
 			. = CONTEXTUAL_SCREENTIP_SET
 		if(has_variable_transfer_amount)
-			context[SCREENTIP_CONTEXT_LMB] = "Перемещать больше"
-			context[SCREENTIP_CONTEXT_RMB] = "Перемещать меньше"
+			context[SCREENTIP_CONTEXT_ALT_LMB] = "Перемещать больше"
+			context[SCREENTIP_CONTEXT_ALT_RMB] = "Перемещать меньше"
 			. = CONTEXTUAL_SCREENTIP_SET
 
 /obj/item/reagent_containers/cup/add_item_context(obj/item/source, list/context, atom/target, mob/living/user)
@@ -74,9 +74,9 @@
 	. = ..()
 	if(can_lid)
 		if(has_lid)
-			. += span_notice("Закрыто крышкой. Используйте [EXAMINE_HINT("ALT+ЛКМ")], чтобы снять её.")
+			. += span_notice("Закрыто крышкой. Используйте [EXAMINE_HINT("CTRL+SHIFT+ЛКМ")], чтобы снять её.")
 		else
-			. += span_notice("Может быть закрыто крышкой. Используйте [EXAMINE_HINT("ALT+ЛКМ")], чтобы надеть её.")
+			. += span_notice("Может быть закрыто крышкой. Используйте [EXAMINE_HINT("CTRL+SHIFT+ЛКМ")], чтобы надеть её.")
 
 // TODO: заменить после порта `edible` компонента с ТГ
 /obj/item/reagent_containers/cup/proc/checkLiked(fraction, mob/eater)
@@ -165,6 +165,9 @@
 
 	return ITEM_INTERACT_SUCCESS
 
+/obj/item/reagent_containers/cup/attack_self(mob/user)
+	interact_with_atom(user, user, null)
+
 /obj/item/reagent_containers/cup/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	. = ..()
 
@@ -227,7 +230,7 @@
 /obj/item/reagent_containers/cup/is_dunkable()
 	return ..() && !has_lid
 
-/obj/item/reagent_containers/cup/click_alt(mob/user)
+/obj/item/reagent_containers/cup/CtrlShiftClick(mob/user)
 	if(!can_lid)
 		return NONE
 
@@ -288,7 +291,7 @@
 		. += "assembly"
 
 GAME_VERB_SRC(/obj/item/reagent_containers/cup/beaker, remove_assembly, usr, "Отсоединить", VERB_CATEGORY_HIDDEN)
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	if(assembly)
 		balloon_alert(usr, "заготовка отсоединена")
@@ -415,7 +418,7 @@ GAME_VERB_SRC(/obj/item/reagent_containers/cup/beaker, remove_assembly, usr, "О
 	desc = "Пластиковый пакетик, надпись на этикетке – \"Термит\"."
 	amount_per_transfer_from_this = 25
 	has_variable_transfer_amount = FALSE
-	list_reagents = list("thermite" = 25)
+	list_reagents = list(/datum/reagent/thermite = 25)
 
 /obj/item/reagent_containers/cup/beaker/plastic_baggie/thermite/get_ru_names()
 	return alist(
@@ -471,19 +474,19 @@ GAME_VERB_SRC(/obj/item/reagent_containers/cup/beaker, remove_assembly, usr, "О
 	)
 
 /obj/item/reagent_containers/cup/beaker/cryoxadone
-	list_reagents = list("cryoxadone" = 30)
+	list_reagents = list(/datum/reagent/medicine/cryoxadone = 30)
 
 /obj/item/reagent_containers/cup/beaker/sacid
-	list_reagents = list("sacid" = 50)
+	list_reagents = list(/datum/reagent/acid = 50)
 
 /obj/item/reagent_containers/cup/beaker/slimejelly
-	list_reagents = list("slimejelly" = 50)
+	list_reagents = list(/datum/reagent/slimejelly = 50)
 
 /obj/item/reagent_containers/cup/beaker/plastic_baggie/drugs/meth
-	list_reagents = list("methamphetamine" = 10)
+	list_reagents = list(/datum/reagent/methamphetamine = 10)
 
 /obj/item/reagent_containers/cup/beaker/laughter
-	list_reagents = list("laughter" = 50)
+	list_reagents = list(/datum/reagent/consumable/laughter = 50)
 
 // MARK: Bucket
 /obj/item/reagent_containers/cup/bucket
@@ -502,6 +505,7 @@ GAME_VERB_SRC(/obj/item/reagent_containers/cup/beaker, remove_assembly, usr, "О
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 75, ACID = 50) //Weak melee protection, because you can wear it on your head
 	slot_flags = ITEM_SLOT_HEAD
 	resistance_flags = NONE
+	can_lid = TRUE
 	var/paintable = TRUE
 
 /obj/item/reagent_containers/cup/bucket/get_ru_names()
@@ -677,7 +681,7 @@ GAME_VERB_SRC(/obj/item/reagent_containers/cup/beaker, remove_assembly, usr, "О
 	var/mutable_appearance/bowl_nc_mask = mutable_appearance(icon = 'icons/obj/pet_bowl.dmi', icon_state = "nc_petbowl", appearance_flags = RESET_COLOR)
 	. += bowl_nc_mask
 	if(reagents.total_volume)
-		var/datum/reagent/feed = reagents.has_reagent("afeed")
+		var/datum/reagent/feed = reagents.has_reagent(/datum/reagent/consumable/animal_feed)
 		if(feed && (feed.volume >= (reagents.total_volume - feed.volume)))
 			var/image/feed_overlay = image(icon = 'icons/obj/pet_bowl.dmi', icon_state = "petfood_5", layer = FLOAT_LAYER)
 			feed_overlay.appearance_flags = RESET_COLOR
@@ -695,9 +699,9 @@ GAME_VERB_SRC(/obj/item/reagent_containers/cup/beaker, remove_assembly, usr, "О
 /obj/item/reagent_containers/cup/pet_bowl/attack_animal(mob/living/simple_animal/pet)
 	if(!pet.client || !pet.safe_respawn(pet, check_station_level = FALSE) || !reagents.total_volume)
 		return ..()
-	if(reagents.has_reagent("afeed", 1))
+	if(reagents.has_reagent(/datum/reagent/consumable/animal_feed, 1))
 		pet.heal_organ_damage(5, 5)
-		reagents.remove_reagent("afeed", 1)
+		reagents.remove_reagent(/datum/reagent/consumable/animal_feed, 1)
 		playsound(pet.loc, 'sound/items/eatfood.ogg', rand(10, 30), TRUE)
 	else
 		reagents.remove_any(1)

@@ -133,6 +133,42 @@
 	name = "autoimplanter (laserblade)"
 	storedorgan = new /obj/item/organ/internal/cyberimp/tail/blade/laser/syndi
 
+/obj/item/autoimplanter/oneuse/razorwire
+	desc = "Одноразовый автоимплантер, содержащий в себе моноструну. Имплант можно достать отверткой, но вставить назад уже нельзя."
+	storedorgan = new /obj/item/organ/internal/cyberimp/arm/razorwire
+
+/obj/item/autoimplanter/oneuse/razorwire/examine_more(mob/user)
+	. = ..()
+	if(storedorgan)
+		return storedorgan.examine_more(user)
+
+/obj/item/autoimplanter/oneuse/hackerman_deck
+	desc = "Одноразовый автоимплантер, содержащий в себе беспроводную систему взлома \"Бинят\". Имплант можно достать отверткой, но вставить назад уже нельзя."
+	storedorgan = new /obj/item/organ/internal/cyberimp/brain/hackerman_deck
+
+/obj/item/autoimplanter/oneuse/sensory_enhancer
+	desc = "Одноразовый автоимплантер, содержащий в себе сенсорный компьютер \"Кани-Лаака\". Имплант можно достать отверткой, но вставить назад уже нельзя."
+	storedorgan = new /obj/item/organ/internal/cyberimp/brain/sensory_enhancer
+
+/obj/item/autoimplanter/oneuse/scope_eyes
+	name ="autoimplanter (scope)"
+	storedorgan = new /obj/item/organ/internal/cyberimp/eyes/scope/hardened
+
+/obj/item/autoimplanter/oneuse/scope_eyes/get_ru_names()
+	return alist(
+		NOMINATIVE = "автоимплантер с глазным имплантом \"Калейдо Оптикс\"",
+		GENITIVE = "автоимплантера с глазным имплантом \"Калейдо Оптикс\"",
+		DATIVE = "автоимплантеру с глазным имплантом \"Калейдо Оптикс\"",
+		ACCUSATIVE = "автоимплантер с глазным имплантом \"Калейдо Оптикс\"",
+		INSTRUMENTAL = "автоимплантером с глазным имплантом \"Калейдо Оптикс\"",
+		PREPOSITIONAL = "автоимплантере с глазным имплантом \"Калейдо Оптикс\"",
+	)
+
+/obj/item/autoimplanter/oneuse/wire_interface
+	desc = "Одноразовый автоимплантер, содержащий в себе имплант проводного интерфейса. Имплант можно достать отверткой, но вставить назад уже нельзя."
+	storedorgan = new /obj/item/organ/internal/cyberimp/brain/wire_interface
+	icon_state = "autoimplanter"
+
 /obj/item/autoimplanter/oneuse/sec_hud
 	name = "autoimplanter (sechud)"
 	desc = "Одноразовый автоимплантер, содержащий в себе охранный ИЛС. Имплант можно достать отверткой, но вставить назад уже нельзя."

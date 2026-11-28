@@ -136,8 +136,7 @@
 	update(make_from)
 	//Flipping handled manually due to custom handling for trinary pipes
 	AddElement(/datum/element/simple_rotation, ROTATION_NO_FLIPPING, post_rotation_proccall = PROC_REF(post_rotate))
-	src.pixel_x = rand(-5, 5)
-	src.pixel_y = rand(-5, 5)
+	scatter_atom()
 
 //update the name and icon of the pipe item depending on the type
 
@@ -195,7 +194,7 @@
 
 GAME_VERB_SRC(/obj/item/pipe, flip, view(1), "Перевернуть трубу", VERB_CATEGORY_HIDDEN)
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(pipe_type in list(PIPE_GAS_FILTER, PIPE_GAS_MIXER, PIPE_TVALVE, PIPE_DTVALVE, PIPE_CIRCULATOR))

@@ -141,6 +141,12 @@
 	. = ..()
 	install_sibyl()
 
+/obj/item/gun/energy/specter/Destroy()
+	if(magazine)
+		cell = null
+	QDEL_NULL(magazine)
+	return ..()
+
 /obj/item/gun/energy/specter/get_ru_names()
 	return alist(
 		NOMINATIVE = "Спектр",
@@ -236,15 +242,17 @@
 	weapon_weight = WEAPON_HEAVY
 	can_holster = FALSE
 	slot_flags = ITEM_SLOT_BACK
-	zoomable = TRUE
-	zoom_amt = 7
 	ammo_type = list(/obj/item/ammo_casing/energy/ion)
 	ammo_x_offset = 3
 	accuracy = GUN_ACCURACY_RIFLE_LASER
+	var/zoomable = TRUE
 
 /obj/item/gun/energy/ionrifle/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/empprotection, EMP_PROTECT_ALL)
+	if(!zoomable)
+		return
+	AddComponent(/datum/component/scope, range_modifier = 2)
 
 /obj/item/gun/energy/ionrifle/carbine
 	name = "ion carbine"

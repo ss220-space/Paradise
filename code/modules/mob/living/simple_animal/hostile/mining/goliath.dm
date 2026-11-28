@@ -198,7 +198,7 @@
 	vision_range = aggro_vision_range
 	handle_preattack()
 	if(target && prob(taunt_chance))
-		emote("me", 1, "[pick(emote_taunt)] на [target].")
+		emote("me", 1, "[pick(emote_taunt)] на [target.declent_ru(ACCUSATIVE)].")
 		taunt_chance = max(taunt_chance-7,2)
 	if(icon_state != icon_aggro && stat != DEAD)
 		icon_state = icon_aggro

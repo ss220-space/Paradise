@@ -62,6 +62,8 @@
 #define AMBIENCE_AWAY "away"
 #define AMBIENCE_REEBE "reebe"
 #define AMBIENCE_CREEPY "creepy"
+#define AMBIENCE_PLANETOID "planetoid"
+#define AMBIENCE_CAVES "caves"
 
 //default byond sound environments
 #define SOUND_ENVIRONMENT_NONE -1
@@ -215,9 +217,11 @@ GLOBAL_LIST_EMPTY(sfx_datum_by_key)
 #define SFX_POLAROID_PHOTO_PRINTING "polaroid"
 #define SFX_BLOODCRAWL_EMERGE "bloodcrawl_emerge"
 #define SFX_HEAVYFOOTSTEP "heavy_footstep"
+#define SFX_IM_HERE "im_here"
 // Below is a list copied from TG, most of their defines are empty (without datum and sounds). But there are also those used by us.
 #define SFX_BODYFALL "bodyfall"
 #define SFX_BULLET_MISS "bullet_miss"
+#define SFX_BULLET_MISS_ALT "bullet_miss_alt"
 #define SFX_ENERGY_MISS "energy_miss"
 #define SFX_ARROW_MISS "arrow_miss"
 #define SFX_CAN_OPEN "can_open"
@@ -231,7 +235,6 @@ GLOBAL_LIST_EMPTY(sfx_datum_by_key)
 #define SFX_HULL_CREAKING "hull_creaking"
 #define SFX_HYPERTORUS_CALM "hypertorus_calm"
 #define SFX_HYPERTORUS_MELTING "hypertorus_melting"
-#define SFX_IM_HERE "im_here"
 #define SFX_LAW "law"
 #define SFX_PAGE_TURN "page_turn"
 #define SFX_PUNCH "punch"
@@ -327,3 +330,8 @@ GLOBAL_LIST_EMPTY(sfx_datum_by_key)
 #define SFX_TRAY_DROP "tray_drop"
 #define SFX_MENDER "mender"
 #define SFX_GLITCHED_PDA_RINGTONE "glitched_pda"
+#define SFX_VEGETATION_WALK "vegetation_walk"
+#define SFX_THUNDER_HEAVY "thunder_heavy"
+#define SFX_THUNDER_MEDIUM "thunder_medium"
+#define SFX_THUNDER_LOW "thunder_low"
+#define SFX_FLAMETHROWER "flamethrower"

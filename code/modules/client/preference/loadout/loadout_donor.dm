@@ -1,7 +1,7 @@
 /datum/gear/donor
+	abstract_type = /datum/gear/donor
 	donator_tier = 2
 	sort_category = "Донат"
-	subtype_path = /datum/gear/donor
 
 /datum/gear/donor/can_select(client/cl, job_name, species_name, silent = FALSE)
 	if(!..()) // there's no point in being here
@@ -149,7 +149,7 @@
 	donator_tier = 1
 
 /datum/gear/donor/strip
-	subtype_path = /datum/gear/donor/strip
+	abstract_type = /datum/gear/donor/strip
 	subtype_cost_overlap = FALSE
 
 /datum/gear/donor/strip/cap
@@ -654,3 +654,13 @@
 	donator_tier = 1
 	index_name = "old human head"
 	path = /obj/item/clothing/head/oldhuman_head
+
+/datum/gear/donor/angel_wings
+	index_name = "angel wings"
+	display_name = "Ангельские крылья"
+	path = /obj/item/clothing/neck/angel_wings
+
+/datum/gear/donor/devil_wings
+	index_name = "devil wings"
+	display_name = "Дьявольские крылья"
+	path = /obj/item/clothing/neck/devil_wings

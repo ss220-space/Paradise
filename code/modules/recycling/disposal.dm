@@ -61,6 +61,7 @@
 	air_contents = new
 	if(made_from)
 		setDir(made_from.dir)
+	register_context()
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/disposal/LateInitialize()
@@ -69,6 +70,21 @@
 	milla.invoke_async(src)
 	trunk_check()
 	update()
+
+/obj/machinery/disposal/add_context(atom/source, list/context, obj/item/held_item, mob/living/user)
+	. = ..()
+
+	if(isstorage(held_item))
+		context[SCREENTIP_CONTEXT_RMB] = "Put contents in"
+		if(can_be_inserted(held_item, TRUE))
+			context[SCREENTIP_CONTEXT_LMB] = "Put [held_item] in"
+		return CONTEXTUAL_SCREENTIP_SET
+
+	if(can_be_inserted(held_item, TRUE))
+		context[SCREENTIP_CONTEXT_LMB] = "Put [held_item] in"
+		return CONTEXTUAL_SCREENTIP_SET
+	return .
+
 
 /datum/milla_safe/disposal_suck_air
 
@@ -156,19 +172,20 @@
 		to_chat(usr, span_notice("[DECLENT_RU_CAP(W, NOMINATIVE)] прилип к вашей руке, вы не можете выкинуть его в [declent_ru(ACCUSATIVE)]."))
 		return FALSE
 
+	if(istype(W, /obj/item/melee/energy/blade))	// why???
+		to_chat(usr, span_warning("Вы не можете поместить этот предмет в мусоропровод."))
+		return FALSE
+
 	return TRUE
 
-/obj/machinery/disposal/attackby(obj/item/I, mob/user, params)
+/obj/machinery/disposal/item_interaction_secondary(mob/living/user, obj/item/tool, list/modifiers)
 	if(user.a_intent == INTENT_HARM || (stat & BROKEN))
 		return ..()
 
 	add_fingerprint(user)
-	if(istype(I, /obj/item/melee/energy/blade))	// why???
-		to_chat(user, span_warning("Вы не можете поместить этот предмет в мусоропровод."))
-		return ATTACK_CHAIN_PROCEED
 
-	if(isstorage(I))
-		var/obj/item/storage/storage = I
+	if(isstorage(tool))
+		var/obj/item/storage/storage = tool
 		if((storage.allow_quick_empty || storage.allow_quick_gather) && length(storage.contents))
 			storage.hide_from_all_viewers()
 			for(var/obj/item/item as anything in storage.contents)
@@ -187,19 +204,25 @@
 					span_notice("Вы опустошаете [storage.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)].")
 				)
 			update()
-			return ATTACK_CHAIN_PROCEED_SUCCESS
+			return ITEM_INTERACT_SUCCESS
+	return ..()
 
-	if(!can_be_inserted(I) || !user.drop_transfer_item_to_loc(I, src))
+/obj/machinery/disposal/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(user.a_intent == INTENT_HARM || (stat & BROKEN))
 		return ..()
 
-	SEND_SIGNAL(I, COMSIG_DISPOSAL_INJECT, src)
+	add_fingerprint(user)
 
-	user.visible_message(
-		span_notice("[DECLENT_RU_CAP(user, NOMINATIVE)] помеща[PLUR_ET_YUT(user)] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
-		span_notice("Вы помещаете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)].")
-	)
-	update()
-	return ATTACK_CHAIN_BLOCKED_ALL
+	if(can_be_inserted(tool) && user.drop_transfer_item_to_loc(tool, src))
+		SEND_SIGNAL(tool, COMSIG_DISPOSAL_INJECT, src)
+
+		user.visible_message(
+			span_notice("[DECLENT_RU_CAP(user, NOMINATIVE)] помеща[PLUR_ET_YUT(user)] [tool.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы помещаете [tool.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)].")
+		)
+		update()
+		return ITEM_INTERACT_SUCCESS
+	return ..()
 
 /obj/machinery/disposal/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
@@ -265,7 +288,7 @@
 // mouse drop another mob or self
 //
 /obj/machinery/disposal/mouse_drop_receive(mob/living/target, mob/living/user, params)
-	if(!istype(target) || target.buckled || target.has_buckled_mobs() || !in_range(user, src) || !in_range(user, target) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || isAI(user))
+	if(!istype(target) || target.buckled || target.has_buckled_mobs() || !in_range(user, src) || !in_range(user, target) || user.incapacitated || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || isAI(user))
 		return
 	if(user.has_status_effect(STATUS_EFFECT_LEANING) || target.has_status_effect(STATUS_EFFECT_LEANING))
 		return
@@ -288,17 +311,17 @@
 		return
 	if(QDELETED(src) || target_loc != target.loc)
 		return
-	if(target == user && !user.incapacitated())	// if drop self, then climbed in
+	if(target == user && !user.incapacitated)	// if drop self, then climbed in
 											// must be awake, not stunned or whatever
 		msg = "[DECLENT_RU_CAP(user, NOMINATIVE)] залеза[PLUR_ET_YUT(user)] в [declent_ru(ACCUSATIVE)]."
 		to_chat(user, "Вы залезаете в [declent_ru(ACCUSATIVE)].")
-	else if(target != user && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	else if(target != user && !user.incapacitated && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		msg = "[DECLENT_RU_CAP(user, NOMINATIVE)] заталкива[PLUR_ET_YUT(user)] [target.name] в [declent_ru(ACCUSATIVE)]!"
 		to_chat(user, "Вы заталкиваете [target.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]!")
 		if(!iscarbon(user))
 			target.LAssailant = null
 		else
-			target.LAssailant = user
+			target.LAssailant = WEAKREF(user)
 		add_attack_logs(user, target, "Disposal'ed")
 	else
 		return

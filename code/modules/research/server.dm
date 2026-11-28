@@ -354,19 +354,16 @@
 		syndicate = 1
 		req_access = list(ACCESS_SYNDICATE_RESEARCH_DIRECTOR)
 
-/obj/machinery/computer/rdservercontrol/emag_act(mob/user)
-	if(emagged)
+/obj/machinery/computer/rdservercontrol/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(obj_flags & EMAGGED)
 		return FALSE
-
-	add_attack_logs(user, src, "emagged")
+	obj_flags |= EMAGGED
 	playsound(src, 'sound/effects/sparks4.ogg', 75, TRUE)
-	emagged = TRUE
 	req_access = list()
-
+	SStgui.update_uis(src)
 	if(user)
 		balloon_alert(user, "протоколы безопасности взломаны")
-
-	SStgui.update_uis(src)
 	return TRUE
 
 /obj/machinery/computer/rdservercontrol/attack_hand(mob/user as mob)

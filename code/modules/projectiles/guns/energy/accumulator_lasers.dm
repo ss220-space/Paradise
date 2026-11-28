@@ -30,6 +30,12 @@
 		cell = magazine.get_cell()
 	update_icon()
 
+/obj/item/gun/energy/accumulator/Destroy()
+	if(magazine)
+		cell = null
+	QDEL_NULL(magazine)
+	return ..()
+
 /obj/item/gun/energy/accumulator/examine(mob/user)
 	. = ..()
 	if(magazine)
@@ -110,7 +116,7 @@
 
 	var/turf/spawn_turf = get_turf(user)
 	var/obj/item/new_gun = new choosen_weapon(spawn_turf)
-
+	drop_all_modules(user)
 	user.put_in_hands(new_gun)
 	playsound(user, 'sound/machines/ding.ogg', 50, TRUE)
 	do_sparks(3, TRUE, spawn_turf)
@@ -126,7 +132,7 @@
 /obj/item/gun/energy/accumulator/proc/check_menu(mob/living/user)
 	if(!istype(user))
 		return FALSE
-	if(user.incapacitated() || !user.Adjacent(src))
+	if(user.incapacitated || !user.Adjacent(src))
 		return FALSE
 	return TRUE
 
@@ -268,10 +274,12 @@
 	attachable_offset = list(
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -7),
 	)
-	windup_delay = 1 SECONDS
 	windup_sound = 'sound/weapons/laser_charge_up.ogg'
-	zoomable = TRUE
-	zoom_amt = 5
+
+/obj/item/gun/energy/accumulator/sniper_rifle/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/charge_shot)
+	AddComponent(/datum/component/scope, range_modifier = 1.43)
 
 /obj/item/gun/energy/accumulator/sniper_rifle/get_ru_names()
 	return alist(

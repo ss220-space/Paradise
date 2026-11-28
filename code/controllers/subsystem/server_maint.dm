@@ -8,6 +8,8 @@ SUBSYSTEM_DEF(server_maint)
 	init_stage = INITSTAGE_EARLY
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
 	var/list/currentrun
+	var/memory
+	var/virtual_memory
 
 /datum/controller/subsystem/server_maint/PreInit()
 	world.hub_password = "" //quickly! before the hubbies see us.
@@ -38,6 +40,10 @@ SUBSYSTEM_DEF(server_maint)
 	var/afk_period
 	if(kick_inactive)
 		afk_period = CONFIG_GET(number/afk_period)
+
+	memory = rustlib_process_physical_memory()
+	virtual_memory = rustlib_process_virtual_memory()
+
 	while(length(currentrun))
 		var/client/processing_client = currentrun[length(currentrun)]
 		currentrun.len--

@@ -55,7 +55,6 @@ ADMIN_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM b
 	if(check_mute(ckey, MUTE_ADMINHELP))
 		to_chat(src, span_danger("Error: Private-Message: You are unable to use PM-s (muted)."), confidential = TRUE)
 		return
-
 	var/client/C
 	if(istext(whom))
 		C = get_client_by_ckey(whom)
@@ -91,6 +90,8 @@ ADMIN_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM b
 		message_type = MESSAGE_TYPE_ADMINPM
 		tickets_system = SStickets
 
+	type = sanitize(type)
+
 	//Check if the mob being PM'd has any open tickets.
 	var/list/tickets = tickets_system.checkForTicket(C, ticket_id)
 	if(!length(tickets))
@@ -107,7 +108,7 @@ ADMIN_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM b
 	if(!msg)
 		set_typing(C, TRUE)
 		tickets_system.refresh_tickets(tickets)
-		msg = tgui_input_text(src, "Message:", "Private message to [holder ? key_name(C, FALSE) : key_name_hidden(C, FALSE)]", multiline = TRUE, encode = FALSE)
+		msg = tgui_input_text(src, "Message:", "Private message to [holder ? key_name(C, FALSE) : key_name_hidden(C, FALSE)]", multiline = TRUE)
 		msg = handle_emojis(msg)
 		set_typing(C, FALSE)
 
@@ -158,7 +159,7 @@ ADMIN_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM b
 			spawn(0) //so we don't hold the caller proc up
 				var/sender = src
 				var/sendername = key
-				var/reply = tgui_input_text(C, msg, "[receive_pm_type] [type] от — [sendername]", multiline = TRUE, encode = FALSE) //show message and await a reply
+				var/reply = tgui_input_text(C, msg, "[receive_pm_type] [type] от — [sendername]", multiline = TRUE) //show message and await a reply
 				if(C && reply)
 					if(sender)
 						C.cmd_admin_pm(sender, reply) //sender is still about, let's reply to them
@@ -166,23 +167,23 @@ ADMIN_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM b
 						adminhelp(reply) //sender has left, adminhelp instead
 				return
 
-	var/ping_link = check_rights(R_ADMIN, FALSE, mob) ? "(<a href='byond://?src=[pm_tracker.UID()];ping=[C.key]'>PING</a>)" : ""
+	var/ping_link = check_rights(R_ADMIN, FALSE, mob) ? "(<a href='byond://?src=[pm_tracker.UID()];[HrefToken(forceGlobal = TRUE)];ping=[C.key]'>PING</a>)" : ""
 	var/ticket_link
-	var/alert_link = check_rights(R_ADMIN, FALSE, mob) ? "(<a href='byond://?src=[pm_tracker.UID()];adminalert=[C.mob.UID()]'>ALERT</a>)" : ""
+	var/alert_link = check_rights(R_ADMIN, FALSE, mob) ? "(<a href='byond://?src=[pm_tracker.UID()];[HrefToken(forceGlobal = TRUE)];adminalert=[C.mob.UID()]'>ALERT</a>)" : ""
 	if(ticket_id != -1)
 		if(message_type == MESSAGE_TYPE_MENTORPM)
-			ticket_link = "(<a href='byond://?_src_=holder;openticket=[ticket_id];is_mhelp=1'>TICKET</a>)"
+			ticket_link = "(<a href='byond://?_src_=holder;[HrefToken(forceGlobal = TRUE)];openticket=[ticket_id];is_mhelp=1'>TICKET</a>)"
 		else
-			ticket_link = "(<a href='byond://?_src_=holder;openticket=[ticket_id]'>TICKET</a>)"
+			ticket_link = "(<a href='byond://?_src_=holder;[HrefToken(forceGlobal = TRUE)];openticket=[ticket_id]'>TICKET</a>)"
 
 	var/emoji_msg = span_emojienabled("[msg]")
-	var/receive_window_link = "(<a href='byond://?src=[C.pm_tracker.UID()];newtitle=[key]'>WINDOW</a>)"
+	var/receive_window_link = "(<a href='byond://?src=[C.pm_tracker.UID()];[HrefToken(forceGlobal = TRUE)];newtitle=[key]'>WINDOW</a>)"
 	var/reply_msg = ""
 	if(key)
 		if(holder && holder.fakekey)
-			reply_msg = "(<a href='byond://?priv_msg=[getStealthKey()];type=[type];ticket_id=[ticket_id]'>REPLY</a>)"
+			reply_msg = "(<a href='byond://?[HrefToken(forceGlobal = TRUE)];priv_msg=[getStealthKey()];type=[type];ticket_id=[ticket_id]'>REPLY</a>)"
 		else
-			reply_msg = "(<a href='byond://?priv_msg=[ckey];type=[type];ticket_id=[ticket_id]'>REPLY</a>)"
+			reply_msg = "(<a href='byond://?[HrefToken(forceGlobal = TRUE)];priv_msg=[ckey];type=[type];ticket_id=[ticket_id]'>REPLY</a>)"
 
 	if(message_type == MESSAGE_TYPE_MENTORPM && check_rights(R_ADMIN|R_MENTOR, FALSE, C.mob))
 		receive_window_link = ticket_link
@@ -195,7 +196,7 @@ ADMIN_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM b
 	)
 	to_chat(C, receive_message)
 	if(C != src)
-		var/send_window_link = "(<a href='byond://?src=[pm_tracker.UID()];newtitle=[C.key]'>WINDOW</a>)"
+		var/send_window_link = "(<a href='byond://?src=[pm_tracker.UID()];[HrefToken(forceGlobal = TRUE)];newtitle=[C.key]'>WINDOW</a>)"
 		if(message_type == MESSAGE_TYPE_MENTORPM && check_rights(R_ADMIN|R_MENTOR, FALSE, mob))
 			send_window_link = ticket_link
 		else if(message_type == MESSAGE_TYPE_ADMINPM && check_rights(R_ADMIN, FALSE, mob))
@@ -251,11 +252,10 @@ ADMIN_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM b
 	last_discord_pm_time = world.time + 10 SECONDS
 
 	var/msg = tgui_input_text(src, "Message:", "Private message to admins on Discord / 400 character limit", multiline = TRUE, encode = FALSE)
-
 	if(!msg)
 		return
 
-	sanitize(msg)
+	msg = sanitize(msg)
 
 	if(length(msg) > 400) // Dont want them super spamming
 		to_chat(src, span_warning("Your message was not sent because it was more then 400 characters find your message below for ease of copy/pasting"), confidential = TRUE)
@@ -339,10 +339,10 @@ GAME_VERB(/client, open_pms_ui, "ЛС", ADMIN_CATEGORY_TICKETS)
 
 	// If it was forced open, make them use a special close button that alerts admins to closure.
 	if(forced)
-		dat += "<div style='float: right'><big><a href='byond://?src=[UID()];altclose=1'>Close</a></big></div>"
+		dat += "<div style='float: right'><big><a href='byond://?src=[UID()];[HrefToken(forceGlobal = TRUE)];altclose=1'>Close</a></big></div>"
 
-	dat += "<a href='byond://?src=[UID()];refresh=1'>Refresh</a>"
-	dat += "<a href='byond://?src=[UID()];showarchived=1'>[show_archived ? "Hide" : "Show"] Archived</a>"
+	dat += "<a href='byond://?src=[UID()];[HrefToken(forceGlobal = TRUE)];refresh=1'>Refresh</a>"
+	dat += "<a href='byond://?src=[UID()];[HrefToken(forceGlobal = TRUE)];showarchived=1'>[show_archived ? "Hide" : "Show"] Archived</a>"
 	dat += "<br>"
 	for(var/title in pms)
 		if(pms[title].archived && !show_archived)
@@ -354,7 +354,7 @@ GAME_VERB(/client, open_pms_ui, "ЛС", ADMIN_CATEGORY_TICKETS)
 			class = "linkOn"
 		else if(!pms[title].read)
 			label = "<i>*[label]</i>"
-		dat += "<a class='[class]' href='byond://?src=[UID()];newtitle=[title]'>[label]</a>"
+		dat += "<a class='[class]' href='byond://?src=[UID()];[HrefToken(forceGlobal = TRUE)];newtitle=[title]'>[label]</a>"
 
 	var/datum/pm_convo/convo = pms[current_title]
 	var/datum/browser/popup = new(user, window_id, "Messages", 1000, 600, src)
@@ -384,10 +384,10 @@ GAME_VERB(/client, open_pms_ui, "ЛС", ADMIN_CATEGORY_TICKETS)
 			dat += "<i>[span_typing("[current_title] is typing")]</i>"
 		dat += "<br>"
 		dat += "</h4>"
-		dat += "<a href='byond://?src=[UID()];reply=[current_title]'>Reply</a>"
-		dat += "<a href='byond://?src=[UID()];archive=[current_title]'>[convo.archived ? "Unarchive" : "Archive"]</a>"
+		dat += "<a href='byond://?src=[UID()];[HrefToken(forceGlobal = TRUE)];reply=[current_title]'>Reply</a>"
+		dat += "<a href='byond://?src=[UID()];[HrefToken(forceGlobal = TRUE)];archive=[current_title]'>[convo.archived ? "Unarchive" : "Archive"]</a>"
 		if(check_rights(R_ADMIN, FALSE, user))
-			dat += "<a href='byond://?src=[UID()];ping=[current_title]'>Ping</a>"
+			dat += "<a href='byond://?src=[UID()];[HrefToken(forceGlobal = TRUE)];ping=[current_title]'>Ping</a>"
 
 	popup.set_content(dat)
 	popup.open()

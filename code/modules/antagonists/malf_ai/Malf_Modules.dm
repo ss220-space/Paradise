@@ -218,12 +218,6 @@
 
 /datum/action/innate/ai/nuke_station/proc/set_us_up_the_bomb()
 	to_chat(owner_AI, span_notice("Nuclear device armed."))
-	GLOB.major_announcement.announce(
-		message = "Во всех системах станции обнаружены вредоносные процессы, пожалуйста, деактивируйте ваш ИИ, чтобы предотвратить возможное повреждение его ядра морали.",
-		new_title = ANNOUNCE_ANOMALY_RU,
-		new_sound = ANNOUNCER_AIMALF,
-	)
-	SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 	owner_AI.nuking = TRUE
 	var/obj/machinery/doomsday_device/DOOM = new /obj/machinery/doomsday_device(owner_AI)
 	owner_AI.doomsday_device = DOOM
@@ -250,11 +244,17 @@
 
 /obj/machinery/doomsday_device/Destroy()
 	STOP_PROCESSING(SSfastprocess, src)
-
+	SSsecurity_level.set_level(SEC_LEVEL_RED)
 	SSshuttle.remove_hostile_environment(src, 'sound/AI/eshuttle_dock.ogg')
 	return ..()
 
 /obj/machinery/doomsday_device/proc/start()
+	GLOB.major_announcement.announce(
+		message = "Во всех системах станции обнаружены вредоносные процессы, пожалуйста, деактивируйте ваш ИИ, чтобы предотвратить возможное повреждение его ядра морали.",
+		new_title = ANNOUNCE_ANOMALY_RU,
+		new_sound = ANNOUNCER_AIMALF,
+	)
+	SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 	detonation_timer = world.time + default_timer
 	timing = 1
 	START_PROCESSING(SSfastprocess, src)
@@ -399,7 +399,7 @@
 	for(var/obj/machinery/firealarm/alarm in SSmachines.get_by_type(/obj/machinery/firealarm))
 		if(!is_station_level(alarm.z))
 			continue
-		alarm.emagged = TRUE
+		alarm.obj_flags |= EMAGGED
 	to_chat(owner, span_notice("All thermal sensors on the station have been disabled. Fire alerts will no longer be recognized."))
 	owner.playsound_local(owner, 'sound/machines/terminal_off.ogg', 50, FALSE, use_reverb = FALSE)
 
@@ -424,7 +424,7 @@
 	for(var/obj/machinery/alarm/AA in SSmachines.get_by_type(/obj/machinery/alarm))
 		if(!is_station_level(AA.z))
 			continue
-		AA.emagged = TRUE
+		AA.obj_flags |= EMAGGED
 	to_chat(owner, span_notice("All air alarm safeties on the station have been overriden. Air alarms may now use the Flood environmental mode."))
 	owner.playsound_local(owner, 'sound/machines/terminal_off.ogg', 50, FALSE, use_reverb = FALSE)
 
@@ -577,7 +577,7 @@
 		C.images -= I
 
 /mob/living/silicon/ai/proc/can_place_transformer(datum/action/innate/ai/place_transformer/action)
-	if(!eyeobj || !isturf(loc) || incapacitated() || !action)
+	if(!eyeobj || !isturf(loc) || incapacitated || !action)
 		return
 	var/turf/middle = get_turf(eyeobj)
 	var/list/turfs = list(middle, locate(middle.x - 1, middle.y, middle.z), locate(middle.x + 1, middle.y, middle.z))

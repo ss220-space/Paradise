@@ -71,6 +71,19 @@
 	/// Whether a mob is alive or dead. TODO: Move this to living - Nodrak
 	var/stat = CONSCIOUS
 
+	/**
+	 * Whether and how a mob is incapacitated
+	 *
+	 * Normally being restrained, agressively grabbed, or in stasis counts as incapacitated
+	 * unless there is a flag being used to check if it's ignored
+	 *
+	 * * bitflags: (see code/__DEFINES/status_effects.dm)
+	 * * INCAPABLE_RESTRAINTS - if our mob is in a restraint (handcuffs)
+	 * * INCAPABLE_GRAB - if our mob is being agressively grabbed
+	 *
+	**/
+	VAR_FINAL/incapacitated = NONE
+
 	/// The zone this mob is currently targeting
 	var/zone_selected = BODY_ZONE_CHEST
 
@@ -216,8 +229,8 @@
 	/// Override for sound_environments. If this is set the user will always hear a specific type of reverb (Instead of the area defined reverb)
 	var/sound_environment_override = SOUND_ENVIRONMENT_NONE
 
-	/// The last mob/living/carbon to push/drag/grab this mob (mostly used by slimes friend recognition)
-	var/mob/living/carbon/LAssailant = null
+	/// Weak reference to the last mob/living/carbon to push/drag/grab this mob (mostly used by slimes friend recognition)
+	var/datum/weakref/LAssailant = null
 
 	/// Construct spells and mime spells. Spells that do not transfer from one mob to another and can not be lost in mindswap.
 	var/list/mob_spell_list
@@ -354,4 +367,4 @@
 
 	///Cursor icon used when holding shift over things
 	var/examine_cursor_icon = 'icons/effects/mouse_pointers/examine_pointer.dmi'
-
+	var/scope_pointer_icon

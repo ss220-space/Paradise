@@ -16,7 +16,7 @@
 		to_chat(user, span_warning(span_zombie("Мы не чуем мозгов в [target.declent_ru(PREPOSITIONAL)].")))
 		return FALSE
 
-	if(user.grab_state >= GRAB_AGGRESSIVE)
+	if(user.pulling == target)
 		if(HAS_TRAIT(target, TRAIT_PIERCEIMMUNE))
 			to_chat(user, span_warning(span_zombie("Наш укус не может пробить кожу [target.declent_ru(GENITIVE)]!")))
 			return FALSE

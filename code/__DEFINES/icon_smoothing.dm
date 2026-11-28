@@ -215,6 +215,8 @@
 #define SMOOTH_GROUP_BINGLE_PIT S_OBJ(86)
 #define SMOOTH_GROUP_GRAV_FIELD S_OBJ(87)
 
+#define SMOOTH_GROUP_MESH_FENCE S_OBJ(88) ///obj/structure/fence/meshfence, /obj/structure/fence/door/mesh
+
 /// Performs the work to set smoothing_groups and canSmoothWith.
 /// An inlined function used in both turf/Initialize and atom/Initialize.
 /// TODO: RETURN TESTS WHEN THEY ARE READY

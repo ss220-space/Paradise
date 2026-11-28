@@ -234,6 +234,15 @@
 				return
 			our_rpd.create_disposals_pipe(user, src)
 
+		if(RPD_LOGISTICS_MODE)
+			for(var/obj/machinery/door/airlock/airlock in src)
+				if(!airlock.density)
+					continue
+
+				to_chat(user, span_warning("That type of pipe won't fit under [airlock]!"))
+				return
+			our_rpd.create_logistics_pipe(user, src)
+
 		if(RPD_ROTATE_MODE)
 			our_rpd.rotate_all_pipes(user, src)
 
@@ -616,6 +625,15 @@
 				on_top.singularity_act()
 	ChangeTurf(baseturf)
 	return 2
+
+/turf/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(istype(tool, /obj/item/stack/pipe_cleaner_coil))
+		add_fingerprint(user) // thats clowns rights
+		var/obj/item/stack/pipe_cleaner_coil/pipe_c = tool
+		pipe_c.place_turf(src, user)
+		return ITEM_INTERACT_SUCCESS
+
+	return ..()
 
 /turf/attackby(obj/item/used, mob/user, params)
 	. = ..()
@@ -1181,3 +1199,7 @@
 	for(var/atom/movable/to_clean as anything in src)
 		if(all_contents || HAS_TRAIT(to_clean, TRAIT_MOPABLE))
 			. |= to_clean.wash_tg(clean_types)
+
+/turf/proc/on_atom_inited(datum/source, atom/movable/movable)
+	SIGNAL_HANDLER
+	return
