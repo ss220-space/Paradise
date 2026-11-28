@@ -61,17 +61,32 @@
 /obj/item/radio/headset/get_internal_channels()
 	return list()
 
+/obj/item/radio/headset/proc/is_in_ear_slot()
+	if(ishuman(loc))
+		var/mob/living/carbon/human/wearer = loc
+		return wearer.l_ear == src || wearer.r_ear == src
+	if(isanimal(loc) || isAI(loc) || istype(loc, /obj/item/paicard))
+		return TRUE
+	return FALSE
+
 /obj/item/radio/headset/proc/possibly_deactivate_in_loc()
-	if(!listening)
-		return
-	if(ismob(loc))
+	if(is_in_ear_slot())
 		set_listening(should_be_listening)
 	else
 		set_listening(FALSE, actual_setting = FALSE)
 
 /obj/item/radio/headset/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
+	if(isnull(loc))
+		return
 	possibly_deactivate_in_loc()
+
+/obj/item/radio/headset/equipped(mob/user, slot, initial = FALSE)
+	. = ..()
+	if(slot & ITEM_SLOT_EARS)
+		set_listening(should_be_listening)
+	else
+		set_listening(FALSE, actual_setting = FALSE)
 
 /obj/item/radio/headset/examine(mob/user)
 	. = ..()
@@ -1281,3 +1296,4 @@
 	to_chat(user, span_notice("Вы модифицировали гарнитуру в [headset.declent_ru(ACCUSATIVE)]. Теперь она защищает ваши органы слуха от громких звуков."))
 	qdel(src)
 	qdel(mask)
+
