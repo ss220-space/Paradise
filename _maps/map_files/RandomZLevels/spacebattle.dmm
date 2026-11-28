@@ -6654,15 +6654,6 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
 "wb" = (
-/obj/item/spacepod_equipment/cargo/ore{
-	pixel_x = -5
-	},
-/obj/item/spacepod_equipment/sec_cargo/chair{
-	pixel_x = 5
-	},
-/obj/item/spacepod_equipment/cargo{
-	pixel_y = 13
-	},
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -13552,7 +13543,6 @@
 /obj/effect/turf_decal/box/corners{
 	dir = 8
 	},
-/obj/item/spacepod_equipment/weaponry/laser,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
@@ -14447,19 +14437,6 @@
 	icon_state = "neutral"
 	},
 /area/awaymission/spacebattle/hallway11)
-"UZ" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/item/spacepod_equipment/weaponry/mining_laser,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/sign/vacuum{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/awaymission/spacebattle/hallway6)
 "Va" = (
 /obj/effect/turf_decal/box/corners{
 	dir = 4
@@ -54584,7 +54561,7 @@ JY
 SF
 Pk
 HA
-UZ
+ln
 mo
 eH
 ab
