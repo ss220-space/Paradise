@@ -770,6 +770,23 @@
 /**
  * Moth
  */
+/datum/status_effect/burnt_wings/on_creation(mob/living/new_owner, ...)
+	. = ..()
+	var/mob/living/carbon/human/H = new_owner
+	if(istype(H))
+		H.change_head_accessory("Burnt Off Antennae")
+		H.change_body_accessory("Burnt Off Wings", H)
+
+/datum/emote/living/carbon/human/moth/flap/can_run_emote(mob/user, status_check = TRUE, intentional)
+	. = ..()
+	if(!.)
+		return FALSE
+	var/mob/living/carbon/human/H = user
+	if(H.has_status_effect(STATUS_EFFECT_BURNT_WINGS))
+		to_chat(user, span_warning("У вас сгорели крылья!"))
+		return FALSE
+	return TRUE
+
 /datum/emote/living/carbon/human/moth
 	abstract_type = /datum/emote/living/carbon/human/moth
 	species_type_whitelist_typecache = list(/datum/species/moth)
@@ -778,29 +795,77 @@
 /datum/emote/living/carbon/human/moth/can_run_emote(mob/living/carbon/human/user, status_check, intentional)
 	. = ..()
 	if(. && wings_required && !user.get_organ(BODY_ZONE_WING))
-		to_chat(user, span_warning("You have no wings!"))
+		to_chat(user, span_warning("У вас нет крыльев!"))
 		return FALSE
+
 
 /datum/emote/living/carbon/human/moth/flap
 	name = "Махать крыльями (нианы)"
 	key = "flap"
 	key_third_person = "flaps"
 	message = "маш%(ет,ут)% крыльями."
+	sound = 'sound/effects/mob_effects/flap.ogg'
+	species_type_whitelist_typecache = list(/datum/species/moth)
+	var/wing_time = 1 SECONDS
 	wings_required = TRUE
+
+/datum/emote/living/carbon/human/moth/flap/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	if(. && ishuman(user))
+		var/mob/living/carbon/human/H = user
+		H.toggle_wings()
+		addtimer(CALLBACK(src, PROC_REF(finish_flap), H), wing_time)
+
+/datum/emote/living/carbon/human/moth/flap/proc/finish_flap(mob/living/carbon/human/H)
+	if(QDELETED(H) || H.has_status_effect(STATUS_EFFECT_BURNT_WINGS))
+		return
+	H.toggle_wings()
 
 /datum/emote/living/carbon/human/moth/flap/angry
 	name = "Агрессивно махать крыльями (нианы)"
 	key = "aflap"
 	key_third_person = "aflaps"
+	sound = 'sound/effects/mob_effects/angryflap.ogg'
 	message = "агрессивно маш%(ет,ут)% крыльями!"
+	wing_time = 0.5 SECONDS
 
-/datum/emote/living/carbon/human/moth/flutter
-	name = "Расправить крылья (нианы)"
-	key = "flutter"
-	key_third_person = "flutters"
-	message = "расправля%(ет,ют)% крылья."
-	wings_required = TRUE
+/datum/emote/living/carbon/human/moth/wings
+	name = "раскрыть/сложить крылья (нианы)"
+	key = "wings"
+	key_third_person = "wings"
+	message = "свои крылья."
 
+/datum/emote/living/carbon/human/moth/wings/can_run_emote(mob/user, status_check = TRUE, intentional)
+	. = ..()
+	if(!.)
+		return FALSE
+	if(!ishuman(user))
+		return FALSE
+	var/mob/living/carbon/human/H = user
+	var/obj/item/organ/external/wing/wing_organ = H.get_organ(BODY_ZONE_WING)
+	if(!wing_organ || !istype(wing_organ.body_accessory, /datum/body_accessory/wing))
+		to_chat(user, span_warning("У вас нет крыльев!"))
+		return FALSE
+	if(wing_organ.body_accessory == GLOB.body_accessory_by_name["Burnt Off Wings"])
+		to_chat(user, span_warning("У вас сгорели крылья!"))
+		return FALSE
+	return TRUE
+
+/datum/emote/living/carbon/human/moth/wings/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	if(.)
+		var/mob/living/carbon/human/H = user
+		H.toggle_wings()
+
+/datum/emote/living/carbon/human/moth/wings/select_message_type(mob/user, intentional)
+	. = ..()
+	var/mob/living/carbon/human/H = user
+	if(H.body_accessory && istype(H.body_accessory, /datum/body_accessory/wing))
+		var/datum/body_accessory/wing/wings = H.body_accessory
+		if(!wings.is_open)
+			. = "расправляет " + message
+		else
+			. = "складывает " + message
 /**
  * Vox
  */

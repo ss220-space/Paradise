@@ -944,24 +944,35 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(dna.species.optional_body_accessory)
 			return
 		bodypart_wing.body_accessory = GLOB.body_accessory_by_name[dna.species.default_bodyacc]
-	if(!body_accessory)
-		return
-	var/icon/wings_icon = new /icon(body_accessory.icon, body_accessory.icon_state)
+
+	var/datum/body_accessory/wing/wings = bodypart_wing.body_accessory
+
+	if(!HAS_TRAIT(src, TRAIT_BURNT_WINGS))
+		if(wings.is_open)
+			wings.icon = wings.open_icon
+			wings.pixel_x_offset = -22
+		else
+			wings.icon = initial(wings.icon)
+			wings.pixel_x_offset = initial(wings.pixel_x_offset)
+
+	var/icon/wings_icon = new /icon(wings.icon, wings.icon_state)
 	if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
 		wings_icon.ColorTone(COLORTONE_DEAD_EXT_ORGAN)
 		wings_icon.SetIntensity(0.7)
-	var/mutable_appearance/wings = mutable_appearance(wings_icon, layer = -WING_LAYER)
-	overlays_standing[WING_LAYER] = wings
+	var/mutable_appearance/wing_overlay = mutable_appearance(wings_icon, layer = -WING_LAYER)
+	wing_overlay.pixel_x = wings.pixel_x_offset
+	overlays_standing[WING_LAYER] = wing_overlay
 
-	if(bodypart_wing.body_accessory.has_behind)
-		var/icon/under_wing_icon = new /icon(body_accessory.icon, "[body_accessory.icon_state]_BEHIND")
+	if(wings.has_behind)
+		var/icon/under_wing_icon = new /icon(wings.icon, "[wings.icon_state]_BEHIND")
 		if(HAS_TRAIT(src, TRAIT_I_WANT_BRAINS))
 			under_wing_icon.ColorTone(COLORTONE_DEAD_EXT_ORGAN)
 			under_wing_icon.SetIntensity(0.7)
 		var/mutable_appearance/under_wing = mutable_appearance(under_wing_icon, layer = -WING_UNDERLIMBS_LAYER)
+		under_wing.pixel_x = wings.pixel_x_offset
 		overlays_standing[WING_UNDERLIMBS_LAYER] = under_wing
 
-		var/icon/accessory_s = icon(bodypart_wing.body_accessory.icon, bodypart_wing.body_accessory.icon_state)
+		var/icon/accessory_s = icon(wings.icon, wings.icon_state)
 		var/icon/tempicon = icon(accessory_s, dir = NORTH)
 		tempicon.Flip(SOUTH)
 		accessory_s.Insert(tempicon, dir = SOUTH)
