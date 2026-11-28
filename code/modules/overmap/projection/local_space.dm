@@ -137,12 +137,12 @@
 	token.physical_space = space
 	return space
 
-/obj/overmap/entity/proc/record_undock_origin()
+/obj/overmap/entity/proc/record_undock_origin(obj/docking_port/stationary/pad)
 	map_hull()
 
 	if(docked_ship)
 		undock_ship()
-	undock_host = docked_to || SSovermap.resolve_nest_host(shuttle)
+	undock_host = SSovermap.resolve_nest_host(shuttle, pad) || docked_to
 	if(istype(undock_host, /obj/overmap/entity/service_site))
 		undock_origin = null
 		undock_zone = null
@@ -153,18 +153,17 @@
 		undock_origin = list(hull_z, hull_center_x, hull_center_y, shuttle.overmap_origin()[2])
 		return
 	undock_zone = SSovermap.station_docking_zone
-	if(undock_zone?.accepts_pad(shuttle?.get_docked()))
+	if(undock_zone?.accepts_pad(pad))
 		undock_host = SSovermap.station_entity
 		undock_origin = list(hull_z, hull_center_x, hull_center_y, shuttle.overmap_origin()[2])
 		return
 	undock_zone = null
 
-	var/datum/overmap_bubble/here_frame
-	here_frame = SSovermap.bubble_for_turf(get_turf(shuttle))
-	undock_host = docked_to || (here_frame && here_frame.host)
-	var/datum/overmap_bubble/host_frame = undock_host && undock_host.physical_space
-
-	if(!here_frame || (host_frame && host_frame != here_frame))
+	var/datum/overmap_bubble/frame = undock_host?.physical_space
+	if(!frame)
+		frame = SSovermap.bubble_for_turf(get_turf(shuttle))
+		undock_host = frame?.host
+	if(!frame || frame.bubble_z != hull_z)
 		undock_origin = null
 		return
 	undock_origin = list(hull_z, hull_center_x, hull_center_y, shuttle.overmap_origin()[2])

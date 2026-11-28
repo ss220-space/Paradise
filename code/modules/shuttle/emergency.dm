@@ -236,7 +236,7 @@
 	return TRUE
 
 /obj/docking_port/mobile/emergency/check()
-	if(is_nav_emagged())
+	if(is_nav_emagged() || transfer_busy)
 		return
 	if(!timer)
 		return
@@ -325,8 +325,8 @@
 				var/destination_dock = force_hijacked ? "emergency_syndicate" : "emergency_away"
 				overmap_escape_dock = destination_dock
 				mode = SHUTTLE_ESCAPE
-				overmap_leg_started = TRUE
 				var/overmap_result = overmap_follow_programmed_leg(destination_dock)
+				overmap_leg_started = isnull(overmap_result)
 				if(overmap_result == FALSE)
 					enterTransit()
 					setTimer(SSshuttle.emergencyEscapeTime)
@@ -342,12 +342,18 @@
 				// now move the actual emergency shuttle to centcomm
 				// unless the shuttle is "hijacked"
 				var/destination_dock = overmap_escape_dock || "emergency_away"
-				var/overmap_result = overmap_follow_programmed_leg(destination_dock)
-				if(isnull(overmap_result))
-					overmap_leg_started = TRUE
+				if(overmap_leg_started)
+					var/overmap_result = overmap_follow_programmed_leg(destination_dock)
+					if(isnull(overmap_result))
+						return
+					if(overmap_result == FALSE)
+						overmap_leg_started = FALSE
+						setTimer(SSshuttle.emergencyEscapeTime)
+						return
+				var/obj/docking_port/stationary/arrival = SSshuttle.getDock(destination_dock, warn = FALSE)
+				if(!arrival || (arrival.get_docked() != src && dock(arrival) != DOCKING_SUCCESS))
+					setTimer(2 SECONDS)
 					return
-				if(overmap_result == FALSE)
-					dock_id(destination_dock)
 
 				if(devil_on_shuttle || force_hijacked)
 					GLOB.major_announcement.announce(

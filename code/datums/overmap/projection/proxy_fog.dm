@@ -163,10 +163,9 @@
 	if(!anchor)
 		return
 	for(var/client/viewer as anything in eyes)
-		for(var/turf/spot as anything in eyes[viewer])
-			if(spot.z == anchor.z && (spot.x - frame.target_x) ** 2 + (spot.y - frame.target_y) ** 2 <= reach ** 2)
-				out[viewer] = TRUE
-				break
+		var/turf/spot = eyes[viewer]
+		if(spot.z == anchor.z && (spot.x - frame.target_x) ** 2 + (spot.y - frame.target_y) ** 2 <= reach ** 2)
+			out[viewer] = TRUE
 
 /datum/fog_scene/proc/cast_center(datum/fog_view/view)
 	return null
@@ -268,16 +267,10 @@
 	var/list/zones = vessel.hull_area_turfs
 	if(!length(eyes) || !length(zones))
 		return
-	for(var/viewer_entry, spots_entry in eyes)
-		var/client/viewer = viewer_entry
-		var/list/spots = spots_entry
-		if(!length(spots))
-			continue
-
-		for(var/turf/spot as anything in spots)
-			if(zones[spot])
-				out[viewer] = TRUE
-				break
+	for(var/client/viewer as anything in eyes)
+		var/turf/spot = eyes[viewer]
+		if(zones[spot])
+			out[viewer] = TRUE
 
 /datum/fog_scene/station/cast_center(datum/fog_view/view)
 	var/client/viewer = view.owner

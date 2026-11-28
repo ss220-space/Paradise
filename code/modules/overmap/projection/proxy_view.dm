@@ -54,12 +54,14 @@
 				RegisterSignal(content, COMSIG_MOVABLE_MOVED, PROC_REF(on_multitile_moved))
 				LAZYADD(watched_multitile, content)
 			if(content.loc == source && !(content.vis_flags & VIS_HIDE))
-				frame += project_content(content, wanted_offsets)
+				if(!isobserver(content))
+					frame |= project_content(content, wanted_offsets)
 				if(ismob(content) || content.hud_list)
 					hud_sources += content
 		for(var/atom/movable/content as anything in source.vis_contents)
 			if(content != source.lighting_object && !(content.vis_flags & VIS_HIDE))
-				frame |= project_content(content, wanted_offsets)
+				if(!isobserver(content))
+					frame |= project_content(content, wanted_offsets)
 				if(ismob(content) || content.hud_list)
 					hud_sources |= content
 	for(var/atom/movable/content as anything in offset_visuals)

@@ -382,6 +382,9 @@
 		shuttle_fit = SHUTTLE_FIT_HULL
 
 /obj/docking_port/mobile/register()
+	return register_mobile_port()
+
+/obj/docking_port/mobile/proc/register_mobile_port()
 	if(!SSshuttle)
 		CRASH("Docking port [src] could not initialize. SSshuttle doesnt exist!")
 

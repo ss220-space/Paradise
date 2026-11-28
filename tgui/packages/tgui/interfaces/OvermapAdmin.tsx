@@ -644,7 +644,9 @@ const SpawnTab = () => {
   const [large, setLarge] = useState(false);
   const [spawnName, setSpawnName] = useState('');
   const [iconState, setIconState] = useState('object');
-  const [movable, setMovable] = useState(false);
+  const objectMobility = useState(false);
+  const shuttleMobility = useState(true);
+  const [movable, setMovable] = kind === 'shuttle' ? shuttleMobility : objectMobility;
   const [immune, setImmune] = useState(false);
   const [visible, setVisible] = useState(false);
   const [hidden, setHidden] = useState(false);

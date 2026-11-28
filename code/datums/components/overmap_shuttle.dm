@@ -447,7 +447,6 @@
 		return profile.block_move_message || "Шаттл не может перемещаться с текущим грузом."
 	vessel.last_dock_id = vessel.shuttle.getDockedId()
 	vessel.selected_dock_id = null
-	vessel.record_undock_origin()
 	var/obj/docking_port/stationary/undock_pad = get_undock_pad()
 	if(!undock_pad)
 		return "Гиперпространство ещё не готово."
@@ -531,8 +530,8 @@
 	if(vessel.formation_transfer)
 		return
 	if(istype(new_dock, /obj/docking_port/stationary/transit))
-		if(!vessel.undock_origin && SSovermap.resolve_nest_host(port, old_dock)?.dock_host?.planet_landing)
-			vessel.record_undock_origin()
+		if(!istype(old_dock, /obj/docking_port/stationary/transit))
+			vessel.record_undock_origin(old_dock)
 		return
 	if(vessel.atmosphere?.surface.bubble_z == new_dock.z)
 		var/list/ground = list()

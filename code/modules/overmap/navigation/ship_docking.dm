@@ -2,6 +2,17 @@
 	name = "ship docking collar"
 	turf_type = /turf/space
 	area_type = /area/shuttle/transit
+	var/obj/machinery/door/airlock/external/docking/guest_airlock
+
+/obj/docking_port/stationary/overmap/formation/Destroy(force)
+	if(!force)
+		return QDEL_HINT_LETMELIVE
+	for(var/obj/machinery/door/airlock/external/docking/door in list(dock_airlock, guest_airlock))
+		if(!QDELETED(door) && door.formation_pad == src)
+			door.formation_pad = null
+			door.sync_overmap_bolts()
+	guest_airlock = null
+	return ..()
 
 /obj/overmap/entity/proc/formation_capacity()
 	return length(flight_reservation?.reserved_turfs)
@@ -53,7 +64,7 @@
 	var/turf/host_door_turf = theirs[1]
 	var/obj/machinery/door/airlock/external/docking/own_door = locate() in own_door_turf
 	var/obj/machinery/door/airlock/external/docking/host_door = locate() in host_door_turf
-	if(!own_door || !host_door || !shuttle.assigned_transit)
+	if(!own_door || !host_door || own_door.formation_pad || host_door.formation_pad || !shuttle.assigned_transit)
 		return FALSE
 	var/obj/machinery/door/airlock/external/docking/previous_collar = shuttle.overmap_collar
 	shuttle.overmap_collar = own_door
@@ -74,6 +85,11 @@
 		qdel(pad, TRUE)
 		return FALSE
 	formation_pad = pad
+	pad.guest_airlock = own_door
+	host_door.formation_pad = pad
+	own_door.formation_pad = pad
+	host_door.unlock(TRUE)
+	own_door.unlock(TRUE)
 	docked_ship = host
 	dock_host_collar = get_turf(host_door)
 	dock_collar_angle = SIMPLIFY_DEGREES(own[3] + rotation)

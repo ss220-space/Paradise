@@ -81,6 +81,8 @@
 	return null
 
 /obj/docking_port/mobile/emergency/proc/overmap_launch_escape_pods()
+	if(src != SSshuttle.emergency)
+		return
 	for(var/obj/docking_port/mobile/pod/pod as anything in SSshuttle.mobile)
 		if(!istype(pod) || !is_station_level(pod.z))
 			continue

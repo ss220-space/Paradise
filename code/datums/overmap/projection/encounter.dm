@@ -196,10 +196,13 @@
 	for(var/obj/overmap/target as anything in sector?.objects)
 		if(QDELETED(target) || !isturf(target.loc) || istype(target, /obj/overmap/entity/shuttle) || istype(target, /obj/overmap/entity/pod) || istype(target, /obj/overmap/feature/hazard))
 			continue
+		var/obj/overmap/entity/virtual_structure/structure = target
+		if(istype(structure) && structure.free_flight_view)
+			continue
 		var/world_x = (target.x + target.position[1]) * span
 		var/world_y = (target.y + target.position[2]) * span
 		var/list/spot = to_bubble(world_x, world_y)
-		if(!watched_near(spot, world.view + 1, eyes))
+		if(!covers(spot, 0) || !watched_near(spot, world.view + 1, eyes))
 			continue
 		wanted[target] = TRUE
 		place_contact_proxy(target, spot)

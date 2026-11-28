@@ -843,7 +843,7 @@
 		port.id = "[port.id]_[rand(100, 999)]"
 	if(!(port in SSshuttle.mobile))
 		port.timid = FALSE
-		port.register()
+		port.register_mobile_port()
 	SSovermap.area_shuttle_cache_ready = FALSE
 
 /datum/overmap_admin_panel/proc/admin_jump_to_token(obj/overmap/token, mob/user)

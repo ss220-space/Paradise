@@ -49,6 +49,7 @@
 
 	var/overmap_collar_id
 	var/obj/docking_port/stationary/overmap_pad
+	var/obj/docking_port/stationary/overmap/formation/formation_pad
 	var/owns_overmap_pad = FALSE
 	var/overmap_is_support = FALSE
 
@@ -69,6 +70,11 @@
 		sync_overmap_bolts()
 
 /obj/machinery/door/airlock/external/docking/Destroy()
+	if(formation_pad?.dock_airlock == src)
+		formation_pad.dock_airlock = null
+	if(formation_pad?.guest_airlock == src)
+		formation_pad.guest_airlock = null
+	formation_pad = null
 	if(owns_overmap_pad && overmap_pad)
 		var/obj/docking_port/stationary/pad = overmap_pad
 		overmap_pad = null
@@ -218,6 +224,9 @@
 	return dock_name || overmap_pad?.overmap_dock_label || name
 
 /obj/machinery/door/airlock/external/docking/proc/sync_overmap_bolts()
+	if(formation_pad)
+		unlock(TRUE)
+		return
 	var/obj/docking_port/stationary/pad = overmap_pad
 	if(!pad && id_tag)
 		pad = SSshuttle.getDock(id_tag, warn = FALSE)
@@ -243,8 +252,12 @@
 		if(locked)
 			unlock(TRUE)
 		return
+	if(operating)
+		addtimer(CALLBACK(src, PROC_REF(sync_overmap_bolts)), 1 SECONDS, TIMER_UNIQUE)
+		return
 	close()
-	lock()
+	if(density || operating == DOOR_CLOSING)
+		lock(TRUE)
 
 /obj/machinery/door/airlock/external/docking/onShuttleMove()
 	if(owns_overmap_pad && !overmap_pad?.get_docked())

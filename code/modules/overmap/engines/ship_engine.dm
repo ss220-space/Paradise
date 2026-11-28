@@ -190,23 +190,20 @@
 			light.pixel_z = flame.pixel_z
 			. += light
 		return
-	if(firing)
-		for(var/push in GLOB.cardinal)
-			if(!(active_pushes & push))
-				continue
-			. += exhaust_overlay(mutable_appearance(burn_icon, burn_state, appearance_flags = PIXEL_SCALE), REVERSE_DIR(push))
-			. += exhaust_overlay(emissive_appearance(burn_icon, burn_state, src, appearance_flags = PIXEL_SCALE), REVERSE_DIR(push))
+	if(firing && (active_pushes & REVERSE_DIR(dir)))
+		. += exhaust_overlay(mutable_appearance(burn_icon, burn_state, appearance_flags = PIXEL_SCALE))
+		. += exhaust_overlay(emissive_appearance(burn_icon, burn_state, src, appearance_flags = PIXEL_SCALE))
 	if(icon != 'icons/obj/machines/ship_engine.dmi')
 		return
 	if(can_burn())
 		. += mutable_appearance(icon, "nozzle_idle")
 
-/obj/machinery/ship_engine/proc/exhaust_overlay(mutable_appearance/flame, exhaust_dir = dir)
+/obj/machinery/ship_engine/proc/exhaust_overlay(mutable_appearance/flame)
 	var/flame_scale = 1 + (engine_size - 1) / 2
 	var/reach = (engine_size + flame_scale) * ICON_SIZE_X / 2
-	flame.dir = REVERSE_DIR(exhaust_dir)
-	flame.pixel_w = (engine_size - 1) * ICON_SIZE_X / 2 + (!!(exhaust_dir & EAST) - !!(exhaust_dir & WEST)) * reach
-	flame.pixel_z = (engine_size - 1) * ICON_SIZE_Y / 2 + (!!(exhaust_dir & NORTH) - !!(exhaust_dir & SOUTH)) * reach
+	flame.dir = REVERSE_DIR(dir)
+	flame.pixel_w = (engine_size - 1) * ICON_SIZE_X / 2 + (!!(dir & EAST) - !!(dir & WEST)) * reach
+	flame.pixel_z = (engine_size - 1) * ICON_SIZE_Y / 2 + (!!(dir & NORTH) - !!(dir & SOUTH)) * reach
 	if(flame_scale != 1)
 		flame.transform = matrix().Scale(flame_scale)
 	return flame

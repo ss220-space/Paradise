@@ -231,6 +231,7 @@
 		if(!visual)
 			visual = new(null)
 			visual.appearance = payload.appearance
+			visual.vis_flags = VIS_HIDE
 			visual.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 			visual.invisibility = 0
 			visual.layer = ABOVE_MOB_LAYER

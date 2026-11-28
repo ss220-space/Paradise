@@ -691,16 +691,13 @@ SUBSYSTEM_DEF(overmap)
 			if(!eye_turf)
 				continue
 			eyes += eye_turf
-			var/list/spots = list(eye_turf)
-
 			var/obj/overmap/entity/inside_vessel = flying_areas[eye_turf.loc]
 			if(inside_vessel?.local_space && !inside_vessel.atmosphere)
 				var/list/virtual_eye_world = inside_vessel.hull_to_world(eye_turf.x, eye_turf.y)
 				var/turf/virtual_eye = inside_vessel.local_space.turf_at(virtual_eye_world[1], virtual_eye_world[2])
 				if(virtual_eye)
 					eyes += virtual_eye
-					spots += virtual_eye
-			client_eyes[viewer] = spots
+			client_eyes[viewer] = eye_turf
 			var/datum/eye_frame = frame_owner(eye_turf)
 			if(eye_frame)
 				var/list/frame_eyes = viewports[eye_frame]

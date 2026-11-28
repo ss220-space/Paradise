@@ -56,17 +56,6 @@
 			}
 		},
 		{
-			"id": "systems_2",
-			"name": "Астерион",
-			"x": 14.58,
-			"y": -3671.54,
-			"kind": "wilderness",
-			"faction": "trans_solar",
-			"marker": {
-				"shape": "ring"
-			}
-		},
-		{
 			"id": "systems_3",
 			"generation": {
 				"ruins": 1
@@ -103,28 +92,6 @@
 			}
 		},
 		{
-			"id": "systems_6",
-			"name": "Семь Ветров",
-			"x": 4531.96,
-			"y": -697.36,
-			"kind": "wilderness",
-			"faction": "trans_solar",
-			"marker": {
-				"shape": "ring"
-			}
-		},
-		{
-			"id": "systems_7",
-			"name": "Таласса",
-			"x": 4444.44,
-			"y": 2703.46,
-			"kind": "wilderness",
-			"faction": "trans_solar",
-			"marker": {
-				"shape": "ring"
-			}
-		},
-		{
 			"id": "systems_8",
 			"name": "Створ Лукусты",
 			"x": 577.93,
@@ -150,7 +117,7 @@
 			"name": "Нить Ириды",
 			"x": -3404.94,
 			"y": 1010.25,
-			"kind": "wilderness",
+			"kind": "transit",
 			"marker": {
 				"shape": "ring"
 			}
@@ -160,7 +127,7 @@
 			"name": "Тёмная Падь",
 			"x": -4759.98,
 			"y": -1088.18,
-			"kind": "wilderness",
+			"kind": "transit",
 			"marker": {
 				"shape": "ring"
 			}
@@ -178,7 +145,7 @@
 			"name": "Алый Шип",
 			"x": -4067,
 			"y": 3674.97,
-			"kind": "wilderness",
+			"kind": "transit",
 			"marker": {
 				"shape": "ring"
 			},
@@ -373,37 +340,6 @@
 			"waypoints": []
 		},
 		{
-			"id": "links_6",
-			"from": "systems_5",
-			"to": "systems_6",
-			"state": "active",
-			"access": "public",
-			"color": "#1b67a5",
-			"waypoints": [],
-			"hatch": "none",
-			"line": "dashed"
-		},
-		{
-			"id": "links_7",
-			"from": "systems_6",
-			"to": "systems_7",
-			"state": "active",
-			"access": "public",
-			"color": "#1b67a5",
-			"waypoints": [],
-			"line": "dashed"
-		},
-		{
-			"id": "links_8",
-			"from": "systems_5",
-			"to": "systems_2",
-			"state": "active",
-			"access": "public",
-			"color": "#1b67a5",
-			"waypoints": [],
-			"line": "dashed"
-		},
-		{
 			"id": "links_9",
 			"from": "systems_3",
 			"to": "systems_10",
@@ -467,5 +403,39 @@
 			"waypoints": []
 		}
 	],
-	"pois": []
+	"pois": [
+		{
+			"id": "systems_2",
+			"name": "Астерион",
+			"x": 14.58,
+			"y": -3671.54,
+			"kind": "landmark",
+			"color": "#1b67a5",
+			"marker": {
+				"shape": "ring"
+			}
+		},
+		{
+			"id": "systems_6",
+			"name": "Семь Ветров",
+			"x": 4531.96,
+			"y": -697.36,
+			"kind": "landmark",
+			"color": "#1b67a5",
+			"marker": {
+				"shape": "ring"
+			}
+		},
+		{
+			"id": "systems_7",
+			"name": "Таласса",
+			"x": 4444.44,
+			"y": 2703.46,
+			"kind": "landmark",
+			"color": "#1b67a5",
+			"marker": {
+				"shape": "ring"
+			}
+		}
+	]
 }

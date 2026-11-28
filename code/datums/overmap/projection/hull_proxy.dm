@@ -164,7 +164,7 @@
 	var/list/wanted = list()
 	for(var/client/viewer as anything in SSovermap.client_eyes)
 		var/turf/eye = get_turf(viewer.eye || viewer.mob)
-		if(eye?.z != new_z)
+		if(eye?.z != new_z || eye.x < bounds[1] || eye.y < bounds[2] || eye.x > bounds[3] || eye.y > bounds[4])
 			continue
 		var/dx = eye.x - new_center_x
 		var/dy = eye.y - new_center_y
@@ -182,12 +182,20 @@
 	turned.Turn(new_heading)
 	for(var/key in wanted)
 		var/list/cell = wanted[key]
+		var/dx = cell[1] - vessel.hull_center_x
+		var/dy = cell[2] - vessel.hull_center_y
+		var/x = new_center_x + dx * cosine + dy * sine
+		var/y = new_center_y + dy * cosine - dx * sine
+		if(round(x, 1) < bounds[1] || round(y, 1) < bounds[2] || round(x, 1) > bounds[3] || round(y, 1) > bounds[4])
+			wanted -= key
+			continue
 		var/datum/overmap_virtual_model/model = cell[3]
 		var/obj/effect/abstract/hull_proxy_tile/tile = tiles_by_turf[key]
 		var/fresh = !tile
 		if(fresh)
 			tile = new(null)
 			tile.appearance = model.visual
+			tile.vis_flags = VIS_HIDE
 			tile.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 			SET_PLANE_EXPLICIT(tile, GAME_PLANE, viewer_turf)
 			tiles_by_turf[key] = tile
@@ -196,9 +204,7 @@
 			tile.overlays = model.visual.overlays
 		projected.drawn[tile] = tile
 		projected.source_positions[tile] = cell
-		var/dx = cell[1] - vessel.hull_center_x
-		var/dy = cell[2] - vessel.hull_center_y
-		tile.glide(new_center_x + dx * cosine + dy * sine, new_center_y + dy * cosine - dx * sine, new_z, turned, bounds, fresh ? 0 : time)
+		tile.glide(x, y, new_z, turned, bounds, fresh ? 0 : time)
 	for(var/key in tiles_by_turf)
 		if(!wanted[key])
 			qdel(tiles_by_turf[key])

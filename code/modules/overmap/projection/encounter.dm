@@ -403,8 +403,8 @@
 	draw_scatter(elapsed, is_watched)
 	show_neighbors(elapsed, is_watched)
 	if(is_watched)
-		show_drifters(SSovermap.bubbles, elapsed)
 		update_terrain_view(elapsed)
+		show_drifters(SSovermap.bubbles, elapsed)
 	else
 		QDEL_LIST_ASSOC_VAL(drifter_mirrors)
 		QDEL_NULL(terrain_view)
@@ -439,12 +439,10 @@
 	for(var/obj/machinery/ship_engine/engine as anything in engines)
 		if(!engine.virtual_engine_owner && engine.z != hull_z)
 			continue
-		var/list/directions = engine.push_directions()
-		for(var/key in directions)
-			var/push = text2num(key)
-			var/firing = engine.firing && (engine.active_pushes & push)
-			var/strength = firing ? engine.last_applied_thrust * directions[key] / (OVERMAP_ENGINE_SMALL_THRUST * 4) : 0
-			. += list(list(engine.thrust_origin_x() - hull_center_x, engine.thrust_origin_y() - hull_center_y, REVERSE_DIR(push), firing, round(strength, 0.001)))
+		var/push = REVERSE_DIR(engine.dir)
+		var/firing = engine.firing && (engine.active_pushes & push)
+		var/strength = firing ? engine.last_applied_thrust / (OVERMAP_ENGINE_SMALL_THRUST * 4) : 0
+		. += list(list(engine.thrust_origin_x() - hull_center_x, engine.thrust_origin_y() - hull_center_y, engine.dir, firing, round(strength, 0.001)))
 
 /obj/overmap/entity/proc/radar_shapes()
 	. = list()
@@ -473,13 +471,20 @@
 			var/obj/effect/abstract/hull_proxy_tile/mirror = drifter_mirrors[drifter]
 			if(!mirror)
 				mirror = new(null)
+				if(istype(projectile))
+					mirror.appearance_flags |= KEEP_TOGETHER
+				drifter_mirrors[drifter] = mirror
+			var/obj/effect/abstract/hull_proxy_tile/terrain_tile = terrain_view?.tiles[drifter.loc]
+			if(terrain_tile && !(drifter.vis_flags & VIS_HIDE))
+				if(length(mirror.vis_contents))
+					mirror.vis_contents.Cut()
+					mirror.hud_sources = null
+					SSovermap.proxy_hud_tiles -= mirror
+			else if(!length(mirror.vis_contents))
 				mirror.vis_contents += drifter
 				if(ismob(drifter) || drifter.hud_list)
 					mirror.hud_sources = list(drifter)
 					SSovermap.proxy_hud_tiles[mirror] = TRUE
-				if(istype(projectile))
-					mirror.appearance_flags |= KEEP_TOGETHER
-				drifter_mirrors[drifter] = mirror
 			mirror.glide(spot[1], spot[2], hull_z, turned, flight_bounds, elapsed)
 	for(var/atom/movable/drifter as anything in drifter_mirrors)
 		if(!seen[drifter])
@@ -579,8 +584,8 @@
 	copy.invisibility = 0
 	copy.mouse_opacity = MOUSE_OPACITY_OPAQUE
 
-	copy.pixel_x = 0
-	copy.pixel_y = 0
+	copy.pixel_x = pixel_x
+	copy.pixel_y = pixel_y
 	if(istype(source, /obj/effect/overmap_planet_cell))
 		SET_PLANE_EXPLICIT(copy, PLANET_SURFACE_PLANE, src)
 	appearance = copy

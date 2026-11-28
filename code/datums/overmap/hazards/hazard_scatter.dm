@@ -86,10 +86,7 @@
 	refresh()
 
 /datum/fog_scene/scatter/collect_clients(list/out)
-	for(var/viewer_entry, eyes_entry in SSovermap.client_eyes)
-		var/client/viewer = viewer_entry
-		var/list/eyes = eyes_entry
-		for(var/turf/eye as anything in eyes)
-			if(SSovermap.frame_owner(eye) == owner)
-				out[viewer] = TRUE
-				break
+	for(var/client/viewer as anything in SSovermap.client_eyes)
+		var/turf/eye = SSovermap.client_eyes[viewer]
+		if(SSovermap.frame_owner(eye) == owner)
+			out[viewer] = TRUE
