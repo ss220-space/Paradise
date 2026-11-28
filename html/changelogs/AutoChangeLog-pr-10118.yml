@@ -1,4 +1,0 @@
-author: "Bizzonium"
-delete-after: True
-changes:
-  - code_imp: "Слаймы забывают удалённую цель, лидера и говорившего друга; меньше hard delete и фризов. (PR #10118)"

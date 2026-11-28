@@ -1,5 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - bugfix: "Исправлено отсутствие замедления при ползке. (PR #10093)"
-  - bugfix: "Исправлен икон стейт хвостовых имплантов. (PR #10093)"

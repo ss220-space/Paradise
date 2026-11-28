@@ -1,4 +1,0 @@
-author: "broodjeh-lang"
-delete-after: True
-changes:
-  - bugfix: "Гарнитура больше не выключает динамик при надевании в слот уха. (PR #10136)"

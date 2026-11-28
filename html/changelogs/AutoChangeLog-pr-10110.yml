@@ -1,4 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - admin: "Добавлен вывод размера выделенной физической и виртуальной памяти. (PR #10110)"

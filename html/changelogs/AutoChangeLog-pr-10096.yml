@@ -1,5 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - bugfix: "Исправлено отсутствие имплантов в аплинке. (PR #10096)"
-  - bugfix: "Исправлена возможная причина сохранения классов у зомби. (PR #10096)"

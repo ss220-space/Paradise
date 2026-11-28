@@ -1,4 +1,0 @@
-author: "Bizzonium"
-delete-after: True
-changes:
-  - code_imp: "Убран ложный рантайм проверки списка нуллродов для нестанционных нуллродов. (PR #10115)"

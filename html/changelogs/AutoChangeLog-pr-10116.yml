@@ -1,4 +1,0 @@
-author: "Bizzonium"
-delete-after: True
-changes:
-  - code_imp: "LAssailant теперь weakref, а друзья слаймов удаляются из списка при удалении моба; меньше hard delete и фризов. (PR #10116)"

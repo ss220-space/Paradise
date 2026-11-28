@@ -1,4 +1,0 @@
-author: "Bizzonium"
-delete-after: True
-changes:
-  - bugfix: "Турели больше не держат в памяти удалённых мобов. (PR #10131)"
