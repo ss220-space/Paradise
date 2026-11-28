@@ -119,6 +119,8 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 #define CALIBER_40MM "40 мм"
 /// Used in heavy grenade launchers like PML-9
 #define CALIBER_84MM "84 мм"
+/// Used in single usable rocket launcher RPO-A Shmel
+#define CALIBER_93MM "93 мм"
 
 // Rocket systems
 /// Used in light rocket launcher like RPG-232

@@ -337,7 +337,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 	if(resistance_flags & FIRE_PROOF)
 		resistance_flags &= ~FIRE_PROOF
 
-	if(armor.getRating(FIRE) > 50)
+	if(armor && armor.getRating(FIRE) > 50)
 		armor = armor.setRating(fire_value = 50)
 
 	return ..()
