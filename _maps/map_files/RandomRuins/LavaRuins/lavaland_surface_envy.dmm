@@ -126,7 +126,7 @@
 /obj/item/clothing/gloves/ring/gold,
 /obj/item/clothing/head/fluff/goldtophat,
 /obj/item/clothing/shoes/fluff/noble_boot,
-/obj/item/clothing/under/noble_clothes,
+/obj/item/clothing/under/suit/noble_clothes,
 /obj/item/clothing/glasses/monocle,
 /obj/item/clothing/suit/victcoat,
 /obj/structure/closet/cabinet,

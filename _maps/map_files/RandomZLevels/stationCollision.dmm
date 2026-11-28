@@ -387,7 +387,7 @@
 /obj/structure/sign/securearea{
 	pixel_x = 32
 	},
-/obj/item/clothing/under/rank/security,
+/obj/item/clothing/under/rank/security/officer,
 /obj/effect/decal/remains/human,
 /obj/item/gun/energy/laser/practice/sc_laser,
 /obj/item/clothing/suit/armor/vest,
@@ -407,7 +407,7 @@
 /obj/structure/sign/securearea{
 	pixel_x = 32
 	},
-/obj/item/clothing/under/rank/security,
+/obj/item/clothing/under/rank/security/officer,
 /obj/effect/decal/remains/human,
 /obj/item/gun/energy/laser/practice/sc_laser,
 /obj/item/clothing/suit/armor/vest,
@@ -982,7 +982,7 @@
 /area/awaymission/research)
 "dj" = (
 /obj/effect/decal/remains/human,
-/obj/item/clothing/under/rank/bartender,
+/obj/item/clothing/under/rank/service/bartender,
 /obj/structure/cable,
 /obj/effect/decal/cleanable/blood/splatter,
 /obj/item/toy/russian_revolver,
@@ -2421,7 +2421,7 @@
 /obj/structure/sign/securearea{
 	pixel_x = 32
 	},
-/obj/item/clothing/under/rank/security,
+/obj/item/clothing/under/rank/security/officer,
 /obj/effect/decal/remains/human,
 /obj/item/gun/energy/laser/practice/sc_laser,
 /obj/item/clothing/suit/armor/vest,
@@ -3669,7 +3669,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/arrivalblock)
 "lg" = (
-/obj/item/clothing/under/rank/hydroponics,
+/obj/item/clothing/under/rank/service/hydroponics,
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel,

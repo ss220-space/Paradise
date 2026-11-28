@@ -38,8 +38,8 @@
 			/obj/item/clothing/under/color/orange/prison,
 			/obj/item/clothing/under/prison,
 			/obj/item/clothing/under/color/red/dodgeball,
-			/obj/item/clothing/under/color/red/jersey,
-			/obj/item/clothing/under/color/blue/jersey,
+			/obj/item/clothing/under/color/miscellaneous/red/jersey,
+			/obj/item/clothing/under/color/miscellaneous/blue/jersey,
 		)
 		allowed_colors = subtypesof(/obj/item/clothing/under/color) - excluded
 	var/obj/item/clothing/under/color/new_color = pick(allowed_colors)
@@ -536,10 +536,15 @@
 		PREPOSITIONAL = "бирюзовом комбинезоне",
 	)
 
-/obj/item/clothing/under/color/red/jersey
+/*
+ These clothes dont use greyskale
+*/
+/obj/item/clothing/under/color/miscellaneous
+	icon = 'icons/obj/clothing/uniforms/color.dmi'
+
+/obj/item/clothing/under/color/miscellaneous/red/jersey
 	name = "red team jersey"
 	desc = "Джерси против команды BLU!"
-	icon = 'icons/obj/clothing/uniforms.dmi'
 	icon_state = "redjersey"
 	item_color = "redjersey"
 	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
@@ -549,7 +554,7 @@
 	greyscale_config_worn = null
 	greyscale_config_worn_species = null
 
-/obj/item/clothing/under/color/red/jersey/get_ru_names()
+/obj/item/clothing/under/color/miscellaneous/red/jersey/get_ru_names()
 	return alist(
 		NOMINATIVE = "джерси красной команды",
 		GENITIVE = "джерси красной команды",
@@ -559,10 +564,9 @@
 		PREPOSITIONAL = "джерси красной команды",
 	)
 
-/obj/item/clothing/under/color/blue/jersey
+/obj/item/clothing/under/color/miscellaneous/blue/jersey
 	name = "blue team jersey"
 	desc = "Джерси против команды RED!"
-	icon = 'icons/obj/clothing/uniforms.dmi'
 	icon_state = "bluejersey"
 	item_color = "bluejersey"
 	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
@@ -572,7 +576,7 @@
 	greyscale_config_worn = null
 	greyscale_config_worn_species = null
 
-/obj/item/clothing/under/color/blue/jersey/get_ru_names()
+/obj/item/clothing/under/color/miscellaneous/blue/jersey/get_ru_names()
 	return alist(
 		NOMINATIVE = "джерси синей команды",
 		GENITIVE = "джерси синей команды",
@@ -580,4 +584,22 @@
 		ACCUSATIVE = "джерси синей команды",
 		INSTRUMENTAL = "джерси синей команды",
 		PREPOSITIONAL = "джерси синей команды",
+	)
+
+/obj/item/clothing/under/color/miscellaneous/rainbow
+	name = "rainbow"
+	desc = "радуга"
+	icon_state = "rainbow"
+	item_state = "rainbow"
+	item_color = "rainbow"
+	dying_key = DYE_REGISTRY_UNDER
+
+/obj/item/clothing/under/color/miscellaneous/rainbow/get_ru_names()
+	return alist(
+		NOMINATIVE = "радуга",
+		GENITIVE = "радуги",
+		DATIVE = "радуге",
+		ACCUSATIVE = "радугу",
+		INSTRUMENTAL = "радугой",
+		PREPOSITIONAL = "радуге",
 	)

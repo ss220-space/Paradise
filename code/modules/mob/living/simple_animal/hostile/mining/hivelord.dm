@@ -441,7 +441,7 @@
 	switch(type)
 		if("Miner")
 			mob_species = pickweight(list(/datum/species/human = 72, /datum/species/unathi = 28))
-			uniform = /obj/item/clothing/under/rank/miner/lavaland
+			uniform = /obj/item/clothing/under/rank/cargo/miner/lavaland
 			if(prob(4))
 				belt = pickweight(list(/obj/item/storage/belt/mining = 2, /obj/item/storage/belt/mining/alt = 2))
 			else if(prob(10))
@@ -460,7 +460,7 @@
 				l_pocket = pickweight(list(/obj/item/stack/spacecash/c1000 = 7, /obj/item/reagent_containers/hypospray/autoinjector/survival = 2, /obj/item/borg/upgrade/modkit/cooldown/haste = 1 ))
 		if("Ashwalker")
 			mob_species = /datum/species/unathi/ashwalker
-			uniform = /obj/item/clothing/under/ash_walker
+			uniform = /obj/item/clothing/under/miscellaneous/ash_walker
 			if(prob(95))
 				head = /obj/item/clothing/head/helmet/gladiator
 			else
@@ -500,7 +500,7 @@
 				l_pocket = pick(list(/obj/item/crowbar/power, /obj/item/wrench/power, /obj/item/weldingtool/experimental))
 		if("YeOlde")
 			mob_gender = FEMALE
-			uniform = /obj/item/clothing/under/maid
+			uniform = /obj/item/clothing/under/costumes/maid
 			gloves = /obj/item/clothing/gloves/color/white
 			shoes = /obj/item/clothing/shoes/laceup
 			head = /obj/item/clothing/head/helmet/riot/knight
@@ -521,7 +521,7 @@
 			back = /obj/item/tank/internals/oxygen
 			mask = /obj/item/clothing/mask/breath
 		if("Cultist")
-			uniform = /obj/item/clothing/under/roman
+			uniform = /obj/item/clothing/under/costumes/roman
 			suit = /obj/item/clothing/suit/hooded/cultrobes
 			suit_store = /obj/item/tome
 			r_pocket = /obj/item/restraints/legcuffs/bola/cult

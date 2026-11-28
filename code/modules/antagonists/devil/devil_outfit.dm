@@ -1,6 +1,6 @@
 /datum/outfit/devil_lawyer
 	name = "Devil Lawyer"
-	uniform = /obj/item/clothing/under/lawyer/black
+	uniform = /obj/item/clothing/under/rank/procedure/lawyer/black
 	shoes = /obj/item/clothing/shoes/laceup
 	back = /obj/item/storage/backpack
 	l_hand = /obj/item/storage/briefcase

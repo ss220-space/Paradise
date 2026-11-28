@@ -195,7 +195,7 @@
 	contains = list(
 		/obj/item/clothing/mask/gas/clown_hat,
 		/obj/item/clothing/shoes/clown_shoes,
-		/obj/item/clothing/under/rank/clown,
+		/obj/item/clothing/under/rank/service/clown,
 		/obj/item/pda/clown,
 		/obj/item/flag/clown,
 		/obj/item/id_decal/clown,

@@ -16,7 +16,7 @@
 
 	products = list(
 		/obj/item/clothing/suit/storage/labcoat = 4,
-		/obj/item/clothing/under/rank/roboticist = 4,
+		/obj/item/clothing/under/rank/science/roboticist = 4,
 		/obj/item/stack/cable_coil = 4,
 		/obj/item/flash = 4,
 		/obj/item/stock_parts/cell/high = 12,

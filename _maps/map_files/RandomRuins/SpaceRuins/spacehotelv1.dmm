@@ -1678,7 +1678,7 @@
 /area/ruin/space/spacehotelv1/reception)
 "pf" = (
 /obj/item/clothing/head/kitty,
-/obj/item/clothing/under/maid,
+/obj/item/clothing/under/costumes/maid,
 /obj/item/clothing/suit/storage/browntrenchcoat,
 /obj/structure/closet/cabinet,
 /turf/simulated/floor/carpet/arcade,
@@ -2392,9 +2392,9 @@
 	},
 /area/ruin/space/spacehotelv1/bar)
 "vd" = (
-/obj/item/clothing/under/lawyer/black,
-/obj/item/clothing/under/lawyer/blue,
-/obj/item/clothing/under/kilt,
+/obj/item/clothing/under/rank/procedure/lawyer/black,
+/obj/item/clothing/under/rank/procedure/lawyer/blue,
+/obj/item/clothing/under/costumes/kilt,
 /obj/item/clothing/head/beret,
 /obj/structure/cable,
 /obj/structure/closet/cabinet,
@@ -3925,12 +3925,12 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
 	},
-/obj/item/clothing/under/maid,
+/obj/item/clothing/under/costumes/maid,
 /obj/item/storage/firstaid/toxin{
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/clothing/under/barber,
+/obj/item/clothing/under/rank/service/barber,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/reception)
 "JL" = (
@@ -4209,7 +4209,7 @@
 "LI" = (
 /obj/item/clothing/suit/leathercoat,
 /obj/item/clothing/head/fedora,
-/obj/item/clothing/under/blacktango,
+/obj/item/clothing/under/dress/blacktango,
 /obj/item/clothing/head/bowlerhat,
 /obj/machinery/light{
 	dir = 1
@@ -5693,7 +5693,7 @@
 /obj/item/reagent_containers/spray/cleaner,
 /obj/item/reagent_containers/spray/cleaner,
 /obj/item/key/janitor,
-/obj/item/clothing/under/janimaid,
+/obj/item/clothing/under/costumes/janimaid,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

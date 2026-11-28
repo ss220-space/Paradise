@@ -24,7 +24,7 @@
 /area/template_noop)
 "bI" = (
 /obj/structure/table,
-/obj/item/clothing/under/rank/chemist/skirt{
+/obj/item/clothing/under/rank/medical/chemist/skirt{
 	pixel_x = 9
 	},
 /obj/item/clothing/under/fluff/soviet_casual_uniform{

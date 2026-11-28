@@ -34,7 +34,7 @@
 
 /datum/outfit/ipc_corpse
 	name = "IPC corpse"
-	uniform = /obj/item/clothing/under/misc/durathread
+	uniform = /obj/item/clothing/under/miscellaneous/durathread
 	shoes = /obj/item/clothing/shoes/rainbow
 	back = /obj/item/storage/backpack/duffel/durathread
 	l_ear = /obj/item/radio/headset

@@ -546,7 +546,7 @@
 /datum/magick_school/lavaland/kit()
 	owner.faction += "mining"
 	. = ..()
-	owner.equip_or_collect(new /obj/item/clothing/under/ash_walker(owner), ITEM_SLOT_CLOTH_INNER)
+	owner.equip_or_collect(new /obj/item/clothing/under/miscellaneous/ash_walker(owner), ITEM_SLOT_CLOTH_INNER)
 	owner.equip_or_collect(new /obj/item/clothing/gloves/color/black/goliath(owner), ITEM_SLOT_GLOVES)
 	owner.equip_or_collect(new /obj/item/clothing/suit/hooded/goliath/wizard(owner), ITEM_SLOT_CLOTH_OUTER)
 	owner.equip_or_collect(new /obj/item/twohanded/spear/bonespear, ITEM_SLOT_HAND_RIGHT)

@@ -129,7 +129,7 @@
 	name = "roman armor loot spawner"
 	loot = list(
 		/obj/item/clothing/head/helmet/roman/legionaire/fake = 1,
-		/obj/item/clothing/under/roman = 1,
+		/obj/item/clothing/under/costumes/roman = 1,
 		/obj/item/clothing/shoes/roman = 1,
 		/obj/item/shield/riot/roman/fake = 1,
 	)
@@ -153,7 +153,7 @@
 	name = "clown kit loot spawner"
 	loot = list(
 		/obj/item/storage/backpack/clown = 1,
-		/obj/item/clothing/under/rank/clown = 1,
+		/obj/item/clothing/under/rank/service/clown = 1,
 		/obj/item/clothing/shoes/clown_shoes = 1,
 		/obj/item/pda/clown = 1,
 		/obj/item/clothing/mask/gas/clown_hat = 1,
@@ -166,7 +166,7 @@
 /obj/effect/spawner/abandoned_crate/mime_kit
 	name = "mime kit loot spawner"
 	loot = list(
-		/obj/item/clothing/under/mime = 1,
+		/obj/item/clothing/under/rank/service/mime = 1,
 		/obj/item/clothing/shoes/black = 1,
 		/obj/item/pda/mime = 1,
 		/obj/item/clothing/gloves/color/white = 1,

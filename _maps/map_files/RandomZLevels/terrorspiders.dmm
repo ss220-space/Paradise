@@ -198,7 +198,7 @@
 /area/awaymission/UO71/plaza)
 "aF" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
-/obj/item/clothing/under/suit_jacket/female,
+/obj/item/clothing/under/suit/jacket/female,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
 "aG" = (
@@ -703,7 +703,7 @@
 "ci" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/closet/secure_closet/personal/cabinet,
-/obj/item/clothing/under/pj/blue,
+/obj/item/clothing/under/miscellaneous/pj/blue,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
 "ck" = (
@@ -2019,7 +2019,7 @@
 	name = "Kitchen Crate"
 	},
 /obj/item/storage/box/mousetraps,
-/obj/item/clothing/under/waiter,
+/obj/item/clothing/under/miscellaneous/waiter,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -4777,7 +4777,7 @@
 /area/awaymission/UO71/centralhall)
 "mF" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
-/obj/item/clothing/under/pj/red,
+/obj/item/clothing/under/miscellaneous/pj/red,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/centralhall)
 "mG" = (
@@ -5057,7 +5057,7 @@
 /area/awaymission/UO71/centralhall)
 "nj" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
-/obj/item/clothing/under/suit_jacket/navy,
+/obj/item/clothing/under/suit/jacket/navy,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/centralhall)
 "nk" = (

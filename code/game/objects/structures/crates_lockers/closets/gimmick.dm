@@ -34,11 +34,11 @@
 	new /obj/item/clothing/head/ushanka(src)
 	new /obj/item/clothing/head/ushanka(src)
 	new /obj/item/clothing/head/ushanka(src)
-	new /obj/item/clothing/under/soviet(src)
-	new /obj/item/clothing/under/soviet(src)
-	new /obj/item/clothing/under/soviet(src)
-	new /obj/item/clothing/under/soviet(src)
-	new /obj/item/clothing/under/soviet(src)
+	new /obj/item/clothing/under/ussp/soviet(src)
+	new /obj/item/clothing/under/ussp/soviet(src)
+	new /obj/item/clothing/under/ussp/soviet(src)
+	new /obj/item/clothing/under/ussp/soviet(src)
+	new /obj/item/clothing/under/ussp/soviet(src)
 
 /obj/structure/closet/gimmick/tacticool
 	name = "tacticool gear closet"

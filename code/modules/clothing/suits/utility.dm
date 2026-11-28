@@ -12,6 +12,7 @@
 /obj/item/clothing/suit/fire
 	name = "emergency firesuit"
 	desc = "A suit that protects against fire and heat."
+	icon = 'icons/obj/clothing/suits/utility.dmi'
 	icon_state = "fire"
 	item_state = "fire_suit"
 	w_class = WEIGHT_CLASS_BULKY
@@ -195,6 +196,7 @@
 /obj/item/clothing/suit/radiation
 	name = "Radiation suit"
 	desc = "A suit that protects against radiation. Label: Made with lead, do not eat insulation."
+	icon = 'icons/obj/clothing/suits/utility.dmi'
 	icon_state = "rad"
 	item_state = "rad_suit"
 	w_class = WEIGHT_CLASS_BULKY

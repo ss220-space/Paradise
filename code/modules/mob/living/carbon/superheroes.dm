@@ -67,7 +67,7 @@
 	..()
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/color/black/greytide(H), ITEM_SLOT_FEET)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/owl(H), ITEM_SLOT_CLOTH_INNER)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/costumes/owl(H), ITEM_SLOT_CLOTH_INNER)
 	H.equip_to_slot_or_del(new /obj/item/clothing/neck/cloak/toggle/owlwings(H), ITEM_SLOT_CLOTH_OUTER)
 	H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/owl_mask/super_hero(H), ITEM_SLOT_MASK)
 	H.equip_to_slot_or_del(new /obj/item/storage/belt/bluespace/owlman(H), ITEM_SLOT_BELT)
@@ -85,7 +85,7 @@
 	..()
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/griffin(H), ITEM_SLOT_FEET)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/griffin(H), ITEM_SLOT_CLOTH_INNER)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/costumes/griffin(H), ITEM_SLOT_CLOTH_INNER)
 	H.equip_to_slot_or_del(new /obj/item/clothing/neck/cloak/toggle/owlwings/griffinwings(H), ITEM_SLOT_CLOTH_OUTER)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/griffin/(H), ITEM_SLOT_HEAD)
 

@@ -1,4 +1,5 @@
 /obj/item/clothing/under/pants
+	icon = 'icons/obj/clothing/uniforms/pants.dmi'
 	gender = PLURAL
 	body_parts_covered = LOWER_TORSO|LEGS
 	displays_id = FALSE
@@ -168,4 +169,26 @@
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/uniform.dmi',
 		SPECIES_KIDAN = 'icons/mob/clothing/species/kidan/uniform.dmi',
+	)
+
+/*
+ Only human clothes
+*/
+/obj/item/clothing/under/pants/tchaikowsky
+	species_restricted = list(SPECIES_HUMAN)
+
+/obj/item/clothing/under/pants/tchaikowsky/highwaistpants
+	name = "hight waist pants"
+	desc = "Женские штаны с завышенной талией. Идут в комплекте с чёрной рубашкой!"
+	icon_state = "high_waist_pants"
+	item_state = "high_waist_pants"
+
+/obj/item/clothing/under/pants/tchaikowsky/highwaistpants/get_ru_names()
+	return alist(
+		NOMINATIVE = "штаны с завышенной талией",
+		GENITIVE = "штанов с завышенной талией",
+		DATIVE = "штанам с завышенной талией",
+		ACCUSATIVE = "штаны с завышенной талией	",
+		INSTRUMENTAL = "штанами с завышенной талией",
+		PREPOSITIONAL = "штанах с завышенной талией",
 	)

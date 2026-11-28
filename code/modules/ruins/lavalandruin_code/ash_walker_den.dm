@@ -174,11 +174,11 @@
 
 /datum/outfit/ashwalker
 	name ="Ashwalker"
-	uniform = /obj/item/clothing/under/ash_walker
+	uniform = /obj/item/clothing/under/miscellaneous/ash_walker
 
 /datum/outfit/ashwalker/shaman //yep, we adding uniform available only for lizards
 	name = "Ashwalker Shaman"
-	uniform = /obj/item/clothing/under/ash_walker_shaman
+	uniform = /obj/item/clothing/under/miscellaneous/ash_walker_shaman
 	head = /obj/item/clothing/head/roach
 	neck = /obj/item/clothing/neck/mantle/unathi
 	belt = /obj/item/storage/bag/medpouch

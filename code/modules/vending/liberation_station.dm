@@ -39,7 +39,7 @@
 		/obj/item/ammo_box/magazine/m75 = 2,
 	)
 	contraband = list(
-		/obj/item/clothing/under/patriotsuit = 1,
+		/obj/item/clothing/under/miscellaneous/patriotsuit = 1,
 		/obj/item/bedsheet/patriot = 3,
 	)
 

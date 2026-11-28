@@ -53,7 +53,7 @@
 		qdel(shoes)
 		qdel(wear_mask)
 		qdel(w_uniform)
-		equip_to_slot_or_del(new /obj/item/clothing/under/rank/clown/nodrop, ITEM_SLOT_CLOTH_INNER)
+		equip_to_slot_or_del(new /obj/item/clothing/under/rank/service/clown/nodrop, ITEM_SLOT_CLOTH_INNER)
 		equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes/nodrop, ITEM_SLOT_FEET)
 		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat/nodrop, ITEM_SLOT_MASK)
 	force_gene_block(GLOB.clumsyblock, TRUE)

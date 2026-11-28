@@ -39,7 +39,7 @@
 	name = JOB_TITLE_RU_HOS
 	jobtype = /datum/job/head_of_staff/hos
 
-	uniform = /obj/item/clothing/under/rank/head_of_security
+	uniform = /obj/item/clothing/under/rank/security/head_of_security
 	suit = /obj/item/clothing/suit/armor/hos/alt
 	gloves = /obj/item/clothing/gloves/combat/swat
 	shoes = /obj/item/clothing/shoes/jackboots
@@ -116,7 +116,7 @@
 	name = JOB_TITLE_RU_WARDEN
 	jobtype = /datum/job/security/warden
 
-	uniform = /obj/item/clothing/under/rank/warden
+	uniform = /obj/item/clothing/under/rank/security/warden
 	suit = /obj/item/clothing/suit/armor/vest/warden
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/jackboots
@@ -170,7 +170,7 @@
 	name = JOB_TITLE_RU_DETECTIVE
 	jobtype = /datum/job/security/detective
 
-	uniform = /obj/item/clothing/under/det
+	uniform = /obj/item/clothing/under/security/det
 	suit = /obj/item/clothing/suit/storage/det_suit
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/laceup
@@ -246,7 +246,7 @@
 /datum/outfit/job/officer
 	name = JOB_TITLE_RU_OFFICER
 	jobtype = /datum/job/security/officer
-	uniform = /obj/item/clothing/under/rank/security
+	uniform = /obj/item/clothing/under/rank/security/officer
 	suit = /obj/item/clothing/suit/armor/vest/security
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/jackboots

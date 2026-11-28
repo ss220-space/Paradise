@@ -20,7 +20,7 @@
 
 /datum/crafting_recipe/durathread_jumpsuit
 	name = "Durathread Jumpsuit"
-	result = /obj/item/clothing/under/misc/durathread
+	result = /obj/item/clothing/under/miscellaneous/durathread
 	reqs = list(/obj/item/stack/sheet/durathread = 4)
 	time = 40
 	category = CAT_CLOTHING
