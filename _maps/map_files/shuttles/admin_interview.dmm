@@ -37,7 +37,7 @@
 	},
 /area/shuttle/administration)
 "bQ" = (
-/obj/structure/filingcabinet/filingcabinet,
+/obj/structure/filingcabinet/white,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
