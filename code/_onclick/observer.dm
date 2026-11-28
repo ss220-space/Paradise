@@ -96,7 +96,7 @@
 		if(issilicon(src) || ismachineperson(src))
 			robot_healthscan(user, src)
 		else if(ishuman(src))
-			healthscan(user, src, 1, TRUE)
+			healthscan(user, src, mode = 1, advanced = TRUE, tochat = TRUE)
 	return ..()
 
 // ---------------------------------------
