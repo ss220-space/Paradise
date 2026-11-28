@@ -61,7 +61,7 @@
 /datum/action/cooldown/spell/aoe/guardian_hallucination
 	name = "Волна галлюцинаций"
 	desc = "Призовите самый темный страх на ваших жертв. Хозяин невосприимчив к эффекту."
-	button_icon_state = "blight"
+	button_icon_state = "r_blight_old"
 	cooldown_time = 12 SECONDS
 	spell_requirements = NONE
 	check_flags = AB_CHECK_CONSCIOUS | AB_TRANSFER_MIND | AB_CHECK_INCAPACITATED
