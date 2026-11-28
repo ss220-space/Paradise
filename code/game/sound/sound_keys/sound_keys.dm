@@ -816,6 +816,14 @@
 		'sound/ambience/weather/rain/thunder/sfx_thunder_low_7.ogg',
 	)
 
+/datum/sound_effect/hallucination_revenant
+	key = SFX_REV_HALLUCINATIONS
+	file_paths = list(
+		'sound/hallucinations/revfireball1.ogg',
+		'sound/hallucinations/revfireball2.ogg',
+		'sound/hallucinations/revfireball3.ogg',
+	)
+
 /datum/sound_effect/flamethrower
 	key = SFX_FLAMETHROWER
 	file_paths = list(

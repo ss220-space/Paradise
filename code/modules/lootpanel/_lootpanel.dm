@@ -65,3 +65,8 @@
 			return grab(usr, params)
 
 	return FALSE
+
+/datum/lootpanel/ui_status(mob/user, datum/ui_state/state)
+	if(HAS_TRAIT(user, TRAIT_LOOTPANEL_ACTIVE))
+		return UI_INTERACTIVE
+	return ..()

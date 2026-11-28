@@ -155,6 +155,10 @@
 /atom/movable/screen/fullscreen/flash/noise
 	icon_state = "noise"
 
+/atom/movable/screen/fullscreen/revenant
+	icon_state = "passage"
+	color = "#1d0029ff"
+
 /atom/movable/screen/fullscreen/high
 	icon_state = "druggy"
 	plane = LIGHTING_PLANE
