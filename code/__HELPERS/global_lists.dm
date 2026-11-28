@@ -3,6 +3,7 @@
 	init_datum_subtypes(/datum/wryn_building, GLOB.wryn_structures, null, "name")
 	init_datum_subtypes(/datum/zombie_class, GLOB.zombie_classes, null, "name")
 	init_datum_subtypes(/datum/chem_property, GLOB.chemical_properties_list, null, "name")
+	init_datum_subtypes(/datum/lightfloor_mode, GLOB.lightfloor_modes, null, "name")
 
 	init_datum_subtypes(/datum/robot_skin, GLOB.robot_skins, null, "type")
 

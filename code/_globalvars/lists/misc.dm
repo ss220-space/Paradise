@@ -102,3 +102,5 @@ GLOBAL_LIST_EMPTY(rain_sounds)
 GLOBAL_LIST_EMPTY(world_flora)
 
 GLOBAL_LIST_EMPTY(zombie_classes)
+
+GLOBAL_LIST_EMPTY(lightfloor_modes)
