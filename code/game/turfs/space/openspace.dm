@@ -114,7 +114,7 @@
 	if(!isspaceturf(below) || light_on)
 		return
 	set_light(l_on = TRUE, l_range = GLOB.starlight_range, l_power = GLOB.starlight_power, l_color = GLOB.starlight_color)
-	GLOB.starlight += src
+	GLOB.starlight |= src
 
 /turf/space/openspace/update_starlight()
 	. = ..()
@@ -127,7 +127,7 @@
 /turf/space/openspace/proc/on_below_change(turf/source, path, list/new_baseturfs, flags, list/post_change_callbacks)
 	SIGNAL_HANDLER
 	if(isspaceturf(source) && !ispath(path, /turf/space))
-		GLOB.starlight += src
+		GLOB.starlight |= src
 		set_light(l_on = TRUE, l_range = GLOB.starlight_range, l_power = GLOB.starlight_power, l_color = GLOB.starlight_color)
 	else if(!isspaceturf(source) && ispath(path, /turf/space))
 		GLOB.starlight -= src

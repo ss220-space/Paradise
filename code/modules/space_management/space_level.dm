@@ -20,6 +20,7 @@
 	// Init deferral stuff
 	var/dirt_count = 0
 	var/list/init_list = list()
+	var/obj/docking_port/stationary/navbeacon
 
 /datum/space_level/New(z, level_name, transition_type = SELFLOOPING, traits = list(BLOCK_TELEPORT))
 	name = level_name
@@ -36,7 +37,18 @@
 			remove_from_space_network(GLOB.space_manager.linkage_map)
 
 	GLOB.space_manager.unbuilt_space_transitions -= src
-	GLOB.space_manager.z_list -= "[zpos]"
+	if(GLOB.space_manager.z_list["[zpos]"] == src)
+		GLOB.space_manager.z_list -= "[zpos]"
+	if(name && GLOB.space_manager.levels_by_name[name] == src)
+		GLOB.space_manager.levels_by_name -= name
+	reset_connections()
+	transit_north.Cut()
+	transit_south.Cut()
+	transit_east.Cut()
+	transit_west.Cut()
+	init_list.Cut()
+	qdel(navbeacon, TRUE)
+	navbeacon = null
 	return ..()
 
 /datum/space_level/proc/build_space_destination_arrays()
@@ -138,10 +150,10 @@
 //create docking ports for navigation consoles to jump to
 /datum/space_level/proc/set_navbeacon()
 	var/turf/placing_turf = locate(200, 200, zpos)
-	var/obj/docking_port/stationary/D = new /obj/docking_port/stationary(placing_turf)
-	D.name = name
-	D.id = "nav_z[zpos]"
-	D.register()
+	navbeacon = new(placing_turf)
+	navbeacon.name = name
+	navbeacon.id = "nav_z[zpos]"
+	navbeacon.register()
 
 GLOBAL_LIST_INIT(atmos_machine_typecache, typecacheof(/obj/machinery/atmospherics))
 GLOBAL_LIST_INIT(cable_typecache, typecacheof(/obj/structure/cable))

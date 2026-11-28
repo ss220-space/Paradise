@@ -43,6 +43,7 @@
 	objects.Cut()
 	bubbles.Cut()
 	QDEL_LIST(comms_messages)
+	overmap_release_area(map_area)
 	map_area = null
 	QDEL_NULL(reservation)
 	return ..()

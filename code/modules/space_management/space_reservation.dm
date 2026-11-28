@@ -61,7 +61,7 @@
 
 	cordon_turfs |= possible_turfs
 
-	if(pre_cordon_distance)
+	if(pre_cordon_distance && width > 2 * pre_cordon_distance && height > 2 * pre_cordon_distance)
 		var/turf/offset_turf = locate(bottom_left.x + pre_cordon_distance, bottom_left.y + pre_cordon_distance, bottom_left.z)
 		var/list/to_add = CORNER_OUTLINE(offset_turf, width - pre_cordon_distance * 2, height - pre_cordon_distance * 2) //we step-by-stop move inwards from the outer cordon
 		for(var/turf/turf_being_added as anything in to_add)
@@ -72,12 +72,17 @@
 /// Actually generates the cordon around the reservation, and marking the cordon turfs as reserved
 /datum/turf_reservation/proc/generate_cordon()
 	var/area/misc/cordon/cordon_area = GLOB.areas_by_type[/area/misc/cordon] || new
+	var/current_z
+	var/list/cordon_tiles
 	for(var/turf/cordon_turf as anything in cordon_turfs)
 		var/area/old_area = cordon_turf.loc
 		LISTASSERTLEN(old_area.turfs_to_uncontain_by_zlevel, cordon_turf.z, list())
-		LISTASSERTLEN(cordon_area.turfs_by_zlevel, cordon_turf.z, list())
+		if(current_z != cordon_turf.z)
+			current_z = cordon_turf.z
+			LISTASSERTLEN(cordon_area.turfs_by_zlevel, current_z, list())
+			cordon_tiles = cordon_area.get_turfs_by_zlevel(current_z)
 		old_area.turfs_to_uncontain_by_zlevel[cordon_turf.z] += cordon_turf
-		cordon_area.turfs_by_zlevel[cordon_turf.z] += cordon_turf
+		cordon_tiles += cordon_turf
 		cordon_area.contents += cordon_turf
 		// Its no longer unused, but its also not "used"
 		cordon_turf.turf_flags &= ~UNUSED_RESERVATION_TURF

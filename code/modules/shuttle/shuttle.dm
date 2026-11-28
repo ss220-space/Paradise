@@ -270,6 +270,8 @@
 			if(owner.assigned_transit == src)
 				owner.assigned_transit = null
 			owner = null
+		overmap_release_area(assigned_area)
+		assigned_area = null
 		if(!QDELETED(reserved_area))
 			qdel(reserved_area)
 		reserved_area = null
@@ -317,6 +319,7 @@
 	var/obj/docking_port/stationary/destination
 	var/obj/docking_port/stationary/previous
 	var/obj/docking_port/stationary/transit/assigned_transit
+	var/generating_transit_dock = FALSE
 	var/overmap_force_dock = FALSE
 	var/overmap_hull_rotation = 0
 	var/obj/machinery/door/airlock/external/docking/overmap_collar
@@ -335,12 +338,13 @@
 	if(is_area_shuttle(A))
 		areaInstance = A
 
-	if(!areaInstance)
+	if(!areaInstance && isturf(loc))
 		areaInstance = new()
 		areaInstance.name = name
 		areaInstance.contents += return_ordered_turfs()
 
-	areaInstance.parallax_movedir = preferred_direction
+	if(areaInstance)
+		areaInstance.parallax_movedir = preferred_direction
 
 	#ifdef DOCKING_PORT_HIGHLIGHT
 	highlight("#0f0")
@@ -408,7 +412,10 @@
 		areaInstance = null
 		destination = null
 		previous = null
-		QDEL_NULL(assigned_transit) //don't need it where we're goin'!
+		SSshuttle.transit_requesters -= src
+		SSshuttle.transit_request_failures -= src
+		qdel(assigned_transit, TRUE)
+		assigned_transit = null
 		shuttle_areas = null
 		if(SSovermap)
 			qdel(SSovermap.shuttle_vessels[src])

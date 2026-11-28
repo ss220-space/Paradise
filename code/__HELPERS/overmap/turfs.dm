@@ -13,8 +13,12 @@
 	if(QDELETED(owned_area))
 		return
 	var/area/world_area = GLOB.areas_by_type[world.area]
-	for(var/z_level in 1 to length(owned_area.turfs_by_zlevel))
-		var/list/tiles = owned_area.get_turfs_by_zlevel(z_level)
+	var/list/tiles_by_z = list()
+	for(var/turf/spot in owned_area)
+		LISTASSERTLEN(tiles_by_z, spot.z, list())
+		tiles_by_z[spot.z] += spot
+	for(var/z_level in 1 to length(tiles_by_z))
+		var/list/tiles = tiles_by_z[z_level]
 		if(!length(tiles))
 			continue
 		LISTASSERTLEN(world_area.turfs_by_zlevel, z_level, list())

@@ -133,15 +133,17 @@ SUBSYSTEM_DEF(shuttle)
 
 	if(!SSmapping.clearing_reserved_turfs)
 		while(length(transit_requesters))
-			var/requester = popleft(transit_requesters)
+			var/obj/docking_port/mobile/requester = popleft(transit_requesters)
 			var/success = generate_transit_dock(requester)
-			if(!success) // BACK OF THE QUEUE
+			if(success || QDELETED(requester))
+				transit_request_failures -= requester
+			else
 				transit_request_failures[requester]++
 				if(transit_request_failures[requester] < MAX_TRANSIT_REQUEST_RETRIES)
 					transit_requesters += requester
 				else
-					var/obj/docking_port/mobile/M = requester
-					M.transit_failure()
+					transit_request_failures -= requester
+					requester.transit_failure()
 			if(MC_TICK_CHECK)
 				break
 
@@ -369,8 +371,21 @@ SUBSYSTEM_DEF(shuttle)
 /datum/controller/subsystem/shuttle/proc/generate_transit_dock(obj/docking_port/mobile/M, max_z_level = null)
 	if(!istype(M))
 		return FALSE
+	if(M.generating_transit_dock)
+		UNTIL(QDELETED(M) || !M.generating_transit_dock)
+	if(QDELETED(M))
+		return FALSE
 	if(M.assigned_transit && !QDELETED(M.assigned_transit))
 		return M.assigned_transit
+	M.generating_transit_dock = TRUE
+	try
+		. = allocate_transit_dock(M, max_z_level)
+	catch(var/exception/error)
+		M.generating_transit_dock = FALSE
+		throw error
+	M.generating_transit_dock = FALSE
+
+/datum/controller/subsystem/shuttle/proc/allocate_transit_dock(obj/docking_port/mobile/M, max_z_level)
 	// First, determine the size of the needed zone
 	// Because of shuttle rotation, the "width" of the shuttle is not
 	// always x.
@@ -422,11 +437,17 @@ SUBSYSTEM_DEF(shuttle)
 
 	if(!istype(proposal))
 		return FALSE
+	if(QDELETED(M))
+		qdel(proposal)
+		return FALSE
 
 	var/turf/bottomleft = proposal.bottom_left_turfs[1]
 	var/turf/topright = length(proposal.top_right_turfs) ? proposal.top_right_turfs[1] : null
 	if(bottomleft && topright)
 		overmap_seal_block_with_hyperspace(bottomleft, topright)
+	if(QDELETED(M) || QDELETED(proposal))
+		qdel(proposal)
+		return FALSE
 	// Then create a transit docking port in the middle
 	var/coords = M.return_coords(0, 0, dock_dir)
 
@@ -451,6 +472,7 @@ SUBSYSTEM_DEF(shuttle)
 
 	var/turf/midpoint = locate(transit_x, transit_y, bottomleft.z)
 	if(!midpoint)
+		qdel(proposal)
 		return FALSE
 	var/area/old_area = midpoint.loc
 	LISTASSERTLEN(old_area.turfs_to_uncontain_by_zlevel, bottomleft.z, list())
@@ -460,7 +482,7 @@ SUBSYSTEM_DEF(shuttle)
 	new_area.parallax_movedir = travel_dir
 	new_area.contents = proposal.reserved_turfs
 	LISTASSERTLEN(new_area.turfs_by_zlevel, bottomleft.z, list())
-	new_area.turfs_by_zlevel[bottomleft.z] = proposal.reserved_turfs
+	new_area.turfs_by_zlevel[bottomleft.z] = proposal.reserved_turfs.Copy()
 	var/obj/docking_port/stationary/transit/new_transit_dock = new(midpoint)
 	new_transit_dock.reserved_area = proposal
 	if(overmap_reservation)
