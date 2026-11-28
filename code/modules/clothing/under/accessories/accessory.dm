@@ -587,6 +587,20 @@
 		PREPOSITIONAL = "медали HRD-MDE \"Бубльгум\""
 	)
 
+/obj/item/clothing/accessory/medal/gold/cargo/vazz
+	name = "vazz HRD-MDE award"
+	desc = "Награда за выдающийся вклад в проект HRD-MDE, связанный с исследованием Вазза и сопряжённого <font face='Wingdings'>REDACTED</font>.."
+
+/obj/item/clothing/accessory/medal/gold/cargo/vazz/get_ru_names()
+	return alist(
+		NOMINATIVE = "медаль HRD-MDE \"Вазз\"",
+		GENITIVE = "медали  HRD-MDE \"Вазз\"",
+		DATIVE = "медали  HRD-MDE \"Вазз\"",
+		ACCUSATIVE = "медаль  HRD-MDE \"Вазз\"",
+		INSTRUMENTAL = "медалью  HRD-MDE \"Вазз\"",
+		PREPOSITIONAL = "медали  HRD-MDE \"Вазз\"",
+	)
+
 /obj/item/clothing/accessory/medal/gold/heroism/hardmode_full //Kill every hardmode boss. In a shift. Good luck.
 	name = "medal of incredible dedication"
 	desc = "Легендарная золотая награда, вручаемая только Центральным Командованием тем, кто бросил вызов всем богам Лазиса — и победил. Для Шахтёров, чья смена стала эпосом, а добыча — пантеоном поверженных титанов."

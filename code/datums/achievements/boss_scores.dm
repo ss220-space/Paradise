@@ -18,6 +18,11 @@
 	desc = "КАК много вы убили?"
 	database_id = BUBBLEGUM_SCORE
 
+/datum/award/score/vazz_score
+	name = "Убито Ваззов"
+	desc = "КАК много вы убили?"
+	database_id = VAZZ_SCORE
+
 /datum/award/score/colossus_score
 	name = "Убито Колоссов"
 	desc = "КАК много вы убили?"

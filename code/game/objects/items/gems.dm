@@ -481,6 +481,29 @@
 		PREPOSITIONAL = "блюспейс кристалле данных",
 	)
 
+//vazz gem
+/obj/item/gem/vazz
+	name = "smoldering crystal"
+	desc = "Тяжёлый кристалл, в глубине которого едва теплится свет. Выглядит как жук."
+	icon_state = "bugs"
+	light_range = 3
+	light_power = 3
+	light_color = "#A5603A"
+	light_system = OVERLAY_LIGHT
+	point_value = 5000
+	insertable = FALSE
+	sell_multiplier = 10
+
+/obj/item/gem/vazz/get_ru_names()
+	return alist(
+		NOMINATIVE = "тлеющий кристалл",
+		GENITIVE = "тлеющего кристалла",
+		DATIVE = "тлеющему кристаллу",
+		ACCUSATIVE = "тлеющий кристалл",
+		INSTRUMENTAL = "тлеющим кристаллом",
+		PREPOSITIONAL = "тлеющем кристалле",
+	)
+
 //mining gems
 /obj/item/gem/random
 	name = "random gem"

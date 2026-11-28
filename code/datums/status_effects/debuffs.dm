@@ -1449,6 +1449,15 @@
 		animate(get_filter("ray"), offset = 10, time = 10 SECONDS, loop = -1)
 		animate(offset = 0, time = 10 SECONDS)
 
+/atom/movable/screen/alert/status_effect/bubblegum_curse/vazz
+	name = "ЗРЯ ТЫ ЭТО СДЕЛАЛ"
+	desc = "ТВОЯ ДУША БУДЕТ ПРЕДАНА ЛАВАЛЕНДУ"
+	icon_state = "vazz_enrage"
+
+/datum/status_effect/bubblegum_curse/vazz
+	id = "vazz"
+	alert_type = /atom/movable/screen/alert/status_effect/bubblegum_curse/vazz
+
 // MARK: Tox vomit
 /datum/status_effect/tox_vomit
 	id = "vomitting_from_toxins"

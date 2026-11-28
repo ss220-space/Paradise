@@ -25,6 +25,12 @@
 	database_id = BOSS_MEDAL_BUBBLEGUM
 	icon_state = "bbgum"
 
+/datum/award/achievement/boss/vazz_kill
+	name = "Убийца Вазза"
+	desc = "Ничто не вечно."
+	database_id = BOSS_MEDAL_VAZZ
+	icon_state = "vazz"
+
 /datum/award/achievement/boss/colossus_kill
 	name = "Убийца Колосса"
 	desc = "Чем больше враг... тем ценнее добыча!"
@@ -66,6 +72,12 @@
 	desc = "Вы победили Бубльгума с помощью крашера."
 	database_id = BOSS_MEDAL_BUBBLEGUM_CRUSHER
 	icon_state = "bbgum"
+
+/datum/award/achievement/boss/vazz_crusher
+	name = "Сокрушитель Вазза"
+	desc = "Вы победили Вазза с помощью крашера."
+	database_id = BOSS_MEDAL_VAZZ_CRUSHER
+	icon_state = "vazz"
 
 /datum/award/achievement/boss/colossus_crusher
 	name = "Сокрушитель Колосса"

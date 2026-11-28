@@ -190,15 +190,24 @@
 			new /obj/effect/temp_visual/kinetic_blast(get_turf(L))
 			var/backstab_dir = get_dir(user, L)
 			var/def_check = L.getarmor(attack_flag = BOMB)
+			// Снижение урона на станции при наличии осколка Vazz
+			var/detonation = detonation_damage
+			var/backstab_damage = backstab_bonus
+			if(is_station_level(L.z))
+				for(var/t in trophies)
+					if(istype(t, /obj/item/crusher_trophy/vazz_shard))
+						detonation = round(detonation_damage * 0.3)
+						backstab_damage = round(backstab_bonus * 0.5)
+						break
 			if((user.dir & backstab_dir) && (L.dir & backstab_dir))
 				if(!QDELETED(C))
-					C.total_damage += detonation_damage + backstab_bonus //cheat a little and add the total before killing it, so certain mobs don't have much lower chances of giving an item
-				L.apply_damage(detonation_damage + backstab_bonus, BRUTE, blocked = def_check)
+					C.total_damage += detonation + backstab_damage //cheat a little and add the total before killing it, so certain mobs don't have much lower chances of giving an item
+				L.apply_damage(detonation + backstab_damage, BRUTE, blocked = def_check)
 				playsound(user, 'sound/weapons/crusher_backstab.ogg', 130) //Seriously who spelled it wrong
 			else
 				if(!QDELETED(C))
-					C.total_damage += detonation_damage
-				L.apply_damage(detonation_damage, BRUTE, blocked = def_check)
+					C.total_damage += detonation
+				L.apply_damage(detonation, BRUTE, blocked = def_check)
 
 /obj/item/twohanded/kinetic_crusher/interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
 	if(!HAS_TRAIT(src, TRAIT_WIELDED))
@@ -803,6 +812,51 @@
 
 /obj/item/crusher_trophy/empowered_legion_skull/on_mark_detonation(mob/living/target, mob/living/user)
 	user.apply_status_effect(STATUS_EFFECT_DASH)
+
+/// Осколок пластины H.E.C.K. Mk II. Трофей для кинетического крушителя.
+/// Метка ложится на любое существо (а не только на крупных), а детонация метки наносит дополнительный ожог.
+/// На уровне станции бонус к урону слабее в 10 раз.
+/obj/item/crusher_trophy/vazz_shard
+	name = "H.E.C.K. Mk II shard"
+	desc = "Осколок пластины личной брони H.E.C.K. Mk II. Края до сих пор тёплые."
+	icon_state = "vazz_shard"
+	bonus_value = 25
+	denied_type = /obj/item/crusher_trophy/vazz_shard
+	/// Множитель бонусного урона на уровне станции
+	var/station_multiplier = 0.1
+
+/obj/item/crusher_trophy/vazz_shard/get_ru_names()
+	return alist(
+		NOMINATIVE = "осколок Э.К.З.О. Mk II",
+		GENITIVE = "осколка Э.К.З.О. Mk II",
+		DATIVE = "осколку Э.К.З.О. Mk II",
+		ACCUSATIVE = "осколок Э.К.З.О. Mk II",
+		INSTRUMENTAL = "осколком Э.К.З.О. Mk II",
+		PREPOSITIONAL = "осколке Э.К.З.О. Mk II",
+	)
+
+/obj/item/crusher_trophy/vazz_shard/effect_desc()
+	return "метку, которая ложится на любое существо, и дополнительный ожог в [bonus_value] при её детонации (на уровне станции — в десять раз слабее)"
+
+/// Если метка не легла сама (штатно она ложится только на крупных существ), накладываем её принудительно.
+/obj/item/crusher_trophy/vazz_shard/on_mark_application(mob/living/target, datum/status_effect/crusher_mark/mark, had_mark)
+	. = ..()
+	if(mark || QDELETED(target) || target.stat == DEAD || !istype(loc))
+		return
+	var/old_size = target.mob_size
+	target.mob_size = MOB_SIZE_LARGE
+	// Трофей лежит внутри крушителя, поэтому loc - это и есть крушитель, которому принадлежит метка
+	target.apply_status_effect(STATUS_EFFECT_CRUSHERMARK, loc)
+	target.mob_size = old_size
+
+/obj/item/crusher_trophy/vazz_shard/on_mark_detonation(mob/living/target, mob/living/user)
+	. = ..()
+	if(QDELETED(target) || target.stat == DEAD)
+		return
+	var/bonus_damage = bonus_value
+	if(is_station_level(target.z))
+		bonus_damage = round(bonus_damage * station_multiplier)
+	target.apply_damage(bonus_damage, BURN)
 
 //Magmite Crusher
 

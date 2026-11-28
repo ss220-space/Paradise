@@ -31,4 +31,5 @@
 	/obj/item/wisp_lantern, \
 	/obj/item/warp_cube, \
 	/obj/item/immortality_talisman, \
+	/obj/item/melee/spellblade/other \
 )
