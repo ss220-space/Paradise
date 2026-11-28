@@ -12,6 +12,10 @@
 	desc = "A small device with a keyboard attached. Anything entered on the keyboard is played out the speaker. \n[span_notice("Alt-click the device to make it beep.")] \n<span class='notice'>Ctrl-click to name the device."
 
 /obj/item/ttsdevice/attack_self(mob/user)
+	if(HAS_TRAIT(user.mind, TRAIT_MIMING))
+		user.visible_message("Ваш обет молчания запрещает вам использовать подобное!")
+		return
+
 	visible_message("[user] starts typing on [src].", "You begin typing on [src].", "You hear faint, continuous mechanical clicking noises.")
 	playsound(src, SFX_TERMINAL_TYPE, 50, TRUE)
 	var/input = tgui_input_text(user, "What would you like the device to say?", , "", max_length = 500)
