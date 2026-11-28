@@ -1446,8 +1446,8 @@ GAME_VERB(/mob/living, resist, "Сопротивляться", VERB_CATEGORY_IC)
 /mob/living/proc/harvest(mob/living/user)
 	if(QDELETED(src) || !butcher_results)
 		return
-	for(var/path in butcher_results)
-		for(var/i in 1 to butcher_results[path])
+	for(var/path, count in butcher_results)
+		for(var/i in 1 to count)
 			new path(loc)
 		butcher_results.Remove(path) //In case you want to have things like simple_animals drop their butcher results on gib, so it won't double up below.
 	visible_message(span_notice("[DECLENT_RU_CAP(user, NOMINATIVE)] разделывает [declent_ru(ACCUSATIVE)]."))

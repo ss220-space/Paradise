@@ -16,3 +16,4 @@
 	faction = list("creature")
 	gold_core_spawnable = HOSTILE_SPAWN
 	AI_delay_max = 0 SECONDS
+	butcher_results = list(/obj/item/stack/ore/silver = 2)

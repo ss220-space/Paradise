@@ -1590,6 +1590,20 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике с баллонами для химического огнемёта",
 	)
 
+/datum/supply_packs/security/armory/stationary_gun_ammo
+	name = "патроны для станкового пулемета"
+	contains = list(/obj/item/ammo_box/magazine/pkm, /obj/item/ammo_box/magazine/pkm, /obj/item/ammo_box/magazine/pkm) // One extended canister, as a treat
+	cost = 40
+	containername = "ящик с патронами для станкового пулемета"
+	container_ru_names = alist(
+		NOMINATIVE = "ящик с патронами для станкового пулемета",
+		GENITIVE = "ящика с патронами для станкового пулемета",
+		DATIVE = "ящику с патронами для станкового пулемета",
+		ACCUSATIVE = "ящик с патронами для станкового пулемета",
+		INSTRUMENTAL = "ящиком с патронами для станкового пулемета",
+		PREPOSITIONAL = "ящике с патронами для станкового пулемета",
+	)
+
 /////// Implants & etc
 
 /datum/supply_packs/security/armory/mindshield

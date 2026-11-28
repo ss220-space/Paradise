@@ -433,6 +433,7 @@
 	idle_power_usage = 0
 	active_power_usage = 0
 	network = list("mortar")
+	interact_offline = TRUE
 
 /obj/machinery/computer/security/mortar/set_broken()
 	return

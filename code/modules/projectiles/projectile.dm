@@ -101,7 +101,7 @@
 	var/eyeblur = 0 SECONDS
 	var/drowsy = 0 SECONDS
 	var/min_stamina = 0 SECONDS
-	var/stamina = 0 SECONDS
+	var/stamina = 0
 	var/jitter = 0 SECONDS
 	var/knockdown = 0 SECONDS
 	var/confused = 0 SECONDS

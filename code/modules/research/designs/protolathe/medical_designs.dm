@@ -520,6 +520,15 @@
 	build_path = /obj/item/organ/internal/cyberimp/eyes/hud/security
 	category = list(PROTOLATHE_CATEGORY_MEDICAL)
 
+/datum/design/cyberimp_mine_hud
+	id = "ci-minehud"
+	req_tech = list(RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_PROGRAMMING = 2, RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_COMBAT = 2)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 50
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 750, MAT_GOLD = 750)
+	build_path = /obj/item/organ/internal/cyberimp/eyes/hud/mine
+	category = list(PROTOLATHE_CATEGORY_MEDICAL)
+
 /datum/design/cyberimp_meson
 	id = "ci-mesonhud"
 	req_tech = list(RESEARCH_TREE_MATERIALS = 4, RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_ENGINEERING = 4)

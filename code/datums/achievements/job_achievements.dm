@@ -28,3 +28,8 @@
 	database_id = MEDAL_RODSUPLEX
 	icon_state = "featofstrength"
 
+/datum/award/achievement/jobs/watch_your_steps
+	name = "Смотри под ноги"
+	desc = "Вы смогли подорваться на минах у аванпоста, которые были размещены для его обороны. В следующий раз будьте внимательнее."
+	database_id =MEDAL_WATCH_YOUR_STEP
+	icon_state = "watch_your_steps"

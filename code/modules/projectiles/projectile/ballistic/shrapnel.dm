@@ -47,6 +47,9 @@
 /obj/projectile/shrapnel/short_range
 	range = 5
 
+/obj/projectile/shrapnel/mine
+	range = 2
+
 /obj/item/embedded/shrapnel
 	name = "shrapnel"
 	icon = 'icons/obj/shards.dmi'

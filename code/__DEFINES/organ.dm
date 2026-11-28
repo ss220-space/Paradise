@@ -29,6 +29,7 @@
 #define INTERNAL_ORGAN_L_LEG_DEVICE "l_leg_device"
 #define INTERNAL_ORGAN_R_LEG_DEVICE "r_leg_device"
 #define INTERNAL_ORGAN_EYE_SIGHT_DEVICE "eye_sight"
+#define INTERNAL_ORGAN_EYE_MINE_SIGHT_DEVICE "eye_mine_sight"
 #define INTERNAL_ORGAN_EYE_HUD_DEVICE "eye_hud"
 #define INTERNAL_ORGAN_EYE_SHIELD_DEVICE "eye_shield"
 #define INTERNAL_ORGAN_EYE_LING "eye_ling"
