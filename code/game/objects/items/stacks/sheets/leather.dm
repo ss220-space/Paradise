@@ -232,10 +232,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 			/obj/item/clothing/suit/hooded/explorer/mining,
 			/obj/item/clothing/head/hooded/explorer/mining,
 	))
-	var/static/list/goliath_platable_armor_typecache = typecacheof(list(
-			/obj/item/clothing/suit/hooded/pathfinder,
-			/obj/item/clothing/head/hooded/pathfinder,
-	))
+
 	var/static/list/goliath_platable_armor_with_icon_typecache = typecacheof(list(
 			/obj/item/clothing/suit/space/hardsuit/mining,
 			/obj/item/clothing/head/helmet/space/hardsuit/mining,
@@ -264,7 +261,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 		return
 
 	var/platable_armor_with_icon = is_type_in_typecache(target, goliath_platable_armor_with_icon_typecache)
-	if(is_type_in_typecache(target, goliath_platable_armor_typecache) || platable_armor_with_icon)
+	if(is_type_in_typecache(target) || platable_armor_with_icon)
 		var/obj/item/clothing/C = target
 		var/datum/armor/current_armor = C.armor
 		if(current_armor.getRating(MELEE) < 60)

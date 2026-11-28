@@ -1,7 +1,7 @@
 #define GIBTONITE_QUALITY_LOW 1
 #define GIBTONITE_QUALITY_MEDIUM 2
 #define GIBTONITE_QUALITY_HIGH 3
-#define PROBABILITY_REFINE_BY_FIRE 50
+#define PROBABILITY_REFINE_BY_FIRE 100
 #define ORESTACK_OVERLAYS_MAX 10
 /**********************Mineral ores**************************/
 

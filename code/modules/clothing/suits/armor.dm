@@ -705,9 +705,12 @@
 	item_state = "goliath_cloak"
 	desc = "Прочный и практичный плащ, созданный из различных материалов, добытых из монстров. Он пользуется большим спросом у тех, кто ведёт жизнь отшельника или изгнанника."
 	allowed = ALLOWED_MINING_SUIT_ITEMS
-	armor = list(MELEE = 35, BULLET = 10, LASER = 25, ENERGY = 15, BOMB = 35, BIO = 0, FIRE = 50, ACID = 50) //a fair alternative to bone armor, requiring alternative materials and gaining a suit slot
+	armor = list(MELEE = 40, BULLET = 10, LASER = 20, ENERGY = 10, BOMB = 30, BIO = 0, FIRE = 60, ACID = 60)
+	resistance_flags = FIRE_PROOF
 	hoodtype = /obj/item/clothing/head/hooded/goliath
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
+	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 
 /obj/item/clothing/suit/hooded/goliath/get_ru_names()
 	return alist(
@@ -724,7 +727,8 @@
 	icon_state = "golhood"
 	item_state = "golhood"
 	desc = "Защитный и скрывающий капюшон."
-	armor = list(MELEE = 35, BULLET = 10, LASER = 25, ENERGY = 15, BOMB = 35, BIO = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 40, BULLET = 10, LASER = 20, ENERGY = 10, BOMB = 30, BIO = 0, FIRE = 60, ACID = 60)
+	resistance_flags = FIRE_PROOF
 	flags_cover = HEADCOVERSEYES
 
 /obj/item/clothing/head/hooded/goliath/get_ru_names()
@@ -771,15 +775,82 @@
 	if(istype(user)&& slot == ITEM_SLOT_HEAD)
 		user.mob_size = MOB_SIZE_HUMAN
 
+/obj/item/clothing/suit/hooded/pathfinder
+	name = "pathfinder cloak"
+	desc = "Тяжёлая мантия, сшитая из сухожилий и шкур, предназначенная для защиты носителя от опасной погоды."
+	allowed = ALLOWED_MINING_SUIT_ITEMS
+	icon_state = "pathcloak"
+	item_state = "pathcloak"
+	armor = list(MELEE = 60, BULLET = 10, LASER = 20, ENERGY = 10, BOMB = 30, BIO = 60, FIRE = 100, ACID = 100)
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	hide_tail_by_species = list(SPECIES_VOX , SPECIES_VULPKANIN , SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID, SPECIES_TAJARAN)
+	hoodtype = /obj/item/clothing/head/hooded/pathfinder
+	species_restricted = list("exclude", "lesser form")
+
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
+		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/suit.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+	)
+
+/obj/item/clothing/suit/hooded/pathfinder/get_ru_names()
+	return alist(
+		NOMINATIVE = "мантия первопроходца",
+		GENITIVE = "мантии первопроходца",
+		DATIVE = "мантии первопроходца",
+		ACCUSATIVE = "мантию первопроходца",
+		INSTRUMENTAL = "мантией первопроходца",
+		PREPOSITIONAL = "мантии первопроходца",
+	)
+
+/obj/item/clothing/head/hooded/pathfinder
+	name = "pathfinder kasa"
+	desc = "Головной убор, созданный из костей и связок, предназначенный для защиты носителя от опасной погоды."
+	icon_state = "pathhead"
+	item_state = "pathhead"
+	flags_cover = HEADCOVERSEYES
+	armor = list(MELEE = 60, BULLET = 10, LASER = 20, ENERGY = 10, BOMB = 30, BIO = 60, FIRE = 100, ACID = 100)
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	sprite_sheets = list(
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
+		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/helmet.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi',
+	)
+
+/obj/item/clothing/head/hooded/pathfinder/get_ru_names()
+	return alist(
+		NOMINATIVE = "каса первопроходца",
+		GENITIVE = "касы первопроходца",
+		DATIVE = "касе первопроходца",
+		ACCUSATIVE = "касу первопроходца",
+		INSTRUMENTAL = "касой первопроходца",
+		PREPOSITIONAL = "касе первопроходца",
+	)
+
 /obj/item/clothing/suit/armor/bone
 	name = "bone armor"
 	desc = "Племенной доспех, созданный из костей животных."
 	icon_state = "bonearmor"
 	item_state = "bonearmor"
 	blood_overlay_type = "armor"
-	armor = list(MELEE = 45, BULLET = 30, LASER = 30, ENERGY = 20, BOMB = 40, BIO = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 20, BIO = 0, FIRE = 20, ACID = 20)
 	allowed = ALLOWED_MINING_SUIT_ITEMS
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
@@ -827,8 +898,11 @@
 	item_state = "cartilage_set"
 	blood_overlay_type = "armor"
 	allowed = ALLOWED_MINING_SUIT_ITEMS
-	armor = list(MELEE = 50, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 0, FIRE = 60, ACID = 60)
+	armor = list(MELEE = 60, BULLET = 30, LASER = 30, ENERGY = 20, BOMB = 60, BIO = 0, FIRE = 40, ACID = 40)
+	resistance_flags = FIRE_PROOF
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
+	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	sprite_sheets = list(
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',

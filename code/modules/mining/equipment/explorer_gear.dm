@@ -14,6 +14,7 @@
 	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 100, FIRE = 50, ACID = 50)
 	allowed = ALLOWED_MINING_SUIT_ITEMS
 	resistance_flags = FIRE_PROOF
+	faction_restricted = list("ashwalker")
 	hide_tail_by_species = list(SPECIES_VOX , SPECIES_VULPKANIN , SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID, SPECIES_TAJARAN)
 
 	sprite_sheets = list(
@@ -344,74 +345,6 @@
 		PREPOSITIONAL = "скафандре инквизитора",
 	)
 
-/obj/item/clothing/suit/hooded/pathfinder
-	name = "pathfinder cloak"
-	desc = "Тяжёлая мантия, сшитая из сухожилий и шкур, предназначенная для защиты носителя от опасной погоды."
-	allowed = ALLOWED_MINING_SUIT_ITEMS
-	icon_state = "pathcloak"
-	item_state = "pathcloak"
-	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 40, BOMB = 60, BIO = 100, FIRE = 50, ACID = 50)
-	resistance_flags = FIRE_PROOF
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	hide_tail_by_species = list(SPECIES_VOX , SPECIES_VULPKANIN , SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID, SPECIES_TAJARAN)
-	hoodtype = /obj/item/clothing/head/hooded/pathfinder
-	species_restricted = list("exclude", "lesser form")
-
-	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
-		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/suit.dmi',
-		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
-	)
-
-/obj/item/clothing/suit/hooded/pathfinder/get_ru_names()
-	return alist(
-		NOMINATIVE = "мантия первопроходца",
-		GENITIVE = "мантии первопроходца",
-		DATIVE = "мантии первопроходца",
-		ACCUSATIVE = "мантию первопроходца",
-		INSTRUMENTAL = "мантией первопроходца",
-		PREPOSITIONAL = "мантии первопроходца",
-	)
-/obj/item/clothing/head/hooded/pathfinder
-	name = "pathfinder kasa"
-	desc = "Головной убор, созданный из костей и связок, предназначенный для защиты носителя от опасной погоды."
-	icon_state = "pathhead"
-	item_state = "pathhead"
-	flags_cover = HEADCOVERSEYES
-	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 40, BOMB = 60, BIO = 100, FIRE = 50, ACID = 50)
-	resistance_flags = FIRE_PROOF
-	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
-	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
-		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/helmet.dmi',
-		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi',
-	)
-
-/obj/item/clothing/head/hooded/pathfinder/get_ru_names()
-	return alist(
-		NOMINATIVE = "каса первопроходца",
-		GENITIVE = "касы первопроходца",
-		DATIVE = "касе первопроходца",
-		ACCUSATIVE = "касу первопроходца",
-		INSTRUMENTAL = "касой первопроходца",
-		PREPOSITIONAL = "касе первопроходца",
-	)
 /obj/item/clothing/suit/hooded/explorer/mining
 	name = "white explorer suit"
 	desc = "Ярко-белый бронированный костюм, созданный для экстренного спасения людей в суровых условиях. У вас не получится сохранять его чистым долгое время."

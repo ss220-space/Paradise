@@ -170,6 +170,7 @@
 	speaker = FALSE
 	range = 4
 	cooldown = 3 SECONDS
+	resistance_flags = UNACIDABLE | ACID_PROOF
 
 /obj/item/t_scanner/adv_mining_scanner/bleary_eye/get_ru_names()
 	return alist(

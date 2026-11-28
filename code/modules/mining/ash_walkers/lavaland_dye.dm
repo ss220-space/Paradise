@@ -91,6 +91,7 @@
 	picked_dye = "Amber Dyes"
 	totem_dye = "amber"
 	fluff_name = "янтарная"
+	resistance_flags = UNACIDABLE | ACID_PROOF
 
 /obj/item/lavaland_dye/amber/get_ru_names()
 	return alist(

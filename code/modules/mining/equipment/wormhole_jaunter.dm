@@ -115,6 +115,10 @@
 /obj/effect/portal/jaunt_tunnel/can_teleport(atom/movable/movable, silent = FALSE)
 	if(!(obj_flags & EMAGGED) && ismegafauna(movable))
 		return FALSE
+
+	var/mob/living/carbon/living_target = movable
+	if("ashwalker" in living_target.faction)
+		return FALSE
 	return ..()
 
 /obj/effect/portal/jaunt_tunnel/teleport(atom/movable/movable)

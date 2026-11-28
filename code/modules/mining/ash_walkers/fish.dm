@@ -114,7 +114,7 @@ GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
 		to_chat(user, span_notice("Вы начинаете разделывать [declent_ru(ACCUSATIVE)]..."))
 		playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
 		CALCULATE_SKILL_MOD(user, BUTCHERING_SPEED_MOD, butchering_skill_mod)
-		var/butchering_duration = I.has_speed_harvest ? 1 SECONDS : 6 SECONDS
+		var/butchering_duration = I.has_speed_harvest ? 1 SECONDS : 2 SECONDS
 		if(do_after(user, butchering_duration * butchering_skill_mod, src, max_interact_count = 1, cancel_on_max = TRUE) && Adjacent(I))
 			check_special_harvest()
 			harvest(user)
