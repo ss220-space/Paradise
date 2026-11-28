@@ -15,6 +15,7 @@ const RequirePDAInterface = require.context('.', false, /\.tsx$/);
 
 const THEME_MAP: Record<string, string> = {
   'pda_bank': 'brg',
+  'pda_raingor_messenger': 'brg',
 };
 
 const THEME_NAMES: Record<string, string> = {
@@ -302,8 +303,8 @@ const PDAFooter = () => {
         display: 'grid',
         gridTemplateColumns: '1.15fr 1.15fr 1.15fr',
         gap: '0.5rem',
-        borderTop: '1px solid #222',
-        background: '#151821',
+        borderTop: '1px solid var(--pda-footer-border, #222)',
+        background: 'var(--pda-footer-background, #151821)',
         alignItems: 'stretch',
       }}
     >
