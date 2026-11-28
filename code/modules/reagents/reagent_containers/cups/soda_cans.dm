@@ -4,7 +4,7 @@
 /obj/item/reagent_containers/cup/soda_cans
 	icon = 'icons/obj/drinks.dmi'
 	var/canopened = FALSE
-	container_type = NONE
+	initial_reagent_flags = NONE
 	var/is_plastic = 0
 	var/times_shaken = 0
 	var/can_shake = TRUE
@@ -33,7 +33,7 @@
 		return ..()
 	if(!canopened)
 		canopened = TRUE
-		container_type |= OPENCONTAINER
+		add_container_flags(OPENCONTAINER)
 		playsound(loc, 'sound/effects/canopen.ogg', rand(10, 50), TRUE)
 		to_chat(user, span_notice("Вы открываете [declent_ru(ACCUSATIVE)] с громким хлопком!"))
 		return
@@ -128,7 +128,7 @@
 /obj/item/reagent_containers/cup/soda_cans/proc/fizzy_open(mob/user, burstopen = FALSE)
 	playsound(loc, 'sound/effects/canopenfizz.ogg', rand(10, 50), TRUE)
 	canopened = TRUE
-	container_type |= OPENCONTAINER
+	add_container_flags(OPENCONTAINER)
 
 	if(!burstopen && user)
 		to_chat(user, span_notice("Вы открываете [declent_ru(ACCUSATIVE)] с громким хлопком!"))

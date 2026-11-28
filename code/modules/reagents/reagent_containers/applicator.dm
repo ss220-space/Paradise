@@ -17,12 +17,8 @@
 	belt_icon = "mender"
 	volume = 200
 	has_variable_transfer_amount = FALSE
-	visible_transfer_rate = FALSE
 	resistance_flags = ACID_PROOF
-	container_type = REFILLABLE | AMOUNT_VISIBLE | NO_SPLASH
-	temperature_min = 270
-	temperature_max = 350
-	pass_open_check = TRUE
+	initial_reagent_flags = REFILLABLE | AMOUNT_VISIBLE | NO_SPLASH
 	custom_premium_price = PAYCHECK_LOWER
 	// used for emagged version
 	var/ignore_flags = FALSE
@@ -53,7 +49,7 @@
 		balloon_alert(user, "протоколы безопасности взломаны")
 	return TRUE
 
-/obj/item/reagent_containers/applicator/on_reagent_change()
+/obj/item/reagent_containers/applicator/on_reagent_change(datum/reagents/holder, ...)
 	if(!(obj_flags & EMAGGED))
 		var/found_forbidden_reagent = FALSE
 		for(var/datum/reagent/chem in reagents.reagent_list)

@@ -7,7 +7,7 @@
 	item_state = "cleaner"
 	belt_icon = "cleaner"
 	item_flags = NOBLUDGEON
-	container_type = OPENCONTAINER | NO_SPLASH
+	initial_reagent_flags = OPENCONTAINER | NO_SPLASH
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
@@ -21,6 +21,7 @@
 	var/spray_maxrange = 3 //what the sprayer will set spray_currentrange to in the attack_self.
 	var/spray_currentrange = 3 //the range of tiles the sprayer will reach when in fixed mode.
 	var/spray_sound = 'sound/effects/spray2.ogg'
+	reagent_container_liquid_sound = SFX_DEFAULT_LIQUID_SLOSH
 
 /obj/item/reagent_containers/spray/get_ru_names()
 	return alist(
@@ -238,7 +239,7 @@
 /obj/item/reagent_containers/spray/cleaner/safety
 	desc = "Распылитель, заполненный непенящимся средством для очистки поверхностей. Эта модель принимает внутрь только космочист и ничего более."
 
-/obj/item/reagent_containers/spray/cleaner/safety/on_reagent_change()
+/obj/item/reagent_containers/spray/cleaner/safety/on_reagent_change(datum/reagents/holder, ...)
 	for(var/filth in reagents.reagent_list)
 		var/datum/reagent/R = filth
 		if(R.type != /datum/reagent/space_cleaner) //all chems other than space cleaner are filthy.
@@ -247,6 +248,7 @@
 				to_chat(loc, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] определяет и удаляет недопустимое вещество."))
 			else
 				visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] определяет и удаляет недопустимое вещество."))
+	return ..()
 
 //spray tan
 /obj/item/reagent_containers/spray/spraytan
@@ -277,6 +279,8 @@
 	volume = 40
 	spray_maxrange_mod = 2
 	list_reagents = list(/datum/reagent/consumable/condensedcapsaicin = 40)
+	pickup_sound = 'sound/items/handling/pepper_spray/pepper_spray_pick_up.ogg'
+	drop_sound = 'sound/items/handling/pepper_spray/pepper_spray_drop.ogg'
 
 /obj/item/reagent_containers/spray/pepper/get_ru_names()
 	return alist(

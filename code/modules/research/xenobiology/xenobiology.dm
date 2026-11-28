@@ -8,7 +8,6 @@
 	icon_state = "grey slime extract"
 	force = 1
 	w_class = WEIGHT_CLASS_TINY
-	container_type = INJECTABLE | DRAWABLE
 	throw_speed = 3
 	throw_range = 6
 	origin_tech = "biotech=3"
@@ -31,7 +30,7 @@
 
 /obj/item/slime_extract/Initialize(mapload)
 	. = ..()
-	create_reagents(100)
+	create_reagents(100, INJECTABLE | DRAWABLE | SEALED_CONTAINER)
 
 /obj/item/slime_extract/grey
 	name = "grey slime extract"

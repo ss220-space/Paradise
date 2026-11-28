@@ -6,7 +6,7 @@
 	desc = "Just your average condiment container."
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "emptycondiment"
-	container_type = OPENCONTAINER
+	initial_reagent_flags = OPENCONTAINER
 	possible_transfer_amounts = list(1, 5, 10, 15, 20, 25, 30, 50)
 	//Possible_states has the reagent id as key and a list of, in order, the icon_state, the name and the desc as values. Used in the on_reagent_change() to change names, descs and sprites.
 	var/list/possible_states = list(
@@ -82,7 +82,7 @@
 
 	return NONE
 
-/obj/item/reagent_containers/condiment/on_reagent_change()
+/obj/item/reagent_containers/condiment/on_reagent_change(datum/reagents/holder, ...)
 	if(!length(possible_states))
 		return
 	if(length(reagents.reagent_list) > 0)
@@ -127,6 +127,8 @@
 	volume = 20
 	list_reagents = list(/datum/reagent/consumable/sodiumchloride = 20)
 	possible_states = list()
+	pickup_sound = SFX_SEASONING_SHAKER_PICKUP
+	drop_sound = SFX_SEASONING_SHAKER_DROP
 
 /obj/item/reagent_containers/condiment/saltshaker/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] begins to swap forms with the salt shaker! It looks like [user.p_theyre()] trying to commit suicide."))
@@ -146,6 +148,8 @@
 	volume = 20
 	list_reagents = list(/datum/reagent/consumable/blackpepper = 20)
 	possible_states = list()
+	pickup_sound = SFX_SEASONING_SHAKER_PICKUP
+	drop_sound = SFX_SEASONING_SHAKER_DROP
 
 /obj/item/reagent_containers/condiment/milk
 	name = "space milk"
@@ -264,6 +268,7 @@
 	desc = "A small plastic pack with condiments to put on your food."
 	icon_state = "condi_empty"
 	volume = 10
+	initial_reagent_flags = parent_type::initial_reagent_flags | NO_SPLASH
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(10)
 	possible_states = list(
@@ -325,7 +330,7 @@
 	else
 		icon_state = "condi_empty"
 
-/obj/item/reagent_containers/condiment/pack/on_reagent_change()
+/obj/item/reagent_containers/condiment/pack/on_reagent_change(datum/reagents/holder, ...)
 	update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 
 // MARK: Pack types
@@ -368,7 +373,7 @@
 	volume = 80
 	list_reagents = list(/datum/reagent/consumable/animal_feed = 80)
 
-/obj/item/reagent_containers/condiment/animalfeed/on_reagent_change()
+/obj/item/reagent_containers/condiment/animalfeed/on_reagent_change(datum/reagents/holder, ...)
 	return
 
 /obj/item/reagent_containers/condiment/pack/creamer

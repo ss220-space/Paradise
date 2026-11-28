@@ -11031,7 +11031,7 @@
 /area/ruin/space/pirate_base/security_atrium)
 "Kl" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/cup/beaker/waterbottle,
+/obj/item/reagent_containers/cup/glass/waterbottle,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},

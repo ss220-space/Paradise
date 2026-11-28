@@ -3,7 +3,6 @@
 	name = "Этанол" //Parent class for all alcoholic reagents.
 	id = "ethanol"
 	description = "Хорошо известный алкоголь, имеющий множество воплощений."
-	reagent_state = LIQUID
 	nutriment_factor = 0 //So alcohol can fill you up! If they want to.
 	color = "#404030" // rgb: 64, 64, 48
 	addiction_chance = 3
@@ -1034,7 +1033,6 @@
 	name = "Джин и Соник"
 	id = "ginsonic"
 	description = "GOTTA GET CRUNK FAST BUT LIQUOR TOO SLOW"
-	reagent_state = LIQUID
 	color = "#1111CF"
 	drink_icon = "ginsonic"
 	drink_name = "Джин и Соник"
@@ -1339,8 +1337,6 @@
 		flavor += ", с лёгким привкусом "
 		flavor += russian_list(secondary_tastes)
 	taste_description = flavor
-	if(holder.my_atom)
-		holder.my_atom.on_reagent_change()
 
 /datum/reagent/consumable/ethanol/bacchus_blessing //An EXTREMELY powerful drink. Smashed in seconds, dead in minutes.
 	name = "Благословение Бахуса"

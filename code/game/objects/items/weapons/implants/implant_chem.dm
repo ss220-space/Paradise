@@ -4,13 +4,12 @@
 	icon_state = "reagents_old"
 	implant_state = "implant-nanotrasen"
 	origin_tech = "materials=3;biotech=4"
-	container_type = OPENCONTAINER
 	trigger_causes = BIOCHIP_TRIGGER_DEATH_ANY
 	implant_data = /datum/implant_fluff/chem
 
 /obj/item/implant/chem/Initialize(mapload)
 	. = ..()
-	create_reagents(50)
+	create_reagents(50, OPENCONTAINER)
 	GLOB.tracked_implants += src
 
 /obj/item/implant/chem/Destroy()

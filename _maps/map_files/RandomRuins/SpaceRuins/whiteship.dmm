@@ -641,11 +641,11 @@
 /area/shuttle/abandoned)
 "oy" = (
 /obj/structure/rack,
-/obj/item/reagent_containers/cup/beaker/waterbottle/large{
+/obj/item/reagent_containers/cup/glass/waterbottle/large{
 	pixel_x = 6;
 	pixel_y = 5
 	},
-/obj/item/reagent_containers/cup/beaker/waterbottle/large,
+/obj/item/reagent_containers/cup/glass/waterbottle/large,
 /obj/machinery/light/built{
 	dir = 4
 	},
@@ -1076,7 +1076,7 @@
 /area/shuttle/abandoned)
 "xk" = (
 /obj/structure/closet/crate/can,
-/obj/item/reagent_containers/cup/beaker/waterbottle/large/empty,
+/obj/item/reagent_containers/cup/glass/waterbottle/large/empty,
 /obj/item/trash/pistachios,
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_y = 32

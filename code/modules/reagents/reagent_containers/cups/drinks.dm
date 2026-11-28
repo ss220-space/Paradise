@@ -173,6 +173,162 @@
 /obj/item/reagent_containers/cup/glass/sillycup/update_icon_state()
 	icon_state = "water_cup[reagents.total_volume ? "" : "_e"]"
 
+// MARK: Water bottle
+/obj/item/reagent_containers/cup/glass/waterbottle
+	name = "bottle of water"
+	desc = "Пластиковая ёмкость для питьевой воды. Стандартного объёма."
+	gender = FEMALE
+	icon = 'icons/obj/drinks.dmi'
+	icon_state = "smallbottle"
+	item_state = "bottle"
+	list_reagents = list(/datum/reagent/water = 50)
+	materials = list(MAT_PLASTIC = MINERAL_MATERIAL_AMOUNT)
+	volume = 50
+	amount_per_transfer_from_this = 10
+	fill_icon_thresholds = list(0, 10, 25, 50, 75, 80, 90)
+	is_glass = FALSE
+	// The 2 bottles have separate cap overlay icons because if the bottle falls over while bottle flipping the cap stays aligned on the rotated overlay
+	var/cap_icon = 'icons/obj/drinks/drink_effects.dmi'
+	var/cap_icon_state = "bottle_cap_small"
+	var/start_capped = TRUE
+	var/cap_lost = FALSE
+	var/mutable_appearance/cap_overlay
+	/// A chance to perform a successful bottle flip
+	var/flip_chance = 10
+	custom_price = PAYCHECK_MIN * 0.4
+	reagent_container_liquid_sound = SFX_PLASTIC_BOTTLE_LIQUID_SLOSH
+
+/obj/item/reagent_containers/cup/glass/waterbottle/get_ru_names()
+	return alist(
+		NOMINATIVE = "бутылка воды",
+		GENITIVE = "бутылки воды",
+		DATIVE = "бутылке воды",
+		ACCUSATIVE = "бутылку воды",
+		INSTRUMENTAL = "бутылкой воды",
+		PREPOSITIONAL = "бутылке воды",
+	)
+
+/obj/item/reagent_containers/cup/glass/waterbottle/Initialize(mapload)
+	cap_overlay = mutable_appearance(cap_icon, cap_icon_state)
+	. = ..()
+	if(start_capped)
+		// this is not done via initial_reagent_flags because it represents state
+		update_container_flags(SEALED_CONTAINER | TRANSPARENT)
+		update_appearance()
+
+/obj/item/reagent_containers/cup/glass/waterbottle/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+	. = ..()
+	if((isnull(held_item) || held_item == src) && !cap_lost)
+		context[SCREENTIP_CONTEXT_ALT_LMB] = "[is_open_container() ? "Закрутить" : "Открутить"] крышку"
+		return CONTEXTUAL_SCREENTIP_SET
+
+/obj/item/reagent_containers/cup/glass/waterbottle/update_overlays()
+	. = ..()
+	if(!is_open_container())
+		. += cap_overlay
+
+/obj/item/reagent_containers/cup/glass/waterbottle/examine(mob/user)
+	. = ..()
+	if(cap_lost)
+		. += span_boldnotice("Кажется, что крышка потерялась.")
+	else if(!is_open_container())
+		. += span_notice("Закрыто крышкой. Используйте [EXAMINE_HINT("ALT+ЛКМ")], чтобы снять её.")
+	else
+		. += span_notice("Может быть закрыто крышкой. Используйте [EXAMINE_HINT("ALT+ЛКМ")], чтобы надеть её.")
+
+/obj/item/reagent_containers/cup/glass/waterbottle/click_alt(mob/user)
+	if(cap_lost)
+		balloon_alert(user, "крышка потеряна!")
+		return CLICK_ACTION_BLOCKING
+
+	var/fumbled = HAS_TRAIT(user, TRAIT_CLUMSY) && prob(5)
+	if(!is_open_container() || fumbled)
+		reset_container_flags()
+		animate(src, transform = null, time = 2, loop = 0)
+		if(fumbled)
+			to_chat(user, span_warning("Вы неуклюже роняете крышку от [declent_ru(GENITIVE)]! Она падает на пол и бесследно исчезает. И куда она могла закатиться?"))
+			cap_lost = TRUE
+		else
+			balloon_alert(user, "крышка снята")
+			playsound(loc, 'sound/items/handling/reagent_containers/plastic_bottle/bottle_cap_open.ogg', 50, TRUE)
+	else
+		update_container_flags(SEALED_CONTAINER | TRANSPARENT)
+		balloon_alert(user, "крышка закручена")
+		playsound(loc, 'sound/items/handling/reagent_containers/plastic_bottle/bottle_cap_close.ogg', 50, TRUE)
+	update_appearance()
+	return CLICK_ACTION_SUCCESS
+
+// heehoo bottle flipping
+/obj/item/reagent_containers/cup/glass/waterbottle/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	. = ..()
+	if(QDELETED(src))
+		return
+	if(is_open_container() || !reagents.total_volume)
+		return
+	if(prob(flip_chance)) // landed upright
+		visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] приземляется вертикально!"))
+	else // landed on its side
+		animate(src, transform = matrix(prob(50) ? 90 : -90, MATRIX_ROTATE), time = 3, loop = 0)
+
+/obj/item/reagent_containers/cup/glass/waterbottle/pickup(mob/user)
+	. = ..()
+	animate(src, transform = null, time = 1, loop = 0)
+
+/obj/item/reagent_containers/cup/glass/waterbottle/empty
+	list_reagents = list()
+	start_capped = FALSE
+
+/obj/item/reagent_containers/cup/glass/waterbottle/large
+	desc = "Пластиковая ёмкость для питьевой воды. Увеличенного объёма."
+	icon_state = "largebottle"
+	materials = list(MAT_PLASTIC = MINERAL_MATERIAL_AMOUNT * 3)
+	list_reagents = list(/datum/reagent/water = 100)
+	volume = 100
+	amount_per_transfer_from_this = 20
+	possible_transfer_amounts = list(5, 10, 15, 20, 25, 30, 50, 100)
+	cap_icon_state = "bottle_cap"
+	custom_price = PAYCHECK_MIN * 0.8
+
+/obj/item/reagent_containers/cup/glass/waterbottle/large/get_ru_names()
+	return alist(
+		NOMINATIVE = "большая бутылка воды",
+		GENITIVE = "большой бутылки воды",
+		DATIVE = "большой бутылке воды",
+		ACCUSATIVE = "большую бутылку воды",
+		INSTRUMENTAL = "большой бутылкой воды",
+		PREPOSITIONAL = "большой бутылке воды",
+	)
+
+/obj/item/reagent_containers/cup/glass/waterbottle/large/empty
+	list_reagents = list()
+	start_capped = FALSE
+
+// Admin spawn
+/obj/item/reagent_containers/cup/glass/waterbottle/relic
+	name = "mysterious bottle"
+	desc = "Бутылка, очень похожая на обычную бутылку воды, но с какими-то надписями маркером. Она излучает странную энергию."
+	flip_chance = 100 // FLIPP
+
+/obj/item/reagent_containers/cup/glass/waterbottle/relic/get_ru_names()
+	return alist(
+		NOMINATIVE = "загадочная бутылка",
+		GENITIVE = "загадочной бутылки",
+		DATIVE = "загадочной бутылке",
+		ACCUSATIVE = "загадочную бутылку",
+		INSTRUMENTAL = "загадочной бутылкой",
+		PREPOSITIONAL = "загадочной бутылке",
+	)
+
+/obj/item/reagent_containers/cup/glass/waterbottle/relic/Initialize(mapload)
+	var/reagent_type = get_random_reagent_type()
+	var/datum/reagent/random_reagent = GLOB.chemical_reagents_list[reagent_type]
+	list_reagents = list()
+	list_reagents[reagent_type] = 50
+	. = ..()
+	if(random_reagent)
+		desc += span_notice(" Надпись гласит: \"[random_reagent.name]\".")
+	update_appearance()
+
 // MARK: Shaker
 /obj/item/reagent_containers/cup/glass/shaker
 	name = "shaker"
@@ -257,7 +413,6 @@
 	item_state = "zaza_can"
 	volume = 80
 	drink_type = SUGAR
-	container_type = NONE
 	list_reagents = list(/datum/reagent/consumable/drink/cold/zaza = 80)
 	can_lid = TRUE
 	fill_icon_thresholds = list(50, 60, 65, 70, 75, 80)

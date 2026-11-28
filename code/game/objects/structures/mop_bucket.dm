@@ -5,7 +5,6 @@
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "mopbucket"
 	density = TRUE
-	container_type = OPENCONTAINER
 	var/obj/item/mop/mymop = null
 	var/amount_per_transfer_from_this = 5 //shit I dunno, adding this so syringes stop runtime erroring. --NeoFite
 	/// The icon used for the water overlay
@@ -13,7 +12,8 @@
 
 /obj/structure/mopbucket/Initialize(mapload)
 	. = ..()
-	create_reagents(100)
+	create_reagents(100, OPENCONTAINER)
+	RegisterSignal(reagents, COMSIG_REAGENTS_HOLDER_UPDATED, PROC_REF(on_reagent_change))
 	GLOB.janitorial_equipment += src
 	register_context()
 
@@ -116,7 +116,8 @@
 	if(.)
 		to_chat(user, span_notice("You put [I] into [src]."))
 
-/obj/structure/mopbucket/on_reagent_change()
+/obj/structure/mopbucket/proc/on_reagent_change(datum/reagents/holder)
+	SIGNAL_HANDLER
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/mopbucket/update_overlays()

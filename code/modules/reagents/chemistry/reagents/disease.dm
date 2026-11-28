@@ -72,7 +72,6 @@
 	name = "Сальмонелла"
 	id = "salmonella"
 	description = "Отвратительная бактерия, встречающаяся в испорченных продуктах."
-	reagent_state = LIQUID
 	color = "#1E4600"
 	can_synth = FALSE
 	taste_mult = 0
@@ -86,7 +85,6 @@
 	name = "Гиббис"
 	id = "gibbis"
 	description = "Гиббис в жидкой форме."
-	reagent_state = LIQUID
 	color = "#FF0000"
 	can_synth = FALSE
 	taste_mult = 0
@@ -101,7 +99,6 @@
 	name = "Прионы"
 	id = "prions"
 	description = "Возбудитель болезни, который не является ни бактериальным, ни грибковым, ни вирусным агентом и не содержит генетического материала."
-	reagent_state = LIQUID
 	color = "#FFFFFF"
 	can_synth = FALSE
 	taste_mult = 0
@@ -116,7 +113,6 @@
 	name = "Могильная пыль"
 	id = "grave_dust"
 	description = "Заплесневелая пыль, взятая кладбища."
-	reagent_state = LIQUID
 	color = "#465046"
 	can_synth = FALSE
 	taste_mult = 0
@@ -131,7 +127,6 @@
 	name = "Чистый сальный жир"
 	id = "bacon_grease"
 	description = "Принесите мне капельницу этого сладкого, сладкого жира!"
-	reagent_state = LIQUID
 	color = "#F7E6B1"
 	can_synth = FALSE
 	taste_description = "бекона"
@@ -164,7 +159,6 @@
 	name = "Сгущённый инитропидрил"
 	id = "concentrated_initro"
 	description = "Остановка сердца в жидкой форме!"
-	reagent_state = LIQUID
 	color = "#AB1CCF"
 	can_synth = FALSE
 	taste_mult = 0
@@ -183,7 +177,6 @@
 	name = "Питательная среда"
 	id = "virusfood"
 	description = "Смесь воды, молока и кислорода. Вирусные клетки могут использовать эту смесь для размножения."
-	reagent_state = LIQUID
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	color = "#899613" // rgb: 137, 150, 19
 	taste_description = "водянистого молока"

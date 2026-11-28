@@ -12,9 +12,8 @@
 	possible_transfer_amounts = list(5, 10, 15)
 	volume = 15
 	sharp = TRUE
-	pass_open_check = TRUE
 	materials = list(MAT_METAL=10, MAT_GLASS=20)
-	container_type = TRANSPARENT
+	initial_reagent_flags = TRANSPARENT
 	custom_price = PAYCHECK_MIN * 0.2
 	fill_icon_thresholds = list(1, 5, 10 ,15)
 	var/busy = FALSE
@@ -147,7 +146,6 @@
 			var/fraction = min(amount_per_transfer_from_this / reagents.total_volume, 1)
 			reagents.reaction(L, REAGENT_INGEST, fraction)
 			reagents.trans_to(target, amount_per_transfer_from_this)
-			after_transfer(target)
 			to_chat(user, span_notice("Вы вкололи <b>[amount_per_transfer_from_this]</b> единиц[DECL_U_Y_0(amount_per_transfer_from_this)] вещества с помощью [declent_ru(GENITIVE)]. В нём остаётся <b>[reagents.total_volume]</b> единиц[DECL_A_Y_0(reagents.total_volume)] вещества."))
 			if(istype(target, /obj/item/reagent_containers/food))
 				var/obj/item/reagent_containers/food/F = target
@@ -165,9 +163,6 @@
 		rounded_vol = 0
 	icon_state = "[rounded_vol]"
 	item_state = "syringe_[rounded_vol]"
-
-/obj/item/reagent_containers/syringe/get_sound_for_reagent_containers()
-	return SFX_SYRINGEPOUR
 
 /obj/item/reagent_containers/syringe/update_overlays()
 	. = ..()

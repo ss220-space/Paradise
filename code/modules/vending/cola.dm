@@ -28,6 +28,8 @@
 		/obj/item/reagent_containers/cup/soda_cans/starkist = 10,
 		/obj/item/reagent_containers/cup/soda_cans/space_up = 10,
 		/obj/item/reagent_containers/cup/soda_cans/grape_juice = 10,
+		/obj/item/reagent_containers/cup/glass/waterbottle = 10,
+		/obj/item/reagent_containers/cup/glass/waterbottle/large = 5,
 	)
 	premium = list(
 		/obj/item/reagent_containers/cup/soda_cans/energy = 10,

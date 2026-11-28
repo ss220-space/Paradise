@@ -11,7 +11,7 @@
 	belt_icon = "hypospray"
 	possible_transfer_amounts = list(1, 2, 3, 4, 5, 10, 15, 20, 25, 30)
 	resistance_flags = ACID_PROOF
-	container_type = OPENCONTAINER | NO_SPLASH
+	initial_reagent_flags = OPENCONTAINER | NO_SPLASH
 	slot_flags = ITEM_SLOT_BELT
 	custom_price = PAYCHECK_LOWER
 	var/ignore_flags = FALSE
@@ -61,7 +61,7 @@
 	to_chat(user, span_notice("Вы вкалываете <b>[trans]</b> единиц[DECL_U_Y_0(trans)]. В [declent_ru(PREPOSITIONAL)] осталось ещё <b>[reagents.total_volume]</b> единиц[DECL_A_Y_0(reagents.total_volume)]."))
 	add_attack_logs(user, target, "Injected with [src] containing ([english_list(injected)])", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 
-/obj/item/reagent_containers/hypospray/on_reagent_change()
+/obj/item/reagent_containers/hypospray/on_reagent_change(datum/reagents/holder, ...)
 	if(safety_hypo && !(obj_flags & EMAGGED))
 		var/found_forbidden_reagent = FALSE
 		for(var/datum/reagent/R in reagents.reagent_list)
@@ -73,6 +73,7 @@
 				to_chat(loc, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] определяет и удаляет недопустимое вещество."))
 			else
 				visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] определяет и удаляет недопустимое вещество."))
+	return ..()
 
 /obj/item/reagent_containers/hypospray/emag_act(mob/user, obj/item/card/emag/emag_card)
 	. = ..()
@@ -366,8 +367,7 @@
 	has_variable_transfer_amount = FALSE
 	volume = 10
 	ignore_flags = TRUE //so you can medipen through hardsuits
-	container_type = DRAWABLE
-	flags = null
+	initial_reagent_flags = NONE
 	list_reagents = list(/datum/reagent/medicine/epinephrine = 10)
 	custom_price = PAYCHECK_MIN
 	/// Whether we can rename and repaint source
@@ -646,7 +646,7 @@
 	list_reagents = list()
 	only_self = TRUE
 	reskin_allowed = TRUE
-	container_type = OPENCONTAINER
+	initial_reagent_flags = OPENCONTAINER
 
 /obj/item/reagent_containers/hypospray/autoinjector/selfmade/get_ru_names()
 	return alist(
@@ -661,7 +661,7 @@
 /obj/item/reagent_containers/hypospray/autoinjector/selfmade/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
-		container_type = DRAINABLE
+		add_container_flags(DRAINABLE)
 
 /obj/item/reagent_containers/hypospray/autoinjector/salbutamol
 	name = "Salbutamol autoinjector"
@@ -739,7 +739,6 @@
 	icon_state = "zombiepen"
 	amount_per_transfer_from_this = 15
 	volume = 15
-	container_type = NONE // No sucking out the reagent
 	list_reagents = list(/datum/reagent/zombie_cure = 15)
 
 /obj/item/reagent_containers/hypospray/autoinjector/zombiecure/get_ru_names()

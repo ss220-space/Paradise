@@ -85,8 +85,7 @@
 
 /obj/projectile/bullet/midbullet3/pea/Initialize(mapload)
 	. = ..()
-	create_reagents(100) //same as the fruit itself, wont ever hit that much though i believe
-	reagents.flags |= REAGENT_NOREACT
+	create_reagents(100, NO_REACT) //same as the fruit itself, wont ever hit that much though i believe
 
 /obj/projectile/bullet/midbullet3/pea/on_hit(mob/living/carbon/target, blocked = 0, pierce_hit)
 	if(istype(target) && blocked != 100)
@@ -97,6 +96,6 @@
 			reagents.trans_to(target, reagents.total_volume)
 			return TRUE
 	. = ..()
-	if(reagents.flags & REAGENT_NOREACT) //first impact on a noncarbon
-		reagents.flags &= ~(REAGENT_NOREACT)
+	if(reagents.flags & NO_REACT) //first impact on a noncarbon
+		reagents.flags &= ~(NO_REACT)
 		reagents.handle_reactions()

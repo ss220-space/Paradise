@@ -72,6 +72,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/pickup_sound
 	/// Sound used when dropping the item. May contain a list of sounds to pick from instead of a single path.
 	var/drop_sound
+	/// Sound used when throwing the item and it lands on a turf.
+	var/throw_drop_sound
+	/// Whether or not item handling sounds vary in pitch.
+	var/sound_vary = FALSE
 	/// Whether or not we use stealthy audio levels for this item's attack sounds
 	var/stealthy_audio = FALSE
 	var/w_class = WEIGHT_CLASS_NORMAL
@@ -347,6 +351,57 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 /obj/item/proc/get_drop_sound()
 	return islist(drop_sound) ? pick(drop_sound) : (drop_sound || SFX_DROP)
+
+/* sound procs, made so they can be overriden on subtypes */
+
+/// Executed when this item is thrown and hits a mob
+/obj/item/proc/mob_throw_hit_sound_chain(target, volume)
+	if(play_mob_throw_hit_sound(target, volume))
+		return TRUE
+	if(play_hit_sound(target, volume))
+		return TRUE
+	playsound(target, 'sound/weapons/genhit.ogg', volume, TRUE, -1)
+	return TRUE
+
+/// Executed when this item is thrown and lands on a turf
+/obj/item/proc/throw_drop_sound_chain(volume)
+	if(play_throw_drop_sound(volume))
+		return TRUE
+	if(play_drop_sound(volume))
+		return TRUE
+	return FALSE
+
+/obj/item/proc/sound_chain(sound_to_play, volume = HALFWAY_SOUND_VOLUME, target = src, channel = 0)
+	sound_to_play = islist(sound_to_play) ? pick(sound_to_play) : sound_to_play
+	if(sound_to_play)
+		playsound(target, sound_to_play, volume, sound_vary, channel = channel, ignore_walls = FALSE)
+		return TRUE
+	return FALSE
+
+/// Plays the pickup sound of this item.
+/obj/item/proc/play_pickup_sound(volume = PICKUP_SOUND_VOLUME)
+	return sound_chain(get_pickup_sound(), volume, channel = CHANNEL_INTERACTION_SOUNDS)
+
+/// Plays the drop sound
+/obj/item/proc/play_drop_sound(volume = DROP_SOUND_VOLUME)
+	return sound_chain(get_drop_sound(), volume, channel = CHANNEL_INTERACTION_SOUNDS)
+
+/// Plays the throw drop sound
+/obj/item/proc/play_throw_drop_sound(volume = YEET_SOUND_VOLUME)
+	return sound_chain(throw_drop_sound, volume)
+
+/// Plays the mob throw hit sound
+/obj/item/proc/play_mob_throw_hit_sound(target, volume = DROP_SOUND_VOLUME)
+	return sound_chain(mob_throw_hit_sound, volume, target)
+
+/// Plays when a mob is hit with this item
+/obj/item/proc/play_hit_sound(target, volume = HALFWAY_SOUND_VOLUME)
+	return sound_chain(hitsound, volume, target)
+
+/obj/item/proc/play_equip_sound(volume = EQUIP_SOUND_VOLUME)
+	return sound_chain(get_equip_sound(), volume, channel = CHANNEL_INTERACTION_SOUNDS)
+
+/* sound procs over */
 
 /obj/item/proc/determine_move_resist()
 	switch(w_class)
@@ -745,12 +800,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	remove_outline()
 
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED, user, slot)
-	var/drop_sound = get_drop_sound()
-	if(!silent && !(item_flags & ABSTRACT) && drop_sound)
-		var/chosen_sound = drop_sound
-		if(islist(drop_sound) && length(drop_sound))
-			chosen_sound = pick(drop_sound)
-		playsound(src, chosen_sound, DROP_SOUND_VOLUME, channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
+	if(!silent && !(item_flags & ABSTRACT))
+		play_drop_sound(DROP_SOUND_VOLUME)
 	return TRUE
 
 /**
@@ -823,20 +874,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	item_flags |= IN_INVENTORY
 
 	if(!initial && !(item_flags & ABSTRACT))
-		var/equip_sound = get_equip_sound()
-		var/pickup_sound = get_pickup_sound()
-		if(equip_sound && !user.is_general_slot(slot))
-			var/chosen_sound = equip_sound
-			if(islist(equip_sound) && length(equip_sound))
-				chosen_sound = pick(equip_sound)
-			playsound(src, chosen_sound, EQUIP_SOUND_VOLUME, channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
+		if(!user.is_general_slot(slot))
+			play_equip_sound()
 		else if(slot & ITEM_SLOT_POCKETS)
 			playsound(src, 'sound/items/handling/equip/generic_equip3.ogg', EQUIP_SOUND_VOLUME, channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
-		else if(pickup_sound && (slot & ITEM_SLOT_HANDS))
-			var/chosen_sound = pickup_sound
-			if(islist(pickup_sound) && length(pickup_sound))
-				chosen_sound = pick(pickup_sound)
-			playsound(src, chosen_sound, PICKUP_SOUND_VOLUME, channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
+		else if(slot & ITEM_SLOT_HANDS)
+			play_pickup_sound()
 
 	user.update_equipment_speed_mods()
 	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
@@ -1103,17 +1146,12 @@ GAME_VERB_SRC(/obj/item, verb_pickup, oview(1), "Pick up", VERB_CATEGORY_HIDDEN)
 			living.IgniteMob()
 
 		if(impact_throwforce > 0 && !item_catched)
-			if(mob_throw_hit_sound)
-				playsound(living, mob_throw_hit_sound, volume, TRUE, -1)
-			else if(hitsound)
-				playsound(living, hitsound, volume, TRUE, -1)
-			else
-				playsound(living, 'sound/weapons/genhit.ogg', volume, TRUE, -1)
+			mob_throw_hit_sound_chain(living, volume)
 		else
 			playsound(living, 'sound/weapons/throwtap.ogg', volume, TRUE, -1)
 
 	else
-		playsound(src, get_drop_sound(), YEET_SOUND_VOLUME, ignore_walls = FALSE)
+		throw_drop_sound_chain(YEET_SOUND_VOLUME)
 
 /obj/item/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force, dodgeable)
 	thrownby = thrower?.UID()
@@ -1589,3 +1627,7 @@ GAME_VERB_SRC(/obj/item, verb_pickup, oview(1), "Pick up", VERB_CATEGORY_HIDDEN)
 
 /obj/item/proc/on_human_ebedded(/mob/living/carbon/human/our_target)
 	return
+
+/// Checks if this container is valid for use with chemistry machinery.
+/obj/item/proc/is_chem_container()
+	return FALSE

@@ -5,9 +5,7 @@
 	icon_state = "barrel"
 	density = TRUE
 	anchored = TRUE
-	container_type = DRAINABLE | AMOUNT_VISIBLE
 	pressure_resistance = 2 * ONE_ATMOSPHERE
-	var/open = FALSE
 	var/speed_multiplier = 1 //How fast it distills. Defaults to 100% (1.0). Lower is better.
 
 /obj/structure/fermenting_barrel/get_ru_names()
@@ -22,14 +20,10 @@
 
 /obj/structure/fermenting_barrel/Initialize(mapload)
 	. = ..()
-	create_reagents(300) //Bluespace beakers, but without the portability or efficiency in circuits.
+	create_reagents(300, DRAINABLE | REFILLABLE | AMOUNT_VISIBLE) //Bluespace beakers, but without the portability or efficiency in circuits.
 
 /obj/structure/fermenting_barrel/add_debris_element()
 	generate_debris_handler(DEBRIS_WOOD, -40, 5)
-
-/obj/structure/fermenting_barrel/examine(mob/user)
-	. = ..()
-	. += span_notice("Сейчас бочка [open ? "открыта — можно наливать жидкости." : "закрыта — можно набирать жидкость через кран."]")
 
 /obj/structure/fermenting_barrel/proc/makeWine(obj/item/reagent_containers/food/snacks/grown/G)
 	if(G.reagents)
@@ -68,16 +62,6 @@
 
 	return ..()
 
-/obj/structure/fermenting_barrel/attack_hand(mob/user)
-	open = !open
-	if(open)
-		container_type = REFILLABLE | AMOUNT_VISIBLE
-		to_chat(user, span_notice("Вы открываете [declent_ru(ACCUSATIVE)], чтобы наполнить её."))
-	else
-		container_type = DRAINABLE | AMOUNT_VISIBLE
-		to_chat(user, span_notice("Вы закрываете [declent_ru(ACCUSATIVE)], теперь можно набирать жидкость через кран."))
-	update_icon(UPDATE_ICON_STATE)
-
 /obj/structure/fermenting_barrel/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0))
@@ -97,9 +81,6 @@
 		mat_drop = 30
 	new /obj/item/stack/sheet/wood(drop_location(), mat_drop)
 	..()
-
-/obj/structure/fermenting_barrel/update_icon_state()
-	icon_state = "barrel[open ? "_open" : ""]"
 
 /datum/crafting_recipe/fermenting_barrel
 	name = "Wooden Barrel"

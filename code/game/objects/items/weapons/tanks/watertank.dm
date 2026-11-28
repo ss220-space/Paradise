@@ -19,7 +19,7 @@
 
 /obj/item/watertank/Initialize(mapload)
 	. = ..()
-	create_reagents(volume)
+	create_reagents(volume, OPENCONTAINER)
 	noz = make_noz()
 
 /obj/item/watertank/Destroy()
@@ -212,19 +212,22 @@
 	precision = 1
 	cooling_power = 5
 	w_class = WEIGHT_CLASS_HUGE
+	chem = null //holds no chems of its own, it takes from the tank.
 	var/obj/item/watertank/atmos/tank
 	var/nozzle_mode = NONE
 	var/metal_synthesis_cooldown = 0
 	var/nanofrost_cooldown = 0
 
 /obj/item/extinguisher/mini/nozzle/Initialize(mapload)
+	. = ..()
 	if(!check_tank_exists(loc, usr, src))
 		return INITIALIZE_HINT_QDEL
 	tank = loc
+	if(!tank?.reagents)
+		return INITIALIZE_HINT_QDEL
 	reagents = tank.reagents
 	max_water = tank.volume
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-	return ..()
 
 /obj/item/extinguisher/mini/nozzle/Destroy()
 	tank = null

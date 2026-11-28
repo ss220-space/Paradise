@@ -13,7 +13,7 @@
 	volume = 200
 	possible_transfer_amounts = list(1, 5, 10, 15, 20, 25, 30, 50) // Everything above 10 is NOT usable on a person and is instead used for transfering to other containers
 	amount_per_transfer_from_this = 1
-	container_type = OPENCONTAINER | NO_SPLASH
+	initial_reagent_flags = OPENCONTAINER | NO_SPLASH
 	resistance_flags = ACID_PROOF
 	custom_price = PAYCHECK_LOWER
 	w_class = WEIGHT_CLASS_NORMAL
@@ -49,9 +49,6 @@
 /obj/item/reagent_containers/iv_bag/Destroy()
 	end_processing()
 	return ..()
-
-/obj/item/reagent_containers/iv_bag/on_reagent_change()
-	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/iv_bag/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
@@ -190,7 +187,6 @@
 			return
 
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
-		after_transfer(target)
 		to_chat(user, span_notice("Вы перемещаете <b>[trans]</b> единиц[DECL_U_Y_0(trans)] вещества в [target.declent_ru(ACCUSATIVE)]."))
 
 	else if(iscup(target) && !target.is_open_container())

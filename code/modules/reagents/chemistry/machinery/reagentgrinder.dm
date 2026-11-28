@@ -205,7 +205,7 @@
 	if(exchange_parts(user, I))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(is_reagent_container(I) && (I.container_type & OPENCONTAINER))
+	if(is_reagent_container(I) && I.is_open_container())
 		add_fingerprint(user)
 		if(panel_open)
 			balloon_alert(user, "панель открыта!")

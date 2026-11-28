@@ -2,7 +2,6 @@
 	name = "Краска"
 	id = "paint_"
 	description = "Краска, используемая для покраски объектов."
-	reagent_state = LIQUID
 	color = "#808080"
 	taste_description = "краски"
 
@@ -62,7 +61,6 @@
 	name = "Средство для удаления краски"
 	id = "paint_remover"
 	description = "Вещество, используемое для удаления краски с объектов."
-	reagent_state = LIQUID
 	color = "#808080"
 	taste_description = "спирта"
 

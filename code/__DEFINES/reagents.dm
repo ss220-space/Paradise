@@ -1,7 +1,3 @@
-#define SOLID 1
-#define LIQUID 2
-#define GAS 3
-
 #define REAGENT_OVERDOSE_EFFECT 1
 #define REAGENT_OVERDOSE_FLAGS 2
 #define REAGENT_EVAPARATION_RATIO 0.3
@@ -21,6 +17,10 @@
 #define TRANSPARENT (1<<5) // Used on containers which you want to be able to see the reagents off.
 #define AMOUNT_VISIBLE (1<<6) // For non-transparent containers that still have the general amount of reagents in them visible.
 
+//Reaction flags
+/// Applied to a reagent holder, the contents will not react with each other.
+#define NO_REACT (1<<7)
+
 //Special properties
 ///If the holder is a sealed container - Used if you don't want reagent contents boiling out (plasma, specifically, in which case it only bursts out when at ignition temperatures)
 #define SEALED_CONTAINER (1<<10)
@@ -38,6 +38,8 @@
 
 /// Water temperature
 #define COLD_WATER_TEMPERATURE 283.15 // 10 degrees celsius
+/// Default temperature of reagents in a holder.
+#define DEFAULT_REAGENT_TEMPERATURE T20C
 
 /// Sanity check limit to clamp chems to sane amounts and prevent rounding errors during transfer.
 #define CHEMICAL_VOLUME_ROUNDING 0.01

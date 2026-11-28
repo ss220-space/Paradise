@@ -10,8 +10,7 @@
 	item_state = "dropper"
 	possible_transfer_amounts = list(1, 2, 3, 4, 5)
 	volume = 5
-	pass_open_check = TRUE
-	container_type = TRANSPARENT
+	initial_reagent_flags = TRANSPARENT
 	custom_price = PAYCHECK_MIN * 0.2
 	fill_icon_thresholds = list(10, 25, 50, 75, 100)
 
@@ -89,7 +88,6 @@
 				return
 
 			to_transfer = reagents.trans_to(target, amount_per_transfer_from_this)
-			after_transfer(target)
 			to_chat(user, span_notice("Вы перемещаете <b>[to_transfer]</b> единиц[DECL_U_Y_0(to_transfer)] вещества, используя [declent_ru(ACCUSATIVE)]."))
 
 		else
@@ -104,9 +102,6 @@
 			to_transfer = target.reagents.trans_to(src, amount_per_transfer_from_this)
 
 			to_chat(user, span_notice("Вы заполняете [declent_ru(ACCUSATIVE)] <b>[to_transfer]</b> единиц[DECL_YEJ_AMI_AMI(to_transfer)] вещества."))
-
-/obj/item/reagent_containers/dropper/get_sound_for_reagent_containers()
-	return SFX_DROPPERPOUR
 
 /obj/item/reagent_containers/dropper/cyborg
 	name = "Industrial Dropper"
@@ -133,7 +128,7 @@
 	possible_transfer_amounts = list(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1)
 	volume = 1
 
-/obj/item/reagent_containers/dropper/precision/on_reagent_change()
+/obj/item/reagent_containers/dropper/precision/on_reagent_change(datum/reagents/holder, ...)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/reagent_containers/dropper/precision/update_icon_state()

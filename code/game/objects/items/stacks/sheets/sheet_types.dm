@@ -884,8 +884,8 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 		new /datum/stack_recipe("plastic crate", /obj/structure/closet/crate/plastic, 10, one_per_turf = TRUE, on_floor = TRUE),
 	)),
 	new /datum/stack_recipe_list("fluid containers", list(
-		new /datum/stack_recipe("water bottle", /obj/item/reagent_containers/cup/beaker/waterbottle/empty, on_floor = TRUE),
-		new /datum/stack_recipe("large water bottle", /obj/item/reagent_containers/cup/beaker/waterbottle/large/empty, 3, on_floor = TRUE),
+		new /datum/stack_recipe("water bottle", /obj/item/reagent_containers/cup/glass/waterbottle/empty, on_floor = TRUE),
+		new /datum/stack_recipe("large water bottle", /obj/item/reagent_containers/cup/glass/waterbottle/large/empty, 3, on_floor = TRUE),
 	)),
 	new /datum/stack_recipe_list("misc", list(
 		new /datum/stack_recipe("plastic ashtray", /obj/item/storage/ashtray/, 2, one_per_turf = TRUE, on_floor = TRUE),

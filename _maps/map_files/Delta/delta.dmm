@@ -77326,7 +77326,7 @@
 	},
 /obj/structure/table,
 /obj/effect/turf_decal/delivery/white,
-/obj/item/reagent_containers/cup/beaker/waterbottle,
+/obj/item/reagent_containers/cup/glass/waterbottle,
 /obj/item/reagent_containers/condiment/milk,
 /obj/item/reagent_containers/cup/glass/drinkingglass,
 /turf/simulated/floor/plasteel{

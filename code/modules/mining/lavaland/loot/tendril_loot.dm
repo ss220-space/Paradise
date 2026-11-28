@@ -180,7 +180,6 @@
 	name = "Зелье полёта"
 	id = "flightpotion"
 	description = "Странный мутагенный состав неизвестного происхождения."
-	reagent_state = LIQUID
 	color = "#FFEBEB"
 
 /datum/reagent/flightpotion/reaction_mob(mob/living/M, method = REAGENT_TOUCH, reac_volume, show_message = 1)

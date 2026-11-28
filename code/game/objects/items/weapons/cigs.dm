@@ -23,7 +23,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	w_class = WEIGHT_CLASS_TINY
 	body_parts_covered = null
 	attack_verb = null
-	container_type = INJECTABLE
 	undyeable = TRUE
 	heat = T1000K
 	var/lit = FALSE
@@ -68,7 +67,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/Initialize(mapload)
 	. = ..()
-	create_reagents(chem_volume) // making the cigarrete a chemical holder with a maximum volume of 30
+	create_reagents(chem_volume, INJECTABLE) // making the cigarrete a chemical holder with a maximum volume of 30
 	reagents.set_reacting(FALSE) // so it doesn't react until you light it
 	if(list_reagents)
 		reagents.add_reagent_list(list_reagents)

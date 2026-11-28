@@ -12114,14 +12114,14 @@
 /area/ruin/space/ancientstation/charlie_comm)
 "VP" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/cup/beaker/waterbottle/large{
+/obj/item/reagent_containers/cup/glass/waterbottle/large{
 	pixel_x = 12;
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/cup/beaker/waterbottle/large{
+/obj/item/reagent_containers/cup/glass/waterbottle/large{
 	pixel_x = 12
 	},
-/obj/item/reagent_containers/cup/beaker/waterbottle/large{
+/obj/item/reagent_containers/cup/glass/waterbottle/large{
 	pixel_x = 12;
 	pixel_y = -2
 	},

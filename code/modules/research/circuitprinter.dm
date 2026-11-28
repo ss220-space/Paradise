@@ -11,7 +11,6 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			Управление происходит с помощью подключаемой консоли."
 	icon_state = "circuit_imprinter"
 	base_icon_state = "circuit_imprinter"
-	container_type = OPENCONTAINER
 
 	///List of designs scanned and saved
 	var/list/scanned_designs
@@ -49,7 +48,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 /obj/machinery/r_n_d/circuit_imprinter/Initialize(mapload)
 	. = ..()
 	init_parts()
-	create_reagents()
+	create_reagents(flags = OPENCONTAINER)
 	RefreshParts()
 	ADD_TRAIT(src, TRAIT_LOGISTICS_COMPATIBLE, INNATE_TRAIT)
 	if(is_taipan(z))

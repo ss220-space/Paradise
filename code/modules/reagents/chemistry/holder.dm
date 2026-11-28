@@ -2,16 +2,22 @@
 #define MINOR_ADDICTION_TIME 45 MINUTES
 
 /datum/reagents
-	var/list/datum/reagent/reagent_list = new/list()
+	/// The reagents being held
+	var/list/datum/reagent/reagent_list = list()
+	/// Current volume of all the reagents
 	var/total_volume = 0
+	/// Max volume of this holder
 	var/maximum_volume = 100
+	/// The atom this holder is attached to
 	var/atom/my_atom = null
-	var/chem_temp = T20C
+	/// Current temp of the holder volume
+	var/chem_temp = DEFAULT_REAGENT_TEMPERATURE
+	/// various flags, see code\__DEFINES\reagents.dm
+	var/flags
 	var/temperature_min = 0
 	var/temperature_max = 10000
 	var/list/datum/reagent/addiction_list = new/list()
 	var/list/addiction_threshold_accumulated = new/list()
-	var/flags
 	var/locked = FALSE
 	var/max_fire_rad = 5
 	var/max_fire_int = 20
@@ -21,12 +27,9 @@
 	var/min_fire_dur = 3
 	var/trigger_volatiles = FALSE
 
-/datum/reagents/New(maximum = 100, temperature_minimum, temperature_maximum)
+/datum/reagents/New(maximum = 100, new_flags = 0)
 	maximum_volume = maximum
-	if(temperature_minimum)
-		temperature_min = temperature_minimum
-	if(temperature_maximum)
-		temperature_max = temperature_maximum
+	flags = new_flags
 
 /datum/reagents/Destroy()
 	QDEL_LIST(reagent_list)
@@ -59,7 +62,6 @@
 
 		current_list_element++
 		total_transfered++
-		update_total()
 
 	handle_reactions()
 	return total_transfered
@@ -67,9 +69,8 @@
 /datum/reagents/proc/remove_all(amount = 1)
 	if(total_volume > 0)
 		var/part = amount / total_volume
-		for(var/A in reagent_list)
-			var/datum/reagent/R = A
-			remove_reagent(R.type, R.volume * part)
+		for(var/datum/reagent/reagent as anything in reagent_list)
+			reagent.volume -= reagent.volume * part
 
 		update_total()
 		handle_reactions()
@@ -176,7 +177,10 @@
 	return amount
 
 /datum/reagents/proc/set_reagent_temp(new_temp = T0C, react = TRUE)
+	var/old_temp = chem_temp
 	chem_temp = clamp(new_temp, temperature_min, temperature_max)
+	if(old_temp != chem_temp)
+		SEND_SIGNAL(src, COMSIG_REAGENTS_TEMP_CHANGE, chem_temp, old_temp)
 	if(react)
 		temperature_react()
 		handle_reactions()
@@ -188,6 +192,7 @@
 
 /datum/reagents/proc/temperature_reagents(exposed_temperature, divisor = 35, change_cap = 15) //This is what you use to change the temp of a reagent holder.
 	//Do not manually change the reagent unless you know what youre doing.
+	var/old_temp = chem_temp
 	var/difference = abs(chem_temp - exposed_temperature)
 	var/change = min(max((difference / divisor), 1), change_cap)
 	if(exposed_temperature > chem_temp)
@@ -196,6 +201,8 @@
 		chem_temp -= change
 
 	chem_temp = max(min(chem_temp, temperature_max), temperature_min) //Cap for the moment.
+	if(old_temp != chem_temp)
+		SEND_SIGNAL(src, COMSIG_REAGENTS_TEMP_CHANGE, chem_temp, old_temp)
 	temperature_react()
 
 	handle_reactions()
@@ -371,9 +378,9 @@
 
 /datum/reagents/proc/set_reacting(react = TRUE)
 	if(react)
-		flags &= ~(REAGENT_NOREACT)
+		flags &= ~(NO_REACT)
 	else
-		flags |= REAGENT_NOREACT
+		flags |= NO_REACT
 
 /datum/reagents/proc/conditional_update_move(atom/A, Running = FALSE)
 	for(var/AB in reagent_list)
@@ -402,10 +409,11 @@
 	return FALSE
 
 /datum/reagents/proc/handle_reactions()
-	if(flags & REAGENT_NOREACT)
+	if(flags & NO_REACT)
 		return //Yup, no reactions here. No siree.
 
 	var/reaction_occured = FALSE
+	var/any_reaction = FALSE
 	do
 		reaction_occured = FALSE
 		for(var/A in reagent_list) // Usually a small list
@@ -499,6 +507,7 @@
 
 					C.on_reaction(src, created_volume)
 					reaction_occured = TRUE
+					any_reaction = TRUE
 					break
 	while(reaction_occured)
 	if(trigger_volatiles)
@@ -507,7 +516,8 @@
 			clear_reagents()
 			combust(get_turf(my_atom), combust_data[COMBUST_DATA_RADIUS], combust_data[COMBUST_DATA_INTENSITY], combust_data[COMBUST_DATA_DURATION], combust_data[COMBUST_DATA_SUPPLEMENTED], combust_data[COMBUST_DATA_FIRECOLOR], combust_data[COMBUST_DATA_PENETRATING])
 		trigger_volatiles = FALSE
-	update_total()
+	if(any_reaction)
+		update_total()
 	return FALSE
 
 /datum/reagents/proc/calc_combust_data()
@@ -609,44 +619,68 @@
 	return FALSE
 
 /datum/reagents/proc/isolate_reagent(reagent)
-	for(var/A in reagent_list)
-		var/datum/reagent/R = A
-		if(R.type != reagent)
-			del_reagent(R.type)
-			update_total()
+	for(var/datum/reagent/iter_reagent as anything in reagent_list)
+		if(iter_reagent.type != reagent)
+			iter_reagent.volume = 0
+	update_total()
 
-/datum/reagents/proc/del_reagent(reagent_type)
+/**
+ * Removes an specific reagent from this holder
+ * Arguments
+ *
+ * * [target_reagent_typepath][datum/reagent] - type typepath of the reagent to remove
+ */
+/datum/reagents/proc/del_reagent(datum/reagent/target_reagent_typepath)
+	if(!ispath(target_reagent_typepath))
+		stack_trace("invalid reagent path passed to del reagent [target_reagent_typepath]")
+		return FALSE
+
+	//setting the volume to 0 will allow update_total() to clear it up for us
 	var/list/cached_reagents = reagent_list
 	for(var/datum/reagent/reagent as anything in cached_reagents)
-		if(reagent.type == reagent_type)
+		if(reagent.type == target_reagent_typepath)
+			reagent.volume = 0
+			update_total()
+			return TRUE
+
+	return FALSE
+
+/datum/reagents/proc/update_total()
+	var/list/cached_reagents = reagent_list
+	var/list/deleted_reagents = list()
+	var/chem_index = 1
+	var/num_reagents = length(cached_reagents)
+	total_volume = 0
+
+	while(chem_index <= num_reagents)
+		var/datum/reagent/reagent = cached_reagents[chem_index]
+		chem_index += 1
+
+		if(reagent.volume < 0.1)
 			if(isliving(my_atom))
 				if(reagent.metabolizing)
 					reagent.metabolizing = FALSE
 					reagent.on_mob_end_metabolize(my_atom)
-				var/mob/living/M = my_atom
-				reagent.on_mob_delete(M)
-			cached_reagents -= reagent
-			qdel(reagent)
-			update_total()
-			if(my_atom)
-				my_atom.on_reagent_change()
-			return FALSE
-	return TRUE
+				reagent.on_mob_delete(my_atom)
 
-/datum/reagents/proc/update_total()
-	total_volume = 0
-	for(var/A in reagent_list)
-		var/datum/reagent/R = A
-		if(R.volume < 0.1)
-			del_reagent(R.type)
-		else
-			total_volume += R.volume
+			cached_reagents -= reagent
+			deleted_reagents += reagent
+
+			chem_index -= 1
+			num_reagents -= 1
+			continue
+
+		total_volume += reagent.volume
+
+	QDEL_LIST(deleted_reagents)
+
+	SEND_SIGNAL(src, COMSIG_REAGENTS_HOLDER_UPDATED)
 	return FALSE
 
 /datum/reagents/proc/clear_reagents()
-	for(var/A in reagent_list)
-		var/datum/reagent/R = A
-		del_reagent(R.type)
+	for(var/datum/reagent/reagent as anything in reagent_list)
+		reagent.volume = 0
+	update_total()
 	return FALSE
 
 /datum/reagents/proc/reaction_check(mob/living/M, datum/reagent/R)
@@ -741,7 +775,7 @@
 		var/amt = list_reagents[r_id]
 		add_reagent(r_id, amt, data)
 
-/datum/reagents/proc/add_reagent(reagent_type, amount, list/data=null, reagtemp = T20C, no_react = FALSE)
+/datum/reagents/proc/add_reagent(reagent_type, amount, list/data=null, reagtemp = DEFAULT_REAGENT_TEMPERATURE, no_react = FALSE)
 	if(!ispath(reagent_type))
 		stack_trace("invalid reagent passed to add reagent [reagent_type]")
 		return FALSE
@@ -750,29 +784,32 @@
 		stack_trace("non finite amount passed to add reagent [amount] [reagent_type]")
 		return TRUE
 
-	update_total()
 	if(total_volume + amount > maximum_volume)
 		amount = (maximum_volume - total_volume) // Doesnt fit in. Make it disappear. Shouldnt happen. Will happen.
+
 	if(amount <= 0)
 		return FALSE
 
+	var/old_temp = chem_temp
 	chem_temp = clamp((chem_temp * total_volume + reagtemp * amount) / (total_volume + amount), temperature_min, temperature_max) // equalize with new chems
+	if(old_temp != chem_temp)
+		SEND_SIGNAL(src, COMSIG_REAGENTS_TEMP_CHANGE, chem_temp, old_temp)
 	if(SEND_SIGNAL(src, COMSIG_EARLY_REAGENT_ADDED, reagent_type, amount, data, reagtemp, no_react, chem_temp) & COMPONENT_PREVENT_ADD_REAGENT)
 		return FALSE
 
 	var/list/cached_reagents = reagent_list
-	for(var/datum/reagent/cached_reagent in cached_reagents)
+	for(var/datum/reagent/cached_reagent as anything in cached_reagents)
 		if(cached_reagent.type != reagent_type)
 			continue
 
 		cached_reagent.volume += amount
-		update_total()
-		if(my_atom)
-			my_atom.on_reagent_change()
 		cached_reagent.on_merge(data)
+		update_total()
+
 		if(!no_react)
 			temperature_react()
 			handle_reactions()
+
 		return FALSE
 
 	var/datum/reagent/reagent = new reagent_type()
@@ -788,8 +825,6 @@
 		reagent.on_mob_add(my_atom) // Must occur befor it could posibly run on_mob_delete
 
 	update_total()
-	if(my_atom)
-		my_atom.on_reagent_change()
 
 	if(!no_react)
 		temperature_react()
@@ -818,8 +853,6 @@
 			update_total()
 			if(!safety) //So it does not handle reactions when it need not to
 				handle_reactions()
-			if(my_atom)
-				my_atom.on_reagent_change()
 			return FALSE
 	return TRUE
 
@@ -1017,12 +1050,17 @@
 
 	return russian_list(out, no_taste_text)
 
-///////////////////////////////////////////////////////////////////////////////////
-
-// Convenience proc to create a reagents holder for an atom
-// Max vol is maximum volume of holder
-/atom/proc/create_reagents(max_vol, temperature_minimum, temperature_maximum)
-	reagents = new /datum/reagents(max_vol, temperature_minimum, temperature_maximum)
+/**
+ * Convenience proc to create a reagents holder for an atom
+ *
+ * Arguments:
+ * * max_vol - maximum volume of holder
+ * * flags - flags to pass to the holder
+ */
+/atom/proc/create_reagents(max_vol, flags)
+	if(reagents)
+		qdel(reagents)
+	reagents = new /datum/reagents(max_vol, flags)
 	reagents.my_atom = src
 
 /proc/get_random_reagent_type()	// Returns a random reagent ID minus blacklisted reagents

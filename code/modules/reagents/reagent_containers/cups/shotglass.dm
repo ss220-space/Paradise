@@ -23,7 +23,7 @@
 		PREPOSITIONAL = "рюмке",
 	)
 
-/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass/on_reagent_change()
+/obj/item/reagent_containers/cup/glass/drinkingglass/shotglass/on_reagent_change(datum/reagents/holder, ...)
 	if(!isShotFlammable() && (resistance_flags & ON_FIRE))
 		extinguish()
 	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)

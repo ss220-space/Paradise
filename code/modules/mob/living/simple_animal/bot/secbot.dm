@@ -80,7 +80,6 @@
 	new /obj/item/stock_parts/cell/potato(Tsec)
 	var/obj/item/reagent_containers/cup/glass/drinkingglass/S = new(Tsec)
 	S.reagents.add_reagent(/datum/reagent/consumable/ethanol/whiskey, 15)
-	S.on_reagent_change()
 	..()
 
 /mob/living/simple_animal/bot/secbot/pingsky
