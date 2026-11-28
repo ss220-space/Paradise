@@ -369,7 +369,7 @@
 
 /turf/simulated/floor/plasteel/reactor_pool/Destroy()
 	QDEL_NULL(effect)
-	UnregisterSignal(src, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON)
+	UnregisterSignal(src, list(COMSIG_ATOM_INITIALIZED_ON, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON))
 	return ..()
 
 /turf/simulated/floor/plasteel/reactor_pool/wall

@@ -1,0 +1,1681 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"bc" = (
+/obj/machinery/door/airlock/external{
+	aiControlDisabled = 1;
+	hackProof = 1;
+	req_access = list(160)
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"cg" = (
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"cu" = (
+/obj/effect/turf_decal/caution{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 1;
+	pixel_x = -8
+	},
+/turf/simulated/floor/plasteel/airless{
+	icon_regular_floor = "podfloor_light";
+	icon_state = "podfloor_light"
+	},
+/area/shuttle/pirate_corvette)
+"cI" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/universal{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"dA" = (
+/obj/structure/table/tray,
+/obj/item/storage/backpack/duffel/syndie/surgery,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "arrival"
+	},
+/area/shuttle/pirate_corvette)
+"dB" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door_control{
+	id = "rightpirat_blast";
+	name = "Right BlastDoor";
+	pixel_x = 6;
+	pixel_y = 6;
+	req_access = list(160)
+	},
+/obj/machinery/door_control{
+	id = "leftpirat_blast";
+	name = "Left BlastDoor";
+	pixel_x = -6;
+	pixel_y = 6;
+	req_access = list(160)
+	},
+/obj/machinery/light_switch/directional/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkblue"
+	},
+/area/shuttle/pirate_corvette)
+"dS" = (
+/obj/structure/table,
+/obj/item/gun/energy/gun{
+	pixel_x = -3;
+	pixel_y = 6
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/shuttle/pirate_corvette)
+"ej" = (
+/obj/structure/cable,
+/obj/machinery/power/port_gen/pacman/upgraded{
+	anchored = 1
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"eL" = (
+/obj/structure/reagent_dispensers/watertank,
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"fl" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"fF" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/shuttle/engine/heater,
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/pirate_corvette)
+"fW" = (
+/obj/machinery/door/airlock/hatch{
+	aiControlDisabled = 1;
+	hackProof = 1;
+	name = "Medical bay";
+	req_access = list(160)
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel,
+/area/shuttle/pirate_corvette)
+"fZ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/syndicate/loot/level2{
+	result = list(/obj/item/storage/box/syndie_kit/space = 2, /obj/item/clothing/shoes/magboots/syndie = 2, /obj/item/clothing/suit/armor/vest/combat = 2, /obj/item/ammo_box/magazine/m10mm = 7, /obj/item/storage/pill_bottle/happy = 1, /obj/item/storage/pill_bottle/zoom = 2, /obj/item/storage/pill_bottle/random_drug_bottle = 2, /obj/item/clothing/shoes/chameleon/noslip = 3, /obj/item/storage/belt/military = 5, /obj/item/clothing/under/chameleon = 3, /obj/item/storage/backpack/satchel_flat = 1, /obj/item/stamp/chameleon = 3, /obj/item/flag/chameleon = 1, /obj/item/lighter/zippo/gonzofist = 1, /obj/item/clothing/gloves/fingerless/rapid = 1, /obj/item/storage/box/syndie_kit/throwing_weapons = 1, /obj/item/pen/edagger = 1, /obj/item/reagent_containers/food/snacks/syndicake = 2, /obj/item/coin/antagtoken/syndicate = 2, /obj/item/gun/projectile/automatic/pistol/stechkin = 4, /obj/item/gun/syringe/rapidsyringe = 8, /obj/item/storage/box/syndie_kit/bioterror = 8)
+	},
+/obj/effect/spawner/random_spawners/syndicate/loot/level2{
+	result = list(/obj/item/storage/box/syndie_kit/space = 2, /obj/item/clothing/shoes/magboots/syndie = 2, /obj/item/clothing/suit/armor/vest/combat = 2, /obj/item/ammo_box/magazine/m10mm = 7, /obj/item/storage/pill_bottle/happy = 1, /obj/item/storage/pill_bottle/zoom = 2, /obj/item/storage/pill_bottle/random_drug_bottle = 2, /obj/item/clothing/shoes/chameleon/noslip = 3, /obj/item/storage/belt/military = 5, /obj/item/clothing/under/chameleon = 3, /obj/item/storage/backpack/satchel_flat = 1, /obj/item/stamp/chameleon = 3, /obj/item/flag/chameleon = 1, /obj/item/lighter/zippo/gonzofist = 1, /obj/item/clothing/gloves/fingerless/rapid = 1, /obj/item/storage/box/syndie_kit/throwing_weapons = 1, /obj/item/pen/edagger = 1, /obj/item/reagent_containers/food/snacks/syndicake = 2, /obj/item/coin/antagtoken/syndicate = 2, /obj/item/gun/projectile/automatic/pistol/stechkin = 4, /obj/item/gun/syringe/rapidsyringe = 8, /obj/item/storage/box/syndie_kit/bioterror = 8)
+	},
+/obj/structure/closet/crate/secure/gear{
+	req_access = list(160)
+	},
+/obj/item/storage/box/syndie_kit/chameleon,
+/obj/item/multitool/ai_detect,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/shuttle/pirate_corvette)
+"gc" = (
+/obj/effect/turf_decal/caution{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/airless{
+	icon_regular_floor = "podfloor_light";
+	icon_state = "podfloor_light"
+	},
+/area/shuttle/pirate_corvette)
+"gv" = (
+/obj/structure/sign/poster/contraband/wanted{
+	pixel_y = 32
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/shuttle/pirate_corvette)
+"hk" = (
+/obj/machinery/door/airlock/hatch{
+	aiControlDisabled = 1;
+	hackProof = 1;
+	req_access = list(160)
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"hu" = (
+/obj/machinery/door/airlock/hatch{
+	aiControlDisabled = 1;
+	hackProof = 1;
+	name = "Storage";
+	req_access = list(160)
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/pirate_corvette)
+"hE" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/pirate_corvette)
+"hP" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/pirate{
+	health = 200;
+	loot = list(/obj/effect/mob_spawn/human/corpse/pirate);
+	maxHealth = 200
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/pirate_corvette)
+"iv" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"iO" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"iS" = (
+/obj/docking_port/mobile{
+	dheight = 8;
+	dir = 2;
+	height = 17;
+	id = "pirateship";
+	name = "Pirate Corvette";
+	rebuildable = 1;
+	width = 19;
+	timid = 1;
+	roundstart_move = null
+	},
+/obj/effect/turf_decal/caution{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/airless{
+	icon_regular_floor = "podfloor_light";
+	icon_state = "podfloor_light"
+	},
+/area/shuttle/pirate_corvette)
+"iV" = (
+/obj/structure/table,
+/obj/item/tank/jetpack/oxygen,
+/obj/item/tank/jetpack/oxygen{
+	pixel_x = -7;
+	pixel_y = 4
+	},
+/obj/item/tank/jetpack/oxygen{
+	pixel_x = 4;
+	pixel_y = 5
+	},
+/obj/item/tank/jetpack/oxygen{
+	pixel_x = -3;
+	pixel_y = 2
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/pirate_corvette)
+"jp" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/shuttle/pirate_corvette)
+"jv" = (
+/obj/structure/cable,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"jA" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/closet/secure_closet/freezer{
+	icon_state = "fridge"
+	},
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/condiment/milk,
+/obj/item/reagent_containers/food/snacks/chocolatebar,
+/obj/item/storage/box/donkpockets,
+/obj/item/reagent_containers/food/snacks/cheesiehonkers,
+/obj/item/reagent_containers/food/snacks/doshik,
+/obj/item/reagent_containers/food/snacks/doshik,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
+/area/shuttle/pirate_corvette)
+"jC" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"jG" = (
+/obj/structure/table,
+/obj/item/storage/box/lights/mixed,
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"jM" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 6
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"jX" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external{
+	aiControlDisabled = 1;
+	hackProof = 1;
+	req_access = list(160)
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "rightpirat_blast"
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"kx" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/pirate_corvette)
+"kD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel,
+/area/shuttle/pirate_corvette)
+"kU" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"lY" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/salglu,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/nitrogen,
+/obj/item/tank/internals/emergency_oxygen/plasma,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "arrival"
+	},
+/area/shuttle/pirate_corvette)
+"mg" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"mC" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"mJ" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/effect/turf_decal/box/red,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/quantumpad{
+	color = "#A52A2A";
+	desc = "Пиратский телепад с квантовой связью блюспейс, используемый для телепортации объектов на другие квантовые площадки. На нем ярко-красная надпись: Не разбирать!";
+	name = "piratepad";
+	req_access = list(160)
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/pirate_corvette)
+"mL" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/pirate{
+	health = 200;
+	loot = list(/obj/effect/mob_spawn/human/corpse/pirate);
+	maxHealth = 200
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/pirate_corvette)
+"mS" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/recharger{
+	pixel_x = 7;
+	pixel_y = -1
+	},
+/obj/machinery/recharger{
+	pixel_x = -5;
+	pixel_y = -1
+	},
+/obj/structure/table/reinforced,
+/obj/machinery/recharger{
+	pixel_x = -5;
+	pixel_y = 8
+	},
+/obj/machinery/recharger{
+	pixel_x = 7;
+	pixel_y = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/pirate_corvette)
+"nc" = (
+/obj/machinery/alarm/syndicate/pirate/directional/south,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/rack,
+/obj/item/holosign_creator/atmos,
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"ne" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/pirate_corvette)
+"ni" = (
+/obj/machinery/suit_storage_unit/pirate,
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"nn" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel,
+/area/shuttle/pirate_corvette)
+"ns" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"nH" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/pirate_corvette)
+"nX" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/table,
+/obj/item/restraints/handcuffs{
+	pixel_y = 3
+	},
+/obj/item/restraints/handcuffs{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/restraints/handcuffs,
+/obj/item/restraints/legcuffs/bola/energy,
+/obj/item/restraints/legcuffs/bola/energy,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/shuttle/pirate_corvette)
+"oj" = (
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/flashlight/seclite,
+/obj/item/flashlight/seclite,
+/obj/item/flashlight/seclite{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/obj/item/flashlight/seclite{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/obj/item/flashlight/flare{
+	pixel_y = -5
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"pb" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door_control{
+	id = "piratehutters";
+	name = "Shutters";
+	pixel_x = 6;
+	pixel_y = 6;
+	req_access = list(160)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkblue"
+	},
+/area/shuttle/pirate_corvette)
+"pD" = (
+/obj/machinery/sleeper/upgraded,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "arrival"
+	},
+/area/shuttle/pirate_corvette)
+"pE" = (
+/obj/machinery/porta_turret/syndicate/pod{
+	dir = 5;
+	faction = "pirate";
+	name = "machine gun turret (4.6x30mm)";
+	pixel_x = -2
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"pH" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external{
+	aiControlDisabled = 1;
+	hackProof = 1;
+	id_tag = "leftpirat_airlock";
+	req_access = list(160)
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "leftpirat_blast"
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"pU" = (
+/obj/structure/table/reinforced,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/item/megaphone,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkblue"
+	},
+/area/shuttle/pirate_corvette)
+"pW" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/pirate{
+	health = 200;
+	loot = list(/obj/effect/mob_spawn/human/corpse/pirate);
+	maxHealth = 200
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/pirate_corvette)
+"qZ" = (
+/obj/structure/table/reinforced,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/machinery/turretid/lethal{
+	ailock = 1;
+	dir = 1;
+	faction = "pirate";
+	name = "Corvette turrets";
+	pixel_x = -32;
+	req_access = list(160);
+	syndicate = 1
+	},
+/obj/item/gps{
+	tracking = 0
+	},
+/obj/item/gps{
+	tracking = 0
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkblue"
+	},
+/area/shuttle/pirate_corvette)
+"rj" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkredcorners"
+	},
+/area/shuttle/pirate_corvette)
+"sM" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/extinguisher_cabinet/directional/west,
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"tE" = (
+/obj/effect/turf_decal/caution{
+	dir = 4
+	},
+/obj/machinery/light/small{
+	dir = 1;
+	pixel_x = 8
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/airless{
+	icon_regular_floor = "podfloor_light";
+	icon_state = "podfloor_light"
+	},
+/area/shuttle/pirate_corvette)
+"uB" = (
+/obj/machinery/space_heater,
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"uE" = (
+/obj/structure/closet/secure_closet/medical2{
+	req_access = list(160)
+	},
+/obj/item/mmi,
+/obj/item/stack/nanopaste,
+/obj/item/stack/nanopaste,
+/obj/item/storage/toolbox/syndicate,
+/obj/item/storage/box/syringes{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/robot_parts/r_leg,
+/obj/item/robot_parts/l_leg,
+/obj/item/robot_parts/r_arm,
+/obj/item/robot_parts/l_arm,
+/obj/item/storage/firstaid/doctor,
+/obj/item/storage/firstaid/toxin,
+/obj/item/storage/firstaid/o2,
+/obj/item/storage/firstaid/fire,
+/obj/item/storage/firstaid/brute,
+/obj/item/storage/firstaid/adv,
+/obj/item/handheld_defibrillator,
+/obj/item/storage/box/bodybags,
+/obj/item/soap,
+/obj/item/storage/pill_bottle/patch_pack,
+/obj/item/storage/pill_bottle,
+/obj/item/storage/belt/medical,
+/obj/item/clothing/glasses/hud/health,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "arrivalcorner"
+	},
+/area/shuttle/pirate_corvette)
+"uL" = (
+/obj/machinery/porta_turret/syndicate/pod{
+	dir = 6;
+	faction = "pirate";
+	name = "machine gun turret (4.6x30mm)";
+	pixel_x = -2
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"uO" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"uP" = (
+/obj/machinery/atmospherics/binary/pump/on{
+	dir = 8;
+	target_pressure = 202.325
+	},
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/pirate/ranged{
+	health = 150;
+	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged);
+	maxHealth = 150
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"vi" = (
+/obj/structure/extinguisher_cabinet/directional/east,
+/mob/living/simple_animal/hostile/pirate{
+	health = 200;
+	loot = list(/obj/effect/mob_spawn/human/corpse/pirate);
+	maxHealth = 200
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"vC" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/shuttle/pirate_corvette)
+"vS" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dust,
+/mob/living/simple_animal/hostile/pirate{
+	health = 200;
+	loot = list(/obj/effect/mob_spawn/human/corpse/pirate);
+	maxHealth = 200
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"wo" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/shuttle/pirate_corvette)
+"wS" = (
+/obj/effect/turf_decal/caution{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/airless{
+	icon_regular_floor = "podfloor_light";
+	icon_state = "podfloor_light"
+	},
+/area/shuttle/pirate_corvette)
+"xX" = (
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredfull"
+	},
+/area/shuttle/pirate_corvette)
+"yc" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 9
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"yr" = (
+/obj/machinery/computer/camera_advanced/shuttle_docker{
+	access_derelict = 1;
+	shuttleId = "pirateship";
+	shuttlePortId = "pirateship_custom";
+	view_range = 20
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkblue"
+	},
+/area/shuttle/pirate_corvette)
+"yy" = (
+/obj/machinery/door/airlock/hatch{
+	aiControlDisabled = 1;
+	hackProof = 1;
+	req_access = list(160)
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/shuttle/pirate_corvette)
+"zc" = (
+/obj/machinery/defibrillator_mount/loaded/directional/west,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "arrival"
+	},
+/area/shuttle/pirate_corvette)
+"zP" = (
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/pirate_corvette)
+"AD" = (
+/obj/machinery/door/airlock{
+	aiControlDisabled = 1;
+	hackProof = 1;
+	name = "Bathroom"
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/pirate_corvette)
+"AL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dust,
+/mob/living/simple_animal/hostile/pirate/ranged{
+	health = 150;
+	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged);
+	maxHealth = 150
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"BC" = (
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/shuttle/pirate_corvette)
+"BI" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"Cn" = (
+/turf/template_noop,
+/area/template_noop)
+"CT" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/pirate_corvette)
+"Ds" = (
+/obj/machinery/computer/security{
+	name = "Pirate hack camera console";
+	network = list("SS13","Mining Outpost","PPrison")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkblue"
+	},
+/area/shuttle/pirate_corvette)
+"DC" = (
+/obj/machinery/computer/crew{
+	name = "Pirate hack monitoring computer"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkblue"
+	},
+/area/shuttle/pirate_corvette)
+"DU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/clothing/glasses/meson{
+	pixel_x = -2;
+	pixel_y = 3
+	},
+/obj/item/clothing/glasses/meson{
+	pixel_x = 3;
+	pixel_y = 7
+	},
+/obj/item/clothing/glasses/meson,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkred"
+	},
+/area/shuttle/pirate_corvette)
+"Ei" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle/gray,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "piratehutters";
+	name = "Blast Shutters"
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"Fj" = (
+/obj/structure/table/reinforced,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high,
+/obj/item/melee/baton/security/loaded,
+/obj/item/melee/baton/security/loaded,
+/turf/simulated/floor/plasteel,
+/area/shuttle/pirate_corvette)
+"Fp" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/shuttle/engine/heater{
+	opacity = 1
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/pirate_corvette)
+"Ft" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/pirate_corvette)
+"FR" = (
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"Gi" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 4
+	},
+/obj/item/radio/intercom/syndicate/directional/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/pirate_corvette)
+"Gn" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/shuttle/pirate_corvette)
+"Im" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/fancy/donut_box,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkblue"
+	},
+/area/shuttle/pirate_corvette)
+"JA" = (
+/obj/machinery/power/terminal{
+	dir = 4
+	},
+/obj/structure/cable,
+/obj/structure/rack,
+/obj/item/stack/sheet/mineral/plasma{
+	amount = 35
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"JP" = (
+/obj/machinery/power/apc/noalarm/directional/south{
+	req_access = list(160)
+	},
+/obj/structure/cable,
+/obj/structure/rack,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/item/storage/belt/utility/full/multitool,
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"JW" = (
+/obj/structure/sign/poster/contraband/have_a_puff{
+	pixel_y = 32
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"KX" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/machinery/optable,
+/obj/machinery/computer/operating{
+	density = 0;
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "arrival"
+	},
+/area/shuttle/pirate_corvette)
+"Lj" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "arrivalcorner"
+	},
+/area/shuttle/pirate_corvette)
+"Mk" = (
+/obj/structure/table,
+/obj/item/storage/box/syndie_kit/t4P{
+	pixel_y = 8
+	},
+/obj/item/grenade/smokebomb{
+	pixel_x = -5
+	},
+/obj/item/grenade/smokebomb{
+	pixel_x = 5
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkred"
+	},
+/area/shuttle/pirate_corvette)
+"MF" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/pirate/ranged{
+	health = 150;
+	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged);
+	maxHealth = 150
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredfull"
+	},
+/area/shuttle/pirate_corvette)
+"MO" = (
+/obj/machinery/door/airlock/hatch{
+	aiControlDisabled = 1;
+	hackProof = 1;
+	name = "Bridge";
+	req_access = list(160)
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/pirate_corvette)
+"Ni" = (
+/obj/structure/table,
+/obj/item/reagent_containers/syringe/antiviral,
+/obj/item/reagent_containers/syringe/charcoal,
+/obj/item/reagent_containers/syringe/insulin,
+/obj/item/reagent_containers/cup/bottle/morphine,
+/obj/item/reagent_containers/cup/bottle/epinephrine,
+/obj/item/reagent_containers/syringe,
+/obj/item/stack/medical/bruise_pack/advanced{
+	pixel_x = 6;
+	pixel_y = 6
+	},
+/obj/item/stack/medical/ointment/advanced{
+	pixel_x = 6;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/food/pill/patch/styptic{
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/food/pill/patch/styptic{
+	pixel_x = 2;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/food/pill/patch/silver_sulf{
+	pixel_x = -8;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/food/pill/patch/silver_sulf{
+	pixel_x = -8;
+	pixel_y = 8
+	},
+/obj/item/storage/pill_bottle/painkillers{
+	pixel_x = -6;
+	pixel_y = 4
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/item/clothing/mask/surgical,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "arrival"
+	},
+/area/shuttle/pirate_corvette)
+"Nn" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/item/radio,
+/obj/item/radio{
+	pixel_x = 3;
+	pixel_y = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/pirate_corvette)
+"Nq" = (
+/obj/machinery/vending/medical{
+	req_access = list(160)
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "arrival"
+	},
+/area/shuttle/pirate_corvette)
+"NS" = (
+/turf/simulated/wall/shuttle{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/shuttle/pirate_corvette)
+"OB" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/pirate_corvette)
+"OI" = (
+/obj/structure/table,
+/obj/structure/sign/poster/contraband/revolver{
+	pixel_y = 32
+	},
+/obj/item/ammo_box/magazine/m10mm{
+	pixel_x = -4;
+	pixel_y = 3
+	},
+/obj/item/ammo_box/magazine/m10mm{
+	pixel_x = -4;
+	pixel_y = 3
+	},
+/obj/item/gun/projectile/automatic/pistol/stechkin{
+	pixel_x = -2;
+	pixel_y = 6
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/shuttle/pirate_corvette)
+"Pg" = (
+/obj/structure/table,
+/obj/item/storage/box/teargas,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
+/area/shuttle/pirate_corvette)
+"PG" = (
+/obj/structure/sign/poster/contraband/red_rum{
+	pixel_y = -32
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "arrival"
+	},
+/area/shuttle/pirate_corvette)
+"Qh" = (
+/obj/structure/table,
+/obj/item/reagent_containers/hypospray/autoinjector/stimpack,
+/obj/item/reagent_containers/applicator/dual/syndi,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "arrival"
+	},
+/area/shuttle/pirate_corvette)
+"Qt" = (
+/obj/machinery/porta_turret/syndicate/pod{
+	dir = 9;
+	faction = "pirate";
+	name = "machine gun turret (4.6x30mm)";
+	pixel_x = 2
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"QI" = (
+/obj/machinery/power/smes{
+	charge = 2e+006;
+	input_level = 60000;
+	output_level = 25000
+	},
+/obj/structure/cable,
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"RI" = (
+/obj/machinery/light/small,
+/obj/effect/decal/cleanable/dust,
+/mob/living/simple_animal/hostile/pirate{
+	health = 200;
+	loot = list(/obj/effect/mob_spawn/human/corpse/pirate);
+	maxHealth = 200
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"Sd" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/item/relict_production/strange_teleporter,
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"Sn" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/electrical,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"So" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/pirate_corvette)
+"Su" = (
+/obj/machinery/light/small,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"SA" = (
+/obj/item/melee/energy/sword/pirate{
+	pixel_y = 6
+	},
+/obj/structure/rack,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/contraband/energy_swords{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/pirate_corvette)
+"SC" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"SE" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/shuttle/pirate_corvette)
+"Td" = (
+/obj/machinery/atmospherics/unary/tank/air{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"Tl" = (
+/obj/machinery/porta_turret/syndicate/pod{
+	dir = 10;
+	faction = "pirate";
+	name = "machine gun turret (4.6x30mm)";
+	pixel_x = 2
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"Tq" = (
+/obj/effect/turf_decal/box,
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"TE" = (
+/obj/structure/barricade/wooden{
+	opacity = 1
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"TI" = (
+/obj/effect/turf_decal/box,
+/obj/structure/dispenser/oxygen,
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"TM" = (
+/turf/simulated/floor/plasteel,
+/area/shuttle/pirate_corvette)
+"TW" = (
+/mob/living/simple_animal/bot/medbot/mysterious{
+	desc = "Маленький темный медицинский бот. Он выглядит несколько подавленно.";
+	faction = list("neutral","silicon","pirate");
+	name = "Соловей"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/shuttle/pirate_corvette)
+"VK" = (
+/obj/machinery/bodyscanner,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "arrival"
+	},
+/area/shuttle/pirate_corvette)
+"Wh" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel,
+/area/shuttle/pirate_corvette)
+"WK" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/syndicate,
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"XJ" = (
+/obj/structure/sink/kitchen/directional/north,
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/pirate{
+	health = 200;
+	loot = list(/obj/effect/mob_spawn/human/corpse/pirate);
+	maxHealth = 200
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/shuttle/pirate_corvette)
+"YA" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/pirate_corvette)
+"YR" = (
+/obj/structure/toilet/directional/east,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/sign/poster/contraband/pinup_syn{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/shuttle/pirate_corvette)
+"Zs" = (
+/obj/machinery/computer/shuttle{
+	possible_destinations = "pirateship_home;pirateship_custom";
+	req_access = list(160);
+	shuttleId = "pirateship";
+	use_power = 0
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkblue"
+	},
+/area/shuttle/pirate_corvette)
+"ZK" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+"ZV" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 5
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/shuttle/pirate_corvette)
+
+(1,1,1) = {"
+Cn
+Cn
+Cn
+Cn
+Cn
+Qt
+Gn
+cu
+gc
+gc
+Gn
+Tl
+Cn
+Cn
+Cn
+Cn
+Cn
+"}
+(2,1,1) = {"
+Cn
+Cn
+Cn
+Gn
+Gn
+Gn
+SE
+Gn
+pH
+Gn
+SE
+SE
+SE
+Gn
+Cn
+Cn
+Cn
+"}
+(3,1,1) = {"
+Qt
+Gn
+NS
+Gn
+OI
+dS
+SA
+SE
+RI
+SE
+ni
+Tq
+TI
+Gn
+NS
+Gn
+Tl
+"}
+(4,1,1) = {"
+Gn
+Gn
+nX
+fZ
+YA
+nH
+nH
+SE
+bc
+SE
+JW
+uO
+cg
+iO
+ej
+SE
+Gn
+"}
+(5,1,1) = {"
+NS
+DU
+rj
+YA
+MF
+xX
+CT
+SE
+mC
+kU
+BI
+WK
+oj
+AL
+JA
+Fp
+Ft
+"}
+(6,1,1) = {"
+Gn
+NS
+Gn
+Mk
+Pg
+jA
+So
+hu
+fl
+fl
+iv
+vi
+uO
+jv
+QI
+fF
+Ft
+"}
+(7,1,1) = {"
+Cn
+Cn
+Gn
+Gn
+SE
+SE
+SE
+SE
+SE
+SE
+hk
+Gn
+Gn
+JP
+Gn
+NS
+Gn
+"}
+(8,1,1) = {"
+Cn
+Cn
+Cn
+Ei
+pb
+qZ
+Ds
+SE
+Nn
+iV
+wo
+SE
+Sd
+Gn
+Gn
+Cn
+Cn
+"}
+(9,1,1) = {"
+Cn
+Cn
+Cn
+Ei
+Zs
+hE
+ne
+SE
+gv
+pW
+wo
+SE
+TE
+fF
+Ft
+Cn
+Cn
+"}
+(10,1,1) = {"
+Cn
+Cn
+Cn
+Ei
+dB
+OB
+zP
+MO
+Wh
+mJ
+mL
+AD
+jp
+fF
+Ft
+Cn
+Cn
+"}
+(11,1,1) = {"
+Cn
+Cn
+Cn
+Ei
+yr
+kx
+Gi
+SE
+kD
+hP
+nn
+SE
+XJ
+fF
+Ft
+Cn
+Cn
+"}
+(12,1,1) = {"
+Cn
+Cn
+Cn
+Ei
+Im
+pU
+DC
+SE
+mS
+Fj
+wo
+SE
+YR
+Gn
+Gn
+Cn
+Cn
+"}
+(13,1,1) = {"
+Cn
+Cn
+Gn
+Gn
+SE
+SE
+SE
+SE
+SE
+SE
+yy
+Gn
+Gn
+nc
+Gn
+NS
+Gn
+"}
+(14,1,1) = {"
+Gn
+NS
+Gn
+lY
+Qh
+Ni
+Lj
+fW
+fl
+vS
+FR
+sM
+cI
+ZV
+ns
+fF
+Ft
+"}
+(15,1,1) = {"
+NS
+dA
+zc
+TM
+TW
+BC
+vC
+SE
+SC
+ZK
+jC
+jG
+Sn
+uP
+eL
+Fp
+Ft
+"}
+(16,1,1) = {"
+Gn
+Gn
+KX
+VK
+TM
+pW
+PG
+SE
+bc
+SE
+cg
+jM
+mg
+yc
+uB
+SE
+Gn
+"}
+(17,1,1) = {"
+pE
+Gn
+NS
+Gn
+pD
+uE
+Nq
+SE
+Su
+SE
+ni
+Td
+Td
+Gn
+NS
+Gn
+uL
+"}
+(18,1,1) = {"
+Cn
+Cn
+Cn
+Gn
+SE
+SE
+SE
+Gn
+jX
+Gn
+SE
+SE
+SE
+Gn
+Cn
+Cn
+Cn
+"}
+(19,1,1) = {"
+Cn
+Cn
+Cn
+Cn
+Cn
+pE
+Gn
+tE
+iS
+wS
+Gn
+uL
+Cn
+Cn
+Cn
+Cn
+Cn
+"}

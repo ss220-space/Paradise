@@ -57,13 +57,13 @@
 	add_fingerprint(user)
 	attack_self(user)
 
-/obj/item/radio/intercom/can_receive(freq, level)
+/obj/item/radio/intercom/can_receive(freq, level, obj/machinery/tcomms/core/network = null)
 	if(!is_listening())
 		return FALSE
 	if(!(0 in level))
 		var/turf/position = get_turf(src)
 		// TODO: Integrate radio with the space manager
-		if(isnull(position) || !(position.z in level))
+		if(isnull(position) || (network ? !network.position_reachable(position) : !(position.z in level)))
 			return FALSE
 	if(freq in SSradio.ANTAG_FREQS)
 		if(!(syndiekey))

@@ -12,6 +12,17 @@
 	if(LAZYACCESS(modifiers, SHIFT_CLICK))
 		return
 
+	if(istype(A, /obj/effect/abstract/hull_proxy_offset))
+		var/obj/effect/abstract/hull_proxy_offset/offset = A
+		A = offset.source
+	else if(istype(A, /obj/effect/abstract/hull_proxy_tile))
+		var/obj/effect/abstract/hull_proxy_tile/tile = A
+		if(fog_hides_from(client, tile))
+			return
+		A = tile.source_turf() || get_turf(tile)
+	if(!A || fog_hides_from(client, get_turf(A), A))
+		return
+
 	if(can_reenter_corpse && mind?.current)
 		if(A == mind.current || (mind.current in A)) // double click your corpse or whatever holds it
 			reenter_corpse() // (cloning scanner, body bag, closet, mech, etc)

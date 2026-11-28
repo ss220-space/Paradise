@@ -189,7 +189,7 @@
 
 /datum/spacevine_mutation/space_covering/process_mutation(obj/structure/spacevine/holder)
 	var/turf/T = get_turf(holder)
-	if(is_type_in_typecache(T, coverable_turfs))
+	if(is_type_in_typecache(T, coverable_turfs) && !is_hyperspace_turf(T))
 		var/currtype = T.type
 		T.ChangeTurf(/turf/simulated/floor/vines)
 		T.baseturf = currtype

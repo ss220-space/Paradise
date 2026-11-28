@@ -312,7 +312,7 @@
 	icon = 'icons/turf/walls/survival_pod_walls.dmi'
 	icon_state = "smooth"
 	base_icon_state = "survival_pod_walls"
-	canSmoothWith = SMOOTH_GROUP_SURVIVAL_TITANIUM_WALLS + SMOOTH_GROUP_WINDOW_FULLTILE + SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE + SMOOTH_GROUP_AIRLOCK
+	canSmoothWith = SMOOTH_GROUP_AIRLOCK + SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE + SMOOTH_GROUP_WINDOW_FULLTILE + SMOOTH_GROUP_SURVIVAL_TITANIUM_WALLS
 	smoothing_groups = SMOOTH_GROUP_SURVIVAL_TITANIUM_WALLS
 
 /turf/simulated/wall/mineral/titanium/survival/nodiagonal
@@ -367,6 +367,9 @@
 	smooth = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
 	smoothing_groups = SMOOTH_GROUP_PLASTITANIUM_WALLS
 	canSmoothWith = SMOOTH_GROUP_PLASTITANIUM_WALLS
+	var/reinforcement_material = /obj/item/stack/sheet/plasteel
+	var/reinforcement_amount = 5
+	var/reinforcement_type = /turf/simulated/wall/mineral/plastitanium/composite
 
 /turf/simulated/wall/mineral/plastitanium/nodiagonal
 	smooth = SMOOTH_BITMASK

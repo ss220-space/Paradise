@@ -1,0 +1,577 @@
+/datum/component/overmap_sensors
+	dupe_mode = COMPONENT_DUPE_UNIQUE
+	var/list/sensor_journal
+	var/journal_notification_pending = FALSE
+	var/journal_notification_kind
+	var/list/contact_memory
+
+	var/list/peel_hit_times
+	var/peel_timer
+	var/short_peel_timer
+
+	var/list/short_identified
+
+	var/list/peel_peak
+
+/datum/component/overmap_sensors/Initialize()
+	if(!istype(parent, /obj/overmap/entity))
+		return COMPONENT_INCOMPATIBLE
+
+/datum/component/overmap_sensors/RegisterWithParent()
+	var/obj/overmap/entity/token = parent
+	token.sensor_pack = src
+	RegisterSignal(parent, COMSIG_OVERMAP_SENSOR_JOURNAL, PROC_REF(on_journal_query))
+	RegisterSignal(parent, COMSIG_OVERMAP_SENSOR_STATUS, PROC_REF(on_sensor_status))
+	RegisterSignal(parent, COMSIG_OVERMAP_SENSOR_SET_ENABLED, PROC_REF(on_set_enabled))
+	RegisterSignal(parent, COMSIG_OVERMAP_SENSOR_IDENTIFY_CONTACTS, PROC_REF(on_identify_contacts))
+
+/datum/component/overmap_sensors/UnregisterFromParent()
+	UnregisterSignal(parent, list(COMSIG_OVERMAP_SENSOR_JOURNAL, COMSIG_OVERMAP_SENSOR_STATUS, COMSIG_OVERMAP_SENSOR_SET_ENABLED, COMSIG_OVERMAP_SENSOR_IDENTIFY_CONTACTS))
+	if(peel_timer)
+		deltimer(peel_timer)
+		peel_timer = null
+	if(short_peel_timer)
+		deltimer(short_peel_timer)
+		short_peel_timer = null
+	var/obj/overmap/entity/token = parent
+	if(token.sensor_pack == src)
+		token.sensor_pack = null
+
+/datum/component/overmap_sensors/Destroy(force)
+	if(peel_timer)
+		deltimer(peel_timer)
+		peel_timer = null
+	if(short_peel_timer)
+		deltimer(short_peel_timer)
+		short_peel_timer = null
+	return ..()
+
+/datum/component/overmap_sensors/proc/on_journal_query(datum/source, list/data)
+	SIGNAL_HANDLER
+	data["journal"] = sensor_journal || list()
+	data["known_count"] = length(short_identified)
+
+/datum/component/overmap_sensors/proc/on_sensor_status(datum/source, list/data)
+	SIGNAL_HANDLER
+	if(data)
+		data["stealth_speed"] = long_range_detection_speed()
+	return COMPONENT_OVERMAP_HAS_SENSORS
+
+/datum/component/overmap_sensors/proc/on_set_enabled(datum/source, kind, enabled)
+	SIGNAL_HANDLER
+	switch(kind)
+		if(OVERMAP_SENSOR_KIND_LONG)
+			return set_long_sensors(enabled) ? COMPONENT_OVERMAP_SENSOR_APPLIED : NONE
+		if(OVERMAP_SENSOR_KIND_SHORT)
+			return set_short_sensors(enabled) ? COMPONENT_OVERMAP_SENSOR_APPLIED : NONE
+
+/datum/component/overmap_sensors/proc/has_working_sensor(kind)
+	var/obj/overmap/entity/vessel = parent
+	if(kind == OVERMAP_SENSOR_KIND_SHORT && vessel.stationary_ai && vessel.ai_sensor_intact() && !vessel.is_overmap_jammed())
+		return TRUE
+	for(var/obj/machinery/sensor_array/array as anything in vessel.sensor_arrays)
+		if(array.sensor_kind == kind && array.is_ready())
+			return TRUE
+	return FALSE
+
+/datum/component/overmap_sensors/proc/signal_view_range()
+	var/obj/overmap/entity/vessel = parent
+	var/turf/here = vessel.get_overmap_turf()
+	if(!here || !vessel.sector)
+		return 0
+	var/view_range = 0
+	for(var/obj/overmap/other as anything in vessel.sector.objects)
+		if(!always_sees(other) || other == vessel)
+			continue
+		var/turf/there = other.get_overmap_turf()
+		if(!there || there.z != here.z)
+			continue
+		view_range = max(view_range, max(abs(here.x - there.x), abs(here.y - there.y)))
+	return view_range
+
+/datum/component/overmap_sensors/proc/sensor_journal_range()
+	var/obj/overmap/entity/vessel = parent
+	var/journal_range = 0
+	if(has_working_sensor(OVERMAP_SENSOR_KIND_LONG) && vessel.long_sensors_on)
+		journal_range = max(journal_range, OVERMAP_SENSOR_LONG_VIEW)
+	if(has_working_sensor(OVERMAP_SENSOR_KIND_SHORT) && vessel.short_sensors_on)
+		journal_range = max(journal_range, OVERMAP_SENSOR_SHORT_VIEW)
+	journal_range = max(journal_range, signal_view_range())
+	return journal_range
+
+/datum/component/overmap_sensors/proc/can_receive_sensor_log()
+	var/obj/overmap/entity/vessel = parent
+	return (has_working_sensor(OVERMAP_SENSOR_KIND_LONG) && vessel.long_sensors_on) || (has_working_sensor(OVERMAP_SENSOR_KIND_SHORT) && vessel.short_sensors_on)
+
+/proc/sensor_journal_tone(kind)
+	switch(kind)
+		if("distress", "scanned_by", "dock_fail")
+			return "bad"
+		if("recall", "undock", "iff_lost")
+			return "warn"
+		if("dock", "appear")
+			return "good"
+		if("iff", "ping", "scan")
+			return "iff"
+	return "info"
+
+/datum/component/overmap_sensors/proc/add_sensor_journal(message, kind = "info", turf/spot, display_name, tone, note)
+	var/obj/overmap/entity/vessel = parent
+	if(!sensor_journal)
+		sensor_journal = list()
+	if(!spot)
+		spot = vessel.get_overmap_turf()
+	if(isnull(tone))
+		tone = sensor_journal_tone(kind)
+	sensor_journal += list(list(
+		"time" = station_time_timestamp(),
+		"text" = message,
+		"kind" = kind,
+		"x" = vessel.sector && spot ? vessel.sector.coord_x(spot) : spot?.x,
+		"y" = vessel.sector && spot ? vessel.sector.coord_y(spot) : spot?.y,
+		"name" = display_name,
+		"tone" = tone,
+		"note" = note,
+	))
+	if(length(sensor_journal) > OVERMAP_SENSOR_LOG_MAX)
+		sensor_journal.Cut(1, length(sensor_journal) - OVERMAP_SENSOR_LOG_MAX + 1)
+	if(!journal_notification_pending)
+		journal_notification_pending = TRUE
+		journal_notification_kind = kind
+		addtimer(CALLBACK(src, PROC_REF(flush_sensor_journal)), 0, TIMER_DELETE_ME)
+	else if(sensor_journal_tone(kind) == "bad")
+		journal_notification_kind = kind
+
+/datum/component/overmap_sensors/proc/flush_sensor_journal()
+	journal_notification_pending = FALSE
+	var/obj/overmap/entity/vessel = parent
+	var/kind = journal_notification_kind
+	journal_notification_kind = null
+	for(var/obj/machinery/computer/sensors/console as anything in vessel.sensors)
+		if(!QDELETED(console))
+			console.play_sensor_alert(kind)
+			SStgui.update_uis(console)
+
+/proc/overmap_euclid_dist(atom/a, atom/b)
+	if(!a || !b)
+		return INFINITY
+	return sqrt((a.x - b.x) ** 2 + (a.y - b.y) ** 2)
+
+/proc/overmap_in_sensor_circle(atom/a, atom/b, range)
+	if(!a || !b || a.z != b.z)
+		return FALSE
+	var/dx = a.x - b.x
+	var/dy = a.y - b.y
+	return (dx * dx + dy * dy) <= range * range
+
+/datum/component/overmap_sensors/proc/always_sees(obj/overmap/other)
+	var/obj/overmap/entity/vessel = parent
+	if(!other || QDELETED(other))
+		return FALSE
+	if(other == vessel)
+		return TRUE
+	if(other.visible_without_scanner)
+		return TRUE
+	var/obj/overmap/entity/contact = other
+	if(istype(contact) && contact.identity_distress)
+		return TRUE
+	if(vessel.iff_detects(other))
+		return TRUE
+	if(short_knows(other))
+		return TRUE
+	return FALSE
+
+/datum/component/overmap_sensors/proc/sees_foreign_peel(obj/overmap/other)
+	var/obj/overmap/entity/vessel = parent
+	var/obj/overmap/entity/contact = other
+	if(!istype(contact) || contact == vessel)
+		return FALSE
+	if(!contact.is_sensor_peeling())
+		return FALSE
+	var/turf/here = vessel.get_overmap_turf()
+	var/turf/there = contact.get_overmap_turf()
+	if(!here || !there)
+		return FALSE
+	return overmap_in_sensor_circle(here, there, OVERMAP_SENSOR_LONG_VIEW)
+
+/datum/component/overmap_sensors/proc/sees_any_foreign_peel()
+	var/obj/overmap/entity/vessel = parent
+	if(!vessel.sector)
+		return FALSE
+	for(var/obj/overmap/other as anything in vessel.sector.objects)
+		if(sees_foreign_peel(other))
+			return TRUE
+	return FALSE
+
+/datum/component/overmap_sensors/proc/in_long_peel_range(obj/overmap/other)
+	var/obj/overmap/entity/vessel = parent
+	if(!has_working_sensor(OVERMAP_SENSOR_KIND_LONG) || !vessel.long_sensors_on)
+		return FALSE
+	if(other.hidden_from_sensors || !isturf(other.loc))
+		return FALSE
+	var/turf/here = vessel.get_overmap_turf()
+	var/turf/there = other.get_overmap_turf()
+	if(!here || !there)
+		return FALSE
+	if(!overmap_in_sensor_circle(here, there, OVERMAP_SENSOR_LONG_VIEW))
+		return FALSE
+	var/obj/overmap/entity/contact = other
+	if(istype(contact) && !contact.is_long_range_detectable())
+		return FALSE
+	return TRUE
+
+/datum/component/overmap_sensors/proc/peel_cycle_len()
+	return OVERMAP_SENSOR_PEEL_IN + OVERMAP_SENSOR_PEEL_HOLD + OVERMAP_SENSOR_PEEL_OUT
+
+/datum/component/overmap_sensors/proc/peel_active(obj/overmap/other)
+	if(!other || !peel_hit_times)
+		return FALSE
+	var/hit = peel_hit_times[other.UID()]
+	if(!hit)
+		return FALSE
+	return world.time >= hit && (world.time - hit) < peel_cycle_len()
+
+/datum/component/overmap_sensors/proc/peel_alpha(obj/overmap/other)
+	if(!other)
+		return 0
+	if(!peel_hit_times)
+		return 0
+	var/hit = peel_hit_times[other.UID()]
+	if(!hit)
+		return 0
+	var/elapsed = world.time - hit
+	if(elapsed < 0)
+		return 0
+	var/peak = peel_peak?[other.UID()] || 255
+	var/frac = 0
+	if(elapsed < OVERMAP_SENSOR_PEEL_IN)
+		frac = elapsed / OVERMAP_SENSOR_PEEL_IN
+	else if(elapsed < OVERMAP_SENSOR_PEEL_IN + OVERMAP_SENSOR_PEEL_HOLD)
+		frac = 1
+	else
+		var/fade_t = elapsed - OVERMAP_SENSOR_PEEL_IN - OVERMAP_SENSOR_PEEL_HOLD
+		if(fade_t >= OVERMAP_SENSOR_PEEL_OUT)
+			return 0
+		frac = 1 - (fade_t / OVERMAP_SENSOR_PEEL_OUT)
+	return round(peak * frac)
+
+/datum/component/overmap_sensors/proc/contact_map_alpha(obj/overmap/other)
+	if(always_sees(other) || sees_foreign_peel(other))
+		return 255
+	return peel_alpha(other)
+
+/datum/component/overmap_sensors/proc/contact_is_steady(obj/overmap/other)
+	return always_sees(other) || sees_foreign_peel(other)
+
+/datum/component/overmap_sensors/proc/in_short_view(obj/overmap/other)
+	var/obj/overmap/entity/vessel = parent
+	if(!has_working_sensor(OVERMAP_SENSOR_KIND_SHORT) || !vessel.short_sensors_on)
+		return FALSE
+	if(other.hidden_from_sensors || !isturf(other.loc))
+		return FALSE
+	var/turf/here = vessel.get_overmap_turf()
+	var/turf/there = other.get_overmap_turf()
+	if(!here || !there || here.z != there.z)
+		return FALSE
+	var/span = OVERMAP_TILE_SPAN * (vessel.sector?.tile_travel || 1)
+	return sqrt(((there.x + other.position[1]) * span - vessel.get_world_x()) ** 2 + ((there.y + other.position[2]) * span - vessel.get_world_y()) ** 2) <= OVERMAP_SENSOR_SHORT_VIEW * span
+
+/datum/component/overmap_sensors/proc/can_short_scan(obj/overmap/other)
+	return other && other != parent && in_short_view(other)
+
+/datum/component/overmap_sensors/proc/short_knows(obj/overmap/other)
+	return !!(short_identified?[other.UID()])
+
+/datum/component/overmap_sensors/proc/display_identified(obj/overmap/other, short_console = FALSE)
+	return always_sees(other)
+
+/datum/component/overmap_sensors/proc/identify_short(obj/overmap/other)
+	if(remember_short_contact(other))
+		refresh_sensor_displays()
+
+/datum/component/overmap_sensors/proc/remember_short_contact(obj/overmap/other)
+	if(QDELETED(other))
+		return FALSE
+	var/id = other.UID()
+	if(short_identified?[id])
+		return FALSE
+	LAZYSET(short_identified, id, TRUE)
+	RegisterSignal(other, COMSIG_QDELETING, PROC_REF(on_short_contact_deleted))
+	return TRUE
+
+/datum/component/overmap_sensors/proc/on_short_contact_deleted(obj/overmap/other)
+	SIGNAL_HANDLER
+	short_identified -= other.UID()
+	UnregisterSignal(other, COMSIG_QDELETING)
+	if(!QDELETED(parent))
+		refresh_sensor_displays()
+
+/datum/component/overmap_sensors/proc/on_identify_contacts(datum/source, list/others, force_refresh)
+	SIGNAL_HANDLER
+	var/changed = FALSE
+	for(var/obj/overmap/other as anything in others)
+		if(remember_short_contact(other))
+			changed = TRUE
+	if(changed || force_refresh)
+		refresh_sensor_displays()
+
+/datum/component/overmap_sensors/proc/export_short_dump()
+	. = list()
+	if(!short_identified)
+		return
+	for(var/uid in short_identified)
+		. += uid
+
+/datum/component/overmap_sensors/proc/import_short_dump(list/uids, source_name)
+	if(!length(uids))
+		return 0
+	var/added = 0
+	for(var/uid in uids)
+		var/obj/overmap/found = locateUID(uid)
+		if(istype(found) && remember_short_contact(found))
+			added++
+	if(added)
+		add_sensor_journal(
+			"Импорт дампа: +[added] контакт[added == 1 ? "" : "ов"][source_name ? " ([source_name])" : ""]",
+			"scan",
+			null,
+			source_name,
+		)
+		refresh_sensor_displays()
+	return added
+
+/datum/component/overmap_sensors/proc/senses_object(obj/overmap/other)
+	if(!other || QDELETED(other))
+		return FALSE
+	if(always_sees(other))
+		return TRUE
+	if(sees_foreign_peel(other))
+		return TRUE
+	if(other.hidden_from_sensors || !isturf(other.loc))
+		return FALSE
+	return peel_active(other)
+
+/datum/component/overmap_sensors/proc/contact_identified(obj/overmap/other)
+	return always_sees(other)
+
+/datum/component/overmap_sensors/proc/sync_peel_sound()
+	var/obj/overmap/entity/vessel = parent
+	for(var/obj/machinery/computer/sensors/console as anything in vessel.sensors)
+		if(!QDELETED(console))
+			console.sync_peel_loop()
+
+/datum/component/overmap_sensors/proc/set_long_sensors(enabled)
+	var/obj/overmap/entity/vessel = parent
+	if(enabled && !has_working_sensor(OVERMAP_SENSOR_KIND_LONG))
+		return FALSE
+	vessel.long_sensors_on = enabled
+	if(enabled)
+		emit_sensor_peel()
+	else if(peel_timer)
+		deltimer(peel_timer)
+		peel_timer = null
+	sync_sensor_array_power()
+	sync_peel_sound()
+	for(var/obj/machinery/computer/sensors/console as anything in vessel.sensors)
+		if(!QDELETED(console))
+			SStgui.update_uis(console)
+	for(var/obj/machinery/computer/ship_console/helm as anything in vessel.helms)
+		if(!QDELETED(helm))
+			SStgui.update_uis(helm)
+	return TRUE
+
+/datum/component/overmap_sensors/proc/set_short_sensors(enabled)
+	var/obj/overmap/entity/vessel = parent
+	if(enabled && !has_working_sensor(OVERMAP_SENSOR_KIND_SHORT))
+		return FALSE
+	vessel.short_sensors_on = enabled
+	if(enabled)
+		emit_short_peel()
+	else if(short_peel_timer)
+		deltimer(short_peel_timer)
+		short_peel_timer = null
+	sync_sensor_array_power()
+	for(var/obj/machinery/computer/sensors/console as anything in vessel.sensors)
+		if(!QDELETED(console))
+			SStgui.update_uis(console)
+	for(var/obj/machinery/computer/ship_console/helm as anything in vessel.helms)
+		if(!QDELETED(helm))
+			SStgui.update_uis(helm)
+	return TRUE
+
+/datum/component/overmap_sensors/proc/sync_sensor_array_power()
+	var/obj/overmap/entity/vessel = parent
+	for(var/obj/machinery/sensor_array/array as anything in vessel.sensor_arrays)
+		array.update_sensor_power()
+
+/datum/component/overmap_sensors/proc/refresh_sensor_displays()
+	var/obj/overmap/entity/vessel = parent
+	SEND_SIGNAL(vessel, COMSIG_OVERMAP_DISPLAY_CHANGED)
+
+/datum/component/overmap_sensors/proc/queue_peel_hit(obj/overmap/other, delay, peak)
+	LAZYINITLIST(peel_hit_times)
+	LAZYINITLIST(peel_peak)
+	var/uid = other.UID()
+	var/hit = world.time + delay
+	if(peel_hit_times[uid] > world.time && peel_hit_times[uid] <= hit)
+		return
+	peel_hit_times[uid] = hit
+	peel_peak[uid] = peak
+
+/datum/component/overmap_sensors/proc/emit_sensor_peel()
+	var/obj/overmap/entity/vessel = parent
+	if(QDELETED(vessel) || !vessel.long_sensors_on || !has_working_sensor(OVERMAP_SENSOR_KIND_LONG))
+		if(peel_timer)
+			deltimer(peel_timer)
+			peel_timer = null
+		return
+	vessel.sensor_peel_at = world.time
+	if(!peel_hit_times)
+		peel_hit_times = list()
+	var/turf/here = vessel.get_overmap_turf()
+	if(here && vessel.sector)
+		for(var/obj/overmap/other as anything in vessel.sector.objects)
+			if(!other || QDELETED(other) || other == vessel)
+				continue
+			if(always_sees(other))
+				continue
+			if(!in_long_peel_range(other))
+				continue
+			var/turf/there = other.get_overmap_turf()
+			if(!there)
+				continue
+			var/delay = max(OVERMAP_SENSOR_TIME_DELAY * overmap_euclid_dist(here, there), 1)
+			queue_peel_hit(other, delay, 255)
+	peel_timer = addtimer(CALLBACK(src, PROC_REF(emit_sensor_peel)), OVERMAP_SENSOR_PEEL_INTERVAL, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_STOPPABLE)
+
+/datum/component/overmap_sensors/proc/emit_short_peel()
+	var/obj/overmap/entity/vessel = parent
+	if(QDELETED(vessel) || !vessel.short_sensors_on || !has_working_sensor(OVERMAP_SENSOR_KIND_SHORT))
+		if(short_peel_timer)
+			deltimer(short_peel_timer)
+			short_peel_timer = null
+		return
+	vessel.short_peel_at = world.time
+	if(!peel_hit_times)
+		peel_hit_times = list()
+	var/turf/here = vessel.get_overmap_turf()
+	if(here && vessel.sector)
+		for(var/obj/overmap/other as anything in vessel.sector.objects)
+			if(!other || QDELETED(other) || other == vessel)
+				continue
+			if(always_sees(other))
+				continue
+			if(!in_short_view(other))
+				continue
+			var/turf/there = other.get_overmap_turf()
+			if(!there)
+				continue
+			var/dist = max(abs(here.x - there.x), abs(here.y - there.y))
+			var/peak = dist <= OVERMAP_SENSOR_PING_RANGE ? 255 : OVERMAP_SENSOR_PEEL_FAR_ALPHA
+			var/delay = max(OVERMAP_SENSOR_TIME_DELAY * overmap_euclid_dist(here, there), 1)
+			queue_peel_hit(other, delay, peak)
+	short_peel_timer = addtimer(CALLBACK(src, PROC_REF(emit_short_peel)), OVERMAP_SENSOR_PEEL_INTERVAL, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_STOPPABLE)
+
+/datum/component/overmap_sensors/proc/prune_peel_hits()
+	if(!peel_hit_times)
+		return
+	for(var/uid, hit in peel_hit_times)
+		if((world.time - hit) < peel_cycle_len())
+			continue
+		peel_hit_times -= uid
+		peel_peak -= uid
+
+/datum/component/overmap_sensors/proc/process_sensors()
+	prune_peel_hits()
+	expire_contact_memory()
+	track_sensor_contacts()
+
+/datum/component/overmap_sensors/proc/journal_coords(turf/spot)
+	if(!spot)
+		return ""
+	var/obj/overmap/entity/vessel = parent
+	if(vessel?.sector)
+		return "\[[vessel.sector.coord_x(spot)]:[vessel.sector.coord_y(spot)]\]"
+	return "\[[spot.x]:[spot.y]\]"
+
+/datum/component/overmap_sensors/proc/expire_contact_memory()
+	if(!contact_memory)
+		return
+	var/obj/overmap/entity/vessel = parent
+	for(var/uid, prev_entry in contact_memory)
+		var/list/prev = prev_entry
+		if(world.time <= prev["remember_until"])
+			continue
+		var/obj/overmap/contact = locateUID(uid)
+		if(istype(contact) && vessel.sector && contact.sector == vessel.sector && senses_object(contact))
+			prev["remember_until"] = world.time + OVERMAP_SENSOR_MEMORY_TIME
+			continue
+		add_sensor_journal("Потерян контакт: [prev["name"] || OVERMAP_UNKNOWN_NAME]", "disappear", null, prev["name"])
+		contact_memory -= uid
+
+/datum/component/overmap_sensors/proc/track_sensor_contacts()
+	var/obj/overmap/entity/vessel = parent
+	if(!can_receive_sensor_log() || !vessel.sector)
+		return
+	var/turf/here = vessel.get_overmap_turf()
+	if(!here)
+		return
+	if(!contact_memory)
+		contact_memory = list()
+	for(var/obj/overmap/other as anything in vessel.sector.objects)
+		if(!other || QDELETED(other) || other == vessel || other.hidden_from_contacts)
+			continue
+		var/turf/there = other.get_overmap_turf()
+		if(!there || there.z != here.z)
+			continue
+		if(!senses_object(other))
+			continue
+		var/uid = other.UID()
+		var/identified = display_identified(other)
+		var/nested = !isturf(other.loc)
+		var/obj/overmap/holder = other.loc
+		var/host_name = istype(holder) ? holder.name : null
+		var/obj/overmap/entity/contact = other
+		var/distress = istype(contact) && contact.identity_distress
+		var/display = identified ? other.get_overmap_display_name() : OVERMAP_UNKNOWN_NAME
+		var/list/prev = contact_memory[uid]
+		if(!prev)
+			contact_memory[uid] = list(
+				"remember_until" = world.time + OVERMAP_SENSOR_MEMORY_TIME,
+				"sensed" = TRUE,
+				"identified" = identified,
+				"name" = display,
+				"nested" = nested,
+				"host" = host_name,
+				"distress" = distress,
+			)
+			add_sensor_journal("Контакт: [display] [journal_coords(there)]", "appear", there, display)
+			continue
+		if(prev["nested"] && !nested)
+			add_sensor_journal("Отстыковка: [display] от [prev["host"] || "дока"] [journal_coords(there)]", "undock", there, display)
+		if(!prev["nested"] && nested)
+			add_sensor_journal("Стыковка: [display] → [host_name || "док"] [journal_coords(there)]", "dock", there, display)
+		if(!prev["identified"] && identified)
+			add_sensor_journal("Сигнал транспондера: [prev["name"] || OVERMAP_UNKNOWN_NAME] → [display] [journal_coords(there)]", "iff", there, display)
+		if(prev["identified"] && !identified)
+			add_sensor_journal("Потерян сигнал транспондера: [prev["name"] || display] [journal_coords(there)]", "iff_lost", there, prev["name"] || display)
+		if(!prev["distress"] && distress)
+			add_sensor_journal("Сигнал бедствия: [display] [journal_coords(there)]", "distress", there, display, "bad")
+		prev["remember_until"] = world.time + OVERMAP_SENSOR_MEMORY_TIME
+		prev["identified"] = identified
+		prev["name"] = display
+		prev["nested"] = nested
+		prev["host"] = host_name
+		prev["distress"] = distress
+
+/datum/component/overmap_sensors/proc/is_long_range_detectable()
+	var/obj/overmap/entity/vessel = parent
+	if(!isturf(vessel.loc))
+		return FALSE
+	return OVERMAP_DISPLAY_SPEED(vessel.get_speed()) >= long_range_detection_speed()
+
+/datum/component/overmap_sensors/proc/long_range_detection_speed()
+	var/obj/overmap/entity/vessel = parent
+	if(vessel.vessel_mass > OVERMAP_SENSOR_STEALTH_MASS_HEAVY)
+		return 0
+	return vessel.vessel_mass > OVERMAP_SENSOR_STEALTH_MASS_MED ? OVERMAP_SENSOR_STEALTH_SPEED_MED : OVERMAP_SENSOR_STEALTH_SPEED_SMALL

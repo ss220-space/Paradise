@@ -343,6 +343,8 @@ GLOBAL_LIST_EMPTY(holopads)
 		clear_holo(user)
 
 /obj/machinery/hologram/holopad/process()
+	if(!length(masters) && !outgoing_call && !length(holo_calls) && !ringing && icon_state == "holopad0" && !length(underlays))
+		return
 	for(var/I in masters)
 		var/mob/living/master = I
 		if((stat & NOPOWER) || !validate_user(master) || !anchored)

@@ -1138,6 +1138,7 @@
 	datum_flags |= DF_VAR_EDITED
 
 /client/Click(atom/object, atom/location, control, params)
+	var/list/modifiers = params2list(params)
 	if(click_intercept_time)
 		if(click_intercept_time >= world.time)
 			click_intercept_time = 0 //Reset and return. Next click should work, but not this one.
@@ -1145,8 +1146,6 @@
 		click_intercept_time = 0 //Just reset. Let's not keep re-checking forever.
 
 	var/ab = FALSE
-	var/list/modifiers = params2list(params)
-
 	var/button_clicked = LAZYACCESS(modifiers, BUTTON)
 
 	var/dragged = LAZYACCESS(modifiers, DRAG)
@@ -1557,7 +1556,7 @@ GAME_VERB_DESC(/client, link_discord_account, "Привязка Discord", "Пр�
 			observe.handle_when_autoobserve_move()
 			LAZYREMOVE(mob.inventory_observers, observe)
 			continue
-		observe.client.eye = new_eye
+		observe.client.set_eye(new_eye || mob)
 
 	SEND_SIGNAL(src, COMSIG_CLIENT_SET_EYE, old_eye, new_eye)
 

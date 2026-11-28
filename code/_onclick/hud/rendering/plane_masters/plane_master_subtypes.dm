@@ -193,6 +193,11 @@
 	. = ..()
 	add_relay_to(GET_NEW_PLANE(RENDER_PLANE_EMISSIVE, offset), relay_layer = EMISSIVE_FLOOR_LAYER, relay_color = GLOB.em_block_color)
 
+/atom/movable/screen/plane_master/floor/planet_surface
+	name = "Planet surface"
+	documentation = "Planetary terrain below the shuttle deck."
+	plane = PLANET_SURFACE_PLANE
+
 // MARK: Transparent Floor
 /atom/movable/screen/plane_master/transparent_floor
 	name = "Transparent Floor"

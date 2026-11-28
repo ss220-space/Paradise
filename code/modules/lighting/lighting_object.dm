@@ -66,6 +66,7 @@
 	if(isturf(affected_turf))
 		affected_turf.vis_contents -= src
 		affected_turf.lighting_object = null
+		SEND_SIGNAL(affected_turf, COMSIG_TURF_LIGHTING_CHANGED)
 		affected_turf.luminosity = 1
 	affected_turf = null
 	return ..()
@@ -112,6 +113,7 @@
 		)
 
 	luminosity = set_luminosity
+	SEND_SIGNAL(affected_turf, COMSIG_TURF_LIGHTING_CHANGED)
 
 // Variety of overrides so the overlays don't get affected by weird things.
 /atom/movable/lighting_object/ex_act(severity, target)

@@ -355,6 +355,9 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	last_fire_time = world.time / 10
 
 /obj/machinery/bsa/full/proc/fire(mob/user, turf/target, target_signal)
+	if(SSovermap.resolve_vessel(src)?.atmosphere)
+		to_chat(user, span_warning("Стрельба в атмосфере заблокирована."))
+		return
 	if(!mode)
 		to_chat(user, span_warning("Клик! Осечка?!<br>Может стоит поставить другой режим стрельбы?"))
 		return

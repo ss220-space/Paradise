@@ -1,0 +1,154 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"avJ" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/nt_droppod)
+"dhu" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/nt_droppod)
+"eTI" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/shuttle,
+/area/shuttle/nt_droppod)
+"fIM" = (
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/shuttle,
+/area/shuttle/nt_droppod)
+"jji" = (
+/obj/machinery/light/spot{
+	dir = 1
+	},
+/turf/simulated/wall/shuttle,
+/area/shuttle/nt_droppod)
+"mSO" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/nt_droppod)
+"niY" = (
+/obj/machinery/door/airlock/shuttle{
+	aiControlDisabled = 1;
+	id_tag = "s_docking_airlock";
+	name = "Emergency Droppod";
+	req_access = list(109)
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/nt_droppod)
+"nZi" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/nt_droppod)
+"oEc" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/nt_droppod)
+"rNy" = (
+/turf/simulated/wall/shuttle,
+/area/shuttle/nt_droppod)
+"sdu" = (
+/obj/machinery/door/airlock/shuttle{
+	aiControlDisabled = 1;
+	id_tag = "s_docking_airlock";
+	name = "Emergency Droppod";
+	req_access = list(109)
+	},
+/obj/docking_port/mobile/assault_pod/nt{
+	port_direction = 2;
+	timid = 1;
+	roundstart_move = null
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/nt_droppod)
+"tob" = (
+/turf/template_noop,
+/area/template_noop)
+"tUZ" = (
+/obj/machinery/computer/shuttle/nt/drop_pod,
+/turf/simulated/wall/shuttle,
+/area/shuttle/nt_droppod)
+"wZp" = (
+/turf/simulated/floor/shuttle,
+/area/shuttle/nt_droppod)
+"xuC" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/shuttle/nt_droppod)
+"xzo" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/nt_droppod)
+
+(1,1,1) = {"
+tob
+jji
+xuC
+niY
+xuC
+rNy
+tob
+"}
+(2,1,1) = {"
+rNy
+rNy
+nZi
+wZp
+nZi
+rNy
+rNy
+"}
+(3,1,1) = {"
+xuC
+fIM
+wZp
+avJ
+wZp
+oEc
+xuC
+"}
+(4,1,1) = {"
+niY
+wZp
+eTI
+tUZ
+xzo
+wZp
+sdu
+"}
+(5,1,1) = {"
+xuC
+fIM
+wZp
+mSO
+wZp
+oEc
+xuC
+"}
+(6,1,1) = {"
+rNy
+rNy
+dhu
+wZp
+dhu
+rNy
+rNy
+"}
+(7,1,1) = {"
+tob
+rNy
+xuC
+niY
+xuC
+rNy
+tob
+"}

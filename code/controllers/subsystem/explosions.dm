@@ -83,14 +83,7 @@ SUBSYSTEM_DEF(explosions)
 
 			var/flame_distance = distance < flame_range
 
-			if(distance < devastation_range)
-				distance = EXPLODE_DEVASTATE
-			else if(distance < heavy_impact_range)
-				distance = EXPLODE_HEAVY
-			else if(distance < light_impact_range)
-				distance = EXPLODE_LIGHT
-			else
-				distance = EXPLODE_NONE
+			distance = EXPLOSION_SEVERITY(distance, devastation_range, heavy_impact_range, light_impact_range)
 
 			//------- TURF FIRES -------
 
@@ -143,6 +136,7 @@ SUBSYSTEM_DEF(explosions)
 		return FALSE
 
 	var/datum/explosion_data/data = new(get_turf(epicenter), devastation_range, heavy_impact_range, light_impact_range, flash_range, ignorecap, flame_range, breach, multiz_explosions, protect_epicenter, explosion_direction, explosion_arc)
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_EXPLOSION, data, silent)
 	INVOKE_ASYNC(src, PROC_REF(start_explosion), data, adminlog, cause, smoke, silent)
 
 	return TRUE

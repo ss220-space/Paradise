@@ -49,15 +49,9 @@
 	if(!poi)
 		return
 
-	var/atom/movable/cached_target = owner.orbiting
-	owner.orbiting = null
-	owner.reset_perspective(null)
-	owner.orbiting = cached_target
-
 	if(auto_observe)
 		var/mob/eye_mob = poi
 		if(istype(eye_mob) && eye_mob.client)
-			owner.handle_when_autoobserve_move()
 			owner.do_observe(eye_mob)
 		else
 			owner.handle_when_autoobserve_move()
@@ -80,10 +74,7 @@
 		else
 			to_chat(owner, span_alert("Объект, за которым Вы следуете, не имеет за собой игрока. Показать инвентарь <b>невозможно</b>."))
 
-	var/atom/movable/eye_mob = owner.orbiting
-	owner.orbiting = null
 	owner.handle_when_autoobserve_move()
-	owner.orbiting = eye_mob
 
 /datum/orbit_menu/ui_data(mob/user)
 	var/list/data = list()

@@ -1,0 +1,69 @@
+/datum/controller/subsystem/overmap/proc/update_proxy_huds()
+	var/list/wanted_views = list()
+	var/list/tiles_by_cell = list()
+	for(var/obj/effect/abstract/hull_proxy_tile/tile as anything in proxy_hud_tiles)
+		var/turf/anchor = get_turf(tile)
+		if(!anchor)
+			continue
+		var/key = "[anchor.z]/[FLOOR((anchor.x + tile.pixel_x / ICON_SIZE_X) / 16, 1)],[FLOOR((anchor.y + tile.pixel_y / ICON_SIZE_Y) / 16, 1)]"
+		var/list/cell = tiles_by_cell[key]
+		if(!cell)
+			cell = list()
+			tiles_by_cell[key] = cell
+		cell += tile
+	for(var/client/viewer as anything in client_eyes)
+		if(QDELETED(viewer) || !viewer.mob)
+			continue
+		var/mob/perspective = viewer.mob
+		var/mob/dead/observer/observer = viewer.mob
+		if(istype(observer) && observer.do_observe_target)
+			perspective = observer.do_observe_target
+		var/turf/eye = get_turf(viewer.eye || viewer.mob)
+		if(!eye)
+			continue
+		var/list/view_size = getviewsize(viewer.view)
+		var/list/nearby_tiles = list()
+		for(var/cell_x in FLOOR((eye.x - view_size[1] / 2 - 1) / 16, 1) to FLOOR((eye.x + view_size[1] / 2 + 1) / 16, 1))
+			for(var/cell_y in FLOOR((eye.y - view_size[2] / 2 - 1) / 16, 1) to FLOOR((eye.y + view_size[2] / 2 + 1) / 16, 1))
+				var/list/cell = tiles_by_cell["[eye.z]/[cell_x],[cell_y]"]
+				if(cell)
+					nearby_tiles += cell
+		if(!length(nearby_tiles))
+			continue
+		var/list/huds = list()
+		for(var/datum/atom_hud/hud as anything in GLOB.all_huds)
+			if(hud.hud_users_all_z_levels[perspective] && !hud.queued_to_see[perspective])
+				huds += hud
+		var/list/wanted = list()
+		for(var/obj/effect/abstract/hull_proxy_tile/tile as anything in nearby_tiles)
+			var/turf/anchor = get_turf(tile)
+			if(!anchor || anchor.z != eye.z || abs(anchor.x + tile.pixel_x / ICON_SIZE_X - eye.x) > view_size[1] / 2 + 1 || abs(anchor.y + tile.pixel_y / ICON_SIZE_Y - eye.y) > view_size[2] / 2 + 1)
+				continue
+			var/list/images = list()
+			for(var/atom/target as anything in tile.hud_sources)
+				if(QDELETED(target) || (!isobserver(target) && (!length(huds) || !length(target.active_hud_list))))
+					continue
+				if(fog_hides_from(viewer, tile.source_turf(), target))
+					continue
+				var/mob/dead/observer/ghost = target
+				if(istype(ghost) && ghost.ghostimage && (ghost != perspective || ghost.selfvision))
+					if(ghost.invisibility <= perspective.see_invisible || (perspective == viewer.mob && (ghost.ghostimage in viewer.images)))
+						images[ghost.ghostimage] = ghost
+				if(target.invisibility > perspective.see_invisible || !length(target.active_hud_list))
+					continue
+				for(var/datum/atom_hud/hud as anything in huds)
+					hud.collect_proxy_images(perspective, target, images)
+			if(length(images))
+				wanted[tile] = images
+		if(!length(wanted))
+			continue
+		var/datum/overmap_proxy_hud/view = proxy_hud_views[viewer]
+		if(!view)
+			view = new(viewer)
+			proxy_hud_views[viewer] = view
+		view.update(wanted)
+		wanted_views[viewer] = TRUE
+	for(var/client/viewer as anything in proxy_hud_views)
+		if(!wanted_views[viewer])
+			qdel(proxy_hud_views[viewer])
+			proxy_hud_views -= viewer

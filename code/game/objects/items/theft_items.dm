@@ -205,6 +205,23 @@
 	<li>???</li>\
 	</ul>"
 
+/obj/item/paper/guides/antag/hijack_shuttle
+	name = "shuttle hijack notes"
+
+/obj/item/paper/guides/antag/hijack_shuttle/get_ru_names()
+	return alist(
+		NOMINATIVE = "заметки по угону шаттла",
+		GENITIVE = "заметок по угону шаттла",
+		DATIVE = "заметкам по угону шаттла",
+		ACCUSATIVE = "заметки по угону шаттла",
+		INSTRUMENTAL = "заметками по угону шаттла",
+		PREPOSITIONAL = "заметках по угону шаттла",
+	)
+
+/obj/item/paper/guides/antag/hijack_shuttle/Initialize(mapload)
+	info = SSovermap?.hijack_instruction_html() || info
+	return ..()
+
 /obj/item/nuke_core/supermatter_sliver
 	name = "supermatter sliver"
 	desc = "Крошечный, крайне нестабильный осколок кристалла суперматерии. Не трогать без защиты!"

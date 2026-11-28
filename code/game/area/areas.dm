@@ -246,7 +246,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		return
 	if(!areas_in_z["[z]"])
 		areas_in_z["[z]"] = list()
-	areas_in_z["[z]"] += src
+	areas_in_z["[z]"] |= src
 
 /area/proc/get_cameras()
 	var/list/cameras = list()
@@ -394,6 +394,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	return FALSE
 
 /area/Destroy()
+	for(var/level, registered in SSmapping?.areas_in_z)
+		var/list/areas = registered
+		areas -= src
 	if(GLOB.areas_by_type[type] == src)
 		GLOB.areas_by_type[type] = null
 	//this is not initialized until get_sorted_areas() is called so we have to do a null check

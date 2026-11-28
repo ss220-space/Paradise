@@ -24,6 +24,8 @@ GLOBAL_VAR(station_level_z_scratch)
 
 #define is_reserved_level(z) check_level_trait(z, RESERVED_LEVEL)
 
+#define is_ruin_space_level(z) check_level_trait(z, RUIN_SPACE_LEVEL)
+
 #define is_away_level(z) check_level_trait(z, AWAY_LEVEL)
 
 #define is_mining_level(z) check_level_trait(z, ORE_LEVEL)
@@ -35,6 +37,8 @@ GLOBAL_VAR(station_level_z_scratch)
 #define level_boosts_signal(z) check_level_trait(z, BOOSTS_SIGNAL)
 
 #define is_explorable_space(z) check_level_trait(z, SPAWN_RUINS)
+
+#define is_overmap_level(z) check_level_trait(z, OVERMAP_LEVEL)
 
 #define is_taipan(z) check_level_trait(z, TAIPAN)
 

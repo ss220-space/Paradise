@@ -27,6 +27,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 	circuit = /obj/item/circuitboard/communications
 	var/list/messagetitle = list()
 	var/list/messagetext = list()
+	var/overmap_key_printed = FALSE
 	var/currmsg
 
 	var/authenticated = COMM_AUTHENTICATION_NONE
@@ -60,6 +61,8 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 /obj/machinery/computer/communications/Initialize(mapload)
 	. = ..()
 	GLOB.shuttle_caller_list += src
+	if(SSovermap?.initialized)
+		print_overmap_key()
 
 /obj/machinery/computer/communications/Destroy()
 	GLOB.shuttle_caller_list -= src
@@ -545,7 +548,9 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 	data["esc_callable"] = SSshuttle.emergency.mode == SHUTTLE_IDLE && !secondsToRefuel ? TRUE : FALSE
 	data["esc_recallable"] = SSshuttle.emergency.mode == SHUTTLE_CALL ? TRUE : FALSE
 	data["esc_status"] = FALSE
-	if(SSshuttle.emergency.mode == SHUTTLE_CALL || SSshuttle.emergency.mode == SHUTTLE_RECALL)
+	if(SSshuttle.emergency.is_nav_emagged())
+		data["esc_status"] = "ERR"
+	else if(SSshuttle.emergency.mode == SHUTTLE_CALL || SSshuttle.emergency.mode == SHUTTLE_RECALL)
 		var/timeleft = SSshuttle.emergency.timeLeft()
 		data["esc_status"] = SSshuttle.emergency.mode == SHUTTLE_CALL ? "ETA:" : "ОТЗЫВ:"
 		data["esc_status"] += " [timeleft / 60 % 60]:[add_zero(num2text(timeleft % 60), 2)]"

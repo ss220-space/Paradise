@@ -276,7 +276,7 @@
 	if(timer > world.time)
 		return
 
-	if(is_type_in_typecache(target, banned_turfs))
+	if(is_type_in_typecache(target, banned_turfs) || (isturf(target) && is_hyperspace_turf(target)))
 		return
 
 	if(!is_mining_level(user.z)) //Will only spawn a few sparks if not on mining z level

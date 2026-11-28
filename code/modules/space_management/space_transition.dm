@@ -33,7 +33,8 @@
 
 /datum/space_level/proc/remove_from_space_network(datum/spacewalk_grid/SW)
 	var/datum/point/P = SW.get(xi,yi)
-	SW.release_node(P)
+	if(P?.spl == src)
+		SW.release_node(P)
 	// Only do this when we're done, or we'll trample vars needed for releasing
 	// the level
 	xi = initial(xi)
@@ -194,11 +195,12 @@
 
 /datum/spacewalk_grid/Destroy()
 	for(var/datum/point/P in filled_nodes)
-		release_node(P)
-	if(length(available_nodes) > 1)
-		log_debug("Multiple nodes left behind after SW grid qdel: [length(available_nodes)]")
-		for(var/datum/point/P in available_nodes)
-			log_debug("([P.x],[P.y])")
+		if(P.spl)
+			P.deactivate()
+		P.neighbors.Cut()
+	filled_nodes.Cut()
+	available_nodes.Cut()
+	QDEL_LIST_ASSOC_VAL(all_nodes)
 	return ..()
 
 /datum/spacewalk_grid/proc/add_available_node(datum/point/P)
@@ -238,11 +240,17 @@
 			if(!P2.spl)
 				available_nodes -= P2
 				all_nodes -= P2.hash()
-				qdel(P)
+				qdel(P2)
 			else
 				log_debug("Isolated z level at ([P2.x],[P2.y]): [P2.spl.zpos]")
 	P.deactivate()
 	P.neighbors.Cut()
+	if(!length(filled_nodes))
+		min_x = P.x
+		max_x = P.x
+		min_y = P.y
+		max_y = P.y
+		return
 
 	// Now that we've cleaned out inactive nodes, we will update the bounds
 	var/datum/point/outer_bound

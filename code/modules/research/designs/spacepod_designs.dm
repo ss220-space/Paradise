@@ -127,6 +127,18 @@
 	materials = list(MAT_METAL=10000,MAT_GLASS=5000,MAT_GOLD=1000,MAT_SILVER=2000)
 	locked = 1
 
+/datum/design/pod_gun_ion
+	construction_time = 200
+	name = "Spacepod Equipment (Ion)"
+	desc = "A paired ion projector for spacepods."
+	id = "podgun_ion"
+	build_type = PODFAB
+	req_tech = list(RESEARCH_TREE_COMBAT = 3, RESEARCH_TREE_MAGNETS = 4, RESEARCH_TREE_POWERSTORAGE = 3)
+	build_path = /obj/item/spacepod_equipment/weaponry/ion
+	category = list(POD_FAB_CATEGORY_WEAPONRY)
+	materials = list(MAT_METAL = 15000, MAT_GLASS = 5000, MAT_SILVER = 2000)
+	locked = TRUE
+
 /datum/design/pod_gun_solaris
 	construction_time = 200
 	name = "Spacepod Equipment (Heavy laser)"

@@ -1,0 +1,1559 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"afy" = (
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/clothing/mask/breath/vox,
+/obj/item/clothing/mask/breath/vox,
+/obj/item/clothing/mask/breath/vox,
+/obj/item/clothing/mask/breath/vox,
+/obj/item/clothing/mask/breath/vox,
+/obj/item/clothing/mask/breath/vox,
+/obj/structure/rack,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/orange,
+/area/shuttle/vox)
+"ajA" = (
+/obj/machinery/door/window/brigdoor/reversed{
+	dir = 1;
+	req_access = list(152)
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
+"akr" = (
+/obj/machinery/bodyscanner{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/nitrogen/blue,
+/area/shuttle/vox)
+"aGf" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/survival_pod/glass,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
+	id_tag = "voxshutters"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/vox)
+"aHe" = (
+/turf/simulated/floor/plating/airless,
+/area/shuttle/vox)
+"aSk" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 9
+	},
+/turf/simulated/floor/mineral/plastitanium/nitrogen/yellow,
+/area/shuttle/vox)
+"aWY" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4;
+	icon_state = "heater3x3_side";
+	tag = "icon-heater (NORTH)"
+	},
+/obj/structure/window/plasmareinforced{
+	dir = 8
+	},
+/obj/structure/shuttle/engine/platform{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/vox)
+"aZE" = (
+/obj/machinery/light/directional/west,
+/obj/structure/chair/brass{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/nitrogen/pink,
+/area/shuttle/vox)
+"bij" = (
+/obj/structure/rack,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/storage/briefcase/inflatable,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/orange,
+/area/shuttle/vox)
+"bos" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
+	frequency = 1331;
+	id_tag = "vox_west_control";
+	pixel_x = 24;
+	req_access = list(152);
+	tag_airpump = "vox_west_vent";
+	tag_chamber_sensor = "vox_west_sensor";
+	tag_exterior_door = "vox_northwest_lock";
+	tag_interior_door = "vox_southwest_lock"
+	},
+/turf/simulated/floor/mineral/plastitanium/nitrogen/yellow,
+/area/shuttle/vox)
+"bsI" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/blue,
+/area/shuttle/vox)
+"bCs" = (
+/obj/machinery/sleeper/upgraded{
+	dir = 2
+	},
+/obj/machinery/defibrillator_mount/loaded/directional/north,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/blue,
+/area/shuttle/vox)
+"bFD" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/rack,
+/obj/item/storage/box/alienhandcuffs,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
+"cfj" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/orange,
+/area/shuttle/vox)
+"cjc" = (
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/item/tank/internals/nitrogen,
+/obj/machinery/light/directional/north,
+/obj/structure/rack,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
+"cpw" = (
+/obj/item/flag/species/vox,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/pink,
+/area/shuttle/vox)
+"cwY" = (
+/obj/machinery/light/directional/south,
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet/crate/trashcart,
+/obj/effect/spawner/random/trash,
+/obj/item/grenade/smokebomb{
+	pixel_x = 5
+	},
+/turf/simulated/floor/mineral/plastitanium/nitrogen/yellow,
+/area/shuttle/vox)
+"cBM" = (
+/obj/structure/shuttle/engine/platform,
+/obj/machinery/ship_engine{
+	dir = 1;
+	icon_state = "propulsion_l"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/vox)
+"cJl" = (
+/obj/machinery/light/directional/north,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/structure/closet/crate/trashcart,
+/obj/item/reagent_containers/food/pill/random_drugs,
+/obj/item/toy/plushie/voxplushie,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
+"cLt" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "voxshutters"
+	},
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating/nitrogen,
+/area/shuttle/vox)
+"cRa" = (
+/obj/machinery/light/directional/south,
+/obj/machinery/vending/tool/free,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
+"deo" = (
+/obj/machinery/door/airlock/hatch/secure{
+	frequency = 1331;
+	id_tag = "vox_southwest_lock";
+	req_access = list(152)
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
+	id_tag = "voxshutters"
+	},
+/obj/machinery/access_button/directional/east{
+	command = "cycle_interior";
+	frequency = 1331;
+	master_tag = "vox_west_control";
+	req_access = list(152)
+	},
+/obj/effect/mapping_helpers/airlock/locked,
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/yellow,
+/area/shuttle/vox)
+"dhb" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/rack,
+/obj/item/harpoon{
+	pixel_y = 5
+	},
+/obj/item/harpoon{
+	pixel_x = 4;
+	pixel_y = -2
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
+"dhA" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
+	id_tag = "voxshutters"
+	},
+/turf/simulated/floor/plating/nitrogen,
+/area/shuttle/vox)
+"dvu" = (
+/obj/machinery/portable_atmospherics/canister/nitrogen,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
+"dZi" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/item/trash/snack_bowl,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/vox)
+"fjE" = (
+/obj/machinery/door/window/brigdoor/reversed{
+	dir = 4;
+	req_access = list(152)
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/blue,
+/area/shuttle/vox)
+"fjO" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/iv_bag/blood/vox,
+/obj/item/reagent_containers/iv_bag/blood/vox,
+/obj/machinery/light/directional/west,
+/obj/machinery/vending/wallmed/directional/west,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/blue,
+/area/shuttle/vox)
+"fnK" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/pink,
+/area/shuttle/vox)
+"fpR" = (
+/obj/machinery/ship_engine{
+	dir = 1;
+	icon_state = "propulsion_l"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/vox)
+"fQp" = (
+/obj/machinery/light/directional/west,
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet/crate/trashcart,
+/obj/effect/spawner/random/trash,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/item/grenade/smokebomb,
+/obj/item/grenade/smokebomb{
+	pixel_x = 9
+	},
+/turf/simulated/floor/mineral/plastitanium/nitrogen/yellow,
+/area/shuttle/vox)
+"gcA" = (
+/obj/structure/rack,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/glasses/welding{
+	pixel_x = -2;
+	pixel_y = 5
+	},
+/obj/item/clothing/glasses/welding{
+	pixel_x = 1;
+	pixel_y = 1
+	},
+/obj/item/clothing/glasses/welding{
+	pixel_x = 4;
+	pixel_y = -3
+	},
+/obj/machinery/light/small/directional/west,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/orange,
+/area/shuttle/vox)
+"haK" = (
+/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/light/small/directional/east,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/orange,
+/area/shuttle/vox)
+"hlw" = (
+/obj/machinery/door_control{
+	id = "voxshutters";
+	name = "vox remote shutter control";
+	pixel_x = 28;
+	pixel_y = 27;
+	req_access = list(152)
+	},
+/obj/structure/chair/brass{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/nitrogen/pink,
+/area/shuttle/vox)
+"htL" = (
+/obj/effect/spawner/window/plastitanium,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "voxshutters"
+	},
+/turf/simulated/floor/plating/nitrogen,
+/area/shuttle/vox)
+"hxx" = (
+/obj/machinery/door/airlock/hatch/secure{
+	req_access = list(152)
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "voxshutters"
+	},
+/turf/simulated/floor/mineral/plastitanium/nitrogen/yellow,
+/area/shuttle/vox)
+"hyp" = (
+/obj/structure/lattice,
+/obj/machinery/porta_turret/syndicate/vox,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/vox)
+"hyF" = (
+/turf/simulated/floor/mineral/plastitanium/nitrogen/blue,
+/area/shuttle/vox)
+"hJN" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "voxshutters"
+	},
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating/nitrogen,
+/area/shuttle/vox)
+"hVk" = (
+/obj/structure/bed/mattress/dirty,
+/obj/item/restraints/handcuffs,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/vox)
+"hVx" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/nitrogen/blue,
+/area/shuttle/vox)
+"ich" = (
+/obj/docking_port/mobile/scavenger{
+	pixel_y = -5;
+	timid = 1;
+	roundstart_move = null
+	},
+/obj/structure/fans/tiny,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
+	id_tag = "voxshutters"
+	},
+/obj/machinery/access_button/directional/west{
+	command = "cycle_exterior";
+	frequency = 1331;
+	master_tag = "vox_west_control";
+	req_access = list(152)
+	},
+/obj/machinery/door/airlock/hatch/secure{
+	frequency = 1331;
+	id_tag = "vox_northwest_lock";
+	req_access = list(152)
+	},
+/turf/simulated/floor/mineral/plastitanium/nitrogen/yellow,
+/area/shuttle/vox)
+"icF" = (
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
+"idN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/flag/species/vox,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
+"igU" = (
+/obj/machinery/computer/sensors,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/pink,
+/area/shuttle/vox)
+"iou" = (
+/obj/machinery/sensor_array/short_range,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/pink,
+/area/shuttle/vox)
+"iqh" = (
+/obj/item/clothing/suit/space/vox/pressure,
+/obj/item/clothing/head/helmet/space/vox/pressure,
+/obj/item/clothing/suit/space/vox/pressure,
+/obj/item/clothing/head/helmet/space/vox/pressure,
+/obj/structure/rack,
+/obj/item/tank/jetpack/carbondioxide,
+/obj/item/tank/jetpack/carbondioxide,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
+"iyS" = (
+/obj/item/bodybag,
+/obj/item/bodybag,
+/obj/item/bodybag,
+/obj/item/bodybag,
+/obj/item/bodybag,
+/obj/item/bodybag,
+/obj/structure/table,
+/obj/item/storage/firstaid/toxin,
+/obj/item/storage/firstaid/brute{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/turf/simulated/floor/mineral/plastitanium/nitrogen/blue,
+/area/shuttle/vox)
+"iAQ" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet/crate/trashcart,
+/obj/item/toy/plushie/voxplushie,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/yellow,
+/area/shuttle/vox)
+"iGf" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/tank/nitrogen{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/nitrogen/yellow,
+/area/shuttle/vox)
+"jMw" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/yellow,
+/area/shuttle/vox)
+"jNy" = (
+/obj/item/restraints/handcuffs/cable/pink{
+	pixel_x = -7;
+	pixel_y = 2
+	},
+/obj/item/restraints/handcuffs/cable/pink,
+/obj/item/restraints/handcuffs/cable/pink{
+	pixel_x = 6;
+	pixel_y = -4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/vox)
+"jRO" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet/crate/trashcart,
+/obj/effect/spawner/random/trash,
+/obj/item/reagent_containers/syringe/dart/medical/tainted,
+/obj/item/reagent_containers/syringe/dart/medical/tainted{
+	pixel_x = 6;
+	pixel_y = -5
+	},
+/turf/simulated/floor/mineral/plastitanium/nitrogen/yellow,
+/area/shuttle/vox)
+"jXY" = (
+/obj/structure/shuttle/engine/platform{
+	dir = 1
+	},
+/obj/structure/window/plasmareinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
+	id_tag = "voxshutters";
+	layer = 2.5
+	},
+/obj/structure/shuttle/engine/heater{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/vox)
+"jYB" = (
+/obj/structure/lattice,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/vox)
+"kld" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/portable_atmospherics/canister/nitrogen,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/orange,
+/area/shuttle/vox)
+"kDl" = (
+/obj/structure/window/plasmareinforced{
+	dir = 1
+	},
+/obj/structure/shuttle/engine/platform,
+/obj/structure/shuttle/engine/heater{
+	icon_state = "heater3x3"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "voxshutters";
+	layer = 2.5
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/vox)
+"kEk" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "voxshutters"
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
+"kFa" = (
+/obj/structure/table/reinforced,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/pink,
+/area/shuttle/vox)
+"kJz" = (
+/obj/item/reagent_containers/cup/beaker/waterbottle{
+	pixel_x = -10;
+	pixel_y = -3
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/vox)
+"kLf" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/spawner/random/loot_crate/rarely,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/yellow,
+/area/shuttle/vox)
+"kNo" = (
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
+"kVD" = (
+/obj/machinery/computer/security/camera_bug{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/nitrogen/pink,
+/area/shuttle/vox)
+"ljg" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/computer/operating{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/nitrogen/blue,
+/area/shuttle/vox)
+"lrE" = (
+/obj/structure/window/plasmareinforced{
+	dir = 1
+	},
+/obj/structure/shuttle/engine/platform,
+/obj/structure/shuttle/engine/heater{
+	icon_state = "heater3x3_side"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "voxshutters";
+	layer = 2.5
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/vox)
+"lGq" = (
+/obj/machinery/light/directional/west,
+/obj/item/flag/species/vox,
+/obj/machinery/airlock_sensor{
+	frequency = 1331;
+	id_tag = "vox_east_sensor";
+	pixel_x = -25;
+	req_access = list(152)
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
+"lLS" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "voxshutters"
+	},
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating/nitrogen,
+/area/shuttle/vox)
+"lQI" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4;
+	icon_state = "heater3x3";
+	tag = "icon-heater (NORTH)"
+	},
+/obj/structure/window/plasmareinforced{
+	dir = 8
+	},
+/obj/structure/shuttle/engine/platform{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/vox)
+"mes" = (
+/obj/machinery/recharger,
+/obj/structure/table/reinforced,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/orange,
+/area/shuttle/vox)
+"mhM" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet/crate/trashcart,
+/obj/item/storage/box/legal_loot/amount_5,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/yellow,
+/area/shuttle/vox)
+"mEf" = (
+/turf/simulated/floor/mineral/plastitanium/nitrogen/yellow,
+/area/shuttle/vox)
+"mOq" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet/crate/trashcart,
+/obj/effect/spawner/random/trash,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/syringe/dart/medical/tainted,
+/obj/item/reagent_containers/syringe/dart/medical/tainted,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/yellow,
+/area/shuttle/vox)
+"mQl" = (
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/shuttle/vox)
+"mYi" = (
+/obj/machinery/door/airlock/hatch/secure{
+	frequency = 1331;
+	id_tag = "vox_northeast_lock";
+	req_access = list(152)
+	},
+/obj/structure/fans/tiny,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
+	id_tag = "voxshutters"
+	},
+/obj/machinery/access_button/directional/west{
+	command = "cycle_exterior";
+	frequency = 1331;
+	master_tag = "vox_east_control";
+	req_access = list(152)
+	},
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
+"noH" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/sleeper/upgraded{
+	dir = 2
+	},
+/turf/simulated/floor/mineral/plastitanium/nitrogen/blue,
+/area/shuttle/vox)
+"nqt" = (
+/obj/structure/chair/brass{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/nitrogen/pink,
+/area/shuttle/vox)
+"nrm" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/survival_pod/glass,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "voxshutters"
+	},
+/turf/simulated/floor/mineral/plastitanium/nitrogen/pink,
+/area/shuttle/vox)
+"nAs" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/trash,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
+"nAD" = (
+/obj/item/clothing/suit/space/vox/pressure,
+/obj/item/clothing/head/helmet/space/vox/pressure,
+/obj/item/clothing/suit/space/vox/pressure,
+/obj/item/clothing/head/helmet/space/vox/pressure,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/rack,
+/obj/item/tank/jetpack/carbondioxide,
+/obj/item/tank/jetpack/carbondioxide,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
+"nEH" = (
+/turf/template_noop,
+/area/template_noop)
+"nWR" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "voxshutters"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/extinguisher_cabinet/directional/south,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
+"obP" = (
+/obj/machinery/door/window/brigdoor/normal{
+	color = null;
+	dir = 1;
+	req_access = list(152)
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
+"owW" = (
+/obj/machinery/cell_charger,
+/obj/item/pickaxe,
+/obj/item/pickaxe,
+/obj/item/pickaxe,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
+/obj/structure/table/reinforced,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/sheet/mineral/sandbags,
+/obj/item/stack/sheet/mineral/sandbags,
+/obj/item/stack/sheet/mineral/sandbags,
+/obj/item/stack/sheet/mineral/sandbags,
+/obj/item/stack/sheet/mineral/sandbags,
+/obj/item/stack/sheet/mineral/sandbags,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/orange,
+/area/shuttle/vox)
+"oyh" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet/crate/trashcart,
+/obj/effect/spawner/random/trash,
+/obj/item/storage/box/legal_loot/amount_2,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/yellow,
+/area/shuttle/vox)
+"oBF" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/spawner/random/loot_crate/rarely,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random/trash,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/yellow,
+/area/shuttle/vox)
+"oGc" = (
+/obj/structure/rack,
+/obj/item/pneumatic_cannon,
+/obj/item/pneumatic_cannon{
+	pixel_x = 10
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
+"oKP" = (
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/officetoys,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/blue,
+/area/shuttle/vox)
+"oQK" = (
+/obj/machinery/door/window/brigdoor/normal{
+	dir = 4;
+	req_access = list(152)
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/blue,
+/area/shuttle/vox)
+"oZi" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4;
+	icon_state = "heater3x3_side_inv";
+	tag = "icon-heater (NORTH)"
+	},
+/obj/structure/window/plasmareinforced{
+	dir = 8
+	},
+/obj/structure/shuttle/engine/platform{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/vox)
+"psh" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/blue,
+/area/shuttle/vox)
+"pxR" = (
+/obj/structure/shuttle/engine/platform{
+	dir = 8
+	},
+/obj/machinery/ship_engine/huge{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/vox)
+"qcb" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 6
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
+"qkp" = (
+/obj/structure/table/reinforced,
+/obj/effect/spawner/lootdrop/officetoys,
+/obj/item/paper_bin{
+	pixel_x = 10
+	},
+/obj/item/flashlight/pen{
+	pixel_x = 9
+	},
+/obj/machinery/transponder/directional/west,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/pink,
+/area/shuttle/vox)
+"qRQ" = (
+/obj/item/storage/toolbox/electrical{
+	pixel_y = 7
+	},
+/obj/item/storage/toolbox/emergency{
+	pixel_y = 1
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = -3
+	},
+/obj/structure/rack,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/orange,
+/area/shuttle/vox)
+"rdE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/manifold/hidden,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
+"rAS" = (
+/obj/structure/shuttle/engine/platform{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/vox)
+"rJm" = (
+/obj/structure/shuttle/engine/platform{
+	dir = 1
+	},
+/obj/machinery/ship_engine/huge,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/vox)
+"rOO" = (
+/obj/item/reagent_containers/cup/bucket/wooden/shit{
+	pixel_x = 9;
+	pixel_y = -2
+	},
+/obj/item/paper/crumpled{
+	pixel_x = -9;
+	pixel_y = 2
+	},
+/obj/item/poster/random_contraband{
+	pixel_x = -26;
+	pixel_y = -5
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/vox)
+"syQ" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/structure/closet/crate/trashcart,
+/obj/item/storage/box/legal_loot/amount_5,
+/obj/effect/spawner/random/trash,
+/obj/effect/spawner/random/trash,
+/obj/item/trash/doshik{
+	pixel_x = 7;
+	pixel_y = -14
+	},
+/turf/simulated/floor/mineral/plastitanium/nitrogen/yellow,
+/area/shuttle/vox)
+"sEC" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 1
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
+	id_tag = "voxshutters";
+	layer = 2
+	},
+/obj/structure/window/plasmareinforced,
+/obj/structure/window/plasmareinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/vox)
+"sJi" = (
+/obj/structure/chair/brass{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/overmap_intercom/directional/west,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/pink,
+/area/shuttle/vox)
+"sNw" = (
+/obj/machinery/light/directional/south,
+/obj/machinery/sensor_array/long_range,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/pink,
+/area/shuttle/vox)
+"sZR" = (
+/obj/structure/chair/brass{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium/nitrogen/pink,
+/area/shuttle/vox)
+"tli" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/spawner/random/loot_crate/rarely,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/yellow,
+/area/shuttle/vox)
+"tnA" = (
+/obj/structure/window/plasmareinforced{
+	dir = 1
+	},
+/obj/structure/shuttle/engine/platform,
+/obj/structure/shuttle/engine/heater{
+	icon_state = "heater3x3_side_inv"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "voxshutters";
+	layer = 2.5
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/vox)
+"trI" = (
+/obj/structure/rack,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/grenade/plastic/c4,
+/obj/item/grenade/plastic/c4{
+	pixel_x = 4;
+	pixel_y = -2
+	},
+/obj/item/grenade/plastic/c4{
+	pixel_x = 8;
+	pixel_y = -4
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
+"tMZ" = (
+/obj/machinery/computer/helm,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/pink,
+/area/shuttle/vox)
+"ubx" = (
+/obj/item/stack/cable_coil,
+/obj/structure/table,
+/obj/item/storage/firstaid/fire{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/storage/firstaid/regular,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/blue,
+/area/shuttle/vox)
+"umL" = (
+/turf/simulated/floor/mineral/plastitanium/nitrogen/pink,
+/area/shuttle/vox)
+"unK" = (
+/obj/machinery/light/directional/east,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/airlock_sensor{
+	frequency = 1331;
+	id_tag = "vox_west_sensor";
+	pixel_x = 25;
+	req_access = list(152)
+	},
+/turf/simulated/floor/mineral/plastitanium/nitrogen/yellow,
+/area/shuttle/vox)
+"uAa" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
+"uFj" = (
+/obj/machinery/door/airlock/hatch/secure{
+	frequency = 1331;
+	id_tag = "vox_southeast_lock";
+	req_access = list(152)
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
+	id_tag = "voxshutters"
+	},
+/obj/machinery/access_button/directional/east{
+	command = "cycle_interior";
+	frequency = 1331;
+	master_tag = "vox_east_control";
+	req_access = list(152)
+	},
+/obj/effect/mapping_helpers/airlock/locked,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
+"uNA" = (
+/obj/item/circular_saw,
+/obj/structure/table,
+/obj/item/scalpel,
+/obj/item/reagent_containers/syringe/dart/medical/tainted{
+	pixel_x = -3;
+	pixel_y = 10
+	},
+/obj/item/reagent_containers/syringe/dart/medical/tainted{
+	pixel_x = 2;
+	pixel_y = 7
+	},
+/obj/item/reagent_containers/syringe/dart/medical/tainted{
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/turf/simulated/floor/mineral/plastitanium/nitrogen/blue,
+/area/shuttle/vox)
+"uXb" = (
+/turf/simulated/wall/indestructible/syndicate{
+	smooth = 2
+	},
+/area/shuttle/vox)
+"vdv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 4;
+	frequency = 1331;
+	id_tag = "vox_east_vent"
+	},
+/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
+	frequency = 1331;
+	id_tag = "vox_east_control";
+	pixel_x = -24;
+	req_access = list(152);
+	tag_airpump = "vox_east_vent";
+	tag_chamber_sensor = "vox_east_sensor";
+	tag_exterior_door = "vox_northeast_lock";
+	tag_interior_door = "vox_southeast_lock"
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
+"vim" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "voxshutters"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
+"vzV" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
+"vBa" = (
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/spawner/random/loot_crate/rarely,
+/obj/effect/spawner/random/trash,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/yellow,
+/area/shuttle/vox)
+"waw" = (
+/obj/machinery/door/airlock/hatch/secure{
+	req_access = list(152)
+	},
+/obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "voxshutters"
+	},
+/turf/simulated/floor/mineral/plastitanium/nitrogen/pink,
+/area/shuttle/vox)
+"wcp" = (
+/obj/machinery/atmospherics/unary/tank/nitrogen{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
+"wyf" = (
+/obj/machinery/door/airlock/hatch/secure{
+	req_access = list(152)
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
+	id_tag = "voxshutters"
+	},
+/turf/simulated/floor/mineral/plastitanium/nitrogen/pink,
+/area/shuttle/vox)
+"wCu" = (
+/obj/machinery/atmospherics/unary/tank/nitrogen,
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
+"wGq" = (
+/obj/structure/rack,
+/obj/item/harpoon{
+	pixel_y = 5
+	},
+/obj/item/harpoon{
+	pixel_x = 4;
+	pixel_y = -2
+	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
+"wVp" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
+	id_tag = "voxshutters"
+	},
+/obj/effect/spawner/window/plastitanium,
+/turf/simulated/floor/plating/nitrogen,
+/area/shuttle/vox)
+"wYK" = (
+/obj/machinery/door/airlock/hatch/secure{
+	req_access = list(152)
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
+	id_tag = "voxshutters"
+	},
+/turf/simulated/floor/mineral/plastitanium/nitrogen/pink,
+/area/shuttle/vox)
+"xbO" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	frequency = 1331;
+	id_tag = "vox_west_vent"
+	},
+/turf/simulated/floor/mineral/plastitanium/nitrogen/yellow,
+/area/shuttle/vox)
+"xEc" = (
+/obj/machinery/optable,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/blue,
+/area/shuttle/vox)
+"xFC" = (
+/obj/structure/shuttle/engine/platform{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/vox)
+"xVj" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 1
+	},
+/obj/structure/window/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
+	id_tag = "voxshutters";
+	layer = 2
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/vox)
+"yed" = (
+/obj/item/flag/species/vox,
+/turf/simulated/floor/mineral/plastitanium/nitrogen/yellow,
+/area/shuttle/vox)
+
+(1,1,1) = {"
+nEH
+hyp
+uXb
+uXb
+uXb
+cLt
+uXb
+cLt
+uXb
+uXb
+uXb
+cLt
+cLt
+uXb
+uXb
+uXb
+uXb
+hyp
+"}
+(2,1,1) = {"
+nEH
+nEH
+cBM
+jXY
+oyh
+syQ
+fQp
+mOq
+mhM
+htL
+gcA
+qRQ
+afy
+kld
+tnA
+rAS
+aHe
+mQl
+"}
+(3,1,1) = {"
+nEH
+nEH
+cBM
+jXY
+mEf
+jMw
+jMw
+jMw
+jMw
+hxx
+cfj
+cfj
+cfj
+cfj
+kDl
+rJm
+aHe
+mQl
+"}
+(4,1,1) = {"
+uXb
+uXb
+uXb
+uXb
+iGf
+tli
+iAQ
+jMw
+vBa
+htL
+mes
+owW
+bij
+haK
+lrE
+rAS
+aHe
+mQl
+"}
+(5,1,1) = {"
+uXb
+yed
+xbO
+deo
+aSk
+jMw
+jMw
+jMw
+cwY
+uXb
+uXb
+uXb
+cLt
+uXb
+uXb
+uXb
+uXb
+hyp
+"}
+(6,1,1) = {"
+ich
+unK
+bos
+uXb
+vBa
+oBF
+kLf
+jMw
+jRO
+uXb
+oKP
+iyS
+ubx
+fjO
+akr
+uNA
+uXb
+uXb
+"}
+(7,1,1) = {"
+uXb
+uXb
+uXb
+uXb
+uXb
+uXb
+hJN
+waw
+hJN
+uXb
+bCs
+hyF
+bsI
+bsI
+bsI
+bsI
+xEc
+uXb
+"}
+(8,1,1) = {"
+uXb
+qkp
+sJi
+aZE
+sZR
+uXb
+kFa
+umL
+cpw
+lLS
+noH
+psh
+fjE
+oQK
+hVx
+hVx
+ljg
+uXb
+"}
+(9,1,1) = {"
+dhA
+igU
+fnK
+fnK
+fnK
+wyf
+fnK
+fnK
+fnK
+nrm
+kNo
+vzV
+nAs
+vzV
+dhb
+wGq
+oGc
+uXb
+"}
+(10,1,1) = {"
+dhA
+tMZ
+hlw
+fnK
+fnK
+wYK
+fnK
+fnK
+fnK
+nrm
+vzV
+nAs
+kNo
+vzV
+ajA
+vzV
+kNo
+htL
+"}
+(11,1,1) = {"
+uXb
+uXb
+kVD
+fnK
+fnK
+uXb
+iou
+umL
+sNw
+lLS
+cjc
+vzV
+vzV
+nAs
+bFD
+trI
+cRa
+uXb
+"}
+(12,1,1) = {"
+nEH
+fpR
+sEC
+nqt
+nqt
+uXb
+uXb
+hJN
+uXb
+uXb
+dvu
+vzV
+vzV
+vzV
+obP
+vzV
+kNo
+htL
+"}
+(13,1,1) = {"
+nEH
+hyp
+uXb
+hJN
+hJN
+uXb
+jYB
+jYB
+fpR
+xVj
+wCu
+uAa
+nAs
+kNo
+nAD
+iqh
+iqh
+uXb
+"}
+(14,1,1) = {"
+nEH
+nEH
+jYB
+jYB
+jYB
+jYB
+jYB
+uXb
+uXb
+uXb
+uXb
+kEk
+vim
+nWR
+uXb
+cLt
+cLt
+uXb
+"}
+(15,1,1) = {"
+nEH
+nEH
+nEH
+nEH
+nEH
+jYB
+jYB
+uXb
+lGq
+vdv
+uFj
+vzV
+vzV
+vzV
+aGf
+dZi
+kJz
+uXb
+"}
+(16,1,1) = {"
+nEH
+nEH
+nEH
+nEH
+nEH
+jYB
+jYB
+mYi
+qcb
+rdE
+uXb
+cJl
+idN
+nAs
+wVp
+jNy
+rOO
+uXb
+"}
+(17,1,1) = {"
+nEH
+nEH
+jYB
+jYB
+uXb
+uXb
+uXb
+uXb
+icF
+wcp
+uXb
+oZi
+lQI
+aWY
+uXb
+hVk
+uXb
+uXb
+"}
+(18,1,1) = {"
+nEH
+nEH
+nEH
+nEH
+jYB
+hyp
+uXb
+uXb
+uXb
+uXb
+uXb
+xFC
+pxR
+xFC
+uXb
+uXb
+uXb
+hyp
+"}
+(19,1,1) = {"
+nEH
+nEH
+nEH
+nEH
+nEH
+nEH
+jYB
+hyp
+uXb
+uXb
+uXb
+aHe
+aHe
+aHe
+uXb
+hyp
+jYB
+nEH
+"}
+(20,1,1) = {"
+nEH
+nEH
+nEH
+nEH
+nEH
+nEH
+nEH
+nEH
+nEH
+nEH
+uXb
+aHe
+aHe
+aHe
+uXb
+nEH
+nEH
+nEH
+"}
+(21,1,1) = {"
+nEH
+nEH
+nEH
+nEH
+nEH
+nEH
+nEH
+nEH
+nEH
+nEH
+mQl
+mQl
+mQl
+mQl
+mQl
+nEH
+nEH
+nEH
+"}

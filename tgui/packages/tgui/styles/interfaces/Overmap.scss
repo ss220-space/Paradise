@@ -1,0 +1,2838 @@
+.OvermapConsole {
+  background: #071015;
+  background-image: none;
+  font-variant-numeric: tabular-nums;
+
+  .Section {
+    border: 1px solid rgba(110, 190, 210, 0.22);
+    border-radius: 0;
+    background: rgba(4, 12, 16, 0.72);
+  }
+
+  .Section__title {
+    border-bottom: 1px solid rgba(110, 190, 210, 0.22);
+    padding: 0.3em 0.5em;
+    font-size: 0.75em;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #8ec8d6;
+  }
+
+  .Button {
+    border-radius: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.8em;
+  }
+
+  .NoticeBox {
+    border-radius: 0;
+  }
+
+  .NumberInput,
+  .Input,
+  .Dropdown {
+    border-radius: 0;
+  }
+}
+
+.OvermapConsole__pad {
+  padding: 0.75em;
+}
+
+.OvermapRail {
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+  padding: 0.4em 0.7em;
+  background: linear-gradient(180deg, #132228 0%, #0a1519 100%);
+  border-bottom: 1px solid rgba(140, 220, 230, 0.35);
+}
+
+.OvermapRail__id {
+  min-width: 0;
+  flex: 1;
+}
+
+.OvermapRail__name {
+  font-size: 0.95em;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #e8f7fb;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.OvermapRail__meta {
+  font-size: 0.75em;
+  color: #7aa3ad;
+  font-family: Consolas, 'Courier New', monospace;
+}
+
+.OvermapRail__lamps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35em;
+  justify-content: flex-end;
+}
+
+.OvermapLamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  padding: 0.15em 0.45em;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #6d7f84;
+  font-size: 0.68em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.OvermapLamp__dot {
+  width: 0.55em;
+  height: 0.55em;
+  border-radius: 50%;
+  background: #314248;
+  box-shadow: inset 0 0 2px #000;
+}
+
+.OvermapLamp--on {
+  color: #c6f3ea;
+  border-color: rgba(90, 220, 180, 0.45);
+
+  .OvermapLamp__dot {
+    background: #5dffc2;
+    box-shadow: 0 0 6px #5dffc2;
+  }
+}
+
+.OvermapLamp--warn {
+  color: #f3d7a2;
+  border-color: rgba(230, 170, 60, 0.5);
+
+  .OvermapLamp__dot {
+    background: #ffb347;
+    box-shadow: 0 0 6px #ffb347;
+  }
+}
+
+.OvermapSeg {
+  display: flex;
+  border-bottom: 1px solid rgba(110, 190, 210, 0.22);
+}
+
+.OvermapSeg__item {
+  flex: 1;
+  margin: 0;
+  padding: 0.45em 0.4em;
+  border: 0;
+  border-right: 1px solid rgba(110, 190, 210, 0.18);
+  background: #0c171c;
+  color: #7aa3ad;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.75em;
+  cursor: pointer;
+}
+
+.OvermapSeg__item:last-child {
+  border-right: 0;
+}
+
+.OvermapSeg__item:hover {
+  color: #d7f3f8;
+  background: #132328;
+}
+
+.OvermapSeg__item--on {
+  color: #081014;
+  background: #7ad0c4;
+  font-weight: bold;
+}
+
+.OvermapStats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35em;
+}
+
+.OvermapStat {
+  min-width: 4.6em;
+  padding: 0.25em 0.45em;
+  background: #08141a;
+  border: 1px solid rgba(110, 190, 210, 0.18);
+}
+
+.OvermapStat__label {
+  font-size: 0.62em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #6e9098;
+}
+
+.OvermapStat__value {
+  font-family: Consolas, 'Courier New', monospace;
+  font-size: 0.95em;
+  color: #e5f6fa;
+}
+
+.OvermapStat--good .OvermapStat__value {
+  color: #7dffc4;
+}
+
+.OvermapStat--warn .OvermapStat__value {
+  color: #ffcc66;
+}
+
+.OvermapStat--bad .OvermapStat__value {
+  color: #ff7a7a;
+}
+
+.OvermapList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.OvermapRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.28em 0.45em;
+  background: rgba(8, 22, 28, 0.9);
+  border-left: 3px solid #2a4a52;
+}
+
+.OvermapRow--click {
+  cursor: pointer;
+}
+
+.OvermapRow--click:hover {
+  background: rgba(18, 42, 50, 0.95);
+}
+
+.OvermapRow--on {
+  border-left-color: #7ad0c4;
+  background: rgba(40, 90, 88, 0.35);
+}
+
+.OvermapRow--muted {
+  opacity: 0.55;
+}
+
+.OvermapRow--good {
+  border-left-color: #4ecf8a;
+  background: rgba(18, 70, 48, 0.4);
+}
+
+.OvermapRow--warn {
+  border-left-color: #e0b04a;
+  background: rgba(70, 52, 12, 0.42);
+}
+
+.OvermapRow--iff {
+  border-left-color: #6aa8ff;
+  background: rgba(20, 40, 80, 0.42);
+}
+
+.OvermapRow--info {
+  border-left-color: #5aa0aa;
+}
+
+.OvermapRow__tag {
+  flex-shrink: 0;
+  padding: 0.05em 0.35em;
+  border: 1px solid rgba(122, 208, 196, 0.35);
+  color: #8fd4c8;
+  font-size: 0.65em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.OvermapRow__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.OvermapRow__title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.OvermapRow__meta {
+  font-size: 0.75em;
+  color: #7aa3ad;
+  font-family: Consolas, 'Courier New', monospace;
+}
+
+.OvermapRow__act {
+  flex-shrink: 0;
+}
+
+.OvermapActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35em;
+  padding: 0.4em 0.5em;
+  background: #0a161b;
+  border-top: 1px solid rgba(140, 220, 230, 0.35);
+}
+
+.OvermapLamp--bad {
+  color: #ffb0b0;
+  border-color: rgba(255, 70, 70, 0.7);
+
+  .OvermapLamp__dot {
+    background: #ff3b3b;
+    box-shadow: 0 0 8px #ff3b3b;
+  }
+}
+
+.OvermapStats--stack {
+  flex-direction: column;
+  width: 7.2em;
+}
+
+.OvermapHelmBar {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: stretch;
+  gap: 0.5em;
+}
+
+.OvermapHelmBar__left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  .OvermapStats--stack {
+    width: 9.5em;
+  }
+}
+
+.OvermapHelmBar__center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.OvermapHelmBar__right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+
+  .OvermapStats--stack {
+    width: 9.5em;
+  }
+}
+
+.OvermapMapSection {
+  .Section__content {
+    padding: 0;
+    height: 100%;
+  }
+}
+
+.OvermapScopePanel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+
+  .Section__content {
+    flex: 1 1 auto;
+    min-height: 0;
+    height: auto;
+  }
+}
+
+.OvermapRadarViewport {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  background: radial-gradient(ellipse at center, #0c2433, #040b11 75%);
+}
+
+.OvermapRadarViewport__display {
+  flex: 0 0 auto;
+  max-width: 100%;
+  border: 1px solid rgba(108, 183, 228, 0.2);
+  box-shadow: 0 0 28px rgba(31, 109, 154, 0.1);
+}
+
+.OvermapSensorWorkspace {
+  gap: 0.65em;
+  padding: 0.65em;
+  min-height: 0;
+
+  > .Stack__item:not(:first-child) {
+    flex: 0 0 310px;
+    min-width: 0;
+    min-height: 0;
+  }
+}
+
+.OvermapScopeLegend {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.35em 0.8em;
+  color: #92b5c7;
+  font-size: 0.75em;
+  letter-spacing: 0.04em;
+}
+
+.OvermapMinimap {
+  width: 100%;
+  height: 100%;
+
+  > div,
+  .Layout__content {
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
+
+.OvermapMinimap--tall {
+  min-height: 360px;
+}
+
+.OvermapMinimap--fill {
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+  aspect-ratio: 19 / 15;
+}
+
+.OvermapMinimap--exact {
+  margin: 0 auto;
+  flex: 0 0 auto;
+  overflow: hidden;
+  width: var(--overmap-map-w, 608px);
+  height: var(--overmap-map-h, 480px);
+
+  > div,
+  .Layout__content {
+    width: inherit !important;
+    height: inherit !important;
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
+
+.OvermapStat--hero {
+  min-width: 9em;
+  padding: 0.55em 0.7em;
+
+  .OvermapStat__value {
+    font-size: 1.35em;
+  }
+}
+
+.OvermapCoord {
+  display: inline-block;
+  margin-left: 0.35em;
+  padding: 0 0.3em;
+  border: 1px solid rgba(122, 208, 196, 0.35);
+  color: #8fd4c8;
+  font-family: Consolas, 'Courier New', monospace;
+  font-size: 0.85em;
+}
+
+.OvermapRow--bad {
+  border-left-color: #ff4a4a;
+  background: rgba(90, 20, 20, 0.45);
+}
+
+.OvermapActions .Button {
+  flex: 1;
+  min-width: 8em;
+  height: 2.4em;
+  background: #0d2228;
+  border: 1px solid rgba(122, 208, 196, 0.45);
+  color: #c6f3ea;
+}
+
+.OvermapActions .Button:hover {
+  background: #16343c;
+}
+
+.OvermapActions .Button--selected,
+.OvermapActions .Button--color--good {
+  background: #7ad0c4 !important;
+  color: #081014 !important;
+  border-color: #7ad0c4;
+}
+
+.OvermapActions .Button--color--bad,
+.OvermapActions .Button--selected.Button--color--bad {
+  background: #8a2a2a !important;
+  color: #ffe8e8 !important;
+  border-color: #ff6a6a;
+}
+
+.OvermapStick {
+  position: relative;
+  width: 116px;
+  height: 116px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at center, rgba(20, 50, 56, 0.4) 0%, #08141a 62%),
+    repeating-radial-gradient(
+      circle at center,
+      rgba(122, 208, 196, 0.18) 0 1px,
+      transparent 1px 18px
+    );
+  border: 2px solid rgba(140, 220, 230, 0.45);
+  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.65);
+  cursor: crosshair;
+  user-select: none;
+}
+
+.OvermapStick--off {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.OvermapStick__headingWrap {
+  position: absolute;
+  inset: -8px;
+  pointer-events: none;
+}
+
+.OvermapStick__heading {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-top: 0;
+  border-bottom: 12px solid #e8f7fb;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  filter: drop-shadow(0 0 4px #7ad0c4);
+}
+
+.OvermapAlerts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3em;
+  padding: 0.35em 0.45em;
+  border-top: 1px solid rgba(110, 190, 210, 0.18);
+  background: rgba(4, 12, 16, 0.55);
+}
+
+.OvermapAlerts .Button {
+  flex: 1;
+  min-width: 7em;
+  font-size: 0.72em;
+}
+
+.OvermapStat--scan {
+  min-width: 10em;
+  padding: 0.65em 0.8em;
+
+  .OvermapStat__value {
+    font-size: 1.28em;
+  }
+}
+
+.OvermapStick__ring {
+  position: absolute;
+  inset: 18%;
+  border: 1px dashed rgba(122, 208, 196, 0.28);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.OvermapStick__dead {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 20%;
+  height: 20%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  pointer-events: none;
+}
+
+.OvermapStick__knob {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #7ad0c4;
+  box-shadow: 0 0 8px #7ad0c4;
+  pointer-events: none;
+}
+
+.OvermapStickCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4em;
+}
+
+.OvermapKey {
+  width: 36px !important;
+  height: 36px !important;
+  min-width: 36px;
+  padding: 0 !important;
+}
+
+.OvermapPad {
+  display: grid;
+  grid-template-columns: repeat(3, 36px);
+  grid-template-rows: repeat(3, 36px);
+  gap: 4px;
+  width: 116px;
+  margin: 0 auto;
+}
+
+.OvermapPanel {
+  padding: 0.45em;
+  height: 100%;
+}
+
+.OvermapGauge {
+  width: 100%;
+  min-width: 8em;
+  height: 7px;
+  margin-top: 0.25em;
+  background: #061016;
+  border: 1px solid rgba(122, 208, 196, 0.35);
+}
+
+.OvermapGauge__fill {
+  height: 100%;
+  background: #7ad0c4;
+  box-shadow: 0 0 8px rgba(122, 208, 196, 0.45);
+}
+
+.OvermapIffGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45em;
+}
+
+.OvermapIffCard {
+  padding: 0.55em 0.65em 0.6em;
+  background: linear-gradient(180deg, #102027 0%, #0a161c 100%);
+  border: 1px solid rgba(110, 190, 210, 0.22);
+  border-left: 4px solid #7ad0c4;
+}
+
+.OvermapIffCard--global {
+  border-left-color: #7ad0c4;
+}
+
+.OvermapIffCard--centcom {
+  border-left-color: #4aa3ff;
+}
+
+.OvermapIffCard--syndicate {
+  border-left-color: #ff5a5a;
+}
+
+.OvermapIffCard__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.6em;
+  margin-bottom: 0.5em;
+}
+
+.OvermapIffCard__title {
+  font-size: 0.92em;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #e8f7fb;
+}
+
+.OvermapIffCard__hint {
+  margin-top: 0.2em;
+  font-size: 0.72em;
+  line-height: 1.35;
+  color: #7aa3ad;
+}
+
+.OvermapIffCard__tags {
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+  flex-shrink: 0;
+}
+
+.OvermapIffCard__tag {
+  padding: 0.12em 0.4em;
+  border: 1px solid rgba(122, 208, 196, 0.35);
+  color: #8fd4c8;
+  font-size: 0.62em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.OvermapIffCard--centcom .OvermapIffCard__tag {
+  border-color: rgba(74, 163, 255, 0.45);
+  color: #9cc8ff;
+}
+
+.OvermapIffCard--syndicate .OvermapIffCard__tag {
+  border-color: rgba(255, 90, 90, 0.5);
+  color: #ffb0b0;
+}
+
+.OvermapIffCard__switches {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4em;
+}
+
+.OvermapIffSwitch {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.1em;
+  margin: 0;
+  padding: 0.4em 0.55em;
+  background: #08141a;
+  border: 1px solid rgba(110, 190, 210, 0.25);
+  color: #6e9098;
+  cursor: pointer;
+  text-align: left;
+}
+
+.OvermapIffSwitch:hover {
+  background: #102228;
+  color: #d7f3f8;
+}
+
+.OvermapIffSwitch__label {
+  font-size: 0.62em;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.OvermapIffSwitch__state {
+  font-family: Consolas, 'Courier New', monospace;
+  font-size: 1.05em;
+  color: #8aa0a6;
+}
+
+.OvermapIffSwitch--on {
+  border-color: rgba(122, 208, 196, 0.65);
+  background: rgba(40, 90, 88, 0.35);
+  color: #c6f3ea;
+}
+
+.OvermapIffSwitch--on .OvermapIffSwitch__state {
+  color: #7dffc4;
+}
+
+.OvermapIffSlot {
+  margin-top: 0.7em;
+  padding: 0.55em 0.65em;
+  background: #08141a;
+  border: 1px dashed rgba(122, 208, 196, 0.35);
+}
+
+.OvermapIffSlot__label {
+  margin-bottom: 0.35em;
+  font-size: 0.62em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #6e9098;
+}
+
+.OvermapIffSlot__input input {
+  font-family: Consolas, 'Courier New', monospace;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.OvermapHelmLockHost {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+.OvermapHelmLockHost__dim {
+  filter: grayscale(0.7) brightness(0.7);
+  opacity: 0.42;
+  pointer-events: none;
+  flex: 1;
+  min-height: 0;
+}
+
+.OvermapHelmLockOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+  pointer-events: none;
+  background: rgba(4, 10, 12, 0.28);
+}
+
+.OvermapHelmLockOverlay__card {
+  pointer-events: auto;
+  width: min(420px, 90%);
+  padding: 1.2em 1.4em;
+  border: 1px solid rgba(180, 210, 220, 0.45);
+  background: rgba(8, 16, 20, 0.92);
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.45);
+}
+
+.OvermapHelmLockOverlay__title {
+  font-size: 0.95em;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #e8f7fb;
+}
+
+.OvermapHelmLockOverlay__sub {
+  margin-top: 0.45em;
+  font-size: 0.8em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #8ec8d6;
+}
+
+.OvermapCommsLamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  padding: 0.15em 0.45em;
+  border: 1px solid rgba(110, 190, 210, 0.35);
+  font-size: 0.7em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8ec8d6;
+}
+
+.OvermapCommsLamp__dot {
+  width: 0.55em;
+  height: 0.55em;
+  border-radius: 50%;
+  background: #4a6670;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4);
+}
+
+.OvermapCommsLamp--locked {
+  border-color: rgba(220, 90, 70, 0.55);
+  color: #f0a090;
+  background: rgba(80, 20, 16, 0.45);
+
+  .OvermapCommsLamp__dot {
+    background: #ff5a45;
+    box-shadow: 0 0 6px #ff5a45;
+  }
+}
+
+.OvermapCommsLamp--open {
+  border-color: rgba(90, 200, 120, 0.55);
+  color: #a8e6b8;
+  background: rgba(16, 60, 28, 0.45);
+
+  .OvermapCommsLamp__dot {
+    background: #4adf7a;
+    box-shadow: 0 0 6px #4adf7a;
+  }
+}
+
+.OvermapCommsLamp--clear {
+  border-color: rgba(110, 190, 210, 0.25);
+  color: #7aa3ad;
+}
+
+.OvermapCommsMsg {
+  padding: 0.55em 0.65em;
+  border: 1px solid rgba(110, 190, 210, 0.22);
+  background: rgba(6, 16, 20, 0.85);
+}
+
+.OvermapCommsMsg__body {
+  margin-top: 0.4em;
+  padding: 0.45em 0.5em;
+  background: rgba(0, 0, 0, 0.35);
+  border-left: 2px solid rgba(110, 190, 210, 0.35);
+  color: #d7eef3;
+  font-size: 0.9em;
+  line-height: 1.35;
+}
+
+.OvermapCommsCipher {
+  padding: 0.45em 0.55em;
+  border: 1px solid rgba(110, 190, 210, 0.22);
+  background: rgba(8, 18, 22, 0.9);
+}
+
+.OvermapCommsCipher__mask {
+  font-family: Consolas, 'Courier New', monospace;
+  letter-spacing: 0.12em;
+  color: #e8f7fb;
+}
+
+.OvermapHelmLockHost__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.OvermapHelmSystemsBtn {
+  flex-shrink: 0;
+}
+
+.OvermapFlight {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 0.5em;
+  height: 100%;
+  min-height: 0;
+}
+
+.OvermapFlight__view {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  border: 1px solid rgba(110, 190, 210, 0.22);
+  background: rgba(4, 12, 16, 0.72);
+}
+
+.OvermapFlight__bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.3em 0.45em;
+  background: linear-gradient(180deg, #132228 0%, #0a1519 100%);
+  border-bottom: 1px solid rgba(110, 190, 210, 0.22);
+
+  .OvermapSeg {
+    flex: 0 0 auto;
+    border-bottom: 0;
+  }
+}
+
+.OvermapFlight__title {
+  font-size: 0.8em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8ec8d6;
+}
+
+.OvermapFlight__hint {
+  margin-left: auto;
+  font-size: 0.72em;
+  color: #7aa3ad;
+}
+
+.OvermapFlight__screen {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+.OvermapFlight__jam {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 1em;
+}
+
+.OvermapFlight__side {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.OvermapFlight__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+  padding: 0.4em;
+  background: #0a161b;
+  border: 1px solid rgba(110, 190, 210, 0.22);
+}
+
+.OvermapStatus {
+  padding: 0.45em 0.55em;
+  background: linear-gradient(180deg, #0e1f25 0%, #08141a 100%);
+  border: 1px solid rgba(110, 190, 210, 0.22);
+  border-left: 3px solid #7ad0c4;
+}
+
+.OvermapStatus__title {
+  font-size: 0.95em;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #e8f7fb;
+}
+
+.OvermapStatus__hint {
+  margin: 0.25em 0 0.4em;
+  font-size: 0.75em;
+  line-height: 1.35;
+  color: #7aa3ad;
+}
+
+.OvermapTarget {
+  padding: 0.45em 0.55em;
+  background: #08141a;
+  border: 1px dashed rgba(122, 208, 196, 0.35);
+}
+
+.OvermapTarget__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5em;
+  margin-bottom: 0.4em;
+}
+
+.OvermapTarget__name {
+  font-size: 0.95em;
+  font-weight: bold;
+  letter-spacing: 0.06em;
+  color: #e8f7fb;
+}
+
+.OvermapPlaces {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+  min-height: 0;
+}
+
+.OvermapPlaces__list {
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.OvermapKeys {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.15em 0.5em;
+  padding: 0.35em 0.45em;
+  background: rgba(8, 20, 24, 0.6);
+  border: 1px solid rgba(110, 190, 210, 0.18);
+}
+
+.OvermapKeys span:nth-child(odd) {
+  font-family: Consolas, 'Courier New', monospace;
+  letter-spacing: 0.12em;
+  color: #7ad0c4;
+}
+
+.OvermapKeys span:nth-child(even) {
+  font-size: 0.82em;
+  color: #7aa3ad;
+}
+
+.OvermapThrust {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    'front front'
+    'left right'
+    'back back'
+    'turn turn';
+  gap: 0.25em;
+}
+
+.OvermapThrust__side,
+.OvermapThrust__turn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.25em 0.3em;
+  background: #08141a;
+  border: 1px solid rgba(122, 208, 196, 0.35);
+  font-family: Consolas, 'Courier New', monospace;
+  font-size: 0.85em;
+  color: #c6f3ea;
+
+  span {
+    font-family: inherit;
+    font-size: 0.72em;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #6e9098;
+  }
+}
+
+.OvermapThrust__side--none {
+  border-color: rgba(110, 190, 210, 0.18);
+  color: #5c7278;
+}
+
+.OvermapThrust__side--front {
+  grid-area: front;
+}
+
+.OvermapThrust__side--right {
+  grid-area: right;
+}
+
+.OvermapThrust__side--back {
+  grid-area: back;
+}
+
+.OvermapThrust__side--left {
+  grid-area: left;
+}
+
+.OvermapThrust__turn {
+  grid-area: turn;
+}
+
+.OvermapOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(4, 10, 12, 0.72);
+}
+
+.OvermapOverlay__card {
+  display: flex;
+  flex-direction: column;
+  width: min(640px, 94%);
+  max-height: 92%;
+  background: rgba(8, 16, 20, 0.97);
+  border: 1px solid rgba(140, 220, 230, 0.35);
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.5);
+}
+
+.OvermapOverlay__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5em;
+  padding: 0.45em 0.55em;
+  background: linear-gradient(180deg, #132228 0%, #0a1519 100%);
+  border-bottom: 1px solid rgba(110, 190, 210, 0.22);
+}
+
+.OvermapOverlay__body {
+  padding: 0.6em;
+  overflow-y: auto;
+}
+
+.OvermapRadar__docked {
+  position: absolute;
+  z-index: 4;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0.5em 1em;
+  background: rgba(5, 13, 22, 0.85);
+  color: #89c9ec;
+  font-weight: bold;
+  letter-spacing: 0.15em;
+  pointer-events: none;
+}
+
+.OvermapRadar {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: #030b14;
+  cursor: crosshair;
+}
+
+.OvermapRadar__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+}
+
+.OvermapRadar__ring {
+  fill: none;
+  stroke: rgba(96, 170, 255, 0.16);
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+
+.OvermapRadar__ring--edge {
+  stroke: rgba(120, 200, 255, 0.42);
+}
+
+.OvermapRadar__tick {
+  stroke: rgba(96, 170, 255, 0.26);
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+
+.OvermapRadar__tick--major {
+  stroke: rgba(150, 215, 255, 0.6);
+}
+
+.OvermapRadar__spoke {
+  stroke: rgba(96, 170, 255, 0.12);
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+
+.OvermapRadar__floor,
+.OvermapRadar__wall,
+.OvermapRadar__frame,
+.OvermapRadar__hull,
+.OvermapRadar__collar,
+.OvermapRadar__cell,
+.OvermapRadar__cellArea,
+.OvermapRadar__cell--major {
+  stroke-width: var(--radar-stroke);
+}
+
+.OvermapRadar__floor {
+  fill: rgba(40, 96, 156, 0.16);
+  stroke: rgba(96, 170, 255, 0.2);
+}
+
+.OvermapRadar__frame {
+  fill: none;
+  stroke: rgba(140, 210, 255, 0.5);
+  stroke-dasharray: calc(3 * var(--radar-stroke)) calc(2 * var(--radar-stroke));
+}
+
+.OvermapRadar__wall {
+  fill: rgba(74, 163, 255, 0.14);
+  stroke: #5db2ff;
+}
+
+.OvermapRadar__collar {
+  fill: none;
+  stroke: #ffcc66;
+}
+
+.OvermapRadar__hull--own {
+  fill: rgba(74, 163, 255, 0.3);
+  stroke: #8fd0ff;
+}
+
+.OvermapRadar__hull--other {
+  fill: rgba(180, 225, 255, 0.12);
+  stroke: #cfe9ff;
+}
+
+.OvermapRadar__hull--docked {
+  fill: rgba(99, 224, 200, 0.16);
+  stroke: #63e0c8;
+}
+
+.OvermapRadar__engine {
+  fill: #9fc6e6;
+}
+
+.OvermapRadar__engine--firing {
+  fill: #ffcc66;
+}
+
+.OvermapRadar__burn {
+  stroke: #ffcc66;
+  stroke-width: 2px;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.OvermapRadar__drifter {
+  fill: rgba(190, 225, 255, 0.75);
+}
+
+.OvermapRadar__label {
+  fill: #a8d4ff;
+  font-family: Consolas, 'Courier New', monospace;
+  letter-spacing: 0.04em;
+}
+
+.OvermapRadar__north {
+  fill: #d8ecff;
+  font-family: Consolas, 'Courier New', monospace;
+  font-weight: bold;
+}
+
+.OvermapRadar__compass {
+  position: absolute;
+  left: 0.6em;
+  bottom: 0.6em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 76px;
+  margin: 0;
+  padding: 0;
+  background: rgba(5, 16, 28, 0.72);
+  border: 1px solid rgba(96, 170, 255, 0.3);
+  color: #a8d4ff;
+  cursor: pointer;
+}
+
+.OvermapRadar__compass:hover {
+  border-color: #5db2ff;
+}
+
+.OvermapRadar__compass svg {
+  display: block;
+  width: 74px;
+}
+
+.OvermapRadar__compassRing {
+  fill: rgba(8, 26, 44, 0.6);
+  stroke: rgba(96, 170, 255, 0.35);
+  stroke-width: 1px;
+}
+
+.OvermapRadar__compassNorth {
+  fill: #d8ecff;
+}
+
+.OvermapRadar__compassLabel {
+  fill: #030b14;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.OvermapRadar__compassSpoke {
+  stroke: rgba(96, 170, 255, 0.45);
+  stroke-width: 1px;
+}
+
+.OvermapRadar__compassShip {
+  fill: none;
+  stroke: #5db2ff;
+  stroke-width: 2px;
+}
+
+.OvermapRadar__compassState {
+  width: 100%;
+  padding: 0.15em 0;
+  border-top: 1px solid rgba(96, 170, 255, 0.25);
+  font-size: 0.58em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #7fb6e8;
+}
+
+.OvermapRadar__controls {
+  position: absolute;
+  right: 0.6em;
+  bottom: 0.6em;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.35em;
+}
+
+.OvermapRadar__zoom {
+  display: flex;
+  gap: 2px;
+}
+
+.OvermapRadar__zoomButton {
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  background: rgba(5, 16, 28, 0.75);
+  border: 1px solid rgba(96, 170, 255, 0.35);
+  color: #a8d4ff;
+  font:
+    bold 13px/1 Consolas,
+    monospace;
+  cursor: pointer;
+}
+
+.OvermapRadar__zoomButton:hover {
+  border-color: #5db2ff;
+  color: #fff;
+}
+
+.OvermapRadar__zoomButton--band {
+  border-color: rgba(122, 208, 196, 0.45);
+  color: #7ad0c4;
+}
+
+.OvermapRadar__zoomButton--band:hover {
+  border-color: #7ad0c4;
+  color: #eafffb;
+}
+
+.OvermapRadar__ruler {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.1em;
+}
+
+.OvermapRadar__rulerBar {
+  display: flex;
+  align-items: center;
+  width: 120px;
+  height: 8px;
+}
+
+.OvermapRadar__rulerTick {
+  width: 1px;
+  height: 8px;
+  background: rgba(150, 215, 255, 0.75);
+}
+
+.OvermapRadar__rulerLine {
+  flex: 1;
+  height: 1px;
+  background: rgba(150, 215, 255, 0.55);
+}
+
+.OvermapRadar__rulerLabel {
+  font-family: Consolas, 'Courier New', monospace;
+  font-size: 10px;
+  color: #a8d4ff;
+}
+
+.OvermapSector {
+  width: 100%;
+  height: 100%;
+}
+
+.OvermapSector__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.OvermapSector__space {
+  fill: #04121a;
+}
+
+.OvermapSector__grid {
+  stroke: rgba(110, 190, 210, 0.1);
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+
+.OvermapSector__grid--major {
+  stroke: rgba(110, 190, 210, 0.24);
+}
+
+.OvermapSector__coord {
+  fill: #6e9098;
+  font-family: Consolas, 'Courier New', monospace;
+}
+
+.OvermapSector__hazard {
+  fill: rgba(255, 122, 122, 0.16);
+  stroke: rgba(255, 122, 122, 0.4);
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+
+.OvermapSector__sensors {
+  fill: none;
+  stroke: rgba(122, 208, 196, 0.35);
+  stroke-width: 1px;
+  stroke-dasharray: 2 4;
+  vector-effect: non-scaling-stroke;
+}
+
+.OvermapSector__planet {
+  fill: rgba(63, 127, 134, 0.85);
+  stroke: rgba(140, 220, 230, 0.5);
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+
+.OvermapSector__label {
+  fill: #8ec8d6;
+  font-family: Consolas, 'Courier New', monospace;
+}
+
+.OvermapSector__label--planet {
+  fill: #9fd8e2;
+}
+
+.OvermapSector__label--sos {
+  fill: #ff7a7a;
+  font-weight: bold;
+}
+
+.OvermapSector__route {
+  stroke: rgba(122, 208, 196, 0.5);
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+
+.OvermapSector__marker {
+  cursor: pointer;
+}
+
+.OvermapSector__hit {
+  fill: transparent;
+}
+
+.OvermapSector__hoverRing {
+  fill: none;
+  stroke: #7ad0c4;
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+
+.OvermapSector__glyph--hollow {
+  fill: none;
+  stroke-width: 1.5px;
+  vector-effect: non-scaling-stroke;
+}
+
+.OvermapSector__unknown {
+  fill: #e8f7fb;
+  font-family: Consolas, 'Courier New', monospace;
+}
+
+.OvermapSector__dest {
+  fill: none;
+  stroke: #ffcc66;
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+
+.OvermapSector__destLabel {
+  fill: #ffcc66;
+  font-family: Consolas, 'Courier New', monospace;
+  letter-spacing: 0.1em;
+}
+
+.OvermapSector__self polygon {
+  fill: #7ad0c4;
+}
+
+.OvermapSector__selfHalo {
+  fill: rgba(122, 208, 196, 0.12);
+  stroke: rgba(122, 208, 196, 0.4);
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+
+.OvermapSector__selfLabel {
+  fill: #c6f3ea;
+  font-family: Consolas, 'Courier New', monospace;
+  letter-spacing: 0.14em;
+}
+
+.OvermapHelmBridge {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) 240px;
+  height: 100%;
+  min-height: 0;
+  background: #050c10;
+}
+
+.OvermapHelmBridge__stage {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.OvermapHelmBridge__radar {
+  position: absolute;
+  inset: 0 auto 0 50%;
+  transform: translateX(-50%);
+  width: min(calc(100vh - 346px), calc(100% - 480px));
+  display: flex;
+
+  .OvermapRadarSection {
+    width: 100%;
+    margin: 0;
+    border: 0;
+    background: transparent;
+
+    > .Section__title {
+      display: none;
+    }
+    > .Section__rest > .Section__content,
+    > .Section__content {
+      padding: 0;
+    }
+  }
+
+  .OvermapRadar {
+    margin: auto 0;
+  }
+}
+
+.OvermapHelmBridge__left {
+  position: absolute;
+  top: 20px;
+  bottom: 20px;
+  left: 16px;
+  width: 266px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.OvermapHelmBridge__contacts {
+  position: absolute;
+  right: 16px;
+  top: 20px;
+  bottom: 20px;
+  width: 280px;
+  overflow-y: auto;
+
+  .Section {
+    background: rgba(5, 12, 16, 0.94);
+  }
+}
+
+.OvermapHelmBridge__console {
+  display: grid;
+  grid-template-columns: 210px 230px minmax(0, 1fr) 300px;
+  gap: 8px;
+  padding: 8px;
+  min-height: 0;
+  border-top: 1px solid #315561;
+  background: #081217;
+
+  .Section {
+    margin-bottom: 0;
+  }
+}
+
+.OvermapHelmBridge__deck,
+.OvermapHelmBridge__maneuver {
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.OvermapHelmBridge__maneuver {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+
+  .OvermapRadarBottom__buttons {
+    flex-direction: column;
+  }
+  .OvermapTouch--onScope {
+    min-height: 44px;
+  }
+}
+
+.OvermapHelmBridge__keys {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 6px;
+  color: #7aa3ad;
+  font-size: 9px;
+  letter-spacing: 0.04em;
+}
+
+.OvermapHelmBridge__tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 6px;
+
+  button {
+    flex: 1;
+    border: 1px solid #315561;
+    background: #081217;
+    padding: 5px;
+    color: #7aa3ad;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  button[aria-pressed='true'] {
+    border-color: #7ad0c4;
+    color: #b9f3e9;
+    background: #123033;
+  }
+}
+
+.OvermapHelmMotion {
+  width: 100%;
+}
+
+.OvermapHelmMotion__label {
+  display: block;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #24404a;
+  color: #7aa3ad;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.OvermapHelmMotion__speed {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 8px 0 12px;
+  font-family: Consolas, 'Courier New', monospace;
+
+  strong {
+    font-size: 52px;
+    line-height: 1;
+    color: #d3e8ec;
+  }
+  > span {
+    color: #7aa3ad;
+    font-size: 12px;
+  }
+  > div {
+    margin-left: auto;
+    text-align: right;
+  }
+  small {
+    display: block;
+    color: #7aa3ad;
+    font-size: 10px;
+  }
+  b {
+    color: #7ad0c4;
+    font-size: 18px;
+  }
+}
+
+.OvermapHelmMotion__readouts {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 12px;
+
+  > div {
+    padding-left: 6px;
+    border-left: 2px solid #315561;
+  }
+  small {
+    display: block;
+    color: #7aa3ad;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  b {
+    display: block;
+    margin-top: 4px;
+    color: #d3e8ec;
+    font:
+      14px Consolas,
+      'Courier New',
+      monospace;
+  }
+}
+
+.OvermapHelmLever {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 100px;
+  max-height: 300px;
+  width: 126px;
+
+  > strong {
+    margin-top: 10px;
+    color: #7ad0c4;
+    font:
+      24px Consolas,
+      'Courier New',
+      monospace;
+  }
+  > strong small {
+    font-size: 11px;
+    color: #7aa3ad;
+  }
+}
+
+.OvermapHelmLever__track {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  gap: 18px;
+  padding: 12px 0 0 14px;
+
+  input {
+    writing-mode: vertical-lr;
+    direction: rtl;
+    width: 24px;
+    height: 100%;
+    margin: 0;
+    cursor: ns-resize;
+  }
+}
+
+.OvermapHelmLever__scale {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #7aa3ad;
+  font:
+    11px Consolas,
+    'Courier New',
+    monospace;
+}
+
+.OvermapHelmBox {
+  flex: 0 0 auto;
+
+  .Section__content {
+    padding: 0.45em 0.5em;
+  }
+}
+
+.OvermapRadarSection {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+
+  .Section__content {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 0.35em;
+  }
+
+  .OvermapRadar {
+    flex: 0 0 auto;
+  }
+}
+
+.OvermapRadarJam {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 1em;
+}
+
+.OvermapShipName {
+  margin-bottom: 0.35em;
+  font-size: 1em;
+  font-weight: bold;
+  letter-spacing: 0.06em;
+  color: #e8f7fb;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.OvermapHelmHint {
+  font-size: 0.72em;
+  line-height: 1.35;
+  color: #7aa3ad;
+}
+
+.OvermapTouch {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1em;
+  min-width: 64px;
+  padding: 0.35em 0.5em;
+  background: rgba(10, 28, 44, 0.85);
+  border: 1px solid rgba(96, 170, 255, 0.35);
+  box-shadow: inset 0 0 12px rgba(74, 163, 255, 0.12);
+  color: #a8d4ff;
+  font-size: 0.66em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+
+  .Icon {
+    font-size: 1.5em;
+  }
+}
+
+.OvermapTouch:hover:not(:disabled) {
+  border-color: #5db2ff;
+  color: #fff;
+  box-shadow:
+    inset 0 0 16px rgba(74, 163, 255, 0.25),
+    0 0 8px rgba(74, 163, 255, 0.35);
+}
+
+.OvermapTouch:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.OvermapTouch--on {
+  border-color: #63e0c8;
+  color: #d8fff8;
+  box-shadow:
+    inset 0 0 16px rgba(99, 224, 200, 0.3),
+    0 0 8px rgba(99, 224, 200, 0.4);
+}
+
+.OvermapTouch--good {
+  border-color: #63e0c8;
+  color: #d8fff8;
+}
+
+.OvermapTouch--bad {
+  border-color: #ff6a6a;
+  color: #ffd8d8;
+  box-shadow: inset 0 0 16px rgba(255, 106, 106, 0.3);
+}
+
+.OvermapTouch--wide {
+  min-width: 148px;
+}
+
+.OvermapTouch--inline {
+  flex-direction: row;
+  min-width: 0;
+  padding: 0.15em 0.4em;
+  font-size: 0.62em;
+}
+
+.OvermapTouch--slider {
+  flex-direction: row;
+  gap: 0.35em;
+  min-width: 156px;
+
+  input[type='range'] {
+    width: 88px;
+    accent-color: #5db2ff;
+  }
+}
+
+.OvermapThrust {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  grid-template-areas:
+    '. front .'
+    'left center right'
+    '. back .';
+  gap: 0.25em;
+  align-items: center;
+}
+
+.OvermapThrust__slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.2em 0.3em;
+  background: #08141a;
+  border: 1px solid rgba(96, 170, 255, 0.25);
+
+  span {
+    font-size: 0.62em;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #6e9098;
+  }
+
+  em {
+    font-style: normal;
+    font-family: Consolas, 'Courier New', monospace;
+    font-size: 0.78em;
+    color: #c6f3ea;
+  }
+}
+
+.OvermapThrust__slot--front {
+  grid-area: front;
+}
+
+.OvermapThrust__slot--right {
+  grid-area: right;
+}
+
+.OvermapThrust__slot--back {
+  grid-area: back;
+}
+
+.OvermapThrust__slot--left {
+  grid-area: left;
+}
+
+.OvermapThrust__slot--center {
+  grid-area: center;
+  border-color: rgba(99, 224, 200, 0.45);
+  background: #0a1a22;
+}
+
+.OvermapThrust__slider {
+  width: 104px;
+  accent-color: #63e0c8;
+}
+
+.OvermapThrust__percent {
+  font-family: Consolas, 'Courier New', monospace;
+  font-size: 0.72em;
+  color: #d8fff8;
+}
+
+.OvermapThrust__foot {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  margin-top: 0.4em;
+  font-size: 0.7em;
+  color: #7aa3ad;
+}
+
+.OvermapRadarBottom {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+  flex: 1 1 auto;
+  min-height: 0;
+  padding-top: 0.3em;
+}
+
+.OvermapRadarBottom__buttons {
+  display: flex;
+  flex: 1 1 auto;
+  gap: 0.3em;
+  min-height: 40px;
+}
+
+.OvermapTouch--onScope {
+  flex: 1 1 0;
+  min-width: 0;
+  background: rgba(8, 22, 36, 0.88);
+  border-color: rgba(120, 200, 255, 0.5);
+}
+.OvermapRadar__galaxyEmpty {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  max-width: 70%;
+  transform: translate(-50%, -50%);
+  padding: 0.6em 0.8em;
+  background: rgba(8, 22, 36, 0.9);
+  border: 1px solid rgba(255, 170, 90, 0.5);
+  color: #ffd9a8;
+  font-size: 0.72em;
+  line-height: 1.35;
+}
+
+.OvermapInertiaPanel {
+  display: flex;
+  gap: 0.35em;
+}
+
+.OvermapSpeedRow {
+  display: flex;
+  align-items: center;
+  gap: 0.45em;
+  margin-top: 0.5em;
+  padding: 0.3em 0.45em;
+  background: rgba(8, 20, 28, 0.7);
+  border: 1px solid rgba(96, 170, 255, 0.25);
+  color: #7fb6e8;
+  font-size: 0.68em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+
+  input[type='range'] {
+    flex: 1;
+    accent-color: #5db2ff;
+  }
+
+  em {
+    font-style: normal;
+    font-family: Consolas, 'Courier New', monospace;
+    font-size: 1.1em;
+    color: #d8ecff;
+  }
+}
+
+.OvermapThrust__warning {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  margin-top: 0.4em;
+  padding: 0.3em 0.4em;
+  background: rgba(60, 40, 10, 0.5);
+  border: 1px solid rgba(255, 179, 71, 0.5);
+  color: #ffd9a8;
+  font-size: 0.68em;
+  line-height: 1.3;
+}
+
+.OvermapRadar__scope {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(96, 170, 255, 0.03) 0 1px,
+      transparent 1px 3px
+    ),
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(24, 78, 140, 0.4) 0%,
+      rgba(6, 20, 34, 0.92) 62%,
+      #030b14 100%
+    );
+}
+
+.OvermapRadar__scene {
+  position: absolute;
+  inset: 0;
+  &--pannable {
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+    &:active {
+      cursor: grabbing;
+    }
+  }
+}
+
+.OvermapRadar__pick,
+.OvermapRadar__weapon {
+  left: 50%;
+  top: 50%;
+  &[hidden] {
+    display: none;
+  }
+}
+
+.OvermapRadar__band {
+  position: absolute;
+  left: 0.6em;
+  top: 0.5em;
+  font-size: 0.6em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7fb6e8;
+}
+
+.OvermapRadar__cell {
+  stroke: rgba(96, 170, 255, 0.08);
+}
+
+.OvermapRadar__cell--major {
+  stroke: rgba(96, 170, 255, 0.22);
+}
+
+.OvermapRadar__cellArea {
+  fill: rgba(30, 80, 140, 0.1);
+  stroke: rgba(96, 170, 255, 0.3);
+}
+
+.OvermapRadar__link {
+  stroke: rgba(120, 200, 255, 0.45);
+  stroke-width: 1px;
+  stroke-dasharray: 6 4;
+  vector-effect: non-scaling-stroke;
+}
+
+.OvermapRadar__sector {
+  fill: rgba(20, 60, 110, 0.5);
+  stroke: rgba(120, 200, 255, 0.5);
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+
+.OvermapRadar__sectorName {
+  fill: #d8ecff;
+  font-family: Consolas, 'Courier New', monospace;
+}
+
+.OvermapRadar__sectorMeta {
+  fill: #9fd0ff;
+  font-family: Consolas, 'Courier New', monospace;
+}
+
+.OvermapKindFilter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  margin-bottom: 0.4em;
+}
+
+.OvermapKindFilter__item {
+  min-width: 26px;
+  padding: 0.2em 0.35em;
+  background: #08141a;
+  border: 1px solid rgba(110, 190, 210, 0.22);
+  color: #7aa3ad;
+  font-size: 0.7em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.OvermapKindFilter__item:hover {
+  color: #d7f3f8;
+  border-color: rgba(140, 220, 230, 0.45);
+}
+
+.OvermapKindFilter__item--on {
+  background: #7ad0c4;
+  border-color: #7ad0c4;
+  color: #081014;
+  font-weight: bold;
+}
+
+.OvermapObjectList {
+  max-height: 31vh;
+  overflow-y: auto;
+}
+
+.OvermapGaugeRow {
+  margin-bottom: 0.45em;
+}
+
+.OvermapGaugeRow__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.68em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #6e9098;
+}
+
+.OvermapGaugeRow__head span:last-child {
+  font-family: Consolas, 'Courier New', monospace;
+  color: #c6f3ea;
+}
+
+.OvermapGaugeRow__meta {
+  margin-top: 0.15em;
+  font-family: Consolas, 'Courier New', monospace;
+  font-size: 0.7em;
+  color: #7aa3ad;
+}
+
+.OvermapRadar__cellLabel {
+  fill: #7fb6e8;
+  font-family: Consolas, 'Courier New', monospace;
+  letter-spacing: 0.05em;
+}
+
+.OvermapRadar__destRoute {
+  stroke: rgba(255, 204, 102, 0.5);
+  stroke-width: 1px;
+  stroke-dasharray: 6 5;
+  vector-effect: non-scaling-stroke;
+}
+
+.OvermapRadar__destRing,
+.OvermapRadar__destCross {
+  fill: none;
+  stroke: #ffcc66;
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+
+.OvermapRadar__sector--station {
+  fill: rgba(93, 178, 255, 0.25);
+  stroke: #5db2ff;
+}
+
+.OvermapRadar__sector--service {
+  fill: rgba(47, 111, 208, 0.25);
+  stroke: #4a86e8;
+}
+
+.OvermapRadar__sector--wilderness {
+  fill: rgba(232, 247, 251, 0.18);
+  stroke: #e8f7fb;
+}
+
+.OvermapRadar__sector--unknown {
+  fill: rgba(90, 120, 150, 0.12);
+  stroke: rgba(150, 180, 210, 0.55);
+  stroke-dasharray: 4 4;
+}
+
+.OvermapRadar__sector--current {
+  fill: rgba(122, 208, 196, 0.22);
+  stroke: #63e0c8;
+  stroke-width: 2px;
+}
+
+.OvermapRadar__sector--distress {
+  fill: rgba(255, 106, 106, 0.2);
+  stroke: #ff8a8a;
+}
+
+.OvermapRadar__hatch {
+  fill: none;
+}
+
+.OvermapRadar__hatch--asteroid {
+  stroke: rgba(224, 168, 106, 0.95);
+}
+
+.OvermapRadar__hatch--emp {
+  stroke: rgba(106, 168, 255, 0.95);
+}
+
+.OvermapRadar__hatch--carp {
+  stroke: rgba(106, 230, 160, 0.95);
+}
+
+.OvermapRadar__pick {
+  position: absolute;
+  z-index: 5;
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  pointer-events: auto;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  &:hover {
+    border-color: #7ec8e3;
+    background: rgba(126, 200, 227, 0.15);
+  }
+}
+
+.OvermapRadar__pick--dock {
+  z-index: 6;
+  color: #68b5ff;
+  border-color: #68b5ff;
+  background: #12283c;
+}
+.OvermapRadar__approach {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.OvermapRadar__bands {
+  position: absolute;
+  z-index: 8;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 4px;
+  button {
+    padding: 6px 10px;
+    border: 1px solid #334b5d;
+    background: #0b1722;
+    color: #9ab4c7;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  .selected {
+    color: #bce9ff;
+    border-color: #69b9df;
+    background: #193c50;
+  }
+}
+.OvermapRadar__peels {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+.OvermapRadar__peel {
+  transform-origin: 0 0;
+  animation: overmap-peel 6s linear infinite;
+  stroke-width: 1.5;
+}
+@keyframes overmap-peel {
+  from {
+    transform: scale(0);
+    opacity: 0.75;
+  }
+  to {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+.OvermapRadar {
+  position: relative;
+  border: 1px solid #273b49;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.OvermapRadar__scope {
+  background: radial-gradient(
+    ellipse at 50% 42%,
+    #112532 0%,
+    #08131e 52%,
+    #040a12 100%
+  );
+}
+
+.OvermapRadar__ring {
+  stroke: rgba(138, 178, 195, 0.12);
+}
+.OvermapRadar__ring--edge {
+  stroke: rgba(138, 178, 195, 0.24);
+}
+.OvermapRadar__tick {
+  stroke: #375361;
+}
+.OvermapRadar__north {
+  fill: #a0b6c4;
+}
+.OvermapRadar__floor {
+  fill: #244751;
+}
+.OvermapRadar__wall {
+  fill: #a5c8cc;
+}
+.OvermapRadar__collar {
+  fill: #6aafff;
+}
+.OvermapRadar__cell {
+  stroke-opacity: 0.12;
+}
+.OvermapRadar__cell--major {
+  stroke-opacity: 0.2;
+}
+.OvermapRadar__cellLabel {
+  fill: #496779;
+}
+.OvermapRadar__pick {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.OvermapRadar__bands {
+  white-space: nowrap;
+}
+.OvermapRadar__bands button {
+  border-radius: 2px;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+
+.OvermapGalaxy__orbit {
+  fill: none;
+  stroke: #426076;
+  stroke-width: 1;
+  stroke-opacity: 0.18;
+  vector-effect: non-scaling-stroke;
+}
+.OvermapGalaxy__star {
+  fill: #8dabbf;
+  opacity: 0.32;
+}
+.OvermapGalaxy__route {
+  fill: none;
+  stroke: #486b89;
+  stroke-opacity: 0.55;
+  stroke-width: 1.3;
+  vector-effect: non-scaling-stroke;
+}
+.OvermapGalaxy__route--active {
+  stroke: #6abcca;
+  stroke-opacity: 0.9;
+  stroke-width: 2;
+}
+.OvermapGalaxy__node {
+  cursor: pointer;
+  outline: none;
+}
+.OvermapGalaxy__core {
+  fill: #9cb3d4;
+}
+.OvermapGalaxy__halo {
+  fill: rgba(97, 150, 190, 0.08);
+  stroke: #506682;
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+.OvermapGalaxy__bracket {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+.OvermapGalaxy__name,
+.OvermapGalaxy__detail {
+  fill: #b2c2d9;
+  font-family: Consolas, monospace;
+}
+.OvermapGalaxy__heading,
+.OvermapGalaxy__here {
+  fill: #627e99;
+  font-family: Consolas, monospace;
+  letter-spacing: 0.12em;
+}
+.OvermapGalaxy__node--current .OvermapGalaxy__core {
+  fill: #8de5cd;
+}
+.OvermapGalaxy__node--current .OvermapGalaxy__halo {
+  stroke: #68baa9;
+}
+.OvermapGalaxy__node--current .OvermapGalaxy__here {
+  fill: #68baa9;
+}
+.OvermapGalaxy__node--selected .OvermapGalaxy__bracket,
+.OvermapGalaxy__node:hover .OvermapGalaxy__bracket,
+.OvermapGalaxy__node:focus .OvermapGalaxy__bracket {
+  stroke: #d4e6f2;
+}
+.OvermapGalaxy__node--unknown {
+  opacity: 0.45;
+}
+.OvermapGalaxy__node--unknown .OvermapGalaxy__halo {
+  stroke-dasharray: 2 3;
+}
+.OvermapGalaxy__distress {
+  fill: none;
+  stroke: #ed7e82;
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.OvermapGalaxy__route--uncertain {
+  stroke-dasharray: 5 6;
+  stroke-opacity: 0.25;
+}
+.OvermapRadar__pick--own {
+  border-color: #80dec0;
+  color: #80dec0;
+  opacity: 0.4;
+}
+.OvermapRadar__pick--own.OvermapRadar__pick--selected {
+  opacity: 1;
+}
+.OvermapRadar__pick--selected {
+  box-shadow: 0 0 0 3px rgba(128, 222, 192, 0.3);
+}
+.OvermapRadar__pick:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+.OvermapWeapons {
+  padding: 12px;
+  h3 {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin: 0 0 10px;
+  }
+  h3 small {
+    margin-left: auto;
+    font-size: 10px;
+    opacity: 0.6;
+  }
+  > div {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+  button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    border: 1px solid #37495a;
+    background: #14202a;
+    color: #b7c7d7;
+    cursor: pointer;
+  }
+  button:first-child {
+    flex: 1;
+    text-align: left;
+  }
+  button.is-active {
+    border-color: #d78c49;
+    background: #3a2c20;
+    color: #ffcc91;
+  }
+  button small {
+    display: block;
+    margin-top: 3px;
+    font-size: 10px;
+    opacity: 0.6;
+  }
+  p {
+    font-size: 11px;
+    opacity: 0.6;
+  }
+}
+
+.TacticalGalaxy {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  overflow: hidden;
+  color: #b9ccdd;
+  background: radial-gradient(ellipse at 50% 40%, #14202b, #0a101b 80%);
+  font:
+    11px Consolas,
+    'Courier New',
+    monospace;
+  user-select: none;
+  touch-action: none;
+
+  button:not(.OvermapRadar__zoomButton) {
+    cursor: pointer;
+    color: #c7d9e7;
+    background: #111e2b;
+    border: 1px solid #344c60;
+    padding: 6px 9px;
+    font: inherit;
+  }
+  button:not(.OvermapRadar__zoomButton):hover {
+    background: #213849;
+    color: #fff;
+  }
+  button:focus-visible,
+  [role='button']:focus-visible {
+    outline: 2px solid #7cdce5;
+    outline-offset: 2px;
+  }
+  input {
+    accent-color: #6dc5d9;
+  }
+}
+.TacticalGalaxy__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+.TacticalGalaxy__canvas:active {
+  cursor: grabbing;
+}
+.TacticalGalaxy__grid {
+  stroke: #7894b4;
+  stroke-opacity: 0.12;
+  fill: #668096;
+  font-size: 9px;
+}
+.TacticalGalaxy__grid text {
+  stroke: none;
+}
+.TacticalGalaxy__system {
+  cursor: pointer;
+}
+.TacticalGalaxy__label {
+  font:
+    11px Consolas,
+    monospace;
+  paint-order: stroke;
+  stroke: #0a101b;
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+.TacticalGalaxy__legend,
+.TacticalGalaxy__inspector {
+  position: absolute;
+  background: rgba(8, 15, 24, 0.94);
+  border: 1px solid #344758;
+  padding: 10px;
+  box-shadow: 0 8px 24px #0005;
+}
+.TacticalGalaxy__legend {
+  left: 12px;
+  top: 12px;
+  max-width: min(255px, 55%);
+  max-height: 65%;
+  overflow: auto;
+}
+.TacticalGalaxy__legend .TacticalGalaxy__heading {
+  display: block;
+  width: 100%;
+  border: 0;
+  padding: 0 0 6px;
+  background: transparent;
+  text-align: left;
+  color: #84d4e9;
+  letter-spacing: 0.07em;
+}
+.TacticalGalaxy__heading small {
+  float: right;
+  margin-left: 12px;
+  color: #7893a5;
+  letter-spacing: 0;
+}
+.TacticalGalaxy__legend label {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin: 5px 0;
+  cursor: pointer;
+  font-size: 10px;
+}
+.TacticalGalaxy__legend i {
+  flex-shrink: 0;
+  width: 7px;
+  height: 7px;
+}
+.TacticalGalaxy__legend hr {
+  border: 0;
+  border-top: 1px solid #293a4c;
+  margin: 8px 0;
+}
+.TacticalGalaxy__tools {
+  position: absolute;
+  bottom: 36px;
+  right: 0.6em;
+  display: flex;
+  gap: 3px;
+}
+.TacticalGalaxy__inspector {
+  bottom: 40px;
+  left: 12px;
+  max-width: min(290px, 70%);
+  pointer-events: none;
+}
+.TacticalGalaxy__inspector strong,
+.TacticalGalaxy__inspector span {
+  display: block;
+  margin-bottom: 5px;
+}
+.TacticalGalaxy__inspector strong {
+  color: #e0ebf4;
+}
+.TacticalGalaxy__inspector p {
+  color: #7896a9;
+  font-size: 10px;
+  margin: 6px 0 0;
+}
+.TacticalGalaxy--compact .TacticalGalaxy__inspector p {
+  display: none;
+}
+.TacticalGalaxy--compact .TacticalGalaxy__inspector {
+  max-width: 240px;
+  bottom: 50px;
+  padding: 8px;
+}
+.TacticalGalaxy--compact .TacticalGalaxy__legend {
+  max-width: 180px;
+}
+
+.TacticalGalaxy__ruler {
+  position: absolute;
+  right: 0.6em;
+  bottom: 0.6em;
+  pointer-events: none;
+}
+
+.OvermapConsole--weapons {
+  background: #16090c;
+
+  .Section {
+    background: rgba(25, 6, 10, 0.85);
+    border-color: rgba(235, 95, 105, 0.4);
+  }
+
+  .Section__title {
+    color: #ff929b;
+    border-color: rgba(235, 95, 105, 0.4);
+  }
+
+  .Button {
+    background-color: #65272f;
+  }
+
+  .Button--selected {
+    background-color: #bc4756;
+  }
+}
+
+.OvermapRadar__hull--destroyed {
+  fill: #555;
+  stroke: #999;
+}
+
+.OvermapRadar__weapons {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.OvermapRadar__weapon {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #e89a55;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  span {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0 2px;
+    background: #16090c;
+    font-size: 10px;
+    white-space: nowrap;
+  }
+
+  &--ready {
+    color: #8cdcab;
+  }
+  &--selected {
+    color: #fff2a5;
+    filter: drop-shadow(0 0 3px #f3b84a);
+  }
+  &:hover,
+  &:focus-visible {
+    outline: 1px solid #fff2a5;
+  }
+}
+
+.OvermapRadar__contacts,
+.OvermapRadar__projectiles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}

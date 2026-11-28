@@ -1,0 +1,247 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"cgI" = (
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/supply)
+"cpn" = (
+/obj/machinery/ship_engine{
+	dir = 4;
+	icon_state = "burst_l"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/supply)
+"ctq" = (
+/obj/machinery/transponder/directional/north,
+/turf/simulated/floor/shuttle,
+/area/shuttle/supply)
+"dko" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/shuttle/engine/heater{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/supply)
+"fXZ" = (
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "QMLoad"
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/supply)
+"ggz" = (
+/turf/template_noop,
+/area/template_noop)
+"hkR" = (
+/obj/structure/fans/tiny,
+/obj/docking_port/mobile/supply{
+	dir = 2;
+	pixel_y = -5;
+	port_direction = 4;
+	preferred_direction = 8;
+	timid = 1;
+	roundstart_move = null
+	},
+/obj/machinery/door/airlock/external/docking{
+	dock_name = "Основной шлюз";
+	overmap_collar_id = "supply_main";
+	req_access = list(31)
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/supply)
+"hHE" = (
+/obj/machinery/conveyor_switch/oneway{
+	id = "QMLoad";
+	name = "Upload"
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/supply)
+"iyd" = (
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/supply)
+"jaE" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "s_docking_airlock";
+	name = "Shuttle Hatch";
+	req_access = list(31)
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/shuttle,
+/area/shuttle/supply)
+"jVO" = (
+/obj/structure/plasticflaps,
+/obj/machinery/conveyor{
+	id = "QMLoad2"
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/supply)
+"kVI" = (
+/obj/machinery/light/spot{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/supply)
+"pFp" = (
+/turf/simulated/floor/shuttle,
+/area/shuttle/supply)
+"sXo" = (
+/obj/machinery/conveyor{
+	id = "QMLoad2"
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/supply)
+"tjn" = (
+/obj/machinery/door_control{
+	id = "QMLoaddoor2";
+	layer = 3;
+	name = "Loading Doors";
+	pixel_x = 8;
+	pixel_y = -24
+	},
+/obj/machinery/door_control{
+	id = "QMLoaddoor";
+	layer = 3;
+	name = "Loading Doors";
+	pixel_x = -8;
+	pixel_y = -24
+	},
+/obj/machinery/light/spot,
+/turf/simulated/floor/shuttle,
+/area/shuttle/supply)
+"tvB" = (
+/obj/machinery/conveyor_switch/oneway{
+	dir = 8;
+	id = "QMLoad2";
+	name = "Download"
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/supply)
+"tIE" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/shuttle/supply)
+"wIt" = (
+/turf/simulated/wall/shuttle,
+/area/shuttle/supply)
+"wMw" = (
+/obj/structure/plasticflaps,
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "QMLoad"
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/supply)
+
+(1,1,1) = {"
+wIt
+wIt
+wIt
+wIt
+wIt
+wIt
+wIt
+"}
+(2,1,1) = {"
+wIt
+ctq
+pFp
+iyd
+pFp
+pFp
+wIt
+"}
+(3,1,1) = {"
+wIt
+pFp
+pFp
+pFp
+pFp
+pFp
+tIE
+"}
+(4,1,1) = {"
+wIt
+sXo
+sXo
+sXo
+sXo
+sXo
+jVO
+"}
+(5,1,1) = {"
+wIt
+pFp
+pFp
+tvB
+pFp
+pFp
+jaE
+"}
+(6,1,1) = {"
+wIt
+kVI
+pFp
+pFp
+pFp
+tjn
+tIE
+"}
+(7,1,1) = {"
+wIt
+pFp
+pFp
+hHE
+pFp
+pFp
+hkR
+"}
+(8,1,1) = {"
+wIt
+fXZ
+fXZ
+fXZ
+fXZ
+fXZ
+wMw
+"}
+(9,1,1) = {"
+wIt
+pFp
+pFp
+pFp
+pFp
+pFp
+tIE
+"}
+(10,1,1) = {"
+wIt
+pFp
+pFp
+cgI
+pFp
+pFp
+wIt
+"}
+(11,1,1) = {"
+wIt
+wIt
+dko
+dko
+dko
+wIt
+wIt
+"}
+(12,1,1) = {"
+ggz
+cpn
+cpn
+cpn
+cpn
+cpn
+ggz
+"}

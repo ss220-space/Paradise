@@ -1,0 +1,528 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"cl" = (
+/obj/machinery/ship_engine/thruster/rcs{
+	dir = 8
+	},
+/turf/simulated/wall/mineral/plastitanium/reinforced,
+/area/shuttle/eisenwehr/light/marder)
+"cD" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/table,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"fh" = (
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"fo" = (
+/obj/machinery/ship_engine/rogue{
+	dir = 8
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/shuttle/eisenwehr/light/marder)
+"fs" = (
+/obj/machinery/ship_engine/thruster{
+	dir = 1
+	},
+/obj/machinery/ship_engine/thruster{
+	dir = 4
+	},
+/turf/simulated/wall/mineral/plastitanium/reinforced,
+/area/shuttle/eisenwehr/light/marder)
+"hm" = (
+/obj/machinery/ship_gun/rac_30_draupnir{
+	dir = 1
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/shuttle/eisenwehr/light/marder)
+"iD" = (
+/obj/machinery/ship_engine/rogue_large,
+/obj/structure/lattice,
+/turf/space,
+/area/shuttle/eisenwehr/light/marder)
+"iL" = (
+/obj/machinery/computer/sensors,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"jc" = (
+/obj/machinery/ship_engine/thruster{
+	dir = 8
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"lp" = (
+/obj/machinery/sensor_array/short_range,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"lP" = (
+/obj/machinery/door/airlock,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"md" = (
+/obj/machinery/computer/helm,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"mE" = (
+/obj/machinery/vending/wallmed{
+	pixel_x = 26
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"mJ" = (
+/obj/machinery/ship_engine/thruster{
+	dir = 1
+	},
+/obj/machinery/ship_engine/thruster{
+	dir = 8
+	},
+/turf/simulated/wall/mineral/plastitanium/reinforced,
+/area/shuttle/eisenwehr/light/marder)
+"nl" = (
+/obj/machinery/ship_engine/rogue{
+	dir = 1
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/shuttle/eisenwehr/light/marder)
+"nV" = (
+/obj/machinery/sensor_array/long_range,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"ob" = (
+/obj/machinery/transponder/directional/west,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"od" = (
+/obj/structure/lattice,
+/turf/space,
+/area/shuttle/eisenwehr/light/marder)
+"pK" = (
+/obj/machinery/overmap_intercom/directional/west,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"rh" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"ri" = (
+/obj/machinery/computer/ship_console/weapons,
+/obj/machinery/overmap_intercom/directional/north,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"ru" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/table,
+/obj/item/storage/toolbox/syndicate,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"sP" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"sR" = (
+/obj/machinery/ship_engine/thruster/rcs{
+	dir = 4
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"vH" = (
+/turf/space,
+/area/space)
+"wn" = (
+/obj/machinery/atmospherics/unary/tank/toxins,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"xo" = (
+/obj/machinery/computer/engines,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"xq" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/table,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"za" = (
+/obj/structure/extinguisher_cabinet/directional/east,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"Dd" = (
+/obj/machinery/porta_turret/syndicate/ship/gun_50cal{
+	dir = 4
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"Fk" = (
+/obj/machinery/ship_engine/thruster{
+	dir = 1
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"Hl" = (
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"HA" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"Iz" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"ID" = (
+/obj/machinery/ship_engine/thruster/rcs{
+	dir = 4
+	},
+/turf/simulated/wall/mineral/plastitanium/reinforced,
+/area/shuttle/eisenwehr/light/marder)
+"IY" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"KF" = (
+/obj/structure/table,
+/obj/item/storage/toolbox/syndicate,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"KJ" = (
+/obj/machinery/door/airlock/external/docking/hatch,
+/obj/structure/fans/tiny,
+/obj/machinery/door/poddoor/shuttle/preopen,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/eisenwehr/light/marder)
+"KW" = (
+/obj/machinery/ship_engine/thruster/rcs,
+/turf/simulated/wall/mineral/plastitanium/reinforced,
+/area/shuttle/eisenwehr/light/marder)
+"Ma" = (
+/obj/machinery/ship_engine/rogue{
+	dir = 4
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/shuttle/eisenwehr/light/marder)
+"Mf" = (
+/obj/structure/table,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"OL" = (
+/obj/machinery/atmospherics/unary/tank/oxygen,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"QE" = (
+/obj/machinery/ship_engine/thruster{
+	dir = 4
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"Rg" = (
+/obj/machinery/overmap_intercom/directional/east,
+/obj/machinery/computer/sensors,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"RE" = (
+/obj/structure/closet/crate/internals,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/tank/internals/oxygen/red,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"RF" = (
+/obj/structure/window/plastitanium,
+/obj/machinery/door/poddoor/shuttle/preopen,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/eisenwehr/light/marder)
+"RG" = (
+/turf/simulated/wall/mineral/plastitanium/reinforced,
+/area/shuttle/eisenwehr/light/marder)
+"RT" = (
+/obj/machinery/computer/sensors,
+/obj/machinery/transponder/directional/north,
+/obj/machinery/door_control/shuttle_blastdoors/directional/west,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"UG" = (
+/obj/machinery/porta_turret/syndicate/ship/gun_50cal{
+	dir = 8
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"Vx" = (
+/obj/machinery/ship_engine/rogue,
+/obj/structure/lattice,
+/turf/space,
+/area/shuttle/eisenwehr/light/marder)
+"VL" = (
+/obj/machinery/ship_engine/thruster/rcs{
+	dir = 1
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"Wh" = (
+/obj/structure/table,
+/obj/structure/sign/poster/contraband/syndicate_pistol{
+	pixel_y = 32
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"Xd" = (
+/obj/machinery/ship_engine/thruster/rcs{
+	dir = 8
+	},
+/turf/simulated/wall/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"XN" = (
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+"XW" = (
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/shuttle/eisenwehr/light/marder)
+"YR" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/eisenwehr/light/marder)
+"ZC" = (
+/obj/machinery/transponder/directional/east,
+/turf/simulated/floor/mineral/plastitanium,
+/area/shuttle/eisenwehr/light/marder)
+
+(1,1,1) = {"
+vH
+vH
+vH
+vH
+vH
+mJ
+RG
+RG
+fo
+od
+Fk
+fh
+fh
+UG
+Vx
+vH
+vH
+vH
+"}
+(2,1,1) = {"
+vH
+vH
+vH
+Xd
+RF
+fh
+Hl
+wn
+fh
+jc
+xo
+ob
+pK
+iL
+fh
+jc
+cl
+KW
+"}
+(3,1,1) = {"
+vH
+vH
+VL
+fh
+Hl
+rh
+Hl
+Hl
+nV
+RG
+RG
+Hl
+Hl
+IY
+fh
+RE
+YR
+iD
+"}
+(4,1,1) = {"
+hm
+nl
+RG
+Hl
+Hl
+fh
+xq
+xq
+fh
+KF
+Hl
+lP
+RG
+RG
+RG
+lP
+YR
+od
+"}
+(5,1,1) = {"
+vH
+RG
+RT
+Iz
+Hl
+fh
+Hl
+Hl
+fh
+Mf
+Hl
+Hl
+Hl
+Hl
+Hl
+Hl
+RG
+KW
+"}
+(6,1,1) = {"
+vH
+RF
+md
+HA
+Hl
+mE
+Hl
+Hl
+Hl
+Hl
+Hl
+Hl
+Hl
+Hl
+Hl
+Hl
+KJ
+XW
+"}
+(7,1,1) = {"
+vH
+RG
+ri
+Iz
+Hl
+fh
+Hl
+Hl
+fh
+Wh
+Hl
+Hl
+za
+Hl
+Hl
+Hl
+RG
+KW
+"}
+(8,1,1) = {"
+hm
+nl
+RG
+za
+Hl
+fh
+ru
+cD
+fh
+Mf
+Hl
+lP
+RG
+RG
+RG
+lP
+YR
+iD
+"}
+(9,1,1) = {"
+vH
+vH
+VL
+fh
+Hl
+rh
+Hl
+Hl
+lp
+RG
+RG
+Hl
+Hl
+sP
+fh
+Hl
+YR
+od
+"}
+(10,1,1) = {"
+vH
+vH
+vH
+sR
+RF
+fh
+Hl
+OL
+fh
+QE
+XN
+ZC
+Rg
+md
+fh
+QE
+ID
+KW
+"}
+(11,1,1) = {"
+vH
+vH
+vH
+vH
+vH
+fs
+RG
+RG
+Ma
+od
+Fk
+fh
+fh
+Dd
+Vx
+vH
+vH
+vH
+"}

@@ -22,6 +22,8 @@
 		armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 50)
 
 	. = ..()
+	if(isspaceturf(loc))
+		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_OVERMAP_TERRAIN_CHANGED, loc)
 
 	if(creates_cover && isturf(loc))
 		ADD_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
@@ -35,6 +37,8 @@
 		GLOB.cameranet.updateVisibility(src)
 
 /obj/structure/Destroy(force)
+	if(isspaceturf(loc))
+		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_OVERMAP_TERRAIN_CHANGED, loc)
 	if(SSticker)
 		GLOB.cameranet.updateVisibility(src)
 	if(smooth)
@@ -61,6 +65,15 @@
 			REMOVE_TRAIT(old_loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 		if(isturf(loc))
 			ADD_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
+
+/obj/structure/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
+	. = ..()
+	if(old_loc == loc)
+		return
+	if(isspaceturf(old_loc))
+		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_OVERMAP_TERRAIN_CHANGED, old_loc)
+	if(isspaceturf(loc))
+		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_OVERMAP_TERRAIN_CHANGED, loc)
 
 /obj/structure/has_prints()
 	return TRUE

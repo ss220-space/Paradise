@@ -766,6 +766,8 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 	var/list/cached_metadata = icon_metadata_cache[file_string]
 	if(islist(cached_metadata))
 		return cached_metadata
+	if(isfile(file) && !fexists(file_string))
+		return null
 	var/list/metadata_result = rustlib_dmi_read_metadata(file_string)
 	if(!islist(metadata_result) || !length(metadata_result))
 		CRASH("Error while reading DMI metadata for path '[file_string]': [metadata_result]")

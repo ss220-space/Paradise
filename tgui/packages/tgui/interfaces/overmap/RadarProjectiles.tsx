@@ -1,0 +1,112 @@
+import { RadarCanvas } from './RadarMotion';
+
+const sprites: Record<string, { path: string; color: string; scale: number }> =
+  {
+    light: {
+      path: 'M 0 0.9 L -.2 .35 L -.2 -1 L .2 -1 L .2 .35 Z',
+      color: '#ffe6af',
+      scale: 0.8,
+    },
+    medium: {
+      path: 'M 0 1.1 L -.38 .4 L -.38 -1.1 L .38 -1.1 L .38 .4 Z',
+      color: '#ffbc68',
+      scale: 1,
+    },
+    heavy: {
+      path: 'M 0 1.25 L -.6 .45 L -.6 -1.2 L .6 -1.2 L .6 .45 Z M -.6 -.65 L .6 -.65',
+      color: '#ff8256',
+      scale: 1.3,
+    },
+    capital: {
+      path: 'M 0 1.5 L -.8 .4 L -.6 -1.4 L .6 -1.4 L .8 .4 Z M -.6 -.7 L .6 -.7',
+      color: '#ff4e6a',
+      scale: 1.7,
+    },
+    laser_light: { path: 'M 0 1.4 L 0 -1.5', color: '#ff6f6f', scale: 0.85 },
+    laser_heavy: {
+      path: 'M -.2 1.6 L -.2 -1.6 M .2 1.6 L .2 -1.6',
+      color: '#ff4c80',
+      scale: 1.15,
+    },
+    laser_capital: {
+      path: 'M -.4 1.8 L -.4 -1.8 M 0 2 L 0 -2 M .4 1.8 L .4 -1.8',
+      color: '#ff99d8',
+      scale: 1.5,
+    },
+    ion: {
+      path: 'M 0 1.2 L -.7 0 L 0 -1.2 L .7 0 Z M -.4 0 L .4 0',
+      color: '#79cfff',
+      scale: 1.2,
+    },
+    capital_ion: {
+      path: 'M 0 1.5 L -1 0 L 0 -1.5 L 1 0 Z M -.45 .6 L .45 -.6 M -.45 -.6 L .45 .6',
+      color: '#bc93ff',
+      scale: 1.7,
+    },
+    capital_rail: {
+      path: 'M 0 1.8 L -.45 .8 L -.45 -1.7 L .45 -1.7 L .45 .8 Z M -.9 .3 L -.9 -1 M .9 .3 L .9 -1',
+      color: '#d6ffff',
+      scale: 1.6,
+    },
+    missile: {
+      path: 'M 0 1.4 L -.4 .65 L -.4 -.6 L -.85 -1.3 L 0 -1 L .85 -1.3 L .4 -.6 L .4 .65 Z',
+      color: '#a8ed8b',
+      scale: 1.2,
+    },
+    guided_missile: {
+      path: 'M 0 1.4 L -.4 .65 L -.4 -.6 L -.85 -1.3 L 0 -1 L .85 -1.3 L .4 -.6 L .4 .65 Z M -.95 .75 L -1.2 1.1 M .95 .75 L 1.2 1.1',
+      color: '#76ffdb',
+      scale: 1.3,
+    },
+  };
+
+const paths = new Map<string, Path2D>();
+const pathFor = (kind: string) => {
+  let path = paths.get(kind);
+  if (!path) {
+    path = new Path2D(sprites[kind].path);
+    paths.set(kind, path);
+  }
+  return path;
+};
+
+export const RadarProjectiles = () => (
+  <RadarCanvas
+    className="OvermapRadar__projectiles"
+    draw={(ctx, { frame, radius, rotation, offsetX, offsetY, side }) => {
+      if (!frame.world) return;
+      const scale = side / (2 * radius);
+      ctx.scale(scale, -scale);
+      ctx.rotate((rotation * Math.PI) / 180);
+      ctx.translate(-offsetX, -offsetY);
+      ctx.globalAlpha = 0.9;
+      ctx.lineJoin = 'round';
+      const size = Math.max(0.12, radius * 0.006);
+      for (const shot of frame.projectiles || []) {
+        const x = shot.x - frame.world[0];
+        const y = shot.y - frame.world[1];
+        if (Math.hypot(x - offsetX, y - offsetY) > radius + size * 8) continue;
+        const kind = shot.kind && sprites[shot.kind] ? shot.kind : 'light';
+        const sprite = sprites[kind];
+        const glyphScale = size * sprite.scale;
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate((-shot.angle * Math.PI) / 180);
+        ctx.scale(glyphScale, glyphScale);
+        ctx.strokeStyle = sprite.color;
+        ctx.fillStyle = sprite.color;
+        ctx.lineWidth = 1.25 / (scale * glyphScale);
+        ctx.stroke(pathFor(kind));
+        if (kind === 'medium' || kind === 'heavy' || kind === 'capital')
+          ctx.fill(pathFor(kind));
+        ctx.globalAlpha = 0.225;
+        ctx.lineWidth = 2 / (scale * glyphScale);
+        ctx.beginPath();
+        ctx.moveTo(0, -1);
+        ctx.lineTo(0, -3.5);
+        ctx.stroke();
+        ctx.restore();
+      }
+    }}
+  />
+);

@@ -1,0 +1,335 @@
+/obj/machinery/transponder
+	name = "transponder"
+	desc = "Настенный маяк идентификации. Позволяет идентифицировать судно на глобальной карте."
+	icon = 'icons/obj/machines/overmap.dmi'
+	icon_state = "transponder"
+	anchored = TRUE
+	idle_power_usage = 40
+	active_power_usage = 80
+	layer = ABOVE_WINDOW_LAYER
+	var/obj/overmap/entity/vessel
+	var/broadcast_name = ""
+	var/broadcast_color = COLOR_WHITE
+	var/icon_preset = "shuttle_c"
+	var/broadcasting = TRUE
+	var/distress = FALSE
+	var/lock_icon = TRUE
+	var/identity_locked = FALSE
+	var/masking = FALSE
+	var/list/datum/overmap_iff_channel/iff_channels
+
+/obj/machinery/transponder/get_ru_names()
+	return alist(
+		NOMINATIVE = "транспондер",
+		GENITIVE = "транспондера",
+		DATIVE = "транспондеру",
+		ACCUSATIVE = "транспондер",
+		INSTRUMENTAL = "транспондером",
+		PREPOSITIONAL = "транспондере",
+	)
+
+/obj/machinery/transponder/Initialize(mapload)
+	. = ..()
+	ensure_iff_channels()
+	GLOB.transponders += src
+	snap_to_wall()
+	if(SSovermap?.initialized)
+		link_vessel()
+	if(distress)
+		use_power = ACTIVE_POWER_USE
+
+/obj/machinery/transponder/setDir(newdir)
+	. = ..()
+	snap_to_wall()
+
+/obj/machinery/transponder/shuttleRotate(rotation, params)
+	return
+
+/obj/machinery/transponder/onShuttleMove(turf/oldT, turf/T1, rotation, mob/requester)
+	if(light && light_system == COMPLEX_LIGHT)
+		update_light()
+	var/old_dir = dir
+	forceMove(T1)
+	if(rotation)
+		setDir(angle2dir(rotation + dir2angle(old_dir)))
+	else
+		snap_to_wall()
+	return TRUE
+
+/obj/machinery/transponder/proc/snap_to_wall()
+	pixel_x = 0
+	pixel_y = 0
+	switch(dir)
+		if(NORTH)
+			pixel_y = 26
+		if(SOUTH)
+			pixel_y = -26
+		if(EAST)
+			pixel_x = 26
+		if(WEST)
+			pixel_x = -26
+
+/obj/machinery/transponder/Destroy()
+	GLOB.transponders -= src
+	vessel?.unregister_transponder(src)
+	vessel = null
+	QDEL_LIST(iff_channels)
+	return ..()
+
+/obj/machinery/transponder/proc/ensure_iff_channels()
+	if(length(iff_channels))
+		return
+	iff_channels = list()
+	iff_channels += new /datum/overmap_iff_channel(OVERMAP_IFF_GLOBAL, overmap_iff_label_for_id(OVERMAP_IFF_GLOBAL), TRUE, TRUE, broadcasting)
+
+/obj/machinery/transponder/proc/find_iff_channel(id)
+	ensure_iff_channels()
+	for(var/datum/overmap_iff_channel/channel as anything in iff_channels)
+		if(channel.id == id)
+			return channel
+	return null
+
+/obj/machinery/transponder/proc/sync_global_broadcast()
+	var/datum/overmap_iff_channel/global_ch = find_iff_channel(OVERMAP_IFF_GLOBAL)
+	if(global_ch)
+		broadcasting = global_ch.transmit
+
+/obj/machinery/transponder/proc/link_vessel()
+	var/obj/overmap/entity/resolved = SSovermap?.resolve_vessel(src)
+	if(!resolved)
+		return
+	if(vessel && vessel != resolved)
+		vessel.unregister_transponder(src)
+	vessel = resolved
+	resolved.register_transponder(src)
+
+/obj/machinery/transponder/proc/adopt_vessel_identity()
+	if(!vessel)
+		return
+	broadcast_name = vessel.identity_name
+	broadcast_color = vessel.identity_color || COLOR_WHITE
+	icon_preset = vessel.identity_icon || icon_preset
+	distress = vessel.identity_distress
+	broadcasting = vessel.identity_broadcasting
+	identity_locked = vessel.identity_locked
+	lock_icon = vessel.identity_locked
+	var/list/previous = iff_channels
+	iff_channels = list()
+	if(!length(vessel.virtual_iff_channels))
+		vessel.rebuild_identity_iff()
+	for(var/datum/overmap_iff_channel/channel as anything in vessel.virtual_iff_channels)
+		var/datum/overmap_iff_channel/matching
+		for(var/datum/overmap_iff_channel/known as anything in previous)
+			if(known.id == channel.id)
+				matching = known
+				break
+		if(matching)
+			previous -= matching
+			matching.label = channel.label
+			matching.permanent = channel.permanent
+			matching.receive = channel.receive
+			matching.transmit = channel.transmit
+		else
+			matching = new(channel.id, channel.label, channel.permanent, channel.receive, channel.transmit)
+		iff_channels += matching
+	QDEL_LIST(previous)
+	if(distress)
+		use_power = ACTIVE_POWER_USE
+	else
+		use_power = IDLE_POWER_USE
+
+/obj/machinery/transponder/proc/push_to_vessel()
+	if(!vessel)
+		return
+	vessel.identity_name = broadcast_name
+	vessel.identity_color = broadcast_color
+	vessel.identity_icon = icon_preset
+	vessel.identity_distress = distress
+	vessel.identity_broadcasting = broadcasting
+	vessel.identity_locked = identity_locked
+	vessel.capture_iff_from_transponder(src)
+	vessel.sync_transponder()
+	if(istype(vessel, /obj/overmap/entity/taipan_site))
+		var/obj/overmap/entity/taipan_site/taipan = vessel
+		taipan.sync_mask()
+
+/obj/machinery/transponder/proc/is_transmitting()
+	if(distress)
+		return TRUE
+	if(stat & (NOPOWER|BROKEN))
+		return FALSE
+	return broadcasting
+
+/obj/machinery/transponder/proc/set_distress(enabled)
+	distress = enabled
+	if(distress)
+		use_power = ACTIVE_POWER_USE
+	else
+		use_power = IDLE_POWER_USE
+	push_to_vessel()
+	if(vessel)
+		vessel.announce_sensor_event("Сигнал бедствия [distress ? "включён" : "выключен"]: [vessel.get_overmap_display_name()]", "distress")
+
+/obj/machinery/transponder/power_change(forced = FALSE)
+	. = ..()
+	vessel?.sync_transponder()
+
+/obj/machinery/transponder/attack_hand(mob/user)
+	if(stat & BROKEN)
+		return
+	if(..())
+		return TRUE
+	if(stat & NOPOWER)
+		to_chat(user, span_warning("Нет питания."))
+		return
+	add_fingerprint(user)
+	ui_interact(user)
+
+/obj/machinery/transponder/attack_ai(mob/user)
+	attack_hand(user)
+
+/obj/machinery/transponder/click_alt(mob/user)
+	if(!user.Adjacent(src) || IS_DEAD_OR_INCAP(user))
+		return CLICK_ACTION_BLOCKING
+	set_distress(!distress)
+	to_chat(user, span_notice("Сигнал бедствия [distress ? "включён" : "выключен"]."))
+	user.visible_message(span_warning("[user] [distress ? "активирует" : "глушит"] аварийный маяк на [declent_ru(PREPOSITIONAL)]."))
+	return CLICK_ACTION_SUCCESS
+
+/obj/machinery/transponder/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(find_iff_channel(OVERMAP_IFF_HIJACK))
+		return .
+	ensure_iff_channels()
+	obj_flags |= EMAGGED
+	iff_channels += new /datum/overmap_iff_channel(OVERMAP_IFF_HIJACK, overmap_iff_label_for_id(OVERMAP_IFF_HIJACK), TRUE, TRUE, TRUE)
+	push_to_vessel()
+	if(user)
+		to_chat(user, span_notice("Прошивка транспондера сбоит. Появился канал 'sys.iff_signal = %ERR#NULL%'."))
+	user?.visible_message(span_warning("[user] искрит электронику [declent_ru(GENITIVE)]."))
+	return TRUE
+
+/obj/machinery/transponder/ui_interact(mob/user, datum/tgui/ui = null)
+	if(stat & (NOPOWER|BROKEN))
+		return
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "OvermapTransponder", name)
+		ui.open()
+
+/obj/machinery/transponder/ui_data(mob/user)
+	var/list/data = transponder_data()
+	data["linked"] = !!vessel
+	return data
+
+/obj/machinery/transponder/proc/transponder_data()
+	var/list/data = list()
+	data["broadcast_name"] = broadcast_name
+	data["broadcast_color"] = broadcast_color
+	data["broadcasting"] = broadcasting
+	data["distress"] = distress
+	data["identity_locked"] = identity_locked
+	data["powered"] = !(stat & NOPOWER)
+	data["transmitting"] = is_transmitting()
+	var/list/colors = list()
+	for(var/color_name, color_value in GLOB.overmap_transponder_colors)
+		colors += list(list(
+			"name" = color_name,
+			"color" = color_value,
+		))
+	data["colors"] = colors
+	var/list/channels = list()
+	ensure_iff_channels()
+	for(var/datum/overmap_iff_channel/channel as anything in iff_channels)
+		channels += list(list(
+			"id" = channel.id,
+			"label" = overmap_iff_label_for_id(channel.id),
+			"permanent" = channel.permanent,
+			"receive" = channel.receive,
+			"transmit" = channel.transmit,
+			"tone" = channel.id,
+		))
+	data["channels"] = channels
+	return data
+
+/obj/machinery/transponder/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	var/mob/user = ui.user
+	if(..())
+		return
+	if(stat & (NOPOWER|BROKEN))
+		return TRUE
+	if(action == "relink")
+		link_vessel()
+		return TRUE
+	return handle_action(action, params, user)
+
+/obj/machinery/transponder/proc/handle_action(action, list/params, mob/user)
+	switch(action)
+		if("set_name")
+			if(identity_locked)
+				return TRUE
+			var/new_name = copytext(trim(strip_html(params["name"])), 1, MAX_NAME_LEN)
+			if(!new_name)
+				return TRUE
+			broadcast_name = new_name
+			push_to_vessel()
+			. = TRUE
+		if("set_color")
+			var/new_color = GLOB.overmap_transponder_colors[params["name"]]
+			if(!new_color)
+				for(var/color_name, color_value in GLOB.overmap_transponder_colors)
+					if(color_value == params["color"])
+						new_color = color_value
+						break
+			if(!new_color)
+				return TRUE
+			broadcast_color = new_color
+			push_to_vessel()
+			. = TRUE
+		if("toggle_broadcast")
+			var/datum/overmap_iff_channel/global_ch = find_iff_channel(OVERMAP_IFF_GLOBAL)
+			if(global_ch)
+				global_ch.transmit = !global_ch.transmit
+				broadcasting = global_ch.transmit
+			else
+				broadcasting = !broadcasting
+			push_to_vessel()
+			if(vessel)
+				vessel.announce_sensor_event("Транспондер [broadcasting ? "включён" : "выключен"]: [vessel.get_overmap_display_name()]", "iff")
+			. = TRUE
+		if("toggle_channel")
+			var/datum/overmap_iff_channel/channel = find_iff_channel(params["id"])
+			if(!channel)
+				return TRUE
+			if(params["side"] == "receive")
+				channel.receive = !channel.receive
+			else
+				channel.transmit = !channel.transmit
+			sync_global_broadcast()
+			push_to_vessel()
+			. = TRUE
+		if("add_key")
+			var/id = overmap_iff_id_for_key(params["key"])
+			if(!id)
+				to_chat(user, span_warning("Ключ шифрования не принят."))
+				return TRUE
+			if(find_iff_channel(id))
+				to_chat(user, span_notice("Этот ключ уже в списке."))
+				return TRUE
+			iff_channels += new /datum/overmap_iff_channel(id, overmap_iff_label_for_id(id), FALSE, TRUE, FALSE)
+			to_chat(user, span_notice("Ключ принят: [overmap_iff_label_for_id(id)]."))
+			push_to_vessel()
+			. = TRUE
+		if("remove_channel")
+			var/datum/overmap_iff_channel/channel = find_iff_channel(params["id"])
+			if(!channel || channel.permanent)
+				return TRUE
+			iff_channels -= channel
+			qdel(channel)
+			push_to_vessel()
+			. = TRUE
+		if("toggle_distress")
+			set_distress(!distress)
+			. = TRUE
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/transponder, 26, 26)

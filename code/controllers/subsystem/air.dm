@@ -765,7 +765,6 @@ SUBSYSTEM_DEF(air)
 		count++
 	return count
 
-
 /datum/controller/subsystem/air/proc/setup_template_machinery(list/atmos_machines)
 	for(var/obj/machinery/atmospherics/AM as anything in atmos_machines)
 		AM.atmos_init()
@@ -880,7 +879,6 @@ SUBSYSTEM_DEF(air)
 	turf_air.dirty = FALSE
 	turf_air.synchronized = FALSE
 
-
 /// Similar to addtimer, but triggers once MILLA enters synchronous mode.
 /datum/controller/subsystem/air/proc/synchronize(datum/milla_safe/callback)
 	// Any proc that wants MILLA to be synchronous should not sleep.
@@ -901,7 +899,7 @@ SUBSYSTEM_DEF(air)
 
 /// Similar to addtimer, but triggers once MILLA enters synchronous mode. This version allows for sleeping if it's absolutely necessary.
 /datum/controller/subsystem/air/proc/sleepable_synchronize(datum/milla_safe_must_sleep/callback)
-	if(length(sleepers))
+	if(length(sleepers) || milla_idle)
 		sleepers += callback
 		// This is one of four intended places to call this otherwise-unsafe proc.
 		callback.private_unsafe_invoke()

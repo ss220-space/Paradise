@@ -124,6 +124,18 @@
 	var/processing_flags = START_PROCESSING_ON_INIT
 	/// What subsystem this machine will use, which is generally SSmachines or SSfastprocess. By default all machinery use SSmachines. This fires a machine's process() roughly every 2 seconds.
 	var/subsystem_type = /datum/controller/subsystem/machines
+	var/obj/overmap/entity/virtual_structure/virtual_weapon_owner
+	var/virtual_weapon_x
+	var/virtual_weapon_y
+	var/ship_round_type
+	var/ship_cooldown = 0
+	var/ship_auto_cooldown = 0
+	var/ship_burst = 1
+	var/ship_burst_delay = 0.5 SECONDS
+	var/ship_spread = 0.5
+	var/ship_arc = 30
+	var/ship_gun_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
+	var/ship_emp_until = 0
 
 /obj/machinery/Initialize(mapload)
 	if(!armor)

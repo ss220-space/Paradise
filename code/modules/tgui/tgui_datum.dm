@@ -40,6 +40,8 @@
 	/// Rate limit client refreshes to prevent DoS.
 	COOLDOWN_DECLARE(refresh_cooldown)
 	var/secret
+	var/obj/overmap/entity/radar_source
+	var/radar_galaxy_open = FALSE
 
 /**
  * public
@@ -274,6 +276,7 @@
 	if(src_object.tgui_shared_states)
 		json_data["shared"] = src_object.tgui_shared_states
 
+	SEND_SIGNAL(src, COMSIG_TGUI_PAYLOAD, json_data, with_static_data)
 	return json_data
 
 /**
@@ -337,9 +340,21 @@
 			SStgui.update_uis(src_object)
 		return FALSE
 	switch(type)
+		if("radar/galaxy")
+			var/open = payload?["open"] == TRUE
+			if(open == radar_galaxy_open)
+				return
+			if(open)
+				process_status()
+				if(status < UI_UPDATE || !radar_source)
+					return
+			radar_galaxy_open = open
+			if(open)
+				send_update(list("galaxy" = SSovermap.galaxy_map(radar_source)))
 		if("ready")
 			// Send a full update when the user manually refreshes the UI
 			if(initialized)
+				radar_galaxy_open = FALSE
 				send_full_update()
 			initialized = TRUE
 		if("ping/reply")

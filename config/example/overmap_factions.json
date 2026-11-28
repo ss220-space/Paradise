@@ -1,0 +1,6 @@
+[
+	{ "id": "nt", "name": "Nanotrasen", "color": "#2cb2e8" },
+	{ "id": "syndicate", "name": "Syndicate", "color": "#f10303" },
+	{ "id": "trans_solar", "name": "Trans-Solar", "color": "#1b67a5" },
+	{ "id": "ussp", "name": "USSP", "color": "#760500" }
+]

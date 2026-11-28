@@ -4,15 +4,74 @@
 	var/suffix
 	var/port_id
 	var/shuttle_id
+	var/overmap_ai_role
+	var/overmap_faction
 
 	var/description
 	var/admin_notes
+	var/list/mobile_port_cache
 
 /datum/map_template/shuttle/New()
 	if(port_id && suffix)
 		shuttle_id = "[port_id]_[suffix]"
-		mappath = "[prefix][shuttle_id].dmm"
+		mappath = get_map_path()
 	. = ..()
+
+/datum/map_template/shuttle/proc/get_map_path()
+	return "[prefix][shuttle_id].dmm"
+
+/datum/map_template/shuttle/Destroy()
+	mobile_port_cache = null
+	return ..()
+
+/datum/map_template/shuttle/proc/get_mobile_port_data()
+	if(mobile_port_cache)
+		return mobile_port_cache
+	var/data = mapfile ? WRAP_FILE2TEXT(mapfile) : mapmanip_read_dmm(mappath)
+	if(!istext(data))
+		return null
+	var/list/port_models = list()
+	var/list/result = list("count" = 0)
+	var/key_length = 0
+	var/index = 1
+	while(GLOB.maploader.dmmRegex.Find(data, index))
+		index = GLOB.maploader.dmmRegex.next
+		var/list/match = GLOB.maploader.dmmRegex.group.Copy()
+		if(match[1])
+			key_length = length(match[1])
+			var/definition_index = 1
+			var/delimiter
+			do
+				delimiter = GLOB.maploader.find_next_delimiter_position(match[2], definition_index, ",", "{", "}")
+				var/definition = trim(copytext(match[2], definition_index, delimiter))
+				var/variables = findtext(definition, "{")
+				var/path = text2path(trim(copytext(definition, 1, variables)))
+				definition_index = delimiter + 1
+				if(!ispath(path, /obj/docking_port/mobile))
+					continue
+				var/obj/docking_port/mobile/prototype = path
+				var/list/attributes = variables ? GLOB.maploader.readlist(copytext(definition, variables + 1, length(definition)), ";") : list()
+				LAZYADD(port_models[match[1]], list(list("id" = attributes["id"] || initial(prototype.id), "type" = path)))
+			while(delimiter)
+		else if(match[3] && key_length && text2num(match[5]) == 1)
+			var/x_start = text2num(match[3])
+			var/list/lines = splittext(trim(match[6]), "\n")
+			var/y = text2num(match[4]) + length(lines) - 1
+			for(var/line in lines)
+				var/x = x_start
+				for(var/column in 1 to length(line) step key_length)
+					for(var/list/port as anything in port_models[copytext(line, column, column + key_length)])
+						result["count"]++
+						result["x"] = x
+						result["y"] = y
+						result["id"] = port["id"]
+						result["type"] = port["type"]
+					x++
+					y--
+				CHECK_TICK
+		CHECK_TICK
+	mobile_port_cache = result
+	return result
 
 /datum/map_template/shuttle/emergency
 	port_id = "emergency"

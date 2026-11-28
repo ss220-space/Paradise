@@ -40,6 +40,8 @@
 		if(fexists("./rust/target/i686-pc-windows-gnu/release/rustlibs.dll"))
 			return __rustlib = "./rust/target/i686-pc-windows-gnu/release/rustlibs.dll"
 		// Then check in the current directory.
+		if(fexists("./rustlibs[RUSTLIBS_SUFFIX]_gnu.dll"))
+			return __rustlib = "./rustlibs[RUSTLIBS_SUFFIX]_gnu.dll"
 		if(fexists("./rustlibs[RUSTLIBS_SUFFIX].dll"))
 			return __rustlib = "./rustlibs[RUSTLIBS_SUFFIX].dll"
 
@@ -50,6 +52,8 @@
 
 #define RUSTLIB (__rustlib || __detect_rustlib())
 #define RUSTLIB_CALL(func, args...) call_ext(RUSTLIB, "byond:[#func]")(args)
+
+#define FOG_OF_WAR_USE_RUSTLIB
 
 /// Exists by default in 516, but needs to be defined for 515 or byondapi-rs doesn't like it.
 /proc/byondapi_stack_trace(err)
@@ -250,7 +254,6 @@
 
 	sound_cache[file_path] = ret
 	return ret
-
 
 #define RUSTG_SOUNDLEN_SUCCESSES "successes"
 #define RUSTG_SOUNDLEN_ERRORS "errors"

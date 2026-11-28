@@ -15,6 +15,10 @@ SUBSYSTEM_DEF(shuttle)
 	var/list/mobile = list()
 	var/list/stationary = list()
 	var/list/transit = list()
+	var/list/assoc_mobile = list()
+	var/list/assoc_stationary = list()
+	var/list/obj/effect/ship_spawner/pending_ship_spawners = list()
+	var/list/loading_ship_templates = list()
 
 	/// A list of all the mobile docking ports currently requesting a spot in hyperspace.
 	var/list/transit_requesters = list()
@@ -63,6 +67,7 @@ SUBSYSTEM_DEF(shuttle)
 	ordernum = rand(1,9000)
 
 	cargo_money_account = GLOB.department_accounts[STATION_DEPARTMENT_SUPPLY]
+	initial_load()
 
 	if(!emergency)
 		WARNING("No /obj/docking_port/mobile/emergency placed on the map!")
@@ -72,8 +77,6 @@ SUBSYSTEM_DEF(shuttle)
 		WARNING("No /obj/docking_port/mobile/supply placed on the map!")
 	if(!emergency && !backup_shuttle)
 		message_admins("There's no emergency docking ports on the map! The game will be unresolvable. To resolve this problem load emergency shuttle template manually, and call register() on the mobile docking port.")
-
-	initial_load()
 
 	for(var/typepath in subtypesof(/datum/supply_packs))
 		var/datum/supply_packs/P = new typepath()
@@ -96,6 +99,10 @@ SUBSYSTEM_DEF(shuttle)
 /datum/controller/subsystem/shuttle/proc/initial_load()
 	for(var/obj/docking_port/D in world)
 		D.register()
+		CHECK_TICK
+	for(var/obj/effect/ship_spawner/spawner as anything in pending_ship_spawners)
+		if(!QDELETED(spawner))
+			spawner.spawn_ship()
 		CHECK_TICK
 
 /datum/controller/subsystem/shuttle/fire(resumed = FALSE)
@@ -120,33 +127,50 @@ SUBSYSTEM_DEF(shuttle)
 			var/not_centcom_evac = owner != emergency
 			var/not_in_use = (!T.get_docked())
 			if(idle && not_centcom_evac && not_in_use)
+				if(SSovermap?.shuttle_vessels[owner])
+					continue
 				qdel(T, force=TRUE)
 
 	if(!SSmapping.clearing_reserved_turfs)
 		while(length(transit_requesters))
-			var/requester = popleft(transit_requesters)
+			var/obj/docking_port/mobile/requester = popleft(transit_requesters)
 			var/success = generate_transit_dock(requester)
-			if(!success) // BACK OF THE QUEUE
+			if(success || QDELETED(requester))
+				transit_request_failures -= requester
+			else
 				transit_request_failures[requester]++
 				if(transit_request_failures[requester] < MAX_TRANSIT_REQUEST_RETRIES)
 					transit_requesters += requester
 				else
-					var/obj/docking_port/mobile/M = requester
-					M.transit_failure()
+					transit_request_failures -= requester
+					requester.transit_failure()
 			if(MC_TICK_CHECK)
 				break
 
 /datum/controller/subsystem/shuttle/proc/getShuttle(id)
-	for(var/obj/docking_port/mobile/M in mobile)
+	var/obj/docking_port/mobile/cached = assoc_mobile[id]
+	if(!QDELETED(cached) && cached.id == id)
+		return cached
+	if(cached)
+		assoc_mobile -= id
+	for(var/obj/docking_port/mobile/M as anything in mobile)
 		if(M.id == id)
+			assoc_mobile[id] = M
 			return M
 	WARNING("couldn't find shuttle with id: [id]")
 
-/datum/controller/subsystem/shuttle/proc/getDock(id)
-	for(var/obj/docking_port/stationary/S in stationary)
+/datum/controller/subsystem/shuttle/proc/getDock(id, warn = TRUE)
+	var/obj/docking_port/stationary/cached = assoc_stationary[id]
+	if(!QDELETED(cached) && cached.id == id)
+		return cached
+	if(cached)
+		assoc_stationary -= id
+	for(var/obj/docking_port/stationary/S as anything in stationary)
 		if(S.id == id)
+			assoc_stationary[id] = S
 			return S
-	WARNING("couldn't find dock with id: [id]")
+	if(warn)
+		WARNING("couldn't find dock with id: [id]")
 
 /datum/controller/subsystem/shuttle/proc/secondsToRefuel()
 	var/elapsed = world.time - SSticker.round_start_time
@@ -272,6 +296,25 @@ SUBSYSTEM_DEF(shuttle)
 			message_admins("All the communications consoles were destroyed and all AIs are inactive. Shuttle called.")
 
 //try to move/request to dockHome if possible, otherwise dockAway. Mainly used for admin buttons
+/obj/docking_port/mobile/proc/overmap_try_programmed_move(dock_id)
+	if(!SSovermap?.initialized)
+		return null
+	var/obj/overmap/entity/vessel = SSovermap.shuttle_vessels[src]
+	if(!vessel)
+		vessel = SSovermap.get_or_register_shuttle(src)
+	if(!vessel?.programmed)
+		return null
+	if(vessel.is_programmed_emagged())
+		return 2
+	if(getDockedId() == dock_id)
+		vessel.snap_physical_redock()
+		return 0
+	if(id == "supply" && !canMove())
+		return 2
+	if(vessel.start_programmed_route(dock_id, TRUE, TRUE) == TRUE)
+		return 0
+	return 2
+
 /datum/controller/subsystem/shuttle/proc/toggleShuttle(shuttleId, dockHome, dockAway, timed)
 	var/obj/docking_port/mobile/M = getShuttle(shuttleId)
 	if(!M)
@@ -280,6 +323,9 @@ SUBSYSTEM_DEF(shuttle)
 	var/destination = dockHome
 	if(dockedAt && dockedAt.id == dockHome)
 		destination = dockAway
+	var/overmap_result = M.overmap_try_programmed_move(destination)
+	if(!isnull(overmap_result))
+		return overmap_result
 	if(timed)
 		if(M.request(getDock(destination)))
 			return 2
@@ -290,6 +336,11 @@ SUBSYSTEM_DEF(shuttle)
 
 /datum/controller/subsystem/shuttle/proc/moveShuttle(shuttleId, dockId, timed, mob/user)
 	var/obj/docking_port/mobile/mobile = getShuttle(shuttleId)
+	if(!mobile)
+		return 1
+	var/overmap_result = mobile.overmap_try_programmed_move(dockId)
+	if(!isnull(overmap_result))
+		return overmap_result
 	var/obj/docking_port/stationary/dockAt = getDock(dockId)
 	var/hyperspace_mini = sound(mobile.fly_sound)
 	var/area = mobile.areaInstance
@@ -297,8 +348,6 @@ SUBSYSTEM_DEF(shuttle)
 	if(mobile.mode == SHUTTLE_RECHARGING)
 		return SHUTTLE_CONSOLE_RECHARGING
 
-	if(!mobile)
-		return 1
 	mobile.last_caller = user // Save the caller of the shuttle for later logging
 	if(timed)
 		if(mobile.request(dockAt))
@@ -319,15 +368,39 @@ SUBSYSTEM_DEF(shuttle)
 		if(!(M in transit_requesters))
 			transit_requesters += M
 
-/datum/controller/subsystem/shuttle/proc/generate_transit_dock(obj/docking_port/mobile/M)
+/datum/controller/subsystem/shuttle/proc/generate_transit_dock(obj/docking_port/mobile/M, max_z_level = null)
+	if(!istype(M))
+		return FALSE
+	if(M.generating_transit_dock)
+		UNTIL(QDELETED(M) || !M.generating_transit_dock)
+	if(QDELETED(M))
+		return FALSE
+	if(M.assigned_transit && !QDELETED(M.assigned_transit))
+		return M.assigned_transit
+	M.generating_transit_dock = TRUE
+	try
+		. = allocate_transit_dock(M, max_z_level)
+	catch(var/exception/error)
+		M.generating_transit_dock = FALSE
+		throw error
+	M.generating_transit_dock = FALSE
+
+/datum/controller/subsystem/shuttle/proc/allocate_transit_dock(obj/docking_port/mobile/M, max_z_level)
 	// First, determine the size of the needed zone
 	// Because of shuttle rotation, the "width" of the shuttle is not
 	// always x.
 	var/travel_dir = M.preferred_direction
 	// Remember, the direction is the direction we appear to be
 	// coming from
+	// Add 180, because ports point inwards, rather than outwards
 	var/dock_angle = dir2angle(M.preferred_direction) + dir2angle(M.port_direction) + 180
 	var/dock_dir = angle2dir(dock_angle)
+	var/overmap_reservation = M.overmap_uses_area_hull()
+	if(overmap_reservation)
+		M.overmap_sync_bounds(TRUE)
+		var/list/om_origin = M.overmap_origin()
+		if(om_origin[2])
+			dock_dir = M.overmap_transit_dir(om_origin[2])
 
 	var/transit_width = SHUTTLE_TRANSIT_BORDER * 2
 	var/transit_height = SHUTTLE_TRANSIT_BORDER * 2
@@ -357,14 +430,24 @@ SUBSYSTEM_DEF(shuttle)
 		transit_width,
 		transit_height,
 		z_size = 1, //if this is changed the turf uncontain code below has to be updated to support multiple zs
-		reservation_type = /datum/turf_reservation/transit,
-		turf_type_override = transit_path,
+		reservation_type = overmap_reservation ? /datum/turf_reservation/transit/overmap : /datum/turf_reservation/transit,
+		turf_type_override = overmap_reservation ? /turf/space : transit_path,
+		max_z_level = max_z_level,
 	)
 
 	if(!istype(proposal))
 		return FALSE
+	if(QDELETED(M))
+		qdel(proposal)
+		return FALSE
 
 	var/turf/bottomleft = proposal.bottom_left_turfs[1]
+	var/turf/topright = length(proposal.top_right_turfs) ? proposal.top_right_turfs[1] : null
+	if(bottomleft && topright)
+		overmap_seal_block_with_hyperspace(bottomleft, topright)
+	if(QDELETED(M) || QDELETED(proposal))
+		qdel(proposal)
+		return FALSE
 	// Then create a transit docking port in the middle
 	var/coords = M.return_coords(0, 0, dock_dir)
 
@@ -389,6 +472,7 @@ SUBSYSTEM_DEF(shuttle)
 
 	var/turf/midpoint = locate(transit_x, transit_y, bottomleft.z)
 	if(!midpoint)
+		qdel(proposal)
 		return FALSE
 	var/area/old_area = midpoint.loc
 	LISTASSERTLEN(old_area.turfs_to_uncontain_by_zlevel, bottomleft.z, list())
@@ -398,15 +482,16 @@ SUBSYSTEM_DEF(shuttle)
 	new_area.parallax_movedir = travel_dir
 	new_area.contents = proposal.reserved_turfs
 	LISTASSERTLEN(new_area.turfs_by_zlevel, bottomleft.z, list())
-	new_area.turfs_by_zlevel[bottomleft.z] = proposal.reserved_turfs
+	new_area.turfs_by_zlevel[bottomleft.z] = proposal.reserved_turfs.Copy()
 	var/obj/docking_port/stationary/transit/new_transit_dock = new(midpoint)
 	new_transit_dock.reserved_area = proposal
+	if(overmap_reservation)
+		new_transit_dock.turf_type = /turf/space
 	new_transit_dock.name = M.name
 	new_transit_dock.owner = M
 	new_transit_dock.assigned_area = new_area
 
-	// Add 180, because ports point inwards, rather than outwards
-	new_transit_dock.setDir(angle2dir(dock_angle))
+	new_transit_dock.setDir(dock_dir)
 
 	M.assigned_transit = new_transit_dock
 	return new_transit_dock

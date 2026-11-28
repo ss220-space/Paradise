@@ -80,21 +80,32 @@
 	. = list()
 	if(!shuttle)
 		return
-	var/turf/shuttle_anchor = shuttle.loc
-	//TODO change it
-	for(var/x = 1; x <= 5; x++)
-		for(var/y=-5; y <= 1; y++)
-			var/turf/shuttle_turf = locate(shuttle_anchor.x + x, shuttle_anchor.y + y, shuttle_anchor.z)
-			. += shuttle_turf
+	for(var/turf/spot as anything in shuttle.overmap_collect_hull(get_turf(shuttle)))
+		if(isspaceturf(spot) || spot.density || (locate(/obj/machinery/door) in spot))
+			continue
+		. += spot
+
+/datum/controller/subsystem/addition_goals/proc/get_empty_shuttle_turfs()
+	. = list()
+	for(var/turf/spot as anything in get_shuttle_turfs())
+		if(spot_is_clear_for_goal(spot))
+			. += spot
+
+/datum/controller/subsystem/addition_goals/proc/spot_is_clear_for_goal(turf/spot)
+	if(!spot || spot.density)
+		return FALSE
+	for(var/atom/thing as anything in spot)
+		if(thing.density)
+			return FALSE
+		if(ismachinery(thing) || isstructure(thing))
+			return FALSE
+	return TRUE
 
 /// Clear all objects in shuttle
 /datum/controller/subsystem/addition_goals/proc/clear_shuttle_turfs()
 	if(!shuttle)
 		return
-	var/turf/shuttle_anchor = shuttle.loc
 	var/list/turfs = get_shuttle_turfs()
-	turfs += locate(shuttle_anchor.x, shuttle_anchor.y, shuttle_anchor.z) //left airlock
-	turfs += locate(shuttle_anchor.x + 6, shuttle_anchor.y, shuttle_anchor.z) //right airlock
 	for(var/turf/turf in turfs)
 		//open all containers before delete
 		for(var/atom/movable/content in turf.contents)

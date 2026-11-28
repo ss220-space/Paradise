@@ -1,0 +1,864 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aDW" = (
+/obj/machinery/atmospherics/unary/tank/air/ninja{
+	dir = 1
+	},
+/turf/simulated/wall/shuttle/nosmooth/interior{
+	dir = 9;
+	icon = 'icons/turf/walls/shuttle/ninja_shuttle_wall.dmi';
+	icon_state = "ninja_walls_corners";
+	underlay_floor_icon = 'icons/turf/shuttle/floors.dmi';
+	underlay_floor_icon_state = "floor13"
+	},
+/area/shuttle/ninja)
+"aYF" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 1;
+	icon_state = "heater3x3"
+	},
+/obj/structure/shuttle/engine/platform{
+	dir = 1
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#00f700"
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/ninja)
+"cGW" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 9;
+	icon = 'icons/turf/walls/shuttle/ninja_shuttle_wall.dmi';
+	icon_state = "ninja_walls_corners"
+	},
+/area/shuttle/ninja)
+"dtI" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 6;
+	icon = 'icons/turf/walls/shuttle/ninja_shuttle_wall.dmi';
+	icon_state = "ninja_walls_T_alt"
+	},
+/area/shuttle/ninja)
+"dSE" = (
+/obj/structure/table/abductor{
+	color = "#99ff99";
+	name = "table"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/item/tank/internals/emergency_oxygen/double/ninja,
+/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
+	frequency = 1331;
+	id_tag = "ninja_airlock_right";
+	pixel_y = 3;
+	tag_airpump = "ninja_pump_right";
+	tag_chamber_sensor = "ninja_sensor_right";
+	tag_exterior_door = "ninja_outer_right";
+	tag_interior_door = "ninja_inner_right"
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
+"eIA" = (
+/obj/machinery/door/window/brigdoor{
+	color = "#00f700";
+	dir = 8;
+	drain_act_protected = 1;
+	name = "Riot Control"
+	},
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
+"fdO" = (
+/obj/machinery/access_button{
+	command = "cycle_interior";
+	frequency = 1331;
+	master_tag = "ninja_airlock_left";
+	name = "interior access button";
+	pixel_x = -25;
+	pixel_y = 25
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
+"fgu" = (
+/obj/machinery/atmospherics/unary/tank/air/ninja{
+	dir = 1
+	},
+/turf/simulated/wall/shuttle/nosmooth/interior{
+	dir = 5;
+	icon = 'icons/turf/walls/shuttle/ninja_shuttle_wall.dmi';
+	icon_state = "ninja_walls_corners";
+	underlay_floor_icon = 'icons/turf/shuttle/floors.dmi';
+	underlay_floor_icon_state = "floor13"
+	},
+/area/shuttle/ninja)
+"fvB" = (
+/obj/structure/window/plasmareinforced{
+	color = "#00f700";
+	dir = 1
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#00f700";
+	dir = 8
+	},
+/obj/structure/chair/comfy/shuttle/dark,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
+"fEX" = (
+/obj/machinery/access_button{
+	command = "cycle_exterior";
+	frequency = 1331;
+	master_tag = "ninja_airlock_left";
+	name = "interior access button";
+	pixel_x = -12
+	},
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 8;
+	icon = 'icons/turf/walls/shuttle/ninja_shuttle_wall.dmi';
+	icon_state = "ninja_walls_direction"
+	},
+/area/shuttle/ninja)
+"fKq" = (
+/obj/structure/shuttle/engine/platform{
+	dir = 1
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#00f700"
+	},
+/obj/structure/shuttle/engine/heater{
+	dir = 1;
+	icon_state = "heater3x3"
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/ninja)
+"fKM" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 4;
+	icon = 'icons/turf/walls/shuttle/ninja_shuttle_wall.dmi';
+	icon_state = "ninja_walls_T_alt"
+	},
+/area/shuttle/ninja)
+"fMY" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	icon = 'icons/turf/walls/shuttle/ninja_shuttle_wall.dmi';
+	icon_state = "ninja_walls_corners"
+	},
+/area/shuttle/ninja)
+"fPN" = (
+/obj/structure/window/plasmareinforced{
+	color = "#00f700";
+	dir = 4
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#00f700";
+	dir = 1
+	},
+/obj/structure/chair/comfy/shuttle/dark,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
+"gwp" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
+"gIa" = (
+/turf/template_noop,
+/area/template_noop)
+"hHM" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/machinery/suit_storage_unit/standard_unit{
+	req_access = null
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
+"hJV" = (
+/obj/structure/shuttle/engine/platform{
+	dir = 1
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#00f700"
+	},
+/obj/structure/shuttle/engine/heater{
+	dir = 1;
+	icon_state = "heater3x3_side_inv"
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/ninja)
+"hUa" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 1;
+	icon = 'icons/turf/walls/shuttle/ninja_shuttle_wall.dmi';
+	icon_state = "ninja_walls_direction"
+	},
+/area/shuttle/ninja)
+"ihh" = (
+/obj/machinery/door/window/brigdoor{
+	color = "#00f700";
+	drain_act_protected = 1;
+	name = "Riot Control"
+	},
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
+"iOB" = (
+/obj/machinery/atmospherics/pipe/simple/visible,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
+"iQq" = (
+/obj/machinery/sensor_array/short_range,
+/obj/machinery/overmap_intercom/directional/south,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
+"iQU" = (
+/obj/structure/table/abductor{
+	color = "#99ff99";
+	name = "table"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
+	frequency = 1331;
+	id_tag = "ninja_airlock";
+	pixel_y = 3;
+	tag_airpump = "ninja_pump";
+	tag_chamber_sensor = "ninja_sensor";
+	tag_exterior_door = "ninja_outer";
+	tag_interior_door = "ninja_inner"
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
+"iWV" = (
+/turf/simulated/floor/shuttle/transparent_floor,
+/area/shuttle/ninja)
+"jvc" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 4;
+	icon = 'icons/turf/walls/shuttle/ninja_shuttle_wall.dmi';
+	icon_state = "ninja_walls_corners"
+	},
+/area/shuttle/ninja)
+"kgr" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 6;
+	icon = 'icons/turf/walls/shuttle/ninja_shuttle_wall.dmi';
+	icon_state = "ninja_walls_corners"
+	},
+/area/shuttle/ninja)
+"kBl" = (
+/obj/structure/shuttle/engine/platform,
+/obj/machinery/ship_engine/large{
+	dir = 1;
+	opacity = 0
+	},
+/turf/simulated/floor/shuttle/transparent_floor,
+/area/shuttle/ninja)
+"kMQ" = (
+/obj/structure/chair/comfy/shuttle/dark,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
+"kZa" = (
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
+"lvp" = (
+/obj/machinery/access_button{
+	command = "cycle_exterior";
+	frequency = 1331;
+	master_tag = "ninja_airlock_right";
+	name = "interior access button";
+	pixel_x = 10
+	},
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 4;
+	icon = 'icons/turf/walls/shuttle/ninja_shuttle_wall.dmi';
+	icon_state = "ninja_walls_direction"
+	},
+/area/shuttle/ninja)
+"lHE" = (
+/obj/structure/shuttle/engine/platform,
+/turf/simulated/floor/shuttle/transparent_floor,
+/area/shuttle/ninja)
+"lYr" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 1;
+	icon = 'icons/turf/walls/shuttle/ninja_shuttle_wall.dmi';
+	icon_state = "ninja_walls_T_alt"
+	},
+/area/shuttle/ninja)
+"msH" = (
+/turf/simulated/wall/shuttle/nosmooth/interior{
+	dir = 9;
+	icon = 'icons/turf/walls/shuttle/ninja_shuttle_wall.dmi';
+	icon_state = "ninja_walls_corners";
+	underlay_floor_icon = 'icons/turf/shuttle/floors.dmi';
+	underlay_floor_icon_state = "floor13"
+	},
+/area/shuttle/ninja)
+"mzK" = (
+/obj/machinery/door/airlock/hatch{
+	drain_act_protected = 1;
+	frequency = 1331;
+	id_tag = "ninja_outer_left";
+	name = "Ship External Access"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
+"mLV" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 8;
+	icon = 'icons/turf/walls/shuttle/ninja_shuttle_wall.dmi';
+	icon_state = "ninja_walls_direction"
+	},
+/area/shuttle/ninja)
+"ngN" = (
+/obj/structure/shuttle/engine/platform{
+	dir = 1
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#00f700"
+	},
+/obj/structure/shuttle/engine/heater{
+	dir = 1;
+	icon_state = "heater2x2"
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/ninja)
+"nuH" = (
+/obj/machinery/computer/helm,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
+"ofx" = (
+/obj/machinery/door/airlock/hatch{
+	drain_act_protected = 1;
+	frequency = 1331;
+	id_tag = "ninja_inner_left";
+	locked = 1;
+	name = "Ship External Access"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
+"ozv" = (
+/obj/structure/shuttle/engine/platform{
+	dir = 1
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#00f700"
+	},
+/obj/structure/shuttle/engine/heater{
+	dir = 1;
+	icon_state = "heater2x2_side"
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/ninja)
+"oFI" = (
+/obj/structure/shuttle/engine/platform{
+	dir = 1
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#00f700"
+	},
+/obj/structure/shuttle/engine/heater{
+	dir = 1;
+	icon_state = "heater3x3_side"
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/ninja)
+"oQE" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle/ninja,
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/ninja)
+"oVN" = (
+/obj/machinery/transponder/directional/south,
+/obj/machinery/sensor_array/long_range,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
+"pDU" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 4;
+	icon = 'icons/turf/walls/shuttle/ninja_shuttle_wall.dmi';
+	icon_state = "ninja_walls_direction"
+	},
+/area/shuttle/ninja)
+"pOE" = (
+/obj/machinery/door/airlock/hatch{
+	drain_act_protected = 1;
+	frequency = 1331;
+	id_tag = "ninja_inner_right";
+	locked = 1;
+	name = "Ship External Access"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
+"qdX" = (
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 4;
+	frequency = 1331;
+	id_tag = "ninja_pump_left"
+	},
+/obj/machinery/access_button{
+	command = "cycle_interior";
+	frequency = 1331;
+	master_tag = "ninja_airlock_left";
+	name = "interior access button";
+	pixel_x = 23;
+	pixel_y = 25
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
+"qwH" = (
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 8;
+	frequency = 1331;
+	id_tag = "ninja_pump_right"
+	},
+/obj/machinery/access_button{
+	command = "cycle_interior";
+	frequency = 1331;
+	master_tag = "ninja_airlock_right";
+	name = "interior access button";
+	pixel_x = -25;
+	pixel_y = 25
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
+"qQq" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	icon = 'icons/turf/walls/shuttle/ninja_shuttle_wall.dmi';
+	icon_state = "ninja_walls_direction"
+	},
+/area/shuttle/ninja)
+"rrm" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/airlock_sensor{
+	frequency = 1331;
+	id_tag = "ninja_sensor_left";
+	pixel_x = -12;
+	pixel_y = 25;
+	req_access = list(150)
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
+"rOB" = (
+/obj/machinery/access_button{
+	command = "cycle_interior";
+	frequency = 1331;
+	master_tag = "ninja_airlock_right";
+	name = "interior access button";
+	pixel_x = 23;
+	pixel_y = 25
+	},
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
+"rUy" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 10;
+	icon = 'icons/turf/walls/shuttle/ninja_shuttle_wall.dmi';
+	icon_state = "ninja_walls_T_alt"
+	},
+/area/shuttle/ninja)
+"seL" = (
+/obj/machinery/ship_engine/huge{
+	dir = 1;
+	opacity = 0
+	},
+/turf/simulated/floor/shuttle/transparent_floor,
+/area/shuttle/ninja)
+"urf" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/airlock_sensor{
+	frequency = 1331;
+	id_tag = "ninja_sensor_right";
+	pixel_x = 12;
+	pixel_y = 25;
+	req_access = list(150)
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
+"uHx" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 1;
+	icon_state = "heater3x3_side_inv"
+	},
+/obj/structure/shuttle/engine/platform{
+	dir = 1
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#00f700"
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/ninja)
+"vKy" = (
+/obj/machinery/door/airlock/hatch{
+	drain_act_protected = 1;
+	frequency = 1331;
+	id_tag = "ninja_outer_right";
+	name = "Ship External Access"
+	},
+/obj/docking_port/mobile{
+	dheight = 2;
+	dir = 2;
+	dwidth = 4;
+	height = 10;
+	id = "ombra";
+	name = "Spider Clan Ombra";
+	pixel_y = -5;
+	port_direction = 2;
+	preferred_direction = 2;
+	roundstart_move = null;
+	width = 21;
+	timid = 1
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
+"wla" = (
+/obj/machinery/computer/sensors,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13"
+	},
+/area/shuttle/ninja)
+"wYB" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 5;
+	icon = 'icons/turf/walls/shuttle/ninja_shuttle_wall.dmi';
+	icon_state = "ninja_walls_corners"
+	},
+/area/shuttle/ninja)
+"xxv" = (
+/turf/simulated/wall/shuttle/nosmooth/interior{
+	dir = 5;
+	icon = 'icons/turf/walls/shuttle/ninja_shuttle_wall.dmi';
+	icon_state = "ninja_walls_corners";
+	underlay_floor_icon = 'icons/turf/shuttle/floors.dmi';
+	underlay_floor_icon_state = "floor13"
+	},
+/area/shuttle/ninja)
+"xUB" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 8;
+	icon = 'icons/turf/walls/shuttle/ninja_shuttle_wall.dmi';
+	icon_state = "ninja_walls_T_alt"
+	},
+/area/shuttle/ninja)
+"yeb" = (
+/turf/simulated/wall/shuttle/nosmooth{
+	dir = 10;
+	icon = 'icons/turf/walls/shuttle/ninja_shuttle_wall.dmi';
+	icon_state = "ninja_walls_corners"
+	},
+/area/shuttle/ninja)
+
+(1,1,1) = {"
+gIa
+gIa
+yeb
+gIa
+gIa
+gIa
+gIa
+gIa
+gIa
+gIa
+"}
+(2,1,1) = {"
+gIa
+gIa
+lYr
+yeb
+gIa
+gIa
+gIa
+gIa
+gIa
+gIa
+"}
+(3,1,1) = {"
+gIa
+gIa
+pDU
+xxv
+yeb
+gIa
+gIa
+gIa
+gIa
+gIa
+"}
+(4,1,1) = {"
+gIa
+gIa
+mzK
+kZa
+xxv
+yeb
+gIa
+gIa
+gIa
+gIa
+"}
+(5,1,1) = {"
+gIa
+gIa
+fEX
+rrm
+qdX
+xxv
+yeb
+gIa
+gIa
+gIa
+"}
+(6,1,1) = {"
+gIa
+cGW
+fKM
+qQq
+ofx
+hUa
+fKM
+yeb
+gIa
+gIa
+"}
+(7,1,1) = {"
+iWV
+iWV
+lHE
+uHx
+fdO
+fPN
+ihh
+lYr
+yeb
+gIa
+"}
+(8,1,1) = {"
+iWV
+seL
+lHE
+aYF
+gwp
+iOB
+iOB
+fgu
+jvc
+yeb
+"}
+(9,1,1) = {"
+iWV
+iWV
+lHE
+oFI
+hHM
+kZa
+kZa
+oVN
+xxv
+dtI
+"}
+(10,1,1) = {"
+gIa
+iWV
+kBl
+ngN
+iQU
+kZa
+kZa
+kMQ
+nuH
+oQE
+"}
+(11,1,1) = {"
+gIa
+iWV
+lHE
+ozv
+dSE
+kZa
+kZa
+kMQ
+wla
+oQE
+"}
+(12,1,1) = {"
+iWV
+iWV
+lHE
+hJV
+hHM
+kZa
+kZa
+iQq
+msH
+rUy
+"}
+(13,1,1) = {"
+iWV
+seL
+lHE
+fKq
+gwp
+iOB
+iOB
+aDW
+fMY
+kgr
+"}
+(14,1,1) = {"
+iWV
+iWV
+lHE
+oFI
+rOB
+fvB
+eIA
+lYr
+kgr
+gIa
+"}
+(15,1,1) = {"
+gIa
+wYB
+xUB
+qQq
+pOE
+hUa
+xUB
+kgr
+gIa
+gIa
+"}
+(16,1,1) = {"
+gIa
+gIa
+lvp
+urf
+qwH
+msH
+kgr
+gIa
+gIa
+gIa
+"}
+(17,1,1) = {"
+gIa
+gIa
+vKy
+kZa
+msH
+kgr
+gIa
+gIa
+gIa
+gIa
+"}
+(18,1,1) = {"
+gIa
+gIa
+mLV
+msH
+kgr
+gIa
+gIa
+gIa
+gIa
+gIa
+"}
+(19,1,1) = {"
+gIa
+gIa
+lYr
+kgr
+gIa
+gIa
+gIa
+gIa
+gIa
+gIa
+"}
+(20,1,1) = {"
+gIa
+gIa
+kgr
+gIa
+gIa
+gIa
+gIa
+gIa
+gIa
+gIa
+"}

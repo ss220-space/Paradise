@@ -1,0 +1,131 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"bMK" = (
+/obj/machinery/computer/helm,
+/obj/machinery/overmap_intercom/directional/west,
+/turf/simulated/floor/shuttle,
+/area/shuttle/spacebar)
+"bUV" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/computer/sensors,
+/turf/simulated/floor/shuttle,
+/area/shuttle/spacebar)
+"cgU" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/turf/simulated/floor/plating,
+/area/shuttle/spacebar)
+"fcJ" = (
+/obj/machinery/sensor_array/short_range,
+/turf/simulated/floor/shuttle,
+/area/shuttle/spacebar)
+"keQ" = (
+/obj/machinery/ship_engine,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/spacebar)
+"ljp" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/machinery/transponder/directional/east,
+/turf/simulated/floor/shuttle,
+/area/shuttle/spacebar)
+"lAq" = (
+/turf/template_noop,
+/area/template_noop)
+"ojJ" = (
+/obj/structure/fans/tiny,
+/obj/docking_port/mobile{
+	alone_shuttle = 1;
+	dir = 8;
+	dwidth = 3;
+	height = 4;
+	id = "ruins_civil_shuttle";
+	name = "Regular Civilian Shuttle";
+	port_direction = 4;
+	rebuildable = 1;
+	roundstart_move = null;
+	width = 6;
+	timid = 1
+	},
+/obj/machinery/door/airlock/external/docking/shuttle/glass{
+	dir = 4;
+	dock_name = "Восточный шлюз"
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/spacebar)
+"pIf" = (
+/turf/simulated/floor/shuttle,
+/area/shuttle/spacebar)
+"pNW" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/spacebar)
+"qqs" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/shuttle/spacebar)
+"syD" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/docking/shuttle/glass{
+	dir = 8;
+	dock_name = "Западный шлюз"
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/spacebar)
+"tiz" = (
+/turf/simulated/wall/shuttle,
+/area/shuttle/spacebar)
+"ujn" = (
+/obj/structure/table,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
+/obj/item/reagent_containers/cup/soda_cans/beer{
+	pixel_x = 6
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/spacebar)
+
+(1,1,1) = {"
+tiz
+qqs
+syD
+qqs
+tiz
+tiz
+"}
+(2,1,1) = {"
+cgU
+bMK
+pIf
+pNW
+bUV
+keQ
+"}
+(3,1,1) = {"
+cgU
+ljp
+pIf
+ujn
+fcJ
+keQ
+"}
+(4,1,1) = {"
+tiz
+qqs
+ojJ
+qqs
+tiz
+tiz
+"}

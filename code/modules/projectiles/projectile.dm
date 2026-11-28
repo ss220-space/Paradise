@@ -191,6 +191,19 @@
 	var/homing_inaccuracy_max = 0
 	var/homing_offset_x = 0
 	var/homing_offset_y = 0
+	var/ship_penetrations = 0
+	var/ship_penetration_chance = 100
+	var/ship_penetration_decay = 1
+	var/ship_piercing = FALSE
+	var/list/ship_pierced_tiles
+	var/overmap_persistent = FALSE
+	var/overmap_velocity = 100
+	var/overmap_radar_kind = "light"
+	var/overmap_radar_visible = FALSE
+	var/overmap_effect_until = 0
+	var/list/overmap_hit_vessels
+	var/list/overmap_hit_groups
+	var/obj/overmap/entity/overmap_firer_vessel
 
 /obj/projectile/Initialize(mapload)
 	. = ..()
@@ -210,6 +223,10 @@
 		ammo_casing =  null
 	firer_source_atom = null
 	firer = null
+	overmap_firer_vessel = null
+	overmap_hit_vessels = null
+	overmap_hit_groups = null
+	ship_pierced_tiles = null
 	if(trajectory)
 		QDEL_NULL(trajectory)
 	if(beam_index)
@@ -217,6 +234,8 @@
 	return ..()
 
 /obj/projectile/proc/Range()
+	if(overmap_persistent)
+		return
 	range--
 	if(damage && tile_dropoff)
 		damage = max(0, damage - tile_dropoff) // decrement projectile damage based on dropoff value for each tile it moves
@@ -389,6 +408,8 @@
 	set_angle(Angle + clamp(new_angle, -homing_turn_speed, homing_turn_speed))
 
 /obj/projectile/Bump(atom/bumped_atom)
+	if(ship_pierce(bumped_atom))
+		return FALSE
 	. = ..()
 
 	if(check_ricochet(bumped_atom) && check_ricochet_flag(bumped_atom) && ricochets < ricochets_max && is_reflectable(REFLECTABILITY_PHYSICAL))
@@ -476,14 +497,25 @@
 	var/required_moves = hitscan ? MOVES_HITSCAN : floor(elapsed_time_deciseconds / speed)
 	if(required_moves == MOVES_HITSCAN)
 		required_moves = SSprojectiles.global_max_tick_moves
-	if(required_moves > SSprojectiles.global_max_tick_moves)
+	if(!overmap_persistent && required_moves > SSprojectiles.global_max_tick_moves)
 		var/overrun = required_moves - SSprojectiles.global_max_tick_moves
 		required_moves = SSprojectiles.global_max_tick_moves
 		time_offset += overrun * speed
 	time_offset += MODULUS(elapsed_time_deciseconds, speed)
+	var/turf/previous_turf = get_turf(src)
+	var/previous_pixel_x = pixel_x
+	var/previous_pixel_y = pixel_y
 
 	for(var/i in 1 to required_moves)
 		pixel_move(1)
+		if(QDELETED(src) || !isturf(loc))
+			return
+	if(overmap_persistent && required_moves && previous_turf.z == z)
+		var/target_pixel_x = trajectory.return_px()
+		var/target_pixel_y = trajectory.return_py()
+		pixel_x = (previous_turf.x - x) * ICON_SIZE_X + previous_pixel_x
+		pixel_y = (previous_turf.y - y) * ICON_SIZE_Y + previous_pixel_y
+		animate(src, pixel_x = target_pixel_x, pixel_y = target_pixel_y, time = SSprojectiles.wait, flags = ANIMATION_END_NOW)
 
 /obj/projectile/proc/shrapnel_hit(atom/target)
 	return
@@ -502,7 +534,7 @@
 	// Iterate
 	var/forcemoved = FALSE
 	for(var/i in 1 to SSprojectiles.global_iterations_per_move)
-		if(QDELETED(src))
+		if(QDELETED(src) || !isturf(loc))
 			return
 		trajectory.increment(trajectory_multiplier)
 		var/turf/T = trajectory.return_turf()
@@ -528,12 +560,16 @@
 		if(original && (original.layer >= PROJECTILE_HIT_THRESHOLD_LAYER && !isliving(original)))
 			if(loc == get_turf(original) && !(original in permutated))
 				Bump(original)
-	if(QDELETED(src)) //deleted on last move
+	if(QDELETED(src) || !isturf(loc))
 		return
 	if(!hitscanning && !forcemoved)
-		pixel_x = trajectory.return_px() - trajectory.mpx * trajectory_multiplier * SSprojectiles.global_iterations_per_move
-		pixel_y = trajectory.return_py() - trajectory.mpy * trajectory_multiplier * SSprojectiles.global_iterations_per_move
-		animate(src, pixel_x = trajectory.return_px(), pixel_y = trajectory.return_py(), time = 1, flags = ANIMATION_END_NOW)
+		if(overmap_persistent)
+			pixel_x = trajectory.return_px()
+			pixel_y = trajectory.return_py()
+		else
+			pixel_x = trajectory.return_px() - trajectory.mpx * trajectory_multiplier * SSprojectiles.global_iterations_per_move
+			pixel_y = trajectory.return_py() - trajectory.mpy * trajectory_multiplier * SSprojectiles.global_iterations_per_move
+			animate(src, pixel_x = trajectory.return_px(), pixel_y = trajectory.return_py(), time = 1, flags = ANIMATION_END_NOW)
 	Range()
 
 /obj/projectile/proc/fire(setAngle)
@@ -561,6 +597,10 @@
 	original_angle = Angle
 	if(spread)
 		Angle += (rand() - 0.5) * spread
+	var/obj/overmap/entity/vessel = SSovermap.frame_owner(get_turf(src))
+	if(istype(vessel) && vessel.in_free_flight() && !hitscan)
+		overmap_persistent = TRUE
+		speed = (1 SECONDS) / max(overmap_velocity, 0.1)
 	if(firer && ismob(firer))
 		if(firer.a_intent != INTENT_HELP || firer.IsLying())
 			hit_crawling_mobs_chance =  100
@@ -636,6 +676,7 @@
 /obj/projectile/set_angle(new_angle)
 	..()
 	Angle = new_angle
+	transform = matrix().Turn(Angle)
 	if(trajectory)
 		trajectory.set_angle(new_angle)
 	if(has_been_fired && hitscan && isloc(loc) && (loc != last_angle_set_hitscan_store))

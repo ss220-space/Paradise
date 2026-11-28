@@ -1,0 +1,209 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"bqb" = (
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/ussp)
+"bXs" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 1
+	},
+/obj/machinery/ship_engine,
+/turf/simulated/floor/plating/airless,
+/area/shuttle/ussp)
+"csu" = (
+/obj/machinery/computer/helm,
+/obj/machinery/transponder/directional/west,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/ussp)
+"dKp" = (
+/turf/template_noop,
+/area/template_noop)
+"eyC" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/ussp)
+"fjc" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/ussp)
+"gci" = (
+/obj/structure/window/reinforced/tinted{
+	dir = 1
+	},
+/obj/structure/window/reinforced/tinted,
+/obj/structure/shuttle/engine/heater,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/ussp)
+"gNK" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle/gray,
+/turf/simulated/floor/plating,
+/area/shuttle/ussp)
+"iuS" = (
+/obj/structure/fans/tiny,
+/obj/docking_port/mobile{
+	alone_shuttle = 1;
+	dir = 8;
+	dwidth = 2;
+	height = 5;
+	id = "ruins_transport_shuttle";
+	name = "USSP Cargo Shuttle";
+	port_direction = 4;
+	roundstart_move = null;
+	width = 8;
+	timid = 1
+	},
+/obj/machinery/door/airlock/external/docking/glass{
+	dir = 4;
+	dock_name = "Стыковочный шлюз"
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/ussp)
+"iGW" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/closet/crate{
+	icon_state = "crateopen";
+	opened = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/ussp)
+"jir" = (
+/obj/effect/decal/remains/human{
+	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
+	name = "Human remains"
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/ussp)
+"lwo" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/docking/support/glass,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/ussp)
+"mtN" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/shuttle/ussp)
+"niA" = (
+/obj/item/paper/djstation{
+	info = "Блять, сука. Блятьблять. Я знал, что эта миссия была ошибкой, этот идиот Томас самоубился о какого-то разъяренного русского робота-охранника в оружейной. А лейтенант вбежал на станцию, как идиот, и попал в ловушку. Теперь я просто просиживаю штаны взаперти, потому что этот шаттл, черт возьми, не двигается. Этот тупой кусок дерьма, стыковочный рычаг СССП, должно быть, заклинило, а у меня нет скафандра, чтобы выйти и починить его.<br><br>Кто, черт возьми, атакует космическую станцию ​​без скафандров!? В любом случае, без ригов выходить в открытый космос? Нельзя же, черт возьми, начинать кровавую заварушку в космосе лишь с горячим кофе и забить на всё болт.";
+	name = "неизвестный отчет"
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/ussp)
+"ogx" = (
+/obj/structure/table,
+/obj/item/clothing/head/soft/solgov,
+/obj/item/reagent_containers/cup/glass/coffee_cup/small/coffee,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/ussp)
+"oFc" = (
+/obj/structure/window/reinforced/tinted{
+	dir = 1
+	},
+/obj/structure/window/reinforced/tinted,
+/obj/structure/shuttle/engine/heater,
+/obj/machinery/sensor_array/short_range,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/ussp)
+"qpv" = (
+/turf/simulated/wall/shuttle{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/shuttle/ussp)
+"uNQ" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/machinery/computer/sensors,
+/obj/machinery/overmap_intercom/directional/west,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/ussp)
+
+(1,1,1) = {"
+qpv
+qpv
+qpv
+qpv
+qpv
+qpv
+mtN
+qpv
+"}
+(2,1,1) = {"
+gNK
+csu
+uNQ
+eyC
+eyC
+iGW
+oFc
+bXs
+"}
+(3,1,1) = {"
+gNK
+jir
+niA
+bqb
+bqb
+bqb
+gci
+bXs
+"}
+(4,1,1) = {"
+gNK
+ogx
+bqb
+fjc
+fjc
+bqb
+gci
+bXs
+"}
+(5,1,1) = {"
+qpv
+mtN
+lwo
+mtN
+mtN
+iuS
+qpv
+qpv
+"}

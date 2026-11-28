@@ -57,6 +57,7 @@
 	var/datum/tcomms_message/tcm = new
 	tcm.connection = connection
 	tcm.sender = sender
+	tcm.source_position = sender_loc
 	tcm.sender_name = from
 	tcm.message_pieces = message_pieces
 	tcm.sender_job = "Автоматическое оповещение"

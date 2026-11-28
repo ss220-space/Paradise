@@ -1,0 +1,441 @@
+{
+	"version": 1,
+	"name": "Навигационный атлас · Эпсилон Лукусты",
+	"units": "св. лет",
+	"systems": [
+		{
+			"id": "station",
+			"generation": {
+				"ruins": 2
+			},
+			"name": "Эпсилон Лукусты",
+			"x": 1083.5,
+			"y": -548.82,
+			"kind": "station",
+			"faction": "nt",
+			"marker": {
+				"shape": "square"
+			}
+		},
+		{
+			"id": "service",
+			"generation": {
+				"ruins": 0
+			},
+			"name": "Дельта Лукусты",
+			"x": 495.2,
+			"y": 1176.76,
+			"kind": "service",
+			"faction": "nt",
+			"marker": {
+				"shape": "star",
+				"showLabel": true,
+				"labelSize": 12
+			}
+		},
+		{
+			"id": "wilderness_a",
+			"generation": {
+				"fleet_chance": 2
+			},
+			"name": "Рубеж Альфа",
+			"x": -6517.84,
+			"y": -109.34,
+			"kind": "wilderness",
+			"faction": ""
+		},
+		{
+			"id": "systems_1",
+			"name": "Тау Лукусты",
+			"x": -554.24,
+			"y": -470.81,
+			"kind": "transit",
+			"faction": "nt",
+			"marker": {
+				"shape": "ring"
+			}
+		},
+		{
+			"id": "systems_3",
+			"generation": {
+				"ruins": 1
+			},
+			"name": "Касторна",
+			"x": -1779.62,
+			"y": -959.42,
+			"kind": "wilderness",
+			"faction": "nt"
+		},
+		{
+			"id": "systems_4",
+			"name": "Медный Венец",
+			"x": 1821.21,
+			"y": -1084.48,
+			"kind": "transit",
+			"faction": "nt",
+			"marker": {
+				"shape": "ring"
+			}
+		},
+		{
+			"id": "systems_5",
+			"generation": {
+				"ruins": 0
+			},
+			"name": "Веспера",
+			"x": 2864.41,
+			"y": -1822.98,
+			"kind": "wilderness",
+			"faction": "trans_solar",
+			"marker": {
+				"shape": "circle"
+			}
+		},
+		{
+			"id": "systems_8",
+			"name": "Створ Лукусты",
+			"x": 577.93,
+			"y": 123.96,
+			"kind": "transit",
+			"faction": "nt",
+			"marker": {
+				"shape": "ring"
+			}
+		},
+		{
+			"id": "systems_10",
+			"name": "Рифта",
+			"x": -2830.93,
+			"y": -203.64,
+			"kind": "transit",
+			"marker": {
+				"shape": "ring"
+			}
+		},
+		{
+			"id": "systems_11",
+			"name": "Нить Ириды",
+			"x": -3404.94,
+			"y": 1010.25,
+			"kind": "transit",
+			"marker": {
+				"shape": "ring"
+			}
+		},
+		{
+			"id": "systems_13",
+			"name": "Тёмная Падь",
+			"x": -4759.98,
+			"y": -1088.18,
+			"kind": "transit",
+			"marker": {
+				"shape": "ring"
+			}
+		},
+		{
+			"id": "systems_15",
+			"name": "Лисий Брод",
+			"x": -5070.51,
+			"y": 1847.74,
+			"kind": "wilderness",
+			"faction": ""
+		},
+		{
+			"id": "systems_16",
+			"name": "Алый Шип",
+			"x": -4067,
+			"y": 3674.97,
+			"kind": "transit",
+			"marker": {
+				"shape": "ring"
+			},
+			"faction": "syndicate"
+		},
+		{
+			"id": "systems_17",
+			"generation": {
+				"ruins": 0,
+				"fleet_chance": 100
+			},
+			"name": "Угольная Корона",
+			"x": -3840.93,
+			"y": 5902.77,
+			"kind": "wilderness",
+			"faction": "syndicate"
+		}
+	],
+	"factions": [
+		{
+			"id": "nt",
+			"name": "Nanotrasen",
+			"color": "#2cb2e8"
+		},
+		{
+			"id": "syndicate",
+			"name": "Syndicate",
+			"color": "#f10303"
+		},
+		{
+			"id": "trans_solar",
+			"name": "Trans-Solar",
+			"color": "#1b67a5"
+		},
+		{
+			"id": "ussp",
+			"name": "USSP",
+			"color": "#760500"
+		}
+	],
+	"territories": [
+		{
+			"id": "territories_1",
+			"name": "Граница Nanotrasen",
+			"faction": "nt",
+			"points": [
+				[1881.17, 803.48],
+				[1476.65, 1393.85],
+				[711.35, 1754.63],
+				[-163.28, 1656.24],
+				[-1477.38, 778.03],
+				[-3060.48, -1251.9],
+				[-1916.55, -2038.3],
+				[-452.63, -1299.36],
+				[1464.43, -1557.29],
+				[2241.95, -847.38],
+				[2438.74, 420.83]
+			]
+		},
+		{
+			"id": "territories_2",
+			"name": "Граница ТСФ",
+			"faction": "trans_solar",
+			"points": [
+				[-447.49, -1324.82],
+				[-1912.66, -2068.33],
+				[-3531.79, -4173.41],
+				[-4741.93, -9486.22],
+				[382.91, -15174.38],
+				[7068.76, -12393.81],
+				[13136.23, -13148.78],
+				[20346.72, -8551.01],
+				[19740.51, -1671.27],
+				[18217.19, 6361.2],
+				[9370.23, 7813.29],
+				[4001.34, 10381.3],
+				[-2999.2, 7424.97],
+				[-2389.32, 620.7],
+				[-1868.63, 334.82],
+				[-1485.99, 787.46],
+				[-168.93, 1667.78],
+				[718.14, 1778.05],
+				[1491.85, 1403.61],
+				[1893.37, 810.75],
+				[2461.02, 425.17],
+				[2277.88, -852.61],
+				[1468.3, -1581.65]
+			]
+		},
+		{
+			"id": "territories_3",
+			"name": "Опасная область",
+			"faction": "syndicate",
+			"points": [
+				[-1924.49, -2058.59],
+				[-3572.65, -4141.34],
+				[-5301.48, -3771.87],
+				[-7840.85, -535.27],
+				[-6567.1, 2957.56],
+				[-6445.24, 2950.17],
+				[-2650.12, 2742.3],
+				[-2434.31, 593.68],
+				[-1895.19, 313.14],
+				[-3075.88, -1257.1],
+				[-2847.17, -1416.26],
+				[-2323.43, -1774.94]
+			],
+			"style": {
+				"hatch": "diagonal",
+				"line": "dotted",
+				"width": 1
+			}
+		},
+		{
+			"id": "territories_4",
+			"name": "Синдикат",
+			"faction": "syndicate",
+			"points": [
+				[-2651.2, 2758.7],
+				[-6568.96, 2974.81],
+				[-6192.52, 3936.82],
+				[-4030.52, 7261.76],
+				[-3047.28, 7410.97]
+			],
+			"style": {
+				"line": "dashed"
+			}
+		}
+	],
+	"links": [
+		{
+			"id": "station_service",
+			"from": "station",
+			"to": "systems_8",
+			"state": "active",
+			"access": "restricted",
+			"color": "#2cb2e8",
+			"line": "dash-dot",
+			"width": 2,
+			"opacity": 0.8,
+			"waypoints": [],
+			"distance": 700
+		},
+		{
+			"id": "station_wilderness",
+			"from": "station",
+			"to": "systems_1",
+			"state": "active",
+			"access": "public",
+			"color": "#2cb2e8",
+			"line": "solid",
+			"width": 2,
+			"opacity": 0.8,
+			"waypoints": [],
+			"distance": 1000
+		},
+		{
+			"id": "links_1",
+			"from": "systems_8",
+			"to": "service",
+			"state": "active",
+			"access": "restricted",
+			"color": "#2cb2e8",
+			"waypoints": [],
+			"line": "dash-dot"
+		},
+		{
+			"id": "links_3",
+			"from": "systems_1",
+			"to": "systems_3",
+			"state": "active",
+			"access": "public",
+			"color": "#2cb2e8",
+			"waypoints": []
+		},
+		{
+			"id": "links_4",
+			"from": "station",
+			"to": "systems_4",
+			"state": "active",
+			"access": "public",
+			"color": "#2cb2e8",
+			"waypoints": []
+		},
+		{
+			"id": "links_5",
+			"from": "systems_4",
+			"to": "systems_5",
+			"state": "active",
+			"access": "public",
+			"color": "#1b67a5",
+			"waypoints": []
+		},
+		{
+			"id": "links_9",
+			"from": "systems_3",
+			"to": "systems_10",
+			"state": "active",
+			"access": "public",
+			"color": "#2cb2e8",
+			"waypoints": []
+		},
+		{
+			"id": "links_10",
+			"from": "systems_10",
+			"to": "systems_11",
+			"state": "active",
+			"access": "public",
+			"color": "#f10303",
+			"waypoints": []
+		},
+		{
+			"id": "links_11",
+			"from": "systems_11",
+			"to": "systems_15",
+			"state": "active",
+			"access": "public",
+			"color": "#f10303",
+			"waypoints": []
+		},
+		{
+			"id": "links_12",
+			"from": "systems_15",
+			"to": "systems_16",
+			"state": "active",
+			"access": "public",
+			"color": "#f10303",
+			"waypoints": []
+		},
+		{
+			"id": "links_13",
+			"from": "systems_16",
+			"to": "systems_17",
+			"state": "active",
+			"access": "public",
+			"color": "#f10303",
+			"waypoints": []
+		},
+		{
+			"id": "links_14",
+			"from": "systems_3",
+			"to": "systems_13",
+			"state": "active",
+			"access": "public",
+			"color": "#f10303",
+			"waypoints": []
+		},
+		{
+			"id": "links_15",
+			"from": "systems_13",
+			"to": "wilderness_a",
+			"state": "active",
+			"access": "public",
+			"color": "#f10303",
+			"waypoints": []
+		}
+	],
+	"pois": [
+		{
+			"id": "systems_2",
+			"name": "Астерион",
+			"x": 14.58,
+			"y": -3671.54,
+			"kind": "landmark",
+			"color": "#1b67a5",
+			"marker": {
+				"shape": "ring"
+			}
+		},
+		{
+			"id": "systems_6",
+			"name": "Семь Ветров",
+			"x": 4531.96,
+			"y": -697.36,
+			"kind": "landmark",
+			"color": "#1b67a5",
+			"marker": {
+				"shape": "ring"
+			}
+		},
+		{
+			"id": "systems_7",
+			"name": "Таласса",
+			"x": 4444.44,
+			"y": 2703.46,
+			"kind": "landmark",
+			"color": "#1b67a5",
+			"marker": {
+				"shape": "ring"
+			}
+		}
+	]
+}

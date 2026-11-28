@@ -24,6 +24,8 @@
 	return bounds
 
 /datum/map_template/proc/load(turf/T, centered = 0)
+	if(!T || width < 1 || height < 1)
+		return FALSE
 	var/turf/placement = T
 	var/min_x = placement.x
 	var/min_y = placement.y
@@ -33,9 +35,6 @@
 
 	var/max_x = min_x + width - 1
 	var/max_y = min_y + height - 1
-
-	if(!T)
-		return 0
 
 	var/turf/bot_left = locate(max(1, min_x), max(1, min_y), placement.z)
 	var/turf/top_right = locate(min(world.maxx, max_x), min(world.maxy, max_y), placement.z)
@@ -53,28 +52,28 @@
 	milla_freeze.invoke_async(T.z)
 	UNTIL(milla_freeze.done)
 	SSicon_smooth.add_halt_source(src)
+	var/list/bounds
+	var/exception/load_error
 	try
-		var/list/bounds = GLOB.maploader.load_map(get_file(), min_x, min_y, placement.z, shouldCropMap = TRUE)
-		if(!bounds)
-			return 0
-		if(bot_left == null || top_right == null)
-			stack_trace("One of the late setup corners is bust")
-		if(ST_bot_left == null || ST_top_right == null)
-			stack_trace("One of the smoothing corners is bust")
+		bounds = GLOB.maploader.load_map(get_file(), min_x, min_y, placement.z, shouldCropMap = TRUE)
 	catch(var/exception/e)
-		SSicon_smooth.remove_halt_source(src)
-		GLOB.space_manager.remove_dirt(placement.z)
-		var/datum/milla_safe_must_sleep/late_setup_level/milla = new()
-		milla.invoke_async(bot_left, top_right, block(ST_bot_left, ST_top_right))
-		message_admins("Map template [name] threw an error while loading. Safe exit attempted, but check for errors at [ADMIN_COORDJMP(placement)].")
-		log_admin("Map template [name] threw an error while loading. Safe exit attempted.")
-		throw e
+		load_error = e
 
 	SSicon_smooth.remove_halt_source(src)
 	GLOB.space_manager.remove_dirt(placement.z)
-	//SSlighting.setup_static_lighting_if_needed(block(bot_left, top_right))
 	var/datum/milla_safe_must_sleep/late_setup_level/milla = new()
-	milla.invoke_async(bot_left, top_right, block(ST_bot_left, ST_top_right))
+	milla.invoke_async(bot_left, top_right)
+	for(var/turf/tile as anything in block(ST_bot_left, ST_top_right))
+		QUEUE_SMOOTH(tile)
+		for(var/atom/movable/content as anything in tile)
+			QUEUE_SMOOTH(content)
+		CHECK_TICK
+	if(load_error)
+		message_admins("Map template [name] threw an error while loading. Safe exit attempted, but check for errors at [ADMIN_COORDJMP(placement)].")
+		log_admin("Map template [name] threw an error while loading. Safe exit attempted.")
+		throw load_error
+	if(!bounds)
+		return FALSE
 	add_game_logs("[name] loaded at [min_x],[min_y],[placement.z]")
 	return 1
 

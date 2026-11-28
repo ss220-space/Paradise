@@ -23,3 +23,5 @@
 
 /// Explosive wall groups
 #define EXPLOSIVE_WALL_GROUP_SYNDICATE_BASE "syndicate_base"
+
+#define EXPLOSION_SEVERITY(distance, devastation, heavy, light) ((distance) < (devastation) ? EXPLODE_DEVASTATE : ((distance) < (heavy) ? EXPLODE_HEAVY : ((distance) < (light) ? EXPLODE_LIGHT : EXPLODE_NONE)))

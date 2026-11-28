@@ -84,7 +84,11 @@
 
 /// Allows for reactions to an area change without inherently requiring change_area() be called (I hate maploading)
 /turf/proc/on_change_area(area/old_area, area/new_area)
+	if(old_area?.outdoors != new_area?.outdoors)
+		SEND_SIGNAL(src, COMSIG_TURF_EXPOSURE_CHANGED)
+		SEND_GLOBAL_SIGNAL(COMSIG_GLOB_TURF_EXPOSURE_CHANGED, src)
 	transfer_area_lighting(old_area, new_area)
+	SEND_SIGNAL(src, COMSIG_TURF_LIGHTING_CHANGED)
 
 ///Transfer the lighting of one area to another
 /turf/proc/transfer_area_lighting(area/old_area, area/new_area)
@@ -133,6 +137,8 @@
 		directional_opacity = ALL_CARDINALS
 		if(. != directional_opacity)
 			reconsider_lights()
+
+		SSfog_of_war?.mark_dirty(src)
 		return .
 	directional_opacity = NONE
 	if(opacity_sources)
@@ -147,6 +153,7 @@
 			SEND_SIGNAL(content, COMSIG_TURF_NO_LONGER_BLOCK_LIGHT)
 	if(. != directional_opacity && (. == ALL_CARDINALS || directional_opacity == ALL_CARDINALS))
 		reconsider_lights() //The lighting system only cares whether the tile is fully concealed from all directions or not.
+	SSfog_of_war?.mark_dirty(src)
 
 /turf/set_opacity(new_opacity)
 	. = ..()

@@ -272,6 +272,10 @@
 	. = ..()
 	RegisterSignal(src, COMSIG_ATOM_INITIALIZED_ON, PROC_REF(initialized_on))
 
+/turf/simulated/floor/indestructible/beach/water/Destroy()
+	UnregisterSignal(src, COMSIG_ATOM_INITIALIZED_ON)
+	return ..()
+
 /turf/simulated/floor/indestructible/beach/water/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 	if(!linkedcontroller || !ismob(arrived))

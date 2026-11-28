@@ -387,13 +387,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/carpet/green,
 /area/coldcolony/malta/civilian/mrchangs)
-"agg" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkredfull"
-	},
-/area/shuttle/pirate_corvette)
 "agn" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -501,6 +494,23 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/research/shallway)
+"aim" = (
+/obj/docking_port/stationary{
+	area_type = /area/ruin/unpowered/coldcolony_outside;
+	dheight = 8;
+	dir = 2;
+	height = 17;
+	id = "pirateship_planet";
+	name = "Planet";
+	pixel_x = 20;
+	turf_type = /turf/simulated/floor/plating/asteroid/snow/atmosphere;
+	width = 19
+	},
+/obj/effect/ship_spawner/pirateship_colony{
+	dock_id = ""
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/unpowered/coldcolony_outside)
 "aiv" = (
 /obj/structure/rack{
 	dir = 8;
@@ -679,27 +689,6 @@
 /obj/item/paper/ntrep,
 /turf/simulated/floor/carpet/royalblue,
 /area/coldcolony/malta/bridge/ntrep)
-"ana" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door_control{
-	id = "rightpirat_blast";
-	name = "Right BlastDoor";
-	pixel_x = 6;
-	pixel_y = 6;
-	req_access = list(160)
-	},
-/obj/machinery/door_control{
-	id = "leftpirat_blast";
-	name = "Left BlastDoor";
-	pixel_x = -6;
-	pixel_y = 6;
-	req_access = list(160)
-	},
-/obj/machinery/light_switch/directional/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
-/area/shuttle/pirate_corvette)
 "anm" = (
 /obj/machinery/vending/coffee,
 /obj/effect/turf_decal/delivery/partial{
@@ -725,12 +714,6 @@
 	icon_state = "grimy"
 	},
 /area/coldcolony/malta/resid_serv/library)
-"anw" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/pirate_corvette)
 "anG" = (
 /obj/structure/table/reinforced,
 /obj/machinery/kitchen_machine/microwave,
@@ -862,28 +845,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/security/checkpoint)
-"aoZ" = (
-/obj/structure/table/reinforced,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/machinery/turretid/lethal{
-	ailock = 1;
-	dir = 1;
-	faction = "pirate";
-	name = "Corvette turrets";
-	pixel_x = -32;
-	req_access = list(160);
-	syndicate = 1
-	},
-/obj/item/gps{
-	tracking = 0
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
-	},
-/area/shuttle/pirate_corvette)
 "apx" = (
 /obj/item/chair/wood/wings,
 /obj/effect/decal/cleanable/dirt,
@@ -1199,11 +1160,6 @@
 	icon_state = "darkblue"
 	},
 /area/coldcolony/malta/bridge/meeting_room)
-"avg" = (
-/obj/structure/shuttle/engine/heater,
-/obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating/cold,
-/area/shuttle/pirate_corvette)
 "avt" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave,
@@ -1415,13 +1371,6 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/carpet,
 /area/coldcolony/malta/medical/cmo)
-"azt" = (
-/obj/machinery/defibrillator_mount/loaded/directional/west,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "arrival"
-	},
-/area/shuttle/pirate_corvette)
 "azv" = (
 /turf/simulated/wall/r_wall/rust,
 /area/coldcolony/malta/engineering/control)
@@ -1515,13 +1464,6 @@
 	icon_state = "white"
 	},
 /area/coldcolony/malta/research/robotics)
-"aBT" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 10;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
-	},
-/area/shuttle/pirate_corvette)
 "aCa" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /obj/structure/flora/ausbushes/sunnybush,
@@ -1675,14 +1617,6 @@
 	icon_state = "neutral"
 	},
 /area/coldcolony/malta/hallway/service/north)
-"aFp" = (
-/obj/structure/table/tray,
-/obj/item/storage/backpack/duffel/syndie/surgery,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "arrival"
-	},
-/area/shuttle/pirate_corvette)
 "aFt" = (
 /obj/structure/table/wood{
 	color = "brown"
@@ -2005,20 +1939,6 @@
 	icon_state = "dark"
 	},
 /area/coldcolony/malta/security/hos)
-"aMf" = (
-/obj/machinery/porta_turret/syndicate/pod{
-	dir = 6;
-	faction = "pirate";
-	name = "machine gun turret (4.6x30mm)";
-	pixel_x = -2
-	},
-/turf/simulated/wall/shuttle/nosmooth{
-	density = 0;
-	dir = 6;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
-	},
-/area/shuttle/pirate_corvette)
 "aMk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -2030,11 +1950,6 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/chapel/main)
-"aMn" = (
-/obj/structure/table_frame,
-/obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating/cold,
-/area/shuttle/pirate_corvette)
 "aMv" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	id = "n2_in"
@@ -4489,11 +4404,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/surgery/east)
-"bJY" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/shuttle/pirate_corvette)
 "bKd" = (
 /obj/structure/chair/sofa{
 	dir = 1
@@ -4652,20 +4562,6 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/bridge)
-"bNw" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 9
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small{
-	active_power_usage = 0;
-	dir = 4;
-	icon_state = "bulb-broken";
-	status = 2
-	},
-/obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating/cold,
-/area/shuttle/pirate_corvette)
 "bNB" = (
 /obj/effect/landmark/start/brig_physician,
 /turf/simulated/floor/plasteel{
@@ -4779,13 +4675,6 @@
 /obj/structure/closet/cabinet,
 /turf/simulated/floor/wood/cherry/cold,
 /area/ruin/unpowered)
-"bPb" = (
-/obj/structure/sign/poster/contraband/wanted{
-	pixel_y = 32
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/shuttle/pirate_corvette)
 "bPe" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -5195,19 +5084,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/ore_production)
-"bWb" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/item/stack/sheet/metal,
-/obj/item/reagent_containers/food/pill/patch/styptic{
-	pixel_x = 2;
-	pixel_y = 8
-	},
-/obj/effect/mapping_helpers/turfs/burn,
-/obj/structure/inflatable{
-	layer = 3.1
-	},
-/turf/simulated/floor/plasteel,
-/area/shuttle/pirate_corvette)
 "bWt" = (
 /turf/simulated/wall/r_wall,
 /area/coldcolony/malta/security/lobby)
@@ -5609,29 +5485,6 @@
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/service/north)
-"cdM" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/machinery/recharger{
-	pixel_x = 7;
-	pixel_y = -1
-	},
-/obj/machinery/recharger{
-	pixel_x = -5;
-	pixel_y = -1
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/recharger{
-	pixel_x = -5;
-	pixel_y = 8
-	},
-/obj/machinery/recharger{
-	pixel_x = 7;
-	pixel_y = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/shuttle/pirate_corvette)
 "cdN" = (
 /obj/structure/railing{
 	dir = 5
@@ -6288,11 +6141,6 @@
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /turf/simulated/floor/plating,
 /area/coldcolony/ruin/syndie_outpost)
-"csN" = (
-/turf/simulated/wall/shuttle/onlyselfsmooth{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
-	},
-/area/shuttle/pirate_corvette)
 "cta" = (
 /turf/simulated/wall/r_wall/coated,
 /area/coldcolony/malta/maintenance/incinerator)
@@ -6546,14 +6394,6 @@
 /obj/effect/landmark/start/hangover,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/coldcolony/malta/resid_serv/library/game_zone)
-"cyt" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
-	},
-/obj/effect/turf_decal/box/red,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/shuttle/pirate_corvette)
 "cyL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/office/light{
@@ -7748,14 +7588,6 @@
 	icon_state = "darkredcorners"
 	},
 /area/coldcolony/malta/security/brig)
-"cXS" = (
-/obj/structure/cable,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/stack/cable_coil{
-	amount = 2
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/pirate_corvette)
 "cYb" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -8215,16 +8047,6 @@
 /obj/structure/cable/layer1,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/brig)
-"dfD" = (
-/obj/effect/turf_decal/caution{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/airless{
-	icon_regular_floor = "podfloor_light";
-	icon_state = "podfloor_light"
-	},
-/area/shuttle/pirate_corvette)
 "dfG" = (
 /obj/structure/closet/crate,
 /obj/item/stack/packageWrap,
@@ -9098,19 +8920,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/resid_serv/crew_quarters/theatre)
-"dxv" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/external{
-	aiControlDisabled = 1;
-	hackProof = 1;
-	req_access = list(160)
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "rightpirat_blast"
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plating,
-/area/shuttle/pirate_corvette)
 "dxL" = (
 /obj/effect/turf_decal/weather/snow/corner,
 /obj/effect/decal/rail_way{
@@ -10519,14 +10328,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/coldcolony/ruin/sm_chamber)
-"eek" = (
-/obj/structure/table,
-/obj/item/storage/box/teargas,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
-	},
-/area/shuttle/pirate_corvette)
 "een" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
@@ -10798,20 +10599,6 @@
 	icon_state = "darkred"
 	},
 /area/coldcolony/malta/security/warden)
-"eiT" = (
-/obj/structure/table,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/item/grenade/smokebomb{
-	pixel_x = 5
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
-	},
-/area/shuttle/pirate_corvette)
 "ejg" = (
 /obj/machinery/light_construct{
 	dir = 1
@@ -10953,22 +10740,6 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/ruin/sm_chamber)
-"enu" = (
-/obj/machinery/porta_turret/syndicate/pod{
-	dir = 1;
-	faction = "pirate";
-	icon_state = "syndieturret2";
-	icon_state_initial = "syndieturret2";
-	name = "machine gun turret (4.6x30mm)";
-	stat = 1
-	},
-/turf/simulated/wall/shuttle/nosmooth{
-	density = 0;
-	dir = 10;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
-	},
-/area/shuttle/pirate_corvette)
 "enJ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -11603,12 +11374,6 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/hallway/cargo_escape/port/central)
-"eCJ" = (
-/obj/machinery/atmospherics/unary/tank/air{
-	dir = 8
-	},
-/turf/simulated/floor/plating/cold,
-/area/shuttle/pirate_corvette)
 "eCV" = (
 /obj/machinery/portable_atmospherics/scrubber/huge/stationary,
 /obj/effect/turf_decal/delivery/red/hollow,
@@ -11877,11 +11642,6 @@
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/bridge)
-"eIU" = (
-/obj/effect/turf_decal/box,
-/obj/structure/dispenser/oxygen,
-/turf/simulated/floor/plating,
-/area/shuttle/pirate_corvette)
 "eJc" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering/glass{
@@ -13073,13 +12833,6 @@
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/cargo_escape/entrance)
-"fhP" = (
-/obj/structure/table,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkredcorners"
-	},
-/area/shuttle/pirate_corvette)
 "fhU" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/cable/orange,
@@ -13676,13 +13429,6 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/hallway/cargo_escape/port/west)
-"fwb" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/shuttle/pirate_corvette)
 "fwn" = (
 /obj/effect/turf_decal/weather/snow/corner,
 /obj/effect/turf_decal/weather/snow/corner{
@@ -13907,24 +13653,6 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/hallway/service/nw)
-"fAv" = (
-/obj/structure/table,
-/obj/structure/sign/poster/contraband/revolver{
-	pixel_y = 32
-	},
-/obj/item/ammo_box/magazine/m10mm{
-	pixel_x = 4;
-	pixel_y = 3
-	},
-/obj/item/gun/projectile/automatic/pistol/stechkin{
-	pixel_x = -2;
-	pixel_y = 6
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
-	},
-/area/shuttle/pirate_corvette)
 "fAG" = (
 /obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plasteel{
@@ -14723,14 +14451,6 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/hallway/cargo_escape/entrance)
-"fRn" = (
-/obj/machinery/door/airlock{
-	aiControlDisabled = 1;
-	hackProof = 1;
-	name = "Bathroom"
-	},
-/turf/simulated/floor/plasteel,
-/area/shuttle/pirate_corvette)
 "fRy" = (
 /obj/machinery/camera{
 	c_tag = "Canteen";
@@ -15842,22 +15562,6 @@
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/cargo_escape/entrance)
-"gqg" = (
-/obj/machinery/porta_turret/syndicate/pod{
-	dir = 1;
-	faction = "pirate";
-	icon_state = "syndieturret2";
-	icon_state_initial = "syndieturret2";
-	name = "machine gun turret (4.6x30mm)";
-	stat = 1
-	},
-/turf/simulated/wall/shuttle/nosmooth{
-	density = 0;
-	dir = 9;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
-	},
-/area/shuttle/pirate_corvette)
 "gqn" = (
 /obj/structure/cable,
 /obj/structure/disposalpipe/segment{
@@ -16169,16 +15873,6 @@
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/coldcolony/malta/resid_serv/library)
-"gvM" = (
-/obj/structure/cable,
-/obj/machinery/constructable_frame/machine_frame,
-/obj/item/stock_parts/capacitor,
-/obj/item/stock_parts/cell,
-/obj/item/stock_parts/cell,
-/obj/item/stock_parts/cell,
-/obj/effect/decal/cleanable/generic,
-/turf/simulated/floor/plating,
-/area/shuttle/pirate_corvette)
 "gvW" = (
 /obj/structure/table/wood,
 /obj/machinery/door_control{
@@ -17466,9 +17160,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/wood/fancy/light,
 /area/coldcolony/malta/bridge/captain/bedroom)
-"gSQ" = (
-/turf/simulated/floor/plasteel,
-/area/shuttle/pirate_corvette)
 "gTe" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel/cold{
@@ -17944,12 +17635,6 @@
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/engineering/atmos)
-"hcN" = (
-/mob/living/simple_animal/hostile/pirate{
-	loot = list(/obj/effect/mob_spawn/human/corpse/pirate)
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/pirate_corvette)
 "hcR" = (
 /turf/simulated/wall/rust,
 /area/coldcolony/malta/medical/cmostore)
@@ -18046,11 +17731,6 @@
 /obj/effect/turf_decal/siding/thinplating,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
-"heQ" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/shuttle/pirate_corvette)
 "heV" = (
 /obj/structure/closet/cabinet,
 /obj/item/reagent_containers/cup/glass/bottle/whiskey,
@@ -18508,13 +18188,6 @@
 	icon_state = "darkpurple"
 	},
 /area/coldcolony/malta/bridge/vip)
-"hor" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 6;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
-	},
-/area/shuttle/pirate_corvette)
 "hoB" = (
 /obj/structure/table,
 /obj/machinery/cell_charger{
@@ -18526,12 +18199,6 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/outer/roadblock)
-"hoD" = (
-/obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/shuttle/pirate_corvette)
 "hoF" = (
 /obj/structure/sign/securearea,
 /turf/simulated/wall/r_wall,
@@ -18543,15 +18210,6 @@
 	icon_state = "darkblue"
 	},
 /area/coldcolony/malta/bridge/vip)
-"hoZ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/shuttle/pirate_corvette)
 "hpi" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
@@ -18572,11 +18230,6 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/outer/roadblock)
-"hpp" = (
-/obj/structure/table,
-/obj/item/storage/toolbox/syndicate,
-/turf/simulated/floor/plating,
-/area/shuttle/pirate_corvette)
 "hpq" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5
@@ -18832,18 +18485,6 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/hallway/cargo_escape/port/east)
-"huq" = (
-/obj/structure/toilet/directional/east,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/structure/sign/poster/contraband/pinup_syn{
-	pixel_x = 32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/shuttle/pirate_corvette)
 "hus" = (
 /obj/structure/closet/bombclosetsecurity,
 /obj/effect/turf_decal/delivery/red,
@@ -18988,13 +18629,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/coldcolony/malta/medical/virology)
-"hxi" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/item/stack/sheet/metal,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/shuttle/pirate_corvette)
 "hxk" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -19115,11 +18749,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/miningeva)
-"hzQ" = (
-/obj/effect/turf_decal/box,
-/obj/machinery/portable_atmospherics/canister/oxygen,
-/turf/simulated/floor/plating,
-/area/shuttle/pirate_corvette)
 "hAq" = (
 /obj/structure/table/reinforced,
 /obj/item/kitchen/knife{
@@ -19475,15 +19104,6 @@
 	icon_state = "dark"
 	},
 /area/coldcolony/malta/bridge)
-"hHb" = (
-/obj/structure/sign/poster/contraband/red_rum{
-	pixel_y = -32
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "arrival"
-	},
-/area/shuttle/pirate_corvette)
 "hHI" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -19666,11 +19286,6 @@
 	icon_state = "dark"
 	},
 /area/coldcolony/malta/security/reception)
-"hLW" = (
-/obj/machinery/suit_storage_unit/pirate,
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plating,
-/area/shuttle/pirate_corvette)
 "hMa" = (
 /obj/machinery/computer/security,
 /turf/simulated/floor/plasteel{
@@ -19719,15 +19334,6 @@
 	icon_state = "purple"
 	},
 /area/coldcolony/ruin/sm_lab)
-"hMH" = (
-/obj/structure/chair/comfy/shuttle/dark{
-	dir = 4
-	},
-/obj/item/radio/intercom/syndicate/directional/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/shuttle/pirate_corvette)
 "hMS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable,
@@ -19817,13 +19423,6 @@
 /obj/machinery/atmospherics/unary/thermomachine/freezer,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/sleeper)
-"hPt" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/fancy/donut_box,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
-/area/shuttle/pirate_corvette)
 "hPu" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -20854,15 +20453,6 @@
 /obj/item/trash/popcorn,
 /turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
-"ilo" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/shuttle/engine/heater{
-	opacity = 1
-	},
-/turf/simulated/floor/shuttle/plating,
-/area/shuttle/pirate_corvette)
 "ilH" = (
 /obj/structure/bed/old,
 /turf/simulated/floor/wood/cherry/cold,
@@ -20895,11 +20485,6 @@
 	icon_state = "white"
 	},
 /area/coldcolony/malta/resid_serv/hydroponics)
-"imK" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/shuttle/pirate_corvette)
 "imV" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/med_data/laptop{
@@ -21555,16 +21140,6 @@
 	icon_state = "dark"
 	},
 /area/coldcolony/malta/security/brigstaff)
-"iBY" = (
-/obj/structure/rack,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/sign/poster/contraband/energy_swords{
-	pixel_x = -32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/shuttle/pirate_corvette)
 "iBZ" = (
 /obj/structure/table,
 /obj/item/radio/intercom/locked/prison/directional/east,
@@ -21881,12 +21456,6 @@
 	icon_state = "darkbluefull"
 	},
 /area/coldcolony/malta/turret_protected/ai)
-"iIv" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating/cold,
-/area/shuttle/pirate_corvette)
 "iIx" = (
 /obj/structure/table,
 /obj/item/storage/box/donkpockets,
@@ -23500,10 +23069,6 @@
 	icon_state = "darkblue"
 	},
 /area/coldcolony/malta/bridge/ntrep)
-"jqB" = (
-/obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating/cold,
-/area/shuttle/pirate_corvette)
 "jrh" = (
 /obj/structure/closet,
 /obj/effect/spawner/random_spawners/syndicate/loot{
@@ -23530,17 +23095,6 @@
 /obj/structure/cable,
 /turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
-"jrs" = (
-/obj/machinery/computer/shuttle{
-	possible_destinations = "pirateship_home;pirateship_custom;pirateship_planet";
-	req_access = list(160);
-	shuttleId = "pirateship";
-	use_power = 0
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
-/area/shuttle/pirate_corvette)
 "jrw" = (
 /obj/effect/decal/cleanable/generic,
 /turf/simulated/floor/plasteel,
@@ -23865,18 +23419,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/cargo)
-"jyK" = (
-/obj/machinery/computer/camera_advanced/shuttle_docker{
-	access_derelict = 1;
-	access_station = 0;
-	shuttleId = "pirateship";
-	shuttlePortId = "pirateship_custom";
-	view_range = 20
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
-/area/shuttle/pirate_corvette)
 "jyN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm/directional/south,
@@ -23989,13 +23531,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/quartermaster/storage)
-"jCf" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dust,
-/obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating/cold,
-/area/shuttle/pirate_corvette)
 "jCi" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -24579,18 +24114,6 @@
 	icon_state = "purple"
 	},
 /area/coldcolony/ruin/sm_lab)
-"jOk" = (
-/obj/machinery/door/airlock/hatch{
-	aiControlDisabled = 1;
-	hackProof = 1;
-	req_access = list(160)
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/shuttle/pirate_corvette)
 "jOo" = (
 /obj/effect/decal/snow/sand/edge{
 	dir = 4
@@ -25038,13 +24561,6 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/engineering/atmos)
-"jXl" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 5;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
-	},
-/area/shuttle/pirate_corvette)
 "jXy" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/burn,
@@ -25152,11 +24668,6 @@
 	icon_state = "cafeteria"
 	},
 /area/coldcolony/malta/resid_serv/kitchen)
-"jYO" = (
-/obj/machinery/light/small,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plating,
-/area/shuttle/pirate_corvette)
 "jZj" = (
 /obj/structure/sign/medbay/greencross,
 /turf/simulated/wall,
@@ -25372,6 +24883,9 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/engineering/atmos)
+"kdO" = (
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/unpowered/coldcolony_outside)
 "keb" = (
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/wood{
@@ -26725,12 +26239,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/sleeper)
-"kIy" = (
-/obj/structure/barricade/wooden{
-	opacity = 1
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/pirate_corvette)
 "kID" = (
 /obj/structure/cable,
 /obj/structure/disposalpipe/segment{
@@ -27416,19 +26924,6 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
-"kXq" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door_control{
-	id = "piratehutters";
-	name = "Shutters";
-	pixel_x = 6;
-	pixel_y = 6;
-	req_access = list(160)
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
-/area/shuttle/pirate_corvette)
 "kXs" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable,
@@ -27714,36 +27209,6 @@
 	icon_state = "dark"
 	},
 /area/coldcolony/malta/turret_protected/ai)
-"lfn" = (
-/obj/docking_port/mobile{
-	dheight = 8;
-	dir = 2;
-	height = 17;
-	id = "pirateship";
-	name = "Pirate Corvette";
-	rebuildable = 1;
-	width = 19
-	},
-/obj/docking_port/stationary{
-	area_type = /area/ruin/unpowered/coldcolony_outside;
-	dheight = 8;
-	dir = 2;
-	height = 17;
-	id = "pirateship_planet";
-	name = "Planet";
-	pixel_x = 20;
-	turf_type = /turf/simulated/floor/plating/asteroid/snow/atmosphere;
-	width = 19
-	},
-/obj/effect/turf_decal/caution{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/airless{
-	icon_regular_floor = "podfloor_light";
-	icon_state = "podfloor_light"
-	},
-/area/shuttle/pirate_corvette)
 "lfw" = (
 /obj/effect/turf_decal/arrows,
 /turf/simulated/floor/plasteel,
@@ -28380,12 +27845,6 @@
 /obj/effect/landmark/navigate_destination,
 /turf/simulated/floor/wood/fancy/birch,
 /area/coldcolony/malta/bridge/checkpoint)
-"lty" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkredfull"
-	},
-/area/shuttle/pirate_corvette)
 "ltJ" = (
 /obj/machinery/atmospherics/binary/valve/digital,
 /turf/simulated/floor/plasteel{
@@ -28516,14 +27975,6 @@
 /obj/item/stock_parts/manipulator,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/medical/virology)
-"lwg" = (
-/obj/structure/table,
-/obj/item/reagent_containers/hypospray/autoinjector/stimpack,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "arrival"
-	},
-/area/shuttle/pirate_corvette)
 "lwA" = (
 /obj/structure/chair/office/light,
 /obj/effect/landmark/start/research_director,
@@ -28675,20 +28126,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/cmostore)
-"lAF" = (
-/obj/effect/turf_decal/caution{
-	dir = 4
-	},
-/obj/machinery/light/small{
-	dir = 1;
-	pixel_x = 8
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/airless{
-	icon_regular_floor = "podfloor_light";
-	icon_state = "podfloor_light"
-	},
-/area/shuttle/pirate_corvette)
 "lAI" = (
 /obj/structure/chair/office/dark,
 /obj/machinery/computer/security/telescreen/entertainment{
@@ -29027,31 +28464,6 @@
 	icon_state = "darkblue"
 	},
 /area/coldcolony/malta/bridge/meeting_room)
-"lGG" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dust,
-/obj/machinery/light/small{
-	active_power_usage = 0;
-	dir = 4;
-	icon_state = "bulb-broken";
-	status = 2
-	},
-/obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating/cold,
-/area/shuttle/pirate_corvette)
-"lGI" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle/gray,
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
-	id_tag = "piratehutters";
-	name = "Blast Shutters"
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/pirate_corvette)
 "lGY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -29531,11 +28943,6 @@
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/engine,
 /area/coldcolony/malta/maintenance/incinerator)
-"lOH" = (
-/obj/item/stack/sheet/metal,
-/obj/effect/decal/cleanable/generic,
-/turf/simulated/floor/plating,
-/area/shuttle/pirate_corvette)
 "lOJ" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -29791,15 +29198,6 @@
 "lUX" = (
 /turf/simulated/wall/r_wall/rust,
 /area/coldcolony/malta/maintenance/bridge)
-"lVj" = (
-/obj/machinery/constructable_frame/machine_frame,
-/obj/item/stack/cable_coil{
-	amount = 2
-	},
-/obj/item/stock_parts/manipulator,
-/obj/structure/cable/layer1,
-/turf/simulated/floor/plating,
-/area/shuttle/pirate_corvette)
 "lVr" = (
 /obj/item/storage/toolbox/emergency,
 /obj/structure/table,
@@ -30083,14 +29481,6 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/cargo)
-"maS" = (
-/obj/structure/shuttle/engine/heater{
-	opacity = 1
-	},
-/obj/item/shard,
-/obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating/cold,
-/area/shuttle/pirate_corvette)
 "maT" = (
 /obj/structure/window/full/reinforced/ice,
 /obj/structure/grille,
@@ -30480,22 +29870,6 @@
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/research/server)
-"mjT" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/structure/closet/secure_closet/freezer{
-	icon_state = "fridge"
-	},
-/obj/item/reagent_containers/condiment/milk,
-/obj/item/reagent_containers/food/snacks/chocolatebar,
-/obj/item/reagent_containers/food/snacks/doshik,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
-	},
-/area/shuttle/pirate_corvette)
 "mjU" = (
 /obj/structure/table/reinforced,
 /obj/item/apc_electronics,
@@ -30672,12 +30046,6 @@
 	icon_state = "grimy"
 	},
 /area/coldcolony/malta/chapel/main)
-"moF" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel,
-/area/shuttle/pirate_corvette)
 "moT" = (
 /obj/structure/cable,
 /obj/structure/disposalpipe/segment{
@@ -30898,13 +30266,6 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/hallway/cargo_escape/north)
-"msF" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/shuttle/engine/heater,
-/turf/simulated/floor/shuttle/plating,
-/area/shuttle/pirate_corvette)
 "mtw" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/firealarm/directional/north,
@@ -30915,11 +30276,6 @@
 "mtC" = (
 /turf/simulated/wall/rust,
 /area/coldcolony/malta/maintenance/medbay)
-"mtM" = (
-/obj/effect/decal/cleanable/generic,
-/obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating/cold,
-/area/shuttle/pirate_corvette)
 "mtN" = (
 /obj/machinery/power/apc/directional/north,
 /obj/structure/cable,
@@ -30974,15 +30330,6 @@
 	icon_state = "showroomfloor"
 	},
 /area/coldcolony/ruin/abandoned_banya)
-"muV" = (
-/obj/structure/chair/comfy/shuttle/dark{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/shuttle/pirate_corvette)
 "muY" = (
 /obj/structure/table,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -31048,13 +30395,6 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/quartermaster/sorting)
-"mwA" = (
-/obj/machinery/computer/operating,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "arrival"
-	},
-/area/shuttle/pirate_corvette)
 "mwQ" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -31112,12 +30452,6 @@
 	icon_state = "tranquillite"
 	},
 /area/coldcolony/malta/resid_serv/mimeoffice)
-"mxH" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dust,
-/mob/living/simple_animal/hostile/bear/polar,
-/turf/simulated/floor/plating,
-/area/shuttle/pirate_corvette)
 "myf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -31323,10 +30657,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/office)
-"mBn" = (
-/obj/structure/shuttle/engine/propulsion,
-/turf/simulated/floor/shuttle/plating,
-/area/shuttle/pirate_corvette)
 "mBo" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -32040,12 +31370,6 @@
 	icon_state = "dark"
 	},
 /area/coldcolony/malta/bridge/tcomm)
-"mQP" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/extinguisher_cabinet/directional/west,
-/obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating/cold,
-/area/shuttle/pirate_corvette)
 "mQV" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/surgery{
@@ -32140,13 +31464,6 @@
 	icon_state = "caution"
 	},
 /area/coldcolony/malta/engineering/teg)
-"mSV" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/shuttle/pirate_corvette)
 "mTe" = (
 /obj/structure/table,
 /obj/item/storage/box/bodybags{
@@ -32445,13 +31762,6 @@
 /obj/item/storage/ashtray/glass,
 /turf/simulated/floor/wood/fancy/light,
 /area/coldcolony/malta/resid_serv/bar)
-"mYU" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plating,
-/area/shuttle/pirate_corvette)
 "mYX" = (
 /turf/simulated/wall/rust,
 /area/coldcolony/malta/bridge/checkpoint)
@@ -32652,13 +31962,6 @@
 	icon_state = "cafeteria"
 	},
 /area/coldcolony/malta/resid_serv/kitchen)
-"ncb" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel,
-/area/shuttle/pirate_corvette)
 "ncl" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -33465,12 +32768,6 @@
 "nvQ" = (
 /turf/simulated/wall/r_wall,
 /area/coldcolony/malta/engineering/atmos)
-"nwv" = (
-/obj/structure/table/reinforced,
-/obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high,
-/turf/simulated/floor/plasteel,
-/area/shuttle/pirate_corvette)
 "nwA" = (
 /obj/structure/table,
 /obj/item/clipboard,
@@ -33525,13 +32822,6 @@
 	icon_state = "darkred"
 	},
 /area/coldcolony/malta/security/permabrig)
-"nxt" = (
-/obj/item/storage/firstaid/fire/empty,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "arrival"
-	},
-/area/shuttle/pirate_corvette)
 "nxv" = (
 /obj/structure/table,
 /obj/item/assembly/igniter,
@@ -33818,17 +33108,6 @@
 /obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/research/xenobiology)
-"nBH" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/crate/secure/gear{
-	req_access = list(160)
-	},
-/obj/item/storage/box/syndie_kit/chameleon,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
-	},
-/area/shuttle/pirate_corvette)
 "nBL" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating/cold,
@@ -34148,13 +33427,6 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/hallway/cargo_escape/port/east)
-"nJs" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/shuttle/pirate_corvette)
 "nJB" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/item/radio/intercom/directional/west,
@@ -34369,14 +33641,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
-"nNC" = (
-/obj/structure/chair/comfy/shuttle/dark{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/shuttle/pirate_corvette)
 "nOe" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -35187,15 +34451,6 @@
 	icon_state = "green"
 	},
 /area/coldcolony/malta/medical/virology)
-"odI" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plasteel,
-/area/shuttle/pirate_corvette)
 "odR" = (
 /obj/structure/ore_box,
 /turf/simulated/floor/plasteel{
@@ -35354,16 +34609,6 @@
 /mob/living/simple_animal/cock/Commandor,
 /turf/simulated/floor/grass,
 /area/coldcolony/malta/resid_serv/hydroponics)
-"oik" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/pirate/ranged{
-	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged)
-	},
-/turf/simulated/floor/plasteel,
-/area/shuttle/pirate_corvette)
 "oiq" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -35645,22 +34890,6 @@
 	icon_state = "dark"
 	},
 /area/coldcolony/malta/security/securearmory)
-"opa" = (
-/obj/machinery/porta_turret/syndicate/pod{
-	dir = 1;
-	faction = "pirate";
-	icon_state = "syndieturret2";
-	icon_state_initial = "syndieturret2";
-	name = "machine gun turret (4.6x30mm)";
-	stat = 1
-	},
-/turf/simulated/wall/shuttle/nosmooth{
-	density = 0;
-	dir = 5;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
-	},
-/area/shuttle/pirate_corvette)
 "opf" = (
 /obj/effect/mob_spawn/human/corpse/russian,
 /turf/simulated/floor/plating/asteroid/snow,
@@ -36442,10 +35671,6 @@
 "oEB" = (
 /turf/simulated/wall/r_wall/rust,
 /area/coldcolony/malta/security/prison/cell_block/A)
-"oEM" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/shuttle/pirate_corvette)
 "oEW" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/disposalpipe/segment{
@@ -36966,30 +36191,6 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
-"oNW" = (
-/obj/structure/closet/secure_closet/medical2{
-	req_access = list(160)
-	},
-/obj/item/stack/nanopaste,
-/obj/item/storage/box/syringes{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/item/storage/firstaid/doctor,
-/obj/item/handheld_defibrillator,
-/obj/item/storage/box/bodybags,
-/obj/item/soap,
-/obj/item/storage/pill_bottle/patch_pack,
-/obj/item/storage/pill_bottle,
-/obj/item/storage/belt/medical,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "arrivalcorner"
-	},
-/area/shuttle/pirate_corvette)
 "oOK" = (
 /obj/structure/cable,
 /obj/structure/disposalpipe/segment,
@@ -37422,13 +36623,6 @@
 	icon_state = "darkred"
 	},
 /area/coldcolony/malta/security/processing)
-"oYo" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/shuttle/pirate_corvette)
 "oYW" = (
 /turf/simulated/wall/rust,
 /area/coldcolony/malta/medical/sleeper)
@@ -37584,12 +36778,6 @@
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/coldcolony/malta/bridge/meeting_room)
-"pbV" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/bear/polar,
-/turf/simulated/floor/plasteel,
-/area/shuttle/pirate_corvette)
 "pcm" = (
 /obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
@@ -37833,14 +37021,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/sleeper)
-"pho" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/item/stack/sheet/metal,
-/obj/effect/decal/cleanable/generic,
-/turf/simulated/floor/plating,
-/area/shuttle/pirate_corvette)
 "phv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -38625,11 +37805,6 @@
 	icon_state = "chapel"
 	},
 /area/coldcolony/malta/chapel/main)
-"pvn" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
-	},
-/area/shuttle/pirate_corvette)
 "pvQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -39251,19 +38426,6 @@
 /obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/research)
-"pJc" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/structure/table,
-/obj/item/restraints/handcuffs{
-	pixel_y = 3
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkred"
-	},
-/area/shuttle/pirate_corvette)
 "pJl" = (
 /obj/effect/turf_decal/delivery/partial{
 	dir = 4
@@ -39306,14 +38468,6 @@
 	icon_state = "dark"
 	},
 /area/coldcolony/malta/security/permahallway)
-"pJJ" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating/cold,
-/area/shuttle/pirate_corvette)
 "pJL" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -39514,17 +38668,6 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/engineering/engine)
-"pOW" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
-	dir = 6
-	},
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/pirate/ranged{
-	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged)
-	},
-/obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating/cold,
-/area/shuttle/pirate_corvette)
 "pPc" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/turf_decal/delivery/hollow,
@@ -39654,13 +38797,6 @@
 /obj/machinery/vending/medical,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/sleeper)
-"pSa" = (
-/obj/machinery/sleeper/upgraded,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "arrival"
-	},
-/area/shuttle/pirate_corvette)
 "pSc" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -39898,16 +39034,6 @@
 "pZm" = (
 /turf/simulated/wall/rust,
 /area/coldcolony/malta/maintenance/science)
-"pZB" = (
-/obj/structure/table/reinforced,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
-	},
-/area/shuttle/pirate_corvette)
 "pZD" = (
 /obj/effect/turf_decal/arrows,
 /turf/simulated/floor/plasteel,
@@ -40022,11 +39148,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/office)
-"qcT" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel,
-/area/shuttle/pirate_corvette)
 "qcV" = (
 /obj/machinery/papershredder,
 /obj/machinery/light,
@@ -40347,19 +39468,6 @@
 "qkL" = (
 /turf/simulated/wall/r_wall/rust,
 /area/coldcolony/malta/security/customs)
-"qkS" = (
-/obj/structure/table,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/flashlight/seclite{
-	pixel_x = 2;
-	pixel_y = 5
-	},
-/obj/item/flashlight/seclite{
-	pixel_x = 2;
-	pixel_y = 5
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/pirate_corvette)
 "qkY" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -40689,13 +39797,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/resid_serv/crew_quarters/theatre)
-"qrk" = (
-/obj/structure/sink/kitchen/directional/north,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/shuttle/pirate_corvette)
 "qrl" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
@@ -40840,16 +39941,6 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/outer/roadblock)
-"qsT" = (
-/obj/effect/turf_decal/caution{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/airless{
-	icon_regular_floor = "podfloor_light";
-	icon_state = "podfloor_light"
-	},
-/area/shuttle/pirate_corvette)
 "qts" = (
 /obj/machinery/seed_extractor,
 /turf/simulated/floor/plasteel{
@@ -40913,10 +40004,6 @@
 /obj/structure/rack,
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/research/storage)
-"quV" = (
-/obj/structure/extinguisher_cabinet/directional/east,
-/turf/simulated/floor/plating,
-/area/shuttle/pirate_corvette)
 "quW" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -41252,11 +40339,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/coldcolony/malta/resid_serv/library)
-"qBT" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating/cold,
-/area/shuttle/pirate_corvette)
 "qBY" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -41889,13 +40971,6 @@
 /obj/effect/turf_decal/delivery/blue/hollow,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/bridge)
-"qOH" = (
-/obj/structure/sign/poster/contraband/have_a_puff{
-	pixel_y = 32
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/shuttle/pirate_corvette)
 "qOS" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -43285,15 +42360,6 @@
 /obj/item/mounted/frame/newscaster_frame,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/research/hallway)
-"rqh" = (
-/obj/structure/chair/comfy/shuttle/dark{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/shuttle/pirate_corvette)
 "rqv" = (
 /obj/structure/extinguisher_cabinet/directional/west,
 /obj/structure/dresser,
@@ -43367,13 +42433,6 @@
 "rrr" = (
 /turf/simulated/wall/rust,
 /area/coldcolony/malta/medical/surgery/east)
-"rrw" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/pirate{
-	loot = list(/obj/effect/mob_spawn/human/corpse/pirate)
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/pirate_corvette)
 "rrO" = (
 /obj/structure/spawner/nether/bluespace_tap,
 /turf/simulated/floor/plating/asteroid,
@@ -43791,15 +42850,6 @@
 	name = "airlock"
 	},
 /area/coldcolony/malta/outer/roadblock)
-"rzL" = (
-/obj/machinery/computer/crew{
-	name = "Pirate hack monitoring computer"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
-	},
-/area/shuttle/pirate_corvette)
 "rzR" = (
 /obj/structure/curtain/open/shower,
 /obj/machinery/shower/directional/east,
@@ -44048,12 +43098,6 @@
 	icon_state = "darkbluefull"
 	},
 /area/coldcolony/malta/turret_protected/ai)
-"rFl" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/shuttle/pirate_corvette)
 "rFE" = (
 /obj/machinery/vending/cola{
 	obj_integrity = 95;
@@ -44425,17 +43469,6 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/engineering/storage)
-"rNu" = (
-/obj/machinery/power/terminal{
-	dir = 4
-	},
-/obj/structure/rack,
-/obj/item/stack/sheet/mineral/plasma{
-	amount = 35
-	},
-/obj/structure/cable/layer1,
-/turf/simulated/floor/plating,
-/area/shuttle/pirate_corvette)
 "rND" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable,
@@ -44544,21 +43577,6 @@
 	icon_state = "grimy"
 	},
 /area/coldcolony/malta/resid_serv/library)
-"rPF" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/food/pill/patch/silver_sulf{
-	pixel_x = -8;
-	pixel_y = 8
-	},
-/obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "arrivalcorner"
-	},
-/area/shuttle/pirate_corvette)
 "rPN" = (
 /obj/structure/sign/evac,
 /turf/simulated/wall,
@@ -44648,14 +43666,6 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/engineering/atmos)
-"rRL" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dust,
-/obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating/cold,
-/area/shuttle/pirate_corvette)
 "rSb" = (
 /turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
@@ -45340,28 +44350,10 @@
 	},
 /turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
-"siE" = (
-/obj/machinery/door/airlock/external{
-	aiControlDisabled = 1;
-	hackProof = 1;
-	req_access = list(160)
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/pirate_corvette)
 "siH" = (
 /obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/carpet/royalblue,
 /area/coldcolony/malta/bridge/ntrep)
-"siP" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/pirate/ranged{
-	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged)
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkred"
-	},
-/area/shuttle/pirate_corvette)
 "siS" = (
 /obj/effect/decal/cleanable/generic,
 /obj/effect/decal/cleanable/dirt,
@@ -45946,19 +44938,6 @@
 	icon_state = "dark"
 	},
 /area/coldcolony/malta/bridge/vip)
-"swG" = (
-/obj/effect/turf_decal/caution{
-	dir = 8
-	},
-/obj/machinery/light/small{
-	dir = 1;
-	pixel_x = -8
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_regular_floor = "podfloor_light";
-	icon_state = "podfloor_light"
-	},
-/area/shuttle/pirate_corvette)
 "swZ" = (
 /obj/structure/extinguisher_cabinet/directional/south,
 /obj/machinery/light,
@@ -47242,18 +46221,6 @@
 	icon_state = "bar"
 	},
 /area/coldcolony/malta/quartermaster/miningbar)
-"sVS" = (
-/obj/machinery/power/apc/noalarm/directional/south{
-	req_access = list(160)
-	},
-/obj/structure/cable,
-/obj/structure/rack,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/item/storage/belt/utility/full/multitool,
-/turf/simulated/floor/plating,
-/area/shuttle/pirate_corvette)
 "sWe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/contraband/random{
@@ -47457,12 +46424,6 @@
 	icon_state = "neutral"
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/locker)
-"sZT" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/pirate_corvette)
 "sZY" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dust,
@@ -47661,15 +46622,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/ore_production)
-"tdZ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/shuttle/pirate_corvette)
 "teb" = (
 /obj/structure/closet/secure_closet/brig{
 	id = "Cell 3";
@@ -48752,16 +47704,6 @@
 /obj/structure/cable,
 /turf/simulated/floor/carpet/green,
 /area/coldcolony/malta/civilian/mrchangs)
-"tzB" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/shuttle/pirate_corvette)
 "tzE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/holosign/barrier/engineering,
@@ -49553,10 +48495,6 @@
 	icon_state = "brown"
 	},
 /area/coldcolony/malta/quartermaster/ore_production)
-"tRn" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/shuttle/pirate_corvette)
 "tRp" = (
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plating,
@@ -49888,12 +48826,6 @@
 	icon_state = "darkblue"
 	},
 /area/coldcolony/malta/bridge)
-"tXH" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/shuttle/pirate_corvette)
 "tXL" = (
 /obj/structure/chair/comfy/beige,
 /obj/effect/landmark/start/mining_medic,
@@ -49912,11 +48844,6 @@
 	icon_state = "tranquillite"
 	},
 /area/coldcolony/malta/maintenance/kitchen)
-"tYh" = (
-/obj/item/shard,
-/obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating/cold,
-/area/shuttle/pirate_corvette)
 "tYs" = (
 /obj/machinery/door/airlock/bananium{
 	name = "Clown's Office";
@@ -51858,16 +50785,6 @@
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/engineering)
-"uLy" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/machinery/optable,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "arrival"
-	},
-/area/shuttle/pirate_corvette)
 "uMh" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
@@ -52542,13 +51459,6 @@
 	icon_state = "dark"
 	},
 /area/coldcolony/malta/security/reception)
-"uYC" = (
-/obj/machinery/bodyscanner,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "arrival"
-	},
-/area/shuttle/pirate_corvette)
 "uYL" = (
 /turf/simulated/wall/r_wall,
 /area/coldcolony/malta/bridge/vip)
@@ -52809,11 +51719,6 @@
 	icon_state = "showroomfloor"
 	},
 /area/coldcolony/malta/maintenance/kitchen)
-"vdI" = (
-/obj/machinery/suit_storage_unit/pirate,
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plating/cold,
-/area/shuttle/pirate_corvette)
 "vdL" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /turf/simulated/floor/plating,
@@ -53584,15 +52489,6 @@
 	icon_state = "white"
 	},
 /area/coldcolony/malta/medical/virology)
-"vta" = (
-/obj/structure/table,
-/obj/item/tank/jetpack/oxygen,
-/obj/item/tank/jetpack/oxygen{
-	pixel_x = -7;
-	pixel_y = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/shuttle/pirate_corvette)
 "vtr" = (
 /obj/structure/table,
 /obj/effect/turf_decal/delivery/hollow,
@@ -54789,12 +53685,6 @@
 	icon_state = "white"
 	},
 /area/coldcolony/malta/medical/virology)
-"vTB" = (
-/obj/machinery/light/small,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plating,
-/area/shuttle/pirate_corvette)
 "vTE" = (
 /obj/effect/landmark/spawner/tripai,
 /obj/machinery/light/small{
@@ -55597,15 +54487,6 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/resid_serv/hydroponics)
-"wlv" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/pirate/ranged{
-	health = 150;
-	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged);
-	maxHealth = 150
-	},
-/turf/simulated/floor/plasteel,
-/area/shuttle/pirate_corvette)
 "wlz" = (
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -55671,14 +54552,6 @@
 	icon_state = "bar"
 	},
 /area/coldcolony/malta/quartermaster/miningbar)
-"wnZ" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/structure/table,
-/obj/item/radio,
-/turf/simulated/floor/plasteel,
-/area/shuttle/pirate_corvette)
 "woe" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	desc = "Труба содержит дыхательную смесь для подачи на станцию";
@@ -55688,16 +54561,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/engineering/atmos)
-"wos" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "leftpirat_blast"
-	},
-/obj/effect/decal/cleanable/dust,
-/obj/item/stack/sheet/metal,
-/obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/plating,
-/area/shuttle/pirate_corvette)
 "woD" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 9
@@ -55881,21 +54744,6 @@
 	icon_state = "green"
 	},
 /area/coldcolony/malta/hallway/cargo_escape/exit)
-"wts" = (
-/obj/machinery/alarm/syndicate/pirate/directional/south,
-/obj/machinery/light/small{
-	active_power_usage = 0;
-	dir = 8;
-	icon_state = "bulb-broken";
-	status = 2
-	},
-/obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating/cold,
-/area/shuttle/pirate_corvette)
-"wtt" = (
-/obj/structure/shuttle/engine/propulsion,
-/turf/simulated/floor/plating/cold,
-/area/shuttle/pirate_corvette)
 "wtv" = (
 /obj/machinery/optable,
 /turf/simulated/floor/wood,
@@ -56249,31 +55097,6 @@
 /obj/structure/window/reinforced,
 /turf/simulated/floor/grass,
 /area/coldcolony/malta/hallway/service/central)
-"wCz" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/salglu,
-/obj/item/tank/internals/emergency_oxygen/engi,
-/obj/item/tank/internals/emergency_oxygen/engi,
-/obj/item/tank/internals/emergency_oxygen/nitrogen,
-/obj/item/tank/internals/emergency_oxygen/plasma,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "arrival"
-	},
-/area/shuttle/pirate_corvette)
 "wCH" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/turf_decal/delivery/hollow,
@@ -57138,13 +55961,6 @@
 	icon_state = "dark"
 	},
 /area/coldcolony/malta/security/securearmory)
-"wSI" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkredcorners"
-	},
-/area/shuttle/pirate_corvette)
 "wSJ" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave,
@@ -57368,14 +56184,6 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/hallway/service/south)
-"wWt" = (
-/obj/structure/table,
-/obj/item/grenade/plastic/x4/thermite,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkred"
-	},
-/area/shuttle/pirate_corvette)
 "wXb" = (
 /obj/structure/rack,
 /obj/item/analyzer,
@@ -57437,12 +56245,6 @@
 	icon_state = "darkblue"
 	},
 /area/coldcolony/malta/turret_protected/ai)
-"wXQ" = (
-/mob/living/simple_animal/hostile/bear/polar,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/shuttle/pirate_corvette)
 "wXS" = (
 /obj/machinery/door/airlock{
 	name = "Toilet"
@@ -57453,18 +56255,6 @@
 /obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/biostorage)
-"wYf" = (
-/obj/machinery/door/airlock/hatch{
-	aiControlDisabled = 1;
-	hackProof = 1;
-	name = "Bridge";
-	req_access = list(160)
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/shuttle/pirate_corvette)
 "wYh" = (
 /obj/effect/landmark/start/security_officer,
 /turf/simulated/floor/plasteel{
@@ -57694,12 +56484,6 @@
 /obj/effect/turf_decal/weather/snow/corner,
 /turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
-"xdQ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/table_frame,
-/obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating/cold,
-/area/shuttle/pirate_corvette)
 "xdR" = (
 /turf/simulated/wall/rust,
 /area/coldcolony/malta/resid_serv/crew_quarters/cabin2)
@@ -57827,11 +56611,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/resid_serv/crew_quarters/locker)
-"xgX" = (
-/turf/simulated/wall/shuttle{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
-	},
-/area/shuttle/pirate_corvette)
 "xhd" = (
 /turf/simulated/wall/rust,
 /area/coldcolony/malta/engineering/break_room)
@@ -59158,16 +57937,6 @@
 	icon_state = "neutral"
 	},
 /area/coldcolony/malta/resid_serv/kitchen)
-"xHl" = (
-/obj/machinery/computer/security{
-	name = "Pirate hack camera console";
-	network = list("SS13","Mining Outpost","PPrison")
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
-	},
-/area/shuttle/pirate_corvette)
 "xHt" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
@@ -59669,23 +58438,6 @@
 /obj/structure/cable/orange,
 /turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
-"xTw" = (
-/obj/structure/table,
-/obj/item/reagent_containers/syringe/antiviral,
-/obj/item/reagent_containers/syringe/charcoal,
-/obj/item/reagent_containers/cup/bottle/morphine,
-/obj/item/stack/medical/ointment/advanced{
-	pixel_x = 6;
-	pixel_y = 8
-	},
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "arrival"
-	},
-/area/shuttle/pirate_corvette)
 "xTK" = (
 /obj/structure/cable,
 /obj/structure/disposalpipe/segment{
@@ -60161,13 +58913,6 @@
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel/grimy,
 /area/coldcolony/malta/civilian/vacantoffice)
-"yer" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 9;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
-	},
-/area/shuttle/pirate_corvette)
 "yes" = (
 /obj/structure/table/wood,
 /obj/structure/sign/poster/official/vodka{
@@ -60247,14 +58992,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/engineering/engine)
-"yhy" = (
-/mob/living/simple_animal/hostile/pirate{
-	loot = list(/obj/effect/mob_spawn/human/corpse/pirate)
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/shuttle/pirate_corvette)
 "yhT" = (
 /obj/structure/disposalpipe/junction/reversed{
 	dir = 4
@@ -75047,13 +73784,13 @@ rSb
 rSb
 rSb
 rSb
-gqg
-pvn
-swG
-qsT
-qsT
-pvn
-enu
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
 rSb
 rSb
 rSb
@@ -75302,17 +74039,17 @@ rSb
 rSb
 hBQ
 rSb
-yer
-pvn
-pvn
-csN
-pvn
-wos
-pvn
-csN
-csN
-csN
-aBT
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
 rSb
 rSb
 rSb
@@ -75556,23 +74293,23 @@ rSb
 rSb
 hBQ
 rSb
-gqg
-xgX
-xgX
-pvn
-fAv
-eiT
-iBY
-csN
-jYO
-csN
-hLW
-hzQ
-eIU
-pvn
-xgX
-csN
-enu
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
 rSb
 rSb
 rSb
@@ -75813,23 +74550,23 @@ rSb
 rSb
 rSb
 rSb
-xgX
-fhP
-pJc
-nBH
-tXH
-wXQ
-yhy
-csN
-lOH
-csN
-qOH
-oEM
-hcN
-anw
-lVj
-ilo
-mBn
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
 rSb
 hBQ
 rSb
@@ -76070,23 +74807,23 @@ rSb
 rSb
 abG
 rSb
-xgX
-siP
-wSI
-tXH
-lty
-agg
-hoZ
-csN
-sZT
-tzB
-oYo
-hpp
-qkS
-mxH
-rNu
-msF
-mBn
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
 rSb
 rSb
 rSb
@@ -76327,23 +75064,23 @@ rSb
 rSb
 rSb
 xcr
-jXl
-xgX
-pvn
-wWt
-eek
-mjT
-tdZ
-hxi
-bJY
-bJY
-imK
-quV
-rrw
-cXS
-gvM
-pvn
-hor
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
 rSb
 rSb
 rSb
@@ -76586,20 +75323,20 @@ rSb
 rSb
 rSb
 rSb
-jXl
-pvn
-csN
-csN
-csN
-csN
-csN
-csN
-pho
-pvn
-pvn
-sVS
-pvn
-hor
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
 rSb
 rSb
 xOz
@@ -76844,18 +75581,18 @@ hBQ
 rSb
 rSb
 rSb
-lGI
-kXq
-aoZ
-xHl
-csN
-wnZ
-vta
-nJs
-csN
-mYU
-pvn
-pvn
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
 rSb
 rSb
 hBQ
@@ -77101,18 +75838,18 @@ abG
 rSb
 rSb
 hBQ
-lGI
-jrs
-rqh
-muV
-csN
-bPb
-tRn
-nJs
-csN
-kIy
-msF
-mBn
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
 rSb
 rSb
 rSb
@@ -77358,18 +76095,18 @@ rSb
 rSb
 rSb
 rSb
-lGI
-ana
-hoD
-fwb
-wYf
-moF
-cyt
-pbV
-fRn
-rFl
-msF
-mBn
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
 rSb
 rSb
 abG
@@ -77615,18 +76352,18 @@ rSb
 rSb
 abG
 rSb
-lGI
-jyK
-nNC
-hMH
-csN
-qcT
-mSV
-ncb
-csN
-qrk
-msF
-mBn
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
 hBQ
 rSb
 rSb
@@ -77872,18 +76609,18 @@ rSb
 rSb
 rSb
 rSb
-lGI
-hPt
-pZB
-rzL
-csN
-cdM
-nwv
-oik
-csN
-huq
-pvn
-pvn
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
 rSb
 rSb
 rSb
@@ -78128,20 +76865,20 @@ xcr
 rSb
 rSb
 rSb
-yer
-pvn
-csN
-csN
-csN
-csN
-csN
-csN
-jOk
-pvn
-pvn
-wts
-pvn
-aBT
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
 rSb
 rSb
 rSb
@@ -78383,23 +77120,23 @@ rSb
 rSb
 rSb
 rSb
-yer
-xgX
-pvn
-wCz
-lwg
-xTw
-rPF
-bWb
-iIv
-jCf
-qBT
-mQP
-qBT
-qBT
-jqB
-pvn
-aBT
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
 hBQ
 rSb
 rSb
@@ -78640,23 +77377,23 @@ xcr
 hBQ
 rSb
 rSb
-xgX
-aFp
-azt
-gSQ
-tRn
-heQ
-odI
-csN
-rRL
-lGG
-qBT
-aMn
-xdQ
-qBT
-tYh
-avg
-wtt
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
 rSb
 xcr
 vPw
@@ -78897,23 +77634,23 @@ rSb
 rSb
 rSb
 rSb
-xgX
-mwA
-uLy
-uYC
-gSQ
-wlv
-hHb
-csN
-siE
-csN
-jqB
-pOW
-pJJ
-bNw
-mtM
-maS
-wtt
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
 rSb
 rSb
 vPw
@@ -79154,23 +77891,23 @@ abG
 dkR
 rSb
 rSb
-opa
-xgX
-xgX
-pvn
-pSa
-oNW
-nxt
-csN
-vTB
-csN
-vdI
-eCJ
-eCJ
-pvn
-xgX
-csN
-aMf
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
 rSb
 rSb
 vPw
@@ -79414,17 +78151,17 @@ xOz
 rSb
 rSb
 rSb
-jXl
-csN
-csN
-csN
-pvn
-dxv
-pvn
-csN
-csN
-csN
-hor
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
+kdO
 rSb
 rSb
 rSb
@@ -79673,13 +78410,13 @@ rSb
 rSb
 rSb
 rSb
-opa
-pvn
-lAF
-lfn
-dfD
-pvn
-aMf
+kdO
+kdO
+kdO
+aim
+kdO
+kdO
+kdO
 rSb
 rSb
 rSb

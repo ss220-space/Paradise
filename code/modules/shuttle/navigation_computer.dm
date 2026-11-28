@@ -313,7 +313,11 @@
 	return ..()
 
 /mob/camera/aiEye/remote/shuttle_docker/setLoc(turf/destination, force_update = FALSE)
-	if(isspacearea(get_area(destination)) || is_area_shuttle(get_area(destination)) ||  istype(get_area(destination), /area/lavaland) || istype(get_area(destination), /area/ruin)	|| istype(get_area(destination), /area/planetoid))
+	var/obj/machinery/computer/camera_advanced/shuttle_docker/overmap/overmap_console = origin
+	if(istype(overmap_console))
+		destination = overmap_console.clamp_landing_turf(destination)
+	var/area/destination_area = get_area(destination)
+	if(isspacearea(destination_area) || is_area_shuttle(destination_area) || istype(destination_area, /area/lavaland) || istype(destination_area, /area/ruin) || istype(destination_area, /area/planetoid))
 		..()
 		var/obj/machinery/computer/camera_advanced/shuttle_docker/console = origin
 		console.checkLandingSpot()

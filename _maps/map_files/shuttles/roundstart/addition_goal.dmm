@@ -1,0 +1,188 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aJX" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/shuttle/addition_goals)
+"dhP" = (
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/shuttle/addition_goals)
+"jhz" = (
+/obj/machinery/ship_engine{
+	dir = 1;
+	icon_state = "propulsion_l"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/addition_goals)
+"lOV" = (
+/obj/machinery/transponder/directional/west,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/shuttle/addition_goals)
+"lZj" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	color = "black"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/addition_goals)
+"nvn" = (
+/obj/machinery/light/spot{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/shuttle/addition_goals)
+"ood" = (
+/obj/machinery/ship_engine{
+	dir = 1;
+	icon_state = "propulsion_r"
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/addition_goals)
+"qzo" = (
+/obj/machinery/door/airlock/external/docking{
+	req_access = list(48);
+	dock_name = "Восточный шлюз";
+	overmap_collar_id = "additional_east";
+	dir = 4
+	},
+/obj/docking_port/mobile{
+	alone_shuttle = 1;
+	dir = 4;
+	dwidth = 2;
+	height = 7;
+	id = "addition_goal";
+	name = "Addition Goals Shuttle";
+	port_direction = 8;
+	preferred_direction = 2;
+	roundstart_move = null;
+	width = 10;
+	timid = 1
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/addition_goals)
+"qDe" = (
+/obj/machinery/door/airlock/external/docking{
+	req_access = list(48);
+	dock_name = "Западный шлюз";
+	overmap_collar_id = "additional_west";
+	dir = 8
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/addition_goals)
+"sUo" = (
+/turf/template_noop,
+/area/template_noop)
+"ubM" = (
+/obj/machinery/ship_engine{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/shuttle/addition_goals)
+"vFD" = (
+/turf/simulated/wall/shuttle{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+	},
+/area/shuttle/addition_goals)
+"xbl" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark"
+	},
+/area/shuttle/addition_goals)
+
+(1,1,1) = {"
+vFD
+vFD
+vFD
+aJX
+aJX
+aJX
+aJX
+qDe
+vFD
+vFD
+"}
+(2,1,1) = {"
+ood
+lZj
+nvn
+lOV
+xbl
+xbl
+nvn
+xbl
+xbl
+vFD
+"}
+(3,1,1) = {"
+ubM
+lZj
+xbl
+xbl
+xbl
+xbl
+xbl
+xbl
+xbl
+aJX
+"}
+(4,1,1) = {"
+ubM
+lZj
+xbl
+xbl
+xbl
+xbl
+xbl
+xbl
+xbl
+aJX
+"}
+(5,1,1) = {"
+ubM
+lZj
+xbl
+xbl
+xbl
+xbl
+xbl
+xbl
+xbl
+aJX
+"}
+(6,1,1) = {"
+jhz
+lZj
+dhP
+xbl
+xbl
+xbl
+dhP
+xbl
+xbl
+vFD
+"}
+(7,1,1) = {"
+vFD
+vFD
+vFD
+aJX
+aJX
+aJX
+aJX
+qzo
+vFD
+vFD
+"}

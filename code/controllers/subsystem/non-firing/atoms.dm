@@ -24,7 +24,17 @@ SUBSYSTEM_DEF(atoms)
 	if(initialized == INITIALIZATION_INSSATOMS)
 		return
 
+	var/previous_initialization = initialized
 	SSicon_smooth.add_halt_source(src)
+	try
+		initialize_atoms(atoms, noisy)
+	catch(var/exception/error)
+		initialized = previous_initialization
+		SSicon_smooth.remove_halt_source(src)
+		throw error
+	SSicon_smooth.remove_halt_source(src)
+
+/datum/controller/subsystem/atoms/proc/initialize_atoms(list/atoms, noisy)
 	initialized = INITIALIZATION_INNEW_MAPLOAD
 
 	LAZYINITLIST(late_loaders)
@@ -60,24 +70,29 @@ SUBSYSTEM_DEF(atoms)
 	initialized = INITIALIZATION_INNEW_REGULAR
 
 	if(length(late_loaders))
+		var/list/batch = late_loaders
+		late_loaders = list()
 		watch = start_watch()
 		if(noisy)
 			log_startup_progress("Late-initializing atoms...")
 		else
 			log_debug("Late-initializing atoms...")
-		for(var/I in 1 to length(late_loaders))
-			var/atom/A = late_loaders[I]
-			if(QDELETED(A))	// hate this, but qdel check is a must
-				continue
-			A.LateInitialize()
-			CHECK_TICK
+		var/index = 0
+		try
+			while(index < length(batch))
+				var/atom/A = batch[++index]
+				if(QDELETED(A))
+					continue
+				A.LateInitialize()
+				CHECK_TICK
+		catch(var/exception/error)
+			batch.Cut(1, index + 1)
+			late_loaders = batch + late_loaders
+			throw error
 		if(noisy)
-			log_startup_progress("Late initialized [length(late_loaders)] atoms in [stop_watch(watch)]s")
+			log_startup_progress("Late initialized [length(batch)] atoms in [stop_watch(watch)]s")
 		else
-			log_debug("	Late initialized [length(late_loaders)] atoms in [stop_watch(watch)]s")
-		late_loaders.Cut()
-
-	SSicon_smooth.remove_halt_source(src)
+			log_debug("	Late initialized [length(batch)] atoms in [stop_watch(watch)]s")
 
 /datum/controller/subsystem/atoms/proc/InitAtom(atom/A, list/arguments)
 	var/the_type = A.type
