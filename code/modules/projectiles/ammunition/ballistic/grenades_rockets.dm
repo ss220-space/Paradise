@@ -14,6 +14,13 @@
 	icon_state = "84mm-hedp"
 	projectile_type = /obj/projectile/bullet/a84mm_hedp
 
+// MARK: 93mm thermobaric
+/obj/item/ammo_casing/caseless/rocket/shmel
+	ammo_marking = "93 мм ТБ"
+	desc = "Термобарическая ракета объёмного взрыва. Предназначена для поражения пехоты в укрытиях и создания очагов возгорания."
+	caliber = CALIBER_93MM
+	projectile_type = /obj/projectile/bullet/a93mm_thermobaric
+
 // MARK: 70mm HE
 /obj/item/ammo_casing/caseless/rocket/a70mm_he
 	ammo_marking = "70 мм HE"
