@@ -154,11 +154,10 @@
 	desc = "Руководство для использования модульными экзокостюмами."
 	skill_type = /datum/skill/general/mod_use
 
-
-/obj/item/book/skill_manual/general/cooking
-	manual_title = "Кулинария"
-	desc = "Руководство по кулинарии."
-	skill_type = /datum/skill/general/cooking
+/obj/item/book/skill_manual/general/mining
+	manual_title = "Горное дело"
+	desc = "Руководство по эффективной добыче полезных ископаемых."
+	skill_type = /datum/skill/general/mining
 
 // MARK: Service
 /obj/item/book/skill_manual/service
@@ -187,10 +186,10 @@
 	desc = "Руководство по эффективной уборке помещений."
 	skill_type = /datum/skill/service/cleaning
 
-/obj/item/book/skill_manual/service/mining
-	manual_title = "Горное дело"
-	desc = "Руководство по эффективной добыче полезных ископаемых."
-	skill_type = /datum/skill/service/mining
+/obj/item/book/skill_manual/service/cooking
+	manual_title = "Кулинария"
+	desc = "Руководство по кулинарии."
+	skill_type = /datum/skill/service/cooking
 
 // MARK: Combat
 /obj/item/book/skill_manual/combat

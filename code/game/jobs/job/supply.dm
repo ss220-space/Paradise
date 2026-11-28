@@ -29,9 +29,9 @@
 		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/fists = SKILL_LEVEL_BEGINNER,
-		/datum/skill/service/mining = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/mining = SKILL_LEVEL_ADVANCED,
 	)
-	discount_skill_category = list(/datum/skill/general, /datum/skill/service/mining)
+	discount_skill_category = list(/datum/skill/general)
 
 /datum/outfit/job/qm
 	name = JOB_TITLE_RU_QUARTERMASTER
@@ -81,7 +81,7 @@
 		/datum/skill/general/mech_drive = SKILL_LEVEL_BASIC,
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/fists = SKILL_LEVEL_BEGINNER,
 	)
 
@@ -110,14 +110,14 @@
 		/datum/skill/general/mech_drive = SKILL_LEVEL_BASIC,
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/accuracy = SKILL_LEVEL_BASIC,
 		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
 		/datum/skill/combat/fists = SKILL_LEVEL_BEGINNER,
-		/datum/skill/service/mining = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/mining = SKILL_LEVEL_ADVANCED,
 	)
-	discount_skill_category = list(/datum/skill/combat, /datum/skill/service/mining, /datum/skill/general/carrying)
+	discount_skill_category = list(/datum/skill/combat, /datum/skill/general/mining, /datum/skill/general/carrying)
 
 /datum/outfit/job/mining
 	name = JOB_TITLE_RU_MINER
@@ -186,7 +186,7 @@
 		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
-		/datum/skill/general/cooking = SKILL_LEVEL_BEGINNER,
+		/datum/skill/service/cooking = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/surgery = SKILL_LEVEL_BASIC,
 		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
 		/datum/skill/medical/chemistry = SKILL_LEVEL_BEGINNER,
