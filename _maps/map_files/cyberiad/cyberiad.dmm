@@ -47254,6 +47254,9 @@
 "kPe" = (
 /obj/structure/table,
 /obj/item/folder/white,
+/obj/item/integrated_circuit/loaded/rnd_automation,
+/obj/item/usb_cable,
+/obj/item/shell/bot,
 /obj/item/disk/tech_disk,
 /obj/item/disk/tech_disk,
 /obj/item/disk/design_disk,

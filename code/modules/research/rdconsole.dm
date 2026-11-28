@@ -437,9 +437,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				if(new_level)
 					tech_log += "[T] [new_level], "
 					actually_increased = TRUE
+					files.RefreshResearch()
+
 			if(tech_log && user)
 				investigate_log("[user] increased tech deconstructing [linked_destroy.loaded_item]: [tech_log]. ", INVESTIGATE_RESEARCH)
 
+			linked_destroy.loaded_item = null
 			for(var/obj/contained_object in linked_destroy.contents)
 				for(var/mob/contained_mob in contained_object.contents)
 					contained_mob.death()
@@ -453,12 +456,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				else if(!(contained_object in linked_destroy.component_parts))
 					qdel(contained_object)
 
-			linked_destroy.loaded_item = null
 			linked_destroy.busy = FALSE
 			linked_destroy.update_icon(UPDATE_ICON_STATE)
 			use_power(DECONSTRUCT_POWER)
-			menu = MENU_MAIN
-			submenu = SUBMENU_MAIN
+			if(user)
+				menu = MENU_MAIN
+				submenu = SUBMENU_MAIN
 			SStgui.update_uis(src)
 
 	return actually_increased
@@ -993,55 +996,64 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			return TRUE
 
 	return FALSE
+/obj/machinery/computer/rdconsole/proc/is_usb_printable_design(datum/design/design_data)
+	if(!design_data || !design_data.id)
+		return FALSE
+	return (design_data.build_type & (PROTOLATHE | IMPRINTER)) || ispath(design_data.build_path, /obj/item/gun) || ispath(design_data.build_path, /obj/item/ammo_casing)
 
 /obj/machinery/computer/rdconsole/proc/usb_find_design(design_id)
 	if(!files || !design_id)
 		return null
 
-	var/search_id = lowertext(design_id)
-
+	var/search_query = lowertext(trim("[design_id]"))
 	var/datum/design/design_data
 	for(var/searched_design_id in files.known_designs)
 		design_data = files.known_designs[searched_design_id]
-		if(design_data && lowertext(design_data.id) == search_id && (design_data.build_type & (PROTOLATHE | IMPRINTER)))
+		if(!is_usb_printable_design(design_data))
+			continue
+		if(lowertext(design_data.id) == search_query || lowertext(design_data.build_object_name) == search_query)
 			return design_data
 
 	return null
 
 /obj/machinery/computer/rdconsole/proc/usb_get_all_designs()
 	if(!files)
-		return list()
+		return list("ids" = list(), "named" = list())
 
 	var/list/all_ids = list()
+	var/list/named_designs = list()
 	var/datum/design/design_info
 	for(var/cached_design_id in files.known_designs)
 		design_info = files.known_designs[cached_design_id]
-		if(!design_info || !design_info.id)
+		if(!is_usb_printable_design(design_info))
 			continue
-		if((design_info.build_type & (PROTOLATHE | IMPRINTER)) || ispath(design_info.build_path, /obj/item/gun) || ispath(design_info.build_path, /obj/item/ammo_casing))
-			all_ids += design_info.id
-	return all_ids
+		all_ids += design_info.id
+		named_designs += (design_info.build_object_name || design_info.name || design_info.id)
 
+	return list("ids" = all_ids, "named" = named_designs)
 
 /obj/machinery/computer/rdconsole/proc/usb_recycle_item(obj/item/recycled_item)
-	if(!linked_destroy || linked_destroy.busy)
-		return null
+	if(QDELETED(linked_destroy) || linked_destroy.busy)
+		return FALSE
 
 	var/obj/item/item_to_recycle = recycled_item
-	if(item_to_recycle)
+	if(isitem(item_to_recycle))
 		item_to_recycle.forceMove(linked_destroy)
 		linked_destroy.loaded_item = item_to_recycle
 	else
 		item_to_recycle = linked_destroy.loaded_item
 
-	if(!item_to_recycle || QDELETED(item_to_recycle))
-		return null
+	if(QDELETED(item_to_recycle))
+		return FALSE
 
 	var/list/temp_tech = linked_destroy.ConvertReqString2List(item_to_recycle.origin_tech)
+	if(!length(temp_tech))
+		return FALSE
 
-
+	linked_destroy.busy = TRUE
+	flick("[linked_destroy.base_icon_state]_insert", linked_destroy)
 	var/tech_upgraded = finish_destroyer(temp_tech, user = null)
-
+	addtimer(CALLBACK(linked_destroy, TYPE_PROC_REF(/obj/machinery/r_n_d/destructive_analyzer, reset_processing)), 1 SECONDS)
 	return tech_upgraded
 
 /obj/machinery/computer/rdconsole/ui_data(mob/user)
