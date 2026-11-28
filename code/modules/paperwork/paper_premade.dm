@@ -73,7 +73,7 @@
 
 /obj/item/paper/holodeck_diclaimer
 	desc = ""
-	info = "Brusies sustained in the holodeck can be healed simply by sleeping."
+	default_raw_text = "Brusies sustained in the holodeck can be healed simply by sleeping."
 	name = "Holodeck Disclaimer"
 
 /obj/item/paper/crumpled/evil_santa
