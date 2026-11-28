@@ -83,7 +83,8 @@
 		reagents.add_reagent_list(list_reagents)
 
 /obj/item/reagent_containers/attack_self(mob/user)
-	attack(user, user, null, user.zone_selected)
+	if(do_after(user, 1 SECONDS, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_SPACE_DRIFT|DA_IGNORE_SLOWDOWNS), max_interact_count = 1, cancel_on_max = TRUE))
+		attack(user, user, null, user.zone_selected)
 
 /obj/item/reagent_containers/attack_self_secondary(mob/user)
 	if(has_variable_transfer_amount)

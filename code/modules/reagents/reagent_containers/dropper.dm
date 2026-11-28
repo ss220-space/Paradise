@@ -25,6 +25,10 @@
 		PREPOSITIONAL = "пипетке",
 	)
 
+/obj/item/reagent_containers/dropper/attack_self(mob/user)
+	if(has_variable_transfer_amount)
+		change_transfer_amount(user, FORWARD)
+
 /obj/item/reagent_containers/dropper/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
 

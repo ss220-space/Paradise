@@ -165,7 +165,8 @@
 	return ITEM_INTERACT_SUCCESS
 
 /obj/item/reagent_containers/cup/attack_self(mob/user)
-	interact_with_atom(user, user, null)
+	if(do_after(user, 1 SECONDS, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_SPACE_DRIFT|DA_IGNORE_SLOWDOWNS), max_interact_count = 1, cancel_on_max = TRUE))
+		interact_with_atom(user, user, null)
 
 /obj/item/reagent_containers/cup/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	. = ..()
