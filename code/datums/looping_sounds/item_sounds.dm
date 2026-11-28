@@ -31,3 +31,8 @@
 	ignore_walls = FALSE
 	reserve_random_channel = TRUE
 	use_sound_tokens = TRUE
+
+/datum/looping_sound/nyangun
+	mid_sounds = list('sound/music/nyancat.ogg' = 1)
+	mid_length = 217 SECONDS
+	use_sound_tokens = TRUE

@@ -105,3 +105,28 @@
 
 /obj/mecha/combat/gygax/dark/add_cell()
 	cell = new /obj/item/stock_parts/cell/bluespace(src)
+
+/obj/mecha/combat/gygax/box
+	name = "Box mech"
+	desc = "Мех, созданный из... коробок? Выглядит довольно странно и ОЧЕНЬ хрупко. Похоже, в нем любят сидеть кошки. "
+	icon = 'icons/obj/mecha/catmecha.dmi'
+	icon_state = "boxmecha"
+	initial_icon = "boxmecha"
+	wreckage = /obj/structure/mecha_wreckage/gygax/box
+	max_integrity = 1
+
+/obj/mecha/combat/gygax/box/get_ru_names()
+	return alist(
+		NOMINATIVE = "коробочный мех",
+		GENITIVE = "коробочного меха",
+		DATIVE = "коробочному меху",
+		ACCUSATIVE = "коробочный мех",
+		INSTRUMENTAL = "коробочным мехом",
+		PREPOSITIONAL = "коробочном мехе",
+	)
+
+/obj/mecha/combat/gygax/box/obj_destruction(damage_flag)
+	var/turf/mech_turf = get_turf(src)
+	. = ..()
+
+	explosion(mech_turf, 0, 0, 4, 5)

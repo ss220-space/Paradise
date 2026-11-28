@@ -196,6 +196,16 @@
 
 /datum/component/riding/vehicle/car/handle_specials()
 	. = ..()
+
+	if(istype(parent, /obj/vehicle/ridden/car/cat))
+		set_riding_offsets(RIDING_OFFSET_ALL, list(
+			TEXT_NORTH = list(0, 10),
+			TEXT_SOUTH = list(0, 10),
+			TEXT_EAST = list(0, 10),
+			TEXT_WEST = list(0, 10),
+		))
+		return
+
 	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(2, 20), TEXT_SOUTH = list(20, 23), TEXT_EAST = list(20, 27), TEXT_WEST = list(34, 10)))
 
 /datum/component/riding/vehicle/wheelchair
