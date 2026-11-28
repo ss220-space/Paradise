@@ -202,7 +202,7 @@
 			set_currently_z_moving(FALSE, TRUE)
 			return FALSE
 
-	if(z_move_flags & ZMOVE_WITH_DELAY && !do_after(src, ZMOVE_DELAY_DURATION, interaction_key = src, max_interact_count = 1, cancel_on_max = TRUE))
+	if(z_move_flags & ZMOVE_WITH_DELAY && stat == CONSCIOUS && !do_after(src, ZMOVE_DELAY_DURATION, interaction_key = src, max_interact_count = 1, cancel_on_max = TRUE))
 		set_currently_z_moving(FALSE, TRUE)
 		return FALSE
 
