@@ -317,6 +317,7 @@
 	modules += new /obj/item/reagent_containers/dropper(src)
 	modules += new /obj/item/reagent_containers/syringe(src)
 	modules += new /obj/item/crowbar/cyborg(src)
+	modules += new /obj/item/screwdriver/cyborg(src)
 	modules += new /obj/item/FixOVein(src)
 	modules += new /obj/item/surgicaldrill(src)
 	modules += new /obj/item/stack/medical/bruise_pack/advanced(src)
