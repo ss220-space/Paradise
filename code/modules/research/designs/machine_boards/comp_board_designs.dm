@@ -186,6 +186,14 @@
 	build_path = /obj/item/circuitboard/rdconsole
 	category = list(CIRCUIT_IMPRINTER_CATEGORY_COMPUTER)
 
+/datum/design/reverse_engineering
+	id = "reverse_engineering"
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 4)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/reverse_engineering
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_COMPUTER)
+
 /datum/design/rdservercontrol
 	id = "rdservercontrol"
 	req_tech = list(RESEARCH_TREE_PROGRAMMING = 3)

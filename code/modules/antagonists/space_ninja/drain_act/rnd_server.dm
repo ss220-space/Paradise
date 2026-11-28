@@ -50,6 +50,7 @@
 			for(var/j in rnd_server.files.known_designs)
 				current_design = rnd_server.files.known_designs[j]
 				rnd_server.files.known_designs -= current_design.id
+			rnd_server.files.protolathe_unlocked.Cut()
 			investigate_log("[key_name_log(ninja)] deleted all technology on this server.", INVESTIGATE_RESEARCH)
 
 		//Удаление данных у консолей
@@ -62,6 +63,7 @@
 			for(var/j in rnd_console.files.known_designs)
 				current_design = rnd_console.files.known_designs[j]
 				rnd_console.files.known_designs -= current_design.id
+			rnd_console.files.protolathe_unlocked.Cut()
 			investigate_log("[key_name_log(ninja)] deleted all technology on this console.", INVESTIGATE_RESEARCH)
 		//Фабрикаторы
 		for(var/obj/machinery/mecha_part_fabricator/rnd_mechfab in SSmachines.get_by_type(/obj/machinery/mecha_part_fabricator))
@@ -73,6 +75,7 @@
 			for(var/j in rnd_mechfab.local_designs.known_designs)
 				current_design = rnd_mechfab.local_designs.known_designs[j]
 				rnd_mechfab.local_designs.known_designs -= current_design.id
+			rnd_mechfab.local_designs.protolathe_unlocked.Cut()
 			investigate_log("[key_name_log(ninja)] deleted all technology on this fabricator.", INVESTIGATE_RESEARCH)
 		to_chat(ninja, span_notice("Установка успешна! Все исследования станции были стёрты."))
 		objective.completed = TRUE

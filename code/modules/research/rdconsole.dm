@@ -65,16 +65,18 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	/// Stores all the collected research data.
 	var/datum/research/files
 	/// Stores the technology disk.
-	var/obj/item/disk/tech_disk/t_disk = null
+	var/obj/item/disk/tech_disk/t_disk
 	/// Stores the design disk.
-	var/obj/item/disk/design_disk/d_disk = null
+	var/obj/item/disk/design_disk/d_disk
 
 	/// Linked Destructive Analyzer
-	var/obj/machinery/r_n_d/destructive_analyzer/linked_destroy = null
+	var/obj/machinery/r_n_d/destructive_analyzer/linked_destroy
 	/// Linked Protolathe
-	var/obj/machinery/r_n_d/protolathe/linked_lathe = null
+	var/obj/machinery/r_n_d/protolathe/linked_lathe
 	/// Linked Circuit Imprinter
-	var/obj/machinery/r_n_d/circuit_imprinter/linked_imprinter = null
+	var/obj/machinery/r_n_d/circuit_imprinter/linked_imprinter
+	/// Linked RE console
+	var/obj/machinery/computer/reverse_engineering/linked_reverse_engineering
 
 	/// Which screen is currently showing.
 	var/screen = 1
@@ -189,6 +191,14 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				linked_imprinter = D
 				D.linked_console = src
 				linked_imprinter.update_components_list()
+	if(linked_reverse_engineering != null)
+		return
+	for(var/obj/machinery/computer/reverse_engineering/reverse in range(range, src))
+		if(!isnull(reverse.linked_console) || reverse.panel_open)
+			continue
+		linked_reverse_engineering = reverse
+		reverse.linked_console = src
+		break
 
 /// Have it automatically push research to the centcom server so wild griffins can't fuck up R&D's work --NEO
 /obj/machinery/computer/rdconsole/proc/griefProtection()
@@ -203,6 +213,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if(KT.level < KT.max_level)
 			KT.level=KT.max_level
 	files.RefreshResearch()
+	for(var/design_id in files.known_designs)
+		var/datum/design/D = files.known_designs[design_id]
+		files.unlock_protolathe_design(D)
 
 /obj/machinery/computer/rdconsole/Initialize(mapload)
 	. = ..()
@@ -238,6 +251,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(linked_imprinter)
 		linked_imprinter.linked_console = null
 		linked_imprinter = null
+	if(linked_reverse_engineering)
+		linked_reverse_engineering.linked_console = null
+		linked_reverse_engineering = null
 
 	if(wait_message_timer)
 		deltimer(wait_message_timer)
@@ -322,6 +338,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	clear_wait_message()
 	if(d_disk?.blueprint)
 		files.AddDesign2Known(d_disk.blueprint)
+		files.unlock_protolathe_design(d_disk.blueprint)
 	else if(t_disk?.stored)
 		var/datum/tech/tech_copy = t_disk.stored.copyTech()
 		files.AddTech2Known(tech_copy)
@@ -433,6 +450,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		else if(success)
 			var/tech_log
 			for(var/T in temp_tech)
+				if(!(linked_destroy.loaded_item.type in files.banned_from_points_get) && linked_reverse_engineering)
+					linked_reverse_engineering.add_points(temp_tech)
+					files.banned_from_points_get.Add(linked_destroy.loaded_item.type)
 				var/new_level = files.UpdateTech(T, temp_tech[T])
 				if(new_level)
 					tech_log += "[T] [new_level], "
@@ -506,6 +526,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	if(!(being_built.build_type & (is_lathe ? PROTOLATHE : IMPRINTER)))
 		message_admins("[machine] exploit attempted by [key_name_log(user)]!")
+		return FALSE
+
+	if(is_lathe && !files.can_protolathe_use(being_built))
+		to_chat(user, span_danger("Шаблон \"[being_built.build_object_name]\" не изучен. Его необходимо получить на консоли обратной инженерии."))
 		return FALSE
 
 	if(length(being_built.make_reagents))
@@ -694,6 +718,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				var/datum/design/D = files.known_designs[v]
 				if(!(D.build_type & compare))
 					continue
+				if(compare == PROTOLATHE && !files.can_protolathe_use(D))
+					continue
 				if(next_category in D.category)
 					matching_designs.Add(D)
 			submenu = SUBMENU_LATHE_CATEGORY
@@ -852,6 +878,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					if(linked_imprinter)
 						linked_imprinter.linked_console = null
 						linked_imprinter = null
+				if("reverse_engineering")
+					if(linked_reverse_engineering)
+						linked_reverse_engineering.linked_console = null
+						linked_reverse_engineering = null
 
 		if("reset") //Reset the R&D console's database.
 			griefProtection()
@@ -876,6 +906,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			for(var/v in files.known_designs)
 				var/datum/design/D = files.known_designs[v]
 				if(!(D.build_type & compare))
+					continue
+				if(compare == PROTOLATHE && !files.can_protolathe_use(D))
 					continue
 				var/obj/item/created_object = D.build_path
 				if(findtext(D.build_object_name, query) || findtext(created_object.name, query))
@@ -983,7 +1015,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/proc/can_copy_design(datum/design/D)
 	if(D)
-		if(D.build_type & PROTOLATHE)
+		if((D.build_type & PROTOLATHE) && files.can_protolathe_use(D))
 			return TRUE
 
 		if(D.build_type & AUTOLATHE)
@@ -1004,6 +1036,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	for(var/searched_design_id in files.known_designs)
 		design_data = files.known_designs[searched_design_id]
 		if(design_data && lowertext(design_data.id) == search_id && (design_data.build_type & (PROTOLATHE | IMPRINTER)))
+			if((design_data.build_type & PROTOLATHE) && !(design_data.build_type & IMPRINTER) && !files.can_protolathe_use(design_data))
+				continue
 			return design_data
 
 	return null
@@ -1017,6 +1051,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	for(var/cached_design_id in files.known_designs)
 		design_info = files.known_designs[cached_design_id]
 		if(!design_info || !design_info.id)
+			continue
+		if((design_info.build_type & PROTOLATHE) && !(design_info.build_type & IMPRINTER) && !files.can_protolathe_use(design_info))
 			continue
 		if((design_info.build_type & (PROTOLATHE | IMPRINTER)) || ispath(design_info.build_path, /obj/item/gun) || ispath(design_info.build_path, /obj/item/ammo_casing))
 			all_ids += design_info.id
@@ -1059,6 +1095,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	data["linked_destroy"] = linked_destroy ? 1 : 0
 	data["linked_lathe"] = linked_lathe ? 1 : 0
 	data["linked_imprinter"] = linked_imprinter ? 1 : 0
+	data["linked_reverse_engineering"] = linked_reverse_engineering ? 1 : 0
 	data["logistics_enabled"] = FALSE
 	if(menu == MENU_LATHE && linked_lathe)
 		data["logistics_enabled"] = linked_lathe.logistics_board_installed()

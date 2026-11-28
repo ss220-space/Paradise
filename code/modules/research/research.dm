@@ -58,6 +58,10 @@ research holder datum.
 	var/list/possible_designs = list()
 	/// List of available designs
 	var/list/known_designs = list()
+	/// Ids of protolathe designs that have been unlocked by a design disk (see /obj/machinery/computer/reverse_engineering).
+	var/list/protolathe_unlocked = list()
+	
+	var/list/banned_from_points_get = list()
 
 /datum/research/New()		//Insert techs into possible_tech here. Known_tech automatically updated.
 	// MON DIEU!!!
@@ -157,6 +161,22 @@ research holder datum.
 /datum/research/proc/FindDesignByID(id)
 	return known_designs[id]
 
+/// Can the protolathe print this design?
+/// Designs without tech requirements are always available, the rest have to be unlocked with a design disk.
+/datum/research/proc/can_protolathe_use(datum/design/D)
+	if(!D || !(D.build_type & PROTOLATHE))
+		return FALSE
+	if(!D.requires_analysis())
+		return TRUE
+	return (D.id in protolathe_unlocked)
+
+/// Marks a protolathe design as unlocked and makes sure it is known.
+/datum/research/proc/unlock_protolathe_design(datum/design/D)
+	if(!D || !(D.build_type & PROTOLATHE))
+		return
+	AddDesign2Known(D)
+	protolathe_unlocked |= D.id
+
 ///  A common task is for one research datum to copy over its techs and designs
 ///  and update them on another research datum.
 ///  Arguments:
@@ -169,6 +189,7 @@ research holder datum.
 	for(var/v in known_designs)
 		var/datum/design/D = known_designs[v]
 		other.AddDesign2Known(D)
+	other.protolathe_unlocked |= protolathe_unlocked
 	other.RefreshResearch()
 
 //Autolathe files

@@ -117,6 +117,10 @@
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
+"tS" = (
+/obj/machinery/r_n_d/protolathe,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "uJ" = (
 /turf/simulated/wall/indestructible/reinforced,
 /area/fastload)
@@ -254,6 +258,14 @@
 /obj/machinery/computer/account_database,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"Ka" = (
+/obj/machinery/r_n_d/destructive_analyzer,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"Lq" = (
+/obj/machinery/r_n_d/server/upgraded,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "LF" = (
 /obj/machinery/computer/secure_data,
 /turf/simulated/floor/mineral/titanium/purple,
@@ -274,10 +286,12 @@
 /area/fastload)
 "QS" = (
 /obj/machinery/station_map/security/directional/north,
+/obj/machinery/computer/rdconsole,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "RU" = (
 /obj/item/radio/intercom/directional/north,
+/obj/machinery/computer/reverse_engineering,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "SG" = (
@@ -2361,7 +2375,7 @@ ay
 ay
 ay
 jk
-UR
+Lq
 UR
 UR
 UR
@@ -2427,7 +2441,7 @@ ay
 ay
 ay
 jk
-UR
+tS
 UR
 UR
 UR
@@ -2493,7 +2507,7 @@ ay
 ay
 ay
 jk
-UR
+Ka
 UR
 UR
 UR
