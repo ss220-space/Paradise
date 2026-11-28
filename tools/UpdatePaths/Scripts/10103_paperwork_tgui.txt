@@ -1,3 +1,5 @@
-/obj/item/paper/@SUBTYPES{info=@ANY} : /obj/item/paper/@SUBTYPES{@OLD;language=@SKIP;info_links=@SKIP;info=@SKIP;default_raw_text=@OLD:info}
-/obj/item/paper/@SUBTYPES : /obj/item/paper/@SUBTYPES{@OLD;language=@SKIP;info_links=@SKIP}
+/obj/item/paper/@SUBTYPES{info=@ANY} : /obj/item/paper/@SUBTYPES{@OLD;language=@SKIP;info_links=@SKIP;footer=@SKIP;info=@SKIP;default_raw_text=@OLD:info}
+/obj/item/paper/@SUBTYPES{language=@ANY} : /obj/item/paper/@SUBTYPES{@OLD;language=@SKIP}
+/obj/item/paper/@SUBTYPES{info_links=@ANY} : /obj/item/paper/@SUBTYPES{@OLD;info_links=@SKIP}
+/obj/item/paper/@SUBTYPES{footer=@ANY} : /obj/item/paper/@SUBTYPES{@OLD;footer=@SKIP}
 /obj/structure/filingcabinet/filingcabinet : /obj/structure/filingcabinet/white{@OLD}
