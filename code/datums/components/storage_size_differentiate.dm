@@ -57,13 +57,13 @@
 	if(user && ismob(user))
 		mob_user = user
 
-	var/storage_loc = storage.loc
-	if(isstorage(storage_loc) && !istype(storage_loc, /obj/item/storage/backpack/holding))
+	var/obj/item/storage/storage_loc = storage.loc
+	if(isstorage(storage.loc) && storage_loc.max_w_class < storage.storage_with_item_size)
 		mob_user?.balloon_alert(mob_user, "не хватит места!")
 		return BLOCK_INSERTING_ITEM
 
-	if(ishuman(storage_loc))
-		var/mob/living/carbon/human/loc_human = storage_loc
+	if(ishuman(storage.loc))
+		var/mob/living/carbon/human/loc_human = storage.loc
 		var/slot_by_item = loc_human.get_slot_by_item(storage)
 		if((storage.slot_flags_2 & ITEM_FLAG_POCKET_LARGE) || !(ITEM_SLOT_POCKETS & slot_by_item))
 			return
