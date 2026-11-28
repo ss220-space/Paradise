@@ -1732,10 +1732,10 @@
 /obj/structure/table/wood/fancy/orange,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/paper{
+	info = "This is the end... I am writing this while looking at a statue that will crush me when I look away for even a second. We were flying to sell goods, but a bluespace anomaly appeared in the warehouse and a bunch of creatures scattered around our shuttle. I managed to run into the command post, but I won't be enough for long. My eyes are getting tired. I really want to close them mmsadmm...";
 	name = "last note";
 	pixel_x = -5;
-	pixel_y = 8;
-	default_raw_text = "This is the end... I am writing this while looking at a statue that will crush me when I look away for even a second. We were flying to sell goods, but a bluespace anomaly appeared in the warehouse and a bunch of creatures scattered around our shuttle. I managed to run into the command post, but I won't be enough for long. My eyes are getting tired. I really want to close them mmsadmm..."
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;

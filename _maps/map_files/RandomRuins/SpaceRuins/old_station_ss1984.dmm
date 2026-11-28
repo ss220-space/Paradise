@@ -10260,6 +10260,7 @@
 	dir = 1
 	},
 /obj/item/paper/safe_code{
+	language = "Sol Common";
 	owner = "theta";
 	pixel_x = -6;
 	pixel_y = -6

@@ -2402,7 +2402,7 @@
 /turf/simulated/floor/carpet/black,
 /area/station/maintenance/abandonedoffices)
 "DN" = (
-/obj/structure/filingcabinet/white,
+/obj/structure/filingcabinet/filingcabinet,
 /obj/structure/noticeboard{
 	pixel_y = 30
 	},
@@ -3555,7 +3555,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/abandonedoffices)
 "RD" = (
-/obj/structure/filingcabinet/white,
+/obj/structure/filingcabinet/filingcabinet,
 /turf/simulated/floor/carpet/black,
 /area/station/maintenance/abandonedoffices)
 "RG" = (

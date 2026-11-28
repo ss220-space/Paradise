@@ -2419,8 +2419,8 @@
 /area/centcom/syndicate_base)
 "blt" = (
 /obj/item/paper/djstation{
-	name = "неизвестный отчет";
-	default_raw_text = "Блять, сука. Блятьблять. Я знал, что эта миссия была ошибкой, этот идиот Томас самоубился о какого-то разъяренного русского робота-охранника в оружейной. А лейтенант вбежал на станцию, как идиот, и попал в ловушку. Теперь я просто просиживаю штаны взаперти, потому что этот шаттл, черт возьми, не двигается. Этот тупой кусок дерьма, стыковочный рычаг СССП, должно быть, заклинило, а у меня нет скафандра, чтобы выйти и починить его.<br><br>Кто, черт возьми, атакует космическую станцию ​​без скафандров!? В любом случае, без ригов выходить в открытый космос? Нельзя же, черт возьми, начинать кровавую заварушку в космосе лишь с горячим кофе и забить на всё болт."
+	info = "Блять, сука. Блятьблять. Я знал, что эта миссия была ошибкой, этот идиот Томас самоубился о какого-то разъяренного русского робота-охранника в оружейной. А лейтенант вбежал на станцию, как идиот, и попал в ловушку. Теперь я просто просиживаю штаны взаперти, потому что этот шаттл, черт возьми, не двигается. Этот тупой кусок дерьма, стыковочный рычаг СССП, должно быть, заклинило, а у меня нет скафандра, чтобы выйти и починить его.<br><br>Кто, черт возьми, атакует космическую станцию ​​без скафандров!? В любом случае, без ригов выходить в открытый космос? Нельзя же, черт возьми, начинать кровавую заварушку в космосе лишь с горячим кофе и забить на всё болт.";
+	name = "неизвестный отчет"
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -4968,7 +4968,7 @@
 	pixel_x = -32
 	},
 /obj/item/paper{
-	default_raw_text = "Переговорить с ОЦК по поводу пиццы с ананасами"
+	info = "Переговорить с ОЦК по поводу пиццы с ананасами"
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/carpet/black,
@@ -7006,8 +7006,8 @@
 /obj/item/stack/packageWrap,
 /obj/structure/table,
 /obj/item/paper{
-	name = "Особенности отправки оборудования с помощью шаттла отдела снабжения";
-	default_raw_text = "<h1>Особенности отправки оборудования с помощью шаттла отдела снабжения</h1><br>С целью минимизации рисков провоза опасных грузов и/или контрабанды сотрудники департамента защиты активов Nanotrasen регулярно осуществляют проверки шаттла снабжения. Эти проверки включают в себя снятие внешней упаковки с контейнеров для проверки манифестов, а также уничтожение любых объектов, не находящихся в контейнерах. Контроль груза осуществляется: <ol><li>Непосредственно после отлета шаттла с АКН Трурль на объект Nanotrasen;</li><li>После отлета шаттла с объекта Nanotrasen до прибытия на АКН Трурль;</li><li>Непосредственно после стыковки шаттла с АКН Трурль.</li></ol><br> Для отправки оборудования на объект Nanotrasen с помощью шаттла снабжения необходимо обернуть контейнер упаковочной бумагой или поместить его еще в один контейнер."
+	info = "<h1>Особенности отправки оборудования с помощью шаттла отдела снабжения</h1><br>С целью минимизации рисков провоза опасных грузов и/или контрабанды сотрудники департамента защиты активов Nanotrasen регулярно осуществляют проверки шаттла снабжения. Эти проверки включают в себя снятие внешней упаковки с контейнеров для проверки манифестов, а также уничтожение любых объектов, не находящихся в контейнерах. Контроль груза осуществляется: <ol><li>Непосредственно после отлета шаттла с АКН Трурль на объект Nanotrasen;</li><li>После отлета шаттла с объекта Nanotrasen до прибытия на АКН Трурль;</li><li>Непосредственно после стыковки шаттла с АКН Трурль.</li></ol><br> Для отправки оборудования на объект Nanotrasen с помощью шаттла снабжения необходимо обернуть контейнер упаковочной бумагой или поместить его еще в один контейнер.";
+	name = "Особенности отправки оборудования с помощью шаттла отдела снабжения"
 	},
 /obj/item/hand_labeler,
 /obj/item/hand_labeler,
@@ -11779,7 +11779,7 @@
 	},
 /area/centcom/central_command_areas/special_operations)
 "fJC" = (
-/obj/structure/filingcabinet/white,
+/obj/structure/filingcabinet/filingcabinet,
 /obj/machinery/door_control/secure{
 	id = "CC_Players_In";
 	name = "Civilian Access";
@@ -17550,7 +17550,7 @@
 	layer = 4;
 	pixel_y = 32
 	},
-/obj/structure/filingcabinet/white,
+/obj/structure/filingcabinet/filingcabinet,
 /turf/simulated/floor/carpet/black,
 /area/centcom/central_command_areas/zone/two)
 "iCo" = (
@@ -22774,10 +22774,10 @@
 	pixel_y = 30
 	},
 /obj/item/paper{
-	default_raw_text = "Уволить клоуна."
+	info = "Уволить клоуна."
 	},
 /obj/item/paper{
-	default_raw_text = "Переговорить с командованием о трёхзначных числах"
+	info = "Переговорить с командованием о трёхзначных числах"
 	},
 /obj/structure/chair/sofa/corp/left,
 /obj/item/toy/plushie/fox,
@@ -27681,7 +27681,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced,
-/obj/structure/filingcabinet/white,
+/obj/structure/filingcabinet/filingcabinet,
 /turf/simulated/floor/carpet/black,
 /area/centcom/central_command_areas/zone/two)
 "mOA" = (
@@ -27791,7 +27791,7 @@
 	},
 /area/centcom/central_command_areas/prison)
 "mQQ" = (
-/obj/structure/filingcabinet/white,
+/obj/structure/filingcabinet/filingcabinet,
 /obj/machinery/light_construct/small{
 	dir = 8
 	},
@@ -31954,7 +31954,7 @@
 	},
 /area/centcom/central_command_areas/special_operations)
 "oGU" = (
-/obj/structure/filingcabinet/white,
+/obj/structure/filingcabinet/filingcabinet,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/wood,
 /area/centcom/central_command_areas/zone/two)
@@ -39029,7 +39029,7 @@
 	pixel_y = 32
 	},
 /obj/item/paper{
-	default_raw_text = "Передвинуть бойлер с водой"
+	info = "Передвинуть бойлер с водой"
 	},
 /obj/machinery/light{
 	dir = 1
@@ -39200,7 +39200,7 @@
 	pixel_y = 32
 	},
 /obj/item/paper/syndimemo{
-	default_raw_text = "Дней без рассекречивания Тайпана: 0"
+	info = "Дней без рассекречивания Тайпана: 0"
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/centcom/syndicate_base/control)
@@ -42997,26 +42997,26 @@
 /area/centcom/syndicate_base/outside)
 "tyB" = (
 /obj/item/paper{
-	pixel_y = -2;
-	default_raw_text = "Убрать кишку на Дельте"
+	info = "Убрать кишку на Дельте";
+	pixel_y = -2
 	},
 /obj/item/paper{
-	pixel_y = -4;
-	default_raw_text = "Наныть мультизет для трама"
+	info = "Наныть мультизет для трама";
+	pixel_y = -4
 	},
 /obj/item/paper{
-	pixel_x = 9;
-	default_raw_text = "Обед через час, работа через вчера"
+	info = "Обед через час, работа через вчера";
+	pixel_x = 9
 	},
 /obj/item/paper{
+	info = "Пофиксить в моем кабинете рантайм трубы в трубе... опять";
 	pixel_x = 7;
-	pixel_y = -9;
-	default_raw_text = "Пофиксить в моем кабинете рантайм трубы в трубе... опять"
+	pixel_y = -9
 	},
 /obj/item/paper{
+	info = "Начать делать очередную новую станцию и сгореть на втором часу работы в самокопании";
 	pixel_x = -5;
-	pixel_y = -6;
-	default_raw_text = "Начать делать очередную новую станцию и сгореть на втором часу работы в самокопании"
+	pixel_y = -6
 	},
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
@@ -44773,8 +44773,8 @@
 	icon_state = "tile_full"
 	},
 /obj/item/paper/syndimemo{
-	name = "paper- '?'";
-	default_raw_text = "ТАК ТЫ ПОЛУЧИЛ ЭТОТ ЧЕРТОВ ДИСК?<br>ЕСЛИ НЕТ ТО ПОЛУЧИ ЕГО!"
+	info = "ТАК ТЫ ПОЛУЧИЛ ЭТОТ ЧЕРТОВ ДИСК?<br>ЕСЛИ НЕТ ТО ПОЛУЧИ ЕГО!";
+	name = "paper- '?'"
 	},
 /turf/simulated/floor/indestructible/grass,
 /area/centcom/syndicate_base/outside)
@@ -48340,7 +48340,7 @@
 	},
 /area/centcom/central_command_areas/evacuation)
 "vOq" = (
-/obj/structure/filingcabinet/white,
+/obj/structure/filingcabinet/filingcabinet,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -50143,7 +50143,7 @@
 	pixel_x = -32
 	},
 /obj/item/paper/syndimemo{
-	default_raw_text = "ПОЛУЧИТЕ ЭТОТ ЕБУЧИЙ ДИСК!"
+	info = "ПОЛУЧИТЕ ЭТОТ ЕБУЧИЙ ДИСК!"
 	},
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
@@ -50890,9 +50890,9 @@
 "xdW" = (
 /obj/structure/table,
 /obj/item/paper/syndimemo{
+	info = "Пришлось срочно вылететь на задание. Печенье доделаете сами. - Джордж";
 	name = "Записка'";
-	pixel_x = 3;
-	default_raw_text = "Пришлось срочно вылететь на задание. Печенье доделаете сами. - Джордж"
+	pixel_x = 3
 	},
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"

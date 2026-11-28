@@ -24803,7 +24803,7 @@
 	},
 /area/coldcolony/malta/hallway/bridge)
 "jRT" = (
-/obj/structure/filingcabinet/white,
+/obj/structure/filingcabinet/filingcabinet,
 /turf/simulated/floor/plating,
 /area/coldcolony/ruin/sm_lab)
 "jSd" = (
@@ -34480,7 +34480,8 @@
 /area/coldcolony/malta/quartermaster/miningeva)
 "nQh" = (
 /obj/item/paper{
-	default_raw_text = "<color=black><i>Много людей отправили закладывать новый город... Но вот только строительство затянулось настолько, что мы проебали уже все полимеры На орбите остался лишь один несчастный фрегат устаревшего образца... Ещё и запасы плазмы, как жидкой так и в твёрдом состоянии на планете куда меньше, чем нам заверяли.. Хотя бы иногда отправляют еды и на том спасибо...</i></font>"
+	info = "<color=black><i>Много людей отправили закладывать новый город... Но вот только строительство затянулось настолько, что мы проебали уже все полимеры На орбите остался лишь один несчастный фрегат устаревшего образца... Ещё и запасы плазмы, как жидкой так и в твёрдом состоянии на планете куда меньше, чем нам заверяли.. Хотя бы иногда отправляют еды и на том спасибо...</i></font>";
+	info_links = "<color=black><i>Много людей отправили закладывать новый город... Но вот только строительство затянулось настолько, что мы проебали уже все полимеры На орбите остался лишь один несчастный фрегат устаревшего образца... Ещё и запасы плазмы, как жидкой так и в твёрдом состоянии на планете куда меньше, чем нам заверяли.. Хотя бы иногда отправляют еды и на том спасибо...</i></font>"
 	},
 /turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
@@ -38550,7 +38551,8 @@
 	},
 /obj/item/folder/blue,
 /obj/item/paper{
-	default_raw_text = "<color=black><i>Колония должна выжить!!!</i></font>"
+	info = "<color=black><i>Колония должна выжить!!!</i></font>";
+	info_links = "<color=black><i>Колония должна выжить!!!</i></font>"
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/coldcolony/malta/bridge)
@@ -52011,7 +52013,7 @@
 	},
 /area/coldcolony/malta/engineering/break_room)
 "uPm" = (
-/obj/structure/filingcabinet/white,
+/obj/structure/filingcabinet/filingcabinet,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 6;

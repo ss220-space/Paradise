@@ -100,8 +100,8 @@
 "r" = (
 /obj/structure/table,
 /obj/item/paper{
-	name = "november report";
-	default_raw_text = "Nothing of interest to report."
+	info = "Nothing of interest to report.";
+	name = "november report"
 	},
 /obj/item/pen,
 /obj/effect/decal/cleanable/dirt,
@@ -197,36 +197,36 @@
 "J" = (
 /obj/structure/filingcabinet,
 /obj/item/paper{
-	name = "april report";
-	default_raw_text = "A good start to the operation: intercepted Nanotrasen military communications. A convoy is scheduled to transfer nuclear warheads to a new military base. This is as good a chance as any to get our hands on some heavy weaponry, I suggest we take it."
+	info = "A good start to the operation: intercepted Nanotrasen military communications. A convoy is scheduled to transfer nuclear warheads to a new military base. This is as good a chance as any to get our hands on some heavy weaponry, I suggest we take it.";
+	name = "april report"
 	},
 /obj/item/paper{
-	name = "may report";
-	default_raw_text = "Nothing of real interest to report this month. I have intercepted faint transmissions from what appears to be some sort of pirate radio station. They do not appear to be relevant to my assignment."
+	info = "Nothing of real interest to report this month. I have intercepted faint transmissions from what appears to be some sort of pirate radio station. They do not appear to be relevant to my assignment.";
+	name = "may report"
 	},
 /obj/item/paper{
-	name = "june report";
-	default_raw_text = "Nanotrasen communications have been noticably less frequent recently.  The pirate radio station I found last month has been transmitting pro-Nanotrasen propaganda. I will continue to monitor it."
+	info = "Nanotrasen communications have been noticably less frequent recently.  The pirate radio station I found last month has been transmitting pro-Nanotrasen propaganda. I will continue to monitor it.";
+	name = "june report"
 	},
 /obj/item/paper{
-	name = "july report";
-	default_raw_text = "Nothing of interest to report."
+	info = "Nothing of interest to report.";
+	name = "july report"
 	},
 /obj/item/paper{
-	name = "august report";
-	default_raw_text = "Nothing of interest to report."
+	info = "Nothing of interest to report.";
+	name = "august report"
 	},
 /obj/item/paper{
-	name = "september report";
-	default_raw_text = "Nothing of interest to report."
+	info = "Nothing of interest to report.";
+	name = "september report"
 	},
 /obj/item/paper{
-	name = "october report";
-	default_raw_text = "Nothing of interest to report."
+	info = "Nothing of interest to report.";
+	name = "october report"
 	},
 /obj/item/paper{
-	name = "receipt";
-	default_raw_text = "1 x Stechtkin pistol - $600<br>1 x silencer - $200<br>shipping charge - $4360<br>total - $5160"
+	info = "1 x Stechtkin pistol - $600<br>1 x silencer - $200<br>shipping charge - $4360<br>total - $5160";
+	name = "receipt"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -234,8 +234,8 @@
 "K" = (
 /obj/structure/table,
 /obj/item/paper{
-	name = "mission briefing";
-	default_raw_text = "<b>Mission Details</b>: You have been assigned to a newly constructed listening post constructed within an asteroid in Nanotrasen space to monitor their plasma mining operations. Accurate intel is crucial to the success of our operatives onboard, do not fail us."
+	info = "<b>Mission Details</b>: You have been assigned to a newly constructed listening post constructed within an asteroid in Nanotrasen space to monitor their plasma mining operations. Accurate intel is crucial to the success of our operatives onboard, do not fail us.";
+	name = "mission briefing"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 5

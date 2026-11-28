@@ -213,8 +213,8 @@
 	dir = 1
 	},
 /obj/item/paper/crumpled{
-	name = "Совет от пряника";
-	default_raw_text = "Пойди туда — не знаю куда, найди то — не знаю что и поможет оно тебе в твоих приключениях."
+	info = "Пойди туда — не знаю куда, найди то — не знаю что и поможет оно тебе в твоих приключениях.";
+	name = "Совет от пряника"
 	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_l)
@@ -465,8 +465,8 @@
 	dir = 1
 	},
 /obj/item/paper/crumpled{
-	name = "Совет от пряника";
-	default_raw_text = "Пойди туда — не знаю куда, найди то — не знаю что и поможет оно тебе в твоих приключениях."
+	info = "Пойди туда — не знаю куда, найди то — не знаю что и поможет оно тебе в твоих приключениях.";
+	name = "Совет от пряника"
 	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_r)
@@ -765,8 +765,8 @@
 	},
 /obj/structure/decorative_structures/garland,
 /obj/item/paper/crumpled{
-	name = "Совет от пряника";
-	default_raw_text = "Пойди туда — не знаю куда, найди то — не знаю что и поможет оно тебе в твоих приключениях."
+	info = "Пойди туда — не знаю куда, найди то — не знаю что и поможет оно тебе в твоих приключениях.";
+	name = "Совет от пряника"
 	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_m)
@@ -5528,8 +5528,8 @@
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_m)
 "VH" = (
 /obj/item/paper{
-	name = "Записка";
-	default_raw_text = "Кто теперь займет место Санты и раздаст подарки всме достойным? \n И помни главное — открывать подарки раньше времени не стоит!"
+	info = "Кто теперь займет место Санты и раздаст подарки всме достойным? \n И помни главное — открывать подарки раньше времени не стоит!";
+	name = "Записка"
 	},
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/end/exit)

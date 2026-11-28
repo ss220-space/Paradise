@@ -1,12 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"am" = (
-/obj/item/paper/form/NT_SEC_01,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"av" = (
-/obj/item/paper/form/syndieform/SYND_COM_SUP,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "aw" = (
 /obj/effect/landmark/observer_start,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -22,49 +14,17 @@
 /obj/structure/holosign/barrier/atmos,
 /turf/space,
 /area/space)
-"by" = (
-/obj/item/paper/form/NT_COM_06,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "bP" = (
 /turf/simulated/wall/r_wall,
 /area/fastload)
-"ca" = (
-/obj/item/paper/form/NT_MD_05,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"ce" = (
-/obj/item/paper/form/NT_SEC_06,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"cs" = (
-/obj/item/paper/form/NT_COM_01,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"dA" = (
-/obj/item/paper/form/NT_COM_03,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"dU" = (
-/obj/item/paper/form/NT_HR_06,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "dY" = (
 /obj/machinery/light/floor,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
-"eH" = (
-/obj/item/paper/form/NT_LD_00,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "eX" = (
 /obj/machinery/light/floor,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
-"fr" = (
-/obj/item/paper/form/NT_HR_03,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "fM" = (
 /obj/structure/table,
 /obj/item/gun/projectile/automatic/pistol/aps,
@@ -76,10 +36,6 @@
 /obj/item/gun/projectile/automatic/pistol/stechkin,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
-"fR" = (
-/obj/item/paper/form/NT_LD_03,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "gL" = (
 /obj/structure/stairs{
 	dir = 8
@@ -98,14 +54,6 @@
 	},
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
-"iU" = (
-/obj/item/paper/form/NT_HR_02,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"iY" = (
-/obj/item/paper/form/NT_LD_05,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "jk" = (
 /turf/simulated/wall/indestructible/reinforced,
 /area/fastload/blue)
@@ -116,10 +64,6 @@
 /obj/structure/ladder,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
-"jU" = (
-/obj/item/paper/form/NT_SEC_11,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "ks" = (
 /obj/structure/holosign/barrier/atmos,
 /turf/space/openspace,
@@ -128,10 +72,6 @@
 /obj/machinery/door/airlock/engineering,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
-"kT" = (
-/obj/item/paper/form/NT_MD_04,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "lw" = (
 /obj/structure/table,
 /obj/item/gun/projectile/automatic/smg/c20r,
@@ -144,18 +84,6 @@
 /obj/item/gun/projectile/automatic/smg/wt550,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
-"mc" = (
-/obj/item/paper/form/NT_HR_09,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"mz" = (
-/obj/item/paper/form/NT_E_112,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"nc" = (
-/obj/item/paper/form/NT_MD_02,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "nd" = (
 /obj/structure/rack,
 /obj/item/stack/sheet/metal/fifty,
@@ -179,30 +107,6 @@
 	},
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
-"qH" = (
-/obj/item/paper/form/NT_MRL,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"qR" = (
-/obj/item/paper/form/NT_SEC_04,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"qY" = (
-/obj/item/paper/form/NT_SEC_02,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"qZ" = (
-/obj/item/paper/form/NT_SEC_07,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"rs" = (
-/obj/item/paper/form/NT_HR_12,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"rw" = (
-/obj/item/paper/form/NT_MD_01,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "rS" = (
 /obj/machinery/light,
 /turf/simulated/floor/mineral/titanium/purple,
@@ -213,10 +117,6 @@
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
-"tu" = (
-/obj/item/paper/form/NT_SUP_01,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "uJ" = (
 /turf/simulated/wall/indestructible/reinforced,
 /area/fastload)
@@ -235,18 +135,10 @@
 	},
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
-"wh" = (
-/obj/item/paper/form/NT_HR_01,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "ww" = (
 /obj/spacepod/sec,
 /turf/space,
 /area/space)
-"wG" = (
-/obj/item/paper/form/syndieform/SYND_TAI_NO02,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "xb" = (
 /obj/structure/table,
 /obj/item/gun/projectile/automatic/sniper_rifle/axmc,
@@ -280,20 +172,8 @@
 /obj/machinery/message_server,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
-"ya" = (
-/obj/item/paper/form/NT_LD_DENY,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"yb" = (
-/obj/item/paper/form/NT_COM_07,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "yS" = (
 /obj/effect/landmark/spawner/late/cyborg,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"zK" = (
-/obj/item/paper/form/NT_HR_05,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "zN" = (
@@ -304,25 +184,9 @@
 /obj/item/gun/projectile/bombarda/secgl/m79,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
-"Ag" = (
-/obj/item/paper/form/NT_MD_VRR,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"Aj" = (
-/obj/item/paper/form/NT_LD_01,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "An" = (
 /turf/simulated/openspace,
 /area/fastload/purple)
-"AG" = (
-/obj/item/paper/form/NT_COM_REQ,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"AW" = (
-/obj/item/paper/form/NT_SEC_21,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "AX" = (
 /obj/effect/turf_decal/arrows/black{
 	dir = 4
@@ -335,17 +199,9 @@
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
-"BA" = (
-/obj/item/paper/form/NT_MD_03,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "BO" = (
 /turf/simulated/wall/indestructible/reinforced,
 /area/fastload/purple)
-"BR" = (
-/obj/item/paper/form/NT_COM_OS,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "Ca" = (
 /obj/machinery/vending/gun_mods/advanced,
 /turf/simulated/floor/mineral/titanium/purple,
@@ -354,18 +210,6 @@
 /obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
-"Ch" = (
-/obj/item/paper/form/NT_HR_07,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"CC" = (
-/obj/item/paper/form/NT_COM_ST,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"CP" = (
-/obj/item/paper/form/NT_COM_ORDER,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "De" = (
 /obj/machinery/light{
 	dir = 8
@@ -385,14 +229,6 @@
 /obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
-"Eb" = (
-/obj/item/paper/form/NT_COM_ACOM,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"Et" = (
-/obj/item/paper/form/NT_LD_06,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "Fv" = (
 /obj/machinery/door/airlock/engineering,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -402,54 +238,22 @@
 /obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
-"FS" = (
-/obj/item/paper/form/NT_REQ_01,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "Gf" = (
 /obj/structure/rack,
 /obj/item/mounted/frame/intercom,
 /obj/item/mounted/frame/alarm_frame,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
-"GR" = (
-/obj/item/paper/form/NT_LD_04,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"GW" = (
-/obj/item/paper/form/NT_HR_04,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "Hi" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
-"HP" = (
-/obj/item/paper/form/syndieform/SYND_COM_TC,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "JC" = (
 /obj/machinery/computer/account_database,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
-"Kz" = (
-/obj/item/paper/form/NT_COM_02,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"Ll" = (
-/obj/item/paper/form/NT_RND_03,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"Lo" = (
-/obj/item/paper/form/NT_MR,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"Lx" = (
-/obj/item/paper/form/NT_HR_08,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "LF" = (
 /obj/machinery/computer/secure_data,
 /turf/simulated/floor/mineral/titanium/purple,
@@ -458,10 +262,6 @@
 /obj/structure/ladder,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
-"Nx" = (
-/obj/item/paper/form/NT_SEC_08,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "ND" = (
 /obj/effect/turf_decal/arrows/black{
 	dir = 4
@@ -469,36 +269,15 @@
 /obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
-"Ou" = (
-/obj/item/paper/form/syndieform/SYND_TAI_NO01,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "Pd" = (
 /turf/simulated/openspace,
 /area/fastload)
-"PD" = (
-/obj/item/paper/form/NT_COM_04,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"Qg" = (
-/obj/item/paper/form/syndieform/SYND_TAI_NO00,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"Qk" = (
-/obj/item/paper/form/NT_HR_00,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "QS" = (
 /obj/machinery/station_map/security/directional/north,
-/obj/item/paper/form/NT_SEC_05,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "RU" = (
 /obj/item/radio/intercom/directional/north,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"Sf" = (
-/obj/item/paper/form/NT_COM_05,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "SG" = (
@@ -525,10 +304,6 @@
 "UR" = (
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
-"Vl" = (
-/obj/item/paper/form/NT_RND_02,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "VP" = (
 /obj/structure/table,
 /obj/item/gun/projectile/automatic/ak814,
@@ -539,10 +314,6 @@
 /obj/item/gun/projectile/automatic/gyropistol,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
-"WE" = (
-/obj/item/paper/form/NT_SEC_03,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "Xa" = (
 /obj/machinery/light{
 	dir = 4
@@ -564,14 +335,6 @@
 /obj/structure/table,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
-"XA" = (
-/obj/item/paper/form/NT_HR_13,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"XL" = (
-/obj/item/paper/form/NT_COM_LCOM,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "YB" = (
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
@@ -584,28 +347,12 @@
 	},
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
-"ZC" = (
-/obj/item/paper/form/NT_COM_ACAP,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"ZF" = (
-/obj/item/paper/form/NT_BLANK,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"ZM" = (
-/obj/item/paper/form/NT_LD_02,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "ZW" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
-"ZX" = (
-/obj/item/paper/form/NT_RND_01,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "ZY" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -2548,19 +2295,19 @@ ay
 ay
 ay
 jk
-ZF
-cs
-Kz
-dA
-PD
-Sf
-by
-yb
-ZC
-Eb
-XL
-CP
-BR
+UR
+UR
+UR
+UR
+UR
+UR
+UR
+UR
+UR
+UR
+UR
+UR
+UR
 jk
 ay
 ay
@@ -2614,19 +2361,19 @@ ay
 ay
 ay
 jk
-AG
-CC
-mz
-Qk
-wh
-iU
-fr
-GW
-zK
-dU
-Ch
-Lx
-mc
+UR
+UR
+UR
+UR
+UR
+UR
+UR
+UR
+UR
+UR
+UR
+UR
+UR
 jk
 ay
 ay
@@ -2680,19 +2427,19 @@ ay
 ay
 ay
 jk
-rs
-XA
-eH
-Aj
-ZM
-fR
-GR
-iY
-Et
-ya
-rw
-nc
-BA
+UR
+UR
+UR
+UR
+UR
+UR
+UR
+UR
+UR
+UR
+UR
+UR
+UR
 jk
 ay
 ay
@@ -2746,19 +2493,19 @@ ay
 ay
 ay
 jk
-kT
-ca
-Ag
-Lo
-qH
-FS
-ZX
-Vl
-Ll
-am
-qY
-WE
-qR
+UR
+UR
+UR
+UR
+UR
+UR
+UR
+UR
+UR
+UR
+UR
+UR
+UR
 jk
 ay
 ay
@@ -2813,12 +2560,12 @@ ay
 ay
 jk
 QS
-ce
-qZ
-Nx
-jU
-AW
-tu
+UR
+UR
+UR
+UR
+UR
+UR
 aJ
 UR
 UR
@@ -2944,11 +2691,11 @@ ay
 ay
 ay
 jk
-av
-HP
-Qg
-Ou
-wG
+UR
+UR
+UR
+UR
+UR
 yS
 UR
 UR
