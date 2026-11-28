@@ -715,7 +715,6 @@ Difficulty: Hard
 	maxHealth = 750
 	armour_penetration = 75
 	second_life = TRUE
-	enraged = TRUE
 	rapid_melee = 12
 	projectiletype = /obj/projectile/magic/arcane_barrage/blood
 	projectilesound = 'sound/effects/splat.ogg'

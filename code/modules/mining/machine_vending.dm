@@ -259,7 +259,7 @@
 			new /obj/item/storage/backpack/duffel/miningcharges(drop_location)
 		if(VENDOR_CRUSHER_KIT)
 			new /obj/item/extinguisher/mini(drop_location)
-			new /obj/item/storage/box/hardmode_box(drop_location)
+			new /obj/item/storage/lockbox/medal/hardmode_box(drop_location)
 			new /obj/item/twohanded/kinetic_crusher(drop_location)
 		if(VENDOR_SPEAR_KIT)
 			new /obj/item/twohanded/mining_spear(drop_location)
