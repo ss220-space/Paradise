@@ -216,6 +216,12 @@ GLOBAL_PROTECT(log_end)
 	messages.Add("[GLOB.log_end]")
 	WRITE_LOG(GLOB.tgui_log, messages.Join())
 
+/proc/log_paper(text)
+	if(!text)
+		return
+	var/safe_log = sanitize(text)
+	WRITE_LOG(GLOB.world_game_log, "PAPER: [safe_log][GLOB.log_end]")
+
 #if defined(REFERENCE_TRACKING) // Doing it locally
 #define log_reftracker(msg) log_gc("## REF SEARCH [msg]")
 

@@ -293,7 +293,9 @@ export class PreviewView extends Component<PreviewViewProps> {
     color: string,
     bold = false,
   ): string => {
-    return `<span style="color:${color};font-family:${font};${
+    const safeColor = color.replace(/[^a-zA-Z0-9#(),.\s-]/g, '');
+    const safeFont = font.replace(/[^a-zA-Z0-9,\s-]/g, '');
+    return `<span style="color:${safeColor};font-family:${safeFont};${
       bold ? 'font-weight: bold;' : ''
     }">${text}</span>`;
   };
@@ -342,14 +344,15 @@ export class PreviewView extends Component<PreviewViewProps> {
     advanced_html = false,
   ): FieldCreationReturn => {
     // First lets make sure it ends in a new line
-    rawText += rawText[rawText.length] === '\n' ? '\n' : '\n\n';
+    rawText += rawText[rawText.length - 1] === '\n' ? '\n' : '\n\n';
 
     // Second, parse the text using markup
-    const parsedText = this.runMarkedDefault(rawText);
+    let processedText = this.runMarkedDefault(rawText);
 
-    // Third, we sanitize the text of html
-    let sanitizedText = sanitizeText(parsedText, advanced_html);
+    // Third, we sanitize the text of html first time
+    processedText = sanitizeText(processedText, advanced_html);
 
+    // Check for allowed logos
     const ALLOWED_LOGOS = new Set([
       'ntlogo.png',
       'syndielogo.png',
@@ -359,7 +362,7 @@ export class PreviewView extends Component<PreviewViewProps> {
       'talisman.png',
     ]);
 
-    sanitizedText = sanitizedText.replace(
+    processedText = processedText.replace(
       /\[logo:([a-zA-Z0-9_.-]+)\]/g,
       (match, logoName) => {
         if (!ALLOWED_LOGOS.has(logoName)) {
@@ -371,7 +374,7 @@ export class PreviewView extends Component<PreviewViewProps> {
 
     // Fourth we replace the [__] with fields
     const fieldedText = this.createFields(
-      sanitizedText,
+      processedText,
       font,
       12,
       color,
@@ -380,10 +383,53 @@ export class PreviewView extends Component<PreviewViewProps> {
       fieldCounter,
     );
 
-    // Fifth, we wrap the created text in the writing implement properties.
+    // Fifth, we wrap the created text in the writing implement properties. And sanitize it again
     const fontedText = this.setFontInText(fieldedText.text, font, color, bold);
+    const finalSafeHtml = sanitizeText(fontedText, advanced_html, [
+      'b',
+      'blockquote',
+      'br',
+      'center',
+      'code',
+      'dd',
+      'del',
+      'div',
+      'dl',
+      'dt',
+      'em',
+      'font',
+      'h1',
+      'h2',
+      'h3',
+      'h4',
+      'h5',
+      'h6',
+      'hr',
+      'i',
+      'ins',
+      'li',
+      'menu',
+      'ol',
+      'p',
+      'pre',
+      'small',
+      'span',
+      'strong',
+      'table',
+      'tbody',
+      'td',
+      'th',
+      'thead',
+      'tfoot',
+      'tr',
+      'u',
+      'ul',
+      'img',
+      'input',
+      'textarea',
+    ]);
 
-    return { text: fontedText, nextCounter: fieldedText.nextCounter };
+    return { text: finalSafeHtml, nextCounter: fieldedText.nextCounter };
   };
 
   // Builds a paper field ID from a number or string.
@@ -609,7 +655,7 @@ export class PreviewView extends Component<PreviewViewProps> {
     }
 
     const textHTML = {
-      __html: `<span className='paper-text'>${previewText}</span>`,
+      __html: `<span class='paper-text'>${previewText}</span>`,
     };
 
     const { scrollableRef, handleOnScroll } = this.props;

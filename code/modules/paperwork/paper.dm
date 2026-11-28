@@ -640,8 +640,8 @@ GAME_VERB_SRC(/obj/item/paper, rename, usr, "Rename paper", null)
 	for(var/datum/paper_stamp/stamp_input as anything in raw_stamp_data)
 		data[LIST_PAPER_RAW_STAMP_INPUT] += list(stamp_input.to_list())
 
-	data[LIST_PAPER_COLOR] = color ? color : COLOR_WHITE
-	data[LIST_PAPER_NAME] = name
+	data[LIST_PAPER_COLOR] = istext(color) ? paranoid_sanitize(color) : COLOR_WHITE
+	data[LIST_PAPER_NAME] = sanitize(name)
 
 	return data
 
@@ -683,7 +683,7 @@ GAME_VERB_SRC(/obj/item/paper, rename, usr, "Rename paper", null)
 			if(istype(loc, /obj/structure/noticeboard))
 				var/obj/structure/noticeboard/noticeboard = loc
 				if(!noticeboard.allowed(user))
-					// log_paper("[key_name(user)] tried to add stamp to [name] when it was on an unwritable noticeboard: \"[stamp_class]\"")
+					log_paper("[key_name(user)] tried to add stamp to [name] when it was on an unwritable noticeboard: \"[stamp_class]\"")
 					return TRUE
 
 			var/stamp_x = text2num(params["x"])
@@ -707,11 +707,14 @@ GAME_VERB_SRC(/obj/item/paper, rename, usr, "Rename paper", null)
 		if("add_text")
 			var/paper_input = params["text"]
 
+			if(!istext(paper_input))
+				return TRUE
+
 			// If the paper is on an unwritable noticeboard, this usually shouldn't be possible.
 			if(istype(loc, /obj/structure/noticeboard))
 				var/obj/structure/noticeboard/noticeboard = loc
 				if(!noticeboard.allowed(user))
-					// log_paper("[key_name(user)] tried to write to [name] when it was on an unwritable noticeboard: \"[paper_input]\"")
+					log_paper("[key_name(user)] tried to write to [name] when it was on an unwritable noticeboard: \"[paper_input]\"")
 					return TRUE
 
 			var/obj/item/holding = user.get_active_hand()
@@ -740,7 +743,7 @@ GAME_VERB_SRC(/obj/item/paper, rename, usr, "Rename paper", null)
 
 			// tgui should prevent this outcome.
 			if(new_length > MAX_PAPER_LENGTH)
-				// log_paper("[key_name(user)] tried to write to [name] when it would exceed the length limit by [new_length - MAX_PAPER_LENGTH] characters: \"[paper_input]\"")
+				log_paper("[key_name(user)] tried to write to [name] when it would exceed the length limit by [new_length - MAX_PAPER_LENGTH] characters: \"[paper_input]\"")
 				return TRUE
 
 			// Safe to assume there are writing implement details as user.can_write(...) fails with an invalid writing implement.
@@ -750,7 +753,7 @@ GAME_VERB_SRC(/obj/item/paper, rename, usr, "Rename paper", null)
 
 			add_raw_text(paper_input, writing_implement_data["font"], writing_implement_data["color"], writing_implement_data["use_bold"], check_rights(R_EVENT, FALSE, user))
 
-			// log_paper("[key_name(user)] wrote to [name]: \"[paper_input]\"")
+			log_paper("[key_name(user)] wrote to [name]: \"[paper_input]\"")
 			to_chat(user, "You have added to your paper masterpiece!")
 
 			update_static_data_for_all_viewers()
@@ -761,7 +764,7 @@ GAME_VERB_SRC(/obj/item/paper, rename, usr, "Rename paper", null)
 			if(istype(loc, /obj/structure/noticeboard))
 				var/obj/structure/noticeboard/noticeboard = loc
 				if(!noticeboard.allowed(user))
-					// log_paper("[key_name(user)] tried to write to the input fields of [name] when it was on an unwritable noticeboard!")
+					log_paper("[key_name(user)] tried to write to the input fields of [name] when it was on an unwritable noticeboard!")
 					return TRUE
 
 			var/obj/item/holding = user.get_active_hand()
@@ -784,17 +787,20 @@ GAME_VERB_SRC(/obj/item/paper, rename, usr, "Rename paper", null)
 			for(var/field_key in field_data)
 				var/field_text = field_data[field_key]
 				var/text_length = length_char(field_text)
+				if(!istext(field_text))
+					return TRUE
 				if(text_length > MAX_PAPER_INPUT_FIELD_LENGTH)
-					// log_paper("[key_name(user)] tried to write to field [field_key] with text over the max limit ([text_length] out of [MAX_PAPER_INPUT_FIELD_LENGTH]) with the following text: [field_text]")
+					log_paper("[key_name(user)] tried to write to field [field_key] with text over the max limit ([text_length] out of [MAX_PAPER_INPUT_FIELD_LENGTH]) with the following text: [field_text]")
 					return TRUE
+				field_text = sanitize(field_text)
 				if(text2num(field_key) >= input_field_count)
-					// log_paper("[key_name(user)] tried to write to invalid field [field_key] (when the paper only has [input_field_count] fields) with the following text: [field_text]")
+					log_paper("[key_name(user)] tried to write to invalid field [field_key] (when the paper only has [input_field_count] fields) with the following text: [field_text]")
 					return TRUE
 
-				// if(!add_field_input(field_key, field_text, writing_implement_data["font"], writing_implement_data["color"], writing_implement_data["use_bold"], user.real_name))
-					// log_paper("[key_name(user)] tried to write to field [field_key] when it already has data, with the following text: [field_text]")
+				if(!add_field_input(field_key, field_text, writing_implement_data["font"], writing_implement_data["color"], writing_implement_data["use_bold"], user.real_name))
+					log_paper("[key_name(user)] ")
 
-				add_field_input(field_key, field_text, writing_implement_data["font"], writing_implement_data["color"], writing_implement_data["use_bold"], user.real_name)
+				log_paper("[key_name(user)] wrote to field [field_key] of [name]: \"[field_text]\"")
 
 			update_static_data_for_all_viewers()
 			return TRUE
@@ -826,7 +832,6 @@ GAME_VERB_SRC(/obj/item/paper, rename, usr, "Rename paper", null)
 			var/const/date_text = "\[Написать текущую дату\]"
 			var/const/station_text = "\[Написать название станции\]"
 			var/const/gender_text = "\[Указать пол\]"
-			var/const/species_text = "\[Указать расу\]"
 
 			var/list/menu_list = list()
 			menu_list.Add(user.real_name)
@@ -852,9 +857,6 @@ GAME_VERB_SRC(/obj/item/paper, rename, usr, "Rename paper", null)
 				gender_text,
 			)
 
-			if(user.dna?.species)
-				menu_list.Add(species_text)
-
 			var/input_element = tgui_input_list(user, "Выберите текст который хотите добавить:", "Выбор пункта", menu_list)
 			if(!input_element)
 				return TRUE
@@ -869,13 +871,11 @@ GAME_VERB_SRC(/obj/item/paper, rename, usr, "Rename paper", null)
 				if(station_text)
 					input_element = "\[station\]"
 				if(account_text)
-					input_element = "[user.mind.initial_account.account_number]"
+					input_element = "[user.mind?.initial_account?.account_number]"
 				if(pin_text)
-					input_element = "[user.mind.initial_account.remote_access_pin]"
+					input_element = "[user.mind?.initial_account?.remote_access_pin]"
 				if(gender_text)
 					input_element = "[user.gender]"
-				if(species_text)
-					input_element = "[user.dna.species]"
 
 			var/writing_implement_data = holding.get_writing_implement_details()
 			playsound(src, SFX_WRITING_PEN, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, SOUND_FALLOFF_EXPONENT + 3, ignore_walls = FALSE)
@@ -1003,10 +1003,10 @@ GAME_VERB_SRC(/obj/item/paper, rename, usr, "Rename paper", null)
 /datum/paper_input/proc/to_list()
 	return list(
 		LIST_PAPER_RAW_TEXT = raw_text,
-		LIST_PAPER_FONT = font,
-		LIST_PAPER_FIELD_COLOR = colour,
-		LIST_PAPER_BOLD = bold,
-		LIST_PAPER_ADVANCED_HTML = advanced_html,
+		LIST_PAPER_FONT = istext(font) ? paranoid_sanitize(font) : "",
+		LIST_PAPER_FIELD_COLOR = istext(colour) ? paranoid_sanitize(colour) : "",
+		LIST_PAPER_BOLD = !!bold,
+		LIST_PAPER_ADVANCED_HTML = !!advanced_html,
 	)
 
 /// Returns the raw contents of the input as html, with **ZERO SANITIZATION**
